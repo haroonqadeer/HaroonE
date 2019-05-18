@@ -1,3 +1,234 @@
-<p>
-  trainingrequirements works!
-</p>
+<br />
+<!--start heading row-->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1 class="bottomBorder">Training Requirements</h1>
+  </div>
+</div>
+<!--end heading row-->
+
+<br />
+
+<!--start container 1-->
+<div class="container">
+  <!--start table row-->
+    <div class="row">
+      <table class="table table-striped">
+        <thead>
+          <tr class='d-flex'>
+            <th class='col-1'>Sr #</th>
+            <th class='col-3'>Employee</th>
+            <th class='col-3'>Job Profile</th>
+            <th class='col-2'>Skill Diff</th>
+            <th class='col-1 text-center'>Select</th>
+            <th class='col-2'>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+          <tr class='d-flex'>
+            <td class='col-1'>1</td>
+            <td class='col-3'>Aqeel</td>
+            <td class='col-3'>Web Designer</td>
+            <td class='col-2'>3</td>
+            <td class='col-1 text-center'>
+              <mat-checkbox></mat-checkbox>
+            </td>
+            <td class='col-2'>Selected</td>
+          </tr>
+
+          <tr class='d-flex'>
+            <td class='col-1'>2</td>
+            <td class='col-3'>Adnan</td>
+            <td class='col-3'>Developer</td>
+            <td class='col-2'>2</td>
+            <td class='col-1 text-center'>
+              <mat-checkbox></mat-checkbox>
+            </td>
+            <td class='col-2'>Pending</td>
+          </tr>
+
+          <tr class='d-flex'>
+            <td class='col-1'>3</td>
+            <td class='col-3'>Amir</td>
+            <td class='col-3'>Junior Programer</td>
+            <td class='col-2'>2</td>
+            <td class='col-1 text-center'>
+              <mat-checkbox></mat-checkbox>
+            </td>
+            <td class='col-2'>Pending</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  <!--end table row-->
+</div>
+<!--end container 1-->
+
+<br />
+
+<!--start add new button row -->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h2>Training</h2>
+  </div>
+
+  <div class="col-md-6 text-right">
+    <button mat-raised-button color="primary" data-toggle="modal" data-target="#addTrainingModal"> Add Training </button>
+  </div>
+
+  <div class="col-md-6">
+    <button mat-raised-button color="primary"> Seek Approval </button>
+  </div>
+</div>
+<!--end add new button row -->
+
+<br />
+
+<!--start container 2-->
+<div class="container">
+  <!--start table row-->
+    <div class="row">
+      <table class="table table-striped">
+        <thead>
+          <tr class='d-flex'>
+            <th class='col-1'>Sr #</th>
+            <th class='col-2'>Employee</th>
+            <th class='col-2'>Job Profile</th>
+            <th class='col-1'>Training</th>
+            <th class='col-2'>Institute</th>
+            <th class='col-2'>Duration</th>
+            <th class='col-2'>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+          <tr class='d-flex'>
+            <td class='col-1'>1</td>
+            <td class='col-2'>Nabeel</td>
+            <td class='col-2'>Web Designer</td>
+            <td class='col-1'>HTML</td>
+            <td class='col-2'>Nicon</td>
+            <td class='col-2'>3 Months</td>
+            <td class='col-2'>In-Process</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  <!--end table row-->
+</div>
+<!--end container 2-->
+
+<br />
+
+<!--bootstrap modal window -->
+
+
+
+<!-- Start Modal Window -->
+<div class="modal fade" id="addTrainingModal">
+  <div class="modal-dialog shadow-md-dark modal-md">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Training</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+
+        <!--start row 1-->
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput placeholder="Training">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-select placeholder="Institute">
+                <mat-option value="1">Nicon</mat-option>
+                <mat-option value="2">NICS</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- end row 1-->
+
+        <!--start row 3-->
+        <div class="row">
+          <div class="col-md-6">
+            <button mat-raised-button color="primary"> Save </button>
+          </div>
+        </div>
+        <!-- end row 3-->
+
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Modal Window  -->
+
+
+
+<!-- Start Modal Window to delete leave rule -->
+<div class="modal fade" id="deleteModal">
+  <div class="modal-dialog shadow-lg-dark">
+    <div class="modal-content">
+      <!--start Modal body -->
+      <div class="modal-body">
+        <br>
+        <div class="hidden" ngDefaultControl></div>
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-10">
+            <h2>Delete Entry</h2>
+          </div>
+        </div><br />
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="fullwidth">
+              <input matInput placeholder="Enter Password" type="password" [(ngModel)]="txtdPassword">
+            </mat-form-field>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="fullwidth">
+              <input matInput placeholder="Enter PIN" type="password" [(ngModel)]="txtdPin">
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-6">
+            <button mat-raised-button color="warn" data-dismiss="modal">Delete</button>
+          </div>
+        </div>
+        <br />
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Modal Window to delete leave rule -->

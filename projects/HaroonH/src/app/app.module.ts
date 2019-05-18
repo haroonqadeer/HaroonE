@@ -65,8 +65,6 @@ import { DropdownModule } from 'primeng/dropdown';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserModule,
-    AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -88,3 +86,13 @@ import { DropdownModule } from 'primeng/dropdown';
   entryComponents: [ErpBottomSheetComponent],
 })
 export class AppModule { }
+
+@NgModule({})
+export class HaroonHSharedModule{
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AppModule,
+      providers: []
+    }
+  }
+}

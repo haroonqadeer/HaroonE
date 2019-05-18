@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent} from '../../app.component';
 
 @Component({
   selector: 'app-intro-page',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IntroPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appComponent : AppComponent) { }
 
   ngOnInit() {
+    //this.appComponent.showDiv();
   }
 
 }

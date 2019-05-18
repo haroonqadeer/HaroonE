@@ -1,3 +1,672 @@
-<p>
-  jobprofile works!
-</p>
+
+<!--heading row-->
+<div class="row">
+  <div class="col-md-12 text-center">
+      <h1 class="bottomBorder">Job Profile</h1>    
+  </div>
+</div>
+<!--end heading row-->
+<br/>
+    
+<!--start button row-->
+<div class="row"> 
+<div class="col-md-6">
+  <button mat-raised-button color="warn">Print</button>
+</div>   
+<div class="col-md-6 text-right">
+  <button mat-raised-button color="primary" data-toggle="modal" data-target="#profileModal">Add New</button>
+</div>
+</div>
+<!--end button row-->
+<br/>
+
+<!--tabs row-->
+<div class="container bgWhite allBorder">
+<!--table row-->
+<div class="row">
+  <table class="table table-striped">
+    <thead>
+      <tr class='d-flex'>
+        <th class='col-1 text-center'>Sr #</th>
+        <th class='col-2 text-center'>Office Name</th>
+        <th class='col-1'>Dept</th>
+        <th class='col-1'>Section</th>
+        <th class='col-1 text-center'>Job Title</th>
+        <th class='col-1 text-center'>Type</th>
+        <th class='col-1 text-center'>Quantity</th>
+        <th class='col-1 text-center'>Qualification</th>
+        <th class='col-1 text-center'>Experience</th>
+        <th class='col-1 text-center'>Edit</th>
+        <th class='col-1 text-center'>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+      <tr class='d-flex'>
+        <td class='col-1 text-center'>1</td> 
+        <td class='col-2 text-center'>Head Quarter</td>
+        <td class='col-1'>Finance</td>             
+        <td class='col-1'>BK&C</td>             
+        <td class='col-1 text-center'>AD</td>             
+        <td class='col-1 text-center'>Regular</td>             
+        <td class='col-1 text-center'>1</td>
+        <td class='col-1 text-center'>ACCA</td>
+        <td class='col-1 text-center'>5 years</td>
+        <td class='col-1 text-center'>
+          <span class="fa fa-edit pointerCursor"></span>
+        </td>
+        <td class='col-1 text-center'>
+          <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--end table row-->  
+</div>
+<!--end tabs row-->
+
+<!-- Start Modal Window to add new job profile -->
+<div class="modal fade" id="profileModal">
+<div class="modal-dialog shadow-lg-dark modal-lg">
+  <div class="modal-content">
+    <!--start Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title">Add Job Profile</h4>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <!--end Modal Header -->
+    <!--start Modal body -->
+    <div class="modal-body">
+        
+      <!--start horizontal Stepper -->
+      <mat-horizontal-stepper linear>
+        <!--start 1st Step -->
+        <mat-step [stepControl]="formGroup2" optional>
+          <!--stepper 2nd label-->
+          <ng-template matStepLabel><b>Qualification</b></ng-template>
+          <!--start 2nd step form control div-->
+          <form [formGroup]="formGroup2">
+            <!--start 1st row-->
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="fullwidth">
+                  <mat-select placeholder="Select Degree" [(ngModel)]="cmbDegree" formControlName="cmbDegree" multiple>
+                    <input type="text" class="form-control" [(ngModel)]="searchDegree" [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let item of degrees | search:'dName, dDesc, cName, cDesc':searchDegree"
+                      [value]="item">
+                      <table>
+                        <tr class='d-flex'>
+                          <td class='col-2'>{{ item.dName }}</td>
+                          <td class='col-4 border-left'>{{ item.dDesc }}</td>
+                          <td class='col-2 border-left'>{{ item.cName }}</td>
+                          <td class='col-4 border-left'>{{ item.cDesc }}</td>
+                          <!-- <td class="col-4 border-left">{{ item.emailAddrss }}</td> -->
+                        </tr>
+                      </table>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <!-- <p-multiSelect [options]="degrees" [(ngModel)]="cmbDegree" formControlName="cmbDegree" [panelStyle]="{minWidth:'12em'}" [filter]="false" [style]="{'width':'100%'}"></p-multiSelect> -->
+                <!-- <p-dropdown [options]="degrees" [(ngModel)]="cmbDegree" formControlName="cmbDegree" placeholder="Degree Title" optionLabel="label" ></p-dropdown> -->
+              </div>
+              <!-- <div class="col-md-6">
+                <button mat-mini-fab color="primary" data-toggle="modal" data-target="#degreeModal"><span class="fa fa-plus"></span></button>
+              </div> -->
+            </div>
+            <!--end 1st row-->
+            <br/>
+            <!--start 2nd row-->
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field class="fullwidth">
+                  <input matInput placeholder="Criteria Required Level">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="fullwidth">
+                  <input matInput placeholder="Criteria Maximum Level">
+                </mat-form-field>
+              </div>
+            </div>
+            <!--end 2nd row-->
+            <br/>
+            <!--start 3rd row-->
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="fullwidth">
+                  <input matInput placeholder="Remarks">
+                </mat-form-field>
+              </div>
+            </div>
+            <!--end 3rd row-->
+            <br/>
+            <!--start next step button div-->
+            <div class="text-right">
+              <button mat-raised-button color="primary">Save</button>
+            </div>
+            <!--end next step button div-->
+            <br/>
+            <!--table row-->
+            <div class="row">
+              <table class="table table-striped">
+                <thead>
+                  <tr class='d-flex'>
+                    <th class='col-2 text-center'>Sr #</th>
+                    <th class='col-8'>Degree Title</th>
+                    <!-- <th class='col-2 text-center'>Years</th> -->
+                    <th class='col-1 text-center'>Edit</th>
+                    <th class='col-1 text-center'>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                  <tr class='d-flex'>
+                    <td class='col-2 text-center'>1</td> 
+                    <td class='col-8'>B.Sc</td>             
+                    <!-- <td class='col-2 text-center'>02</td> -->
+                    <td class='col-1 text-center'>
+                      <span class="fa fa-edit pointerCursor"></span>
+                    </td>
+                    <td class='col-1 text-center'>
+                      <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--end table row-->
+            <br/>
+            <!--start next step button div-->
+            <div class="text-right">
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+            <!--end next step button div-->
+          </form>
+          <!--end 2nd step form control div-->
+        </mat-step>
+        <!--end 2nd Step -->
+        <!--start 3rd Step -->
+        <mat-step [stepControl]="formGroup3" optional>
+          <!--stepper 3rd label-->
+          <ng-template matStepLabel><b>Certifications</b></ng-template>
+          <!--start 3rd step form control div-->
+          <form [formGroup]="formGroup3">
+            <!--start 1st row-->
+            <!-- <div class="row">
+              <div class="col-md-6">
+                <p-dropdown [options]="certificates" [(ngModel)]="cmbCertificate" formControlName="cmbCertificate" placeholder="Certificate Title" optionLabel="label" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
+              </div>
+              <div class="col-md-6">
+                <button mat-mini-fab color="primary" data-toggle="modal" data-target="#certificateModal"><span class="fa fa-plus"></span></button>
+              </div>
+            </div> -->
+            <!--end 1st row-->
+            <!--start 1st row-->
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="fullwidth">
+                  <mat-select placeholder="Select Certification" [(ngModel)]="cmbCertificate" formControlName="cmbCertificate" multiple>
+                    <input type="text" class="form-control" [(ngModel)]="searchcertification" [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let item of certificates | search:'dName, dDesc, cName, cDesc':searchcertification"
+                      [value]="item">
+                      <table>
+                        <tr class='d-flex'>
+                          <td class='col-3'>{{ item.dName }}</td>
+                          <td class='col-4 border-left'>{{ item.dDesc }}</td>
+                          <td class='col-2 border-left'>{{ item.cName }}</td>
+                          <td class='col-3 border-left'>{{ item.cDesc }}</td>
+                          <!-- <td class="col-4 border-left">{{ item.emailAddrss }}</td> -->
+                        </tr>
+                      </table>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <!-- <p-multiSelect [options]="degrees" [(ngModel)]="cmbDegree" formControlName="cmbDegree" [panelStyle]="{minWidth:'12em'}" [filter]="false" [style]="{'width':'100%'}"></p-multiSelect> -->
+                <!-- <p-dropdown [options]="degrees" [(ngModel)]="cmbDegree" formControlName="cmbDegree" placeholder="Degree Title" optionLabel="label" ></p-dropdown> -->
+              </div>
+              <!-- <div class="col-md-6">
+                <button mat-mini-fab color="primary" data-toggle="modal" data-target="#degreeModal"><span class="fa fa-plus"></span></button>
+              </div> -->
+            </div>
+            <!--end 1st row-->
+            <br/>
+            <!--start 2nd row-->
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field class="fullwidth">
+                  <input matInput placeholder="Criteria Required Level">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="fullwidth">
+                  <input matInput placeholder="Criteria Maximum Level">
+                </mat-form-field>
+              </div>
+            </div>
+            <!--end 2nd row-->
+            <br/>
+            
+            <!-- <br/> -->
+            <!--start 3rd row-->
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="fullwidth">
+                  <input matInput placeholder="Remarks">
+                </mat-form-field>
+              </div>
+            </div>
+            <!--end 3rd row-->
+            <br/>
+            <!--start next step button div-->
+            <div class="text-right">
+              <button mat-raised-button color="primary">Save</button>
+            </div>
+            <!--end next step button div-->
+            <br/>
+            <!--table row-->
+            <div class="row">
+              <table class="table table-striped">
+                <thead>
+                  <tr class='d-flex'>
+                    <th class='col-2 text-center'>Sr #</th>
+                    <th class='col-8'>Certification</th>
+                    <!-- <th class='col-2 text-center'>Time Period</th> -->
+                    <th class='col-1 text-center'>Edit</th>
+                    <th class='col-1 text-center'>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                  <tr class='d-flex'>
+                    <td class='col-2 text-center'>1</td> 
+                    <td class='col-8'>Quality Assurance</td>             
+                    <!-- <td class='col-2 text-center'>02 Months</td> -->
+                    <td class='col-1 text-center'>
+                      <span class="fa fa-edit pointerCursor"></span>
+                    </td>
+                    <td class='col-1 text-center'>
+                      <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--end table row-->
+            <br/>
+            <!--start next step button div-->
+            <div class="text-right">
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+            <!--end next step button div-->
+          </form>
+          <!--end 3rd step form control div-->
+        </mat-step>
+        <!--end 3rd Step --> 
+        <!--start 4th Step -->
+        <mat-step [stepControl]="formGroup4" optional>
+          <!--stepper 4th label-->
+          <ng-template matStepLabel><b>Experience</b></ng-template>
+          <!--start 4th step form control div-->
+          <form [formGroup]="formGroup4">
+            <!--start 1st row-->
+            <div class="row">
+              <div class="col-md-3">
+                <br/>
+                <h5>Time Period</h5>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field class="fullwidth">
+                  <input matInput placeholder="Years" [(ngModel)]="fourthCtrl" formControlName="fourthCtrl">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field class="fullwidth">
+                  <input matInput placeholder="Months">
+                </mat-form-field>
+              </div>
+            </div>
+            <!--end 1st row-->  
+            <br/>
+            <!--table row-->
+            <div class="row">
+              <table class="table table-striped">
+                <thead>
+                  <tr class='d-flex'>
+                    <th class='col-3 text-center'>Sr #</th>
+                    <th class='col-7'>Description</th>
+                    <th class='col-2 text-center'>Add</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                  <tr class='d-flex'>
+                    <td class='col-3 text-center'><br/>Expertise-01</td> 
+                    <td class='col-7'>
+                      <mat-form-field class="fullwidth">
+                        <input matInput placeholder="Description">
+                      </mat-form-field>
+                    </td>             
+                    <td class='col-2 text-center'>
+                      <br/>
+                      <span class="fa fa-plus pointerCursor"></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--end table row-->
+            <br/>
+            <!--start next step button div-->
+            <div class="text-right">
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+            <!--end next step button div-->
+          </form>
+          <!--end 4th step form control div-->
+        </mat-step>
+        <!--end 4th Step -->
+        <!--start 5th Step -->
+        <mat-step [stepControl]="formGroup5" optional>
+          <!--stepper 5th label-->
+          <ng-template matStepLabel><b>Job Description</b></ng-template>
+          <!--start 5th step form control div-->
+          <form [formGroup]="formGroup5">
+            <br/>
+            <!--start 1st row-->
+            <div class="row">
+              <div class="col-md-6">
+                  <p-multiSelect [options]="roles" placeholder="ERP Role" optionLabel="label" [style]="{'width':'100%'}"></p-multiSelect>
+              </div>
+            </div>
+            <!--end 1st row-->
+            <br/>
+            <!--table row-->
+            <div class="row">
+              <table class="table table-striped">
+                <thead>
+                  <tr class='d-flex'>
+                    <th class='col-2 text-center'>Sr #</th>
+                    <th class='col-8'>Description</th>
+                    <!-- <th class='col-3'>ERP Role</th> -->
+                    <th class='col-2 text-center'>Add</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                  <tr class='d-flex'>
+                    <td class='col-2 text-center'><br/>1</td> 
+                    <td class='col-8'>
+                      <mat-form-field class="fullwidth">
+                        <input matInput placeholder="Description">
+                      </mat-form-field>
+                    </td>           
+                    <!-- <td class='col-3'>
+                      <br/>
+                      <p-dropdown [options]="roles" placeholder="ERP Role" optionLabel="label" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
+                    </td>              -->
+                    <td class='col-2 text-center'>
+                      <br/>
+                      <span class="fa fa-plus pointerCursor"></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--end table row-->
+            <br/>
+            <!--start next step button div-->
+            <div class="text-right">
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+            <!--end next step button div-->
+          </form>
+          <!--end 5th step form control div-->
+        </mat-step>
+        <!--end 5th Step -->
+        <!--start 6th stepper-->
+        <mat-step [stepControl]="formGroup6" optional>
+          <!--stepper 5th label-->
+          <ng-template matStepLabel><b>Leaves</b></ng-template>
+          <!--start 6th step form control div-->
+          <!-- <form [formGroup]="formGroup6"></form> -->
+          <br/>
+          <!--table row-->
+          <div class="row">
+            <table class="table table-striped">
+              <thead>
+                <tr class='d-flex'>
+                  <th class='col-2 text-center'>Sr #</th>
+                  <th class='col-5'>Leave Rule Title</th>
+                  <th class='col-3'>No. of Leaves / Unit</th>
+                  <th class='col-2 text-center'>Add</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                <tr class='d-flex'>
+                    <td class='col-2 text-center'>1</td> 
+                    <td class='col-5'>
+                      Medical Leaves
+                    </td>           
+                    <td class='col-3'>
+                      3 per month
+                    </td>             
+                    <td class='col-2 text-center'>
+                      <span class="fa fa-minus pointerCursor"></span>
+                    </td>
+                  </tr>
+                  <tr class='d-flex'>
+                  <td class='col-2 text-center'><br/>2</td> 
+                  <td class='col-5'>
+                    <br/>
+                    <p-dropdown [options]="rules" placeholder="Leave Rule" optionLabel="label" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
+                  </td>           
+                  <td class='col-3'>
+                    <mat-form-field class="fullwidth">
+                      <input matInput placeholder="No. of Leaves / Unit">
+                    </mat-form-field>
+                  </td>             
+                  <td class='col-2 text-center'>
+                    <br/>
+                    <span class="fa fa-plus pointerCursor"></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--end table row-->
+          <br/>
+          <!--start next step button div-->
+          <div class="text-right">
+            <button mat-raised-button color="primary">Save</button>
+          </div>
+          <!--end next step button div-->
+          
+          <!--end 5th step form control div-->
+        </mat-step>
+        <!--end 6th stepper-->
+      </mat-horizontal-stepper>
+      <!--end horizontal Stepper -->
+    </div>
+    <!--end Modal body -->
+
+    <!--start Modal footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div>
+    <!--end Modal footer -->
+
+  </div>
+</div>
+</div>
+<!-- End Modal Window to add new job profile -->
+
+<!-- Start Modal Window to delete job profile -->
+<div class="modal fade" id="deleteModal">
+<div class="modal-dialog shadow-lg-dark">
+  <div class="modal-content">
+    <!--start Modal body -->
+    <div class="modal-body">
+      <br>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+          <h2>Delete Job Profile</h2>
+        </div>
+      </div><br/>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="fullwidth">
+            <input matInput placeholder="Enter Password" type="password" [(ngModel)]="txtdPassword">
+          </mat-form-field>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="fullwidth">
+            <input matInput placeholder="Enter PIN" type="password" [(ngModel)]="txtdPin">
+          </mat-form-field>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <button mat-raised-button color="warn" data-dismiss="modal">Delete</button>
+        </div>
+      </div>
+      <br/>
+    </div>
+    <!--end Modal body -->
+
+    <!--start Modal footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div>
+    <!--end Modal footer -->
+
+  </div>
+</div>
+</div>
+<!-- End Modal Window to delete job profile -->
+
+<!-- Start Modal Window to add degree title -->
+<div class="modal fade" id="degreeModal">
+<div class="modal-dialog shadow-lg-dark">
+  <div class="modal-content">
+    <!--start Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title">Add Degree</h4>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <!--end Modal Header -->
+
+    <!--start Modal body -->
+    <div class="modal-body">
+      
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="fullwidth">
+            <input matInput placeholder="Degree Title">
+          </mat-form-field>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-md-12">
+          <p-dropdown [options]="years" placeholder="Years" optionLabel="label" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <button mat-raised-button color="primary" data-dismiss="modal">Save</button>
+        </div>
+      </div>
+      <br/>
+    </div>
+    <!--end Modal body -->
+
+    <!--start Modal footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div>
+    <!--end Modal footer -->
+
+  </div>
+</div>
+</div>
+<!-- End Modal Window to add degree title -->
+
+<!-- Start Modal Window to add Certificates -->
+<div class="modal fade" id="certificateModal">
+<div class="modal-dialog shadow-lg-dark">
+  <div class="modal-content">
+    <!--start Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title">Add Certificates</h4>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <!--end Modal Header -->
+
+    <!--start Modal body -->
+    <div class="modal-body">
+      <!--1st row-->
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="fullwidth">
+            <input matInput placeholder="Certificate Title">
+          </mat-form-field>
+        </div>
+      </div><br>
+      <!--end 1st row-->
+      <!--2nd row-->
+      <div class="row">
+        <div class="col-md-6">
+          <p-dropdown [options]="orgs" placeholder="Organization" optionLabel="label" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
+        </div>
+        <div class="col-md-6">
+          <p-dropdown [options]="times" placeholder="Time Period" optionLabel="label" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
+        </div>
+      </div>
+      <!--end 2nd row-->
+      <br>
+      <!--3rd row-->
+      <div class="row">
+        <mat-radio-group>
+          <div class="row">
+            <div class="col-md-3 text-center">
+              Days
+              <mat-radio-button value="Day"></mat-radio-button>
+            </div>
+            <div class="col-md-3 text-center">
+              Months
+              <mat-radio-button value="months"></mat-radio-button>
+            </div>
+            <div class="col-md-3 text-center">
+              Year
+              <mat-radio-button value="year"></mat-radio-button>
+            </div>
+          </div>
+        </mat-radio-group>
+      </div>
+      <!--end 3rd row-->
+      <br/>
+      <div class="row">
+        <div class="col-md-6">
+          <button mat-raised-button color="primary" data-dismiss="modal">Save</button>
+        </div>
+      </div>
+      <br/>
+    </div>
+    <!--end Modal body -->
+
+    <!--start Modal footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div>
+    <!--end Modal footer -->
+
+  </div>
+</div>
+</div>
+<!-- End Modal Window to add Certificates -->

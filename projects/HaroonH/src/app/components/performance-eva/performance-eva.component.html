@@ -1,3 +1,189 @@
-<p>
-  performance-eva works!
-</p>
+<br/>  
+<!--heading row-->
+<div class="row">
+  <div class="col-md-12 text-center">
+      <h1 class="bottomBorder">Performance Evaluation</h1>    
+  </div>
+</div>
+<!--end heading row-->
+<br/>
+    
+<!--start container-->
+<div class="container">
+  <!--start table row-->       
+  <div class="example-container mat-elevation-z8">
+      <div class="example-table-container">                      
+          <table class="table table-striped">
+              <thead>
+                  <tr class='d-flex'>
+                      <th class='col-1 text-center'>Sr #</th>
+                      <th class='col-3'>Employee Name</th>
+                      <th class='col-2'>Job Profile</th>
+                      <th class='col-2 text-center'>Job Years</th>
+                      <th class='col-2 text-center'>Evaluated Year</th>
+                      <th class='col-2 text-center'>Evaluation</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                  <tr class='d-flex'>
+                      <td class='col-1 text-center'>1</td> 
+                      <td class='col-3'>Saqib Qureshi</td>
+                      <td class='col-2'>Accountant</td>             
+                      <td class='col-2 text-center'>3</td>             
+                      <td class='col-2 text-center'>3.5</td>             
+                      <td class='col-2 text-center'>
+                      <span class="fa fa-list-alt fontPrimary pointerCursor" data-toggle="modal" data-target="#employeeModal"></span>
+                      </td>
+                  </tr>
+                  <tr class='d-flex'>
+                      <td class='col-1 text-center'>2</td> 
+                      <td class='col-3'>Imran Nazir</td>            
+                      <td class='col-2'>Accountant</td>              
+                      <td class='col-2 text-center'>2</td>             
+                      <td class='col-2 text-center'>3</td>             
+                      <td class='col-2 text-center'>
+                      <span class="fa fa-list-alt fontPrimary pointerCursor" data-toggle="modal" data-target="#employeeModal"></span>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+  <!--end table row-->
+</div>
+<!--end container -->
+
+<!-- Start Modal Window to view employee data -->
+<div class="modal fade" id="employeeModal">
+  <div class="modal-dialog shadow-lg-dark">
+      <div class="modal-content">
+          <!--start Modal body -->
+          <div class="modal-body">
+              <br>
+              <!--employee heading row-->
+              <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-10">
+                  <h2>Saqib Qureshi</h2>
+                  </div>
+              </div><br/>
+              <!--end employee heading row-->
+              <!--table row-->
+              <div class="row">
+                  <table class="table table-striped">
+                      <thead>
+                          <tr class='d-flex'>
+                              <th class='col-2 text-center'>Sr #</th>
+                              <th class='col-5'>Evaluation Year</th>
+                              <th class='col-3'>Evaluated</th>
+                              <th class='col-2 text-center'>Detail</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                          <tr class='d-flex'>
+                              <td class='col-2 text-center'>1</td> 
+                              <td class='col-5'>2017</td>
+                              <td class='col-3'><span class="fa fa-check text-success"></span></td>             
+                              <td class='col-2 text-center'>
+                              <span class="fa fa-file-text pointerCursor" data-toggle="modal" data-target="#empDetailModal"></span>
+                              </td>
+                          </tr>
+                          <tr class='d-flex'>
+                              <td class='col-2 text-center'>2</td>
+                              <td class='col-5'>2016</td>
+                              <td class='col-3'><span class="fa fa-times text-danger"></span></td>             
+                              <td class='col-2 text-center'>
+                              <span class="fa fa-file-text pointerCursor" data-toggle="modal" data-target="#empDetailModal"></span>
+                              </td>
+                          </tr>
+                          <tr class='d-flex'>
+                              <td class='col-2 text-center'>3</td> 
+                              <td class='col-5'>2015</td>
+                              <td class='col-3'><span class="fa fa-check text-success"></span></td>             
+                              <td class='col-2 text-center'>
+                              <span class="fa fa-file-text pointerCursor" data-toggle="modal" data-target="#empDetailModal"></span>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <!--end table row-->
+          </div>
+          <!--end Modal body -->
+  
+          <!--start Modal footer -->
+          <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+          <!--end Modal footer -->
+  
+      </div>
+  </div>
+</div>
+<!-- End Modal Window to view employee data -->
+     
+<!-- Start Modal Window to view employee detail data -->
+<div class="modal fade" id="empDetailModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+      <div class="modal-content">
+          <!--start Modal body -->
+          <div class="modal-body">
+              <br>
+              <!--table row-->
+              <div class="row">
+                  <table class="table table-striped bottomBorder">
+                      <thead>
+                          <tr class='d-flex'>
+                              <th class='col-2 text-center'>Sr #</th>
+                              <th class='col-5'>Description</th>
+                              <th class='col-3 text-center'>Required Level</th>
+                              <th class='col-2'>Level Achieve</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                          <tr class='d-flex'>
+                              <td class='col-2 text-center'>1</td> 
+                              <td class='col-5'>High Level of Logic</td>
+                              <td class='col-3 text-center'>5</td>             
+                              <td class='col-2'>
+                                  <mat-form-field class="fullwidth">
+                                      <input matInput placeholder="Enter Number">
+                                  </mat-form-field>
+                              </td>
+                          </tr>
+                          <tr class='d-flex'>
+                              <td class='col-2 text-center'>2</td>
+                              <td class='col-5'>Good Communication Skill</td>
+                              <td class='col-3 text-center'>4</td>             
+                              <td class='col-2'>
+                                  <mat-form-field class="fullwidth">
+                                      <input matInput placeholder="Enter Number">
+                                  </mat-form-field>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <!--end table row-->
+              <br/>
+              <!--button row-->
+              <div class="text-right">
+                  <button mat-raised-button color="primary" data-dismiss="modal">Save</button>
+              </div>
+            <!--end button row-->
+          </div>
+          <!--end Modal body -->
+  
+          <!--start Modal footer -->
+          <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+          <!--end Modal footer -->
+  
+      </div>
+  </div>
+</div>
+<!-- End Modal Window to view employee detail data -->
+      

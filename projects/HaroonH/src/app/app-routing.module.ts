@@ -21,7 +21,7 @@ import { IntroPageComponent } from './components/intro-page/intro-page.component
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'HR/home',
     component: IntroPageComponent,
   },
   {
@@ -69,7 +69,7 @@ const routes: Routes = [
     component: LeaverulesComponent
   },
   {
-    path: 'leaveType',
+    path: 'HR/leaveType',
     component: LeavetypeComponent
   },
   {
@@ -79,7 +79,8 @@ const routes: Routes = [
   {
     path: 'performanceEvaluation',
     component: PerformanceEvaComponent
-  }
+  },
+  { path: 'HR', redirectTo: 'HR/home' }
 ];
 
 @NgModule({

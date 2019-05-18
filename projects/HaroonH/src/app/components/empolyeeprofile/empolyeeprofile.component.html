@@ -1,3 +1,929 @@
-<p>
-  empolyeeprofile works!
-</p>
+<br/>
+<!--start heading row-->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1 class="bottomBorder">Employee Profile</h1>    
+  </div>
+</div>
+<!--end heading row-->
+<br/>
+
+
+<div class="container">
+  <!--start table row-->       
+  <div class="example-container mat-elevation-z8">
+    <div class="example-table-container">                      
+      <table class="table table-striped">
+        <thead>
+          <tr class='d-flex'>
+            <th class='col-1'>Sr #</th>
+            <th class='col-3'>Employee Name</th>
+            <th class='col-2'>Job Profile</th>
+            <th class='col-2'>Office</th>
+            <th class='col-2'>Department</th>
+            <th class='col-1 text-center'>Edit</th>
+            <th class='col-1 text-center'>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+          <tr class='d-flex'>
+            <td class='col-1'>1</td> 
+            <td class='col-3'>Nabeel</td>
+            <td class='col-2'>Web Designer</td>
+            <td class='col-2'>Lahore</td>
+            <td class='col-2'>IT</td>
+            <td class='col-1 text-center'>
+              <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#questionsModal"></span>
+            </td>
+            <td class='col-1 text-center'>
+              <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+            </td>
+          </tr>
+
+          <tr class='d-flex'>
+            <td class='col-1'>2</td> 
+            <td class='col-3'>Amir</td>
+            <td class='col-2'>junior Programer</td>
+            <td class='col-2'>Peshawer</td>
+            <td class='col-2'>IT</td>
+            <td class='col-1 text-center'>
+              <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#questionsModal"></span>
+            </td>
+            <td class='col-1 text-center'>
+              <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+            </td>
+          </tr>
+
+          <tr class='d-flex'>
+            <td class='col-1'>1</td> 
+            <td class='col-3'>Adnan</td>
+            <td class='col-2'>Programer</td>
+            <td class='col-2'>HQ</td>
+            <td class='col-2'>IT</td>
+            <td class='col-1 text-center'>
+              <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#questionsModal"></span>
+            </td>
+            <td class='col-1 text-center'>
+              <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!--end table row-->
+</div>
+<!--end container -->
+
+
+<br/>
+
+<!--bootstrap modal window -->
+
+
+
+<!-- Start Modal Window -->
+<div class="modal fade" id="questionsModal">
+  <div class="modal-dialog shadow-lg-dark modal-xl">
+    <div class="modal-content">
+      
+      <!--start Modal Header -->
+      <div class="modal-header">
+          <h4 class="modal-title">Employee Information</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+
+
+        <!--Start Tabs  -->
+        <mat-tab-group>
+          <!--start tab 1-->
+          <mat-tab label="Personal Detail"> 
+            
+            <br/>
+            <!--start heading-->
+            <h5>Personal Detail</h5>
+            <!--end heading-->
+
+            <!-- start row 1-->
+            <div class="row tab-margin">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="Employee Name">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="CNIC">
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- end row 1-->
+
+            <!-- start row 2-->
+            <div class="row tab-margin">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="Father/Husband Name">
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- end row 2-->
+
+            <!-- start row 3-->
+            <div class="row tab-margin">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <input matInput placeholder="Address">
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- end row 3-->
+
+            <!-- start row 4-->
+            <div class="row tab-margin">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <input matInput placeholder="Postal Address">
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- end row 4-->
+
+            <!-- start row 5-->
+            <div class="row tab-margin">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <span matPrefix>+92 &nbsp;</span>
+                  <input matInput placeholder="Mobile">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="Phone">
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- end row 5-->
+
+            <!-- start row 6-->
+            <div class="row tab-margin">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="Email">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="Whatsapp No.">
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- end row 6-->
+
+            <!-- start row 7-->
+            <div class="row tab-margin">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-select placeholder="Domicile">
+                    <mat-option value="1">Yes</mat-option>
+                    <mat-option value="2">No</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="Religion">
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- end row 7-->
+
+            <!-- start row 8-->
+            <div class="row tab-margin">
+              <div class="col-md-6">
+                <button mat-raised-button color="primary"> Save </button>
+              </div>
+
+            </div>
+            <!-- end row 8-->
+
+
+          </mat-tab>
+          <!--end tab 1-->
+
+
+          <!--start tab 2-->
+          <mat-tab label="Job Profile">
+            
+            <br/>
+            <!--start heading-->
+            <h5>Job Profile</h5>
+            <!--end heading-->
+            
+            <!--start row 1-->
+            <div class="row tab-margin">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-select placeholder="Job Profile">
+                    <mat-option value="1">Programer</mat-option>
+                    <mat-option value="2">junior Programer</mat-option>
+                    <mat-option value="3">Web Designer</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              
+            </div>
+            <!-- end row 1-->
+
+            <br/>
+
+            <!--start row 2-->
+            <div class="row tab-margin">
+              <div class="col-md-3">
+                Job Title:
+              </div>
+              
+              <div class="col-md-3">
+                Programer in IA
+              </div>
+
+              <div class="col-md-3">
+                Designation:
+              </div>
+
+              <div class="col-md-3">
+                Software engineer
+              </div>
+            </div>
+            <!-- end row 2-->
+
+            <br/>
+
+            <!--start row 3-->
+            <div class="row tab-margin">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="Scale">
+                </mat-form-field>
+              </div>
+            </div>
+            <!--end row 3-->
+
+            <br/>
+
+            <!--2nd heading start-->
+            <h5>Posting Detail</h5>
+            <!--2nd heading end-->
+
+            <!--start row 4-->
+            <div class="row tab-margin">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-select placeholder="Office">
+                    <mat-option value="1">HQ</mat-option>
+                    <mat-option value="2">Lahome</mat-option>
+                    <mat-option value="3">Peshawer</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-select placeholder="Section">
+                    <mat-option value="1">Section 1</mat-option>
+                    <mat-option value="2">Section 2</mat-option>                    
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- end row 4-->
+
+            
+            <!--start row 5-->
+            <div class="row tab-margin">
+              <div class="col-md-3">
+                <br/>
+                Appointment Date
+              </div>
+
+              <div class="col-md-3">
+                <br/>
+                07-March-2018
+              </div>
+              
+              <div class="col-md-6">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Joining Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+              </div>
+            </div>
+            <!--end row 5-->
+
+            <!--start row 6-->
+            <div class="row tab-margin">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-select [(ngModel)]="cmbJobType" placeholder="Job Type" (ngModelChange)="chkJobType($event)">
+                    <mat-option *ngFor="  let type of types " [value]="type.value" >
+                      {{ type.label}}
+                    </mat-option>                   
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-select placeholder="Job period" [disabled]="disabled" >
+                    <mat-option value="1">1 Year</mat-option>
+                    <mat-option value="2">2 Year</mat-option>
+                    <mat-option value="2">3 Year</mat-option>
+                    <mat-option value="2">4 Year</mat-option>                 
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <!--end row 6-->
+
+            <br/>
+
+            <!--start row 7-->
+            <div class="row tab-margin">
+              <div class="col-md-6">
+                  <button mat-raised-button color="primary"> Save </button>
+              </div>
+            </div>
+            <!--end row 7-->
+
+
+          </mat-tab>
+          <!--start tab 2-->
+
+
+          <!--start tab 3-->
+          <mat-tab label="Qualification Detail">
+            
+            <br/>
+            <!--start heading-->
+            <h5>Qualification Detail</h5>
+            <!--end heading-->
+
+            <!--Start row 1-->
+            <div class="row tab-margin">
+              <div class="col-md-12">
+                <!--start table row-->       
+                <div class="example-container mat-elevation-z8">
+                  <div class="example-table-container">                      
+                    <table class="table table-striped">
+                      <thead>
+                        <tr class='d-flex'>
+                          <th class='col-1'>Sr #</th>
+                          <th class='col-2'>Degree Title</th>
+                          <th class='col-4'>Institute</th>
+                          <th class='col-2'>Passing Year</th>
+                          <th class='col-1'>Grade</th>
+                          <th class='col-1'>Doc.</th>
+                          <th class='col-1 text-center'>Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                        <tr class='d-flex'>
+                          <td class='col-1'>1</td> 
+                          <td class='col-2'>Matric</td>             
+                          <td class='col-4'>Beacon House</td>
+                          <td class='col-2'>2010</td>
+                          <td class='col-1'>A</td>
+                          <td class='col-1'>Yes</td>
+                          <td class='col-1 text-center'>
+                            <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+                          </td>
+                        </tr>
+
+                        <tr class='d-flex'>
+                          <td class='col-1'>2</td> 
+                          <td class='col-2'>ICS</td>             
+                          <td class='col-4'>Degree College</td>
+                          <td class='col-2'>2012</td>
+                          <td class='col-1'>A</td>
+                          <td class='col-1'>Yes</td>
+                          <td class='col-1 text-center'>
+                            <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+                          </td>
+                        </tr>
+
+                        <tr class='d-flex'>
+                          <td class='col-1'>3</td> 
+                          <td class='col-2'>BCS</td>             
+                          <td class='col-4'>Degree College</td>
+                          <td class='col-2'>2014</td>
+                          <td class='col-1'>B+</td>
+                          <td class='col-1'>Yes</td>
+                          <td class='col-1 text-center'>
+                            <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+                          </td>
+                        </tr>
+                        
+                        <tr class='d-flex'>
+                          <td class='col-1'></td> 
+                          <td class='col-2'></td>             
+                          <td class='col-4'></td>
+                          <td class='col-2'></td>
+                          <td class='col-1'></td>
+                          <td class='col-1'></td>
+                          <td class='col-1 text-center'>
+                            <span class="fa fa-plus pointerCursor"></span>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!--end table row-->
+              </div>
+            </div>
+            <!--end row 1-->
+            <br/>
+          </mat-tab>
+          <!--End tab 3-->
+
+
+          <!--start tab 4-->
+          <mat-tab label="Skill Detial">
+            
+            <br/>
+            <!--start heading-->
+            <h5>Skills Detail</h5>
+            <!--end heading-->
+
+            <!--Start row 1-->
+            <div class="row tab-margin">
+              <div class="col-md-12">
+                <!--start table row-->       
+                <div class="example-container mat-elevation-z8">
+                  <div class="example-table-container">                      
+                    <table class="table table-striped">
+                      <thead>
+                        <tr class='d-flex'>
+                          <th class='col-1'>Sr #</th>
+                          <th class='col-3'>Grouping</th>
+                          <th class='col-3'>Skill</th>
+                          <th class='col-3'>Level</th>
+                          <th class='col-2 text-center'>Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                        <tr class='d-flex'>
+                          <td class='col-1'>1</td> 
+                          <td class='col-3'>--</td>             
+                          <td class='col-3'>--</td>
+                          <td class='col-3'>--</td>
+                          <td class='col-2 text-center'>
+                            <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+                          </td>
+                        </tr>
+                        
+                        <tr class='d-flex'>
+                          <td class='col-1'></td> 
+                          <td class='col-3'></td>             
+                          <td class='col-3'></td>
+                          <td class='col-3'></td>
+                          <td class='col-2 text-center'>
+                            <span class="fa fa-plus pointerCursor"></span>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!--end table row-->
+              </div>
+            </div>
+            <!--end row 1-->
+            <br/>
+          </mat-tab>
+          <!--end tab 4-->
+
+
+          <!--start tab 5-->
+          <mat-tab label="Previous Service Detail">
+            
+            <br/>
+            <!--start heading-->
+            <h5>Previous Service Detail</h5>
+            <!--end heading-->
+
+            <!--Start row 1-->
+            <div class="row tab-margin">
+              <div class="col-md-12">
+                <!--start table row-->       
+                <div class="example-container mat-elevation-z8">
+                  <div class="example-table-container">                      
+                    <table class="table table-striped">
+                      <thead>
+                        <tr class='d-flex'>
+                          <th class='col-1'>Sr #</th>
+                          <th class='col-2'>Post</th>
+                          <th class='col-3'>Organization</th>
+                          <th class='col-2'>From</th>
+                          <th class='col-2'>To</th>
+                          <th class='col-1'>Doc</th>
+                          <th class='col-1 text-center'>Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                        <tr class='d-flex'>
+                          <td class='col-1'>1</td> 
+                          <td class='col-2'>Manager</td>             
+                          <td class='col-3'>Mobiling Jazz</td>
+                          <td class='col-2'>jan-2015</td>
+                          <td class='col-2'>Nov-2017</td>
+                          <td class='col-1'>Yes</td>
+                          <td class='col-1 text-center'>
+                            <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+                          </td>
+                        </tr>
+                        
+                        <tr class='d-flex'>
+                          <td class='col-11'></td> 
+                          <td class='col-1 text-center'>
+                            <span class="fa fa-plus pointerCursor"></span>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!--end table row-->
+              </div>
+            </div>
+            <!--end row 1-->
+            <br/>
+          </mat-tab>
+          <!--end tab 5-->
+
+
+          <!--start tab 6-->
+          <mat-tab label="Asset Declaration">
+            
+            <br/>
+            <!--start heading-->
+            <h5>Asset Declaration</h5>
+            <!--end heading-->
+
+            <!--Start row 1-->
+            <div class="row tab-margin">
+              <div class="col-md-12">
+                <!--start table row-->       
+                <div class="example-container mat-elevation-z8">
+                  <div class="example-table-container">                      
+                    <table class="table table-striped">
+                      <thead>
+                        <tr class='d-flex'>
+                          <th class='col-1'>Sr #</th>
+                          <th class='col-7'>Year</th>
+                          <th class='col-2'>Submited</th>
+                          <th class='col-2 text-center'>Details</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                        <tr class='d-flex'>
+                          <td class='col-1'>1</td> 
+                          <td class='col-7'>2017</td> 
+                          <td class='col-2'>
+                              <span class="fa fa-check"></span>
+                          </td>             
+                          <td class='col-2 text-center'>
+                            <span class="fa fa-file-text pointerCursor"></span>
+                          </td>
+                        </tr>
+                        
+                        <tr class='d-flex'>
+                          <td class='col-1'>2</td> 
+                          <td class='col-7'>2016</td> 
+                          <td class='col-2'>
+                              <span class="fa fa-remove"></span>
+                          </td>             
+                          <td class='col-2 text-center'>
+                            <span class="fa fa-file-text pointerCursor"></span>
+                          </td>
+                        </tr>
+
+                        <tr class='d-flex'>
+                          <td class='col-1'>3</td> 
+                          <td class='col-7'>2015</td> 
+                          <td class='col-2'>
+                              <span class="fa fa-check"></span>
+                          </td>             
+                          <td class='col-2 text-center'>
+                            <span class="fa fa-file-text pointerCursor"></span>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!--end table row-->
+              </div>
+            </div>
+            <!--end row 1-->
+            <br/>
+          </mat-tab>
+          <!--end tab 6-->
+
+
+          <!--start tab 7-->
+          <mat-tab label="ACR">
+            
+            <br/>
+            <!--start heading-->
+            <h5>ACR</h5>
+            <!--end heading-->
+
+            <!--Start row 1-->
+            <div class="row tab-margin">
+              <div class="col-md-12">
+                <!--start table row-->       
+                <div class="example-container mat-elevation-z8">
+                  <div class="example-table-container">                      
+                    <table class="table table-striped">
+                      <thead>
+                        <tr class='d-flex'>
+                          <th class='col-1'>Sr #</th>
+                          <th class='col-3'>Year</th>
+                          <th class='col-2'>Submited</th>
+                          <th class='col-4'>Progress</th>
+                          <th class='col-2 text-center'>Details</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                        <tr class='d-flex'>
+                          <td class='col-1'>1</td> 
+                          <td class='col-3'>2017</td>
+                          <td class='col-2'>
+                              <span class="fa fa-check"></span>
+                          </td>
+                          <td class='col-4'>Good</td>
+                          <td class='col-2 text-center'>
+                            <span class="fa fa-file-text pointerCursor"></span>
+                          </td>
+                        </tr>
+                        
+                        <tr class='d-flex'>
+                          <td class='col-1'>2</td> 
+                          <td class='col-3'>2016</td> 
+                          <td class='col-2'>
+                              <span class="fa fa-remove"></span>
+                          </td>
+                          <td class='col-4'>-</td>
+                          <td class='col-2 text-center'>
+                            <span class="fa fa-file-text pointerCursor"></span>
+                          </td>
+                        </tr>
+
+                        <tr class='d-flex'>
+                          <td class='col-1'>3</td> 
+                          <td class='col-3'>2015</td> 
+                          <td class='col-2'>
+                              <span class="fa fa-check"></span>
+                          </td>
+                          <td class='col-4'>Avg.</td>
+                          <td class='col-2 text-center'>
+                            <span class="fa fa-file-text pointerCursor"></span>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!--end table row-->
+              </div>
+            </div>
+            <!--end row 1-->
+            <br/>
+          </mat-tab>
+          <!--end tab 7-->
+
+
+          <!--start tab 8-->
+          <mat-tab label="Leave Info">
+            
+            <br/>
+            <!--start heading-->
+            <h5>Leave Info</h5>
+            <!--end heading-->
+
+            <!--Start row 1-->
+            <div class="row tab-margin">
+              <div class="col-md-12">
+                <!--start table row-->       
+                <div class="example-container mat-elevation-z8">
+                  <div class="example-table-container">                      
+                    <table class="table table-striped">
+                      <thead>
+                        <tr class='d-flex'>
+                          <th class='col-1'>Sr #</th>
+                          <th class='col-6'>Leave Type</th>
+                          <th class='col-2'>Allowed</th>
+                          <th class='col-2'>Used</th>
+                          <th class='col-1 text-center'>Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                        <tr class='d-flex'>
+                          <td class='col-1'>1</td> 
+                          <td class='col-6'>Medical Leave</td> 
+                          <td class='col-2'>10</td>             
+                          <td class='col-2'>3</td>
+                          <td class='col-1 text-center'>
+                            <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+                          </td>
+                        </tr>
+                        
+                        <tr class='d-flex'>
+                          <td class='col-1'>2</td> 
+                          <td class='col-6'>Casual Leave</td> 
+                          <td class='col-2'>10</td>             
+                          <td class='col-2'>2</td>
+                          <td class='col-1 text-center'>
+                            <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+                          </td>
+                        </tr>
+
+                        <tr class='d-flex'>
+                          <td class='col-11'></td> 
+                          <td class='col-1 text-center'>
+                            <span class="fa fa-plus pointerCursor"></span>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!--end table row-->
+              </div>
+            </div>
+            <!--end row 1-->
+            <br/>
+          </mat-tab>
+          <!--end tab 8-->
+
+
+          <!--start tab 9-->
+          <mat-tab label="Facilities">
+            
+            <br/>
+            <!--start heading-->
+            <h5>Facilities</h5>
+            <!--end heading-->
+
+            <!--Start row 1-->
+            <div class="row tab-margin">
+              <div class="col-md-12">
+                <!--start table row-->       
+                <div class="example-container mat-elevation-z8">
+                  <div class="example-table-container">                      
+                    <table class="table table-striped">
+                      <thead>
+                        <tr class='d-flex'>
+                          <th class='col-1'>Sr #</th>
+                          <th class='col-7'>Description</th>
+                          <th class='col-3'>Expenses</th>
+                          <th class='col-1 text-center'>Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                        <tr class='d-flex'>
+                          <td class='col-1'>1</td> 
+                          <td class='col-7'>Medical</td>             
+                          <td class='col-3'>150,000</td>
+                          <td class='col-1 text-center'>
+                            <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+                          </td>
+                        </tr>
+                        
+                        <tr class='d-flex'>
+                          <td class='col-1'>2</td> 
+                          <td class='col-7'>Telephone</td>             
+                          <td class='col-3'>50,000</td>
+                          <td class='col-1 text-center'>
+                            <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+                          </td>
+                        </tr>
+
+                        <tr class='d-flex'>
+                          <td class='col-1'>3</td> 
+                          <td class='col-7'>Car</td>             
+                          <td class='col-3'>100,000</td>
+                          <td class='col-1 text-center'>
+                            <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+                          </td>
+                        </tr>
+
+                        <tr class='d-flex'>
+                          <td class='col-11'></td> 
+                          <td class='col-1 text-center'>
+                            <span class="fa fa-plus pointerCursor"></span>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!--end table row-->
+              </div>
+            </div>
+            <!--end row 1-->
+            <br/>
+          </mat-tab>
+          <!--Emd tab 9-->
+
+
+        </mat-tab-group>
+        <!-- End tabs -->
+
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Modal Window  -->
+
+<!-- Start Modal Window to delete leave rule -->
+<div class="modal fade" id="deleteModal">
+  <div class="modal-dialog shadow-lg-dark">
+    <div class="modal-content">
+        <!--start Modal body -->
+        <div class="modal-body">
+          <br>
+          <div class="hidden" ngDefaultControl></div>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+              <h2>Delete Entry</h2>
+            </div>
+          </div><br/>
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class="fullwidth">
+                <input matInput placeholder="Enter Password" type="password" [(ngModel)]="txtdPassword">
+              </mat-form-field>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class="fullwidth">
+                <input matInput placeholder="Enter PIN" type="password" [(ngModel)]="txtdPin">
+              </mat-form-field>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-6">
+              <button mat-raised-button color="warn" data-dismiss="modal">Delete</button>
+            </div>
+          </div>
+          <br/>
+        </div>
+        <!--end Modal body -->
+
+        <!--start Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+  <!-- End Modal Window to delete leave rule -->

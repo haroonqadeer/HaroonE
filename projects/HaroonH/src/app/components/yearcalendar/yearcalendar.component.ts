@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./yearcalendar.component.scss']
 })
 export class YearcalendarComponent implements OnInit {
-
+ 
+  txtdPassword = '';
+  txtdPin = '';
+  
   constructor() { }
 
   ngOnInit() {

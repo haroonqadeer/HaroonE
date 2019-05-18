@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ModuleWithProviders } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MatBottomSheet } from '@angular/material';
 import { ErpBottomSheetComponent } from './components/erp-bottom-sheet/erp-bottom-sheet.component';
@@ -18,7 +18,6 @@ export class AppComponent {
 
 
   public hideDiv = false;
-  title = 'HaroonH';
 
   items: MenuItem[];
 
@@ -166,3 +165,4 @@ export class AppComponent {
     document.getElementById("mySidenav").style.width = "0";
   }
 }
+
