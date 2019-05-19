@@ -24,10 +24,14 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 
+import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    SearchPipe,
     CertificateComponent,
     DegreeeComponent,
     SkillComponent
@@ -49,9 +53,10 @@ import { DropdownModule } from 'primeng/dropdown';
     OrderModule,
     NgxPaginationModule,
     InputTextModule,
-    DropdownModule
+    DropdownModule,
+    IgxGridModule
   ],
-  providers: [],
+  providers: [IgxExcelExporterService, IgxCsvExporterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
