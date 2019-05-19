@@ -18,14 +18,19 @@ import { PerformanceEvaComponent } from './components/performance-eva/performanc
 import { LeavetypeComponent } from './components/leavetype/leavetype.component';
 import { HrdashboardComponent } from './components/hrdashboard/hrdashboard.component';
 import { IntroPageComponent } from './components/intro-page/intro-page.component';
+import { AppComponent } from 'projects/HaroonH/src/app/app.component';
 
 const routes: Routes = [
+  // {
+  //   path: 'HR/home',
+  //   component: IntroPageComponent,
+  // },
   {
     path: 'HR/home',
-    component: IntroPageComponent,
+    component: AppComponent,
   },
   {
-    path: 'dashboard',
+    path: 'HR/dashboard',
     component: HrdashboardComponent
   },
   {
@@ -80,7 +85,10 @@ const routes: Routes = [
     path: 'performanceEvaluation',
     component: PerformanceEvaComponent
   },
-  { path: 'HR', redirectTo: 'HR/home' }
+  { 
+    path: 'HR', 
+    redirectTo: 'HR/leaveType' 
+  }
 ];
 
 @NgModule({

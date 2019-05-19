@@ -88,7 +88,7 @@ import { DropdownModule } from 'primeng/dropdown';
 export class AppModule { }
 
 @NgModule({})
-export class HaroonHSharedModule{
+export class HRSharedModule{
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: AppModule,

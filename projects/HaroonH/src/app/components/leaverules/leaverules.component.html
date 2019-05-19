@@ -142,7 +142,7 @@
       <!--start Modal body -->
       <div class="modal-body">
         <br>
-        <div class="hidden" [(ngModel)]="leaveId" ngDefaultControl></div>
+        <!-- <div class="hidden" [(ngModel)]="leaveId" ngDefaultControl></div> -->
         <div class="row">
           <div class="col-md-2"></div>
           <div class="col-md-10">
@@ -408,7 +408,7 @@
                   <b>Allowance (per day): </b>
                 </div>
                 <div class="col-md-4 text-right">
-                  <p-multiSelect [options]="allowances" [(ngModel)]="selectedAllowance" [panelStyle]="{minWidth:'12em'}"
+                  <p-multiSelect [options]=""  [panelStyle]="{minWidth:'12em'}"
                     [style]="{'width':'100%'}"></p-multiSelect>
                 </div>
                 <div class="col-md-3 text-right">
@@ -423,7 +423,7 @@
                   <b>Deducion (per day): </b>
                 </div>
                 <div class="col-md-4 text-right">
-                  <p-multiSelect [options]="allowances" [(ngModel)]="selectedDeduction" [panelStyle]="{minWidth:'12em'}"
+                  <p-multiSelect [options]=""  [panelStyle]="{minWidth:'12em'}"
                     [style]="{'width':'100%'}"></p-multiSelect>
                 </div>
                 <div class="col-md-3 text-right">

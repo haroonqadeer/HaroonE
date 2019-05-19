@@ -55,3 +55,14 @@ import { DropdownModule } from 'primeng/dropdown';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+@NgModule({})
+export class ConfigSharedModule{
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AppModule,
+      providers: []
+    }
+  }
+}

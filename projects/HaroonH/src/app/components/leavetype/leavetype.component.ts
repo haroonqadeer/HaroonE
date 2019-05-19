@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { OrderPipe } from 'ngx-order-pipe';
+import { AppComponent } from 'src/app/app.component';
+
+
 
 declare var $: any;
 
@@ -51,7 +54,11 @@ export class LeavetypeComponent implements OnInit {
   txtdPin = '';
 
 
-  constructor(private toastr: ToastrManager, private http: HttpClient, private orderPipe: OrderPipe) { }
+  constructor(
+    private toastr: ToastrManager,
+    private http: HttpClient,
+    private orderPipe: OrderPipe
+    ) { }
 
   ngOnInit() {
 
@@ -243,6 +250,7 @@ export class LeavetypeComponent implements OnInit {
 
   //Function for save and update leave nature 
   saveLeaveNature() {
+
     if (this.leaveNature.trim() == '') {
       this.toastr.errorToastr('Please enter leave nature', 'Error', { toastTimeout: (2500) });
       return false;
