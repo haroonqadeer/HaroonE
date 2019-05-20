@@ -35,7 +35,7 @@ declare var $: any;
 })
 export class SkillComponent implements OnInit {
 
-  serverUrl = "https://localhost:8003/";
+  serverUrl = "http://localhost:22850/";
   tokenKey = "token";
 
   httpOptions = {
@@ -110,8 +110,8 @@ export class SkillComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getSkillType', { headers: reqHeader }).subscribe((data: any) => {
       this.skillTypeList = data
 
-      this.skillId = this.skillTypeList[2].qlfctnTypeCd;
-      this.skillTypeName = this.skillTypeList[2].qlfctnTypeName;
+      this.skillId = this.skillTypeList[4].qlfctnTypeCd;
+      this.skillTypeName = this.skillTypeList[4].qlfctnTypeName;
 
     });
   }
@@ -373,6 +373,7 @@ export class SkillComponent implements OnInit {
     this.skillTitle = '';
     this.skillTitleDescription = '';
 
+    this.sklGroupId = '';
     this.sklGroupName = '';
     this.sklGroupDesc = '';
 

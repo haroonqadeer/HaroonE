@@ -21,56 +21,56 @@ import { IntroPageComponent } from './components/intro-page/intro-page.component
 import { AppComponent } from 'projects/HaroonH/src/app/app.component';
 
 const routes: Routes = [
-  // {
-  //   path: 'HR/home',
-  //   component: IntroPageComponent,
-  // },
   {
     path: 'HR/home',
-    component: AppComponent,
+    component: IntroPageComponent,
   },
+  // {
+  //   path: 'HR/home',
+  //   component: AppComponent,
+  // },
   {
     path: 'HR/dashboard',
     component: HrdashboardComponent
   },
   {
-    path: 'recruitmentApproval',
+    path: 'HR/ecruitmentApproval',
     component: RecruitmentappComponent
   },
   {
-    path: 'job',
+    path: 'HR/job',
     component: JobprofileComponent
   },
   {
-    path: 'recruitment',
+    path: 'HR/recruitment',
     component: RecruitmentComponent
   },
   {
-    path: 'post',
+    path: 'HR/post',
     component: PostComponent
   },
   {
-    path: 'test',
+    path: 'HR/test',
     component: TestComponent
   }, 
   {
-    path: 'employee',
+    path: 'HR/employee',
     component: EmpolyeeprofileComponent
   },
   {
-    path: 'skillstandard',
+    path: 'HR/skillstandard',
     component: SkillstandardComponent
   },
   {
-    path: 'trainingreq',
+    path: 'HR/trainingreq',
     component: TrainingrequirementsComponent
   },
   {
-    path: 'yearcalendar',
+    path: 'HR/yearcalendar',
     component: YearcalendarComponent
   },
   {
-    path: 'leaveRules',
+    path: 'HR/leaveRules',
     component: LeaverulesComponent
   },
   {
@@ -78,16 +78,16 @@ const routes: Routes = [
     component: LeavetypeComponent
   },
   {
-    path: 'performanceStandard',
+    path: 'HR/performanceStandard',
     component: PerformanceStandComponent
   },
   {
-    path: 'performanceEvaluation',
+    path: 'HR/performanceEvaluation',
     component: PerformanceEvaComponent
   },
   { 
     path: 'HR', 
-    redirectTo: 'HR/leaveType' 
+    redirectTo: 'HR/home' 
   }
 ];
 

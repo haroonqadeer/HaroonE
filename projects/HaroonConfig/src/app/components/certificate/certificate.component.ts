@@ -35,7 +35,7 @@ declare var $: any;
 })
 export class CertificateComponent implements OnInit {
 
-  serverUrl = "https://localhost:8002/";
+  serverUrl = "http://localhost:49774/";
   tokenKey = "token";
 
   httpOptions = {
@@ -110,8 +110,8 @@ export class CertificateComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getCertificateType', { headers: reqHeader }).subscribe((data: any) => {
       this.certificateTypeList = data
 
-      this.certificateId = this.certificateTypeList[1].qlfctnTypeCd;
-      this.certificateTypeName = this.certificateTypeList[1].qlfctnTypeName;
+      this.certificateId = this.certificateTypeList[2].qlfctnTypeCd;
+      this.certificateTypeName = this.certificateTypeList[2].qlfctnTypeName;
 
     });
   }
@@ -377,6 +377,7 @@ export class CertificateComponent implements OnInit {
     this.certificateTitle = '';
     this.certificateTitleDescription = '';
 
+    this.certfctGroupId = '';
     this.certfctGroupName = '';
     this.certfctGroupDesc = '';
 
