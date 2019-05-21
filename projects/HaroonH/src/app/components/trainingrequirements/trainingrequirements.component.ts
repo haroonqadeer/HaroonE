@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrainingrequirementsComponent implements OnInit {
 
+  txtdPassword="";
+  txtdPin="";
   constructor() { }
 
   ngOnInit() {

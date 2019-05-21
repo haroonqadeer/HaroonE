@@ -32,6 +32,7 @@ import { DropdownModule } from 'primeng/dropdown';
   declarations: [
     AppComponent,
     NavComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
