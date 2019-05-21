@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { AppComponent } from '../../app.component';
+import { AppComponent } from 'src/app/app.component';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
@@ -74,11 +74,11 @@ export class PostComponent implements OnInit {
     private http: HttpClient) { }
 
   ngOnInit() {
-    this.getOffices();
-    this.getPost();
-    this.getJobType();
-    this.getBPS();
-    this.getJobNature();
+    // this.getOffices();
+    // this.getPost();
+    // this.getJobType();
+    // this.getBPS();
+    // this.getJobNature();
   }
 
   onNodeSelect(event) {
