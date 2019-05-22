@@ -18,59 +18,54 @@ import { PerformanceEvaComponent } from './components/performance-eva/performanc
 import { LeavetypeComponent } from './components/leavetype/leavetype.component';
 import { HrdashboardComponent } from './components/hrdashboard/hrdashboard.component';
 import { IntroPageComponent } from './components/intro-page/intro-page.component';
-import { AppComponent } from 'projects/HaroonH/src/app/app.component';
 
 const routes: Routes = [
   {
     path: 'HR/home',
     component: IntroPageComponent,
   },
-  // {
-  //   path: 'HR/home',
-  //   component: AppComponent,
-  // },
   {
-    path: 'HR/dashboard',
+    path: 'dashboard',
     component: HrdashboardComponent
   },
   {
-    path: 'HR/ecruitmentApproval',
+    path: 'recruitmentApproval',
     component: RecruitmentappComponent
   },
   {
-    path: 'HR/job',
+    path: 'job',
     component: JobprofileComponent
   },
   {
-    path: 'HR/recruitment',
+    path: 'recruitment',
     component: RecruitmentComponent
   },
   {
-    path: 'HR/post',
+    path: 'post',
     component: PostComponent
   },
   {
-    path: 'HR/test',
+    path: 'test',
     component: TestComponent
   }, 
   {
-    path: 'HR/employee',
+    path: 'employee',
     component: EmpolyeeprofileComponent
   },
   {
-    path: 'HR/skillstandard',
+    path: 'skillstandard',
     component: SkillstandardComponent
   },
   {
-    path: 'HR/trainingreq',
+    path: 'trainingreq',
     component: TrainingrequirementsComponent
   },
   {
-    path: 'HR/yearcalendar',
+    path: 'yearcalendar',
     component: YearcalendarComponent
   },
   {
-    path: 'HR/leaveRules',
+    path: 'leaveRules',
     component: LeaverulesComponent
   },
   {
@@ -78,17 +73,14 @@ const routes: Routes = [
     component: LeavetypeComponent
   },
   {
-    path: 'HR/performanceStandard',
+    path: 'performanceStandard',
     component: PerformanceStandComponent
   },
   {
-    path: 'HR/performanceEvaluation',
+    path: 'performanceEvaluation',
     component: PerformanceEvaComponent
   },
-  { 
-    path: 'HR', 
-    redirectTo: 'HR/home' 
-  }
+  { path: 'HR', redirectTo: 'HR/home' }
 ];
 
 @NgModule({

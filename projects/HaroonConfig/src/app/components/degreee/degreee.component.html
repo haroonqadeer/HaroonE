@@ -1,36 +1,36 @@
+<br />
+<!--heading row-->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1 class="bottomBorder">Degree</h1>
+  </div>
+</div>
+<!--end heading row-->
+<br />
+
 <!-- start menubar buttons -->
 <div class="topnav boxShadow">
-  <div>
-
-    <div class="logo"><img src="../../../assets/images/skills.svg"></div>
-    <h1> Degree</h1>
-
-    <a class="pointerCursor" (click)="downloadExcel()">
-      <i class="fa fa-file-excel-o"></i>
-      Excel
-    </a>
-
-    <a class="pointerCursor" (click)="downloadCSV()">
-      <i class="fa fa-file-text-o"></i>
-      CSV
-    </a>
-
-    <a class="pointerCursor" (click)="downloadPDF()">
-      <i class="fa fa-file-pdf-o"></i>
-      PDF
-    </a>
-
-    <a class="pointerCursor" (click)="printDiv()">
-      <i class="fa fa-print"></i>
-      Print
-    </a>
-
+  <div class="container">
     <a class="pointerCursor" data-toggle="modal" data-target="#addDegreeModal" (click)="clear()">
       <i class="fa fa-plus-square"></i>
       Add New
     </a>
-    
-
+    <a class="pointerCursor" (click)="printDiv()">
+      <i class="fa fa-print"></i>
+      Print
+    </a>
+    <a class="pointerCursor" (click)="downloadPDF()">
+      <i class="fa fa-file-pdf-o"></i>
+      PDF
+    </a>
+    <a class="pointerCursor" (click)="downloadCSV()">
+      <i class="fa fa-file-text-o"></i>
+      CSV
+    </a>
+    <a class="pointerCursor" (click)="downloadExcel()">
+      <i class="fa fa-file-excel-o"></i>
+      Excel
+    </a>
   </div>
 </div>
 <!-- end menubar buttons -->

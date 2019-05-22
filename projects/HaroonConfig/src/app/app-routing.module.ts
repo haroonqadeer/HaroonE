@@ -18,7 +18,7 @@ const routes: Routes = [
     path: 'Config/skill',
     component: SkillComponent
   },
-  { path: 'Config', redirectTo: 'Config/certificate' }
+  { path: 'Config', redirectTo: 'Config/home' }
 ];
 
 @NgModule({

@@ -1,115 +1,94 @@
-<!-- start menubar buttons -->
-<div class="topnav boxShadow">
-  <div>
-    <!--class="container" -->
-    <div class="logo"><img src="../../../assets/images/skills.svg"></div>
-    <h1> Performance Standards</h1>
+<div id="alert_msg_success" *ngIf="edited">
+  Action Successfully Created
+</div>
 
-    <!-- (click)="downloadExcel()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-excel-o"></i>
-      Excel
-    </a>
-
-    <!-- (click)="downloadCSV()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-text-o"></i>
-      CSV
-    </a>
-
-    <!-- (click)="downPDF()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-pdf-o"></i>
-      PDF
-    </a>
-
-    <!-- (click)="printDiv()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-print"></i>
-      Print
-    </a>
-
-    <a class="pointerCursor" data-toggle="modal" data-target="#standardModal" (click)="clear()">
-      <i class="fa fa-plus-square"></i>
-      Add New
-    </a>
-
+<div id="alert_msg_warn" *ngIf="edited1">
+  Action Successfully Deleted
+</div>
+<br/> 
+<!--heading row-->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1 class="bottomBorder">Performance Standards</h1>    
   </div>
 </div>
-<br /><br />
-<!-- end menubar buttons -->
-
+<!--end heading row-->
+<br/>
 
 <!--start container-->
-<div class="container mat-elevation-z8 bgWhite">
-
-  <!--Start search textbox Row-->
-  <div class="row">
-    <div class="col-md-12">
-      <mat-form-field class="fullwidth">
-        <input matInput [(ngModel)]="tblSearch" placeholder="Search">
-      </mat-form-field>
-      <span class="fab fa-accessible-icon"></span>
-    </div>
-  </div>
-  <!--end search textbox Row-->
-
+<div class="container">
   <!--start table row-->       
-  <div class="example-container">
+  <div class="example-container mat-elevation-z8">
     <div class="example-table-container">                      
       <table class="table table-striped">
         <thead>
           <tr class='d-flex'>
             <th class='col-2 text-center'>Sr #</th>
-            <th class='col-6' [class.active]="order === 'processStepTitle'" (click)="setOrder('processStepTitle')">
-              Title
-              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-            </th>
-            <th class='col-2 text-center'>Edit</th>
+            <th class='col-4'>Job Profile</th>
+            <th class='col-2 text-center'>Standards</th>
             <th class='col-2 text-center'>Delete</th>
+            <th class='col-2 text-center'>Add</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of pStandardList |
-            search:'processStepTitle':tblSearch | paginate: {
-              itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"
-            class='d-flex'>
-            <td class='col-2 text-center'>{{i + 1}}</td> 
-            <td class='col-6'>{{item.processStepTitle}}</td>
+          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+          <tr class='d-flex'>
+            <td class='col-2 text-center'>1</td> 
+            <td class='col-4'>Accountant</td>             
+            <td class='col-2 text-center'><a href="" data-toggle="modal" data-target="#standardModal">2</a></td>
             <td class='col-2 text-center'>
-              <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#standardModal"
-              (click)="edit(item)"></span>
+              <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
             </td>
             <td class='col-2 text-center'>
-              <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal" (click)="deleteTemp(item)"></span>
+              <span class="fa fa-plus fontPrimary pointerCursor" (click)="add()"></span>
+            </td>
+          </tr>
+          <tr class='d-flex'>
+            <td class='col-2 text-center'>2</td> 
+            <td class='col-4'>Web Developer</td>             
+            <td class='col-2 text-center'><a href="" data-toggle="modal" data-target="#standardModal">1</a></td>
+            <td class='col-2 text-center'>
+              <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+            </td>
+            <td class='col-2 text-center'>
+              <span class="fa fa-plus fontPrimary pointerCursor" (click)="add()"></span>
+            </td>
+          </tr>
+          <tr class='d-flex'>
+            <td class='col-2 text-center'>3</td> 
+            <td class='col-4'>Admin Officer</td>             
+            <td class='col-2 text-center'><a href="" data-toggle="modal" data-target="#standardModal">3</a></td>
+            <td class='col-2 text-center'>
+              <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+            </td>
+            <td class='col-2 text-center'>
+              <span class="fa fa-plus fontPrimary pointerCursor" (click)="add()"></span>
+            </td>
+          </tr>
+          <tr class='d-flex' id="addProfile">
+            <td class="col-2"></td>
+            <td class="col-4">
+              <mat-form-field>
+                <mat-select placeholder="Job Profile">
+                  <mat-option *ngFor="let profile of profiles" [value]="profile.value">
+                    {{profile.label}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td class="col-2">
+              <mat-form-field class="fullwidth">
+                <input matInput placeholder="Enter Standards" type="text">
+              </mat-form-field>
+            </td>
+            <td class="col-2"></td>
+            <td class="col-2 text-center">
+              <span class="fa fa-plus-circle fontPrimary pointerCursor" (click)="addData()"></span>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-
-    <div class="row tab-margin">
-      <div class="col-md-10">
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-      </div>
-      <div class="col-md-2 text-right">
-        <mat-form-field class="fullwidth pagenateList">
-          <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
-            <mat-option value="10">10</mat-option>
-            <mat-option value="15">15</mat-option>
-            <mat-option value="20">20</mat-option>
-            <mat-option value="25">25</mat-option>
-            <mat-option value="30">30</mat-option>
-            <mat-option value="35">35</mat-option>
-            <mat-option value="40">40</mat-option>
-            <mat-option value="45">45</mat-option>
-            <mat-option value="50">50</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-
   </div>
   <!--end table row-->
 </div>
@@ -122,7 +101,7 @@
         <!--start Modal body -->
         <div class="modal-body">
           <br>
-          <!-- <div class="hidden" [(ngModel)]="performanceId" ngDefaultControl></div> -->
+          <div class="hidden" [(ngModel)]="performanceId" ngDefaultControl></div>
           <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-10">
@@ -146,7 +125,7 @@
           <br>
           <div class="row">
             <div class="col-md-6">
-              <button mat-raised-button color="warn" (click)="delete()">Delete</button>
+              <button mat-raised-button color="warn" data-dismiss="modal">Delete</button>
             </div>
           </div>
           <br/>
@@ -179,57 +158,191 @@
 
       <!--start Modal body -->
       <div class="modal-body">
-
-        <!--1st row-->
-        <div class="row">
-          <div class="col-md-2 text-right">
-            Main Group
-          </div>
-
-          <div class="col-md-4">
-            <b>{{lblMainGroup}} </b>
-          </div>
-
-          <div class="col-md-2 text-righ">
-            Sub Group
-          </div>
-
-          <div class="col-md-4">
-              <b>{{lblSubGroup}} </b>
-          </div>
-        </div>
-        <br />
-        <!--end 1st row-->
-
-
-        <!--2nd row-->
-        <div class="row">
-
-          <div class="col-md-6">
-              <mat-form-field class="fullwidth">
-                <input matInput [(ngModel)]="pTitle" placeholder="Performance Title">
-              </mat-form-field>
-          </div>
-
-          <div class="col-md-6">
-            <mat-form-field class="fullwidth">
-              <input matInput [(ngModel)]="pDescription" placeholder="Performance Description">
-            </mat-form-field>
-          </div>
-
-        </div>
-        <br />
-        <!--end 2nd row-->
-
-
-
         <!--button row-->
-        <div class="text-left">
-          <button *ngIf="!updateFlag" mat-raised-button color="primary" (click)="save()">Save</button>
-          <button *ngIf="updateFlag" mat-raised-button color="primary" (click)="save()">Update</button>
+        <div class="text-center">
+          <button mat-raised-button color="primary" data-toggle="modal" data-target="#impStandardModal">Import Standards</button>
         </div>
         <!--end button row-->
-
+        <br/>
+        <!--accordian row-->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Expert
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    up to 10 years
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <section class="example-section">
+                  <!--1st row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput value="High Level of Logic" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <b>Required Level</b>
+                      <h5>5</h5>
+                    </div>
+                  </div>        
+                  <!--end 1st row--> 
+                  <br/>     
+                  <!--2nd row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput value="Good Communication Skills" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <h5>3</h5>
+                    </div>
+                  </div>        
+                  <!--end 2nd row-->  
+                  <br/>
+                  <!--3rd row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput placeholder="Skills">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <br/>
+                      <p-dropdown [options]="skills" [(ngModel)]="selectedSkill" placeholder="Required Skills" optionLabel="label" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
+                    </div>
+                    <div class="col-md-3">
+                      <button mat-mini-fab color="primary"><span class="fa fa-plus"></span></button>
+                    </div>
+                  </div>
+                  <!--end 3rd row-->      
+                </section>
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Professional
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    up to 5 years
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <section class="example-section">
+                  <!--1st row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput value="High Level of Logic" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <b>Required Level</b>
+                      <h5>3</h5>
+                    </div>
+                  </div>        
+                  <!--end 1st row--> 
+                  <br/>     
+                  <!--2nd row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput value="Good Communication Skills" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <h5>3</h5>
+                    </div>
+                  </div>        
+                  <!--end 2nd row-->  
+                  <br/>
+                  <!--3rd row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput placeholder="Skills">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <br/>
+                      <p-dropdown [options]="skills" [(ngModel)]="selectedSkill" placeholder="Required Skills" optionLabel="label" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
+                    </div>
+                    <div class="col-md-3">
+                      <button mat-mini-fab color="primary"><span class="fa fa-plus"></span></button>
+                    </div>
+                  </div>
+                  <!--end 3rd row-->      
+                </section>
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Beginners
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    up to 1 year
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <section class="example-section">
+                  <!--1st row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput value="High Level of Logic" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <b>Required Level</b>
+                      <h5>2</h5>
+                    </div>
+                  </div>        
+                  <!--end 1st row--> 
+                  <br/>     
+                  <!--2nd row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput value="Good Communication Skills" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <h5>3</h5>
+                    </div>
+                  </div>        
+                  <!--end 2nd row-->  
+                  <br/>
+                  <!--3rd row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput placeholder="Skills">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <br/>
+                      <p-dropdown [options]="skills" [(ngModel)]="selectedSkill" placeholder="Required Skills" optionLabel="label" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
+                    </div>
+                    <div class="col-md-3">
+                      <button mat-mini-fab color="primary"><span class="fa fa-plus"></span></button>
+                    </div>
+                  </div>
+                  <!--end 3rd row-->      
+                </section>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+        <!--end accordian row-->
+        <br/>
+        <!--button row-->
+        <div class="text-right">
+          <button mat-raised-button color="primary" data-dismiss="modal">Save</button>
+        </div>
+        <!--end button row-->
       </div>
       <!--end Modal body -->
 
@@ -243,5 +356,178 @@
   </div>
 </div>
 <!-- End Modal Window to  set standards -->
+
+  
+  
+<!-- Start Modal Window to import default standards -->
+<div class="modal fade" id="impStandardModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <div class="modal-content">
+      
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Import Standards</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--button row-->
+        <div class="row">
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-select placeholder="Job Profile">
+                <mat-option *ngFor="let profile of profiles" [value]="profile.value">
+                  {{profile.label}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!--end button row-->
+        <br/>
+        <!--accordian row-->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Expert
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    up to 10 years
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <section class="example-section">
+                  <!--1st row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput value="High Level of Logic" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <b>Required Level</b>
+                      <h5>5</h5>
+                    </div>
+                  </div>        
+                  <!--end 1st row--> 
+                  <br/>     
+                  <!--2nd row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput value="Good Communication Skills" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <h5>3</h5>
+                    </div>
+                  </div>        
+                  <!--end 2nd row-->       
+                </section>
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Professional
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    up to 5 years
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <section class="example-section">
+                  <!--1st row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput value="High Level of Logic" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <b>Required Level</b>
+                      <h5>3</h5>
+                    </div>
+                  </div>        
+                  <!--end 1st row--> 
+                  <br/>     
+                  <!--2nd row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput value="Good Communication Skills" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <h5>3</h5>
+                    </div>
+                  </div>        
+                  <!--end 2nd row-->     
+                </section>
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Beginners
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    up to 1 year
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <section class="example-section">
+                  <!--1st row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput value="High Level of Logic" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <b>Required Level</b>
+                      <h5>2</h5>
+                    </div>
+                  </div>        
+                  <!--end 1st row--> 
+                  <br/>     
+                  <!--2nd row-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput value="Good Communication Skills" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <h5>3</h5>
+                    </div>
+                  </div>        
+                  <!--end 2nd row-->        
+                </section>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+          <!--end accordian row-->
+        </div>
+        <!--end accordian row-->
+        <br/>
+          <!--button row-->
+          <div class="text-right">
+            <button mat-raised-button color="primary" data-dismiss="modal">Import</button>
+          </div>
+          <!--end button row-->
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Modal Window to import default standards -->
 
   
