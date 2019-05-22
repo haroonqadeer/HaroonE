@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ToastrManager } from 'ng6-toastr-notifications';
 
-import { AppComponent } from '../../app.component';
-// import * as jsPDF from 'jspdf';
+import { AppComponent } from 'src/app/app.component';
+//import * as jsPDF from 'jspdf';
 import {
   IgxExcelExporterOptions,
   IgxExcelExporterService,
@@ -12,8 +12,8 @@ import {
   IgxCsvExporterOptions,
   CsvFileTypes
 } from "igniteui-angular";
-
 declare var $: any;
+
 
 
 @Component({
@@ -30,13 +30,14 @@ export class SkillstandardComponent implements OnInit {
 
   //new temp list
   newSkillDataList = [];
-
+  lstData = [];
   // Ng-Models for Search
   tblSearch = '';
   tblSearchGroup = '';
 
   // Ng-Models for Add Skill Standard Modal Window 
   skillGroup = '';
+
   skillGroupList = []; // get config_skl_qualification
   skillTitle = '';
   skillCriteriaList = []; // get config_skl_qualificationCriteria
@@ -59,6 +60,9 @@ export class SkillstandardComponent implements OnInit {
   dSkillStandardId = '';
   dSkillReqdStandardId = '';
 
+  qlfctnName = '';
+  qlfctnCriteriaName = '';
+
   // Ng-Models for delete modal
   userPassword = '';
   userPINCode = '';
@@ -75,6 +79,7 @@ export class SkillstandardComponent implements OnInit {
   sortedCollection: any[];
   itemPerPage = '10';
   itemPerPageGroup = '5';
+
 
 
   // toppings = '';
@@ -327,13 +332,24 @@ export class SkillstandardComponent implements OnInit {
   }
 
   edit(item) {
+    this.clearEdit();
     //this.skillStandardId = item.qlfctnRuleCriteriaCd;
     this.skillGroup = item.qlfctnCd;
     //this.skillReqdStandardId = item.reqdQlfctnRuleNo;
     this.skillTitle = item.qlfctnCriteriaCd;
+    this.qlfctnTypeCd = item.qlfctnTypeCd;
     //this.prefIndCtr = item.prefIndCtr;
     //this.qlfctnCriteriaMaxLvl = item.qlfctnCriteriaMaxLvl;
     //this.qlfctnCriteriaReqdLvl = item.qlfctnCriteriaReqdLvl;
+
+    //alert(this.skillGroup + " - " + this.skillTitle);
+
+  }
+
+  clearEdit() {
+    this.jobProfile = '';
+    this.prefIndCtr = false;
+    this.qlfctnCriteriaReqdLvl = '';
   }
 
   clear() {
@@ -357,23 +373,46 @@ export class SkillstandardComponent implements OnInit {
     // Ng-Models for delete modal
     this.userPassword = '';
     this.userPINCode = '';
+    this.dSkillStandardId = '';
+    this.dSkillReqdStandardId = '';
+    this.qlfctnName = '';
+    this.qlfctnCriteriaName = '';
+
   }
 
   newDetailList(item) {
+
     //alert(item.qlfctnName + " - " + item.qlfctnCriteriaName);
     this.newSkillDataList = [];
     for (var i = 0; i < this.skillStandardDetailsList.length; i++) {
       //alert(this.skillStandardDetailsList[i].qlfctnName + " - " + item.qlfctnName);
-      if (this.skillStandardDetailsList[i].qlfctnName.toUpperCase().includes(item.qlfctnName.toUpperCase())
-        && this.skillStandardDetailsList[i].qlfctnCriteriaName.toUpperCase().includes(item.qlfctnCriteriaName.toUpperCase())) {
+
+      // if (this.skillStandardDetailsList[i].qlfctnName.toUpperCase().includes(item.qlfctnName.toUpperCase())
+      //   && this.skillStandardDetailsList[i].qlfctnCriteriaName.toUpperCase().includes(item.qlfctnCriteriaName.toUpperCase())) {
+      //   this.newSkillDataList.push({
+      //     qlfctnName: this.skillStandardDetailsList[i].qlfctnName,
+      //     qlfctnCriteriaName: this.skillStandardDetailsList[i].qlfctnCriteriaName,
+      //     jobDesigName: this.skillStandardDetailsList[i].jobDesigName,
+      //     qlfctnCriteriaReqdLvl: this.skillStandardDetailsList[i].qlfctnCriteriaReqdLvl,
+      //     qlfctnCriteriaMaxLvl: this.skillStandardDetailsList[i].qlfctnCriteriaMaxLvl,
+      //     reqdQlfctnRuleNo: this.skillStandardDetailsList[i].reqdQlfctnRuleNo,
+      //     qlfctnRuleCriteriaCd: this.skillStandardDetailsList[i].qlfctnRuleCriteriaCd
+      //   });
+      // }
+
+      if (this.skillStandardDetailsList[i].qlfctnName == item.qlfctnName
+        && this.skillStandardDetailsList[i].qlfctnCriteriaName == item.qlfctnCriteriaName) {
         this.newSkillDataList.push({
           qlfctnName: this.skillStandardDetailsList[i].qlfctnName,
           qlfctnCriteriaName: this.skillStandardDetailsList[i].qlfctnCriteriaName,
           jobDesigName: this.skillStandardDetailsList[i].jobDesigName,
           qlfctnCriteriaReqdLvl: this.skillStandardDetailsList[i].qlfctnCriteriaReqdLvl,
           qlfctnCriteriaMaxLvl: this.skillStandardDetailsList[i].qlfctnCriteriaMaxLvl,
+          reqdQlfctnRuleNo: this.skillStandardDetailsList[i].reqdQlfctnRuleNo,
+          qlfctnRuleCriteriaCd: this.skillStandardDetailsList[i].qlfctnRuleCriteriaCd
         });
       }
+
       // if (item.qlfctnCd == this.skillStandardDetailsList[i].qlfctnCd && item.qlfctnCriteriaCd == this.skillStandardDetailsList[i].qlfctnCriteriaCd) {
       //   this.newSkillDataList.push({
       //     skillGroup: this.skillStandardDetailsList[i].qlfctnName,
@@ -385,7 +424,7 @@ export class SkillstandardComponent implements OnInit {
       // }
     }
     if (this.newSkillDataList.length > 0) {
-      //alert("Filter List " + this.excelDataList.length);
+      //alert("Filter List " + this.newSkillDataList.length);
       return;
       //this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("skillFilterExcel"));
       //this.excelDataList = [];
@@ -404,12 +443,15 @@ export class SkillstandardComponent implements OnInit {
     // this.skillGroup = item.qlfctnCd;
     // this.skillTitle = item.qlfctnCriteriaName;
     // this.skillTitleDescription = item.qlfctnCriteriaDesc;
+    this.qlfctnName = item.qlfctnName;
+    this.qlfctnCriteriaName = item.qlfctnCriteriaName;
   }
 
   // delete the skill criteria
   delete() {
 
-    //alert(this.dSkillReqdStandardId + " - " + this.dSkillStandardId);
+
+    //alert(this.dSkillReqdStandardId + " - " + this.dSkillStandardId + " - " + this.qlfctnName + " - " + this.qlfctnCriteriaName);
 
 
     if (this.userPassword == "") {
@@ -443,10 +485,21 @@ export class SkillstandardComponent implements OnInit {
 
           if (data.msg == "Skill Standard Deleted Successfully") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+
+            // this.getSkillStandardDetails();
+            // this.getSkillStandard();
+            // this.lstData = [this.qlfctnName, this.qlfctnCriteriaName];
+            // alert("LIST DATA = " + this.lstData.length);
+            // this.newDetailList(this.lstData);
+
             this.clear();
             $('#deleteModal').modal('hide');
+            $('#detailSkillModal').modal('hide');
             this.getSkillStandardDetails();
             this.getSkillStandard();
+
+            //alert();
+
             return false;
           }
           else if (data.msg == "Error Occured") {
@@ -486,7 +539,7 @@ export class SkillstandardComponent implements OnInit {
 
     // var tableCss = "table {width: 100%; border-collapse: collapse;}    table thead tr th {text-align: left; font-family: Arial, Helvetica, sans-serif; font-weight: bole; border-bottom: 1px solid black; margin-left: -3px;}     table tbody tr td {font-family: Arial, Helvetica, sans-serif; border-bottom: 1px solid #ccc; margin-left: -3px; height: 33px;}";
 
-    var printCss = this.app.printCSS();
+    //var printCss = this.app.printCSS();
 
 
     //printCss = printCss + "";
@@ -501,7 +554,7 @@ export class SkillstandardComponent implements OnInit {
     frameDoc.document.open();
 
     //Create a new HTML document.
-    frameDoc.document.write('<html><head><title>DIV Contents</title>' + "<style>" + printCss + "</style>");
+    //frameDoc.document.write('<html><head><title>DIV Contents</title>' + "<style>" + printCss + "</style>");
 
 
     //Append the external CSS file.  <link rel="stylesheet" href="../../../styles.scss" />  <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
