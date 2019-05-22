@@ -30,7 +30,7 @@ import { TestComponent } from './components/test/test.component';
 import { TrainingrequirementsComponent } from './components/trainingrequirements/trainingrequirements.component';
 import { YearcalendarComponent } from './components/yearcalendar/yearcalendar.component';
 
-
+//import { SearchPipe } from './shared/pipe-filters/pipe-search';
 
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -60,7 +60,7 @@ import { DropdownModule } from 'primeng/dropdown';
     TestComponent,
     TrainingrequirementsComponent,
     YearcalendarComponent,
-    SearchPipe
+    //SearchPipe
   ],
   imports: [
     BrowserModule,

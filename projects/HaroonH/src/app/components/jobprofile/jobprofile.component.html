@@ -1,24 +1,44 @@
+<!-- start menubar buttons -->
+<div class="topnav boxShadow">
+  <div>
+    <!--class="container" -->
+    <div class="logo"><img src="../../../assets/images/JobProfile.svg"></div>
+    <h1> Job Profile</h1>
 
-<!--heading row-->
-<div class="row">
-  <div class="col-md-12 text-center">
-      <h1 class="bottomBorder">Job Profile</h1>    
+    <!-- (click)="downloadExcel()" -->
+    <a class="pointerCursor">
+      <i class="fa fa-file-excel-o"></i>
+      Excel
+    </a>
+
+    <!-- (click)="downloadCSV()" -->
+    <a class="pointerCursor">
+      <i class="fa fa-file-text-o"></i>
+      CSV
+    </a>
+
+    <!-- (click)="downPDF()" -->
+    <a class="pointerCursor">
+      <i class="fa fa-file-pdf-o"></i>
+      PDF
+    </a>
+
+    <!-- (click)="printDiv()" -->
+    <a class="pointerCursor">
+      <i class="fa fa-print"></i>
+      Print
+    </a>
+
+    <a class="pointerCursor" data-toggle="modal" data-target="#profileModal" (click)="clear()">
+      <i class="fa fa-plus-square"></i>
+      Add New
+    </a>
+
   </div>
 </div>
-<!--end heading row-->
-<br/>
-    
-<!--start button row-->
-<div class="row"> 
-<div class="col-md-6">
-  <button mat-raised-button color="warn">Print</button>
-</div>   
-<div class="col-md-6 text-right">
-  <button mat-raised-button color="primary" data-toggle="modal" data-target="#profileModal">Add New</button>
-</div>
-</div>
-<!--end button row-->
-<br/>
+<br /><br />
+<!-- end menubar buttons -->
+
 
 <!--tabs row-->
 <div class="container bgWhite allBorder">
@@ -76,12 +96,106 @@
       <button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
     <!--end Modal Header -->
+
+
     <!--start Modal body -->
     <div class="modal-body">
         
       <!--start horizontal Stepper -->
       <mat-horizontal-stepper linear>
+
         <!--start 1st Step -->
+        <mat-step [stepControl]="formGroup1" optional>
+          <!--stepper 2nd label-->
+          <ng-template matStepLabel><b>Qualification</b></ng-template>
+          <!--start 2nd step form control div-->
+          <form [formGroup]="formGroup2">
+
+            <!--start 1st row-->
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="fullwidth">
+                  <mat-select placeholder="Select Degree" [(ngModel)]="cmbDegree" formControlName="cmbDegree" multiple>
+                    <input type="text" class="form-control" [(ngModel)]="searchDegree" [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let item of degrees | search:'dName, dDesc, cName, cDesc':searchDegree"
+                      [value]="item">
+                      <table>
+                        <tr class='d-flex'>
+                          <td class='col-2'>{{ item.dName }}</td>
+                          <td class='col-4 border-left'>{{ item.dDesc }}</td>
+                          <td class='col-2 border-left'>{{ item.cName }}</td>
+                          <td class='col-4 border-left'>{{ item.cDesc }}</td>
+                          <!-- <td class="col-4 border-left">{{ item.emailAddrss }}</td> -->
+                        </tr>
+                      </table>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <!-- <p-multiSelect [options]="degrees" [(ngModel)]="cmbDegree" formControlName="cmbDegree" [panelStyle]="{minWidth:'12em'}" [filter]="false" [style]="{'width':'100%'}"></p-multiSelect> -->
+                <!-- <p-dropdown [options]="degrees" [(ngModel)]="cmbDegree" formControlName="cmbDegree" placeholder="Degree Title" optionLabel="label" ></p-dropdown> -->
+              </div>
+              <div class="col-md-6">
+                <!-- <button mat-mini-fab color="primary" data-toggle="modal" data-target="#degreeModal"><span class="fa fa-plus"></span></button> -->
+                <p-dropdown [options]="jobsList" [(ngModel)]="jobTitle" placeholder="Leave Type"
+                  [style]="{'width':'100%'}">
+                  <ng-template let-itm pTemplate="item">
+                    <div style="position: relative;height: 25px;">
+                      <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+              </div>
+            </div>
+            <!--end 1st row-->
+            <br/>
+
+            <!--start 2nd row-->
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field class="fullwidth">
+                  <input matInput placeholder="Criteria Required Level">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="fullwidth">
+                  <input matInput placeholder="Criteria Maximum Level">
+                </mat-form-field>
+              </div>
+            </div>
+            <!--end 2nd row-->
+            <br/>
+
+            <!--start 3rd row-->
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="fullwidth">
+                  <input matInput placeholder="Remarks">
+                </mat-form-field>
+              </div>
+            </div>
+            <br/>
+            <!--end 3rd row-->
+
+            <!--start next step button div-->
+            <div class="text-right">
+              <button mat-raised-button color="primary">Save</button>
+            </div>
+            <!--end next step button div-->
+            <br/>
+
+            <!--start next step button div-->
+            <div class="text-right">
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+            <!--end next step button div-->
+          </form>
+          <!--end 2nd step form control div-->
+        </mat-step>
+        <!--end 1st Step -->
+
+
+
+        <!--start 2nd Step -->
         <mat-step [stepControl]="formGroup2" optional>
           <!--stepper 2nd label-->
           <ng-template matStepLabel><b>Qualification</b></ng-template>
@@ -186,6 +300,9 @@
           <!--end 2nd step form control div-->
         </mat-step>
         <!--end 2nd Step -->
+
+
+
         <!--start 3rd Step -->
         <mat-step [stepControl]="formGroup3" optional>
           <!--stepper 3rd label-->
@@ -303,6 +420,9 @@
           <!--end 3rd step form control div-->
         </mat-step>
         <!--end 3rd Step --> 
+
+
+
         <!--start 4th Step -->
         <mat-step [stepControl]="formGroup4" optional>
           <!--stepper 4th label-->
@@ -366,6 +486,9 @@
           <!--end 4th step form control div-->
         </mat-step>
         <!--end 4th Step -->
+
+
+
         <!--start 5th Step -->
         <mat-step [stepControl]="formGroup5" optional>
           <!--stepper 5th label-->
@@ -424,6 +547,9 @@
           <!--end 5th step form control div-->
         </mat-step>
         <!--end 5th Step -->
+
+
+
         <!--start 6th stepper-->
         <mat-step [stepControl]="formGroup6" optional>
           <!--stepper 5th label-->
@@ -486,10 +612,14 @@
           <!--end 5th step form control div-->
         </mat-step>
         <!--end 6th stepper-->
+
+
+
       </mat-horizontal-stepper>
       <!--end horizontal Stepper -->
     </div>
     <!--end Modal body -->
+
 
     <!--start Modal footer -->
     <div class="modal-footer">

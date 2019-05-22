@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { OrderPipe } from 'ngx-order-pipe';
 
 declare var $: any;
 
