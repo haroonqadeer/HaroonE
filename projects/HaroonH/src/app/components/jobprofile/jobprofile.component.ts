@@ -1,16 +1,64 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { SelectItem } from 'primeng/api';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+
 
 @Component({
-  selector: 'app-jobprofile',
-  templateUrl: './jobprofile.component.html',
-  styleUrls: ['./jobprofile.component.scss']
+    selector: 'app-jobprofile',
+    templateUrl: './jobprofile.component.html',
+    styleUrls: ['./jobprofile.component.scss']
 })
 export class JobprofileComponent implements OnInit {
 
-  edited = false;
-  edited1 = false;
+    serverUrl = "http://localhost:13759/";
+    tokenKey = "token";
+
+    httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }
+
+    //*Bolean variable 
+    updateFlag = false;
+
+    //* list for excel data
+    excelDataList = [];
+
+    jobsList = [];
+    // leaveNatureList = [];
+    // leaveLimitTypeList = [];
+    // leaveRuleList = [];
+
+
+
+    //* variables for pagination and orderby pipe
+    p = 1;
+    order = 'info.name';
+    reverse = false;
+    sortedCollection: any[];
+    itemPerPage = '10';
+
+
+    //* Variables for NgModels
+    tblSearch;
+
+    jobProfileId;
+
+    //*step 1 ng models
+    jobTitle;
+
+    leaveType;
+    leaveNature;
+    leaveLimit;
+    limitType;
+
+    txtdPassword = '';
+    txtdPin = '';
+
+
+
+
 
   show=false;
 
@@ -45,8 +93,7 @@ export class JobprofileComponent implements OnInit {
   depts: SelectItem[];
 
   fourthCtrl = '';
-  txtdPassword = '';
-  txtdPin = '';
+  
   searchDegree = '';
   searchcertification = '';
 
@@ -69,10 +116,20 @@ export class JobprofileComponent implements OnInit {
     this.formGroup5 = this._formBuilder.group({
       fifthCtrl: ['', Validators.required]
     });
+    this.formGroup6 = this._formBuilder.group({
+      sixthCtrl: ['', Validators.required]
+    });
+    
+
+    this.jobsList = [
+        {label: 'Head Quarter', value: 'Head Quarter'},
+        {label: 'Lahore Branch', value: 'Lahore Branch'}
+    ]
+
 
     this.offices = [
-      {label: 'Head Quarter', value: 'Head Quarter'},
-      {label: 'Lahore Branch', value: 'Lahore Branch'}
+        {label: 'Head Quarter', value: 'Head Quarter'},
+        {label: 'Lahore Branch', value: 'Lahore Branch'}
     ];
     
     this.depts = [
@@ -167,4 +224,7 @@ export class JobprofileComponent implements OnInit {
       this.show=false;
     }
   }
+
+  clear(){};
+
 }

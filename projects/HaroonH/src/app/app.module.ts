@@ -30,6 +30,7 @@ import { TestComponent } from './components/test/test.component';
 import { TrainingrequirementsComponent } from './components/trainingrequirements/trainingrequirements.component';
 import { YearcalendarComponent } from './components/yearcalendar/yearcalendar.component';
 
+//import { SearchPipe } from './shared/pipe-filters/pipe-search';
 import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
 
 

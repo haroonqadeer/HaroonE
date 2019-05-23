@@ -12,7 +12,7 @@ declare var $: any;
 })
 export class LeavetypeComponent implements OnInit {
 
-  serverUrl = "http://localhost:25986/";
+  serverUrl = "http://localhost:1001/";
   tokenKey = "token";
 
   httpOptions = {
