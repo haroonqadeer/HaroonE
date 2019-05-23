@@ -54,10 +54,26 @@ export class LeaverulesComponent implements OnInit {
     txtdPin = '';
 
 
-    constructor(
-        private toastr: ToastrManager, 
-        private http: HttpClient
-        ) {}
+
+
+
+
+
+    leaveId = '';
+    dtpApplied = '';
+
+    selectedType: string[] = [];
+    selectedProfile: string[] = [];
+    selectedAllowance: string[] = [];
+    selectedDeduction: string[] = [];
+    profiles: SelectItem[];
+    types: SelectItem[];
+    allowances: SelectItem[];
+
+    constructor(private toastr: ToastrManager, private http: HttpClient) {
+        this.leaveTypeList = [];
+        this.leaveNatureList = [];
+    }
 
     ngOnInit() {
 

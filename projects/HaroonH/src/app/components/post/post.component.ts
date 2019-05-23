@@ -6,12 +6,13 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 
 declare var $: any;
 
+
+
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss'],
-
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
 
@@ -69,9 +70,12 @@ export class PostComponent implements OnInit {
 
   public chartData = []
 
-  constructor(private toastr: ToastrManager,
+
+  constructor(
+    private toastr: ToastrManager,
     private app: AppComponent,
-    private http: HttpClient) { }
+    private http: HttpClient
+  ) { }
 
   ngOnInit() {
     // this.getOffices();
@@ -675,6 +679,7 @@ export class PostComponent implements OnInit {
     //     this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
     //   }
     // }
+
   }
 
 }
