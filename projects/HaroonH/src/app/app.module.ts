@@ -61,7 +61,7 @@ import { DropdownModule } from 'primeng/dropdown';
     TestComponent,
     TrainingrequirementsComponent,
     YearcalendarComponent,
-    //SearchPipe
+    SearchPipe
   ],
   imports: [
     BrowserModule,
