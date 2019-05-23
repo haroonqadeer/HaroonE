@@ -138,7 +138,6 @@ export class AppComponent {
     this.router.navigate(['']);
     this.showDiv();
   }
-
   public printCSS() {
 
     var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
