@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+//import { AppComponent } from '../../app.component';
 import { AppComponent } from 'src/app/app.component';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -15,7 +16,8 @@ declare var $: any;
 })
 export class PostComponent implements OnInit {
 
-  serverUrl = "http://localhost:3001/";
+  //serverUrl = "http://localhost:3001/";
+  serverUrl = "http://192.168.200.19:3003/";
 
   //ngprime organization chart 
   data1: TreeNode[];
@@ -74,14 +76,16 @@ export class PostComponent implements OnInit {
     private http: HttpClient) { }
 
   ngOnInit() {
-    // this.getOffices();
-    // this.getPost();
-    // this.getJobType();
-    // this.getBPS();
-    // this.getJobNature();
+    this.getOffices();
+    this.getPost();
+    this.getJobType();
+    this.getBPS();
+    this.getJobNature();
   }
 
   onNodeSelect(event) {
+
+    this.clearPost();
 
     this.orgChartDesigName = event.node.label;
     //alert(event.node.label)
@@ -359,7 +363,7 @@ export class PostComponent implements OnInit {
               jobNatureCd: this.jobNature,
               payGradeCd: this.BPS,
               JobPostLocationCd: this.officeName,
-              jobPostDeptCd: this.sectionName,
+              jobPostDeptCd: this.orgChartDeptCd,
               DesigCd: this.designation,
               jobDesigName: this.jobTitle,
               ManagerJobDesigID: this.orgChartDesigID,
@@ -515,6 +519,15 @@ export class PostComponent implements OnInit {
     //alert(this.sectionName);
   }
 
+  clearPost() {
+
+    this.jobNature = '';
+    this.jobType = '';
+    this.jobTitle = '';
+    this.BPS = '';
+    this.designation = '';
+
+  }
   printDiv() {
 
     // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";

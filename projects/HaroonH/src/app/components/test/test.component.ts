@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-
-import { AppComponent } from 'src/app/app.component';
 
 declare var $: any;
 @Component({
@@ -12,7 +11,8 @@ declare var $: any;
 })
 export class TestComponent implements OnInit {
 
-  serverUrl = "http://localhost:3088/";
+  // serverUrl = "https://localhost:3002/";
+  serverUrl = "http://192.168.200.19:3008/";
 
   subjectGroup = "";
   subjectName = "";

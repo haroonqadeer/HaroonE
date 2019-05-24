@@ -13,8 +13,10 @@ declare var $: any;
 })
 export class LeavetypeComponent implements OnInit {
 
-    serverUrl = "http://localhost:1001/";
+    // serverUrl = "http://localhost:1001/";
+    serverUrl = "http://192.168.200.19:3005/";
     tokenKey = "token";
+
 
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
