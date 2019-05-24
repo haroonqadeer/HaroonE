@@ -2,10 +2,11 @@
 <div class="topnav boxShadow">
   <div>
     <!--class="container" -->
-    <div class="logo"><img src="../../../assets/images/skills.svg"></div>
+    <span class="fa iconContainer">
+      <span class="fa icon-hr-performanceStandard" > </span>
+    </span>
     <h1> Performance Standards</h1>
 
-    <!-- (click)="downloadExcel()" -->
     <a class="pointerCursor">
       <i class="fa fa-file-excel-o"></i>
       Excel
@@ -36,15 +37,14 @@
 
   </div>
 </div>
-<br /><br />
 <!-- end menubar buttons -->
 
 
 <!--start container-->
-<div class="container mat-elevation-z8 bgWhite">
+<div class="myContainer mat-elevation-z8 bgWhite">
 
   <!--Start search textbox Row-->
-  <div class="row">
+  <div class="row tab-margin">
     <div class="col-md-12">
       <mat-form-field class="fullwidth">
         <input matInput [(ngModel)]="tblSearch" placeholder="Search">

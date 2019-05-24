@@ -1,5 +1,6 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import './assets/font.scss';
+@import './assets/icons.scss';
 
 
 /* Common CSS Start */
@@ -1411,8 +1412,8 @@ h1 {
   display: inline;
   font-size: 21px;
   position: absolute;
-  left: 90px;
-  padding: 5px 0 0 0;
+  //padding: 0 0 0 0;
+  margin: 9px 0 0 0 !important;
 }
 
 .topnav h2 {
@@ -1440,7 +1441,7 @@ h1 {
   color: #4E6FB5 !important;
   background-color: #fff;
   text-align: center;
-  margin: 7px 5px 0 0;
+  margin: 9px 5px 0 0;
   padding: 6px 15px;
   text-decoration: none !important;
   font-size: 12px;
@@ -1524,28 +1525,11 @@ thead th {
 }
 
 
-// .logixIcon {
-//   border: 1px solid red;
-//   width: 30px;
-//   height: 30px;
-//   //position: absolute;
-//   //margin: 5px 0 0 50px;
-//   //color: #fff !important;
-//   //fill: #fff;
-//   background-image: url(./assets/images/skills.svg);
-//   background-repeat: no-repeat;
-//   background-size: 30px 30px;
-//   background-position: center;
-//   fill: #fff;
-//   color: #fff;
-// }
 
+.myContainer{
+    border:0px solid red;
+    width: 98%;
+    margin-left: 1% !important;
+    margin-top: 1.5em !important;
 
-// .logixIcon .icon-search{
-//   background-image: url(./assets/images/skills.svg);
-//   background-repeat: no-repeat;
-//   background-size: 30px 30px;
-//   background-position: center; 
-//   fill: #fff;
-//   color: #fff;
-//}
+}
