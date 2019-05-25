@@ -178,7 +178,7 @@ export class SkillComponent implements OnInit {
 
           //alert(data.msg);
 
-          if (data.msg == undefined) {
+          if (data.msg == "") {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillModal').modal('hide');
@@ -225,7 +225,7 @@ export class SkillComponent implements OnInit {
             this.getSkillCriteria();
             return false;
           }
-          else if (data.msg == "skill Criteria Inserted Successfully") {
+          else if (data.msg == "Skill Criteria Inserted Successfully") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillModal').modal('hide');
@@ -251,7 +251,7 @@ export class SkillComponent implements OnInit {
       return false;
     }
     else if (this.sklGroupDesc == "") {
-      this.toastr.errorToastr('Please Enter skill Title', 'Error', { toastTimeout: (2500) });
+      this.toastr.errorToastr('Please Enter Description', 'Error', { toastTimeout: (2500) });
       return false;
     }
     else {
@@ -321,7 +321,7 @@ export class SkillComponent implements OnInit {
             //this.getSkillCriteria();
             return false;
           }
-          else if (data.msg == "skill Group Inserted Successfully") {
+          else if (data.msg == "Skill Group Inserted Successfully") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillGroupModal').modal('hide');

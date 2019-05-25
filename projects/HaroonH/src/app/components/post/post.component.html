@@ -205,11 +205,10 @@
         <!--end of row #1 -->
         <br />
         <div class="row">
-          <div class="col-md-4">
-            <button mat-raised-button color="primary" (click)="getOrganoGram()">Organo Gram</button>
-          </div>
-          <div class="col-md-3">
+          <div class="col-md-8">
+            <button mat-raised-button (click)="getOrganoGram()">Organo Gram</button>
             <button mat-raised-button color="primary" (click)="addPost()" *ngIf="btnAddPost">Add New Post</button>
+            <button mat-raised-button color="warn" (click)="clear()">Reset</button>
           </div>
           <div class="offset-md-1 col-md-4">
             <mat-form-field *ngIf="cmbPost">
