@@ -28,7 +28,7 @@
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
     "highcharts": "^7.1.1",
-    "igniteui-angular": "^7.3.0",
+    "igniteui-angular": "^7.3.2",
     "jquery": "^3.4.1",
     "ng-circle-progress": "^1.4.0",
     "ng6-toastr-notifications": "^1.0.4",

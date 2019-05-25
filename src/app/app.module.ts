@@ -17,7 +17,7 @@ import { AppComponent } from './app.component';
 import { HRSharedModule } from 'projects/HaroonH/src/app/app.module';
 import { ConfigSharedModule } from 'projects/HaroonConfig/src/app/app.module';
 import { NavComponent } from './components/nav/nav.component';
-
+import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ToastrModule } from 'ng6-toastr-notifications';
@@ -58,9 +58,10 @@ import { SearchPipe } from './shared/pipe-filters/pipe-search';
     NgxPaginationModule,
     InputTextModule,
     DropdownModule,
+    IgxGridModule
     //SearchPipe
   ],
-  providers: [NavComponent],
+  providers: [NavComponent,IgxExcelExporterService, IgxCsvExporterService],
   bootstrap: [AppComponent],
   entryComponents: [NavComponent],
 })
