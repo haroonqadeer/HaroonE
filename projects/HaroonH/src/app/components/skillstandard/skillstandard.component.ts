@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ToastrManager } from 'ng6-toastr-notifications';
 
-import { AppComponent } from 'src/app/app.component';
+import { AppComponent } from '../../app.component';
 //import * as jsPDF from 'jspdf';
 import {
   IgxExcelExporterOptions,
@@ -539,7 +539,7 @@ export class SkillstandardComponent implements OnInit {
 
     // var tableCss = "table {width: 100%; border-collapse: collapse;}    table thead tr th {text-align: left; font-family: Arial, Helvetica, sans-serif; font-weight: bole; border-bottom: 1px solid black; margin-left: -3px;}     table tbody tr td {font-family: Arial, Helvetica, sans-serif; border-bottom: 1px solid #ccc; margin-left: -3px; height: 33px;}";
 
-    //var printCss = this.app.printCSS();
+    var printCss = this.app.printCSS();
 
 
     //printCss = printCss + "";
@@ -554,7 +554,7 @@ export class SkillstandardComponent implements OnInit {
     frameDoc.document.open();
 
     //Create a new HTML document.
-    //frameDoc.document.write('<html><head><title>DIV Contents</title>' + "<style>" + printCss + "</style>");
+    frameDoc.document.write('<html><head><title>DIV Contents</title>' + "<style>" + printCss + "</style>");
 
 
     //Append the external CSS file.  <link rel="stylesheet" href="../../../styles.scss" />  <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
