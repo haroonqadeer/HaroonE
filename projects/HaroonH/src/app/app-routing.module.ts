@@ -52,7 +52,7 @@ const routes: Routes = [
   {
     path: 'HR/test',
     component: TestComponent
-  }, 
+  },
   {
     path: 'HR/employee',
     component: EmpolyeeprofileComponent
@@ -85,9 +85,9 @@ const routes: Routes = [
     path: 'HR/performanceEvaluation',
     component: PerformanceEvaComponent
   },
-  { 
-    path: 'HR', 
-    redirectTo: 'HR/home' 
+  {
+    path: 'HR',
+    redirectTo: 'HR/home'
   }
 ];
 

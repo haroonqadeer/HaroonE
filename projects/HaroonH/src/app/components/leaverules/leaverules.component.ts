@@ -3,6 +3,9 @@ import { SelectItem } from 'primeng/api';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
+import { AppComponent } from 'src/app/app.component';
+
+
 declare var $: any;
 
 @Component({
@@ -56,9 +59,10 @@ export class LeaverulesComponent implements OnInit {
 
 
     constructor(
-        private toastr: ToastrManager, 
-        private http: HttpClient
-        ) {}
+        private toastr: ToastrManager,
+        private http: HttpClient,
+        private app: AppComponent
+    ) { }
 
     ngOnInit() {
 
@@ -367,5 +371,58 @@ export class LeaverulesComponent implements OnInit {
         }
         this.order = value;
     }
+
+    printDiv() {
+
+        // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
+
+        // var cssHeading = ".cssHeading {font-size: 25px; font-weight: bold;}";
+        // var cssAddress = ".cssAddress {font-size: 16px; }";
+        // var cssContact = ".cssContact {font-size: 16px; }";
+
+        // var tableCss = "table {width: 100%; border-collapse: collapse;}    table thead tr th {text-align: left; font-family: Arial, Helvetica, sans-serif; font-weight: bole; border-bottom: 1px solid black; margin-left: -3px;}     table tbody tr td {font-family: Arial, Helvetica, sans-serif; border-bottom: 1px solid #ccc; margin-left: -3px; height: 33px;}";
+
+        var printCss = this.app.printCSS();
+
+
+        //printCss = printCss + "";
+
+        var contents = $("#printArea").html();
+
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>DIV Contents</title>' + "<style>" + printCss + "</style>");
+
+
+        //Append the external CSS file.  <link rel="stylesheet" href="../../../styles.scss" />  <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+        frameDoc.document.write('<style type="text/css" media="print">/*@page { size: landscape; }*/</style>');
+
+        frameDoc.document.write('</head><body>');
+
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+
+        frameDoc.document.close();
+
+
+        //alert(frameDoc.document.head.innerHTML);
+        // alert(frameDoc.document.body.innerHTML);
+
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+    }
+
+
+
 
 }

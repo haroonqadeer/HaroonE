@@ -3,7 +3,7 @@
   <div>
     <!--class="container" -->
     <span class="fa iconContainer">
-      <span class="fa icon-hr-post" > </span>
+      <span class="fa icon-hr-post"> </span>
     </span>
     <h1> Post</h1>
 
@@ -66,7 +66,7 @@
       <tbody>
         <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
         <tr class='d-flex'
-          *ngFor="let post of posts | search:'offices,department,section,jobTitle,qty':postSearch let i=index">
+          *ngFor="let post of posts | search:'offices,department,section,jobTitle,qty':postSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' } let i=index">
           <td class='col-1 text-center'>{{i+1}}</td>
           <td class='col-3'>{{post.office}}</td>
           <td class='col-2'>{{post.department}}</td>
@@ -76,6 +76,24 @@
         </tr>
       </tbody>
     </table>
+    <!-- Pagination Starts -->
+    <div class="row tab-margin">
+      <div class="col-md-10">
+        <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div class="col-md-2 text-right">
+        <mat-form-field class="fullwidth pagenateList">
+          <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
+            <mat-option value="5">5</mat-option>
+            <mat-option value="10">10</mat-option>
+            <mat-option value="25">25</mat-option>
+            <mat-option value="50">50</mat-option>
+            <mat-option value="100">100</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- Pagination Ends -->
   </div>
   <!--end table row-->
 </div>
@@ -83,6 +101,60 @@
 
 
 <br />
+
+
+<!-- Hidden Table for Print and PDF files starts-->
+<div class="container printArea" id="printArea" [hidden]=true>
+  <div class="printDiv">
+
+    <!--Start heading table -->
+    <table>
+      <tr>
+        <td width="15%" style="border:none;">
+          <img src="../../../assets/images/logo.png" width="135px">
+        </td>
+
+        <td style="border:none;">
+          <div class="commonCss cssHeading">Logix Solutions</div>
+          <div class="commonCss cssAddress">Office #209, 2nd Floor Ahmed Plaza, Rawalpindi Road Fateh Jang.</div>
+          <div class="commonCss cssContact">Mobile: 0313-5300471, Ph. 057-2212704</div>
+        </td>
+      </tr>
+    </table>
+    <!--End heading table -->
+
+    <br /><br />
+
+    <!--Start table Row-->
+    <div class="row">
+      <table>
+        <thead>
+          <tr class="d-flex">
+            <th class='col-1 text-center'>Sr #</th>
+            <th class='col-3'>Office</th>
+            <th class='col-2'>Department</th>
+            <th class='col-3'>Section</th>
+            <th class='col-2'>Job Title</th>
+            <th class='col-1 text-center'>Qty</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="d-flex"
+            *ngFor="let post of posts | search:'offices,department,section,jobTitle,qty':postSearch let i=index">
+            <td class='col-1 text-center'>{{i+1}}</td>
+            <td class='col-3'>{{post.office}}</td>
+            <td class='col-2'>{{post.department}}</td>
+            <td class='col-3'>{{post.section}}</td>
+            <td class='col-2'>{{post.designation}}</td>
+            <td class='col-1 text-center'>{{post.desigCount}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end table row -->
+  </div>
+</div>
+<!-- Hidden Table for Print and PDF files ends-->
+
 
 <!--bootstrap modal window -->
 

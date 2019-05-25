@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ToastrManager } from 'ng6-toastr-notifications';
 
-import { AppComponent } from '../../app.component';
+//import { AppComponent } from '../../app.component';
+import { AppComponent } from 'src/app/app.component';
+
 // import * as jsPDF from 'jspdf';
 import {
   IgxExcelExporterOptions,

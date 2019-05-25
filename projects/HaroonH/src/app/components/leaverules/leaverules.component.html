@@ -3,7 +3,7 @@
   <div>
     <!--class="container" -->
     <span class="fa iconContainer">
-      <span class="fa icon-hr-leaveRule" > </span>
+      <span class="fa icon-hr-leaveRule"> </span>
     </span>
     <h1> Leave Rules</h1>
 
@@ -26,7 +26,7 @@
     </a>
 
     <!-- (click)="printDiv()" -->
-    <a class="pointerCursor">
+    <a class="pointerCursor" (click)="printDiv()">
       <i class="fa fa-print"></i>
       Print
     </a>
@@ -146,6 +146,56 @@
 </div>
 <!--end container -->
 
+
+<!-- Hidden Table for Print and PDF files starts-->
+<div class="container printArea" id="printArea" [hidden]=true>
+  <div class="printDiv">
+
+    <!--Start heading table -->
+    <table>
+      <tr>
+        <td width="15%" style="border:none;">
+          <img src="../../../assets/images/logo.png" width="135px">
+        </td>
+
+        <td style="border:none;">
+          <div class="commonCss cssHeading">Logix Solutions</div>
+          <div class="commonCss cssAddress">Office #209, 2nd Floor Ahmed Plaza, Rawalpindi Road Fateh Jang.</div>
+          <div class="commonCss cssContact">Mobile: 0313-5300471, Ph. 057-2212704</div>
+        </td>
+      </tr>
+    </table>
+    <!--End heading table -->
+
+    <br /><br />
+
+    <!--Start table Row-->
+    <div class="row">
+      <table>
+        <thead>
+          <tr class="d-flex">
+            <th class='col-1 text-center'>Sr #</th>
+            <th class='col-3 text-left'>Leave Type</th>
+            <th class='col-2 text-left'>Nature</th>
+            <th class='col-3 text-center'>Leave Limit</th>
+            <th class='col-3 text-center'>Per month/annum</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="d-flex"
+            *ngFor="let item of leaveRuleList | search:'leaveTypeName,leaveNatureName,leaveLmtAmoUNt,leaveLmtName' :tblSearch  let i=index">
+            <td class='col-1 text-center'>{{i + 1}}</td>
+            <td class='col-3'>{{item.leaveTypeName}}</td>
+            <td class='col-2'>{{item.leaveNatureName}}</td>
+            <td class='col-3'>{{item.leaveLmtAmoUNt}}</td>
+            <td class='col-3'>{{item.leaveLmtName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end table row -->
+  </div>
+</div>
+<!-- Hidden Table for Print and PDF files ends-->
 
 
 <!-- Start Modal Window to delete leave rule -->
@@ -421,8 +471,8 @@
                   <b>Allowance (per day): </b>
                 </div>
                 <div class="col-md-4 text-right">
-                  <p-multiSelect [options]=""  [panelStyle]="{minWidth:'12em'}"
-                    [style]="{'width':'100%'}"></p-multiSelect>
+                  <p-multiSelect [options]="" [panelStyle]="{minWidth:'12em'}" [style]="{'width':'100%'}">
+                  </p-multiSelect>
                 </div>
                 <div class="col-md-3 text-right">
                   <h5>8%</h5>
@@ -436,8 +486,8 @@
                   <b>Deducion (per day): </b>
                 </div>
                 <div class="col-md-4 text-right">
-                  <p-multiSelect [options]=""  [panelStyle]="{minWidth:'12em'}"
-                    [style]="{'width':'100%'}"></p-multiSelect>
+                  <p-multiSelect [options]="" [panelStyle]="{minWidth:'12em'}" [style]="{'width':'100%'}">
+                  </p-multiSelect>
                 </div>
                 <div class="col-md-3 text-right">
                   <h5>7%</h5>
