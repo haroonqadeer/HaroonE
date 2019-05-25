@@ -12,8 +12,8 @@ declare var $: any;
 export class TestComponent implements OnInit {
 
   // serverUrl = "https://localhost:3002/";
-  // serverUrl = "http://192.168.200.57:3008/";
-  serverUrl = "https://localhost:3002/";
+  serverUrl = "http://192.168.200.19:3008/";
+  // serverUrl = "https://localhost:3002/";
 
   subjectGroup = "";
   subjectName = "";
@@ -279,7 +279,7 @@ export class TestComponent implements OnInit {
       this.toastr.errorToastr('Please enter Question', 'Error', { toastTimeout: (2500) });
       return;
     } else if (this.quesMarks == '') {
-      this.toastr.errorToastr('Please enter option 1', 'Error', { toastTimeout: (2500) });
+      this.toastr.errorToastr('Please enter Marks', 'Error', { toastTimeout: (2500) });
       return;
     } else if (this.opt1 == '') {
       this.toastr.errorToastr('Please enter option 1', 'Error', { toastTimeout: (2500) });

@@ -339,9 +339,10 @@ export class PostComponent implements OnInit {
             if (data.msg != undefined) {
               this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
               this.getPost();
+              this.getOrganoGram();
               $('#jobModal').modal('hide');
               //this.app.hideSpinner();
-              this.clearJob();
+              //this.clearJob();
               return false;
             } else {
               this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
@@ -377,9 +378,10 @@ export class PostComponent implements OnInit {
               if (data.msg != undefined) {
                 this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                 this.getPost();
+                this.getOrganoGram();
                 $('#jobModal').modal('hide');
                 //this.app.hideSpinner();
-                this.clearJob();
+                //this.clearJob();
                 return false;
               } else {
                 this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
@@ -426,9 +428,10 @@ export class PostComponent implements OnInit {
               if (data.msg != undefined) {
                 this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                 this.getPost();
+                this.getOrganoGram();
                 $('#jobModal').modal('hide');
                 //this.app.hideSpinner();
-                this.clearJob();
+                //this.clearJob();
                 return false;
               } else {
                 this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
@@ -466,9 +469,10 @@ export class PostComponent implements OnInit {
               if (data.msg != undefined) {
                 this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                 this.getPost();
+                this.getOrganoGram();
                 $('#jobModal').modal('hide');
                 //this.app.hideSpinner();
-                this.clearJob();
+                //this.clearJob();
                 return false;
               } else {
                 this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });

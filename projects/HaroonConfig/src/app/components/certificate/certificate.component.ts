@@ -251,7 +251,7 @@ export class CertificateComponent implements OnInit {
       return false;
     }
     else if (this.certfctGroupDesc == "") {
-      this.toastr.errorToastr('Please Enter certificate Title', 'Error', { toastTimeout: (2500) });
+      this.toastr.errorToastr('Please Enter Description', 'Error', { toastTimeout: (2500) });
       return false;
     }
     else {

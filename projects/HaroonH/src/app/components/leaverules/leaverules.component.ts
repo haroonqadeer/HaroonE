@@ -332,8 +332,9 @@ export class LeaverulesComponent implements OnInit {
                     return false;
                 } else {
                     this.toastr.successToastr('Record Deleted Successfully', 'Success!', { toastTimeout: (2500) });
-                    $('#newRuleModal').modal('hide');
+                    $('#deleteModal').modal('hide');
                     this.getLeaveRules();
+                    this.clear();
                     return false;
                 }
             });
