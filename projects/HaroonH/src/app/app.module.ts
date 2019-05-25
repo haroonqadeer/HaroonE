@@ -38,6 +38,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 
+import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
 
 @NgModule({
   declarations: [
@@ -77,16 +78,17 @@ import { DropdownModule } from 'primeng/dropdown';
     OrderModule,
     NgxPaginationModule,
     InputTextModule,
-    DropdownModule
+    DropdownModule,
+    IgxGridModule
   ],
-  providers: [],
+  providers: [IgxExcelExporterService, IgxCsvExporterService],
   bootstrap: [AppComponent],
   entryComponents: [ErpBottomSheetComponent],
 })
 export class AppModule { }
 
 @NgModule({})
-export class HRSharedModule{
+export class HRSharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: AppModule,
