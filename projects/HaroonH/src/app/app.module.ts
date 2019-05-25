@@ -30,8 +30,6 @@ import { TestComponent } from './components/test/test.component';
 import { TrainingrequirementsComponent } from './components/trainingrequirements/trainingrequirements.component';
 import { YearcalendarComponent } from './components/yearcalendar/yearcalendar.component';
 
-import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
-
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ToastrModule } from 'ng6-toastr-notifications';
@@ -79,17 +77,16 @@ import { DropdownModule } from 'primeng/dropdown';
     OrderModule,
     NgxPaginationModule,
     InputTextModule,
-    DropdownModule,
-    IgxGridModule
+    DropdownModule
   ],
-  providers: [IgxExcelExporterService, IgxCsvExporterService],
+  providers: [],
   bootstrap: [AppComponent],
   entryComponents: [ErpBottomSheetComponent],
 })
 export class AppModule { }
 
 @NgModule({})
-export class HaroonHSharedModule {
+export class HRSharedModule{
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: AppModule,

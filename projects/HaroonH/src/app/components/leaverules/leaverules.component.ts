@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { OrderPipe } from 'ngx-order-pipe';
 
 declare var $: any;
 
@@ -13,7 +12,8 @@ declare var $: any;
 })
 export class LeaverulesComponent implements OnInit {
 
-    serverUrl = "http://localhost:13759/";
+    // serverUrl = "http://localhost:13759/";
+    serverUrl = "http://192.168.200.19:3004/";
     tokenKey = "token";
 
     httpOptions = {
@@ -55,26 +55,10 @@ export class LeaverulesComponent implements OnInit {
     txtdPin = '';
 
 
-
-
-
-
-
-    leaveId = '';
-    dtpApplied = '';
-
-    selectedType: string[] = [];
-    selectedProfile: string[] = [];
-    selectedAllowance: string[] = [];
-    selectedDeduction: string[] = [];
-    profiles: SelectItem[];
-    types: SelectItem[];
-    allowances: SelectItem[];
-
-    constructor(private toastr: ToastrManager, private http: HttpClient) {
-        this.leaveTypeList = [];
-        this.leaveNatureList = [];
-    }
+    constructor(
+        private toastr: ToastrManager, 
+        private http: HttpClient
+        ) {}
 
     ngOnInit() {
 

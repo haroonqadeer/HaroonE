@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrManager } from 'ng6-toastr-notifications';
 
-import { AppComponent } from '../../app.component';
+import { AppComponent } from 'src/app/app.component';
 import {
   IgxExcelExporterOptions,
   IgxExcelExporterService,
@@ -35,7 +35,8 @@ declare var $: any;
 })
 export class DegreeeComponent implements OnInit {
 
-  serverUrl = "https://localhost:8001/";
+  //serverUrl = "http://localhost:28349/";
+  serverUrl = "http://192.168.200.19:3002/";
   tokenKey = "token";
 
   httpOptions = {

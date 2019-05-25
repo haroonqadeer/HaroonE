@@ -60,3 +60,14 @@ import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "i
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+@NgModule({})
+export class ConfigSharedModule{
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AppModule,
+      providers: []
+    }
+  }
+}

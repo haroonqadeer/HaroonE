@@ -1,3 +1,501 @@
-<p>
-  test works!
-</p>
+<!-- start menubar buttons -->
+<div class="topnav boxShadow">
+  <div>
+    <!--class="container" -->
+    <span class="fa iconContainer">
+      <span class="fa icon-hr-test" > </span>
+    </span>
+    <h1> Test</h1>
+
+    <a class="pointerCursor" (click)="downloadExcel()">
+      <i class="fa fa-file-excel-o"></i>
+      Excel
+    </a>
+
+    <a class="pointerCursor" (click)="downloadCSV()">
+      <i class="fa fa-file-text-o"></i>
+      CSV
+    </a>
+
+    <a class="pointerCursor" (click)="downPDF()">
+      <i class="fa fa-file-pdf-o"></i>
+      PDF
+    </a>
+
+    <a class="pointerCursor" (click)="printDiv()">
+      <i class="fa fa-print"></i>
+      Print
+    </a>
+
+    <a class="pointerCursor" data-toggle="modal" data-target="#addSubject" (click)="clear()">
+      <i class="fa fa-plus-square"></i>
+      Add New
+    </a>
+
+  </div>
+</div>
+<!-- end menubar buttons -->
+
+<div class="myContainer mat-elevation-z8 bgWhite">
+
+  <!--Start search textbox Row-->
+  <div class="row tab-margin">
+    <div class="col-md-12">
+      <mat-form-field class="fullwidth">
+        <input matInput placeholder="Search">
+      </mat-form-field>
+      <span class="fab fa-accessible-icon"></span>
+    </div>
+  </div>
+  <!--end search textbox Row-->
+
+
+  <!--start table row-->
+    <div class="example-table-container">
+      <table class="table table-striped">
+        <thead>
+          <tr class='d-flex'>
+            <th class='col-2 text-center'>Sr #</th>
+            <th class='col-4'>Subject</th>
+            <th class='col-3 text-center'>Num of Questions</th>
+            <th class='col-3 text-center'>Job Profile</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+          <tr class='d-flex' *ngFor="let item of testList let i=index">
+            <td class='col-2 text-center'>{{i+1}}</td>
+            <td class='col-4'>{{item.testSbjctName}}</td>
+            <td class='col-3 text-center'>
+              <a href="" data-toggle="modal" data-target="#questionsModal"
+                (click)="getJobQuestion(item)">{{item.questionCount}}</a>
+            </td>
+            <td class='col-3 text-center'>
+              <a href="" data-toggle="modal" data-target="#jobProfileModal"
+                (click)="getJobProfile(item)">{{item.jobCount}}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  <!--end table row-->
+</div>
+<!--end container -->
+
+
+<br />
+
+<!--bootstrap modal window -->
+
+
+
+<!-- Start Modal Window -->
+<div class="modal fade" id="questionsModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Number of Questions</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+
+        <!--start row 1-->
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <button mat-raised-button color="primary" (click)="addQuestion()" data-toggle="modal"
+              data-target="#addQuestionsModal">Add New</button>
+          </div>
+        </div>
+        <!--end row 1-->
+
+        <br />
+
+        <!--Start row 2-->
+        <div class="row">
+          <div class="col-md-12">
+            <!--start table row-->
+            <div class="example-container mat-elevation-z8">
+              <div class="example-table-container">
+                <table class="table table-striped">
+                  <thead>
+                    <tr class='d-flex'>
+                      <th class='col-1 text-center'>Sr #</th>
+                      <th class='col-6 text-center'>Question</th>
+                      <th class='col-1 text-center'>Marks</th>
+                      <th class='col-1 text-center'>Options</th>
+                      <th class='col-1 text-center'>Answer</th>
+                      <th class='col-1 text-center'>Edit</th>
+                      <th class='col-1 text-center'>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                    <tr class='d-flex' *ngFor="let item of testQuestionListCount let i=index">
+                      <td class='col-1 text-center'>{{i+1}}</td>
+                      <td class='col-6 text-center'>{{item.testQuesText}}</td>
+                      <td class='col-1 text-center'>
+                        {{item.marks}}
+                      </td>
+                      <td class='col-1 text-center'>
+                        {{item.options}}
+                      </td>
+                      <td class='col-1 text-center'>
+                        {{item.answer}}
+                      </td>
+                      <td class='col-1 text-center'>
+                        <span class="fa fa-edit pointerCursor" (click)="editQuestion(item)" data-toggle="modal"
+                          data-target="#addQuestionsModal"></span>
+                      </td>
+                      <td class='col-1 text-center'>
+                        <span class="fa fa-trash pointerCursor" (click)="deleteQuestion(item)" data-toggle="modal"
+                          data-target="#deleteModal"></span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!--end table row-->
+          </div>
+        </div>
+        <!--end row 2-->
+
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Modal Window  -->
+
+<!-- Start edit subject modal -->
+<div class="modal fade" id="jobProfileModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Job Profile</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--start row 1  -->
+        <!-- <label [(ngModel)]="lblSubjectID"></label> -->
+        <div class="row">
+          <div class="col-md-2">
+            <br />Subject:
+          </div>
+          <div class="col-md-2">
+            <br />
+            <h5 [(ngModel)]="lblSubject">{{lblSubject}}</h5>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field>
+              <mat-select placeholder="Job Profile" [(ngModel)]="jobProfile">
+                <mat-option *ngFor="let item of jobDesigList" [value]="item.jobDesigID">
+                  {{item.jobDesigName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="offset-md-1 col-md-2">
+            <br />
+            <button mat-raised-button color="primary" (click)="addJobProfile()">Add</button>
+          </div>
+        </div>
+        <!--end row 1-->
+
+        <br />
+        <div class="example-table-container">
+          <table class="table table-striped">
+            <thead>
+              <tr class='d-flex'>
+                <th class='col-1'>Sr #</th>
+                <th class='col-9'>Job Profile</th>
+                <th class='col-2 text-center'>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+              <tr class='d-flex' *ngFor="let item of jobProfileTestList let i=index">
+                <td class='col-1'>{{i+1}}</td>
+                <td class='col-9'>{{item.jobDesigName}}</td>
+                <td class='col-2 text-center'>
+                  <span class="fa fa-trash pointerCursor" (click)="remove(item)"></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br />
+        <!--start row 2  -->
+        <div class="row">
+          <div class="col-md-12">
+            <button mat-raised-button color="primary" (click)="saveJobProfile()">Save</button>
+          </div>
+        </div>
+        <!--end row 2-->
+
+        <hr />
+
+        <h4>Saved Data</h4>
+
+        <!--start table row-->
+        <div class="example-container mat-elevation-z8">
+          <div class="example-table-container">
+            <table class="table table-striped">
+              <thead>
+                <tr class='d-flex'>
+                  <th class='col-1'>Sr #</th>
+                  <th class='col-9'>Job Profile</th>
+                  <th class='col-2 text-center'>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                <tr class='d-flex' *ngFor="let item of jobProfileList let i=index">
+                  <td class='col-1'>{{i+1}}</td>
+                  <td class='col-9'>{{item.jobDesigName}}</td>
+                  <td class='col-2 text-center'>
+                    <span class="fa fa-trash pointerCursor" (click)="deleteJobProfile(item)" data-toggle="modal"
+                      data-target="#deleteModal"></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--end table row-->
+        <br />
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End edit subject modal -->
+
+<!-- Start Add Questions  modal -->
+<div class="modal fade" id="addQuestionsModal">
+  <div class="modal-dialog shadow-md-dark modal-md">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Questions</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!-- <label [(ngModel)]="lblQuestionID"></label> -->
+        <!--start row 1  -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field>
+              <input matInput placeholder="Question" [(ngModel)]="question">
+            </mat-form-field>
+          </div>
+        </div>
+        <!--end row 1-->
+        <br />
+        <!--start row 1  -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field>
+              <input matInput placeholder="Question Marks" [(ngModel)]="quesMarks">
+            </mat-form-field>
+          </div>
+        </div>
+        <!--end row 1-->
+
+        <!--start row 2  -->
+        <div class="row">
+          <!--option textbox -->
+          <div class="col-md-6">
+            <!-- Test box opt 1-->
+            <mat-form-field>
+              <input matInput placeholder="Option 1" [(ngModel)]="opt1">
+            </mat-form-field>
+
+            <br />
+
+            <!-- Test box opt 2-->
+            <mat-form-field>
+              <input matInput placeholder="Option 2" [(ngModel)]="opt2">
+            </mat-form-field>
+
+            <br />
+
+            <!-- Test box opt 3-->
+            <mat-form-field>
+              <input matInput placeholder="Option 3" [(ngModel)]="opt3">
+            </mat-form-field>
+
+            <br />
+
+            <!-- Test box opt 4-->
+            <mat-form-field>
+              <input matInput placeholder="Option 4" [(ngModel)]="opt4">
+            </mat-form-field>
+
+          </div>
+
+          <!-- option buttons -->
+          <div class="col-md-6">
+            <mat-radio-group class="example-radio-group" [(ngModel)]="optAnswer">
+              <mat-radio-button class="example-radio-button" value="1">Option 1</mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="2">Option 2</mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="3">Option 3</mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="4">Option 4</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <!--end row 2-->
+
+        <!--start row 3-->
+        <div class="row">
+          <div class="col-md-12">
+            <button mat-raised-button color="primary" (click)="saveQuestion()">Save</button>
+          </div>
+        </div>
+        <!--end row 3-->
+
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Add Questions modal -->
+
+<!-- Start add subject modal -->
+<div class="modal fade" id="addSubject">
+  <div class="modal-dialog shadow-md-dark modal-md">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Subject</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--start row #1-->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field>
+              <mat-select placeholder="Subject Group Name" [(ngModel)]="subjectGroup">
+                <mat-option *ngFor="let item of subGroupList" [value]="item.testSbjctGroupCd">
+                  {{item.testSbjctGroupName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!--start row #2-->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field>
+              <input matInput placeholder="Subject Name" [(ngModel)]="subjectName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <button mat-raised-button color="primary" (click)="saveSubject()">Save</button>
+          </div>
+        </div>
+        <!--end row #2-->
+
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End add subject modal -->
+
+<!-- Start Modal Window to delete leave rule -->
+<div class="modal fade" id="deleteModal">
+  <div class="modal-dialog shadow-lg-dark">
+    <div class="modal-content">
+      <!--start Modal body -->
+      <div class="modal-body">
+        <br>
+        <div class="hidden" ngDefaultControl></div>
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-10">
+            <h2>Delete</h2>
+          </div>
+        </div><br />
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="fullwidth">
+              <input matInput placeholder="Enter Password" type="password" [(ngModel)]="txtdPassword">
+            </mat-form-field>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="fullwidth">
+              <input matInput placeholder="Enter PIN" type="password" [(ngModel)]="txtdPin">
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-6">
+            <button mat-raised-button color="warn" (click)="delete()">Delete</button>
+          </div>
+        </div>
+        <br />
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Modal Window to delete leave rule -->
