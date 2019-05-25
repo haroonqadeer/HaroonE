@@ -29,4 +29,31 @@
     background-color: #fff;
   }
 
+  .iconContainer .icon-hr-post{
+    width: 100%;
+    height:100%;
+    mask: url(./assets/images/Post.svg) no-repeat center ;
+    background-color: #fff;
+  }
+
+  .iconContainer .icon-hr-jobprofile{
+    width: 100%;
+    height:100%;
+    mask: url(./assets/images/JobProfile.svg) no-repeat center ;
+    background-color: #fff;
+  }
   
+
+  .iconContainer .icon-hr-skillstandard{
+    width: 100%;
+    height:100%;
+    mask: url(./assets/images/skills.svg) no-repeat center ;
+    background-color: #fff;
+  }
+
+  .iconContainer .icon-hr-test{
+    width: 100%;
+    height:100%;
+    mask: url(./assets/images/exam.svg) no-repeat center ;
+    background-color: #fff;
+  }

@@ -1,5 +1,8 @@
 <mat-drawer-container class="example-container" autosize>
   <!--Menu Side Bar For Hr -->
+
+  <div class="sidenavContainer" (click)="closeNav()"></div>
+
   <div *ngIf="moduleHR" id="mySidenav" class="sidenav">
 
     <div class="row">
@@ -180,7 +183,7 @@
   
   
     <!--Menu Top Bar -->
-    <div class="example-sidenav-content">
+    <div class="example-sidenav-content" style="z-index: 100;">
       <div class="row bgBlue" *ngIf="hideDiv">
   
         <!--Ambit Logo Button -->

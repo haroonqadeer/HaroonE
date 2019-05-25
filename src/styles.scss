@@ -1412,7 +1412,6 @@ h1 {
   display: inline;
   font-size: 21px;
   position: absolute;
-  //padding: 0 0 0 0;
   margin: 9px 0 0 0 !important;
 }
 
@@ -1468,6 +1467,35 @@ h1 {
 .topnav .icon {
   display: none;
 }
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 10px;
+  background: transparent;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  //background: #f1f1f1; 
+  background-color: transparent;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #A3A7B2;
+  border-radius: 7px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+
+
 
 @media screen and (max-width: 600px) {
   .topnav a:not(:first-child) {
@@ -1533,3 +1561,5 @@ thead th {
     margin-top: 1.5em !important;
 
 }
+
+

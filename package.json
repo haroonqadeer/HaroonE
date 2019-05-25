@@ -35,6 +35,7 @@
     "ngx-bootstrap": "^4.1.1",
     "ngx-order-pipe": "^2.0.2",
     "ngx-pagination": "^3.2.1",
+    "ngx-spinner": "^7.1.4",
     "popper.js": "^1.15.0",
     "primeicons": "^1.0.0",
     "primeng": "^7.1.3",

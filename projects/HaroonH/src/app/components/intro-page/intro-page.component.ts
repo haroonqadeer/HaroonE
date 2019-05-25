@@ -8,10 +8,10 @@ import { AppComponent} from 'src/app/app.component';
 })
 export class IntroPageComponent implements OnInit {
 
-  constructor(private appComponent : AppComponent) { }
+  constructor(private app : AppComponent) { }
 
   ngOnInit() {
-    //this.appComponent.showDiv();
+    this.app.openNav();
   }
 
 }

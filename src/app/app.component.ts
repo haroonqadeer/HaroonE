@@ -5,6 +5,8 @@ import { Event, Router, NavigationStart, NavigationEnd } from "@angular/router";
 
 import { NavComponent } from './components/nav/nav.component';
 
+declare var $: any;
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -22,7 +24,7 @@ export class AppComponent {
 constructor(
     private router: Router,
     private bottomSheet: MatBottomSheet
-    ) { }
+) { }
 
     ngOnInit() {
 
@@ -127,6 +129,7 @@ constructor(
         //show menu setting
         if (showMenu == "Yes"){
             document.getElementById("mySidenav").style.width = "248px";
+            $( ".sidenavContainer" ).fadeIn( "slow", function() {});
         }
     }
 
@@ -196,6 +199,8 @@ constructor(
     /* Set the width of the side navigation to 0 */
     closeNav() {
         document.getElementById("mySidenav").style.width = "0";
+
+        $( ".sidenavContainer" ).fadeOut( "slow", function() {});
     }
 
 

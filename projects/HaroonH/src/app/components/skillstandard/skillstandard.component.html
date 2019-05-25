@@ -1,8 +1,10 @@
 <div class="topnav boxShadow">
   <div>
 
-    <div class="logo"><img src="../../../assets/images/skills.svg"></div>
-    <h1> Test</h1>
+    <span class="fa iconContainer">
+      <span class="fa icon-hr-skillstandard" > </span>
+    </span>
+    <h1> Skill Standard</h1>
 
     <a class="pointerCursor" data-toggle="modal" data-target="#editSkillModal">
       <i class="fa fa-plus-square"></i>
@@ -26,15 +28,13 @@
     </a>
   </div>
 </div>
-  
-<br />
 
 
-<div class="container bgWhite allBorder">
+<div class="myContainer mat-elevation-z8 bgWhite">
   <!--Start search textbox Row-->
-  <div class="row">
+  <div class="row tab-margin">
     <div class="col-md-12">
-      <mat-form-field>
+      <mat-form-field class="fullwidth">
         <input matInput [(ngModel)]="skillSearch" placeholder="Search">
       </mat-form-field>
       <span class="fab fa-accessible-icon"></span>

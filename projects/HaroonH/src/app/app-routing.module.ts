@@ -22,13 +22,13 @@ import { AppComponent } from 'projects/HaroonH/src/app/app.component';
 
 const routes: Routes = [
   {
+    path: '',
+    component: IntroPageComponent,
+  },
+  {
     path: 'HR/home',
     component: IntroPageComponent,
   },
-  // {
-  //   path: 'HR/home',
-  //   component: AppComponent,
-  // },
   {
     path: 'HR/dashboard',
     component: HrdashboardComponent
