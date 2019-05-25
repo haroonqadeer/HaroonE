@@ -5,8 +5,6 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 //import { AppComponent } from '../../app.component';
 import { AppComponent } from 'src/app/app.component';
 
-
-// import * as jsPDF from 'jspdf';
 import {
   IgxExcelExporterOptions,
   IgxExcelExporterService,
@@ -15,8 +13,8 @@ import {
   IgxCsvExporterOptions,
   CsvFileTypes
 } from "igniteui-angular";
-declare var $: any;
 
+declare var $: any;
 
 
 @Component({
@@ -26,7 +24,8 @@ declare var $: any;
 })
 export class SkillstandardComponent implements OnInit {
 
-  serverUrl = "https://localhost:8003/";
+  // serverUrl = "https://localhost:8003/";
+  serverUrl = "http://192.168.200.19:3007/";
   tokenKey = "token";
 
 
