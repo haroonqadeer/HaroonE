@@ -52,7 +52,7 @@ const routes: Routes = [
   {
     path: 'HR/test',
     component: TestComponent
-  }, 
+  },
   {
     path: 'HR/employee',
     component: EmpolyeeprofileComponent

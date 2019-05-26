@@ -3,7 +3,7 @@
   <div>
     <!--class="container" -->
     <span class="fa iconContainer">
-      <span class="fa icon-hr-test" > </span>
+      <span class="fa icon-hr-test"> </span>
     </span>
     <h1> Test</h1>
 
@@ -42,7 +42,7 @@
   <div class="row tab-margin">
     <div class="col-md-12">
       <mat-form-field class="fullwidth">
-        <input matInput placeholder="Search">
+        <input matInput [(ngModel)]="testSearch" placeholder="Search">
       </mat-form-field>
       <span class="fab fa-accessible-icon"></span>
     </div>
@@ -51,33 +51,52 @@
 
 
   <!--start table row-->
-    <div class="example-table-container">
-      <table class="table table-striped">
-        <thead>
-          <tr class='d-flex'>
-            <th class='col-2 text-center'>Sr #</th>
-            <th class='col-4'>Subject</th>
-            <th class='col-3 text-center'>Num of Questions</th>
-            <th class='col-3 text-center'>Job Profile</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-          <tr class='d-flex' *ngFor="let item of testList let i=index">
-            <td class='col-2 text-center'>{{i+1}}</td>
-            <td class='col-4'>{{item.testSbjctName}}</td>
-            <td class='col-3 text-center'>
-              <a href="" data-toggle="modal" data-target="#questionsModal"
-                (click)="getJobQuestion(item)">{{item.questionCount}}</a>
-            </td>
-            <td class='col-3 text-center'>
-              <a href="" data-toggle="modal" data-target="#jobProfileModal"
-                (click)="getJobProfile(item)">{{item.jobCount}}</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="example-table-container">
+    <table class="table table-striped">
+      <thead>
+        <tr class='d-flex'>
+          <th class='col-2 text-center'>Sr #</th>
+          <th class='col-4'>Subject</th>
+          <th class='col-3 text-center'>Num of Questions</th>
+          <th class='col-3 text-center'>Job Profile</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+        <tr class='d-flex'
+          *ngFor="let item of testList | search:'testSbjctName,questionCount,jobCount':testSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' }  let i=index">
+          <td class='col-2 text-center'>{{i+1}}</td>
+          <td class='col-4'>{{item.testSbjctName}}</td>
+          <td class='col-3 text-center'>
+            <a href="" data-toggle="modal" data-target="#questionsModal"
+              (click)="getJobQuestion(item)">{{item.questionCount}}</a>
+          </td>
+          <td class='col-3 text-center'>
+            <a href="" data-toggle="modal" data-target="#jobProfileModal"
+              (click)="getJobProfile(item)">{{item.jobCount}}</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Pagination Starts -->
+    <div class="row tab-margin">
+      <div class="col-md-10">
+        <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div class="col-md-2 text-right">
+        <mat-form-field class="fullwidth pagenateList">
+          <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
+            <mat-option value="5">5</mat-option>
+            <mat-option value="10">10</mat-option>
+            <mat-option value="25">25</mat-option>
+            <mat-option value="50">50</mat-option>
+            <mat-option value="100">100</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
+    <!-- Pagination Ends -->
+  </div>
   <!--end table row-->
 </div>
 <!--end container -->
@@ -85,10 +104,57 @@
 
 <br />
 
+
+<!-- Hidden Table for Print and PDF files starts-->
+<div class="container printArea" id="printArea" [hidden]=true>
+  <div class="printDiv">
+
+    <!--Start heading table -->
+    <table>
+      <tr>
+        <td width="15%" style="border:none;">
+          <img src="../../../assets/images/logo.png" width="135px">
+        </td>
+
+        <td style="border:none;">
+          <div class="commonCss cssHeading">Logix Solutions</div>
+          <div class="commonCss cssAddress">Office #209, 2nd Floor Ahmed Plaza, Rawalpindi Road Fateh Jang.</div>
+          <div class="commonCss cssContact">Mobile: 0313-5300471, Ph. 057-2212704</div>
+        </td>
+      </tr>
+    </table>
+    <!--End heading table -->
+
+    <br /><br />
+
+    <!--Start table Row-->
+    <div class="row">
+      <table>
+        <thead>
+          <tr class="d-flex">
+            <th class='col-2 text-center'>Sr #</th>
+            <th class='col-4'>Subject</th>
+            <th class='col-3 text-center'>Num of Questions</th>
+            <th class='col-3 text-center'>Job Profile</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="d-flex"
+            *ngFor="let item of testList |  search:'testSbjctName,questionCount,jobCount':testSearch let i=index">
+            <td class='col-2 text-center'>{{i+1}}</td>
+            <td class='col-4'>{{item.testSbjctName}}</td>
+            <td class='col-3 text-center'>{{item.questionCount}} </td>
+            <td class='col-3 text-center'>{{item.jobCount}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end table row -->
+  </div>
+</div>
+<!-- Hidden Table for Print and PDF files ends-->
+
+
 <!--bootstrap modal window -->
-
-
-
 <!-- Start Modal Window -->
 <div class="modal fade" id="questionsModal">
   <div class="modal-dialog shadow-lg-dark modal-lg">

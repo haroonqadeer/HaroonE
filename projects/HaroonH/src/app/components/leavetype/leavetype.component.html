@@ -3,7 +3,7 @@
   <div>
     <!--class="container" -->
     <span class="fa iconContainer">
-      <span class="fa icon-hr-leaveType" > </span>
+      <span class="fa icon-hr-leaveType"> </span>
     </span>
     <h1> Leave Type</h1>
   </div>
@@ -44,7 +44,7 @@
               PDF
             </a>
 
-            <a class="pointerCursor">
+            <a class="pointerCursor" (click)="printDivType()">
               <i class="fa fa-print"></i>
               Print
             </a>
@@ -70,7 +70,7 @@
           </div>
         </div>
         <!--end search textbox Row-->
-    
+
         <table class="table table-striped">
           <thead>
             <tr class='d-flex'>
@@ -132,6 +132,9 @@
           </div>
         </div>
 
+
+
+
       </mat-tab>
       <!--*End Leave Type Tab-->
 
@@ -161,7 +164,7 @@
               PDF
             </a>
 
-            <a class="pointerCursor">
+            <a class="pointerCursor" (click)="printDivNature()">
               <i class="fa fa-print"></i>
               Print
             </a>
@@ -262,8 +265,101 @@
 
   </div>
 </div>
-<br/>
+<br />
 <!--end container -->
+
+<!-- Hidden Table for Print and PDF files starts-->
+<div class="container printArea" id="printAreaType" [hidden]=true>
+  <div class="printDiv">
+
+    <!--Start heading table -->
+    <table>
+      <tr>
+        <td width="15%" style="border:none;">
+          <img src="../../../assets/images/logo.png" width="135px">
+        </td>
+
+        <td style="border:none;">
+          <div class="commonCss cssHeading">Logix Solutions</div>
+          <div class="commonCss cssAddress">Office #209, 2nd Floor Ahmed Plaza, Rawalpindi Road Fateh Jang.</div>
+          <div class="commonCss cssContact">Mobile: 0313-5300471, Ph. 057-2212704</div>
+        </td>
+      </tr>
+    </table>
+    <!--End heading table -->
+
+    <br /><br />
+
+    <!--Start table Row-->
+    <div class="row">
+      <table>
+        <thead>
+          <tr class="d-flex">
+            <th class='col-1 text-center'>Sr #</th>
+            <th class='col-6 text-left'>Leave Type</th>
+            <th class='col-5 text-left'>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="d-flex"
+            *ngFor="let item of leaveTypeList | search:'leaveTypeName,leaveTypeDesc':tblSearchType  let i=index">
+            <td class='col-1 text-center'>{{i+1}}</td>
+            <td class='col-4 text-left'>{{item.leaveTypeName}}</td>
+            <td class='col-4 text-left'>{{item.leaveTypeDesc}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end table row -->
+  </div>
+</div>
+<!-- Hidden Table for Print and PDF files ends-->
+
+
+<!-- Hidden Table for Print and PDF files starts-->
+<div class="container printArea" id="printAreaNature" [hidden]=true>
+  <div class="printDiv">
+
+    <!--Start heading table -->
+    <table>
+      <tr>
+        <td width="15%" style="border:none;">
+          <img src="../../../assets/images/logo.png" width="135px">
+        </td>
+
+        <td style="border:none;">
+          <div class="commonCss cssHeading">Logix Solutions</div>
+          <div class="commonCss cssAddress">Office #209, 2nd Floor Ahmed Plaza, Rawalpindi Road Fateh Jang.</div>
+          <div class="commonCss cssContact">Mobile: 0313-5300471, Ph. 057-2212704</div>
+        </td>
+      </tr>
+    </table>
+    <!--End heading table -->
+
+    <br /><br />
+
+    <!--Start table Row-->
+    <div class="row">
+      <table>
+        <thead>
+          <tr class="d-flex">
+            <th class='col-1 text-center'>Sr #</th>
+            <th class='col-4 text-left'>Leave Nature</th>
+            <th class='col-4 text-left'>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="d-flex"
+            *ngFor="let item of leaveNatureList | search:'leaveNatureName,leaveNatureDesc':tblSearchNature let i=index">
+            <td class='col-1 text-center'>{{i+1}}</td>
+            <td class='col-4 text-left'>{{item.leaveNatureName}}</td>
+            <td class='col-4 text-left'>{{item.leaveNatureDesc}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end table row -->
+  </div>
+</div>
+<!-- Hidden Table for Print and PDF files ends-->
 
 
 
@@ -496,4 +592,3 @@
   </div>
 </div>
 <!-- End Modal Window to add leave type -->
-

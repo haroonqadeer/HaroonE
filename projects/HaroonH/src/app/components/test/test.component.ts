@@ -15,6 +15,10 @@ export class TestComponent implements OnInit {
   serverUrl = "http://192.168.200.19:3008/";
   // serverUrl = "https://localhost:3002/";
 
+
+  testSearch = '';
+
+
   subjectGroup = "";
   subjectName = "";
   jobProfile = "";
@@ -44,6 +48,19 @@ export class TestComponent implements OnInit {
 
   txtdPassword = '';
   txtdPin = '';
+
+
+  //* variables for pagination and orderby pipe
+  p = 1;
+  //pGroup = 1;
+  order = 'info.name';
+  reverse = false;
+  // orderGroup = 'info.name';
+  // reverseGroup = false;
+  sortedCollection: any[];
+  itemPerPage = '10';
+  //itemPerPageGroup = '5';
+
 
   constructor(private toastr: ToastrManager,
     private app: AppComponent,
@@ -560,54 +577,54 @@ export class TestComponent implements OnInit {
 
   printDiv() {
 
-    // // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
+    // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
 
-    // // var cssHeading = ".cssHeading {font-size: 25px; font-weight: bold;}";
-    // // var cssAddress = ".cssAddress {font-size: 16px; }";
-    // // var cssContact = ".cssContact {font-size: 16px; }";
+    // var cssHeading = ".cssHeading {font-size: 25px; font-weight: bold;}";
+    // var cssAddress = ".cssAddress {font-size: 16px; }";
+    // var cssContact = ".cssContact {font-size: 16px; }";
 
-    // // var tableCss = "table {width: 100%; border-collapse: collapse;}    table thead tr th {text-align: left; font-family: Arial, Helvetica, sans-serif; font-weight: bole; border-bottom: 1px solid black; margin-left: -3px;}     table tbody tr td {font-family: Arial, Helvetica, sans-serif; border-bottom: 1px solid #ccc; margin-left: -3px; height: 33px;}";
+    // var tableCss = "table {width: 100%; border-collapse: collapse;}    table thead tr th {text-align: left; font-family: Arial, Helvetica, sans-serif; font-weight: bole; border-bottom: 1px solid black; margin-left: -3px;}     table tbody tr td {font-family: Arial, Helvetica, sans-serif; border-bottom: 1px solid #ccc; margin-left: -3px; height: 33px;}";
 
-    // // var printCss = commonCss + cssHeading + cssAddress + cssContact + tableCss;
+    // var printCss = commonCss + cssHeading + cssAddress + cssContact + tableCss;
 
-    // var printCss = this.app.printCSS();
-
-
-    // //printCss = printCss + "";
-
-    // var contents = $("#printArea").html();
-
-    // var frame1 = $('<iframe />');
-    // frame1[0].name = "frame1";
-    // frame1.css({ "position": "absolute", "top": "-1000000px" });
-    // $("body").append(frame1);
-    // var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
-    // frameDoc.document.open();
-
-    // //Create a new HTML document.
-    // frameDoc.document.write('<html><head><title>DIV Contents</title>' + "<style>" + printCss + "</style>");
+    var printCss = this.app.printCSS();
 
 
-    // //Append the external CSS file.  <link rel="stylesheet" href="../../../styles.scss" />  <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
-    // frameDoc.document.write('<style type="text/css" media="print">/*@page { size: landscape; }*/</style>');
+    //printCss = printCss + "";
 
-    // frameDoc.document.write('</head><body>');
+    var contents = $("#printArea").html();
 
-    // //Append the DIV contents.
-    // frameDoc.document.write(contents);
-    // frameDoc.document.write('</body></html>');
+    var frame1 = $('<iframe />');
+    frame1[0].name = "frame1";
+    frame1.css({ "position": "absolute", "top": "-1000000px" });
+    $("body").append(frame1);
+    var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+    frameDoc.document.open();
 
-    // frameDoc.document.close();
+    //Create a new HTML document.
+    frameDoc.document.write('<html><head><title>DIV Contents</title>' + "<style>" + printCss + "</style>");
 
 
-    // //alert(frameDoc.document.head.innerHTML);
-    // // alert(frameDoc.document.body.innerHTML);
+    //Append the external CSS file.  <link rel="stylesheet" href="../../../styles.scss" />  <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    frameDoc.document.write('<style type="text/css" media="print">/*@page { size: landscape; }*/</style>');
 
-    // setTimeout(function () {
-    //   window.frames["frame1"].focus();
-    //   window.frames["frame1"].print();
-    //   frame1.remove();
-    // }, 500);
+    frameDoc.document.write('</head><body>');
+
+    //Append the DIV contents.
+    frameDoc.document.write(contents);
+    frameDoc.document.write('</body></html>');
+
+    frameDoc.document.close();
+
+
+    //alert(frameDoc.document.head.innerHTML);
+    // alert(frameDoc.document.body.innerHTML);
+
+    setTimeout(function () {
+      window.frames["frame1"].focus();
+      window.frames["frame1"].print();
+      frame1.remove();
+    }, 500);
   }
 
   downPDF() {

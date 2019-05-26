@@ -71,6 +71,19 @@ export class PostComponent implements OnInit {
 
   public chartData = []
 
+
+  //* variables for pagination and orderby pipe
+  p = 1;
+  //pGroup = 1;
+  order = 'info.name';
+  reverse = false;
+  // orderGroup = 'info.name';
+  // reverseGroup = false;
+  sortedCollection: any[];
+  itemPerPage = '10';
+  //itemPerPageGroup = '5';
+
+
   constructor(private toastr: ToastrManager,
     private app: AppComponent,
     private http: HttpClient) { }
