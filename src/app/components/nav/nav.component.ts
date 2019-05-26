@@ -1,22 +1,25 @@
 import { Component, OnInit, Injectable  } from '@angular/core';
+import { Router } from '@angular/router';
+
+
 
 declare var $:any;
 
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+    selector: 'app-nav',
+    templateUrl: './nav.component.html',
+    styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
 
-    // appLocation = "http://localhost:4200";
-    appLocation = "http://192.168.200.19:9010";
-    // appLocation = "http://192.168.200.57:9010";
+    appLocation = "http://localhost:4200";
+    //appLocation = "http://192.168.200.19:9010";
+    
     
     public moduleHR = false;
     public moduleConfig = false;
 
-    constructor() { }
+    constructor(private router: Router) { }
 
     ngOnInit() {
     }
@@ -40,10 +43,10 @@ export class NavComponent implements OnInit {
     showAnim(val){    
         //finance
         if(val==1){
-        $('#finance').addClass('animated jello');
+            $('#finance').addClass('animated jello');
         }
         else if (val==2){
-        $('#hr').addClass('animated jello');
+            $('#hr').addClass('animated jello');
         }
         else if (val==3){
         $('#user').addClass('animated jello');
@@ -63,15 +66,17 @@ export class NavComponent implements OnInit {
     }
 
         //open ERP Module
-        openModule(val){
+    openModule(val){
         //finance
         if(val==1){
             this.activeModule("Config");
+            //this.router.navigate(['']);
             window.location.replace(this.appLocation);
         }
         //hr
         else if (val==2){
             this.activeModule("HR");
+            //this.router.navigate(['']);
             window.location.replace(this.appLocation);
         }
         //user

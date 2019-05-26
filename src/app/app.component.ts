@@ -18,19 +18,25 @@ export class AppComponent {
     moduleHR = false;
     moduleConfig = false;
 
+    logedInUserName = '';
+
     public hideDiv = false;
     items: MenuItem[];
 
 constructor(
     private router: Router,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private navApp: NavComponent
 ) { }
 
     ngOnInit() {
 
+        //this.moduleHR = this.navApp.moduleHR;
+
+        this.checkLogin();
+
         this.activeModule("No");
 
-        this.showDiv();
         this.items = [
         {
           label: 'File',
@@ -169,7 +175,8 @@ constructor(
         localStorage.removeItem('token');
         localStorage.removeItem('userName');
         this.router.navigate(['']);
-        this.showDiv();
+        this.hideDiv = false;
+        //this.showDiv();
     }
 
     public printCSS() {
@@ -203,5 +210,24 @@ constructor(
         $( ".sidenavContainer" ).fadeOut( "slow", function() {});
     }
 
+
+    //*function for checking login already logedin or not 
+    checkLogin(){
+    
+        if (localStorage.getItem('userName') != null) {
+        
+
+        // if (localStorage.getItem('token') != null) {
+        //     this.router.navigate(['/dashboard']);
+        // }
+
+            this.logedInUserName = localStorage.getItem('userName');
+            this.showDiv();
+            this.router.navigate(['home']);
+        }else{
+            this.router.navigate(['']);
+        }
+
+    }
 
 } 
