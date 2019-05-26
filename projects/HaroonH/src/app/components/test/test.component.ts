@@ -526,7 +526,7 @@ export class TestComponent implements OnInit {
 
         this.http.put(this.serverUrl + 'api/deleteQuestion', saveData1, { headers: reqHeader }).subscribe((data: any) => {
 
-          if (data.msg == "Record Updated Successfully!") {
+          if (data.msg == "Record Deleted Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.getTest();
             this.getJobPostQuestion(this.lblSubjectID);

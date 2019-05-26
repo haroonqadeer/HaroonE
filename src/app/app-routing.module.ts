@@ -8,17 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { IntroPageComponent } from '../../projects/HaroonH/src/app/components/intro-page/intro-page.component';
 
 const routes: Routes = [
-  // {
-
-  //   path: 'Config', 
-  //   loadChildren:() => ConfigSharedModule
-  //   // loadChildren: '../../projects/HaroonConfig/src/app/app.module#ConfigSharedModule'
-  // },
   {
-    // path: 'HR', 
-    // loadChildren:() => HRSharedModule
-    // loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
-
     path: '',
     component: LoginComponent
   },
@@ -28,13 +18,13 @@ const routes: Routes = [
   },
   {
     path: 'Config',
-    loadChildren: () => ConfigSharedModule
-    //loadChildren: '../../projects/HaroonConfig/src/app/app.module#ConfigSharedModule'
+    // loadChildren: () => ConfigSharedModule
+    loadChildren: '../../projects/HaroonConfig/src/app/app.module#ConfigSharedModule'
   },
   {
     path: 'HR',
-    loadChildren: () => HRSharedModule
-    //loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
+    // loadChildren: () => HRSharedModule
+    loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
 
   }
 ];
