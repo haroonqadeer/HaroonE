@@ -184,7 +184,7 @@
   
     <!--Menu Top Bar -->
     <div class="example-sidenav-content" style="z-index: 100;">
-      <div class="row bgBlue" *ngIf="hideDiv">
+      <div *ngIf="hideDiv" class="row bgBlue" >
   
         <!--Ambit Logo Button -->
         <div class="col-md-1" style="border:0px solid red; background-color: #E6E6E6;">
@@ -211,8 +211,8 @@
           <!-- <img src="../assets/images/icon_img.jpg" alt="" height="40px"> -->
   
           <div class="dropdown">
-            <button class="dropbtn">
-              Welcome! Umer Shaheen
+            <button class="dropbtn pointerCursor">
+              {{logedInUserName}} &nbsp;
               <span class="fa fa-caret-down"></span>
             </button>
   

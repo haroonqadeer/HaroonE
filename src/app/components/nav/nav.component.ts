@@ -1,4 +1,7 @@
 import { Component, OnInit, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+
+
 
 declare var $: any;
 
@@ -16,7 +19,7 @@ export class NavComponent implements OnInit {
     public moduleHR = false;
     public moduleConfig = false;
 
-    constructor() { }
+    constructor(private router: Router) { }
 
     ngOnInit() {
     }
@@ -67,11 +70,13 @@ export class NavComponent implements OnInit {
         //finance
         if (val == 1) {
             this.activeModule("Config");
+            //this.router.navigate(['']);
             window.location.replace(this.appLocation);
         }
         //hr
         else if (val == 2) {
             this.activeModule("HR");
+            //this.router.navigate(['']);
             window.location.replace(this.appLocation);
         }
         //user
