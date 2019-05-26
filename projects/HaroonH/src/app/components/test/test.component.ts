@@ -234,7 +234,7 @@ export class TestComponent implements OnInit {
 
       this.http.post(this.serverUrl + 'api/saveSubject', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
-        if (data.msg != undefined) {
+        if (data.msg == "Record Saved Successfully!") {
           this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
           this.getTest();
           $('#addSubject').modal('hide');
@@ -331,7 +331,7 @@ export class TestComponent implements OnInit {
 
         this.http.post(this.serverUrl + 'api/saveQuestion', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
-          if (data.msg != undefined) {
+          if (data.msg == "Record Saved Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.getTest();
             this.getJobPostQuestion(this.lblSubjectID);
@@ -371,7 +371,7 @@ export class TestComponent implements OnInit {
 
         this.http.put(this.serverUrl + 'api/updateQuestion', saveData1, { headers: reqHeader }).subscribe((data: any) => {
 
-          if (data.msg != undefined) {
+          if (data.msg == "Record Updated Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.getTest();
             this.getJobPostQuestion(this.lblSubjectID);
@@ -409,7 +409,7 @@ export class TestComponent implements OnInit {
 
       this.http.post(this.serverUrl + 'api/saveJobProfile', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
-        if (data.msg != undefined) {
+        if (data.msg == "Record Saved Successfully!") {
           this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
           this.getTest();
           $('#jobProfileModal').modal('hide');
@@ -485,7 +485,7 @@ export class TestComponent implements OnInit {
 
         this.http.delete(this.serverUrl + 'api/deleteJobProfile?subjectCd=' + this.lblSubjectID + '&jobDesigCd=' + this.lblJobDesigID).subscribe((data: any) => {
 
-          if (data.msg != "Error Occured") {
+          if (data.msg == "Record Deleted Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             //this.app.hideSpinner();
             this.getTest();
@@ -497,7 +497,7 @@ export class TestComponent implements OnInit {
             this.lblSubjectID = subjectID;
             return false;
           } else {
-            this.toastr.errorToastr('Error Occured', 'Error!', { toastTimeout: (2500) });
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             //this.app.hideSpinner();
             //$('#deleteModal').modal('hide');
             return false;
@@ -526,7 +526,7 @@ export class TestComponent implements OnInit {
 
         this.http.put(this.serverUrl + 'api/deleteQuestion', saveData1, { headers: reqHeader }).subscribe((data: any) => {
 
-          if (data.msg != undefined) {
+          if (data.msg == "Record Updated Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.getTest();
             this.getJobPostQuestion(this.lblSubjectID);
