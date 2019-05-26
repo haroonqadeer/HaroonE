@@ -3,7 +3,7 @@
   <div>
 
     <span class="fa iconContainer">
-      <span class="fa icon-config-skills" > </span>
+      <span class="fa icon-config-skills"> </span>
     </span>
     <h1> Skills</h1>
 
@@ -34,7 +34,7 @@
       <i class="fa fa-plus-square"></i>
       Add New
     </a>
-    
+
   </div>
 </div>
 <!-- end menubar buttons -->
@@ -148,8 +148,8 @@
         <thead>
           <tr class="d-flex">
             <th class="col-1 text-center">Sr. #</th>
-            <th>skill Group </th>
-            <th>skill Title </th>
+            <th>Skill Group </th>
+            <th>Skill Title </th>
             <th>Title Description </th>
           </tr>
         </thead>
@@ -203,7 +203,7 @@
         <div class="row">
           <div class="col-md-9">
             <mat-form-field class="fullwidth">
-              <mat-select [(ngModel)]="skillGroup" placeholder="Select skill Group" required>
+              <mat-select [(ngModel)]="skillGroup" placeholder="Select Skill Group" required>
                 <mat-option *ngFor="let skill of skillGroupList" [value]="skill.qlfctnCd">
                   {{skill.qlfctnName}}
                 </mat-option>
@@ -227,7 +227,7 @@
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class="fullwidth">
-              <input matInput [(ngModel)]="skillTitle" placeholder="skill Title" required>
+              <input matInput [(ngModel)]="skillTitle" placeholder="Skill Title" required>
             </mat-form-field>
           </div>
         </div>
@@ -235,7 +235,7 @@
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class="fullwidth">
-              <input matInput [(ngModel)]="skillTitleDescription" placeholder="skill Title Description" required>
+              <input matInput [(ngModel)]="skillTitleDescription" placeholder="Skill Title Description" required>
             </mat-form-field>
           </div>
         </div>
@@ -274,7 +274,7 @@
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class="fullwidth">
-              <input matInput [(ngModel)]="sklGroupName" placeholder="Enter skill Group" required>
+              <input matInput [(ngModel)]="sklGroupName" placeholder="Enter Skill Group" required>
             </mat-form-field>
           </div>
         </div>
