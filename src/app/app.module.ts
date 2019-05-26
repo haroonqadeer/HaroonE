@@ -26,6 +26,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { SearchPipe } from './shared/pipe-filters/pipe-search';
+import { LoginComponent } from './components/login/login.component';
 
 
 
@@ -33,7 +34,8 @@ import { SearchPipe } from './shared/pipe-filters/pipe-search';
   declarations: [
     AppComponent,
     NavComponent,
-    SearchPipe
+    SearchPipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

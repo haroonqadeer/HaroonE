@@ -36,7 +36,8 @@ declare var $: any;
 export class SkillComponent implements OnInit {
 
   // serverUrl = "http://localhost:22850/";
-  serverUrl = "http://192.168.200.19:3007/";
+  //serverUrl = "http://192.168.200.19:3007/";
+  serverUrl = "https://localhost:8003/";
   tokenKey = "token";
 
   httpOptions = {
@@ -178,20 +179,27 @@ export class SkillComponent implements OnInit {
 
           //alert(data.msg);
 
-          if (data.msg == "") {
+          if (data.msg == 'Record Updated Successfully!') {
+            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addSkillModal').modal('hide');
+            this.getSkillCriteria();
+            return false;
+          }
+
+          else if (data.msg == "Update - Record Already Exists!") {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillModal').modal('hide');
             this.getSkillCriteria();
             return false;
           }
-          else {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
 
+          else {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillModal').modal('hide');
             this.getSkillCriteria();
-
             return false;
           }
 
@@ -218,20 +226,22 @@ export class SkillComponent implements OnInit {
           //alert(data.msg);
           //return false;
 
-          if (data.msg == "skill Criteria Already Exist") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillModal').modal('hide');
-            this.getSkillCriteria();
-            return false;
-          }
-          else if (data.msg == "Skill Criteria Inserted Successfully") {
+          if (data.msg == "Record Saved Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillModal').modal('hide');
             this.getSkillCriteria();
             return false;
           }
+
+          else if (data.msg == "Insert - Record Already Exists!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addSkillModal').modal('hide');
+            this.getSkillCriteria();
+            return false;
+          }
+
           else {
             this.toastr.errorToastr(data.msg, 'Error !', { toastTimeout: (2500) });
             this.clear();
@@ -273,21 +283,27 @@ export class SkillComponent implements OnInit {
 
           //alert(data.msg);
 
-          if (data.msg == undefined) {
+          if (data.msg == 'Record Updated Successfully!') {
+            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addSkillGroupModal').modal('hide');
+            this.getSkillGroup();
+            return false;
+          }
+
+          else if (data.msg == "Update - Record Already Exists!") {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillGroupModal').modal('hide');
             this.getSkillGroup();
             return false;
           }
-          else {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
 
+          else {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillGroupModal').modal('hide');
             this.getSkillGroup();
-            //this.getSkillCriteria();
-
             return false;
           }
 
@@ -312,31 +328,30 @@ export class SkillComponent implements OnInit {
 
           //alert(data.msg);
           //return false;
-
-          if (data.msg == "skill Group Already Exist") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillGroupModal').modal('hide');
-            this.getSkillGroup();
-            //this.getSkillCriteria();
-            return false;
-          }
-          else if (data.msg == "Skill Group Inserted Successfully") {
+          if (data.msg == "Record Saved Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillGroupModal').modal('hide');
             this.getSkillGroup();
-            //this.getSkillCriteria();
             return false;
           }
+
+          else if (data.msg == "Insert - Record Already Exists!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addSkillGroupModal').modal('hide');
+            this.getSkillGroup();
+            return false;
+          }
+
           else {
             this.toastr.errorToastr(data.msg, 'Error !', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillGroupModal').modal('hide');
             this.getSkillGroup();
-            //this.getSkillCriteria();
             return false;
           }
+
         });
       }
     }
@@ -435,17 +450,18 @@ export class SkillComponent implements OnInit {
 
           //alert(data.msg);
 
-          if (data.msg == "Error Occured") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            return false;
-          }
-          else {
+          if (data.msg == "Record Deleted Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#deleteModal').modal('hide');
             this.getSkillCriteria();
             return false;
           }
+          else {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            return false;
+          }
+
         });
       }
       else if (this.dGroupId != "") {

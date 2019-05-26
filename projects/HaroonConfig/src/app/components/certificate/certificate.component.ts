@@ -36,7 +36,8 @@ declare var $: any;
 export class CertificateComponent implements OnInit {
 
   // serverUrl = "http://localhost:49774/";
-  serverUrl = "http://192.168.200.19:3001/";
+  //serverUrl = "http://192.168.200.19:3001/";
+  serverUrl = "https://localhost:8002/";
   tokenKey = "token";
 
   httpOptions = {
@@ -178,20 +179,32 @@ export class CertificateComponent implements OnInit {
 
           //alert(data.msg);
 
-          if (data.msg == undefined) {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addCertificateModal').modal('hide');
-            this.getCertificateCriteria();
-            return false;
-          }
-          else {
+          if (data.msg == 'Record Updated Successfully!') {
+
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
 
             this.clear();
             $('#addCertificateModal').modal('hide');
             this.getCertificateCriteria();
+            //this.getCertificateCriteria();
 
+            return false;
+
+          }
+          else if (data.msg == "Update - Record Already Exists!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addCertificateModal').modal('hide');
+            this.getCertificateCriteria();
+            //this.getCertificateCriteria();
+            return false;
+          }
+          else {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addCertificateModal').modal('hide');
+            this.getCertificateCriteria();
+            //this.getCertificateCriteria();
             return false;
           }
 
@@ -218,18 +231,22 @@ export class CertificateComponent implements OnInit {
           //alert(data.msg);
           //return false;
 
-          if (data.msg == "Certificate Criteria Already Exist") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addCertificateModal').modal('hide');
-            this.getCertificateCriteria();
-            return false;
-          }
-          else if (data.msg == "Certificate Criteria Inserted Successfully") {
+          if (data.msg == "Record Saved Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#addCertificateModal').modal('hide');
             this.getCertificateCriteria();
+            //this.getCertificateCriteria();
+
+            return false;
+          }
+          else if (data.msg == "Insert - Record Already Exists!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addCertificateModal').modal('hide');
+            this.getCertificateCriteria();
+            //this.getCertificateCriteria();
+
             return false;
           }
           else {
@@ -237,6 +254,8 @@ export class CertificateComponent implements OnInit {
             this.clear();
             $('#addCertificateModal').modal('hide');
             this.getCertificateCriteria();
+            //this.getCertificateCriteria();
+
             return false;
           }
         });
@@ -273,22 +292,32 @@ export class CertificateComponent implements OnInit {
 
           //alert(data.msg);
 
-          if (data.msg == undefined) {
+          if (data.msg == 'Record Updated Successfully!') {
+
+            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+
+            this.clear();
+            //$('#addCertificateGroupModal').modal('hide');
+            this.getCertificateGroup();
+            //this.getCertificateCriteria();
+
+            return false;
+
+          }
+          else if (data.msg == "Update - Record Already Exists!") {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             this.clear();
-            $('#addCertificateGroupModal').modal('hide');
+            //$('#addCertificateGroupModal').modal('hide');
             this.getCertificateGroup();
             //this.getCertificateCriteria();
             return false;
           }
           else {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             this.clear();
-            $('#addCertificateGroupModal').modal('hide');
+            //$('#addCertificateGroupModal').modal('hide');
             this.getCertificateGroup();
             //this.getCertificateCriteria();
-
             return false;
           }
 
@@ -314,19 +343,19 @@ export class CertificateComponent implements OnInit {
           //alert(data.msg);
           //return false;
 
-          if (data.msg == "Certificate Group Already Exist") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+          if (data.msg == "Record Saved Successfully!") {
+            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
-            $('#addCertificateGroupModal').modal('hide');
+            //$('#addCertificateGroupModal').modal('hide');
             this.getCertificateGroup();
             //this.getCertificateCriteria();
 
             return false;
           }
-          else if (data.msg == "Certificate Group Inserted Successfully") {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+          else if (data.msg == "Insert - Record Already Exists!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             this.clear();
-            $('#addCertificateGroupModal').modal('hide');
+            //$('#addCertificateGroupModal').modal('hide');
             this.getCertificateGroup();
             //this.getCertificateCriteria();
 
@@ -335,7 +364,7 @@ export class CertificateComponent implements OnInit {
           else {
             this.toastr.errorToastr(data.msg, 'Error !', { toastTimeout: (2500) });
             this.clear();
-            $('#addCertificateGroupModal').modal('hide');
+            //$('#addCertificateGroupModal').modal('hide');
             this.getCertificateGroup();
             //this.getCertificateCriteria();
 
@@ -437,17 +466,18 @@ export class CertificateComponent implements OnInit {
 
           //alert(data.msg);
 
-          if (data.msg == "Error Occured") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            return false;
-          }
-          else {
+          if (data.msg == "Record Deleted Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#deleteModal').modal('hide');
             this.getCertificateCriteria();
             return false;
           }
+          else {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            return false;
+          }
+
         });
       }
       else if (this.dGroupId != "") {
@@ -467,17 +497,18 @@ export class CertificateComponent implements OnInit {
 
           //alert(data.msg);
 
-          if (data.msg == "Error Occured") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            return false;
-          }
-          else {
+          if (data.msg == "Record Deleted Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#deleteModal').modal('hide');
             this.getCertificateGroup();
             return false;
           }
+          else {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            return false;
+          }
+
         });
       }// else if ends
     }//else ends

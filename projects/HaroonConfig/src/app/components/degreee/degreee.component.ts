@@ -36,7 +36,9 @@ declare var $: any;
 export class DegreeeComponent implements OnInit {
 
   //serverUrl = "http://localhost:28349/";
-  serverUrl = "http://192.168.200.19:3002/";
+  //serverUrl = "http://192.168.200.19:3002/";
+
+  serverUrl = "https://localhost:8001/";
   tokenKey = "token";
 
   httpOptions = {
@@ -175,17 +177,28 @@ export class DegreeeComponent implements OnInit {
 
         this.http.put(this.serverUrl + 'api/updateDegreeCriteria', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-          if (data.msg == undefined) {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            return false;
-          }
-          else {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
 
+          if (data.msg == 'Record Updated Successfully!') {
+            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#addDegreeModal').modal('hide');
             this.getDegreeCriteria();
+            return false;
+          }
 
+          else if (data.msg == "Update - Record Already Exists!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addDegreeModal').modal('hide');
+            this.getDegreeCriteria();
+            return false;
+          }
+
+          else {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addDegreeModal').modal('hide');
+            this.getDegreeCriteria();
             return false;
           }
 
@@ -209,21 +222,22 @@ export class DegreeeComponent implements OnInit {
         this.http.post(this.serverUrl + 'api/saveDegreeCriteria', saveData, { responseType: 'json' }).subscribe((data: any) => {
           // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
 
-          //alert(data.msg);
-          if (data.msg == "Degree Criteria Detail Already Exist") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addDegreeModal').modal('hide');
-            this.getDegreeCriteria();
-            return false;
-          }
-          else if (data.msg == "Degree Criteria Inserted Successfully") {
+          if (data.msg == "Record Saved Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#addDegreeModal').modal('hide');
             this.getDegreeCriteria();
             return false;
           }
+
+          else if (data.msg == "Insert - Record Already Exists!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addDegreeModal').modal('hide');
+            this.getDegreeCriteria();
+            return false;
+          }
+
           else {
             this.toastr.errorToastr(data.msg, 'Error !', { toastTimeout: (2500) });
             this.clear();
@@ -310,17 +324,18 @@ export class DegreeeComponent implements OnInit {
 
         this.http.put(this.serverUrl + 'api/deleteDegreeCriteria', data, { headers: reqHeader }).subscribe((data: any) => {
 
-          if (data.msg == "Error Occured") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            return false;
-          }
-          else {
+          if (data.msg == "Record Deleted Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#deleteModal').modal('hide');
             this.getDegreeCriteria();
             return false;
           }
+          else {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            return false;
+          }
+
         });
       }// else if ends      
     }//else ends
