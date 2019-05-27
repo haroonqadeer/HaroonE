@@ -27,7 +27,7 @@
               <!-- <mat-icon matSuffix matPrefix><i class='fa fa-lock'></i></mat-icon>  -->
               <mat-label class="inputLabel">Password</mat-label>
               <input id="txtPassword" type="password" matInput class='loginInput' [(ngModel)]="txtPassword"
-                required>
+                required (keypress)="getKeyPressed($event)" >
               <mat-icon matSuffix color="primary"><i class='fa fa-lock' color="primary"></i></mat-icon>
             </mat-form-field>
           </div>

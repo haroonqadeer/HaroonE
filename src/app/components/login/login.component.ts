@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
 
-        this.app.checkLogin();
+        this.app.checkLogin('Yes');
     }
 
     onSubmit() {
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
 
           localStorage.setItem('userName', this.txtUserName);
           localStorage.setItem('myActModNam', 'HR');
-          this.app.checkLogin();
+          this.app.checkLogin('Yes');
           
 
         //     var data = { "loginname": this.txtUserName, "password": this.txtPassword };
@@ -89,5 +89,11 @@ export class LoginComponent implements OnInit {
         //     });
 
         }
+    }
+
+    getKeyPressed(e) {  
+      if (e.keyCode == 13){
+        this.onSubmit();
+      }
     }
 }

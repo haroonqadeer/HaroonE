@@ -115,11 +115,11 @@ export class PerformanceStandComponent implements OnInit {
 
                 this.http.put(this.serverUrl + 'api/updatePStandard', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                    if (data.msg != "Done") {
+                    if (data.msg != "Record Updated Successfully!") {
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
-                        this.toastr.successToastr('Record Updated Successfully', 'Success!', { toastTimeout: (2500) });
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#standardModal').modal('hide');
                         this.getPStandard();
                         return false;
@@ -149,11 +149,11 @@ export class PerformanceStandComponent implements OnInit {
 
                 this.http.post(this.serverUrl + 'api/savePStandard', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
-                    if (data.msg != "Done") {
+                    if (data.msg != "Record Saved Successfully!") {
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
-                        this.toastr.successToastr('Record Saved Successfully', 'Success!', { toastTimeout: (2500) });
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#standardModal').modal('hide');
                         this.getPStandard();
                         return false;
@@ -221,11 +221,11 @@ export class PerformanceStandComponent implements OnInit {
 
             this.http.put(this.serverUrl + 'api/updatePStandard', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                if (data.msg != "Done") {
+                if (data.msg != "Record Deleted Successfully!") {
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     return false;
                 } else {
-                    this.toastr.successToastr('Record Deleted Successfully', 'Success!', { toastTimeout: (2500) });
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     $('#deleteModal').modal('hide');
                     this.getPStandard();
                     return false;

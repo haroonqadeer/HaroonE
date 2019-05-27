@@ -169,7 +169,7 @@ export class LeaverulesComponent implements OnInit {
             this.toastr.errorToastr('Please enter leave nature', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.leaveLimit.trim() == '' || this.leaveLimit == 0) {
+        else if (this.leaveLimit == '' || this.leaveLimit == 0) {
             this.toastr.errorToastr('Please enter leave limit', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -222,11 +222,11 @@ export class LeaverulesComponent implements OnInit {
 
                 this.http.put(this.serverUrl + 'api/updateLeaveRule', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                    if (data.msg != "Done") {
+                    if (data.msg != "Record Updated Successfully!") {
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
-                        this.toastr.successToastr('Record Updated Successfully', 'Success!', { toastTimeout: (2500) });
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#newRuleModal').modal('hide');
                         this.getLeaveRules();
                         return false;
@@ -259,11 +259,11 @@ export class LeaverulesComponent implements OnInit {
 
                 this.http.post(this.serverUrl + 'api/saveLeaveRule', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
-                    if (data.msg != "Done") {
+                    if (data.msg != "Record Saved Successfully!") {
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
-                        this.toastr.successToastr('Record Saved Successfully', 'Success!', { toastTimeout: (2500) });
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#newRuleModal').modal('hide');
                         this.getLeaveRules();
                         return false;
@@ -331,11 +331,11 @@ export class LeaverulesComponent implements OnInit {
 
             this.http.put(this.serverUrl + 'api/updateLeaveRule', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                if (data.msg != "Done") {
+                if (data.msg != "Record Deleted Successfully!") {
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     return false;
                 } else {
-                    this.toastr.successToastr('Record Deleted Successfully', 'Success!', { toastTimeout: (2500) });
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     $('#deleteModal').modal('hide');
                     this.getLeaveRules();
                     this.clear();
