@@ -16,7 +16,7 @@ declare var $: any;
 })
 export class PostComponent implements OnInit {
 
-  //serverUrl = "http://localhost:3001/";
+  // serverUrl = "http://localhost:3001/";
   serverUrl = "http://192.168.200.19:3003/";
 
   //ngprime organization chart 
@@ -196,7 +196,7 @@ export class PostComponent implements OnInit {
         this.data1 = data;
       });
 
-      this.http.get(this.serverUrl + 'api/getOrgChart?sectCd=' + this.departmentName + '&locCd=' + this.officeName, { headers: reqHeader }).subscribe((data: any) => {
+      this.http.get(this.serverUrl + 'api/getOrgChart?deptCd=' + this.departmentName + '&locCd=' + this.officeName, { headers: reqHeader }).subscribe((data: any) => {
 
         this.chartData = data;
       });
@@ -215,7 +215,7 @@ export class PostComponent implements OnInit {
           this.data1 = data;
         });
 
-        this.http.get(this.serverUrl + 'api/getOrgChart?sectCd=' + this.sectionName + '&locCd=' + this.officeName, { headers: reqHeader }).subscribe((data: any) => {
+        this.http.get(this.serverUrl + 'api/getSecOrgChart?sectCd=' + this.sectionName + '&locCd=' + this.officeName, { headers: reqHeader }).subscribe((data: any) => {
 
           this.chartData = data;
         });
@@ -349,7 +349,7 @@ export class PostComponent implements OnInit {
 
           this.http.post(this.serverUrl + 'api/saveDeptJobPost', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
-            if (data.msg != undefined) {
+            if (data.msg == "Record Saved Successfully!") {
               this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
               this.getPost();
               this.getOrganoGram();
@@ -388,7 +388,7 @@ export class PostComponent implements OnInit {
 
             this.http.post(this.serverUrl + 'api/saveJobPost', savedata, { headers: reqHeader }).subscribe((data: any) => {
 
-              if (data.msg != undefined) {
+              if (data.msg == "Record Saved Successfully!") {
                 this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                 this.getPost();
                 this.getOrganoGram();
@@ -438,7 +438,7 @@ export class PostComponent implements OnInit {
 
             this.http.post(this.serverUrl + 'api/saveJobPost', savedata, { headers: reqHeader }).subscribe((data: any) => {
 
-              if (data.msg != undefined) {
+              if (data.msg == "Record Saved Successfully!") {
                 this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                 this.getPost();
                 this.getOrganoGram();
@@ -479,7 +479,7 @@ export class PostComponent implements OnInit {
 
             this.http.post(this.serverUrl + 'api/saveJobPost', savedata, { headers: reqHeader }).subscribe((data: any) => {
 
-              if (data.msg != undefined) {
+              if (data.msg == "Record Saved Successfully!") {
                 this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                 this.getPost();
                 this.getOrganoGram();

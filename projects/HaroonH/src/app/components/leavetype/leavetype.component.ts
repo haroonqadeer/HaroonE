@@ -13,8 +13,8 @@ declare var $: any;
 })
 export class LeavetypeComponent implements OnInit {
 
-    serverUrl = "http://localhost:25986/";
-    //serverUrl = "http://192.168.200.19:3005/";
+    // serverUrl = "http://localhost:25986/";
+    serverUrl = "http://192.168.200.19:3005/";
     tokenKey = "token";
 
 
@@ -134,11 +134,11 @@ export class LeavetypeComponent implements OnInit {
 
                 this.http.put(this.serverUrl + 'api/updateLeaveType', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                    if (data.msg != "Done") {
+                    if (data.msg != "Record Updated Successfully!") {
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
-                        this.toastr.successToastr('Record Saved Successfully', 'Success!', { toastTimeout: (2500) });
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#typeModal').modal('hide');
                         this.getLeaveTypes();
                         return false;
@@ -166,11 +166,11 @@ export class LeavetypeComponent implements OnInit {
 
                 this.http.post(this.serverUrl + 'api/saveLeaveType', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
-                    if (data.msg != "Done") {
+                    if (data.msg != "Record Saved Successfully!") {
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
-                        this.toastr.successToastr('Record Saved Successfully', 'Success!', { toastTimeout: (2500) });
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#typeModal').modal('hide');
                         this.getLeaveTypes();
                         return false;
@@ -236,11 +236,11 @@ export class LeavetypeComponent implements OnInit {
 
             this.http.put(this.serverUrl + 'api/updateLeaveType', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                if (data.msg != "Done") {
+                if (data.msg != "Record Deleted Successfully!") {
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     return false;
                 } else {
-                    this.toastr.successToastr('Record Saved Successfully', 'Success!', { toastTimeout: (2500) });
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     $('#deleteModal').modal('hide');
                     this.getLeaveTypes();
                     return false;
@@ -286,11 +286,11 @@ export class LeavetypeComponent implements OnInit {
 
                 this.http.put(this.serverUrl + 'api/updateLeaveNature', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                    if (data.msg != "Done") {
+                    if (data.msg != "Record Updated Successfully!") {
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
-                        this.toastr.successToastr('Record Saved Successfully', 'Success!', { toastTimeout: (2500) });
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#leaveNatureModal').modal('hide');
                         this.getLeaveNature();
                         return false;
@@ -318,11 +318,11 @@ export class LeavetypeComponent implements OnInit {
 
                 this.http.post(this.serverUrl + 'api/saveLeaveNature', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
-                    if (data.msg != "Done") {
+                    if (data.msg != "Record Saved Successfully!") {
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
-                        this.toastr.successToastr('Record Saved Successfully', 'Success!', { toastTimeout: (2500) });
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#leaveNatureModal').modal('hide');
                         this.getLeaveNature();
                         return false;
@@ -390,11 +390,11 @@ export class LeavetypeComponent implements OnInit {
 
             this.http.put(this.serverUrl + 'api/updateLeaveNature', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                if (data.msg != "Done") {
+                if (data.msg != "Record Deleted Successfully!") {
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     return false;
                 } else {
-                    this.toastr.successToastr('Record Saved Successfully', 'Success!', { toastTimeout: (2500) });
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     $('#deleteNatureModal').modal('hide');
                     this.getLeaveNature();
                     return false;

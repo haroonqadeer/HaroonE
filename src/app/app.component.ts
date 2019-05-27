@@ -33,7 +33,7 @@ constructor(
 
         //this.moduleHR = this.navApp.moduleHR;
 
-        this.checkLogin();
+        this.checkLogin("No");
 
         this.activeModule("No");
 
@@ -212,7 +212,7 @@ constructor(
 
 
     //*function for checking login already logedin or not 
-    checkLogin(){
+    checkLogin(loginChk){
     
         if (localStorage.getItem('userName') != null) {
         
@@ -223,7 +223,10 @@ constructor(
 
             this.logedInUserName = localStorage.getItem('userName');
             this.showDiv();
-            this.router.navigate(['home']);
+            if(loginChk == "Yes"){
+              this.router.navigate(['home']);
+            }
+            
         }else{
             this.router.navigate(['']);
         }

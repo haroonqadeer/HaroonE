@@ -35,7 +35,7 @@ var $: any;
 })
 export class LoginComponent implements OnInit {
 
-    serverUrl = "http://localhost:55536/";
+    serverUrl = "http://localhost:11664/";
     tokenKey = "token";
 
     httpOptions = {
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
 
-        this.app.checkLogin();
+        this.app.checkLogin('Yes');
     }
 
     onSubmit() {
@@ -65,29 +65,58 @@ export class LoginComponent implements OnInit {
         }
         else {
 
+        //   localStorage.setItem('userName', this.txtUserName);
+        //   localStorage.setItem('myActModNam', 'HR');
+        //   this.app.checkLogin('Yes');
 
-          localStorage.setItem('userName', this.txtUserName);
-          localStorage.setItem('myActModNam', 'HR');
-          this.app.checkLogin();
-          
+            var loginData = { "IndvdlERPUsrID": this.txtUserName, "IndvdlERPPsswrd": this.txtPassword };
 
-        //     var data = { "loginname": this.txtUserName, "password": this.txtPassword };
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-        //     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+            this.http.post(this.serverUrl + 'api/getUsers', loginData, { headers: reqHeader }).subscribe((data: any) => {
 
-        //     this.http.post(this.serverUrl + 'api/token', data, { headers: reqHeader }).subscribe((data: any) => {
 
-        //         if (data.msg != undefined) {
-        //             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-        //             return false;
-        //         } else {
-        //             this.Idle.startWatching();
-        //             localStorage.setItem('token', data.token);
-        //             localStorage.setItem('userName', data.userName);
-        //             this.router.navigate(['/introPage']);
-        //         }
-        //     });
+                if (data.msg == "Logedin Successfully!" ){
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    localStorage.setItem('userName', this.txtUserName);
+                    localStorage.setItem('myActModNam', 'HR');
+                    this.app.checkLogin('Yes');
+                }else {
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                }
+
+                // if (data.msg != "Record Saved Successfully!") {
+                //     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                //     return false;
+                // } else {
+                //     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                //     $('#typeModal').modal('hide');
+                //     this.getLeaveTypes();
+                //     return false;
+                // }
+            });
+
+            // this.http.post(this.serverUrl + 'api/token', data, { headers: reqHeader }).subscribe((data: any) => {
+
+            //     if (data.msg != undefined) {
+            //         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            //         return false;
+            //     } else {
+            //         //this.Idle.startWatching();
+            //         //localStorage.setItem('token', data.token);
+            //         localStorage.setItem('userName', data.userName);
+            //         localStorage.setItem('myActModNam', 'HR');
+            //         this.app.checkLogin('Yes');
+            //         //this.router.navigate(['/introPage']);
+            //     }
+            // });
 
         }
+    }
+
+    getKeyPressed(e) {  
+      if (e.keyCode == 13){
+        this.onSubmit();
+      }
     }
 }
