@@ -17,14 +17,15 @@ const routes: Routes = [
     component: IntroPageComponent
   },
   {
-    path: 'Config', 
-    loadChildren:() => ConfigSharedModule
-    //loadChildren: '../../projects/HaroonConfig/src/app/app.module#ConfigSharedModule'
+    path: 'Config',
+    // loadChildren: () => ConfigSharedModule
+    loadChildren: '../../projects/HaroonConfig/src/app/app.module#ConfigSharedModule'
   },
   {
-    path: 'HR', 
-    loadChildren:() => HRSharedModule
-    //loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
+    path: 'HR',
+    // loadChildren: () => HRSharedModule
+    loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
+
   }
 ];
 

@@ -65,11 +65,9 @@ export class LoginComponent implements OnInit {
         }
         else {
 
-
           localStorage.setItem('userName', this.txtUserName);
           localStorage.setItem('myActModNam', 'HR');
           this.app.checkLogin('Yes');
-          
 
         //     var data = { "loginname": this.txtUserName, "password": this.txtPassword };
 

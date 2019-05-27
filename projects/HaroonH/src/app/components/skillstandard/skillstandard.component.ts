@@ -26,6 +26,8 @@ export class SkillstandardComponent implements OnInit {
 
   // serverUrl = "https://localhost:8003/";
   serverUrl = "http://192.168.200.19:3007/";
+
+  // serverUrl = "https://localhost:8003/";
   tokenKey = "token";
 
 
@@ -304,30 +306,33 @@ export class SkillstandardComponent implements OnInit {
         //alert(reqHeader);
         this.http.post(this.serverUrl + 'api/saveSkillStandard', saveData, { responseType: 'json' }).subscribe((data: any) => {
 
-          if (data.msg == "Skill standard Already Exist") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillModal').modal('hide');
-            this.getSkillStandard();
-            return false;
-          }
-          else if (data.msg == "Skill Standard Inserted Successfully") {
+          if (data.msg == "Record Saved Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillModal').modal('hide');
-            $('#editSkillModal').modal('hide');
             this.getSkillStandard();
             this.getSkillStandardDetails();
             return false;
           }
+
+          else if (data.msg == "Insert - Record Already Exists!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addSkillModal').modal('hide');
+            this.getSkillStandard();
+            this.getSkillStandardDetails();
+            return false;
+          }
+
           else {
             this.toastr.errorToastr(data.msg, 'Error !', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillModal').modal('hide');
-            $('#editSkillModal').modal('hide');
             this.getSkillStandard();
+            this.getSkillStandardDetails();
             return false;
           }
+
         });
       }
     }
@@ -432,7 +437,8 @@ export class SkillstandardComponent implements OnInit {
       //this.excelDataList = [];
     }
     else {
-      this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+      return;
+      //this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
     }
   }
 
@@ -452,9 +458,7 @@ export class SkillstandardComponent implements OnInit {
   // delete the skill criteria
   delete() {
 
-
     //alert(this.dSkillReqdStandardId + " - " + this.dSkillStandardId + " - " + this.qlfctnName + " - " + this.qlfctnCriteriaName);
-
 
     if (this.userPassword == "") {
       this.toastr.errorToastr('Please Enter Password', 'Error', { toastTimeout: (2500) });
@@ -485,37 +489,20 @@ export class SkillstandardComponent implements OnInit {
 
           //alert(data.msg);
 
-          if (data.msg == "Skill Standard Deleted Successfully") {
+          if (data.msg == "Record Deleted Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-
-            // this.getSkillStandardDetails();
-            // this.getSkillStandard();
-            // this.lstData = [this.qlfctnName, this.qlfctnCriteriaName];
-            // alert("LIST DATA = " + this.lstData.length);
-            // this.newDetailList(this.lstData);
-
             this.clear();
             $('#deleteModal').modal('hide');
             $('#detailSkillModal').modal('hide');
             this.getSkillStandardDetails();
             this.getSkillStandard();
-
-            //alert();
-
             return false;
           }
-          else if (data.msg == "Error Occured") {
+          else {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             return false;
           }
-          // else {
-          //   this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-          //   this.clear();
-          //   $('#deleteModal').modal('hide');
-          //   this.getSkillStandardDetails();
-          //   this.getSkillStandard();
-          //   return false;
-          // }
+
         });
       }
     }//else ends
