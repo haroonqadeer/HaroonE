@@ -119,89 +119,35 @@
         <!--start 1st Step -->
         <mat-step [stepControl]="formGroup1" optional>
           <!--stepper 2nd label-->
-          <ng-template matStepLabel><b>Qualification</b></ng-template>
+          <ng-template matStepLabel><b>Jobs</b></ng-template>
           <!--start 2nd step form control div-->
-          <form [formGroup]="formGroup2">
 
             <!--start 1st row-->
+            <br/>
             <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class="fullwidth">
-                  <mat-select placeholder="Select Degree" [(ngModel)]="cmbDegree" formControlName="cmbDegree" multiple>
-                    <input type="text" class="form-control" [(ngModel)]="searchDegree" [ngModelOptions]="{standalone: true}">
-                    <mat-option *ngFor="let item of degrees | search:'dName, dDesc, cName, cDesc':searchDegree"
-                      [value]="item">
-                      <table>
-                        <tr class='d-flex'>
-                          <td class='col-2'>{{ item.dName }}</td>
-                          <td class='col-4 border-left'>{{ item.dDesc }}</td>
-                          <td class='col-2 border-left'>{{ item.cName }}</td>
-                          <td class='col-4 border-left'>{{ item.cDesc }}</td>
-                          <!-- <td class="col-4 border-left">{{ item.emailAddrss }}</td> -->
-                        </tr>
-                      </table>
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <!-- <p-multiSelect [options]="degrees" [(ngModel)]="cmbDegree" formControlName="cmbDegree" [panelStyle]="{minWidth:'12em'}" [filter]="false" [style]="{'width':'100%'}"></p-multiSelect> -->
-                <!-- <p-dropdown [options]="degrees" [(ngModel)]="cmbDegree" formControlName="cmbDegree" placeholder="Degree Title" optionLabel="label" ></p-dropdown> -->
+              <div class="col-md-2">
+                <span class="label">Job Title</span>
               </div>
-              <div class="col-md-6">
-                <!-- <button mat-mini-fab color="primary" data-toggle="modal" data-target="#degreeModal"><span class="fa fa-plus"></span></button> -->
-                <p-dropdown [options]="jobsList" [(ngModel)]="jobTitle" placeholder="Leave Type"
-                  [style]="{'width':'100%'}">
+              <div class="col-md-10">
+                <p-dropdown [options]="jobsList" [(ngModel)]="jobTitle" (onChange)="getFilterItem('jobs')" placeholder="Job Title" filter="true" [style]="{'width':'100%'}">
                   <ng-template let-itm pTemplate="item">
-                    <div style="position: relative;height: 25px;">
+                    <div style="position: relative;height: 25px; z-index: 100;">
                       <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
                     </div>
                   </ng-template>
                 </p-dropdown>
+                <br/>
               </div>
             </div>
+            <!-- filter="true" [showClear]="true" -->
+            <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
             <!--end 1st row-->
-            <br/>
-
-            <!--start 2nd row-->
-            <div class="row">
-              <div class="col-md-6">
-                <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Criteria Required Level">
-                </mat-form-field>
-              </div>
-              <div class="col-md-6">
-                <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Criteria Maximum Level">
-                </mat-form-field>
-              </div>
-            </div>
-            <!--end 2nd row-->
-            <br/>
-
-            <!--start 3rd row-->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Remarks">
-                </mat-form-field>
-              </div>
-            </div>
-            <br/>
-            <!--end 3rd row-->
-
-            <!--start next step button div-->
-            <div class="text-right">
-              <button mat-raised-button color="primary">Save</button>
-            </div>
-            <!--end next step button div-->
-            <br/>
-
+            
             <!--start next step button div-->
             <div class="text-right">
               <button mat-raised-button color="primary" matStepperNext>Next</button>
             </div>
             <!--end next step button div-->
-          </form>
-          <!--end 2nd step form control div-->
         </mat-step>
         <!--end 1st Step -->
 
@@ -212,88 +158,95 @@
           <!--stepper 2nd label-->
           <ng-template matStepLabel><b>Qualification</b></ng-template>
           <!--start 2nd step form control div-->
-          <form [formGroup]="formGroup2">
+
+
             <!--start 1st row-->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class="fullwidth">
-                  <mat-select placeholder="Select Degree" [(ngModel)]="cmbDegree" formControlName="cmbDegree" multiple>
-                    <input type="text" class="form-control" [(ngModel)]="searchDegree" [ngModelOptions]="{standalone: true}">
-                    <mat-option *ngFor="let item of degrees | search:'dName, dDesc, cName, cDesc':searchDegree"
-                      [value]="item">
-                      <table>
-                        <tr class='d-flex'>
-                          <td class='col-2'>{{ item.dName }}</td>
-                          <td class='col-4 border-left'>{{ item.dDesc }}</td>
-                          <td class='col-2 border-left'>{{ item.cName }}</td>
-                          <td class='col-4 border-left'>{{ item.cDesc }}</td>
-                          <!-- <td class="col-4 border-left">{{ item.emailAddrss }}</td> -->
-                        </tr>
-                      </table>
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <!-- <p-multiSelect [options]="degrees" [(ngModel)]="cmbDegree" formControlName="cmbDegree" [panelStyle]="{minWidth:'12em'}" [filter]="false" [style]="{'width':'100%'}"></p-multiSelect> -->
-                <!-- <p-dropdown [options]="degrees" [(ngModel)]="cmbDegree" formControlName="cmbDegree" placeholder="Degree Title" optionLabel="label" ></p-dropdown> -->
-              </div>
-              <!-- <div class="col-md-6">
-                <button mat-mini-fab color="primary" data-toggle="modal" data-target="#degreeModal"><span class="fa fa-plus"></span></button>
-              </div> -->
-            </div>
-            <!--end 1st row-->
             <br/>
+            <div class="row">
+              <div class="col-md-2">
+                <span class="label">Degree</span>
+              </div>
+              <div class="col-md-10">
+                <p-dropdown [options]="degreeList" [(ngModel)]="ddlDegree" (onChange)="getFilterItem('degree')" placeholder="Degree" filter="true" [style]="{'width':'100%'}">
+                  <ng-template let-itm pTemplate="item">
+                    <div style="position: relative;height: 25px; z-index: 100;">
+                      <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+                <br/>
+              </div>
+            </div>
+            <!-- filter="true" [showClear]="true" -->
+            <!--end 1st row-->
+            
+
+
             <!--start 2nd row-->
             <div class="row">
               <div class="col-md-6">
                 <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Criteria Required Level">
+                  <input matInput placeholder="Criteria Required Level" [(ngModel)]="degreeReqLevel" type="number" min="1" max="99">
                 </mat-form-field>
               </div>
               <div class="col-md-6">
                 <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Criteria Maximum Level">
+                  <input matInput placeholder="Criteria Maximum Level" [(ngModel)]="degreeMaxLelvel" type="number" min="1" max="99">
                 </mat-form-field>
               </div>
             </div>
-            <!--end 2nd row-->
             <br/>
+            <!--end 2nd row-->
+            
+
+
             <!--start 3rd row-->
             <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Remarks">
-                </mat-form-field>
+              <div class="col-md-6">
+                Preference Indicator
+              </div>
+              <div class="col-md-6">
+                  <p-checkbox [(ngModel)]="chkDegreePI" binary="true"></p-checkbox>
               </div>
             </div>
-            <!--end 3rd row-->
             <br/>
+            <!--end 3rd row-->
+
+
+
             <!--start next step button div-->
             <div class="text-right">
-              <button mat-raised-button color="primary">Save</button>
+              <button mat-raised-button color="primary" (click)="addDegree()">Add</button>
             </div>
-            <!--end next step button div-->
             <br/>
+            <!--end next step button div-->
+            
+
+
             <!--table row-->
             <div class="row">
               <table class="table table-striped">
                 <thead>
                   <tr class='d-flex'>
-                    <th class='col-2 text-center'>Sr #</th>
-                    <th class='col-8'>Degree Title</th>
-                    <!-- <th class='col-2 text-center'>Years</th> -->
-                    <th class='col-1 text-center'>Edit</th>
+                    <th class='col-1 text-center'>Sr #</th>
+                    <th class='col-10'>Degree Title</th>
                     <th class='col-1 text-center'>Delete</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                  <tr class='d-flex'>
-                    <td class='col-2 text-center'>1</td> 
-                    <td class='col-8'>B.Sc</td>             
-                    <!-- <td class='col-2 text-center'>02</td> -->
-                    <td class='col-1 text-center'>
-                      <span class="fa fa-edit pointerCursor"></span>
-                    </td>
+                    <!-- | search:'UserName,Email': query -->
+                  <tr *ngFor="let item of tempDegreeList " class='d-flex'>
+                    <td class='col-1 text-center'>1</td> 
+                    <td class='col-2'>{{item.DegreeLabel}}</td>
+                    <td class='col-1'>{{item.QlfctnRuleCriteriaCD}}</td>
+                    <td class='col-1'>{{item.ReqdQlfctnRuleNo}}</td>
+                    <td class='col-1'>{{item.QlfctnCriteriaCD}}</td>
+                    <td class='col-1'>{{item.QlfctnTypeCd}}</td>
+                    <td class='col-1'>{{item.QlfctnCD}}</td>
+                    <td class='col-1'>{{item.QlfctnCriteriaReqdLvl}}</td>
+                    <td class='col-1'>{{item.QlfctnCriteriaMaxLvl}}</td>
+                    <td class='col-1'>{{item.PrefIndctr}}</td>
+
                     <td class='col-1 text-center'>
                       <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
                     </td>
@@ -301,14 +254,16 @@
                 </tbody>
               </table>
             </div>
-            <!--end table row-->
             <br/>
+            <!--end table row-->
+
+
+            
             <!--start next step button div-->
             <div class="text-right">
               <button mat-raised-button color="primary" matStepperNext>Next</button>
             </div>
             <!--end next step button div-->
-          </form>
           <!--end 2nd step form control div-->
         </mat-step>
         <!--end 2nd Step -->
@@ -317,119 +272,116 @@
 
         <!--start 3rd Step -->
         <mat-step [stepControl]="formGroup3" optional>
-          <!--stepper 3rd label-->
-          <ng-template matStepLabel><b>Certifications</b></ng-template>
-          <!--start 3rd step form control div-->
-          <form [formGroup]="formGroup3">
-            <!--start 1st row-->
-            <!-- <div class="row">
-              <div class="col-md-6">
-                <p-dropdown [options]="certificates" [(ngModel)]="cmbCertificate" formControlName="cmbCertificate" placeholder="Certificate Title" optionLabel="label" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
-              </div>
-              <div class="col-md-6">
-                <button mat-mini-fab color="primary" data-toggle="modal" data-target="#certificateModal"><span class="fa fa-plus"></span></button>
-              </div>
-            </div> -->
-            <!--end 1st row-->
-            <!--start 1st row-->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class="fullwidth">
-                  <mat-select placeholder="Select Certification" [(ngModel)]="cmbCertificate" formControlName="cmbCertificate" multiple>
-                    <input type="text" class="form-control" [(ngModel)]="searchcertification" [ngModelOptions]="{standalone: true}">
-                    <mat-option *ngFor="let item of certificates | search:'dName, dDesc, cName, cDesc':searchcertification"
-                      [value]="item">
-                      <table>
-                        <tr class='d-flex'>
-                          <td class='col-3'>{{ item.dName }}</td>
-                          <td class='col-4 border-left'>{{ item.dDesc }}</td>
-                          <td class='col-2 border-left'>{{ item.cName }}</td>
-                          <td class='col-3 border-left'>{{ item.cDesc }}</td>
-                          <!-- <td class="col-4 border-left">{{ item.emailAddrss }}</td> -->
-                        </tr>
-                      </table>
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <!-- <p-multiSelect [options]="degrees" [(ngModel)]="cmbDegree" formControlName="cmbDegree" [panelStyle]="{minWidth:'12em'}" [filter]="false" [style]="{'width':'100%'}"></p-multiSelect> -->
-                <!-- <p-dropdown [options]="degrees" [(ngModel)]="cmbDegree" formControlName="cmbDegree" placeholder="Degree Title" optionLabel="label" ></p-dropdown> -->
-              </div>
-              <!-- <div class="col-md-6">
-                <button mat-mini-fab color="primary" data-toggle="modal" data-target="#degreeModal"><span class="fa fa-plus"></span></button>
-              </div> -->
+        <!--stepper 3rd label-->
+        <ng-template matStepLabel><b>Certificate</b></ng-template>
+        <!--start 3rd step form control div-->
+
+
+          <!--start 1st row-->
+          <br/>
+          <div class="row">
+            <div class="col-md-2">
+              <span class="label">Certificate</span>
             </div>
-            <!--end 1st row-->
-            <br/>
-            <!--start 2nd row-->
-            <div class="row">
-              <div class="col-md-6">
-                <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Criteria Required Level">
-                </mat-form-field>
-              </div>
-              <div class="col-md-6">
-                <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Criteria Maximum Level">
-                </mat-form-field>
-              </div>
+            <div class="col-md-10">
+              <p-dropdown [options]="certificateList" [(ngModel)]="ddlCertificate" (onChange)="getFilterItem('certificate')" placeholder="Certificate" filter="true" [style]="{'width':'100%'}">
+                <ng-template let-itm pTemplate="item">
+                  <div style="position: relative;height: 25px; z-index: 100;">
+                    <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+              <br/>
             </div>
-            <!--end 2nd row-->
-            <br/>
-            
-            <!-- <br/> -->
-            <!--start 3rd row-->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Remarks">
-                </mat-form-field>
-              </div>
+          </div>
+          <!-- filter="true" [showClear]="true" -->
+          <!--end 1st row-->
+          
+
+
+          <!--start 2nd row-->
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field class="fullwidth">
+                <input matInput placeholder="Criteria Required Level" [(ngModel)]="certificateReqLevel" type="number" min="1" max="99">
+              </mat-form-field>
             </div>
-            <!--end 3rd row-->
-            <br/>
-            <!--start next step button div-->
-            <div class="text-right">
-              <button mat-raised-button color="primary">Save</button>
+            <div class="col-md-6">
+              <mat-form-field class="fullwidth">
+                <input matInput placeholder="Criteria Maximum Level" [(ngModel)]="certificateMaxLelvel" type="number" min="1" max="99">
+              </mat-form-field>
             </div>
-            <!--end next step button div-->
-            <br/>
-            <!--table row-->
-            <div class="row">
-              <table class="table table-striped">
-                <thead>
-                  <tr class='d-flex'>
-                    <th class='col-2 text-center'>Sr #</th>
-                    <th class='col-8'>Certification</th>
-                    <!-- <th class='col-2 text-center'>Time Period</th> -->
-                    <th class='col-1 text-center'>Edit</th>
-                    <th class='col-1 text-center'>Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                  <tr class='d-flex'>
-                    <td class='col-2 text-center'>1</td> 
-                    <td class='col-8'>Quality Assurance</td>             
-                    <!-- <td class='col-2 text-center'>02 Months</td> -->
-                    <td class='col-1 text-center'>
-                      <span class="fa fa-edit pointerCursor"></span>
-                    </td>
-                    <td class='col-1 text-center'>
-                      <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          </div>
+          <br/>
+          <!--end 2nd row-->
+          
+
+
+          <!--start 3rd row-->
+          <div class="row">
+            <div class="col-md-6">
+              Preference Indicator
             </div>
-            <!--end table row-->
-            <br/>
-            <!--start next step button div-->
-            <div class="text-right">
-              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <div class="col-md-6">
+                <p-checkbox [(ngModel)]="chkCertificatePI" binary="true"></p-checkbox>
             </div>
-            <!--end next step button div-->
-          </form>
-          <!--end 3rd step form control div-->
+          </div>
+          <br/>
+          <!--end 3rd row-->
+
+
+
+          <!--start next step button div-->
+          <div class="text-right">
+            <button mat-raised-button color="primary" (click)="addCertificate()">Add</button>
+          </div>
+          <br/>
+          <!--end next step button div-->
+          
+
+
+          <!--table row-->
+          <div class="row">
+            <table class="table table-striped">
+              <thead>
+                <tr class='d-flex'>
+                  <th class='col-1 text-center'>Sr #</th>
+                  <th class='col-10'>Certificate Title</th>
+                  <th class='col-1 text-center'>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <!-- | search:'UserName,Email': query -->
+                <tr *ngFor="let item of tempCertificateList " class='d-flex'>
+                  <td class='col-1 text-center'>1</td> 
+                  <td class='col-2'>{{item.DegreeLabel}}</td>
+                  <td class='col-1'>{{item.QlfctnRuleCriteriaCD}}</td>
+                  <td class='col-1'>{{item.ReqdQlfctnRuleNo}}</td>
+                  <td class='col-1'>{{item.QlfctnCriteriaCD}}</td>
+                  <td class='col-1'>{{item.QlfctnTypeCd}}</td>
+                  <td class='col-1'>{{item.QlfctnCD}}</td>
+                  <td class='col-1'>{{item.QlfctnCriteriaReqdLvl}}</td>
+                  <td class='col-1'>{{item.QlfctnCriteriaMaxLvl}}</td>
+                  <td class='col-1'>{{item.PrefIndctr}}</td>
+
+                  <td class='col-1 text-center'>
+                    <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <br/>
+          <!--end table row-->
+
+
+          
+          <!--start next step button div-->
+          <div class="text-right">
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+          <!--end next step button div-->
+        <!--end 3rd step form control div-->
         </mat-step>
         <!--end 3rd Step --> 
 
@@ -440,61 +392,82 @@
           <!--stepper 4th label-->
           <ng-template matStepLabel><b>Experience</b></ng-template>
           <!--start 4th step form control div-->
-          <form [formGroup]="formGroup4">
             <!--start 1st row-->
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <br/>
                 <h5>Time Period</h5>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Years" [(ngModel)]="fourthCtrl" formControlName="fourthCtrl">
+                  <input matInput placeholder="Years" [(ngModel)]="experienceYear" type="number" min="0" max="99">
                 </mat-form-field>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Months">
+                  <input matInput placeholder="Months" [(ngModel)]="experienceMonth" type="number" min="0" max="12"> 
                 </mat-form-field>
               </div>
             </div>
-            <!--end 1st row-->  
             <br/>
+            <!--end 1st row-->  
+            
+
+
             <!--table row-->
             <div class="row">
               <table class="table table-striped">
                 <thead>
                   <tr class='d-flex'>
-                    <th class='col-3 text-center'>Sr #</th>
-                    <th class='col-7'>Description</th>
-                    <th class='col-2 text-center'>Add</th>
+                    <th class='col-1 text-center'>Sr #</th>
+                    <th class='col-5'>Skill</th>
+                    <th class='col-5'>Preference Indicator</th>
+                    <th class='col-1 text-center'></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                  <tr class='d-flex'>
-                    <td class='col-3 text-center'><br/>Expertise-01</td> 
-                    <td class='col-7'>
-                      <mat-form-field class="fullwidth">
-                        <input matInput placeholder="Description">
-                      </mat-form-field>
-                    </td>             
-                    <td class='col-2 text-center'>
-                      <br/>
-                      <span class="fa fa-plus pointerCursor"></span>
+                  <tr *ngFor="let item of skillsDetail; let i=index" class='d-flex'>
+                    <td class='col-1 text-center'>{{i + 1}}</td>
+
+                    <td class='col-5'>
+
+
+                      <p-dropdown [options]="tempSkillList" filter="true" [(ngModel)]="item.skill" placeholder="Skill"
+                        required>
+                        <ng-template let-itm pTemplate="item">
+                          <div style="position: relative;height: 25px;">
+                            <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                          </div>
+                        </ng-template>
+                      </p-dropdown>
+
+
                     </td>
+
+                    <td class='col-5'><p-checkbox [(ngModel)]="item.indicator" binary="true"></p-checkbox></td>
+                    <td class='col-1 text-center'><span class="fa fa-minus pointerCursor" (click)="removeSkill(i)"></span></td>
                   </tr>
+
+                  <tr class='d-flex'>
+                      <td class='col-1 text-center'></td> 
+                      <td class='col-5'></td>  
+                      <td class='col-5'></td>           
+                      <td class='col-1 text-center'><span class="fa fa-plus pointerCursor" (click)="addSkill()"></span></td>
+                    </tr>
                 </tbody>
               </table>
             </div>
-            <!--end table row-->
             <br/>
+            <!--end table row-->
+            
+
+
             <!--start next step button div-->
             <div class="text-right">
               <button mat-raised-button color="primary" matStepperNext>Next</button>
             </div>
             <!--end next step button div-->
-          </form>
+          
           <!--end 4th step form control div-->
         </mat-step>
         <!--end 4th Step -->
@@ -506,16 +479,16 @@
           <!--stepper 5th label-->
           <ng-template matStepLabel><b>Job Description</b></ng-template>
           <!--start 5th step form control div-->
-          <form [formGroup]="formGroup5">
             <br/>
             <!--start 1st row-->
-            <div class="row">
-              <div class="col-md-6">
+            <!-- <div class="row">
+              <div class="col-md-12">
                   <p-multiSelect [options]="roles" placeholder="ERP Role" optionLabel="label" [style]="{'width':'100%'}"></p-multiSelect>
               </div>
-            </div>
+            </div> -->
             <!--end 1st row-->
-            <br/>
+
+
             <!--table row-->
             <div class="row">
               <table class="table table-striped">
@@ -523,28 +496,28 @@
                   <tr class='d-flex'>
                     <th class='col-2 text-center'>Sr #</th>
                     <th class='col-8'>Description</th>
-                    <!-- <th class='col-3'>ERP Role</th> -->
                     <th class='col-2 text-center'>Add</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                  <tr class='d-flex'>
-                    <td class='col-2 text-center'><br/>1</td> 
-                    <td class='col-8'>
-                      <mat-form-field class="fullwidth">
-                        <input matInput placeholder="Description">
-                      </mat-form-field>
+                  <tr *ngFor="let item of descDetail; let i=index" class='d-flex'>
+                    <td class='col-1 text-center'>{{i + 1}}</td> 
+                    <td class='col-10'>
+                      <p-dropdown [options]="tempDescList" editable="true" filter="true" [(ngModel)]="item.desc" placeholder="Description" [style]="{'width':'100%'}">
+                        <ng-template let-itm pTemplate="item">
+                          <div style="position: relative;height: 25px;">
+                            <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                          </div>
+                        </ng-template>
+                      </p-dropdown>
                     </td>           
-                    <!-- <td class='col-3'>
-                      <br/>
-                      <p-dropdown [options]="roles" placeholder="ERP Role" optionLabel="label" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
-                    </td>              -->
-                    <td class='col-2 text-center'>
-                      <br/>
-                      <span class="fa fa-plus pointerCursor"></span>
-                    </td>
+                    <td class='col-1 text-center'><span class="fa fa-minus pointerCursor" (click)="removeDesc()"></span></td>
                   </tr>
+                  <tr class='d-flex'>
+                      <td class='col-1 text-center'></td> 
+                      <td class='col-10'></td>           
+                      <td class='col-1 text-center'><span class="fa fa-plus pointerCursor" (click)="addDesc()" ></span></td>
+                    </tr>
                 </tbody>
               </table>
             </div>
@@ -555,7 +528,7 @@
               <button mat-raised-button color="primary" matStepperNext>Next</button>
             </div>
             <!--end next step button div-->
-          </form>
+          
           <!--end 5th step form control div-->
         </mat-step>
         <!--end 5th Step -->
@@ -594,19 +567,15 @@
                       <span class="fa fa-minus pointerCursor"></span>
                     </td>
                   </tr>
+
                   <tr class='d-flex'>
                   <td class='col-2 text-center'><br/>2</td> 
                   <td class='col-5'>
-                    <br/>
                     <p-dropdown [options]="rules" placeholder="Leave Rule" optionLabel="label" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
                   </td>           
                   <td class='col-3'>
-                    <mat-form-field class="fullwidth">
-                      <input matInput placeholder="No. of Leaves / Unit">
-                    </mat-form-field>
                   </td>             
                   <td class='col-2 text-center'>
-                    <br/>
                     <span class="fa fa-plus pointerCursor"></span>
                   </td>
                 </tr>
@@ -617,7 +586,7 @@
           <br/>
           <!--start next step button div-->
           <div class="text-right">
-            <button mat-raised-button color="primary">Save</button>
+            <button mat-raised-button color="primary" (click)="save()" >Save</button>
           </div>
           <!--end next step button div-->
           
