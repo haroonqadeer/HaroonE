@@ -310,6 +310,7 @@ export class SkillstandardComponent implements OnInit {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillModal').modal('hide');
+            $('#editSkillModal').modal('hide');
             this.getSkillStandard();
             this.getSkillStandardDetails();
             return false;
@@ -319,6 +320,7 @@ export class SkillstandardComponent implements OnInit {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillModal').modal('hide');
+            $('#editSkillModal').modal('hide');
             this.getSkillStandard();
             this.getSkillStandardDetails();
             return false;
@@ -328,6 +330,7 @@ export class SkillstandardComponent implements OnInit {
             this.toastr.errorToastr(data.msg, 'Error !', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillModal').modal('hide');
+            $('#editSkillModal').modal('hide');
             this.getSkillStandard();
             this.getSkillStandardDetails();
             return false;
