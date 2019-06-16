@@ -14,7 +14,7 @@ declare var $: any;
 })
 export class PerformanceStandComponent implements OnInit {
 
-    // serverUrl = "http://localhost:11664/";
+    //serverUrl = "http://localhost:11664/";
     serverUrl = "http://192.168.200.19:3006/";
     tokenKey = "token";
 
@@ -66,7 +66,6 @@ export class PerformanceStandComponent implements OnInit {
     //function for get all saved performance standards 
     getPStandard() {
         //var Token = localStorage.getItem(this.tokenKey);
-
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
