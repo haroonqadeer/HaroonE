@@ -1,3 +1,688 @@
-<p>
-  recruitment works!
-</p>
+<!--heading row-->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1 class="bottomBorder">Recruitment Process</h1>
+  </div>
+</div>
+<!--end heading row-->
+<br />
+
+<!--start button row-->
+<div class="row">
+  <div class="col-md-12 text-right">
+    <button mat-raised-button color="primary" data-toggle="modal" data-target="#vacancyModal">Vacancy</button>
+  </div>
+</div>
+<!--end button row-->
+<br />
+
+<!--start container tab-->
+<div class="container">
+  <!--start top labels row-->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-5">
+          <b>Job Title: </b>
+        </div>
+        <div class="col-md-7">
+          {{lblJobTitle}}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="row">
+        <div class="col-md-6">
+          <b>Vacancies: </b>
+        </div>
+        <div class="col-md-6">
+          {{lblVacancy}}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-md-6">
+          <b>Published on: </b>
+        </div>
+        <div class="col-md-6">
+          {{lblPublishOn|date:'dd-MM-yyyy'}}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-md-5">
+          <b>Last Date: </b>
+        </div>
+        <div class="col-md-7">
+          {{lblLastDate|date:'dd-MM-yyyy'}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end top labels row-->
+</div>
+<!--end container tab-->
+<br />
+
+<!--start horizontal Stepper -->
+<div class="container bgWhite allBorder">
+  <mat-horizontal-stepper linear>
+    <!--start 1st Step -->
+    <mat-step>
+      <!--stepper 1st label-->
+      <ng-template matStepLabel><b>Application</b></ng-template>
+      <!--start table row-->
+      <div class="row">
+        <table class="table table-striped fullwidth">
+          <thead>
+            <tr class='d-flex'>
+              <th class='col-2 text-center'>Sr#</th>
+              <th class='col-3'>Applicant</th>
+              <th class='col-3 text-center'>Received on</th>
+              <th class='col-2 text-center'>Match</th>
+              <th class='col-2 text-center'>Status</th>
+              <!-- <th class='col-1 text-center'>Docs</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='d-flex' *ngFor="let item of applicantList let i=index">
+              <td class="col-2 text-center">{{i+1}}</td>
+              <td class="col-3">{{item.appName}}</td>
+              <td class="col-3 text-center">{{item.receivedOn|date:'dd-MM-yyyy'}}</td>
+              <td class="col-2 text-center">
+                <a href="" data-toggle="modal" data-target="#matchModal">{{item.appMatch}}</a>
+              </td>
+              <td class="col-2 text-center">
+                <a href="" data-toggle="modal" data-target="#statusModal"
+                  (click)="getStepperID(1, item.appID)">{{item.appStatus}}</a>
+              </td>
+              <!-- <td class="col-1 text-center">
+                  <a href="" data-toggle="modal" data-target="#docModal"><span class="fa fa-file pointcursor"></span></a>
+                </td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--end table row-->
+      <br />
+      <!--start next step button div-->
+      <div class="text-right">
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+      <!--end next step button div-->
+    </mat-step>
+    <!--end 1st Step -->
+    <!--start 2nd Step -->
+    <mat-step>
+      <!--stepper 2nd label-->
+      <ng-template matStepLabel><b>Short Listed for Test</b></ng-template>
+      <!--start table row-->
+      <div class="row">
+        <table class="table table-striped fullwidth">
+          <thead>
+            <tr class='d-flex'>
+              <th class='col-2 text-center'>Sr#</th>
+              <th class='col-5'>Applicant</th>
+              <th class='col-3 text-center'>Marks</th>
+              <th class='col-2 text-center'>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='d-flex' *ngFor="let item of shortListTest let i = index">
+              <td class="col-2 text-center">{{i + 1}}</td>
+              <td class="col-5">{{item.appName}}</td>
+              <td class="col-3 text-center">{{item.marks}}</td>
+              <td class="col-2 text-center">
+                <a href="" data-toggle="modal" (click)="getStepperID(2, item.appID)"
+                  data-target="#statusModal">{{item.appStatus}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--end table row-->
+      <br />
+      <!--start next step button div-->
+      <div class="text-right">
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+      <!--end 2nd step form control div-->
+    </mat-step>
+    <!--end 2nd Step -->
+    <!--start 3rd Step -->
+    <mat-step>
+      <!--stepper 3rd label-->
+      <ng-template matStepLabel><b>Test</b></ng-template>
+      <!--start table row-->
+      <div class="row">
+        <table class="table table-striped fullwidth">
+          <thead>
+            <tr class='d-flex'>
+              <th class='col-2'>Sr#</th>
+              <th class='col-2'>Applicant</th>
+              <th class='col-2 text-center'>Test Through</th>
+              <th class='col-2 text-center'>Total Marks</th>
+              <th class='col-2 text-center'>Marks Obtain</th>
+              <th class='col-2 text-center'>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='d-flex' *ngFor="let item of testList let i = index">
+              <td class="col-2">{{i + 1}}</td>
+              <td class="col-2">{{item.appName}}</td>
+              <td class="col-2 text-center">{{item.test}}</td>
+              <td class="col-2 text-center">{{item.totalMarks}}</td>
+              <td class="col-2 text-center" *ngIf="item.test == 'Web'">
+                {{item.marks}}
+              </td>
+              <!-- <td class="col-2 text-center" *ngIf="item.test == 'Manual'">
+                <input type="text" pInputText [(ngModel)]="item.marks" />
+              </td> -->
+              <td class="col-2 text-center">
+                <a href="" data-toggle="modal" data-target="#statusModal"
+                  (click)="getStepperID(3, item.appID)">{{item.appStatus}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--end table row-->
+      <br />
+      <!--start next step button div-->
+      <div class="text-right">
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+      <!--end 3rd step form control div-->
+    </mat-step>
+    <!--end 3rd Step -->
+    <!--start 4th Step -->
+    <mat-step>
+      <!--stepper 4th label-->
+      <ng-template matStepLabel><b>Short Listed for Interview</b></ng-template>
+      <!--start table row-->
+      <div class="row">
+        <table class="table table-striped fullwidth">
+          <thead>
+            <tr class='d-flex'>
+              <th class='col-1 text-center'>Sr#</th>
+              <th class='col-3'>Applicant</th>
+              <th class='col-3 text-center'>Screening Marks</th>
+              <th class='col-3 text-center'>Test Marks</th>
+              <th class='col-2 text-center'>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='d-flex' *ngFor="let item of shortListInterview let i = index">
+              <!-- <tr *ngFor="let item of taxDetail | search:'UserName,Email': query" class='d-flex'> -->
+
+              <td class="col-1 text-center">{{i + 1}}</td>
+              <td class="col-3">{{item.appName}}</td>
+              <td class="col-3 text-center">{{item.screenMarks}}</td>
+              <td class="col-3 text-center">{{item.testMarks}}</td>
+              <td class="col-2 text-center">
+                <a href="" data-toggle="modal" data-target="#statusModal"
+                  (click)="getStepperID(4, item.appID)">{{item.appStatus}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--end table row-->
+      <br />
+      <!--start next step button div-->
+      <div class="text-right">
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+      <!--end 4th step form control div-->
+    </mat-step>
+    <!--end 4th Step -->
+    <!--start 5th Step -->
+    <mat-step>
+      <!--stepper 5th label-->
+      <ng-template matStepLabel><b>Interview</b></ng-template>
+      <!--start table row-->
+      <div class="row">
+        <table class="table table-striped fullwidth">
+          <thead>
+            <tr class='d-flex'>
+              <th class='col-2 text-center'>Sr#</th>
+              <th class='col-6'>Applicant</th>
+              <th class='col-2 text-center'>Interviewer</th>
+              <th class='col-2 text-center'>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='d-flex' *ngFor="let item of interviewList let i = index">
+              <!-- <tr *ngFor="let item of taxDetail | search:'UserName,Email': query" class='d-flex'> -->
+
+              <td class="col-2 text-center">{{i + 1}}</td>
+              <td class="col-6">{{item.appName}}</td>
+              <td class="col-2 text-center">{{item.marks}}</td>
+              <td class="col-2 text-center">
+                <a href="" data-toggle="modal" data-target="#statusModal"
+                  (click)="getStepperID(5, item.appID)">{{item.appStatus}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--end table row-->
+      <br />
+      <!--start next step button div-->
+      <div class="text-right">
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+      <!--end 5th step form control div-->
+    </mat-step>
+    <!--end 5th Step -->
+    <!--start 6th Step -->
+    <mat-step>
+      <!--stepper 6th label-->
+      <ng-template matStepLabel><b>Appointment</b></ng-template>
+      <!--start table row-->
+      <div class="row">
+        <table class="table table-striped fullwidth">
+          <thead>
+            <tr class='d-flex'>
+              <th class='col-1 text-center'>Sr#</th>
+              <th class='col-3'>Applicant</th>
+              <th class='col-2 text-center'>Initial Screening</th>
+              <th class='col-2 text-center'>Test</th>
+              <th class='col-2 text-center'>Interview</th>
+              <th class='col-2 text-center'>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='d-flex' *ngFor="let item of appointmentList let i = index">
+              <!-- <tr *ngFor="let item of taxDetail | search:'UserName,Email': query" class='d-flex'> -->
+
+              <td class="col-1 text-center">{{i + 1}}</td>
+              <td class="col-3">{{item.appName}}</td>
+              <td class="col-2 text-center">{{item.screenMarks}}</td>
+              <td class="col-2 text-center">{{item.testMarks}}</td>
+              <td class="col-2 text-center">{{item.interviewMarks}}</td>
+              <td class="col-2 text-center">
+                <a href="" data-toggle="modal" data-target="#statusModal"
+                  (click)="getStepperID(6, item.appID)">{{item.appStatus}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--end table row-->
+      <br />
+      <!--start next step button div-->
+      <div class="text-right">
+        <button mat-raised-button color="primary">Save</button>
+      </div>
+      <!--end 6th step form control div-->
+    </mat-step>
+    <!--end 6th Step -->
+  </mat-horizontal-stepper>
+</div>
+<!--end horizontal Stepper -->
+<br />
+
+<!-- Start Search vacancy Modal Window -->
+<div class="modal fade" id="vacancyModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Search Vacancy</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--start table row-->
+        <div class="row">
+          <table class="table table-striped fullwidth">
+            <thead>
+              <tr class='d-flex'>
+                <th class='col-1 text-center'>Sr#</th>
+                <th class='col-2'>Job Title</th>
+                <th class='col-2 text-center'>Vacancies</th>
+                <th class='col-3'>Published on</th>
+                <th class='col-3'>Last Date</th>
+                <th class='col-1'>Select</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class='d-flex'>
+              <tr *ngFor="let item of vcncyList let i=index" class='d-flex'>
+                <td class='col-1 text-center'>{{i+1}}</td>
+                <td class='col-2'>{{item.jobDesigName}}</td>
+                <td class='col-2 text-center'>{{item.jobPostVcncyQty}}</td>
+                <td class='col-3'>{{item.vcncyStartDt|date:'dd-MM-yyyy'}}</td>
+                <td class='col-3'>{{item.vcncyExprtnDt|date:'dd-MM-yyyy'}}</td>
+                <td class='col-1'>
+                  <a href="" data-dismiss="modal" (click)="onVcncySelect(item.jobPostVcncyID)">select</a>
+                </td>
+                <!-- <td class="col-1 text-center">1</td>
+                <td class="col-2">Accountant</td>
+                <td class="col-2 text-center">1</td>
+                <td class="col-3">Jan 3, 2019</td>
+                <td class="col-3">Feb 28, 2019</td>
+                <td class="col-1">
+                  <a href="" data-dismiss="modal">select</a> -->
+                <!-- </td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--end table row-->
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Search vacancy Modal Window  -->
+
+
+<!-- Start Search vacancy Modal Window -->
+<div class="modal fade" id="matchModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Match</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--1st row-->
+        <div class="row">
+          <div class="col-md-5 text-right">
+            <h5>Applicant: </h5>
+          </div>
+          <div class="col-md-4 text-center">
+            <h5 style="font-weight: normal;">Qureshi</h5>
+          </div>
+        </div>
+        <!--end 1st row-->
+        <br />
+        <!--start table row-->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="example-container mat-elevation-z8 fullwidth">
+              <div class="example-table-container fullwidth">
+                <table class="table table-striped fullwidth">
+                  <thead>
+                    <tr class='d-flex'>
+                      <th class='col-2 text-center'>Sr#</th>
+                      <th class='col-4'>Skills</th>
+                      <th class='col-3'>Required</th>
+                      <th class='col-3'>Received</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class='d-flex'>
+                      <!-- <tr *ngFor="let item of taxDetail | search:'UserName,Email': query" class='d-flex'> -->
+                      <td class="col-2 text-center">1</td>
+                      <td class="col-4">English</td>
+                      <td class="col-3">Advanced</td>
+                      <td class="col-3">Avg</td>
+                    </tr>
+                    <tr class='d-flex'>
+                      <td class="col-2 text-center">2</td>
+                      <td class="col-4">VB.Net</td>
+                      <td class="col-3">Expert</td>
+                      <td class="col-3">Advance</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 shadow-md bgWhite">
+            <div [chart]="Line_chart" style=" height: 100%;width:100%;"></div>
+          </div>
+        </div>
+        <!--end table row-->
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Search vacancy Modal Window  -->
+
+<!-- Start Document Modal Window -->
+<div class="modal fade" id="docModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Documents</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+
+        <!--start table row-->
+        <div class="row">
+          <div class="example-container mat-elevation-z8 fullwidth">
+            <div class="example-table-container fullwidth">
+              <table class="table table-striped fullwidth">
+                <thead>
+                  <tr class='d-flex'>
+                    <th class='col-2 text-center'>Sr#</th>
+                    <th class='col-7'>Document Name</th>
+                    <th class='col-3'>View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class='d-flex'>
+                    <!-- <tr *ngFor="let item of taxDetail | search:'UserName,Email': query" class='d-flex'> -->
+                    <td class="col-2 text-center">1</td>
+                    <td class="col-7">CV</td>
+                    <td class="col-3">
+                      <a href="">---</a>
+                    </td>
+                  </tr>
+                  <tr class='d-flex'>
+                    <td class="col-2 text-center">2</td>
+                    <td class="col-7">Education Certificates</td>
+                    <td class="col-3">
+                      <a href="">---</a>
+                    </td>
+                  </tr>
+                  <tr class='d-flex'>
+                    <td class="col-2 text-center">3</td>
+                    <td class="col-7">Experience Certificates</td>
+                    <td class="col-3">
+                      <a href="">---</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!--end table row-->
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Document Modal Window  -->
+
+<!-- Start Document Modal Window -->
+<div class="modal fade" id="statusModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Status</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+
+        <!--1st row-->
+        <div class="row">
+          <div class="col-md-6">
+            <br />
+            <p-dropdown class="fullwidth" [options]="status" [(ngModel)]="cmbStatus" placeholder="Status"
+              optionLabel="sName" [style]="{'width':'100%'}"></p-dropdown>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="fullwidth">
+              <input matInput placeholder="Number" [(ngModel)]="txtNumber" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <!--end 1st row-->
+        <br />
+        <!--2nd row-->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="fullwidth">
+              <input matInput placeholder="Remarks" [(ngModel)]="txtRemarks" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <!--end 2nd row-->
+        <br />
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <button mat-raised-button color="primary" (click)="saveStatus()">Save</button>
+          </div>
+        </div>
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Document Modal Window  -->
+
+<!-- Start Activity Modal Window -->
+<div class="modal fade" id="activityModal">
+  <div class="modal-dialog shadow-lg-dark modal-md">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Activities</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--Row #1-->
+        <div class="row">
+          <div class="col-md-7">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>Usman Ali</mat-card-title>
+                <mat-card-subtitle>VB.Net</mat-card-subtitle>
+              </mat-card-header>
+
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-md-10 text-center">
+                    <p>
+                      Sept 11, 2018
+                    </p>
+                  </div>
+                </div>
+
+              </mat-card-content>
+              <mat-card-actions class="text-right">
+                <span class="fa fa-share"></span>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+        <!--end of row #1 -->
+
+        <br />
+
+        <!--start row #2-->
+        <div class="row">
+          <div class="col-md-5"></div>
+          <div class="col-md-offset-5 col-md-7">
+            <mat-card class="example-card-r">
+
+              <mat-card-header>
+                <div mat-card-avatar class="example-header-image-r"></div>
+                <mat-card-title>Ali Khan</mat-card-title>
+                <mat-card-subtitle>English</mat-card-subtitle>
+
+              </mat-card-header>
+
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-md-10 text-center">
+                    <p>
+                      Sept 23, 2018
+                    </p>
+                  </div>
+                </div>
+              </mat-card-content>
+              <mat-card-actions class="">
+                <span class="fa fa-reply"></span>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+        <!--end row 2-->
+
+        <br />
+
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Activity Modal Window  -->

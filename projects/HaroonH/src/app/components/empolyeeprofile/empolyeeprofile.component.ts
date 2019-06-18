@@ -17,7 +17,8 @@ declare var $: any;
 })
 export class EmpolyeeprofileComponent implements OnInit {
 
-    serverUrl = "http://localhost:50124/";
+    serverUrl = "http://192.168.200.19:3011/";
+    //serverUrl = "http://localhost:50124/";
     tokenKey = "token";
 
     httpOptions = {
@@ -752,6 +753,9 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     //Function for update employee personal info 
     updateEmpPersonalInfo() {
+
+        this.toastr.errorToastr('Please enter complete information', 'Error', { toastTimeout: (2500) });
+        return false;
 
         if (this.firstName == undefined || this.firstName.trim() == "") {
             this.toastr.errorToastr('Please enter first name', 'Error', { toastTimeout: (2500) });
