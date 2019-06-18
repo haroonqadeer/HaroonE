@@ -480,18 +480,17 @@ export class SkillComponent implements OnInit {
         this.http.put(this.serverUrl + 'api/deleteSkillGroup', groupdata, { headers: reqHeader }).subscribe((data: any) => {
 
           //alert(data.msg);
-
-          if (data.msg == "Error Occured") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            return false;
-          }
-          else {
+		  if (data.msg == "Record Deleted Successfully!") {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#deleteModal').modal('hide');
             this.getSkillGroup();
             return false;
-          }
+		  }
+		  else {
+			this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+			return false;
+		  }
         });
       }// else if ends
     }//else ends

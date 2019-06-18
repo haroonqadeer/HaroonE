@@ -13,7 +13,7 @@
 //   }
 
 // }
-  
+
 
 import { Component, OnInit, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -66,9 +66,13 @@ export class LoginComponent implements OnInit {
         }
         else {
 
-        //   localStorage.setItem('userName', this.txtUserName);
-        //   localStorage.setItem('myActModNam', 'HR');
-        //   this.app.checkLogin('Yes');
+            //   localStorage.setItem('userName', this.txtUserName);
+            //   localStorage.setItem('myActModNam', 'HR');
+            //   this.app.checkLogin('Yes');
+            localStorage.setItem('userName', this.txtUserName);
+            localStorage.setItem('myActModNam', 'HR');
+            this.app.checkLogin('Yes');
+            return false;
 
             var loginData = { "IndvdlERPUsrID": this.txtUserName, "IndvdlERPPsswrd": this.txtPassword };
 
@@ -77,12 +81,12 @@ export class LoginComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/getUsers', loginData, { headers: reqHeader }).subscribe((data: any) => {
 
 
-                if (data.msg == "Logedin Successfully!" ){
+                if (data.msg == "Logedin Successfully!") {
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     localStorage.setItem('userName', this.txtUserName);
                     localStorage.setItem('myActModNam', 'HR');
                     this.app.checkLogin('Yes');
-                }else {
+                } else {
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                 }
 
@@ -115,9 +119,9 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    getKeyPressed(e) {  
-      if (e.keyCode == 13){
-        this.onSubmit();
-      }
+    getKeyPressed(e) {
+        if (e.keyCode == 13) {
+            this.onSubmit();
+        }
     }
 }
