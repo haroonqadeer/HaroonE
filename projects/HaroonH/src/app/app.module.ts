@@ -38,6 +38,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
+import {InputSwitchModule} from 'primeng/inputswitch';
 
 import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
 
@@ -81,7 +82,8 @@ import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "i
     InputTextModule,
     DropdownModule,
     IgxGridModule,
-    CheckboxModule
+    CheckboxModule,
+    InputSwitchModule
   ],
   providers: [IgxExcelExporterService, IgxCsvExporterService],
   bootstrap: [AppComponent],

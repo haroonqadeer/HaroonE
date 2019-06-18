@@ -1,57 +1,127 @@
-<br>  
-<!--start heading row-->
-<div class="row">
-  <div class="col-md-12 text-center">
-    <h1 class="bottomBorder">Recruitment</h1>    
+<!-- start menubar buttons -->
+<div class="topnav boxShadow">
+  <div>
+    <!--class="container" -->
+    <span class="fa iconContainer">
+      <span class="fa icon-hr-recruitmentapproval" > </span>
+    </span>
+    <h1> Recruitment</h1>
+
+    <!-- (click)="downloadExcel()" -->
+    <a class="pointerCursor">
+      <i class="fa fa-file-excel-o"></i>
+      Excel
+    </a>
+
+    <!-- (click)="downloadCSV()" -->
+    <a class="pointerCursor">
+      <i class="fa fa-file-text-o"></i>
+      CSV
+    </a>
+
+    <!-- (click)="downPDF()" -->
+    <a class="pointerCursor">
+      <i class="fa fa-file-pdf-o"></i>
+      PDF
+    </a>
+
+    <!-- (click)="printDiv()" -->
+    <a class="pointerCursor">
+      <i class="fa fa-print"></i>
+      Print
+    </a>
+
+    <!-- <a class="pointerCursor" data-toggle="modal" data-target="#profileModal" (click)="clear()">
+      <i class="fa fa-plus-square"></i>
+      Add New
+    </a> -->
+
   </div>
 </div>
-<!--end heading row-->
-<br/>
+<!-- end menubar buttons -->
   
-  
-<div class="container">
+
+<!-- start table container-->
+<div class="myContainer mat-elevation-z8 bgWhite">
+
+  <!--Start search textbox Row-->
+  <div class="row tab-margin">
+    <div class="col-md-12">
+      <mat-form-field class="fullwidth">
+        <input matInput [(ngModel)]="tblSearch" placeholder="Search">
+      </mat-form-field>
+      <span class="fab fa-accessible-icon"></span>
+    </div>
+  </div>
+  <!--end search textbox Row-->
+
   <!--start table row-->       
-  <div class="example-container mat-elevation-z8">
+  <div class="example-container">
     <div class="example-table-container">                      
       <table class="table table-striped">
         <thead>
           <tr class='d-flex'>
             <th class='col-1'>Sr #</th>
-            <th class='col-1'>Office</th>
-            <th class='col-2'>Department</th>
-            <th class='col-2'>Section</th>
-            <th class='col-2'>Vacancies</th>
-            <th class='col-1'>Request</th>
-            <th class='col-2'>In Process</th>
+            <th class='col-2' [class.active]="order === 'officeName'" (click)="setOrder('officeName')"> Office <span class="fa fa-angle-double-down" [hidden]="reverse"></span> <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th>
+            <th class='col-1' [class.active]="order === 'department'" (click)="setOrder('department')">Department<span class="fa fa-angle-double-down" [hidden]="reverse"></span><span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th>
+            <th class='col-1' [class.active]="order === 'section'" (click)="setOrder('section')">Section<span class="fa fa-angle-double-down" [hidden]="reverse"></span><span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th>
+            <th class='col-2' [class.active]="order === 'jobTitle'" (click)="setOrder('jobTitle')">Job Profile<span class="fa fa-angle-double-down" [hidden]="reverse"></span><span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th>
+            <th class='col-1' [class.active]="order === 'bps'" (click)="setOrder('bps')">BPS<span class="fa fa-angle-double-down" [hidden]="reverse"></span><span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th>
+            <th class='col-1' [class.active]="order === 'vacancies1'" (click)="setOrder('vacancies1')">Vacancies<span class="fa fa-angle-double-down" [hidden]="reverse"></span><span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th>
+            <th class='col-1' [class.active]="order === 'request'" (click)="setOrder('request')">Request<span class="fa fa-angle-double-down" [hidden]="reverse"></span><span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th>
+            <th class='col-1' [class.active]="order === 'process'" (click)="setOrder('process')">In Process<span class="fa fa-angle-double-down" [hidden]="reverse"></span><span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th>
             <th class='col-1'>Detail</th>
           </tr>
         </thead>
         <tbody>
-          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-          <tr class='d-flex'>
-            <td class='col-1'>1</td> 
-            <td class='col-1'>Fizaia</td>             
-            <td class='col-2'>IT</td>
-            <td class='col-2'>ERP</td>
-            <td class='col-2'>5</td>
-            <td class='col-1'>3</td>
-            <td class='col-2'>2</td>
+          <tr *ngFor="let item of recruitmetAppsList | search:'officeName,department,section,jobTitle,vacancies1':tblSearch | paginate: {
+            itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index" class='d-flex'>
+            <td class='col-1'>{{i + 1}}</td>
+            <td class='col-2'>{{item.officeName}}</td>             
+            <td class='col-1'>{{item.department}}</td>
+            <td class='col-1'>{{item.section}}</td>
+            <td class='col-2'>{{item.jobTitle}}</td>
+            <td class='col-1'>{{item.bps}}</td>
+            <td class='col-1'>{{item.vacancies1 + item.vacancies2}}</td>
+            <td class='col-1'>{{item.request}}</td>
+            <td class='col-1'>{{item.process}}</td>
             <td class='col-1 text-center'>
-              <span class="fa fa-address-book pointerCursor" data-toggle="modal" data-target="#requestModal"></span>
+              <span class="fa fa-address-book pointerCursor" data-toggle="modal" data-target="#requestModal" (click)="getDetail(item)"></span>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+
+
+    <div class="row tab-margin">
+      <div class="col-md-10">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div class="col-md-2 text-right">
+        <mat-form-field class="fullwidth pagenateList">
+          <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
+            <mat-option value="10">10</mat-option>
+            <mat-option value="15">15</mat-option>
+            <mat-option value="20">20</mat-option>
+            <mat-option value="25">25</mat-option>
+            <mat-option value="30">30</mat-option>
+            <mat-option value="35">35</mat-option>
+            <mat-option value="40">40</mat-option>
+            <mat-option value="45">45</mat-option>
+            <mat-option value="50">50</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    
   </div>
   <!--end table row-->
-</div>
-<!--end container -->
-  
-  
-<br/>
 
-<!--bootstrap modal window -->
+
+</div>
+<br/>
+<!--end container -->
 
 
 
@@ -72,13 +142,13 @@
           <!--start horizontal Stepper -->
           <mat-horizontal-stepper linear>
               <!--start 1st Step -->
-              <mat-step>
+              <mat-step optional>
                   <!--stepper 1st label-->
                   <ng-template matStepLabel><b>Request</b></ng-template>
                   <!--start form control div-->
 
                       <!--start row #1-->
-                      <div class="row">
+                      <!-- <div class="row">
                         <div class="col-md-6">
                             <mat-form-field>
                               <mat-select placeholder="Document">
@@ -97,7 +167,16 @@
                           <br/>
                           165
                         </div>
-                      </div>
+                      </div> -->
+
+
+                      <!-- <div class="col-md-3">
+                            Vacancy Id
+                          </div>
+
+                          <div class="col-md-3">
+                            65
+                          </div> -->   
                       <!--end row #1-->
                       
                       <br/>
@@ -105,19 +184,19 @@
                       <!--start row #2-->
                       <div class="row">
                           <div class="col-md-3">
-                            Vacancy Id
+                            <b>Job Profile</b>
                           </div>
 
                           <div class="col-md-3">
-                            65
+                            {{JobProfile}}
                           </div>
 
                           <div class="col-md-3">
-                            Office
+                            <b>Office</b>
                           </div>
 
                           <div class="col-md-3">
-                            Fizaiya
+                            {{OfficeName}}
                           </div>
                       </div>
                       <!--end row #2-->
@@ -127,23 +206,19 @@
                       <!--start row #3-->
                       <div class="row">
                           <div class="col-md-3">
-                            <br/>
-                            Job Profile
+                            <b>Department</b>
                           </div>
 
                           <div class="col-md-3">
-                            <br/>
-                            Developer
+                            {{Department}}
                           </div>
 
                           <div class="col-md-3">
-                            <br/>
-                            Department
+                            <b>Section</b>
                           </div>
-
+  
                           <div class="col-md-3">
-                            <br/>
-                            IT
+                            {{Section}}
                           </div>
                       </div>
                       <!--end row #3-->
@@ -153,79 +228,32 @@
                       <!--start row #4-->
                       <div class="row">
                         <div class="col-md-6">
-                          <mat-form-field>
-                              <input matInput [matDatepicker]="initiateDate" placeholder="Initiate Date">
-                              <mat-datepicker-toggle matSuffix [for]="initiateDate"></mat-datepicker-toggle>
-                              <mat-datepicker #initiateDate></mat-datepicker>
-                          </mat-form-field>
-                        </div>
-                        
-                        <div class="col-md-3">
-                          <br/>
-                          Section
-                        </div>
-
-                        <div class="col-md-3">
-                          <br/>
-                          ERP
-                        </div>
-                      </div>
-                      <!--end row #4-->
-
-                      <!--start row #5-->
-                      <div class="row">
-                        <div class="col-md-6">
-                          <mat-form-field>
-                              <input matInput [matDatepicker]="sdate" placeholder="Application period from">
+                          <mat-form-field class="fullwidth">
+                              <input matInput [matDatepicker]="sdate" [(ngModel)]="startDate" placeholder="Application period start date">
                               <mat-datepicker-toggle matSuffix [for]="sdate"></mat-datepicker-toggle>
                               <mat-datepicker #sdate></mat-datepicker>
                           </mat-form-field>
                         </div>
 
                         <div class="col-md-6">
-                          <mat-form-field>
-                            <input matInput [matDatepicker]="edate" placeholder="Application period until">
+                          <mat-form-field class="fullwidth">
+                            <input matInput [matDatepicker]="edate" [(ngModel)]="endDate" placeholder="Application period end date">
                             <mat-datepicker-toggle matSuffix [for]="edate"></mat-datepicker-toggle>
                             <mat-datepicker #edate></mat-datepicker>
                           </mat-form-field>
                         </div>
-                          
                       </div>
-                      <!--end row #5-->
-
-                      <!--start row #6-->
-                      <div class="row">
-                          <div class="col-md-4">
-                            <br/>
-                            Application Submitted
-                          </div>
-
-                          <div class="col-md-2">
-                            <br/>
-                            <mat-checkbox>via Email</mat-checkbox>
-                          </div>
-
-                          <div class="col-md-6">
-                            <br/>
-                            <mat-checkbox>Via Website</mat-checkbox>
-                          </div>
-                      </div>
-                      <!--end row #6-->
+                      <!--end row #4-->
 
                       <br/>
 
-                      <!--start row #7-->
+                      <!--start row #5-->
                       <div class="row">
                           <div class="col-md-6">
                             
-                            <mat-form-field>
-                              <mat-select placeholder="Quantity">
-                                <mat-option value="option1">1</mat-option>
-                                <mat-option value="option1">2</mat-option>
-                                <mat-option value="option1">3</mat-option>
-                                <mat-option value="option1">4</mat-option>
-                                <mat-option value="option1">5</mat-option>
-                                <mat-option value="option1">6</mat-option>
+                            <mat-form-field class="fullwidth">
+                              <mat-select placeholder="Quantity" [(ngModel)]="Quantity">
+                                <mat-option *ngFor="let item of [].constructor(totalVacancies); let i=index" value="{{i+1}}">{{i+1}}</mat-option>
                               </mat-select>
                             </mat-form-field>
                           </div>
@@ -236,24 +264,25 @@
                           </div>
                           <div class="col-md-3">
                             <br/>
-                            65,000.00
+                            0
                           </div>
                       </div>
-                      <!--end row #7-->
+                      <!--end row #5-->
 
-                      <!--start row #8-->
+                      <!--start row #6-->
                       <div class="row">
                         <div class="col-md-12">
-                          <mat-form-field>
-                            <textarea matInput placeholder="Description"></textarea>
+                          <mat-form-field class="fullwidth">
+                            <textarea matInput placeholder="Description" [(ngModel)]="Description"></textarea>
                           </mat-form-field>
                         </div>
                       </div>
-                      <!--end row #8-->
+                      <!--end row #6-->
 
                       <br>
                       <!--start next step button div-->
                       <div class="text-right">
+                          <button mat-raised-button color="primary" (click)="saveRequest()">Save</button> &nbsp;&nbsp;
                           <button mat-raised-button color="primary" matStepperNext>Next</button>
                       </div>
                       <!--end next step button div-->
@@ -261,15 +290,18 @@
                   <!--end form control div-->
               </mat-step>
               <!--end 1st Step -->
+
+
+
               <!--start 2nd Step -->
-              <mat-step>
+              <mat-step optional>
                   <!--stepper 2nd label-->
                 <ng-template matStepLabel><b>Approval</b></ng-template>
                   
                   <!-- start row #1-->
-                  <div class="row">
+                  <!-- <div class="row">
                     <button mat-raised-button color="primary" data-toggle="modal" data-target="#detailModal">Approval Detail</button>
-                  </div>
+                  </div> -->
                   <!-- end row #1-->
 
                   <br/>
@@ -277,7 +309,7 @@
                   <!--Start row 2-->
                   <div class="row">
                     <!--start approving authority table -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <h4>Approving Authority</h4>
                       <!--start table row-->       
                       <div class="example-container mat-elevation-z8">
@@ -285,42 +317,43 @@
                             <table class="table table-striped">
                               <thead>
                                 <tr class='d-flex'>
-                                  <th class='col-2'>Sr #</th>
+                                  <th class='col-1 text-center'>Sr #</th>
                                   <th class='col-5'>Stage</th>
                                   <th class='col-5'>Authority</th>
+                                  <th class='col-1 text-center'>Del</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                                <tr class='d-flex'>
-                                  <td class='col-2'>1</td> 
-                                  <td class='col-5'>Initial serving</td>             
-                                  <td class='col-5'>AD</td>
+                                <tr *ngFor="let item of approvalReqList; let i=index" class='d-flex'>
+                                  <td class='col-1 text-center'>{{i + 1}}</td>
+                                  <td class='col-5'>{{item.Stage}}</td>             
+                                  <td class='col-5'>{{item.Authority}}</td>
+                                  <td class='col-1 text-center'>
+                                    <span class="fa fa-minus pointerCursor" (click)="removeApprAuthority(i)"></span>
+                                  </td>
                                 </tr>
 
                                 <tr class='d-flex'>
-                                  <td class='col-2'>2</td> 
-                                  <td class='col-5'>Test</td>             
-                                  <td class='col-5'>DD</td>
-                                </tr>
-
-                                <tr class='d-flex'>
-                                  <td class='col-2'>3</td> 
-                                  <td class='col-5'>Interview</td>             
-                                  <td class='col-5'>Dir</td>
-                                </tr>
-
-                                <tr class='d-flex'>
-                                  <td class='col-2'>4</td> 
-                                  <td class='col-5'>Appointment</td>             
-                                  <td class='col-5'>GM</td>
-                                </tr>
-
-                                <tr class='d-flex'>
-                                  <td class='col-2'></td> 
-                                  <td class='col-5'></td>             
-                                  <td class='col-5 text-center'>
-                                    <span class="fa fa-plus pointerCursor"></span>
+                                  <td class='col-6'>
+                                      <p-dropdown [options]="apprProcessList" filter="true" [(ngModel)]="ddlApprProcess" placeholder="Stage" [style]="{'width':'100%'}">
+                                          <ng-template let-itm pTemplate="item">
+                                            <div style="position: relative;height: 25px;">
+                                              <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                                            </div>
+                                          </ng-template>
+                                        </p-dropdown>
+                                  </td> 
+                                  <td class='col-5'>
+                                      <p-dropdown [options]="apprAuthorigyList"  filter="true" [(ngModel)]="ddlApprAuthority" placeholder="Authority" [style]="{'width':'100%'}">
+                                          <ng-template let-itm pTemplate="item">
+                                            <div style="position: relative;height: 25px;">
+                                              <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                                            </div>
+                                          </ng-template>
+                                        </p-dropdown>
+                                  </td>             
+                                  <td class='col-1 text-center'>
+                                    <span class="fa fa-plus pointerCursor" (click)="addApprAuthority()"></span>
                                   </td>
                                 </tr>
                               </tbody>
@@ -330,126 +363,16 @@
                       <!--end table row-->
                     </div>
                     <!--End approving authority table -->
-
-                    <!--start Interview panel table -->
-                    <div class="col-md-6">
-                      <h4>Interview Panel</h4>
-                      <!--start table row-->       
-                      <div class="example-container mat-elevation-z8">
-                        <div class="example-table-container">                      
-                          <table class="table table-striped">
-                            <thead>
-                              <tr class='d-flex'>
-                                <th class='col-2'>Sr #</th>
-                                <th class='col-5'>Official</th>
-                                <th class='col-5'>Description</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                              <tr class='d-flex'>
-                                <td class='col-2'>1</td> 
-                                <td class='col-5'>GM</td>             
-                                <td class='col-5'>Chairman</td>
-                              </tr>
-
-                              <tr class='d-flex'>
-                                <td class='col-2'>2</td> 
-                                <td class='col-5'>Director</td>             
-                                <td class='col-5'>Member</td>
-                              </tr>
-
-                              <tr class='d-flex'>
-                                <td class='col-2'></td> 
-                                <td class='col-5'></td>             
-                                <td class='col-5 text-center'>
-                                  <span class="fa fa-plus pointerCursor"></span>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                      <!--end table row-->
-                    </div>
-                    <!--End Interview table -->
                   </div>
                   <!--end row 2-->
                   
-                  <br/><br/>
 
-                  <!--Start row 3-->
-                  <div class="row">
-                    <div class="col-md-12">
-                        <h4>Test</h4>
-                        <!--start table row-->       
-                        <div class="example-container mat-elevation-z8">
-                            <div class="example-table-container">                      
-                              <table class="table table-striped">
-                                <thead>
-                                  <tr class='d-flex'>
-                                    <th class='col-1'>Sr #</th>
-                                    <th class='col-3'>Subject</th>
-                                    <th class='col-3'>Total Marks</th>
-                                    <th class='col-3'>Passing Marks</th>
-                                    <th class='col-1'>Edit</th>
-                                    <th class='col-1'>Add</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                                  <tr class='d-flex'>
-                                    <td class='col-1'>1</td> 
-                                    <td class='col-3'>English</td>             
-                                    <td class='col-3'>100</td>
-                                    <td class='col-3'>80</td>
-                                    <td class='col-1 text-center'>
-                                      <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#editTest"></span>
-                                    </td>
-                                    <td class='col-1 text-center'>
-                                      <span class="fa fa-plus-circle pointerCursor" data-toggle="modal" data-target="#addTest"></span>
-                                    </td>
-                                  </tr>
-  
-                                  <tr class='d-flex'>
-                                    <td class='col-1'>1</td> 
-                                    <td class='col-3'>JK</td>             
-                                    <td class='col-3'>100</td>
-                                    <td class='col-3'>80</td>
-                                    <td class='col-1 text-center'>
-                                      <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#editTest"></span>
-                                    </td>
-                                    <td class='col-1 text-center'>
-                                      <span class="fa fa-plus-circle pointerCursor" data-toggle="modal" data-target="#addTest"></span>
-                                    </td>
-                                  </tr>
-
-                                  <tr class='d-flex'>
-                                    <td class='col-1'>1</td> 
-                                    <td class='col-3'>VB</td>             
-                                    <td class='col-3'>50</td>
-                                    <td class='col-3'>40</td>
-                                    <td class='col-1 text-center'>
-                                      <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#editTest"></span>
-                                    </td>
-                                    <td class='col-1 text-center'>
-                                      <span class="fa fa-plus-circle pointerCursor" data-toggle="modal" data-target="#addTest"></span>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                        </div>
-                        <!--end table row-->
-                    </div>
-                  </div>
-                  <!--end row 3-->
                   
-
-                  <br/><br/>
                   <!--start next step button div -->
+                  <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                   <div class="row text-right">
                     <div class="col-md-12">
+                      <button mat-raised-button color="primary" (click)="saveApprAuthority()">Save</button> &nbsp;&nbsp;
                       <button mat-raised-button color="primary" matStepperNext>Next</button>
                     </div>
                   </div>
@@ -458,8 +381,162 @@
                   <!--end 2nd step form control div-->
               </mat-step>
               <!--end 2nd Step -->
+
+
+
               <!--start 3rd Step -->
-              <mat-step>
+              <mat-step optional>
+                <!--stepper 2nd label-->
+              <ng-template matStepLabel><b>Interview Panel</b></ng-template>
+
+                <br/>
+
+                <!--Start row 2-->
+                <div class="row">
+                  <!--start Interview panel table -->
+                  <div class="col-md-12">
+                    <h4>Interview Panel</h4>
+                    <!--start table row-->       
+                    <div class="example-container mat-elevation-z8">
+                      <div class="example-table-container">                      
+                        <table class="table table-striped">
+                          <thead>
+                            <tr class='d-flex'>
+                              <th class='col-1 text-center'>Sr #</th>
+                              <th class='col-10'>Official</th>
+                              <th class='col-1 text-center'>Del</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of interviewPanelList; let i=index" class='d-flex'>
+                              <td class='col-1 text-center'>{{i + 1}}</td> 
+                              <td class='col-10'>{{item.Official}}</td>             
+                              <td class='col-1 text-center'><span class="fa fa-minus pointerCursor" (click)="removeInterviewPanel(i)"></span></td>
+                            </tr>
+
+                            <tr class='d-flex'>
+                              <td class='col-11'>
+                                  <p-dropdown [options]="apprAuthorigyList"  filter="true" [(ngModel)]="ddlInterviewOfficial" placeholder="Authority" [style]="{'width':'100%'}">
+                                      <ng-template let-itm pTemplate="item">
+                                        <div style="position: relative;height: 25px;">
+                                          <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                                        </div>
+                                      </ng-template>
+                                    </p-dropdown>
+                              </td>             
+                              <td class='col-1 text-center'><span class="fa fa-plus pointerCursor" (click)="addInterviewPanel()"></span></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <!--end table row-->
+                  </div>
+                  <!--End Interview table -->
+                </div>
+                <!--end row 2-->
+
+
+
+                <br/><br/>
+                <!--start next step button div -->
+                <div class="row text-right">
+                  <div class="col-md-12">
+                      <button mat-raised-button color="primary" (click)="saveInterviewPanel()">Save</button> &nbsp;&nbsp;
+                    <button mat-raised-button color="primary" matStepperNext>Next</button>
+                  </div>
+                </div>
+                <!--end next step button div -->
+
+                <!--end 2nd step form control div-->
+              </mat-step>
+              <!--end 3rd Step -->
+
+
+
+              <!--start 4th Step -->
+              <mat-step optional>
+                <!--stepper 2nd label-->
+              <ng-template matStepLabel><b>Test</b></ng-template>
+
+                <br/>
+
+                <!--Start row 3-->
+                <div class="row">
+                  <div class="col-md-12">
+                      <h4>Test</h4>
+                      <!--start table row-->       
+                      <div class="example-container mat-elevation-z8">
+                          <div class="example-table-container">                      
+                            <table class="table table-striped">
+                              <thead>
+                                <tr class='d-flex'>
+                                  <th class='col-1 text-center'>Sr #</th>
+                                  <th class='col-4'>Subject</th>
+                                  <th class='col-3'>Total Marks</th>
+                                  <th class='col-3'>Passing Marks</th>
+                                  <th class='col-1 text-center'>Del</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let item of testSubjectList; let i=index" class='d-flex'>
+                                  <td class='col-1'>{{i+1}}</td> 
+                                  <td class='col-4'>{{item.Subject}}</td>             
+                                  <td class='col-3'>{{item.VcncyTestSbjctTotMrks}}</td>
+                                  <td class='col-3'>{{item.VcncyTestSbjctPssngMrks}}</td>
+                                  <td class='col-1 text-center'>
+                                    <span class="fa fa-minus pointerCursor" (click)="removeTest(i)"></span>
+                                  </td>
+                                </tr>
+
+                                <tr class='d-flex'>
+                                  <td class='col-5'>
+                                      <p-dropdown [options]="subjectList" filter="true" [(ngModel)]="ddlSubject" placeholder="Subject" [style]="{'width':'100%'}">
+                                        <ng-template let-itm pTemplate="item">
+                                          <div style="position: relative;height: 25px;">
+                                            <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                                          </div>
+                                        </ng-template>
+                                      </p-dropdown>
+                                  </td> 
+                                  <td class='col-3'>
+                                      <input type="number" pInputText [(ngModel)]="totalMarks" min="0" max="100" class="fullwidth"> 
+                                  </td>
+                                  <td class='col-3'>
+                                      <input type="number" pInputText [(ngModel)]="passingMarks" min="0" max="100" class="fullwidth" > 
+                                  </td>          
+                                  <td class='col-1 text-center'>
+                                    <span class="fa fa-plus pointerCursor" (click)="addTest()"></span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                      </div>
+                      <!--end table row-->
+                  </div>
+                </div>
+                <!--end row 3-->
+                
+
+                <!--start next step button div -->
+                <br/><br/><br/><br/><br/>
+                <div class="row text-right">
+                  <div class="col-md-12">
+                      <button mat-raised-button color="primary" (click)="saveTest()" >Save</button> &nbsp;&nbsp;
+                    <button mat-raised-button color="primary" matStepperNext>Next</button>
+                  </div>
+                </div>
+                <!--end next step button div -->
+
+                <!--end 2nd step form control div-->
+              </mat-step>
+              <!--end 4th Step -->
+
+
+
+              <!--start 5th Step -->
+              <mat-step optional>
                   <!--stepper 3rd label-->
                   <ng-template matStepLabel><b>Publishing</b></ng-template>
                   <!--start 3rd step form control div-->
@@ -476,47 +553,34 @@
                             <thead>
                               <tr class='d-flex'>
                                 <th class='col-1'>Sr #</th>
-                                <th class='col-7'>Recruiting Channel</th>
+                                <th class='col-8'>Recruiting Channel</th>
                                 <th class='col-2'>Publish</th>
-                                <th class='col-2'>Print Copy</th>
+                                <th class='col-1'>Delete</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                              <tr class='d-flex'>
-                                <td class='col-1'>1</td>             
-                                <td class='col-7'>Print Media</td>
-                                <td class='col-2'>Yes/No</td>
-                                <td class='col-2'>Doc/PDF</td>
-                              </tr>
-
-                              <tr class='d-flex'>
-                                <td class='col-1'>2</td>             
-                                <td class='col-7'>Website</td>
-                                <td class='col-2'>Yes/No</td>
-                                <td class='col-2'>Doc/PDF</td>
-                              </tr>
-
-                              <tr class='d-flex'>
-                                <td class='col-1'>3</td>             
-                                <td class='col-7'>Linkedin</td>
-                                <td class='col-2'>Yes/No</td>
-                                <td class='col-2'>Doc/PDF</td>
-                              </tr>
-
-                              <tr class='d-flex'>
-                                <td class='col-1'>4</td>             
-                                <td class='col-7'>Job Master</td>
-                                <td class='col-2'>Yes/No</td>
-                                <td class='col-2'>Doc/PDF</td>
+                              <tr *ngFor="let item of publishingChannelList; let i=index" class='d-flex'>
+                                <td class='col-1'>{{i+1}}</td>             
+                                <td class='col-8'>{{item.PblshngChnnlName}}</td>
+                                <td class='col-2'>
+                                  <p-inputSwitch [(ngModel)]="item.PblshingStatus"></p-inputSwitch>
+                                </td>
+                                <td class='col-1 text-center'><span class="fa fa-minus pointerCursor" (click)="removePubChannel(i)"></span></td>
                               </tr>
 
                               <tr class='d-flex'>
                                 <td class='col-1'></td>             
-                                <td class='col-7'></td>
-                                <td class='col-2'></td>
-                                <td class='col-2 text-center'>
-                                    <span class="fa fa-plus pointerCursor"></span>
+                                <td class='col-10'>
+                                    <p-dropdown [options]="tempPublishingChannelList" filter="true" [(ngModel)]="ddlPubChannel" placeholder="Channel" [style]="{'width':'100%'}">
+                                      <ng-template let-itm pTemplate="item">
+                                        <div style="position: relative;height: 25px;">
+                                          <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                                        </div>
+                                      </ng-template>
+                                    </p-dropdown>
+                                </td>
+                                <td class='col-1 text-center'>
+                                    <span class="fa fa-plus pointerCursor" (click)="addPubChannel()"></span>
                                 </td>
                               </tr>
 
@@ -527,10 +591,16 @@
                         </div>
                       </div>
                       <!--end table row-->
-
+                      
+                      <!--start next step button div-->
+                      <br/><br/><br/><br/>
+                      <div class="text-right">
+                        <button mat-raised-button color="primary" (click)="savePubChannel()">Save</button>
+                      </div>
+                      <!--end next step button div-->
                   <!--end 3rd step form control div-->
               </mat-step>
-              <!--end 3rd Step -->
+              <!--end 5th Step -->
           </mat-horizontal-stepper>
           <!--end horizontal Stepper -->
       </div>
@@ -557,7 +627,7 @@
           <h4 class="modal-title">Approval Detail</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-            <!--end Modal Header -->
+        <!--end Modal Header -->
     
         <!--start Modal body -->
         <div class="modal-body">
@@ -650,6 +720,7 @@
         <!--end Modal footer -->
   
         </div>
+        <!--end Modal body -->
       </div>
     </div>
 </div>

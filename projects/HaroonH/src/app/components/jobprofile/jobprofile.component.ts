@@ -26,7 +26,7 @@ export class JobprofileComponent implements OnInit {
     //*Bolean variable 
     updateFlag = false;
 
-    //* list for excel data
+    //* list variables
     excelDataList = [];
 
     jobsList = [];

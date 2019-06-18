@@ -34,7 +34,7 @@ const routes: Routes = [
     component: HrdashboardComponent
   },
   {
-    path: 'HR/ecruitmentApproval',
+    path: 'HR/recruitmentApproval',
     component: RecruitmentappComponent
   },
   {
