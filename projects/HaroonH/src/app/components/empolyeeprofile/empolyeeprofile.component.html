@@ -353,7 +353,7 @@
   
                         <!--contact type text box-->
                         <td style="border: 0px solid red; padding:0 15px 0 15px;">
-                          <p-dropdown [options]="contactType" filter="true" [(ngModel)]="item.contactType" placeholder="Contact Type" (ngModelChange)="onContactChange($event, item)" required>
+                          <p-dropdown [options]="contactType" filter="true" [(ngModel)]="item.contactType" placeholder="Contact Type" required>
                             <ng-template let-itm pTemplate="item">
                               <div style="position: relative;height: 25px;">
                                 <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
