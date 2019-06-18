@@ -23,8 +23,8 @@ const routes: Routes = [
   },
   {
     path: 'HR',
-    //loadChildren: () => HRSharedModule
-    loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
+    loadChildren: () => HRSharedModule
+    //loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
 
   }
 ];
