@@ -19,7 +19,7 @@ const routes: Routes = [
   {
     path: 'Config',
     loadChildren: () => ConfigSharedModule
-    //loadChildren: '../../projects/HaroonConfig/src/app/app.module#ConfigSharedModule'
+    // loadChildren: '../../projects/HaroonConfig/src/app/app.module#ConfigSharedModule'
   },
   {
     path: 'HR',

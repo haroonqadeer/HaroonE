@@ -1,319 +1,176 @@
-<br/>
-<!--start heading row-->
-<div class="row">
-  <div class="col-md-12 text-center">
-    <h1 class="bottomBorder">Year Calendar</h1>    
-  </div>
-</div>
-<!--end heading row-->
-
-<br/>
-
-<!--start add new button row -->
-<div class="row">
-  <div class="col-md-12 text-right">
-    <button mat-raised-button color="primary" data-toggle="modal" data-target="#settingModal"> Setting </button>
-  </div>
-</div>
-<!--end add new button row -->
-
-<br/>
-
-<!--start container-->
-<div class="container">
-
-  <!--start weekends row-->
-  <div class="row">
-    <div class="col-md-12">
-      <h3>Weekends</h3>
-    </div>
-    <div class="col-md-12">
-      <!--start weekend table -->
-      <div class="example-container mat-elevation-z8">
-        <div class="example-table-container">                      
-          <table class="table table-striped">
-            <thead>
-              <tr class='d-flex'>
-                <th class='col-1 text-center'>Monday</th>
-                <th class='col-2 text-center'>Tuesday</th>
-                <th class='col-2 text-center'>Wednesday</th>
-                <th class='col-2 text-center'>Thursday</th>
-                <th class='col-2 text-center'>Friday</th>
-                <th class='col-2 text-center'>Saturday</th>
-                <th class='col-1 text-center'>Sunday</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-              <tr class='d-flex'>
-                <td class='col-1 text-center'><mat-checkbox></mat-checkbox></td> 
-                <td class='col-2 text-center'><mat-checkbox></mat-checkbox></td>
-                <td class='col-2 text-center'><mat-checkbox></mat-checkbox></td>
-                <td class='col-2 text-center'><mat-checkbox></mat-checkbox></td>
-                <td class='col-2 text-center'><mat-checkbox></mat-checkbox></td>
-                <td class='col-2 text-center'><mat-checkbox></mat-checkbox></td>
-                <td class='col-1 text-center'><mat-checkbox></mat-checkbox></td>
-              </tr>
-    
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <!--end weekend table -->
+<!-- start menubar buttons -->
+<div class="topnav boxShadow">
+    <div>
+      <!--class="container" -->
+      <span class="fa iconContainer">
+        <span class="fa icon-hr-post"> </span>
+      </span>
+      <h1> Year Calender</h1>
+  
     </div>
   </div>
-  <!--end weekends row-->
-
-  <br/>
-
-  <h3>Year Calendar Detail</h3>
-
-  <br/>
-
-  <!--start table row-->       
-  <div class="example-container mat-elevation-z8">
-    <div class="example-table-container">                      
-      <table class="table table-striped">
-        <thead>
-          <tr class='d-flex'>
-            <th class='col-1'>Sr #</th>
-            <th class='col-3'>Description</th>
-            <th class='col-3'>Job Profile</th>
-            <th class='col-2'>From Date</th>
-            <th class='col-2'>To Date</th>
-            <th class='col-1 text-center'>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-          <tr class='d-flex'>
-            <td class='col-1'>1</td> 
-            <td class='col-3'>Moharram</td>
-            <td class='col-3'><a href="" data-toggle="modal" data-target="#jobProfileModal">2</a></td>
-            <td class='col-2'>09-Nov-2018</td>
-            <td class='col-2'>10-Nov-2018</td>
-            <td class='col-1 text-center'><span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span></td>
-          </tr>
-
-          <tr class='d-flex'>
-            <td class='col-1'>2</td> 
-            <td class='col-3'>Quaid-Day</td>
-            <td class='col-3'><a href="" data-toggle="modal" data-target="#jobProfileModal">1</a></td>
-            <td class='col-2'>25-Dec-2018</td>
-            <td class='col-2'>25-Dec-2018</td>
-            <td class='col-1 text-center'><span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span></td>
-          </tr>
-
-          <tr class='d-flex'>
-            <td class='col-1'>3</td> 
-            <td class='col-3'>Kashmir Day</td>
-            <td class='col-3'><a href="" data-toggle="modal" data-target="#jobProfileModal">All</a></td>
-            <td class='col-2'>5-Feb-2018</td>
-            <td class='col-2'>5-Feb-2018</td>
-            <td class='col-1 text-center'><span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span></td>
-          </tr>
-          
-          <tr class='d-flex'>
-            <td class='col-11'></td> 
-            <td class='col-1 text-center'>
-              <span class="fa fa-plus pointerCursor"></span>
-            </td>
-          </tr>
-
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <!--end table row-->
+  <!-- end menubar buttons -->
+  <br/><br/>
+<div class="myContainer mat-elevation-z8 bgWhite">
+  <p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
 </div>
-<!--end container-->
-
 <br/>
 
-<!--bootstrap modal window -->
 
-
-
-<!-- Start Modal Window -->
-<div class="modal fade" id="settingModal">
-  <div class="modal-dialog shadow-md-dark modal-md">
-    <div class="modal-content">
-      
-      <!--start Modal Header -->
-      <div class="modal-header">
-          <h4 class="modal-title">Organization Year Calendar</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <!--end Modal Header -->
-
-      <!--start Modal body -->
-      <div class="modal-body">
-
-        <!--start row 1-->
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field>
-              <input matInput placeholder="Description">
-            </mat-form-field>
-          </div>
-        </div>
-        <!-- end row 1-->
-        
-        <!--start row 2-->
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field>
-              <input matInput [matDatepicker]="fromDate" placeholder="From Date">
-              <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
-              <mat-datepicker #fromDate></mat-datepicker>
-            </mat-form-field>
-          </div>
-
-          <div class="col-md-6">
-            <mat-form-field>
-              <input matInput [matDatepicker]="toDate" placeholder="To Date">
-              <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
-              <mat-datepicker #toDate></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-        <!--end row 2-->
-
-        <!--start row 3-->
-        <div class="row">
-          <div class="col-md-6">
-            <button mat-raised-button color="primary"> Save </button>
-          </div>
-        </div>
-          <!-- end row 3-->
-
-      </div>
-      <!--end Modal body -->
-
-      <!--start Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-      <!--end Modal footer -->
-
-    </div>
-  </div>
-</div>
-<!-- End Modal Window  -->
-
-
-<!-- Start Modal Window -->
-<div class="modal fade" id="jobProfileModal">
+<!-- Start Modal Window to view employee data -->
+<div class="modal fade" id="eventModal">
   <div class="modal-dialog shadow-lg-dark modal-lg">
-    <div class="modal-content">
-      
-      <!--start Modal Header -->
-      <div class="modal-header">
-          <h4 class="modal-title">Job Profile</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <!--end Modal Header -->
+      <div class="modal-content">
 
-      <!--start Modal body -->
-      <div class="modal-body">
-
-        <!--start table row-->       
-        <div class="example-container mat-elevation-z8">
-          <div class="example-table-container">                      
-            <table class="table table-striped">
-              <thead>
-                <tr class='d-flex'>
-                  <th class='col-1'>Sr #</th>
-                  <th class='col-10'>Job Profile</th>
-                  <th class='col-1 text-center'>Select</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                <tr class='d-flex'>
-                  <td class='col-1'>1</td> 
-                  <td class='col-10'>Clerk</td>
-                  <td class='col-1 text-center'><mat-checkbox></mat-checkbox></td>
-                </tr>
-
-                <tr class='d-flex'>
-                  <td class='col-1'>2</td> 
-                  <td class='col-10'>Accountand</td>
-                  <td class='col-1 text-center'><mat-checkbox></mat-checkbox></td>
-                </tr>
-
-                <tr class='d-flex'>
-                  <td class='col-1'>3</td> 
-                  <td class='col-10'>Developer</td>
-                  <td class='col-1 text-center'><mat-checkbox></mat-checkbox></td>
-                </tr>
-
-              </tbody>
-            </table>
+        <!--start Modal Header -->
+        <div class="modal-header">
+            <h4 class="modal-title">Add Event</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
-        </div>
-        <!--end table row-->
+          <!--end Modal Header -->
 
-      </div>
-      <!--end Modal body -->
-
-      <!--start Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-      <!--end Modal footer -->
-
-    </div>
-  </div>
-</div>
-<!-- End Modal Window  -->
-
-
-<!-- Start Modal Window to delete leave rule -->
-<div class="modal fade" id="deleteModal">
-  <div class="modal-dialog shadow-lg-dark">
-    <div class="modal-content">
-        <!--start Modal body -->
-        <div class="modal-body">
-          <br>
-          <div class="hidden" ngDefaultControl></div>
-          <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-10">
-              <h2>Delete Entry</h2>
-            </div>
-          </div><br/>
-          <div class="row">
-            <div class="col-md-12">
-              <mat-form-field class="fullwidth">
-                <input matInput placeholder="Enter Password" type="password" [(ngModel)]="txtdPassword">
-              </mat-form-field>
-            </div>
-          </div><br>
-          <div class="row">
-            <div class="col-md-12">
-              <mat-form-field class="fullwidth">
-                <input matInput placeholder="Enter PIN" type="password" [(ngModel)]="txtdPin">
-              </mat-form-field>
-            </div>
+          <!--start Modal body -->
+          <div class="modal-body">
+            <!--1st row-->
+              <div class="row">
+                <div class="col-md-2">
+                  Date: &nbsp;
+                </div>
+                <div class="col-md-10">
+                  <p-calendar [(ngModel)]="eventDate" [showIcon]="true"></p-calendar>
+                </div>
+              </div>
+              <!--end 1st row-->
+              <br/>
+              <!--2nd row-->
+              <div class="row">
+                <div class="col-md-2">
+                  Start Time: &nbsp;
+                </div>
+                <div class="col-md-3">
+                  <p-calendar [(ngModel)]="startTime" [timeOnly]="true" [style]="{'width':'100%'}"></p-calendar>
+                </div>
+                <div class="offset-md-1 col-md-2">
+                    End Time: &nbsp;
+                </div>
+                <div class="col-md-3">
+                  <p-calendar [(ngModel)]="endTime" [timeOnly]="true" [style]="{'width':'100%'}"></p-calendar>
+                </div>
+              </div>
+              <!--end 2nd row-->
+              <br/>
+              <div class="row">
+                <div class="col-md-2"><br/>
+                  Event Type: &nbsp;
+                </div>
+                <div class="col-md-3">
+                  <br/>
+                  <p-dropdown [options]="eventTypeList" [(ngModel)]="eventType" placeholder="Select Event Type" optionLabel="name" [showClear]="true"></p-dropdown>
+                </div>
+                <div class="offset-md-3 col-md-4">
+                  <mat-form-field class="fullwidth">
+                    <input matInput placeholder="Event Remarks" [(ngModel)]="txtRemarks" required>
+                  </mat-form-field>
+                </div>
+              </div>
+              <br/>
+              <div class="row">
+                <div class="col-md-11">
+                  <button mat-raised-button color="primary" (click)="saveEvent()">Save</button>
+                </div>
+              </div>
           </div>
-          <br>
-          <div class="row">
-            <div class="col-md-6">
-              <button mat-raised-button color="warn" data-dismiss="modal">Delete</button>
-            </div>
-          </div>
-          <br/>
-        </div>
-        <!--end Modal body -->
-
-        <!--start Modal footer -->
-        <div class="modal-footer">
+          <!--end Modal body -->
+  
+          <!--start Modal footer -->
+          <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        <!--end Modal footer -->
-
-    </div>
+          </div>
+          <!--end Modal footer -->
+  
+      </div>
   </div>
 </div>
-<!-- End Modal Window to delete leave rule -->
+<!-- End Modal Window to view employee data -->
+
+<!-- Start Modal Window to view employee data -->
+<div class="modal fade" id="calendarModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+      <div class="modal-content">
+
+        <!--start Modal Header -->
+        <div class="modal-header">
+            <h4 class="modal-title">Generate Calendar</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!--end Modal Header -->
+
+          <!--start Modal body -->
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <h5><b>Select Weekdays: &nbsp;</b></h5>
+              </div>
+            </div>
+            <!--1st row-->
+            <div class="row">
+              <div class="col-md-12">
+                  <mat-checkbox>Monday</mat-checkbox>&nbsp;&nbsp;
+                  <mat-checkbox>Tuesday</mat-checkbox>&nbsp;&nbsp;
+                  <mat-checkbox>Wednesday</mat-checkbox>&nbsp;&nbsp;
+                  <mat-checkbox>Thursday</mat-checkbox>&nbsp;&nbsp;
+                  <mat-checkbox>Friday</mat-checkbox>&nbsp;&nbsp;
+                  <mat-checkbox>Saturday</mat-checkbox>&nbsp;&nbsp;
+                  <mat-checkbox>Sunday</mat-checkbox>
+              </div>
+            </div>
+            <!--end 1st row-->
+            <br/>
+            <!--2nd row-->
+            <div class="row">
+              <table class="table table-striped fullwidth">
+                <thead>
+                  <tr class="d-flex">
+                    <th class="col-2 text-center">Sr #</th>
+                    <th class="col-4 text-center">Holiday Name</th>
+                    <th class="col-4 text-center">Date</th>
+                    <th class="col-2 text-center">Add</th>
+                  </tr>
+                </thead>
+                <tbody>  
+                  <tr class="d-flex">
+                    <td class="col-2 text-center">1</td>
+                    <td class="col-4 text-center">
+                      <input type="text" pInputText />
+                    </td>
+                    <td class="col-4 text-center">
+                      <p-calendar [(ngModel)]="eventDate" [showIcon]="true"></p-calendar>
+                    </td>
+                    <td class="col-2 text-center">
+                      <span class="fa fa-plus pointerCursor"></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--end 2nd row-->
+            <br/>
+            <div class="row">
+              <div class="col-md-12">
+                <button mat-raised-button color="primary" (click)="saveEvent()">Save</button>
+              </div>
+            </div>
+          </div>
+          <!--end Modal body -->
+  
+          <!--start Modal footer -->
+          <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+          <!--end Modal footer -->
+  
+      </div>
+  </div>
+</div>
+<!-- End Modal Window to view employee data -->
+  

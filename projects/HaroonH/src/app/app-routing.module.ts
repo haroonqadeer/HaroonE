@@ -17,6 +17,7 @@ import { PerformanceStandComponent } from './components/performance-stand/perfor
 import { PerformanceEvaComponent } from './components/performance-eva/performance-eva.component';
 import { LeavetypeComponent } from './components/leavetype/leavetype.component';
 import { HrdashboardComponent } from './components/hrdashboard/hrdashboard.component';
+import { ShiftComponent } from './components/shift/shift.component';
 //import { IntroPageComponent } from './components/intro-page/intro-page.component';
 //import { AppComponent } from 'projects/HaroonH/src/app/app.component';
 
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'HR/job',
     component: JobprofileComponent
+  },
+  {
+    path: 'HR/shift',
+    component: ShiftComponent
   },
   {
     path: 'HR/recruitment',

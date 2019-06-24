@@ -41,6 +41,7 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {InputSwitchModule} from 'primeng/inputswitch';
 
 import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
+import { ShiftComponent } from './components/shift/shift.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "i
     TestComponent,
     TrainingrequirementsComponent,
     YearcalendarComponent,
-    SearchPipe
+    SearchPipe,
+    ShiftComponent
   ],
   imports: [
     BrowserModule,
