@@ -44,16 +44,21 @@
 <!--tabs row-->
 <div class="myContainer mat-elevation-z8 bgWhite">
   <!--Start search textbox Row-->
-  <div class="row tab-margin">
+  <div class="row">
     <div class="col-md-12">
-      <mat-form-field class="fullwidth">
-        <input matInput [(ngModel)]="tblSearch" placeholder="Search">
-      </mat-form-field>
-      <i class="fab fa-accessible-icon"></i>
+      <!-- <mat-form-field class="fullwidth">
+        <mat-icon matPrefix color="primary"><i class='fa fa-search'></i></mat-icon>
+        <input matInput [(ngModel)]="tblSearch">
+      </mat-form-field> -->
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
+      </div>
     </div>
   </div>
   <!--end search textbox Row-->
-  
+
 
 <div class="row">
   <table class="table table-striped">
@@ -102,12 +107,15 @@
 
 <!-- Start Modal Window to add new job profile -->
 <div class="modal fade" id="profileModal">
-<div class="modal-dialog shadow-lg-dark modal-lg">
+<div class="modal-dialog shadow-lg-dark modal-xl">
   <div class="modal-content">
     <!--start Modal Header -->
     <div class="modal-header">
       <h4 class="modal-title">Add Job Profile</h4>
-      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <div>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+      </div>
     </div>
     <!--end Modal Header -->
 
@@ -701,9 +709,9 @@
   
               
               <!--start next step button div-->
-              <div class="text-right">
-                  <button mat-raised-button color="primary" (click)="save()" >Save</button>
-              </div>
+              <!-- <div class="text-right">
+                  <button mat-raised-button color="primary"  >Save</button>
+              </div> -->
               <!--end next step button div-->
             <!--end 2nd step form control div-->
         </mat-step>
@@ -717,9 +725,9 @@
 
 
     <!--start Modal footer -->
-    <div class="modal-footer">
+    <!-- <div class="modal-footer">
       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-    </div>
+    </div> -->
     <!--end Modal footer -->
 
   </div>
