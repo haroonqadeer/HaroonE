@@ -92,6 +92,12 @@
             </a>
           </li>
           <li routerLinkActive='active'>
+            <a routerLink="HR/shift">
+              <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+              <span class="text">Shift</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
             <a routerLink="HR/test">
               <span class="fa logo"><img src="../assets/images/exam.svg"></span>
               <span class="text">Test</span>
@@ -225,6 +231,10 @@
               <div class="btn" (click)=showBottom()>
                 <span class="fa fa-sitemap"></span>
                 <span> Modules</span>
+              </div>
+              <div class="btn" (click)=showAttendance()>
+                  <span class="fa fa-calendar-check-o"></span>
+                  <span> Attendance</span>
               </div>
             </div>
           </div>

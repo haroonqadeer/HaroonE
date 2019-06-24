@@ -29,6 +29,7 @@
             "styles": [
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/fullcalendar/dist/fullcalendar.min.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/animate.css/animate.css",
               "node_modules/primeicons/primeicons.css",
@@ -39,7 +40,9 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/popper.js/dist/umd/popper.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/fullcalendar/dist/fullcalendar.min.js",
+              "node_modules/moment/min/moment.min.js"
             ],
             "es5BrowserSupport": true
           },
