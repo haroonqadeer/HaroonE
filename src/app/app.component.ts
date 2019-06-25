@@ -4,6 +4,7 @@ import { MatBottomSheet } from '@angular/material';
 import { Event, Router, NavigationStart, NavigationEnd } from "@angular/router";
 
 import { NavComponent } from './components/nav/nav.component';
+import { AttendanceComponent } from './components/attendance/attendance.component';
 
 declare var $: any;
 
@@ -26,7 +27,8 @@ export class AppComponent {
   constructor(
     private router: Router,
     private bottomSheet: MatBottomSheet,
-    private navApp: NavComponent
+    private navApp: NavComponent,
+    // private attendApp: AttendanceComponent
   ) { }
 
   ngOnInit() {
@@ -139,6 +141,9 @@ export class AppComponent {
     }
   }
 
+  showAttendance() {
+    this.bottomSheet.open(AttendanceComponent);
+  }
   //show bottom sheet
   showBottom() {
     this.bottomSheet.open(NavComponent);
@@ -196,14 +201,14 @@ export class AppComponent {
 
 
 
-  /* Set the width of the side navigation to 250px */
+  // Set the width of the side navigation to 250px /
   public openNav() {
 
     this.activeModule("Yes");
 
   }
 
-  /* Set the width of the side navigation to 0 */
+  // Set the width of the side navigation to 0 /
   closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 
@@ -231,6 +236,16 @@ export class AppComponent {
       this.router.navigate(['']);
     }
 
+  }
+
+  public validateEmail(Email) {
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+    if (!filter.test(Email)) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
 } 

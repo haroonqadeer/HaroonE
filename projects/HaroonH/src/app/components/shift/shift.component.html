@@ -1,0 +1,156 @@
+<!-- start menubar buttons -->
+<div class="topnav boxShadow">
+  <div>
+    <!--class="container" -->
+    <span class="fa iconContainer">
+      <span class="fa icon-hr-post"> </span>
+    </span>
+    <h1> Shift</h1>
+
+    <a class="pointerCursor">
+      <i class="fa fa-file-excel-o"></i>
+      Excel
+    </a>
+
+    <a class="pointerCursor">
+      <i class="fa fa-file-text-o"></i>
+      CSV
+    </a>
+
+    <a class="pointerCursor">
+      <i class="fa fa-file-pdf-o"></i>
+      PDF
+    </a>
+
+    <a class="pointerCursor">
+      <i class="fa fa-print"></i>
+      Print
+    </a>
+  </div>
+</div>
+<!-- end menubar buttons -->
+<br/><br/>
+
+<div class="myContainer mat-elevation-z8 bgWhite">
+  <!--table row-->
+  <div class="row">
+    <table class="table table-striped fullwidth">
+      <thead>
+        <tr class="d-flex">
+          <th class="col-1 text-center">Sr #</th>
+          <th class="col-2 text-center">Shift Name</th>
+          <th class="col-3 text-center">Department</th>
+          <th class="col-2 text-center">Start Time</th>
+          <th class="col-2 text-center">End Time</th>
+          <th class="col-1 text-center">Save</th>
+          <th class="col-1 text-center">View</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="d-flex" *ngFor="let item of deptShiftList let i=index">
+            <td class="col-1 text-center">{{i + 1}}</td>
+            <td class="col-2 text-center">{{item.shiftName}}</td>
+            <td class="col-3 text-center">{{item.deptCd}}</td>
+            <td class="col-2 text-center">{{item.startTime| date: "h:mm a"}}</td>
+            <td class="col-2 text-center">{{item.endTime| date: "h:mm a"}}</td>
+            <td class="col-1 text-center">-</td>
+            <td class="col-1 text-center">
+              <span class="fa fa-list-alt pointerCursor" data-toggle="modal" data-target="#shiftDetailModal" (click)="getDepartmentShiftDetail(item.shiftCd, item.shiftName, item.startTime, item.endTime)"></span>
+            </td>
+        </tr>
+        <tr class="d-flex">
+          <td class="col-1 text-center">1</td>
+          <td class="col-2 text-center">
+            <p-dropdown placeholder="Select Shift" [options]="shiftList" [(ngModel)]="cmbShift" [showClear]="true"></p-dropdown>
+          </td>
+          <td class="col-3 text-center">
+            <p-multiSelect [options]="departmentList" [(ngModel)]="cmbDepartment"></p-multiSelect>
+          </td>
+          <td class="col-2 text-center">
+            <p-calendar [(ngModel)]="startTime" [timeOnly]="true" [style]="{'width':'100%'}"></p-calendar>
+          </td>
+          <td class="col-2 text-center">
+            <p-calendar [(ngModel)]="endTime" [timeOnly]="true" [style]="{'width':'100%'}"></p-calendar>
+          </td>
+          <td class="col-1 text-center">
+            <span class="fa fa-plus pointerCursor" (click)="saveShift()"></span>
+          </td>
+          <td class="col-1 text-center">-</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!--end table row-->
+</div>
+
+
+
+<!-- Start Modal Window to view employee data -->
+<div class="modal fade" id="shiftDetailModal">
+  <div class="modal-dialog shadow-lg-dark">
+      <div class="modal-content">
+
+        <!--start Modal Header -->
+        <div class="modal-header">
+            <h4 class="modal-title">Shift Detail</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!--end Modal Header -->
+
+          <!--start Modal body -->
+          <div class="modal-body">
+            <!--1st row-->
+              <div class="row">
+                <div class="col-md-6 text-right">
+                  <h5><b>Shift Name: </b></h5>&nbsp;
+                </div>
+                <div class="col-md-6 text-left">
+                  <h5>{{lblShiftName}}</h5>
+                </div>
+              </div>
+              <!--end 1st row-->
+              <br/>
+              <!--2nd row-->
+              <div class="row">
+                <div class="col-md-3 text-right">
+                  <label><b>Start Time: </b></label>&nbsp;
+                </div>
+                <div class="col-md-3 text-left">
+                  <label>{{lblStartTime}}</label>
+                </div>
+                <div class="col-md-3 text-right">
+                  <label><b>End Time: </b></label>&nbsp;
+                </div>
+                <div class="col-md-3 text-left">
+                  <label>{{lblEndTime}}</label>
+                </div>
+              </div>
+              <!--end 2nd row-->
+              <br/>
+              <table class="table table-striped fullwidth">
+                <thead>
+                  <tr class="d-flex">
+                    <th class="col-4 text-center">Sr #</th>
+                    <th class="col-8 text-center">Department Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="d-flex" *ngFor="let item of deptShiftDetailList let i=index">
+                    <td class="col-4 text-center">{{i + 1}}</td>
+                    <td class="col-8 text-center">{{item.deptName}}</td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          <!--end Modal body -->
+  
+          <!--start Modal footer -->
+          <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+          <!--end Modal footer -->
+  
+      </div>
+  </div>
+</div>
+<!-- End Modal Window to view employee data -->

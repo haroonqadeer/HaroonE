@@ -43,9 +43,9 @@
   <div class="row tab-margin">
     <div class="col-md-12">
       <mat-form-field class="fullwidth">
-        <input matInput [(ngModel)]="postSearch" placeholder="Search">
+        <mat-icon matPrefix ><i class='fa fa-search'></i></mat-icon>
+        <input matInput [(ngModel)]="postSearch">
       </mat-form-field>
-      <i class="fab fa-accessible-icon"></i>
     </div>
   </div>
   <!--end search textbox Row-->
@@ -160,13 +160,20 @@
 
 <!-- Start chart of account Modal Window -->
 <div class="modal fade" id="postModal">
-  <div class="modal-dialog shadow-lg-dark modal-lg">
+  <div class="modal-dialog shadow-lg-dark modal-xl">
     <div class="modal-content">
 
       <!--start Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Posts</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Job Post</h4>
+        <div>
+            <button type="button" class="btn-ia cursorPointer text-right">
+                <span class="fa fa-save"></span> &nbsp;Save
+            </button>
+            <button type="button" class="btn-ia cursorPointer" data-dismiss="modal">
+              <span class="fa fa-times-circle"></span> &nbsp;Close
+            </button>
+        </div>
       </div>
       <!--end Modal Header -->
 
@@ -206,7 +213,7 @@
         <br />
         <div class="row">
           <div class="col-md-8">
-            <button mat-raised-button (click)="getOrganoGram()">Organo Gram</button>
+            <button mat-raised-button (click)="getOrganoGram()">Load Organo Gram</button>
             <button mat-raised-button color="primary" (click)="addPost()" *ngIf="btnAddPost">Add New Post</button>
             <button mat-raised-button color="warn" (click)="clear()">Reset</button>
           </div>
@@ -257,9 +264,9 @@
         <!--end Modal body -->
 
         <!--start Modal footer -->
-        <div class="modal-footer">
+        <!-- <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
+        </div> -->
         <!--end Modal footer -->
 
       </div>

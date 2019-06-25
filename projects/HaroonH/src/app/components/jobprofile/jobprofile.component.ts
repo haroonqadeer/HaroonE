@@ -16,7 +16,8 @@ declare var $: any;
 })
 export class JobprofileComponent implements OnInit {
 
-    serverUrl = "http://localhost:47807/";
+    serverUrl = "http://192.168.200.19:3009/";
+    //serverUrl = "http://localhost:47807/";
     tokenKey = "token";
 
     httpOptions = {
@@ -26,7 +27,7 @@ export class JobprofileComponent implements OnInit {
     //*Bolean variable 
     updateFlag = false;
 
-    //* list for excel data
+    //* list variables
     excelDataList = [];
 
     jobsList = [];

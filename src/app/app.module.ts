@@ -27,15 +27,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { SearchPipe } from './shared/pipe-filters/pipe-search';
 import { LoginComponent } from './components/login/login.component';
-
-
+import { AttendanceComponent } from './components/attendance/attendance.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     SearchPipe,
-    LoginComponent
+    LoginComponent,
+    AttendanceComponent
   ],
   imports: [
     BrowserModule,
@@ -63,8 +63,8 @@ import { LoginComponent } from './components/login/login.component';
     IgxGridModule
     //SearchPipe
   ],
-  providers: [NavComponent, IgxExcelExporterService, IgxCsvExporterService],
+  providers: [AttendanceComponent, NavComponent, IgxExcelExporterService, IgxCsvExporterService],
   bootstrap: [AppComponent],
-  entryComponents: [NavComponent],
+  entryComponents: [NavComponent, AttendanceComponent],
 })
 export class AppModule { }

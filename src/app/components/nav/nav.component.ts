@@ -10,14 +10,12 @@ declare var $: any;
     templateUrl: './nav.component.html',
     styleUrls: ['./nav.component.scss']
 })
-
 export class NavComponent implements OnInit {
 
-    appLocation = "http://localhost:4300";
-    //appLocation = "http://192.168.200.19:9010";
+    //appLocation = "http://localhost:4200";
+    appLocation = "http://192.168.200.19:9010";
     //appLocation = "http://192.168.200.19:9010";
     // appLocation = "http://192.168.200.57:9010";
-
 
     public moduleHR = false;
     public moduleConfig = false;
