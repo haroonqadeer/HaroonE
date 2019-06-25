@@ -17,8 +17,8 @@ declare var $: any;
 })
 export class EmpolyeeprofileComponent implements OnInit {
 
-    serverUrl = "http://192.168.200.19:3011/";
-    //serverUrl = "http://localhost:50124/";
+    //serverUrl = "http://192.168.200.19:3011/";
+    serverUrl = "http://localhost:50124/";
     tokenKey = "token";
 
     httpOptions = {
@@ -708,6 +708,13 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.deptId = item.jobPostDeptCd;
         this.locationId = item.jobPostLocationCd;
 
+        //tab 1 fields
+        this.firstName = item.indvdlFirstName;
+        this.midName = item.IndvdlMidName;
+        this.lastName = item.indvdlLastName;
+        this.fullName = item.indvdlFullName;
+        this.fhName = item.indvdlFatherName;
+        this.CNIC = item.indvdlCNIC;
 
         //tab 2 fields
         this.lblJobTitle = item.jobDesigName;
@@ -754,8 +761,8 @@ export class EmpolyeeprofileComponent implements OnInit {
     //Function for update employee personal info 
     updateEmpPersonalInfo() {
 
-        this.toastr.errorToastr('Please enter complete information', 'Error', { toastTimeout: (2500) });
-        return false;
+        // this.toastr.errorToastr('Please enter complete information', 'Error', { toastTimeout: (2500) });
+        // return false;
 
         if (this.firstName == undefined || this.firstName.trim() == "") {
             this.toastr.errorToastr('Please enter first name', 'Error', { toastTimeout: (2500) });
@@ -773,10 +780,10 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.toastr.errorToastr('Please enter cnic', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.religion == undefined || this.religion.trim() == "") {
-            this.toastr.errorToastr('Please enter religion', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
+        // else if (this.religion == undefined || this.religion.trim() == "") {
+        //     this.toastr.errorToastr('Please enter religion', 'Error', { toastTimeout: (2500) });
+        //     return false;
+        // }
         else if (this.addressDetail.length == 0) {
             this.toastr.errorToastr('Please enter employee address', 'Error', { toastTimeout: (2500) });
             return false;
@@ -857,12 +864,12 @@ export class EmpolyeeprofileComponent implements OnInit {
                 }
             }
 
-            if (this.midName == undefined || this.midName == ""){
+            if (this.midName == undefined || this.midName.trim() == ""){
                 this.midName = null;
             }
             //* ********************************************save data 
             var updateData = {
-                "IndvdlID":             this.empId,
+                "EmpID":             this.empId,
                 "IndvdlFirstName":      this.firstName.trim(),
                 "IndvdlMidName":        this.midName,
                 "IndvdlLastName":       this.lastName,
@@ -872,17 +879,6 @@ export class EmpolyeeprofileComponent implements OnInit {
                 "addressList":          JSON.stringify(this.addressDetail),
                 "contactList":          JSON.stringify(this.contactDetail),
                 "emailList":            JSON.stringify(this.emailDetail),
-
-                // "EmpJobStartDt":        this.startDate,
-                // "EmpJobStartDt":        this.startDate,
-                // "EmpJobStartDt":        this.startDate,
-                // "EmpJobStartDt":        this.startDate,
-                // "EmpJobStartDt":        this.startDate,
-                // "EmpJobStartDt":        this.startDate,
-                // "EmpJobStartDt":        this.startDate,
-                // "EmpJobStartDt":        this.startDate,
-
-
                 "ConnectedUser":        "12000",
                 "DelFlag":              0
             };

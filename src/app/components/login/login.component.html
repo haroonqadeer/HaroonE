@@ -15,20 +15,22 @@
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class='fullwidth' appearance="legacy">
-              <mat-label class="inputLabel">User Name</mat-label>
-              <input matInput id="txtUserName" class='loginInput' [(ngModel)]="txtUserName" autofocus required>
-              <mat-icon matSuffix color="primary"><i class='fa fa-user'></i></mat-icon>
+              <mat-label class="inputLabel">User Name *</mat-label>
+              <input matInput id="txtUserName" class='loginInput' [(ngModel)]="txtUserName" autofocus>
+              <mat-icon matSuffix color="primary">
+                <i class='fa icon-login-user'></i>
+              </mat-icon>
             </mat-form-field>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class='fullwidth' appearance="legacy">
-              <!-- <mat-icon matSuffix matPrefix><i class='fa fa-lock'></i></mat-icon>  -->
-              <mat-label class="inputLabel">Password</mat-label>
-              <input id="txtPassword" type="password" matInput class='loginInput' [(ngModel)]="txtPassword"
-                required (keypress)="getKeyPressed($event)" >
-              <mat-icon matSuffix color="primary"><i class='fa fa-lock' color="primary"></i></mat-icon>
+              <mat-label class="inputLabel">Password *</mat-label>
+              <input id="txtPassword" type="password" matInput class='loginInput' [(ngModel)]="txtPassword" (keypress)="getKeyPressed($event)" >
+              <mat-icon matSuffix color="primary">
+                <i class='fa icon-login-password'></i>
+              </mat-icon>
             </mat-form-field>
           </div>
         </div>
@@ -52,3 +54,5 @@
   <!-- <div class="boxBottomBorder">    
   </div> -->
 </div><!-- end main class -->
+
+<div class="copyRight">Copyright &copy; AMBIT. All rights reserved.</div>
