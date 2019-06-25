@@ -40,13 +40,24 @@
           <th class="col-1 text-center">Sr #</th>
           <th class="col-2 text-center">Shift Name</th>
           <th class="col-3 text-center">Department</th>
-          <th class="col-2 text-center">Start</th>
-          <th class="col-2 text-center">End</th>
+          <th class="col-2 text-center">Start Time</th>
+          <th class="col-2 text-center">End Time</th>
           <th class="col-1 text-center">Save</th>
           <th class="col-1 text-center">View</th>
         </tr>
       </thead>
       <tbody>
+        <tr class="d-flex" *ngFor="let item of deptShiftList let i=index">
+            <td class="col-1 text-center">{{i + 1}}</td>
+            <td class="col-2 text-center">{{item.shiftName}}</td>
+            <td class="col-3 text-center">{{item.deptCd}}</td>
+            <td class="col-2 text-center">{{item.startTime| date: "h:mm a"}}</td>
+            <td class="col-2 text-center">{{item.endTime| date: "h:mm a"}}</td>
+            <td class="col-1 text-center">-</td>
+            <td class="col-1 text-center">
+              <span class="fa fa-list-alt pointerCursor" data-toggle="modal" data-target="#shiftDetailModal" (click)="getDepartmentShiftDetail(item.shiftCd, item.shiftName, item.startTime, item.endTime)"></span>
+            </td>
+        </tr>
         <tr class="d-flex">
           <td class="col-1 text-center">1</td>
           <td class="col-2 text-center">
@@ -64,9 +75,7 @@
           <td class="col-1 text-center">
             <span class="fa fa-plus pointerCursor" (click)="saveShift()"></span>
           </td>
-          <td class="col-1 text-center">
-            <span class="fa fa-list-alt pointerCursor" data-toggle="modal" data-target="#shiftDetailModal"></span>
-          </td>
+          <td class="col-1 text-center">-</td>
         </tr>
       </tbody>
     </table>
@@ -96,7 +105,7 @@
                   <h5><b>Shift Name: </b></h5>&nbsp;
                 </div>
                 <div class="col-md-6 text-left">
-                  <h5>Day Shift</h5>
+                  <h5>{{lblShiftName}}</h5>
                 </div>
               </div>
               <!--end 1st row-->
@@ -107,13 +116,13 @@
                   <label><b>Start Time: </b></label>&nbsp;
                 </div>
                 <div class="col-md-3 text-left">
-                  <label>9:00 AM</label>
+                  <label>{{lblStartTime}}</label>
                 </div>
                 <div class="col-md-3 text-right">
                   <label><b>End Time: </b></label>&nbsp;
                 </div>
                 <div class="col-md-3 text-left">
-                  <label>5:00 PM</label>
+                  <label>{{lblEndTime}}</label>
                 </div>
               </div>
               <!--end 2nd row-->
@@ -126,9 +135,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="d-flex">
-                    <td class="col-4 text-center">1</td>
-                    <td class="col-8 text-center">Finance Department</td>
+                  <tr class="d-flex" *ngFor="let item of deptShiftDetailList let i=index">
+                    <td class="col-4 text-center">{{i + 1}}</td>
+                    <td class="col-8 text-center">{{item.deptName}}</td>
                   </tr>
                 </tbody>
               </table>

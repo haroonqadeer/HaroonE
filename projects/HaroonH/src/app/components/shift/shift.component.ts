@@ -15,8 +15,15 @@ export class ShiftComponent implements OnInit {
   cmbDepartment = "";
   startTime = "";
   endTime = "";
-  
+
+  lblShiftName = "";
+  lblStartTime = "";
+  lblEndTime = "";
+
   departmentList = [];
+  departmentDetailList = [];
+  deptShiftList = [];
+  deptShiftDetailList = [];
   shiftList = [];
 
   constructor(
@@ -27,6 +34,8 @@ export class ShiftComponent implements OnInit {
   ngOnInit() {
     this.getShift();
     this.getDepartment();
+    this.getDepartmentShift();
+    this.getDepartmentDetail();
   }
 
   getShift() {
@@ -55,6 +64,61 @@ export class ShiftComponent implements OnInit {
     });
   }
 
+  getDepartmentShift() {
+    
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.get(this.serverUrl + 'api/getDepartmentShift', { headers: reqHeader }).subscribe((data: any) => {
+
+      this.deptShiftList = data;
+    });
+  }
+
+  getDepartmentDetail() {
+    
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.get(this.serverUrl + 'api/getDepartmentShiftDetail', { headers: reqHeader }).subscribe((data: any) => {
+
+      this.departmentDetailList = data;
+      
+    });
+
+  }
+
+  getDepartmentShiftDetail(shiftCd, shiftName, startTime, endTime){
+    
+    this.deptShiftDetailList = [];
+    this.lblShiftName = "";
+    this.lblStartTime = "";
+    this.lblEndTime = "";
+    
+    for(var i=0;i<this.deptShiftList.length;i++){
+      if(this.deptShiftList[i].shiftName == shiftName && 
+        this.deptShiftList[i].startTime == startTime && 
+        this.deptShiftList[i].endTime == endTime){
+          this.lblShiftName = shiftName;
+          this.lblStartTime = startTime;
+          this.lblEndTime = endTime;
+          for(var j=0; j<this.departmentDetailList.length;j++){
+            if(this.departmentDetailList[j].shiftCd == shiftCd && 
+              this.departmentDetailList[j].startTime == startTime && 
+              this.departmentDetailList[j].endTime == endTime){
+                this.deptShiftDetailList.push({
+                  deptName: this.departmentDetailList[j].deptName
+                });
+              }
+          }
+          i = this.deptShiftList.length + 1;
+        }
+    }
+  }
   saveShift(){
     
     if (this.cmbShift == '') {
@@ -73,7 +137,7 @@ export class ShiftComponent implements OnInit {
 
       var saveData = {
         shiftCd: this.cmbShift,
-        deptList: JSON.stringify(this.cmbDepartment),
+        deptList: this.cmbDepartment,
         startTime: this.startTime,
         endTime: this.endTime
       };
@@ -84,6 +148,7 @@ export class ShiftComponent implements OnInit {
 
         if (data.msg == "Record Saved Successfully!") {
           this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+          this.getDepartmentShift();
           this.clear();
           //this.app.hideSpinner();
           return false;

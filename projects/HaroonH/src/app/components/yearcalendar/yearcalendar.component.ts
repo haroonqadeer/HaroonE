@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit,  } from '@angular/core';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -21,11 +22,48 @@ export class YearcalendarComponent implements OnInit {
   options: any;
 
   txtRemarks = "";
+  cmbHoliday = "";
   eventDate = "";
   startTime = "";
   endTime = "";
   eventType = "";
+
+  affectDate="";
+  Monday = '';
+  Tuesday = '';
+  Wednesday = '';
+  Thursday = '';
+  Friday = '';
+  Saturday = '';
+  Sunday = '';
+
   eventTypeList = [];
+  holidayList = [];
+
+  cmbHolidayList = [
+    {
+      value:'1',
+      label:'Kashmir Day'
+    },{
+      value:'2',
+      label:'Pakistan Day'
+    },{
+      value:'3',
+      label:'Labour Day'
+    },{
+      value:'4',
+      label:'Independence Day'
+    },{
+      value:'5',
+      label:'Defence Day'
+    },{
+      value:'6',
+      label:'Iqbal Day'
+    },{
+      value:'7',
+      label:'Quaid Day'
+    },
+  ];
 
   constructor(
     private toastr: ToastrManager,
@@ -34,33 +72,8 @@ export class YearcalendarComponent implements OnInit {
 
   ngOnInit() {
 
-    this.events = [
-      {
-          "title": "All Day Event",
-          "start": "2019-06-01",
-          "color": "purple"
-      },
-      {
-          "title": "Long Event",
-          "start": "2019-06-07",
-          "end": "2019-06-10",
-          "color": "green"
-      },
-      {
-          "title": "Repeating Event",
-          "start": "2019-06-09T16:00:00"
-      },
-      {
-          "title": "Repeating Event",
-          "start": "2019-06-16T16:00:00",
-          "color": "brown"
-      },
-      {
-          "title": "Conference",
-          "start": "2019-06-11",
-          "end": "2019-06-13",
-      }
-    ];
+    this.getHolidays();
+    this.getEvents();
     
     this.options = {
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, bootstrapPlugin],
@@ -73,7 +86,7 @@ export class YearcalendarComponent implements OnInit {
       selectHelper: true,
       customButtons: {
         addEvent: {
-          text: 'Add Event',
+          text: 'Add Holidays',
           click: function () {
             $('#eventModal').modal('show');
           }
@@ -99,36 +112,75 @@ export class YearcalendarComponent implements OnInit {
     };
   }
 
-  saveEvent(){
+  getHolidays(){
     
-    if (this.eventDate == '') {
-      this.toastr.errorToastr('Please select Event Date', 'Error', { toastTimeout: (2500) });
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.get(this.serverUrl + 'api/getHolidays', { headers: reqHeader }).subscribe((data: any) => {
+
+      this.holidayList = data;
+    });
+  }
+  
+  getEvents(){
+    
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.get(this.serverUrl + 'api/getEvents', { headers: reqHeader }).subscribe((data: any) => {
+      
+      this.events = data;
+    });
+  }
+
+  convertDate(myDate) {
+
+    var oldDate = new Date(myDate);
+    var d = oldDate.getDate();
+    var m = oldDate.getMonth();
+    m += 1;  // JavaScript months are 0-11
+    var y = oldDate.getFullYear();
+
+    var convertedDate = d + "-" + m + "-" + y;
+
+    return convertedDate;
+  }
+
+  saveCalender(){
+
+    if(this.affectDate == ""){
+      this.toastr.errorToastr('Please Select Affect Date!', 'Error', { toastTimeout: (2500) });
       return;
-    } else if (this.startTime == '') {
-      this.toastr.errorToastr('Please Select Start Time', 'Error', { toastTimeout: (2500) });
+    } else if (this.Monday == '' &&
+        this.Tuesday == '' &&
+        this.Wednesday == '' &&
+        this.Thursday == '' &&
+        this.Friday == '' &&
+        this.Saturday == '' &&
+        this.Sunday == '') {
+      this.toastr.errorToastr('Please Select Weekend!', 'Error', { toastTimeout: (2500) });
       return;
-    } else if (this.endTime == '') {
-      this.toastr.errorToastr('Please Select End Time', 'Error', { toastTimeout: (2500) });
-      return;
-    } else if (this.eventType == '') {
-      this.toastr.errorToastr('Please Select Event Type', 'Error', { toastTimeout: (2500) });
-      return;
-    }  else if (this.txtRemarks == '') {
-      this.toastr.errorToastr('Please Enter Remarks', 'Error', { toastTimeout: (2500) });
-      return;
-    } else {
+    }else{
       
       var saveData = {
-        eventDate: this.eventDate,
-        startTime: this.startTime,
-        endTime: this.endTime,
-        eventType: this.eventType,
-        remarks: this.txtRemarks,
+        monday: this.Monday,
+        tuesday: this.Tuesday,
+        wednesday: this.Wednesday,
+        thursday: this.Thursday,
+        friday: this.Friday,
+        saturday: this.Saturday,
+        sunday: this.Sunday,
+        affectDate: this.affectDate
       };
 
       var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-      this.http.post(this.serverUrl + 'api/saveEvent', saveData, { headers: reqHeader }).subscribe((data: any) => {
+      this.http.post(this.serverUrl + 'api/saveCalendar', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
         if (data.msg == "Record Saved Successfully!") {
           this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
@@ -146,12 +198,53 @@ export class YearcalendarComponent implements OnInit {
     }
   }
 
+  saveEvent(){
+    
+    for(var i=0; i<this.holidayList.length;i++){
+      alert(this.convertDate(this.holidayList[i].eventDate) + ' - ' + this.convertDate(this.eventDate));
+      if(this.holidayList[i].holiday == this.cmbHoliday && this.convertDate(this.holidayList[i].eventDate) == this.convertDate(this.eventDate)){
+        this.toastr.errorToastr('Holiday Already Saved!', 'Error', { toastTimeout: (2500) });
+        return;
+      }
+    }
+    
+    if (this.eventDate == '') {
+      this.toastr.errorToastr('Please Select Event Date', 'Error', { toastTimeout: (2500) });
+      return;
+    } else if (this.cmbHoliday == '') {
+      this.toastr.errorToastr('Please Select Holiday', 'Error', { toastTimeout: (2500) });
+      return;
+    } else {
+      
+      var saveData = {
+        eventDate: this.eventDate,
+        holiday: this.cmbHoliday,
+      };
+
+      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+      this.http.post(this.serverUrl + 'api/saveHoliday', saveData, { headers: reqHeader }).subscribe((data: any) => {
+
+        if (data.msg == "Record Saved Successfully!") {
+          this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+          this.getHolidays();
+          this.clear();
+          //this.app.hideSpinner();
+          return false;
+        } else {
+          this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+          //$('#companyModal').modal('hide');
+          //this.app.hideSpinner();
+          return false;
+        }
+      });
+
+    }
+  }
+
   clear(){
 
     this.eventDate = "";
-    this.startTime = "";
-    this.endTime = "";
-    this.eventType = "";
-    this.txtRemarks = "";
+    this.cmbHoliday = "";
   }
 }
