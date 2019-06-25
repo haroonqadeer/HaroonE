@@ -40,6 +40,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
 
 import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
+import { TrainingComponent } from './components/training/training.component';
+import { TrainingemployeeComponent } from './components/trainingemployee/trainingemployee.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "i
     TestComponent,
     TrainingrequirementsComponent,
     YearcalendarComponent,
-    SearchPipe
+    SearchPipe,
+    TrainingComponent,
+    TrainingemployeeComponent
   ],
   imports: [
     BrowserModule,

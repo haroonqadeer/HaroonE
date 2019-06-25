@@ -42,9 +42,9 @@ import { LoginComponent } from './components/login/login.component';
     AppRoutingModule,
     HRSharedModule.forRoot(),
     ConfigSharedModule.forRoot(),
-    
 
-    
+
+
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -63,7 +63,7 @@ import { LoginComponent } from './components/login/login.component';
     IgxGridModule
     //SearchPipe
   ],
-  providers: [NavComponent,IgxExcelExporterService, IgxCsvExporterService],
+  providers: [NavComponent, IgxExcelExporterService, IgxCsvExporterService],
   bootstrap: [AppComponent],
   entryComponents: [NavComponent],
 })
