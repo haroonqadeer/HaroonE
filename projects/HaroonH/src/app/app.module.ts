@@ -42,6 +42,8 @@ import {InputSwitchModule} from 'primeng/inputswitch';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
+import { TrainingComponent } from './components/training/training.component';
+import { TrainingemployeeComponent } from './components/trainingemployee/trainingemployee.component';
 import { ShiftComponent } from './components/shift/shift.component';
 
 @NgModule({
@@ -64,6 +66,8 @@ import { ShiftComponent } from './components/shift/shift.component';
     TrainingrequirementsComponent,
     YearcalendarComponent,
     SearchPipe,
+    TrainingComponent,
+    TrainingemployeeComponent,
     ShiftComponent
   ],
   imports: [

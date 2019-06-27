@@ -21,6 +21,9 @@ import { ShiftComponent } from './components/shift/shift.component';
 //import { IntroPageComponent } from './components/intro-page/intro-page.component';
 //import { AppComponent } from 'projects/HaroonH/src/app/app.component';
 
+import { TrainingComponent } from './components/training/training.component';
+import { TrainingemployeeComponent } from './components/trainingemployee/trainingemployee.component';
+
 const routes: Routes = [
   // {
   //   path: '',
@@ -67,8 +70,16 @@ const routes: Routes = [
     component: SkillstandardComponent
   },
   {
+    path: 'HR/training',
+    component: TrainingComponent
+  },
+  {
     path: 'HR/trainingreq',
     component: TrainingrequirementsComponent
+  },
+  {
+    path: 'HR/trainingemp',
+    component: TrainingemployeeComponent
   },
   {
     path: 'HR/yearcalendar',
