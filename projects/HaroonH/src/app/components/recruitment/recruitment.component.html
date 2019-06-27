@@ -248,9 +248,10 @@
           <thead>
             <tr class='d-flex'>
               <th class='col-2 text-center'>Sr#</th>
-              <th class='col-6'>Applicant</th>
+              <th class='col-5'>Applicant</th>
               <th class='col-2 text-center'>Interviewer</th>
               <th class='col-2 text-center'>Status</th>
+              <th class='col-1 text-center'>Detail</th>
             </tr>
           </thead>
           <tbody>
@@ -258,11 +259,14 @@
               <!-- <tr *ngFor="let item of taxDetail | search:'UserName,Email': query" class='d-flex'> -->
 
               <td class="col-2 text-center">{{i + 1}}</td>
-              <td class="col-6">{{item.appName}}</td>
+              <td class="col-5">{{item.appName}}</td>
               <td class="col-2 text-center">{{item.marks}}</td>
               <td class="col-2 text-center">
                 <a href="" data-toggle="modal" data-target="#statusModal"
                   (click)="getStepperID(5, item.appID)">{{item.appStatus}}</a>
+              </td>
+              <td class="col-1 text-center">
+                <span class="fa fa-list-alt pointerCursor" (click)="getInterviewDetail()" data-toggle="modal" data-target="#interviewModal"></span>
               </td>
             </tr>
           </tbody>
@@ -376,6 +380,68 @@
           </table>
         </div>
         <!--end table row-->
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Search vacancy Modal Window  -->
+
+<!-- Start interview Modal Window -->
+<div class="modal fade" id="interviewModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Interview</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--start table row-->
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table table-striped fullwidth">
+              <thead>
+                <tr class='d-flex'>
+                  <th class='col-2 text-center'>Sr#</th>
+                  <th class='col-4 text-center'>InterViewer Name</th>
+                  <th class='col-6 text-center'>Marks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class='d-flex'>
+                <tr *ngFor="let item of vcncyList let i=index" class='d-flex'>
+                  <td class='col-2 text-center'>{{i+1}}</td>
+                  <td class='col-4 text-center'>{{item.interviewerName}}</td>
+                  <td class='col-6 text-center'>
+                    <input type="text" pInputText [(ngModel)]="item.marks" [style]="{'width':'100%'}" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--end table row-->
+        <br/>        
+        <!--start button row-->
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <button mat-raised-button color="primary" (click)="saveInterviewMarks()">Save</button>
+          </div>
+        </div>
+        <!--end button row-->
+  
       </div>
       <!--end Modal body -->
 

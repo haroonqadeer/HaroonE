@@ -33,6 +33,7 @@
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
     "fullcalendar": "^4.0.0-alpha",
+    "getmac": "^1.4.6",
     "highcharts": "^7.1.1",
     "igniteui-angular": "^7.3.2",
     "jquery": "^3.4.1",

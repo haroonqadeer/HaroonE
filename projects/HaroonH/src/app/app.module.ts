@@ -39,6 +39,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
 import { ShiftComponent } from './components/shift/shift.component';
@@ -85,7 +86,8 @@ import { ShiftComponent } from './components/shift/shift.component';
     DropdownModule,
     IgxGridModule,
     CheckboxModule,
-    InputSwitchModule
+    InputSwitchModule,
+    NgxSpinnerModule
   ],
   providers: [IgxExcelExporterService, IgxCsvExporterService],
   bootstrap: [AppComponent],

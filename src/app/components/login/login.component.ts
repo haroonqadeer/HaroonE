@@ -18,7 +18,8 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-    serverUrl = "http://localhost:11664/";
+    // serverUrl = "http://localhost:11664/";
+    serverUrl = "http://localhost:3009/";
     //serverUrl = "http://192.168.200.19:3006/";
     tokenKey = "token";
 
@@ -64,9 +65,12 @@ export class LoginComponent implements OnInit {
 
                 if (data.msg == "Logedin Successfully!") {
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    // localStorage.setItem('userID', data[0].IndvdlID);
                     localStorage.setItem('userName', this.txtUserName);
                     localStorage.setItem('myActModNam', 'HR');
                     this.app.checkLogin('Yes');
+                    // this.getUserDetail(localStorage.getItem('userID'));
+
                 } else {
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     $(".mat-form-field-underline").css("background-color", "red");
@@ -79,6 +83,22 @@ export class LoginComponent implements OnInit {
 
 
         }
+    }
+
+    getUserDetail(item){
+
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.get(this.serverUrl + 'api/getUserDept?empID=' + item, { headers: reqHeader }).subscribe((data: any) => {
+
+      //this.posts = data;
+        localStorage.setItem('deptCd', data[0].jobPostDeptCd);
+
+    });
+
     }
 
     getKeyPressed(e) {

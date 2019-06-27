@@ -2,6 +2,7 @@ import { Component, ModuleWithProviders } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MatBottomSheet } from '@angular/material';
 import { Event, Router, NavigationStart, NavigationEnd } from "@angular/router";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { NavComponent } from './components/nav/nav.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
@@ -28,6 +29,7 @@ constructor(
     private router: Router,
     private bottomSheet: MatBottomSheet,
     private navApp: NavComponent,
+    private spinner: NgxSpinnerService,
     // private attendApp: AttendanceComponent
 ) { }
 
@@ -149,6 +151,17 @@ constructor(
         this.bottomSheet.open(NavComponent);
     }
 
+  //*Functions for Show & Hide Spinner
+  showSpinner() {
+    this.spinner.show();
+  }
+
+  hideSpinner() {
+      setTimeout(() => {
+          /** spinner ends after process done*/
+          this.spinner.hide();
+      }, 1000);
+  }
 
 
     //method for show and hide manu bar with login and logout user
