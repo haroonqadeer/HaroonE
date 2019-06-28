@@ -1413,6 +1413,7 @@
     font-size: 21px;
     position: absolute;
     margin: 9px 0 0 0 !important;
+    font-family: 'Roboto-Light' !important;
     }
 
     .topnav h2 {
@@ -1607,8 +1608,8 @@
     //----------------------------------tabs css end ----------------------------------------
 
     .searchBar{
-        border: 1px solid red;
-        margin: 5px;
+        border: 0px solid red;
+        margin: 5px 5px 0 10px;
     }
 
     .searchBar .logo {
@@ -1619,19 +1620,19 @@
     }
 
     .searchBar .menuSearchBox {
-        border: 1px solid #000;
+        border: 0px solid #000;
         border-left: 1px solid #ccc;
         color: #666;
         background-color: transparent;
         box-shadow: none;
         margin-left: 8px;
-        margin-bottom: 8px;
-        top: 0px;
+        margin-bottom: 0px;
+        top: -8px;
         padding: 0;
         padding-left: 5px;
         position: relative;
-        height: 28px;
-        width: 100%;
+        height: 32px;
+        width: 95%;
     }
 
     .searchBar .icon-search{
@@ -1639,5 +1640,10 @@
         width: 32px;
         height:32px;
         mask: url(./assets/images/search.svg) no-repeat center ;
-        background-color: red;
+        background-color: #999;
+    }
+
+    .pagenateList{
+        border: 0px solid red;
+        margin: -17px 0 0 0;
     }

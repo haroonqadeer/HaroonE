@@ -52,7 +52,6 @@
       </mat-form-field> -->
       <div class="searchBar">
         <span class="fa icon-search"></span>
-
         <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
       </div>
     </div>
@@ -61,43 +60,42 @@
 
 
 <div class="row">
-  <table class="table table-striped">
-    <thead>
-      <tr class='d-flex'>
-        <th class='col-1 text-center'>Sr #</th>
-        <th class='col-2 text-center'>Office Name</th>
-        <th class='col-1'>Dept</th>
-        <th class='col-1'>Section</th>
-        <th class='col-1 text-center'>Job Title</th>
-        <th class='col-1 text-center'>Type</th>
-        <th class='col-1 text-center'>Quantity</th>
-        <th class='col-1 text-center'>Qualification</th>
-        <th class='col-1 text-center'>Experience</th>
-        <th class='col-1 text-center'>Edit</th>
-        <th class='col-1 text-center'>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-      <tr class='d-flex'>
-        <td class='col-1 text-center'>1</td> 
-        <td class='col-2 text-center'>Head Quarter</td>
-        <td class='col-1'>Finance</td>             
-        <td class='col-1'>BK&C</td>             
-        <td class='col-1 text-center'>AD</td>             
-        <td class='col-1 text-center'>Regular</td>             
-        <td class='col-1 text-center'>1</td>
-        <td class='col-1 text-center'>ACCA</td>
-        <td class='col-1 text-center'>5 years</td>
-        <td class='col-1 text-center'>
-          <span class="fa fa-edit pointerCursor"></span>
-        </td>
-        <td class='col-1 text-center'>
-          <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr class='d-flex'>
+          <th class='col-1 text-center'>Sr #</th>
+          <th class='col-2 text-center'>Office Name</th>
+          <th class='col-2'>Department</th>
+          <th class='col-1 text-center'>Job Title</th>
+          <th class='col-1 text-center'>Type</th>
+          <th class='col-1 text-center'>Quantity</th>
+          <th class='col-1 text-center'>Qualification</th>
+          <th class='col-1 text-center'>Experience</th>
+          <th class='col-1 text-center'>Edit</th>
+          <th class='col-1 text-center'>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of jobProfilesList; let i=index" class='d-flex'>
+          <td class='col-1 text-center'>{{i + 1}}</td> 
+          <td class='col-2 text-center'>{{item.locationName}}</td>
+          <td class='col-2'>{{item.deptName}}</td>             
+          <td class='col-1 text-center'>{{item.jobDesigName}}</td>             
+          <td class='col-1 text-center'>{{item.jobTypeName}}</td>             
+          <td class='col-1 text-center'>{{item.quantity}}</td>
+          <td class='col-1 text-center'>{{item.degree}}</td>
+          <td class='col-1 text-center'>{{item.experience / 12}} Year</td>
+          <td class='col-1 text-center'>
+            <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#profileModal" (click)="edit(item)"></span>
+          </td>
+          <td class='col-1 text-center'>
+            <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <!--end table row-->  
 </div>
@@ -139,19 +137,38 @@
                 <span class="label">Job Title</span>
               </div>
               <div class="col-md-10">
-                <p-dropdown [options]="jobsList" [(ngModel)]="jobTitle" (onChange)="getFilterItem('jobs')" placeholder="Job Title" filter="true" [style]="{'width':'100%'}">
+                <p-dropdown [options]="jobsList" [(ngModel)]="jobTitle" (onChange)="getFilterItem('jobs')" [disabled]="editFlag" placeholder="Job Title" filter="true" [style]="{'width':'100%'}">
                   <ng-template let-itm pTemplate="item">
                     <div style="position: relative;height: 25px; z-index: 100;">
                       <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
                     </div>
                   </ng-template>
                 </p-dropdown>
-                <br/>
               </div>
             </div>
             <!-- filter="true" [showClear]="true" -->
-            <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
             <!--end 1st row-->
+
+            <!--start 2nd row-->
+            <br/>
+            <div class="row">
+              <div class="col-md-2">
+                <span class="label">BPS</span>
+              </div>
+              <div class="col-md-4">
+                <span class="label"><b>{{lblBPS}}</b></span>
+              </div>
+
+              <div class="col-md-2">
+                  <span class="label">Job Type</span>
+                </div>
+                <div class="col-md-4">
+                  <span class="label"><b>{{lblJobType}}</b></span>
+                </div>
+            </div>
+            <!-- filter="true" [showClear]="true" -->
+            <br/> <br/> <br/> <br/> <br/> <br/> <br/><br/>
+            <!--end 2nd row-->
             
             <!--start next step button div-->
             <div class="text-right">
@@ -167,72 +184,9 @@
         <mat-step [stepControl]="formGroup2" optional>
           <!--stepper 2nd label-->
           <ng-template matStepLabel><b>Qualification</b></ng-template>
-          <!--start 2nd step form control div-->
+          <!--start 2nd step form control div-->            
 
-
-            <!--start 1st row-->
-            <br/>
-            <div class="row">
-              <div class="col-md-2">
-                <span class="label">Degree</span>
-              </div>
-              <div class="col-md-10">
-                <p-dropdown [options]="degreeList" [(ngModel)]="ddlDegree" (onChange)="getFilterItem('degree')" placeholder="Degree" filter="true" [style]="{'width':'100%'}">
-                  <ng-template let-itm pTemplate="item">
-                    <div style="position: relative;height: 25px; z-index: 100;">
-                      <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                    </div>
-                  </ng-template>
-                </p-dropdown>
-                <br/>
-              </div>
-            </div>
-            <!-- filter="true" [showClear]="true" -->
-            <!--end 1st row-->
-            
-
-
-            <!--start 2nd row-->
-            <div class="row">
-              <div class="col-md-6">
-                <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Criteria Required Level" [(ngModel)]="degreeReqLevel" type="number" min="1" max="99">
-                </mat-form-field>
-              </div>
-              <div class="col-md-6">
-                <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Criteria Maximum Level" [(ngModel)]="degreeMaxLelvel" type="number" min="1" max="99">
-                </mat-form-field>
-              </div>
-            </div>
-            <br/>
-            <!--end 2nd row-->
-            
-
-
-            <!--start 3rd row-->
-            <div class="row">
-              <div class="col-md-6">
-                Preference Indicator
-              </div>
-              <div class="col-md-6">
-                  <p-checkbox [(ngModel)]="chkDegreePI" binary="true"></p-checkbox>
-              </div>
-            </div>
-            <br/>
-            <!--end 3rd row-->
-
-
-
-            <!--start next step button div-->
-            <div class="text-right">
-              <button mat-raised-button color="primary" (click)="addDegree()">Add</button>
-            </div>
-            <br/>
-            <!--end next step button div-->
-            
-
-
+          <br/>
             <!--table row-->
             <div class="row">
               <table class="table table-striped">
@@ -247,15 +201,38 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <!-- | search:'UserName,Email': query -->
                   <tr *ngFor="let item of tempDegreeList; let i=index" class='d-flex'>
                     <td class='col-1 text-center'>{{i + 1}}</td> 
-                    <td class='col-4'>{{item.DegreeLabel}}</td>
-                    <td class='col-2'>{{item.QlfctnCriteriaReqdLvl}}</td>
-                    <td class='col-2'>{{item.QlfctnCriteriaMaxLvl}}</td>
-                    <td class='col-2'>{{item.PrefIndctr}}</td>
+                    <td class='col-4'>{{item.degreeLabel}}</td>
+                    <td class='col-2'>{{item.qlfctnCriteriaReqdLvl}}</td>
+                    <td class='col-2'>{{item.qlfctnCriteriaMaxLvl}}</td>
+                    <td class='col-2'>{{item.prefIndctr}}</td>
                     <td class='col-1 text-center'>
-                      <span class="fa fa-trash pointerCursor" (click)="removeDegree(i)"></span>
+                      <span class="fa fa-minus pointerCursor" (click)="removeDegree(i)"></span>
+                    </td>
+                  </tr>
+
+                  <tr class='d-flex'>
+                    <td class='col-5'>
+                      <p-dropdown [options]="degreeList" [(ngModel)]="ddlDegree" (onChange)="getFilterItem('degree')" placeholder="Degree" filter="true" [style]="{'width':'100%'}">
+                        <ng-template let-itm pTemplate="item">
+                          <div style="position: relative;height: 25px; z-index: 100;">
+                            <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                          </div>
+                        </ng-template>
+                      </p-dropdown>
+                    </td>
+                    <td class='col-2'>
+                      <input pInputText  placeholder="Required Level" [(ngModel)]="degreeReqLevel" type="number" min="1" max="99" class="fullwidth">
+                    </td>
+                    <td class='col-2'>
+                        <input pInputText placeholder="Maximum Level" [(ngModel)]="degreeMaxLelvel" type="number" min="1" max="99" class="fullwidth">
+                    </td>
+                    <td class='col-2'>
+                      <p-checkbox [(ngModel)]="chkDegreePI" binary="true"></p-checkbox>
+                    </td>
+                    <td class='col-1 text-center'>
+                      <span class="fa fa-plus pointerCursor" (click)="addDegree()"></span>
                     </td>
                   </tr>
                 </tbody>
@@ -265,7 +242,6 @@
             <!--end table row-->
 
 
-            
             <!--start next step button div-->
             <div class="text-right">
               <button mat-raised-button color="primary" matStepperNext>Next</button>
@@ -276,77 +252,13 @@
         <!--end 2nd Step -->
 
 
-
         <!--start 3rd Step -->
         <mat-step [stepControl]="formGroup3" optional>
         <!--stepper 3rd label-->
         <ng-template matStepLabel><b>Certificate</b></ng-template>
-        <!--start 3rd step form control div-->
+        <!--start 3rd step form control div-->          
 
-
-          <!--start 1st row-->
           <br/>
-          <div class="row">
-            <div class="col-md-2">
-              <span class="label">Certificate</span>
-            </div>
-            <div class="col-md-10">
-              <p-dropdown [options]="certificateList" [(ngModel)]="ddlCertificate" (onChange)="getFilterItem('certificate')" placeholder="Certificate" filter="true" [style]="{'width':'100%'}">
-                <ng-template let-itm pTemplate="item">
-                  <div style="position: relative;height: 25px; z-index: 100;">
-                    <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                  </div>
-                </ng-template>
-              </p-dropdown>
-              <br/>
-            </div>
-          </div>
-          <!-- filter="true" [showClear]="true" -->
-          <!--end 1st row-->
-          
-
-
-          <!--start 2nd row-->
-          <div class="row">
-            <div class="col-md-6">
-              <mat-form-field class="fullwidth">
-                <input matInput placeholder="Criteria Required Level" [(ngModel)]="certificateReqLevel" type="number" min="1" max="99">
-              </mat-form-field>
-            </div>
-            <div class="col-md-6">
-              <mat-form-field class="fullwidth">
-                <input matInput placeholder="Criteria Maximum Level" [(ngModel)]="certificateMaxLelvel" type="number" min="1" max="99">
-              </mat-form-field>
-            </div>
-          </div>
-          <br/>
-          <!--end 2nd row-->
-          
-
-
-          <!--start 3rd row-->
-          <div class="row">
-            <div class="col-md-6">
-              Preference Indicator
-            </div>
-            <div class="col-md-6">
-                <p-checkbox [(ngModel)]="chkCertificatePI" binary="true"></p-checkbox>
-            </div>
-          </div>
-          <br/>
-          <!--end 3rd row-->
-
-
-
-          <!--start next step button div-->
-          <div class="text-right">
-            <button mat-raised-button color="primary" (click)="addCertificate()">Add</button>
-          </div>
-          <br/>
-          <!--end next step button div-->
-          
-
-
           <!--table row-->
           <div class="row">
             <table class="table table-striped">
@@ -361,15 +273,38 @@
                 </tr>
               </thead>
               <tbody>
-                  <!-- | search:'UserName,Email': query -->
                 <tr *ngFor="let item of tempCertificateList; let i=index" class='d-flex'>
                   <td class='col-1 text-center'>{{i + 1}}</td> 
-                  <td class='col-4'>{{item.DegreeLabel}}</td>
-                  <td class='col-2'>{{item.QlfctnCriteriaReqdLvl}}</td>
-                  <td class='col-2'>{{item.QlfctnCriteriaMaxLvl}}</td>
-                  <td class='col-2'>{{item.PrefIndctr}}</td>
+                  <td class='col-4'>{{item.degreeLabel}}</td>
+                  <td class='col-2'>{{item.qlfctnCriteriaReqdLvl}}</td>
+                  <td class='col-2'>{{item.qlfctnCriteriaMaxLvl}}</td>
+                  <td class='col-2'>{{item.prefIndctr}}</td>
                   <td class='col-1 text-center'>
-                    <span class="fa fa-trash pointerCursor" (click)="removeCertificate(i)"></span>
+                    <span class="fa fa-minus pointerCursor" (click)="removeCertificate(i)"></span>
+                  </td>
+                </tr>
+
+                <tr class='d-flex'>
+                  <td class='col-5'>
+                    <p-dropdown [options]="certificateList" [(ngModel)]="ddlCertificate" (onChange)="getFilterItem('certificate')" placeholder="Certificate" filter="true" [style]="{'width':'100%'}">
+                      <ng-template let-itm pTemplate="item">
+                        <div style="position: relative;height: 25px; z-index: 100;">
+                          <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </td>
+                  <td class='col-2'>
+                    <input pInputText placeholder="Required Level" [(ngModel)]="certificateReqLevel" type="number" min="1" max="99" class="fullwidth">
+                  </td>
+                  <td class='col-2'>
+                    <input pInputText placeholder="Maximum Level" [(ngModel)]="certificateMaxLelvel" type="number" min="1" max="99" class="fullwidth">
+                  </td>
+                  <td class='col-2'>
+                    <p-checkbox [(ngModel)]="chkCertificatePI" binary="true"></p-checkbox>
+                  </td>
+                  <td class='col-1 text-center'>
+                    <span class="fa fa-plus pointerCursor" (click)="addCertificate()"></span>
                   </td>
                 </tr>
               </tbody>
@@ -379,7 +314,6 @@
           <!--end table row-->
 
 
-          
           <!--start next step button div-->
           <div class="text-right">
             <button mat-raised-button color="primary" matStepperNext>Next</button>
@@ -396,69 +330,7 @@
           <!--stepper 4th label-->
           <ng-template matStepLabel><b>Experience</b></ng-template>
 
-            <!--start 1st row-->
             <br/>
-            <div class="row">
-              <div class="col-md-2">
-                <span class="label">Experience</span>
-              </div>
-              <div class="col-md-10">
-                <p-dropdown [options]="experienceList" [(ngModel)]="ddlExperience" (onChange)="getFilterItem('experience')" placeholder="Experience" filter="true" [style]="{'width':'100%'}">
-                  <ng-template let-itm pTemplate="item">
-                    <div style="position: relative;height: 25px; z-index: 100;">
-                      <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                    </div>
-                  </ng-template>
-                </p-dropdown>
-                <br/>
-              </div>
-            </div>
-            <!-- filter="true" [showClear]="true" -->
-            <!--end 1st row-->
-          
-
-
-            <!--start 2nd row-->
-            <div class="row">
-              <div class="col-md-6">
-                <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Experience In Years" [(ngModel)]="experienceYear" type="number" min="0" max="99">
-                </mat-form-field>
-              </div>
-              <div class="col-md-6">
-                <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Experience In Months" [(ngModel)]="experienceMonth" type="number" min="0" max="12"> 
-                </mat-form-field>
-              </div>
-            </div>
-            <br/>
-            <!--end 2nd row-->
-          
-
-
-            <!--start 3rd row-->
-            <div class="row">
-              <div class="col-md-6">
-                Preference Indicator
-              </div>
-              <div class="col-md-6">
-                  <p-checkbox [(ngModel)]="chkExperiencePI" binary="true"></p-checkbox>
-              </div>
-            </div>
-            <br/>
-            <!--end 3rd row-->
-
-
-
-            <!--start next step button div-->
-            <div class="text-right">
-              <button mat-raised-button color="primary" (click)="addExperience()">Add</button>
-            </div>
-            <br/>
-            <!--end next step button div-->
-          
-
-
             <!--table row-->
             <div class="row">
               <table class="table table-striped">
@@ -466,20 +338,43 @@
                   <tr class='d-flex'>
                     <th class='col-1 text-center'>Sr #</th>
                     <th class='col-4'>Experience Title</th>
-                    <th class='col-3'>Experience</th>
-                    <th class='col-3'>Preference</th>
+                    <th class='col-4'>Experience</th>
+                    <th class='col-2'>Preference</th>
                     <th class='col-1 text-center'>Delete</th>
                   </tr>
                 </thead>
-                <tbody>
-                    <!-- | search:'UserName,Email': query -->
+                <tbody>                    
                   <tr *ngFor="let item of tempExperienceList; let i=index" class='d-flex'>
                     <td class='col-1 text-center'>{{i + 1}}</td> 
-                    <td class='col-4'>{{item.ExperienceLabel}}</td>
-                    <td class='col-3'>{{item.QlfctnCriteriaReqdLvl}} Month</td>
-                    <td class='col-3'>{{item.PrefIndctr}}</td>
+                    <td class='col-4'>{{item.degreeLabel}}</td>
+                    <td class='col-4'>{{item.qlfctnCriteriaReqdLvl}} Month</td>
+                    <td class='col-2'>{{item.prefIndctr}}</td>
                     <td class='col-1 text-center'>
-                      <span class="fa fa-trash pointerCursor" (click)="removeExperience(i)"></span>
+                      <span class="fa fa-minus pointerCursor" (click)="removeExperience(i)"></span>
+                    </td>
+                  </tr>
+
+                  <tr class='d-flex'>
+                    <td class='col-5'>
+                      <p-dropdown [options]="experienceList" [(ngModel)]="ddlExperience" (onChange)="getFilterItem('experience')" placeholder="Experience" filter="true" [style]="{'width':'100%'}">
+                        <ng-template let-itm pTemplate="item">
+                          <div style="position: relative;height: 25px; z-index: 100;">
+                            <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                          </div>
+                        </ng-template>
+                      </p-dropdown>
+                    </td>
+                    <td class='col-2'>
+                      <input pInputText placeholder="Experience In Years" [(ngModel)]="experienceYear" type="number" min="0" max="99" class="fullwidth">
+                    </td>
+                    <td class='col-2'>
+                      <input pInputText placeholder="Experience In Months" [(ngModel)]="experienceMonth" type="number" min="0" max="12" class="fullwidth"> 
+                    </td>
+                    <td class='col-2'>
+                        <p-checkbox [(ngModel)]="chkExperiencePI" binary="true"></p-checkbox>
+                    </td>
+                    <td class='col-1 text-center'>
+                      <span class="fa fa-plus pointerCursor" (click)="addExperience()"></span>
                     </td>
                   </tr>
                 </tbody>
@@ -529,7 +424,7 @@
                 <tbody>
                   <tr *ngFor="let item of tempDescList; let i=index" class='d-flex'>
                     <td class='col-1 text-center'>{{i + 1}}</td> 
-                    <td class='col-10'>{{item.RspnsbltyCd}} - {{item.RspnsbltyDesc}}</td>
+                    <td class='col-10'>{{item.rspnsbltyDesc}}</td>
                     <td class='col-1 text-center'><span class="fa fa-minus pointerCursor" (click)="removeDesc(i)"></span></td>
                   </tr>
 
@@ -584,19 +479,19 @@
               <tbody>
                 <tr *ngFor="let item of tempLeaveRulesList; let i=index" class='d-flex'>
                   <td class='col-1 text-center'>{{i + 1}}</td> 
-                  <td class='col-4'>{{item.LeaveRuleTitle}}</td>           
-                  <td class='col-3'>{{item.LeaveLmtAmount}}</td>
-                  <td class='col-3'>{{item.EffectiveDt | date}}</td>       
+                  <td class='col-4'>{{item.leaveRuleTitle}}</td>           
+                  <td class='col-3'>{{item.leaveLmtAmoUNt}}</td>
+                  <td class='col-3'>{{item.effectiveDt | date}}</td>       
                   <td class='col-1 text-center'>
                     <span class="fa fa-minus pointerCursor" (click)="removeLeaveRule(i)"></span>
                   </td>
                 </tr>
 
                 <tr class='d-flex'>
-                  <td class='col-7'>
+                  <td class='col-8'>
                     <p-dropdown [options]="leaveRulesList" [(ngModel)]="ddlLeaveRule" placeholder="Leave Rule" filter="true" [style]="{'width':'100%'}"></p-dropdown>
                   </td>           
-                  <td class='col-4'>
+                  <td class='col-3'>
                     <p-calendar [(ngModel)]="efectDate" placeholder="Effect Date"> </p-calendar>
                   </td>             
                   <td class='col-1 text-center'>
@@ -624,61 +519,9 @@
             <!--stepper 2nd label-->
             <ng-template matStepLabel><b>Facilities</b></ng-template>
             <!--start 2nd step form control div-->
-  
-  
-              <!--start 1st row-->
+
+
               <br/>
-              <div class="row">
-                <div class="col-md-2">
-                  <span class="label">Facility Type</span>
-                </div>
-                <div class="col-md-10">
-                  <p-dropdown [options]="facilityTypeList" [(ngModel)]="ddlFacilityType" (onChange)="getFilterItem('facility')" placeholder="Facility Type" filter="true" [style]="{'width':'100%'}">
-                    <ng-template let-itm pTemplate="item">
-                      <div style="position: relative;height: 25px; z-index: 100;">
-                        <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                  <br/>
-                </div>
-              </div>
-              <!-- filter="true" [showClear]="true" -->
-              <!--end 1st row-->
-
-
-
-              <!--start 2nd row-->
-              <br/>
-              <div class="row">
-                  <div class="col-md-2">
-                    <span class="label">Facility</span>
-                  </div>
-                  <div class="col-md-10">
-                    <p-dropdown [options]="tempFacilityList" [(ngModel)]="ddlFacility" placeholder="Facility" filter="true" [style]="{'width':'100%'}">
-                      <ng-template let-itm pTemplate="item">
-                        <div style="position: relative;height: 25px; z-index: 100;">
-                          <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                        </div>
-                      </ng-template>
-                    </p-dropdown>
-                    <br/>
-                  </div>
-                </div>
-              <!--end 2nd row-->
-
-
-
-              <!--start next step button div-->
-              <br/>
-              <div class="text-right">
-                <button mat-raised-button color="primary" (click)="addFacility()">Add</button>
-              </div>
-              <br/>
-              <!--end next step button div-->
-
-
-
               <!--table row-->
               <div class="row">
                 <table class="table table-striped">
@@ -691,19 +534,42 @@
                     </tr>
                   </thead>
                   <tbody>
-                      <!-- | search:'UserName,Email': query -->
                     <tr *ngFor="let item of jobFacilityList; let i=index" class='d-flex'>
                       <td class='col-1 text-center'>{{i + 1}}</td> 
-                      <td class='col-5'>{{item.FacilityTypeTitle}}</td>
-                      <td class='col-5'>{{item.FacilityTitle}}</td>
+                      <td class='col-5'>{{item.facilityTypeName}}</td>
+                      <td class='col-5'>{{item.facilityName}}</td>
                       <td class='col-1 text-center'>
-                        <span class="fa fa-trash pointerCursor" (click)="removeFacility(i)"></span>
+                        <span class="fa fa-minus pointerCursor" (click)="removeFacility(i)"></span>
+                      </td>
+                    </tr>
+
+                    <tr class='d-flex'> 
+                      <td class='col-6'>
+                        <p-dropdown [options]="facilityTypeList" [(ngModel)]="ddlFacilityType" (onChange)="getFilterItem('facility')" placeholder="Facility Type" filter="true" [style]="{'width':'100%'}">
+                          <ng-template let-itm pTemplate="item">
+                            <div style="position: relative;height: 25px; z-index: 100;">
+                              <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                            </div>
+                          </ng-template>
+                        </p-dropdown>
+                      </td>
+                      <td class='col-5'>
+                        <p-dropdown [options]="tempFacilityList" [(ngModel)]="ddlFacility" placeholder="Facility" filter="true" [style]="{'width':'100%'}">
+                          <ng-template let-itm pTemplate="item">
+                            <div style="position: relative;height: 25px; z-index: 100;">
+                              <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                            </div>
+                          </ng-template>
+                        </p-dropdown>
+                      </td>
+                      <td class='col-1 text-center'>
+                        <span class="fa fa-plus pointerCursor" (click)="addFacility()"></span>
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <br/>
+              <br/><br/><br/><br/><br/>
               <!--end table row-->
   
   

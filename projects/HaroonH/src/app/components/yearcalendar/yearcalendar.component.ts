@@ -110,10 +110,11 @@ export class YearcalendarComponent implements OnInit {
     } else if (this.endTime == '') {
       this.toastr.errorToastr('Please Select End Time', 'Error', { toastTimeout: (2500) });
       return;
-    } else if (this.eventType == '') {
-      this.toastr.errorToastr('Please Select Event Type', 'Error', { toastTimeout: (2500) });
-      return;
-    }  else if (this.txtRemarks == '') {
+    } //else if (this.eventType == '') {
+      //this.toastr.errorToastr('Please Select Event Type', 'Error', { toastTimeout: (2500) });
+      //return;
+    //}  
+    else if (this.txtRemarks == '') {
       this.toastr.errorToastr('Please Enter Remarks', 'Error', { toastTimeout: (2500) });
       return;
     } else {

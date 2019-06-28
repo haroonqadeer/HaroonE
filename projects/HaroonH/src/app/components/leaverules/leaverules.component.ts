@@ -150,7 +150,6 @@ export class LeaverulesComponent implements OnInit {
     }
 
 
-
     //Function for save and update leave Type 
     save() {
 

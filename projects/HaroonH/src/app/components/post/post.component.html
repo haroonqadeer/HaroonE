@@ -9,27 +9,27 @@
 
     <a class="pointerCursor" (click)="downloadExcel()">
       <i class="fa fa-file-excel-o"></i>
-      Excel
+      &nbsp;Excel
     </a>
 
     <a class="pointerCursor" (click)="downloadCSV()">
       <i class="fa fa-file-text-o"></i>
-      CSV
+      &nbsp;CSV
     </a>
 
     <a class="pointerCursor" (click)="downPDF()">
       <i class="fa fa-file-pdf-o"></i>
-      PDF
+      &nbsp;PDF
     </a>
 
     <a class="pointerCursor" (click)="printDiv()">
       <i class="fa fa-print"></i>
-      Print
+      &nbsp;Print
     </a>
 
     <a class="pointerCursor" data-toggle="modal" data-target="#postModal" (click)="clear()">
       <i class="fa fa-plus-square"></i>
-      Add New
+      &nbsp;Add New
     </a>
 
   </div>
@@ -40,60 +40,91 @@
 
 <div class="myContainer mat-elevation-z8 bgWhite">
   <!--Start search textbox Row-->
-  <div class="row tab-margin">
+  <div class="row">
     <div class="col-md-12">
-      <mat-form-field class="fullwidth">
+      <!-- <mat-form-field class="fullwidth">
         <mat-icon matPrefix ><i class='fa fa-search'></i></mat-icon>
-        <input matInput [(ngModel)]="postSearch">
-      </mat-form-field>
+        <input matInput >
+      </mat-form-field> -->
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="postSearch">
+      </div>
     </div>
   </div>
   <!--end search textbox Row-->
 
   <!--start table row-->
   <div class="row">
-    <table class="table table-striped">
-      <thead>
-        <tr class='d-flex'>
-          <th class='col-1 text-center'>Sr #</th>
-          <th class='col-3'>Office</th>
-          <th class='col-2'>Department</th>
-          <th class='col-3'>Section</th>
-          <th class='col-2'>Job Title</th>
-          <th class='col-1 text-center'>Qty</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-        <tr class='d-flex'
-          *ngFor="let post of posts | search:'offices,department,section,jobTitle,qty':postSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' } let i=index">
-          <td class='col-1 text-center'>{{i+1}}</td>
-          <td class='col-3'>{{post.office}}</td>
-          <td class='col-2'>{{post.department}}</td>
-          <td class='col-3'>{{post.section}}</td>
-          <td class='col-2'>{{post.designation}}</td>
-          <td class='col-1 text-center'>{{post.desigCount}}</td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- Pagination Starts -->
-    <div class="row tab-margin">
-      <div class="col-md-10">
-        <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr class='d-flex'>
+            <th class='col-1 text-center'>Sr #</th>
+            <th class='col-3' [class.active]="order === 'office'" (click)="setOrder('office')">
+              Office
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-2' [class.active]="order === 'department'" (click)="setOrder('department')">
+              Department
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-3' [class.active]="order === 'section'" (click)="setOrder('section')">
+              Section
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-2' [class.active]="order === 'designation'" (click)="setOrder('designation')">
+              Job Title
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-1 text-center' [class.active]="order === 'desigCount'" (click)="setOrder('desigCount')">
+              Qty
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+          <tr class='d-flex'
+            *ngFor="let post of posts | search:'office,department,section,designation,desigCount':postSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' } | orderBy: order:reverse:'case-insensitive' let i=index">
+            <td class='col-1 text-center'>{{i+1}}</td>
+            <td class='col-3'>{{post.office}}</td>
+            <td class='col-2'>{{post.department}}</td>
+            <td class='col-3'>{{post.section}}</td>
+            <td class='col-2'>{{post.designation}}</td>
+            <td class='col-1 text-center'>{{post.desigCount}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Pagination Starts -->
+      <div class="row tab-margin">
+        <div class="col-md-11 text-right">
+          <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
+        </div>
+        <div class="col-md-1">
+          <mat-form-field class="fullwidth pagenateList">
+            <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
+              <mat-option value="2">5</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="25">25</mat-option>
+              <mat-option value="50">50</mat-option>
+              <mat-option value="100">100</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
-      <div class="col-md-2 text-right">
-        <mat-form-field class="fullwidth pagenateList">
-          <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
-            <mat-option value="5">5</mat-option>
-            <mat-option value="10">10</mat-option>
-            <mat-option value="25">25</mat-option>
-            <mat-option value="50">50</mat-option>
-            <mat-option value="100">100</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <!-- Pagination Ends -->
     </div>
-    <!-- Pagination Ends -->
   </div>
   <!--end table row-->
 </div>
@@ -167,12 +198,8 @@
       <div class="modal-header">
         <h4 class="modal-title">Add Job Post</h4>
         <div>
-            <button type="button" class="btn-ia cursorPointer text-right">
-                <span class="fa fa-save"></span> &nbsp;Save
-            </button>
-            <button type="button" class="btn-ia cursorPointer" data-dismiss="modal">
-              <span class="fa fa-times-circle"></span> &nbsp;Close
-            </button>
+            <button type="button" class="btn-ia cursorPointer text-right"><span class="fa fa-save"></span> &nbsp;Save</button>
+            <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
         </div>
       </div>
       <!--end Modal Header -->
@@ -283,21 +310,24 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Job</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div>
+            <button type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Save</button>
+            <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+        </div>
       </div>
       <div class="modal-body">
         <!--1st row-->
         <div class="row">
           <div class="col-md-6">
             <mat-form-field>
-              <mat-select placeholder="Job Type" [(ngModel)]="jobType">
+              <mat-select placeholder="Job Type *" [(ngModel)]="jobType">
                 <mat-option *ngFor="let item of jobTypes" [value]="item.jobTypeCd">{{item.jobTypeName}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-md-6">
             <mat-form-field>
-              <mat-select placeholder="Job Nature" [(ngModel)]="jobNature">
+              <mat-select placeholder="Job Nature *" [(ngModel)]="jobNature">
                 <mat-option *ngFor="let item of jobNatures" [value]="item.jobNatureCd">{{item.jobNatureName}}
                 </mat-option>
               </mat-select>
@@ -309,7 +339,7 @@
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class="fullwidth inputBox">
-              <input matInput placeholder="Job Title" [(ngModel)]="jobTitle">
+              <input matInput placeholder="Job Title *" [(ngModel)]="jobTitle">
             </mat-form-field>
           </div>
         </div>
@@ -319,14 +349,14 @@
         <div class="row">
           <div class="col-md-6">
             <mat-form-field>
-              <mat-select placeholder="BPS" [(ngModel)]="BPS" (ngModelChange)="onBPSChange($event)">
+              <mat-select placeholder="BPS *" [(ngModel)]="BPS" (ngModelChange)="onBPSChange($event)">
                 <mat-option *ngFor="let item of bpsList" [value]="item.payGradeCd">{{item.payGradeName}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-md-6">
             <mat-form-field>
-              <mat-select placeholder="Designation" [(ngModel)]="designation">
+              <mat-select placeholder="Designation *" [(ngModel)]="designation">
                 <mat-option *ngFor="let item of designations" [value]="item.desigCd">{{item.desigName}}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -335,11 +365,11 @@
         <!--end 3rd row-->
         <br />
         <!--button tag-->
-        <button mat-raised-button color="primary" (click)="save()">Save</button>
+        <!-- <button mat-raised-button color="primary" (click)="save()">Save</button> -->
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
     </div>
 
   </div>
