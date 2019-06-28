@@ -3,6 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { MatBottomSheet } from '@angular/material';
 import { ErpBottomSheetComponent } from './components/erp-bottom-sheet/erp-bottom-sheet.component';
 import { Event, Router, NavigationStart, NavigationEnd } from "@angular/router";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import { Event, Router, NavigationStart, NavigationEnd } from "@angular/router";
 export class AppComponent {
 
   constructor(private router: Router,
-    private bottomSheet: MatBottomSheet) {
+    private bottomSheet: MatBottomSheet,
+    private spinner: NgxSpinnerService) {
 
   }
 
@@ -106,6 +108,20 @@ export class AppComponent {
       }
     ];
   }
+
+  //*Functions for Show & Hide Spinner
+  showSpinner() {
+    this.spinner.show();
+  }
+
+
+  hideSpinner() {
+      setTimeout(() => {
+          /** spinner ends after process done*/
+          this.spinner.hide();
+      }, 1000);
+  }
+
 
   //method for show and hide manu bar with login and logout user
   showDiv() {

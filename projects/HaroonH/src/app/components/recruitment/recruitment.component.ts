@@ -26,8 +26,8 @@ export interface Officer {
 })
 export class RecruitmentComponent implements OnInit {
 
-  serverUrl = "http://192.168.200.19:3014/";
-  //serverUrl = "http://localhost:3005/";
+  // serverUrl = "http://192.168.200.19:3014/";
+  serverUrl = "http://localhost:3005/";
 
   Line_chart: Chart;
 
@@ -86,7 +86,7 @@ export class RecruitmentComponent implements OnInit {
   // For Appointment
   appointmentList = []
 
-
+  interviewDetailList = [];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -133,11 +133,17 @@ export class RecruitmentComponent implements OnInit {
   }
 
   getJobVcncy() {
+
+    this.app.showSpinner();
+
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     this.http.get(this.serverUrl + 'api/getVcncy', { headers: reqHeader }).subscribe((data: any) => {
 
       this.vcncyList = data;
+
+      this.app.hideSpinner();
+
     });
   }
 
@@ -537,6 +543,74 @@ export class RecruitmentComponent implements OnInit {
 
   }
 
+  getInterviewDetail(){
+    
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.get(this.serverUrl + 'api/getInterviewDetail?jPVcncyID=' + localStorage.getItem('jobPostVcncyID'), { headers: reqHeader }).subscribe((data: any) => {
+
+      this.interviewDetailList = data;
+
+      for(var i = 0; i < data.length; i++){
+        this.interviewDetailList.push({
+          interviewerID: data[i].interviewerID,
+          interviewerName: data[i].interviewerName,
+          jobDesigID: data[i].jobDesigID,
+          jobPostVcncyID: data[i].jobPostVcncyID,
+          jobPostDeptCd: data[i].jobPostDeptCd,
+          jobPostLocationCd: data[i].jobPostDeptCd,
+          apprvngPrcssCd: data[i].apprvngPrcssCd,
+          marks: null
+        });
+      }
+
+    });
+
+  }
+
+  saveInterviewMarks(){
+    
+    if(this.interviewDetailList.length == 0){
+      this.toastr.errorToastr('No Record Found!', 'Error!', { toastTimeout: (2500) });
+      return;
+    }else{
+
+      for(var i=0;i<this.interviewDetailList.length;i++){
+        if(this.interviewDetailList[i].marks == ''){
+          this.toastr.errorToastr('Please Enter Marks!', 'Error!', { toastTimeout: (2500) });
+          return;
+        }
+      }
+
+      var saveData = {
+        interviewList: JSON.stringify(this.interviewDetailList)
+      };
+
+      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+      this.http.post(this.serverUrl + 'api/saveInterviewDetail', saveData, { headers: reqHeader }).subscribe((data: any) => {
+
+        if (data.msg == "Record Saved Successfully!") {
+          this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+          this.clear();
+          $('#interviewModal').modal('hide');
+          //this.app.hideSpinner();
+          this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
+          return false;
+        } else {
+          this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+          //$('#companyModal').modal('hide');
+          //this.app.hideSpinner();
+          return false;
+        }
+      });
+
+    }
+
+  }
   clear() {
     this.lblApplicantID = 0;
     this.lblStepperID = 0;

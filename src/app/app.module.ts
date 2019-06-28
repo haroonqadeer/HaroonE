@@ -42,9 +42,9 @@ import { AttendanceComponent } from './components/attendance/attendance.componen
     AppRoutingModule,
     HRSharedModule.forRoot(),
     ConfigSharedModule.forRoot(),
-    
 
-    
+
+
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -63,8 +63,8 @@ import { AttendanceComponent } from './components/attendance/attendance.componen
     IgxGridModule
     //SearchPipe
   ],
-  providers: [AttendanceComponent,NavComponent,IgxExcelExporterService, IgxCsvExporterService],
+  providers: [AttendanceComponent, NavComponent, IgxExcelExporterService, IgxCsvExporterService],
   bootstrap: [AppComponent],
-  entryComponents: [NavComponent,AttendanceComponent],
+  entryComponents: [NavComponent, AttendanceComponent],
 })
 export class AppModule { }
