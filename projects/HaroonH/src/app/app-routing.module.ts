@@ -24,6 +24,8 @@ import { ShiftComponent } from './components/shift/shift.component';
 import { TrainingComponent } from './components/training/training.component';
 import { TrainingemployeeComponent } from './components/trainingemployee/trainingemployee.component';
 
+import { AttendanceComponent } from './components/attendance/attendance.component';
+
 const routes: Routes = [
   // {
   //   path: '',
@@ -100,6 +102,10 @@ const routes: Routes = [
   {
     path: 'HR/performanceEvaluation',
     component: PerformanceEvaComponent
+  },
+  {
+    path: 'HR/attendance',
+    component: AttendanceComponent
   },
   // { 
   //   path: 'HR', 

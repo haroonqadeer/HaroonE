@@ -1,8 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-
-
 declare var $: any;
 
 @Component({
@@ -12,8 +10,8 @@ declare var $: any;
 })
 export class NavComponent implements OnInit {
 
-    //appLocation = "http://localhost:4200";
-    appLocation = "http://192.168.200.19:9010";
+    appLocation = "http://localhost:4200";
+    //appLocation = "http://192.168.200.19:9010";
     //appLocation = "http://192.168.200.19:9010";
     // appLocation = "http://192.168.200.57:9010";
 

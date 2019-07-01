@@ -45,6 +45,7 @@ import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "i
 import { TrainingComponent } from './components/training/training.component';
 import { TrainingemployeeComponent } from './components/trainingemployee/trainingemployee.component';
 import { ShiftComponent } from './components/shift/shift.component';
+import { AttendanceComponent } from './components/attendance/attendance.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { ShiftComponent } from './components/shift/shift.component';
     SearchPipe,
     TrainingComponent,
     TrainingemployeeComponent,
-    ShiftComponent
+    ShiftComponent,
+    AttendanceComponent
   ],
   imports: [
     BrowserModule,

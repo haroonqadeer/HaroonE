@@ -19,7 +19,7 @@ declare var $: any;
 export class LoginComponent implements OnInit {
 
     // serverUrl = "http://localhost:11664/";
-    serverUrl = "http://localhost:3009/";
+    serverUrl = "http://localhost:23145/";
     //serverUrl = "http://192.168.200.19:3006/";
     tokenKey = "token";
 
@@ -60,16 +60,19 @@ export class LoginComponent implements OnInit {
 
             var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-            this.http.post(this.serverUrl + 'api/getUsers', loginData, { headers: reqHeader }).subscribe((data: any) => {
+            this.http.post(this.serverUrl + 'api/chkLogin', loginData, { headers: reqHeader }).subscribe((data: any) => {
 
 
                 if (data.msg == "Logedin Successfully!") {
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                    // localStorage.setItem('userID', data[0].IndvdlID);
+                    
                     localStorage.setItem('userName', this.txtUserName);
                     localStorage.setItem('myActModNam', 'HR');
                     this.app.checkLogin('Yes');
-                    // this.getUserDetail(localStorage.getItem('userID'));
+                    this.app.branchList = data.userDetail;
+                    this.app.locationId = data.userDetail[0].locationCd;
+                    this.app.cmpnyId = data.userDetail[0].cmpnyId;
+                    this.app.cmpnyName = data.userDetail[0].locationName;
 
                 } else {
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });

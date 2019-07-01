@@ -1,0 +1,295 @@
+<!-- start menubar buttons -->
+<div class="topnav boxShadow">
+  <div>
+    <!--class="container" -->
+    <span class="fa iconContainer">
+      <span class="fa icon-hr-jobprofile" > </span>
+    </span>
+    <h1> Attendance</h1>
+
+    <!-- (click)="downloadExcel()" -->
+    <a class="pointerCursor">
+      <i class="fa fa-file-excel-o"></i>
+      Excel
+    </a>
+
+    <!-- (click)="downloadCSV()" -->
+    <a class="pointerCursor">
+      <i class="fa fa-file-text-o"></i>
+      CSV
+    </a>
+
+    <!-- (click)="downPDF()" -->
+    <a class="pointerCursor">
+      <i class="fa fa-file-pdf-o"></i>
+      PDF
+    </a>
+
+    <!-- (click)="printDiv()" -->
+    <a class="pointerCursor">
+      <i class="fa fa-print"></i>
+      Print
+    </a>
+
+  </div>
+</div>
+<!-- end menubar buttons -->
+
+
+<!--tabs row-->
+<div class="myContainer mat-elevation-z8 bgWhite">
+  <!--Start search textbox Row-->
+  <div class="row tab-margin">
+    <div class="col-md-3">
+      <br/>
+      <p-dropdown [options]="brachList" [(ngModel)]="ddlBranch" [disabled]="editFlag" placeholder="Branch" filter="true" [style]="{'width':'100%'}">
+        <ng-template let-itm pTemplate="item">
+          <div style="position: relative;height: 25px; z-index: 100;">
+            <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+
+    <div class="col-md-3">
+      <br/>
+      <p-dropdown [options]="deptList" [(ngModel)]="ddlDepartment" (onChange)="getFilterItem('section')" [disabled]="editFlag" placeholder="Department" filter="true" [style]="{'width':'100%'}">
+        <ng-template let-itm pTemplate="item">
+          <div style="position: relative;height: 25px; z-index: 100;">
+            <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+
+    <div class="col-md-3">
+      <br/>
+      <p-dropdown [options]="sectnList" [(ngModel)]="ddlSection" (onChange)="getSectEmp()" [disabled]="editFlag" placeholder="Section" filter="true" [style]="{'width':'100%'}">
+          <ng-template let-itm pTemplate="item">
+            <div style="position: relative;height: 25px; z-index: 100;">
+              <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+    </div>
+
+    <div class="col-md-3">
+      <br/>
+      <p-calendar [(ngModel)]="attendanceDate" placeholder="Date" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"> </p-calendar>
+    </div>
+    
+  </div>
+  <!--end search textbox Row-->
+
+  <br/>
+  <!--Start search textbox Row-->
+  <div class="row">
+    <div class="col-md-12">
+      <!-- <mat-form-field class="fullwidth">
+        <mat-icon matPrefix color="primary"><i class='fa fa-search'></i></mat-icon>
+        <input matInput [(ngModel)]="tblSearch">
+      </mat-form-field> -->
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
+      </div>
+    </div>
+  </div>
+  <!--end search textbox Row-->
+
+
+  <div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr class='d-flex'>
+          <th class='col-1 text-center'>Sr #</th>
+          <th class='col-2'>Employee Name</th>
+          <th class='col-2'>Designation</th>
+          <th class='col-1'>BPS</th>
+          <th class='col-1'>Status</th>
+          <th class='col-2'>Time</th>
+          <th class='col-2'>Remarks</th>
+          <th class='col-1 text-center'>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of employeeList; let i=index" class='d-flex'>
+          <td class='col-1 text-center'>{{i + 1}}</td> 
+          <td class='col-2'>{{item.indvdlFullName}}</td>
+          <td class='col-2'>{{item.jobDesigName}}</td>
+          <td class='col-1'>{{item.payGradeName}}</td>
+          <td class='col-1'>{{item.attendanceStatName}}</td>
+          <td class='col-2'>{{item.attTime | date: 'HH:mm:ss a'}}</td>
+          <td class='col-2'>{{item.remarks}}</td>
+          <td class='col-1 text-center'>
+            <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#profileModal" (click)="edit(item)"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+  <!--end table row-->  
+</div>
+<!--end tabs row-->
+
+
+
+<!-- Start Modal Window to add new job profile -->
+<div class="modal fade" id="profileModal">
+<div class="modal-dialog shadow-lg-dark modal-xl">
+  <div class="modal-content">
+    <!--start Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title">Add Employee Attendance</h4>
+      <div>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+      </div>
+    </div>
+    <!--end Modal Header -->
+
+
+    <!--start Modal body -->
+    <div class="modal-body tab-margin">
+
+            <!--start 1st row-->
+            <br/>
+            <div class="row">
+              <div class="col-md-2">
+                <span class="label">Employee Name</span>
+              </div>
+              <div class="col-md-2">
+                <span class="label"><b>{{lblEmployee}}</b></span>
+              </div>
+
+              <div class="col-md-2">
+                <span class="label">Job Type</span>
+              </div>
+              <div class="col-md-2">
+                <span class="label"><b>{{lblJobType}}</b></span>
+              </div>
+
+              <div class="col-md-2">
+                <span class="label">BPS</span>
+              </div>
+              <div class="col-md-2">
+                <span class="label"><b>{{lblBPS}}</b></span>
+              </div>
+            </div>
+            <!--end 1st row-->
+
+
+            <!--start 2nd row-->
+            <br/>
+            <div class="row">
+              <div class="col-md-3">
+                <span class="ui-float-label">
+                  <p-calendar id="attTime" [(ngModel)]="attTime" [timeOnly]="true" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
+                  <label for="attTime">In/Out Time</label>
+                </span>
+              </div>
+
+              <div class="col-md-9">
+                <span class="ui-float-label">
+                  <input id="remarks" type="text" pInputText [(ngModel)]="attRemarks" class="fullwidth"> 
+                  <label for="remarks">Remarks</label>
+                </span>
+              </div>
+            </div>
+            <!--end 2nd row-->
+
+            <!--table row-->
+            <br/>
+            <div class="row">
+              <table class="table table-striped">
+                <thead>
+                  <tr class='d-flex'>
+                    <th class='col-1 text-center'>Sr #</th>
+                    <th class='col-2'>Attendance Status</th>
+                    <th class='col-2'>Time</th>
+                    <th class='col-7'>Remarks</th>
+                    <!-- <th class='col-1 text-center'>Edit</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of empAttDetList; let i=index" class='d-flex'>
+                    <td class='col-1 text-center'>{{i + 1}}</td> 
+                    <td class='col-2'>{{item.attendanceStatName}}</td>
+                    <td class='col-2'>{{item.attTime | date: 'HH:mm:ss a'}}</td>
+                    <td class='col-7'>{{item.remarks}}</td>
+                    <!-- <td class='col-1 text-center'>
+                      <span class="fa fa-minus pointerCursor" (click)="removeDegree(i)"></span>
+                    </td> -->
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <br/>
+            <!--end table row-->
+
+    </div>
+    <!--end Modal body -->
+
+
+    <!--start Modal footer -->
+    <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div> -->
+    <!--end Modal footer -->
+
+  </div>
+</div>
+</div>
+<!-- End Modal Window to add new job profile -->
+
+
+
+<!-- Start Modal Window to delete job profile -->
+<div class="modal fade" id="deleteModal">
+<div class="modal-dialog shadow-lg-dark">
+  <div class="modal-content">
+    <!--start Modal body -->
+    <div class="modal-body">
+      <br>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+          <h2>Delete Job Profile</h2>
+        </div>
+      </div><br/>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="fullwidth">
+            <input matInput placeholder="Enter Password" type="password" [(ngModel)]="txtdPassword">
+          </mat-form-field>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="fullwidth">
+            <input matInput placeholder="Enter PIN" type="password" [(ngModel)]="txtdPin">
+          </mat-form-field>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <button mat-raised-button color="warn" data-dismiss="modal">Delete</button>
+        </div>
+      </div>
+      <br/>
+    </div>
+    <!--end Modal body -->
+
+    <!--start Modal footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div>
+    <!--end Modal footer -->
+
+  </div>
+</div>
+</div>
+<!-- End Modal Window to delete job profile -->
