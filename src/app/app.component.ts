@@ -32,6 +32,7 @@ export class AppComponent {
     public branchList = [];
     public locationId;
     public cmpnyId;
+    public empId;
     public cmpnyName;
 
     logedInUserName = '';
@@ -146,6 +147,7 @@ constructor(
           this.cmpnyId = data.userDetail[0].cmpnyID;
           this.cmpnyName =  data.userDetail[0].locationName;
           this.locationId = data.userDetail[0].locationCd;
+          this.empId = data.userDetail[0].IndvdlID;
 
           for (var i = 0; i < data.userDetail.length; i++) {
             this.branchList.push({

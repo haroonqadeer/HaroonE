@@ -421,8 +421,4 @@ export class LeaverulesComponent implements OnInit {
             frame1.remove();
         }, 500);
     }
-
-
-
-
 }

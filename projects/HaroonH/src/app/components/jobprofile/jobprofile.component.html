@@ -1,103 +1,161 @@
-<!-- start menubar buttons -->
-<div class="topnav boxShadow">
-  <div>
-    <!--class="container" -->
-    <span class="fa iconContainer">
-      <span class="fa icon-hr-jobprofile" > </span>
-    </span>
-    <h1> Job Profile</h1>
-
-    <!-- (click)="downloadExcel()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-excel-o"></i>
-      Excel
-    </a>
-
-    <!-- (click)="downloadCSV()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-text-o"></i>
-      CSV
-    </a>
-
-    <!-- (click)="downPDF()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-pdf-o"></i>
-      PDF
-    </a>
-
-    <!-- (click)="printDiv()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-print"></i>
-      Print
-    </a>
-
-    <a class="pointerCursor" data-toggle="modal" data-target="#profileModal" (click)="clear()">
-      <i class="fa fa-plus-square"></i>
-      Add New
-    </a>
-
-  </div>
-</div>
-<!-- end menubar buttons -->
-
-
 <!--tabs row-->
 <div class="myContainer mat-elevation-z8 bgWhite">
+
+  <!-- start menubar buttons -->
+  <div class="topnav boxShadow">
+    <div>
+      <!--class="container" -->
+      <span class="fa iconContainer">
+        <span class="fa icon-hr-jobprofile" > </span>
+      </span>
+      <h1> Job Profile</h1>
+  
+      <!-- (click)="downloadExcel()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-excel-o"></i>
+        Excel
+      </a>
+  
+      <!-- (click)="downloadCSV()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-text-o"></i>
+        CSV
+      </a>
+  
+      <!-- (click)="downPDF()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-pdf-o"></i>
+        PDF
+      </a>
+  
+      <!-- (click)="printDiv()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-print"></i>
+        Print
+      </a>
+  
+      <a class="pointerCursor" data-toggle="modal" data-target="#profileModal" (click)="clear()">
+        <i class="fa fa-plus-square"></i>
+        Add New
+      </a>
+  
+    </div>
+  </div>
+  <!-- end menubar buttons -->
+
   <!--Start search textbox Row-->
   <div class="row">
     <div class="col-md-12">
       <!-- <mat-form-field class="fullwidth">
         <mat-icon matPrefix color="primary"><i class='fa fa-search'></i></mat-icon>
-        <input matInput [(ngModel)]="tblSearch">
+        <input matInput >
       </mat-form-field> -->
       <div class="searchBar">
         <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
       </div>
     </div>
   </div>
-  <!--end search textbox Row-->
+  
 
+  <!--start table -->
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr class='d-flex'>
+            <th class='col-1 text-center'>Sr #</th>
 
-<div class="row">
-  <div class="col-md-12">
-    <table class="table table-striped">
-      <thead>
-        <tr class='d-flex'>
-          <th class='col-1 text-center'>Sr #</th>
-          <th class='col-2 text-center'>Office Name</th>
-          <th class='col-2'>Department</th>
-          <th class='col-1 text-center'>Job Title</th>
-          <th class='col-1 text-center'>Type</th>
-          <th class='col-1 text-center'>Quantity</th>
-          <th class='col-1 text-center'>Qualification</th>
-          <th class='col-1 text-center'>Experience</th>
-          <th class='col-1 text-center'>Edit</th>
-          <th class='col-1 text-center'>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of jobProfilesList; let i=index" class='d-flex'>
-          <td class='col-1 text-center'>{{i + 1}}</td> 
-          <td class='col-2 text-center'>{{item.locationName}}</td>
-          <td class='col-2'>{{item.deptName}}</td>             
-          <td class='col-1 text-center'>{{item.jobDesigName}}</td>             
-          <td class='col-1 text-center'>{{item.jobTypeName}}</td>             
-          <td class='col-1 text-center'>{{item.quantity}}</td>
-          <td class='col-1 text-center'>{{item.degree}}</td>
-          <td class='col-1 text-center'>{{item.experience / 12}} Year</td>
-          <td class='col-1 text-center'>
-            <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#profileModal" (click)="edit(item)"></span>
-          </td>
-          <td class='col-1 text-center'>
-            <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <th class='col-2' [class.active]="order === 'locationName'" (click)="setOrder('locationName')" >
+              Office Name
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-2' [class.active]="order === 'deptName'" (click)="setOrder('deptName')">
+              Department
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-2' [class.active]="order === 'jobDesigName'" (click)="setOrder('jobDesigName')">
+              Job Title
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-1' [class.active]="order === 'jobTypeName'" (click)="setOrder('jobTypeName')">
+              Type
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-1' [class.active]="order === 'quantity'" (click)="setOrder('quantity')">
+              Quantity
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-1' [class.active]="order === 'degree'" (click)="setOrder('degree')">
+              Qualification
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-1' [class.active]="order === 'experience'" (click)="setOrder('experience')">
+              Experience
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-1 text-center'>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of jobProfilesList| search:'locationName,deptName,jobDesigName,jobTypeName,quantity,degree,experience':tblSearch | paginate: {
+            itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index" class='d-flex'>
+            <td class='col-1 text-center'>{{i + 1}}</td> 
+            <td class='col-2'>{{item.locationName}}</td>
+            <td class='col-2'>{{item.deptName}}</td>             
+            <td class='col-2'>{{item.jobDesigName}}</td>             
+            <td class='col-1'>{{item.jobTypeName}}</td>             
+            <td class='col-1'>{{item.quantity}}</td>
+            <td class='col-1'>{{item.degree}}</td>
+            <td class='col-1'>{{item.experience}} months</td>
+            <td class='col-1 text-center'>
+              <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#profileModal" (click)="edit(item)"></span>
+              <!-- &nbsp;&nbsp;&nbsp;
+              <span class="fa fa-trash pointerCursor text-danger" data-toggle="modal" data-target="#deleteModal" (click)="deleteTemp(item)"></span> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-<!--end table row-->  
+
+
+  <!--start pagination -->
+  <div class="row tab-margin">
+      <div class="col-md-11 text-right">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div class="col-md-1">
+        <mat-form-field class="fullwidth pagenateList">
+          <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
+            <mat-option value="10">10</mat-option>
+            <mat-option value="15">15</mat-option>
+            <mat-option value="20">20</mat-option>
+            <mat-option value="25">25</mat-option>
+            <mat-option value="30">30</mat-option>
+            <mat-option value="35">35</mat-option>
+            <mat-option value="40">40</mat-option>
+            <mat-option value="45">45</mat-option>
+            <mat-option value="50">50</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  </div>
+
 </div>
 <!--end tabs row-->
 
@@ -633,7 +691,7 @@
       <br>
       <div class="row">
         <div class="col-md-6">
-          <button mat-raised-button color="warn" data-dismiss="modal">Delete</button>
+          <button mat-raised-button color="warn" (click)="delete()">Delete</button>
         </div>
       </div>
       <br/>

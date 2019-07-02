@@ -140,14 +140,9 @@ export class JobprofileComponent implements OnInit {
     ddlFacilityType = "";
     ddlFacility = "";
 
-
-
+    
     txtdPassword = '';
     txtdPin = '';
-
-
-
-
 
     show=false;
 
@@ -408,17 +403,7 @@ export class JobprofileComponent implements OnInit {
     }
 
 
-
-    onTypeChange(item){
-        
-        if(item.label=='Contract'){
-        this.show=true;    
-        }else{
-        this.show=false;
-        }
-    }
-
-
+    //function for empay all fields
     clear(){
         
         this.DesigId = 0;
@@ -436,11 +421,15 @@ export class JobprofileComponent implements OnInit {
         this.tempDescList = [];
         this.tempLeaveRulesList = [];
         this.jobFacilityList = [];
-        
+
+
+        this.txtdPassword = '';
+        this.txtdPin = '';
 
     }
 
 
+    //function for edit record
     edit(item){
 
         this.clear();
@@ -461,7 +450,7 @@ export class JobprofileComponent implements OnInit {
     }
 
 
-    //Function for save and update leave nature 
+    //Function for save and update record 
     save() {
 
 
@@ -1041,4 +1030,81 @@ export class JobprofileComponent implements OnInit {
             }
         }
     }
+
+
+
+    //functions for delete entry
+    deleteTemp(item) {
+        this.clear();
+        this.DesigId = item.jobDesigID;
+        this.DeptId = item.jobPostDeptCd;
+        this.LocationId = item.jobPostLocationCd;
+    }
+
+    delete() {
+        if (this.txtdPassword == '') {
+            this.toastr.errorToastr('Please enter password', 'Error', { toastTimeout: (2500) });
+            return false
+        }
+        else if (this.txtdPin == '') {
+            this.toastr.errorToastr('Please enter PIN', 'Error', { toastTimeout: (2500) });
+            return false
+        }
+        else if (this.DesigId == 0 || this.DeptId == 0 || this.LocationId == 0) {
+            this.toastr.errorToastr('Invalid delete request', 'Error', { toastTimeout: (2500) });
+            return false
+        }
+        else {
+
+            //this.app.showSpinner();
+            // this.app.hideSpinner();
+
+            //* ********************************************update data 
+            var updateData = {
+                "jobProfileID":             1,
+                "JobDesigID":               this.DesigId,
+                "JobPostDeptCd":            this.DeptId,
+                "JobPostLocationCd":        this.LocationId,
+                "jobQualificationList":     JSON.stringify(this.tempDegreeList),
+                "jobCertificationList":     JSON.stringify(this.tempCertificateList),
+                "jobExperienceList":        JSON.stringify(this.tempExperienceList),
+                "jobDescriptionList":       JSON.stringify(this.tempDescList),
+                "jobLeaveRuleList":          JSON.stringify(this.tempLeaveRulesList),
+                "jobFacilityList":          JSON.stringify(this.jobFacilityList),
+                "ConnectedUser": "12000",
+                "DelFlag": 1
+            };
+
+            //var token = localStorage.getItem(this.tokenKey);
+
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+            this.http.post(this.serverUrl + 'api/saveJobProfileDegree', updateData, { headers: reqHeader }).subscribe((data: any) => {
+
+                if (data.msg != "Record Deleted Successfully!") {
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                    return false;
+                } else {
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    $('#deleteModal').modal('hide');
+                    this.getLeaveRules();
+                    this.clear();
+                    return false;
+                }
+            });
+        }
+    }
+
+
+
+    //function for sort table data 
+    setOrder(value: string) {
+        if (this.order === value) {
+            this.reverse = !this.reverse;
+        }
+        this.order = value;
+    }
+
 }
