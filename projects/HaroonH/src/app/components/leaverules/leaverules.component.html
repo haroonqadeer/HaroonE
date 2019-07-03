@@ -1,49 +1,47 @@
-<!-- start menubar buttons -->
-<div class="topnav boxShadow">
-  <div>
-    <!--class="container" -->
-    <span class="fa iconContainer">
-      <span class="fa icon-hr-leaveRule"> </span>
-    </span>
-    <h1> Leave Rules</h1>
-
-    <!-- (click)="downloadExcel()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-excel-o"></i>
-      Excel
-    </a>
-
-    <!-- (click)="downloadCSV()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-text-o"></i>
-      CSV
-    </a>
-
-    <!-- (click)="downPDF()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-pdf-o"></i>
-      PDF
-    </a>
-
-    <!-- (click)="printDiv()" -->
-    <a class="pointerCursor" (click)="printDiv()">
-      <i class="fa fa-print"></i>
-      Print
-    </a>
-
-    <a class="pointerCursor" data-toggle="modal" data-target="#newRuleModal" (click)="clear()">
-      <i class="fa fa-plus-square"></i>
-      Add New
-    </a>
-
-  </div>
-</div>
-<!-- end menubar buttons -->
-
-
-
 <!--start container-->
 <div class="myContainer mat-elevation-z8 bgWhite">
+
+  <!-- start menubar buttons -->
+  <div class="topnav boxShadow">
+    <div>
+      <!--class="container" -->
+      <span class="fa iconContainer">
+        <span class="fa icon-hr-leaveRule"> </span>
+      </span>
+      <h1> Leave Rules</h1>
+
+      <!-- (click)="downloadExcel()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-excel-o"></i>
+        Excel
+      </a>
+
+      <!-- (click)="downloadCSV()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-text-o"></i>
+        CSV
+      </a>
+
+      <!-- (click)="downPDF()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-pdf-o"></i>
+        PDF
+      </a>
+
+      <!-- (click)="printDiv()" -->
+      <a class="pointerCursor" (click)="printDiv()">
+        <i class="fa fa-print"></i>
+        Print
+      </a>
+
+      <a class="pointerCursor" data-toggle="modal" data-target="#newRuleModal" (click)="clear()">
+        <i class="fa fa-plus-square"></i>
+        Add New
+      </a>
+
+    </div>
+  </div>
+  <!-- end menubar buttons -->
 
   <!--Start search textbox Row-->
   <div class="row">
@@ -82,15 +80,13 @@
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
 
-            <th class='col-2' [class.active]="order === 'leaveLmtName'" (click)="setOrder('leaveLmtName')">
+            <th class='col-4' [class.active]="order === 'leaveLmtName'" (click)="setOrder('leaveLmtName')">
               Per month/annum
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
 
-            <th class='col-1 text-center'>Edit</th>
-            <th class='col-1 text-center'>Detail</th>
-            <th class='col-1 text-center'>Delete</th>
+            <th class='col-1 text-center'>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -102,18 +98,11 @@
             <td class='col-2'>{{item.leaveTypeName}}</td>
             <td class='col-2'>{{item.leaveNatureName}}</td>
             <td class='col-2'>{{item.leaveLmtAmoUNt}}</td>
-            <td class='col-2'>{{item.leaveLmtName}}</td>
+            <td class='col-4'>{{item.leaveLmtName}}</td>
             <td class='col-1 text-center'>
-              <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#newRuleModal"
-                (click)="edit(item)"></span>
-            </td>
-            <td class='col-1 text-center'>
-              <span class="fa fa-file-text pointerCursor"></span>
-              <!-- data-toggle="modal" data-target="#detailModal" -->
-            </td>
-            <td class='col-1 text-center'>
-              <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"
-                (click)="deleteTemp(item)"></span>
+              <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#newRuleModal" (click)="edit(item)"></span>
+              &nbsp;&nbsp;&nbsp;
+              <span class="fa fa-trash pointerCursor text-danger" data-toggle="modal" data-target="#deleteModal" (click)="deleteTemp(item)"></span>
             </td>
           </tr>
         </tbody>
@@ -343,7 +332,7 @@
 
 <!-- Start Modal Window for add new rule -->
 <div class="modal fade" id="newRuleModal">
-  <div class="modal-dialog shadow-lg-dark modal-lg">
+  <div class="modal-dialog shadow-lg-dark modal-xl">
     <div class="modal-content">
 
       <!--start Modal Header -->
@@ -360,91 +349,76 @@
 
       <!--start Modal body -->
       <div class="modal-body">
+
         <!--1st row-->
+        <br/>
         <div class="row">
-          <div class="col-md-2 text-right">
-            <b>Date Applied</b>
+
+          <div class="col-md-6">
+            <span class="ui-float-label">
+              <p-dropdown id="leave-type" [options]="leaveTypeList" [(ngModel)]="leaveType" placeholder="l" [style]="{'width':'100%'}">
+                <ng-template let-itm pTemplate="item">
+                  <div style="position: relative;height: 25px;">
+                    <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+              <label for="leave-type">Leave Type</label>
+            </span>
+
+            <!-- <p-dropdown filter="true" required>-->
           </div>
-          <div class="col-md-10">
-            <p-calendar [(ngModel)]="dateApplied" placeholder="Date Applied" [showIcon]="true">
-            </p-calendar>
+
+          <div class="col-md-6">
+
+            <span class="ui-float-label">
+              <p-dropdown id="leave-nature" [options]="leaveNatureList" [(ngModel)]="leaveNature" placeholder="l" [style]="{'width':'100%'}">
+                <ng-template let-itm pTemplate="item">
+                  <div style="position: relative;height: 25px;">
+                    <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+              <label for="leave-nature">Leave Nature</label>
+            </span>
+
+            <!-- <p-dropdown filter="true" required>-->
           </div>
 
         </div>
-        <br />
         <!--end 1st row-->
+        <br />
 
 
 
         <!--2nd row-->
         <div class="row">
-
-          <div class="col-md-2 text-right">
-            <b>Leave Type</b>
-          </div>
-          <div class="col-md-4">
-            <p-dropdown [options]="leaveTypeList" [(ngModel)]="leaveType" placeholder="Leave Type"
-              [style]="{'width':'100%'}">
-              <ng-template let-itm pTemplate="item">
-                <div style="position: relative;height: 25px;">
-                  <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                </div>
-              </ng-template>
-            </p-dropdown>
-
-            <!-- <p-dropdown filter="true" required>-->
+          <div class="col-md-6">           
+            <span class="ui-float-label">
+                <input  id="leave-limit" [(ngModel)]="leaveLimit" type="number" pInputText class="fullwidth">
+                <label for="leave-limit">Leave Limit</label>
+            </span>
           </div>
 
-          <div class="col-md-2 text-right">
-            <b>Leave Nature</b>
-          </div>
-          <div class="col-md-4">
-            <p-dropdown [options]="leaveNatureList" [(ngModel)]="leaveNature" placeholder="Leave Nature"
-              [style]="{'width':'100%'}">
-              <ng-template let-itm pTemplate="item">
-                <div style="position: relative;height: 25px;">
-                  <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                </div>
-              </ng-template>
-            </p-dropdown>
+          <div class="col-md-6">
+            
 
-            <!-- <p-dropdown filter="true" required>-->
+            <span class="ui-float-label">
+              <p-dropdown id="leave-limit" [options]="leaveLimitTypeList" [(ngModel)]="limitType" placeholder="I"
+                [style]="{'width':'100%'}">
+                <ng-template let-itm pTemplate="item">
+                  <div style="position: relative;height: 25px;">
+                    <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+              <label for="leave-limit">Leave Limit</label>
+            </span>
+
           </div>
 
         </div>
         <!--end 2nd row-->
-        <br />
-
-
-
-        <!--3rd row-->
-        <div class="row">
-
-          <div class="col-md-2 text-right">
-            <b>Leave Limit</b>
-          </div>
-          <div class="col-md-4">
-            <input id="input" [(ngModel)]="leaveLimit" type="number" pInputText class="fullwidth">
-          </div>
-
-          <div class="col-md-2 text-right">
-            <b>Limit Type</b>
-          </div>
-          <div class="col-md-4">
-            <p-dropdown [options]="leaveLimitTypeList" [(ngModel)]="limitType" placeholder="Leave Limit"
-              [style]="{'width':'100%'}">
-              <ng-template let-itm pTemplate="item">
-                <div style="position: relative;height: 25px;">
-                  <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                </div>
-              </ng-template>
-            </p-dropdown>
-
-            <!-- <p-dropdown filter="true" required>-->
-          </div>
-
-        </div>
-        <!--end 3rd row-->
         <br />
 
 
@@ -504,12 +478,6 @@
           </div>
         </div>
         <br />
-
-        <!--button row-->
-        <!-- <div>
-          <button *ngIf="!updateFlag" mat-raised-button color="primary" (click)="save()">Save</button>
-          <button *ngIf="updateFlag" mat-raised-button color="primary" (click)="save()">Update</button>
-        </div> -->
 
       </div>
       <!--end Modal body -->

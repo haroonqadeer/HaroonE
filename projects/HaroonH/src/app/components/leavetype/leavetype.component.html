@@ -1,15 +1,3 @@
-<!-- start menubar buttons -->
-<div class="topnav boxShadow">
-  <div>
-    <!--class="container" -->
-    <span class="fa iconContainer">
-      <span class="fa icon-hr-leaveType"> </span>
-    </span>
-    <h1> Leave Type</h1>
-  </div>
-</div>
-<!-- end menubar buttons -->
-
 
 <!--start container-->
 <div class="myContainer">
@@ -27,7 +15,10 @@
         <!-- start menubar buttons -->
         <div class="topnav boxShadow">
           <div>
-            <h2>Leave types detail</h2>
+            <span class="fa iconContainer">
+              <span class="fa icon-hr-leaveType"> </span>
+            </span>
+            <h1>Leave Types</h1>
 
             <a class="pointerCursor">
               <i class="fa fa-file-excel-o"></i>
@@ -81,14 +72,12 @@
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
 
-              <th class='col-6' [class.active]="order === 'leaveTypeDesc'" (click)="setOrder('leaveTypeDesc')">
+              <th class='col-7' [class.active]="order === 'leaveTypeDesc'" (click)="setOrder('leaveTypeDesc')">
                 Description
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
-
-              <th class='col-1 text-center'>Edit</th>
-              <th class='col-1 text-center'>Delete</th>
+              <th class='col-1 text-center'>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -97,9 +86,12 @@
               class='d-flex'>
               <td class='col-1 text-center'>{{i + 1}}</td>
               <td class='col-3'>{{item.leaveTypeName}}</td>
-              <td class='col-6'>{{item.leaveTypeDesc}}</td>
-              <td class='col-1 text-center'><span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#typeModal" (click)="editLeaveType(item)"></span></td>
-              <td class='col-1 text-center'><span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal" (click)="deleteLeaveTypeTemp(item)"></span></td>
+              <td class='col-lg-7'>{{item.leaveTypeDesc}}</td>
+              <td class='col-1 text-center'>
+                <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#typeModal" (click)="editLeaveType(item)"></span>
+                &nbsp;&nbsp;&nbsp;
+                <span class="fa fa-trash pointerCursor text-danger" data-toggle="modal" data-target="#deleteModal" (click)="deleteLeaveTypeTemp(item)"></span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -140,7 +132,10 @@
         <!-- start menubar buttons -->
         <div class="topnav boxShadow">
           <div>
-            <h2>Leave nature detail</h2>
+              <span class="fa iconContainer">
+                <span class="fa icon-hr-leaveType"> </span>
+              </span>
+              <h1>Leave Natures</h1>
 
             <a class="pointerCursor">
               <i class="fa fa-file-excel-o"></i>
@@ -194,14 +189,13 @@
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
 
-              <th class='col-6' [class.active]="order === 'leaveNatureDesc'" (click)="setOrder('leaveNatureDesc')">
+              <th class='col-7' [class.active]="order === 'leaveNatureDesc'" (click)="setOrder('leaveNatureDesc')">
                 Description
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
 
-              <th class='col-1 text-center'>Edit</th>
-              <th class='col-1 text-center'>Delete</th>
+              <th class='col-1 text-center'>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -211,14 +205,11 @@
               class='d-flex'>
               <td class='col-1 text-center'>{{i + 1}}</td>
               <td class='col-3'>{{item.leaveNatureName}}</td>
-              <td class='col-6'>{{item.leaveNatureDesc}}</td>
+              <td class='col-7'>{{item.leaveNatureDesc}}</td>
               <td class='col-1 text-center'>
-                <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#leaveNatureModal"
-                  (click)="editLeaveNature(item)"></span>
-              </td>
-              <td class='col-1 text-center'>
-                <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteNatureModal"
-                  (click)="deleteNatureTypeTemp(item)"></span>
+                <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#leaveNatureModal" (click)="editLeaveNature(item)"></span>
+                &nbsp;&nbsp;&nbsp;
+                <span class="fa fa-trash pointerCursor text-danger" data-toggle="modal" data-target="#deleteNatureModal" (click)="deleteNatureTypeTemp(item)"></span>
               </td>
             </tr>
           </tbody>

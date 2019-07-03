@@ -18,8 +18,8 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-    // serverUrl = "http://localhost:11664/";
-    serverUrl = "http://localhost:23145/";
+    serverUrl = "http://192.168.200.52:1001/";
+    //serverUrl = "http://localhost:23145/";
     //serverUrl = "http://192.168.200.19:3006/";
     tokenKey = "token";
 
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/chkLogin', loginData, { headers: reqHeader }).subscribe((data: any) => {
 
 
-                if (data.msg == "Logedin Successfully!") {
+                if (data.msg == "Login Successfully!") {
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     
                     localStorage.setItem('userName', this.txtUserName);
