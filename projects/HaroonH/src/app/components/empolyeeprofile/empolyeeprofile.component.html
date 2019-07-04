@@ -37,19 +37,19 @@
       </a> -->
   
     </div>
-  </div>
-  <!-- end menubar buttons -->
+</div>
+<!-- end menubar buttons -->
 
 
 <div class="myContainer mat-elevation-z8 bgWhite">
 
   <!--Start search textbox Row-->
-  <div class="row tab-margin">
+  <div class="row">
     <div class="col-md-12">
-      <mat-form-field class="fullwidth">
-        <input matInput [(ngModel)]="tblSearch" placeholder="Search">
-      </mat-form-field>
-      <span class="fab fa-accessible-icon"></span>
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+      </div>
     </div>
   </div>
   <!--end search textbox Row-->
@@ -92,10 +92,10 @@
     </div>
 
     <div class="row tab-margin">
-      <div class="col-md-10">
+      <div class="col-md-11 text-right">
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </div>
-      <div class="col-md-2 text-right">
+      <div class="col-md-1">
         <mat-form-field class="fullwidth pagenateList">
           <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
             <mat-option value="10">10</mat-option>
@@ -132,18 +132,18 @@
       <!--start Modal Header -->
       <div class="modal-header">
           <h4 class="modal-title">Employee Information</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
       </div>
       <!--end Modal Header -->
 
       <!--start Modal body -->
-      <div class="modal-body">
+      <div class="modal-body" style="overflow-y: hidden; overflow-x: hidden;">
 
 
         <!--Start Tabs  -->
         <mat-tab-group>
           <!--start tab 1-->
-          <mat-tab label="Personal Detail"> 
+          <mat-tab label="Personal Detail" style="overflow-x: hidden; overflow-y: scroll; "> 
             
             <br/>
             <!--start heading-->
@@ -240,7 +240,7 @@
                     <tr>
 
                       <!--address type combo box-->
-                      <td style="padding:0 15px 0 15px; width: 200px;">
+                      <td style="padding:0 15px 0 15px;">
                         <p-dropdown [options]="addressType" filter="true" [(ngModel)]="item.addressType" placeholder="Address Type" required>
                           <ng-template let-itm pTemplate="item">
                             <div style="position: relative;height: 25px;">
@@ -269,7 +269,7 @@
                     <!-- Country Province City District -->
                     <tr>
                       <!-- Country -->
-                      <td style="padding:8px 15px 8px 15px; width: 200px;">
+                      <td style="padding:8px 15px 8px 15px;">
                         <p-dropdown [options]="countryListForAddress" filter="true" [(ngModel)]="item.countryCode"
                           placeholder="Select Country" required>
                           <ng-template let-itm pTemplate="item">
@@ -1167,9 +1167,9 @@
       <!--end Modal body -->
 
       <!--start Modal footer -->
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
       <!--end Modal footer -->
 
     </div>

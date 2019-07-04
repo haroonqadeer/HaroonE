@@ -3,6 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { MatBottomSheet } from '@angular/material';
 import { Event, Router, NavigationStart, NavigationEnd } from "@angular/router";
 import { NgxSpinnerService } from 'ngx-spinner';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 import { NavComponent } from './components/nav/nav.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
@@ -16,9 +17,23 @@ declare var $: any;
 })
 export class AppComponent {
 
+    //serverUrl = "http://192.168.200.19:3009/";
+    serverUrl = "http://localhost:23145/";
+    tokenKey = "token";
+
+    httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }
+
     //modules variable declaration
     moduleHR = false;
     moduleConfig = false;
+
+    public branchList = [];
+    public locationId;
+    public cmpnyId;
+    public empId;
+    public cmpnyName;
 
     logedInUserName = '';
 
@@ -30,6 +45,7 @@ constructor(
     private bottomSheet: MatBottomSheet,
     private navApp: NavComponent,
     private spinner: NgxSpinnerService,
+    private http: HttpClient,
     // private attendApp: AttendanceComponent
 ) { }
 
@@ -120,6 +136,30 @@ constructor(
       ];
     }
 
+    getUserDetail(name) {
+
+        var loginData = { "IndvdlERPUsrID": name };
+
+        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+        this.http.post(this.serverUrl + 'api/getUserDetail', loginData, { headers: reqHeader }).subscribe((data: any) => {
+
+          this.cmpnyId = data.userDetail[0].cmpnyID;
+          this.cmpnyName =  data.userDetail[0].locationName;
+          this.locationId = data.userDetail[0].locationCd;
+          this.empId = data.userDetail[0].IndvdlID;
+
+          for (var i = 0; i < data.userDetail.length; i++) {
+            this.branchList.push({
+                label: data.userDetail[i].locationName,
+                value: data.userDetail[i].locationCd
+            });
+          }
+
+        });
+
+    }
+
     //function for get active module 
     activeModule(showMenu){
 
@@ -143,25 +183,30 @@ constructor(
         }
     }
 
+  
     showAttendance(){
       this.bottomSheet.open(AttendanceComponent);
     }
-  //show bottom sheet
+
+
+    //show bottom sheet
     showBottom() {
-        this.bottomSheet.open(NavComponent);
+      this.bottomSheet.open(NavComponent);
     }
 
-  //*Functions for Show & Hide Spinner
-  showSpinner() {
-    this.spinner.show();
-  }
 
-  hideSpinner() {
-      setTimeout(() => {
-          /** spinner ends after process done*/
-          this.spinner.hide();
-      }, 1000);
-  }
+    //*Functions for Show & Hide Spinner
+    showSpinner() {
+      this.spinner.show();
+    }
+
+
+    hideSpinner() {
+        setTimeout(() => {
+            /** spinner ends after process done*/
+            this.spinner.hide();
+        }, 1000);
+    }
 
 
     //method for show and hide manu bar with login and logout user
@@ -182,10 +227,6 @@ constructor(
         // }
     }
 
-  //show bottom sheet
-  // showBottom() {
-  //   this.bottomSheet.open(ErpBottomSheetComponent);
-  // }
 
     //mehtod for logout user
     Logout() {
@@ -196,6 +237,7 @@ constructor(
         this.hideDiv = false;
         //this.showDiv();
     }
+
 
     public printCSS() {
 
@@ -211,7 +253,6 @@ constructor(
 
         return printCss;
     }
-
 
 
     /* Set the width of the side navigation to 250px */
@@ -233,16 +274,19 @@ constructor(
     checkLogin(loginChk){
     
         if (localStorage.getItem('userName') != null) {
-        
-
-        // if (localStorage.getItem('token') != null) {
-        //     this.router.navigate(['/dashboard']);
-        // }
 
             this.logedInUserName = localStorage.getItem('userName');
             this.showDiv();
             if(loginChk == "Yes"){
               this.router.navigate(['home']);
+            }
+
+            
+            if (this.cmpnyId == undefined){
+
+              var UserName = localStorage.getItem('userName');
+              this.getUserDetail(UserName);
+
             }
             
         }else{
@@ -251,6 +295,8 @@ constructor(
 
     }
 
+
+    //function for validate email
     public validateEmail(Email) {
       var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   

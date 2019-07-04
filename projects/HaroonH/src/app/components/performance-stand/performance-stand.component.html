@@ -44,12 +44,12 @@
 <div class="myContainer mat-elevation-z8 bgWhite">
 
   <!--Start search textbox Row-->
-  <div class="row tab-margin">
+  <div class="row">
     <div class="col-md-12">
-      <mat-form-field class="fullwidth">
-        <input matInput [(ngModel)]="tblSearch" placeholder="Search">
-      </mat-form-field>
-      <span class="fab fa-accessible-icon"></span>
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+      </div>
     </div>
   </div>
   <!--end search textbox Row-->
@@ -60,14 +60,14 @@
       <table class="table table-striped">
         <thead>
           <tr class='d-flex'>
-            <th class='col-2 text-center'>Sr #</th>
-            <th class='col-6' [class.active]="order === 'processStepTitle'" (click)="setOrder('processStepTitle')">
+            <th class='col-1 text-center'>Sr #</th>
+            <th class='col-9' [class.active]="order === 'processStepTitle'" (click)="setOrder('processStepTitle')">
               Title
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
-            <th class='col-2 text-center'>Edit</th>
-            <th class='col-2 text-center'>Delete</th>
+            <th class='col-1 text-center'>Edit</th>
+            <th class='col-1 text-center'>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -75,26 +75,20 @@
             search:'processStepTitle':tblSearch | paginate: {
               itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"
             class='d-flex'>
-            <td class='col-2 text-center'>{{i + 1}}</td>
-            <td class='col-6'>{{item.processStepTitle}}</td>
-            <td class='col-2 text-center'>
-              <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#standardModal"
-                (click)="edit(item)"></span>
-            </td>
-            <td class='col-2 text-center'>
-              <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"
-                (click)="deleteTemp(item)"></span>
-            </td>
+            <td class='col-1 text-center'>{{i + 1}}</td>
+            <td class='col-9'>{{item.processStepTitle}}</td>
+            <td class='col-1 text-center'><span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#standardModal" (click)="edit(item)"></span></td>
+            <td class='col-1 text-center'><span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal" (click)="deleteTemp(item)"></span></td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <div class="row tab-margin">
-      <div class="col-md-10">
+      <div class="col-md-11 text-right">
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </div>
-      <div class="col-md-2 text-right">
+      <div class="col-md-1">
         <mat-form-field class="fullwidth pagenateList">
           <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
             <mat-option value="10">10</mat-option>
@@ -219,7 +213,12 @@
       <!--start Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Standards</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div>
+            <button *ngIf="!updateFlag" type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Save</button>
+            <button  *ngIf="updateFlag" type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Update</button>
+
+            <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+        </div>
       </div>
       <!--end Modal Header -->
 
@@ -270,19 +269,19 @@
 
 
         <!--button row-->
-        <div class="text-left">
+        <!-- <div class="text-left">
           <button *ngIf="!updateFlag" mat-raised-button color="primary" (click)="save()">Save</button>
           <button *ngIf="updateFlag" mat-raised-button color="primary" (click)="save()">Update</button>
-        </div>
+        </div> -->
         <!--end button row-->
 
       </div>
       <!--end Modal body -->
 
       <!--start Modal footer -->
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
       <!--end Modal footer -->
 
     </div>

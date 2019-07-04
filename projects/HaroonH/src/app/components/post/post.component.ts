@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-//import { AppComponent } from '../../app.component';
-import { AppComponent } from 'src/app/app.component';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+
+import { AppComponent } from 'src/app/app.component';
 
 declare var $: any;
 
@@ -770,4 +770,12 @@ export class PostComponent implements OnInit {
     // }
   }
 
+  //function for sort table data 
+  setOrder(value: string) {
+    if (this.order === value) {
+        this.reverse = !this.reverse;
+    }
+    this.order = value;
+  }
+  
 }
