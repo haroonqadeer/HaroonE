@@ -5,71 +5,83 @@
     //margin-left: 1%;
     //margin-right: 10px;
     margin: 3px 5px 0 1%;
-  }
-  
-  
-  .iconContainer .icon-hr-leaveRule{
-    width: 100%;
-    height:100%;
-    mask: url(./assets/images/vacations-Rules.svg) no-repeat center ;
-    background-color: #fff;
-  }
+}
 
-  .iconContainer .icon-hr-leaveType{
-    width: 100%;
-    height:100%;
-    mask: url(./assets/images/vacations.svg) no-repeat center ;
-    background-color: #fff;
-  }
 
-  .iconContainer .icon-hr-performanceStandard{
+.iconContainer .icon-hr-leaveRule {
     width: 100%;
-    height:100%;
-    mask: url(./assets/images/PerformanceStandards.svg) no-repeat center ;
+    height: 100%;
+    mask: url(./assets/images/vacations-Rules.svg) no-repeat center;
     background-color: #fff;
-  }
+}
 
-  .iconContainer .icon-hr-post{
+.iconContainer .icon-hr-leaveType {
     width: 100%;
-    height:100%;
-    mask: url(./assets/images/Post.svg) no-repeat center ;
+    height: 100%;
+    mask: url(./assets/images/vacations.svg) no-repeat center;
     background-color: #fff;
-  }
+}
 
-  .iconContainer .icon-hr-jobprofile{
+.iconContainer .icon-hr-performanceStandard {
     width: 100%;
-    height:100%;
-    mask: url(./assets/images/JobProfile.svg) no-repeat center ;
+    height: 100%;
+    mask: url(./assets/images/PerformanceStandards.svg) no-repeat center;
     background-color: #fff;
-  }
-  
+}
 
-  .iconContainer .icon-hr-skillstandard{
+.iconContainer .icon-hr-performanceEvaluation {
     width: 100%;
-    height:100%;
-    mask: url(./assets/images/skills.svg) no-repeat center ;
+    height: 100%;
+    mask: url(./assets/images/PerformanceEvaluation.svg) no-repeat center;
     background-color: #fff;
-  }
+}
 
-  .iconContainer .icon-hr-test{
+.iconContainer .icon-hr-post {
     width: 100%;
-    height:100%;
-    mask: url(./assets/images/exam.svg) no-repeat center ;
+    height: 100%;
+    mask: url(./assets/images/Post.svg) no-repeat center;
     background-color: #fff;
-  }
+}
 
-  .iconContainer .icon-hr-recruitmentapproval{
+.iconContainer .icon-hr-jobprofile {
     width: 100%;
-    height:100%;
-    mask: url(./assets/images/Recruitment-Approval.svg) no-repeat center ;
+    height: 100%;
+    mask: url(./assets/images/JobProfile.svg) no-repeat center;
     background-color: #fff;
-  }
+}
 
-  .iconContainer .icon-hr-employeeprofile{
+
+.iconContainer .icon-hr-skillstandard {
     width: 100%;
-    height:100%;
-    mask: url(./assets/images/Employe-Profile.svg) no-repeat center ;
+    height: 100%;
+    mask: url(./assets/images/skills.svg) no-repeat center;
     background-color: #fff;
-  }
+}
 
-  
+.iconContainer .icon-hr-test {
+    width: 100%;
+    height: 100%;
+    mask: url(./assets/images/exam.svg) no-repeat center;
+    background-color: #fff;
+}
+
+.iconContainer .icon-hr-recruitmentapproval {
+    width: 100%;
+    height: 100%;
+    mask: url(./assets/images/Recruitment-Approval.svg) no-repeat center;
+    background-color: #fff;
+}
+
+.iconContainer .icon-hr-employeeprofile {
+    width: 100%;
+    height: 100%;
+    mask: url(./assets/images/Employe-Profile.svg) no-repeat center;
+    background-color: #fff;
+}
+
+.iconContainer .icon-hr-training {
+    width: 100%;
+    height: 100%;
+    mask: url(./assets/images/Training.svg) no-repeat center;
+    background-color: #fff;
+}

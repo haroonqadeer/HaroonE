@@ -36,8 +36,8 @@ declare var $: any;
 export class CertificateComponent implements OnInit {
 
   // serverUrl = "http://localhost:49774/";
-  serverUrl = "http://192.168.200.19:3001/";
-  // serverUrl = "https://localhost:8002/";
+  //serverUrl = "http://192.168.200.19:3001/";
+  serverUrl = "https://localhost:8002/";
   tokenKey = "token";
 
   httpOptions = {
@@ -483,7 +483,7 @@ export class CertificateComponent implements OnInit {
       else if (this.dGroupId != "") {
         var groupdata = {
           "qlfctnCd": this.dGroupId,
-          "qlfctnTypeCd": this.certificateId,
+          // "qlfctnTypeCd": this.certificateId,
           // "qlfctnName": this.certfctGroupName,
           // "qlfctnDesc": this.certfctGroupDesc,
           "connectedUser": 12000

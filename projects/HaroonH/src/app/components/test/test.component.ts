@@ -1,7 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+
+import {
+  IgxExcelExporterOptions,
+  IgxExcelExporterService,
+  IgxGridComponent,
+  IgxCsvExporterService,
+  IgxCsvExporterOptions,
+  CsvFileTypes
+} from "igniteui-angular";
 
 declare var $: any;
 @Component({
@@ -11,8 +20,8 @@ declare var $: any;
 })
 export class TestComponent implements OnInit {
 
-  // serverUrl = "https://localhost:3002/";
-  serverUrl = "http://192.168.200.19:3008/";
+  serverUrl = "https://localhost:3002/";
+  // serverUrl = "http://192.168.200.19:3008/";
   // serverUrl = "https://localhost:3002/";
 
 
@@ -49,6 +58,8 @@ export class TestComponent implements OnInit {
   txtdPassword = '';
   txtdPin = '';
 
+  //* Excel Data List
+  excelDataList = [];
 
   //* variables for pagination and orderby pipe
   p = 1;
@@ -62,8 +73,10 @@ export class TestComponent implements OnInit {
   //itemPerPageGroup = '5';
 
 
-  constructor(private toastr: ToastrManager,
+  constructor(public toastr: ToastrManager,
     private app: AppComponent,
+    private excelExportService: IgxExcelExporterService,
+    private csvExportService: IgxCsvExporterService,
     private http: HttpClient) { }
 
   ngOnInit() {
@@ -73,6 +86,9 @@ export class TestComponent implements OnInit {
     this.getJobDesig();
 
   }
+
+  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+
 
   getsubjectGroup() {
 
@@ -627,7 +643,7 @@ export class TestComponent implements OnInit {
     }, 500);
   }
 
-  downPDF() {
+  downloadPDF() {
     // let doc = new jsPDF();
     // let specialElementHandlers = {
     //   '#editor': function (element, renderer) {
@@ -644,97 +660,82 @@ export class TestComponent implements OnInit {
 
 
   //For CSV File 
-  public downloadCSV() {
-    // case 1: When userSearch is empty then assign full data list
-    // if (this.userSearch == "") {
-    //   var completeDataList = [];
-    //   for (var i = 0; i < this.userData.length; i++) {
-    //     completeDataList.push({
-    //       userName: this.userData[i].uName,
-    //       email: this.userData[i].uEmail,
-    //       role: this.userData[i].uRole,
-    //       userSince: this.userData[i].uSince,
-    //       lastLogin: this.userData[i].lastLogin
-    //     });
-    //   }
-    //   this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("UserProfileCompleteCSV", CsvFileTypes.CSV));
-    // }
-    // // case 2: When userSearch is not empty then assign new data list
-    // else if (this.userSearch != "") {
-    //   var filteredDataList = [];
-    //   for (var i = 0; i < this.userData.length; i++) {
+  downloadCSV() {
+    //alert('CSV works');
+    // case 1: When testSearch is empty then assign full data list
+    if (this.testSearch == "") {
+      var completeDataList = [];
+      for (var i = 0; i < this.testList.length; i++) {
+        //alert(this.testSearch + " - " + this.skillCriteriaList[i].departmentName)
+        completeDataList.push({
+          Subject: this.testList[i].testSbjctName,
+          No_Questions: this.testList[i].questionCount,
+          JobProfile: this.testList[i].jobCount
+        });
+      }
+      this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("testCompleteCSV", CsvFileTypes.CSV));
+    }
+    // case 2: When testSearch is not empty then assign new data list
+    else if (this.testSearch != "") {
+      var filteredDataList = [];
+      for (var i = 0; i < this.testList.length; i++) {
+        if (this.testList[i].testSbjctName.toUpperCase().includes(this.testSearch.toUpperCase()) ||
+          this.testList[i].questionCount == this.testSearch || this.testList[i].jobCount == this.testSearch) {
+          filteredDataList.push({
+            Subject: this.testList[i].testSbjctName,
+            No_Questions: this.testList[i].questionCount,
+            JobProfile: this.testList[i].jobCount
+          });
+        }
+      }
 
-    //     if (this.userData[i].uName.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].uEmail.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].uRole.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].uSince.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].lastLogin.toUpperCase().includes(this.userSearch.toUpperCase())) {
-    //       filteredDataList.push({
-    //         userName: this.userData[i].uName,
-    //         email: this.userData[i].uEmail,
-    //         role: this.userData[i].uRole,
-    //         userSince: this.userData[i].uSince,
-    //         lastLogin: this.userData[i].lastLogin
-    //       });
-    //     }
-    //   }
-
-    //   if (filteredDataList.length > 0) {
-    //     this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("UserProfileFilterCSV", CsvFileTypes.CSV));
-    //   }
-    //   else {
-    //     this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
-    //   }
-    // }
+      if (filteredDataList.length > 0) {
+        this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("testFilterCSV", CsvFileTypes.CSV));
+      } else {
+        this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+      }
+    }
   }
 
 
-  //For Exce File
-  public downloadExcel() {
-    // case 1: When userSearch is empty then assign full data list
-    // if (this.userSearch == "") {
-    //   for (var i = 0; i < this.userData.length; i++) {
-    //     this.excelDataList.push({
-    //       userName: this.userData[i].uName,
-    //       email: this.userData[i].uEmail,
-    //       role: this.userData[i].uRole,
-    //       userSince: this.userData[i].uSince,
-    //       lastLogin: this.userData[i].lastLogin
-    //     });
-    //   }
+  downloadExcel() {
+    //alert('Excel works' + this.testList.length);
+    //return;
+    // case 1: When testSearch is empty then assign full data list
+    if (this.testSearch == "") {
+      //var completeDataList = [];
+      for (var i = 0; i < this.testList.length; i++) {
+        this.excelDataList.push({
+          Subject: this.testList[i].testSbjctName,
+          No_Questions: this.testList[i].questionCount,
+          JobProfile: this.testList[i].jobCount
+        });
+      }
+      this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("testCompleteExcel"));
+      this.excelDataList = [];
+    }
+    // case 2: When testSearch is not empty then assign new data list
+    else if (this.testSearch != "") {
+      for (var i = 0; i < this.testList.length; i++) {
+        if (this.testList[i].testSbjctName.toUpperCase().includes(this.testSearch.toUpperCase()) ||
+          this.testList[i].questionCount == this.testSearch || this.testList[i].jobCount == this.testSearch) {
+          this.excelDataList.push({
+            Subject: this.testList[i].testSbjctName,
+            No_Questions: this.testList[i].questionCount,
+            JobProfile: this.testList[i].jobCount
+          });
+        }
+      }
 
-    //   this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("UserProfileCompleteExcel"));
-    //   this.excelDataList = [];
-    // }
-    // // case 2: When userSearch is not empty then assign new data list
-    // else if (this.userSearch != "") {
+      if (this.excelDataList.length > 0) {
+        //alert("Filter List " + this.excelDataList.length);
 
-    //   for (var i = 0; i < this.userData.length; i++) {
-    //     if (this.userData[i].uName.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].uEmail.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].uRole.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].uSince.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].lastLogin.toUpperCase().includes(this.userSearch.toUpperCase())) {
-    //       this.excelDataList.push({
-    //         userName: this.userData[i].uName,
-    //         email: this.userData[i].uEmail,
-    //         role: this.userData[i].uRole,
-    //         userSince: this.userData[i].uSince,
-    //         lastLogin: this.userData[i].lastLogin
-    //       });
-    //     }
-    //   }
-
-    //   if (this.excelDataList.length > 0) {
-
-    //     this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("UserProfileFilterExcel"));
-    //     this.excelDataList = [];
-
-    //   }
-    //   else {
-    //     this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
-    //   }
-    // }
+        this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("testFilterExcel"));
+        this.excelDataList = [];
+      }
+      else {
+        this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+      }
+    }
   }
-
 }

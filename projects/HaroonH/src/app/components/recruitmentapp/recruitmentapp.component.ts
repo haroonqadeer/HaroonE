@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -7,12 +7,21 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { AppComponent } from 'src/app/app.component';
 import { jsonpCallbackContext } from '@angular/common/http/src/module';
 
+import {
+    IgxExcelExporterOptions,
+    IgxExcelExporterService,
+    IgxGridComponent,
+    IgxCsvExporterService,
+    IgxCsvExporterOptions,
+    CsvFileTypes
+} from "igniteui-angular";
+
 declare var $: any;
 
 @Component({
-selector: 'app-recruitmentapp',
-templateUrl: './recruitmentapp.component.html',
-styleUrls: ['./recruitmentapp.component.scss']
+    selector: 'app-recruitmentapp',
+    templateUrl: './recruitmentapp.component.html',
+    styleUrls: ['./recruitmentapp.component.scss']
 })
 export class RecruitmentappComponent implements OnInit {
 
@@ -34,7 +43,7 @@ export class RecruitmentappComponent implements OnInit {
     sortedCollection: any[];
     itemPerPage = '10';
 
-    //* list variables
+    //* Excel Data List
     excelDataList = [];
 
     recruitmetAppsList = [];
@@ -60,7 +69,7 @@ export class RecruitmentappComponent implements OnInit {
 
     JobDesigID = "";
     JobPostDeptCd = "";
-    JobPostLocationCd = "" ;
+    JobPostLocationCd = "";
     OfficeName = "";
     Department = "";
     Section = "";
@@ -95,12 +104,11 @@ export class RecruitmentappComponent implements OnInit {
 
 
 
-    constructor(
-            private _formBuilder: FormBuilder,
-            private toastr: ToastrManager,
-            private http: HttpClient,
-            private app: AppComponent
-    ) { }
+    constructor(public toastr: ToastrManager,
+        private app: AppComponent,
+        private excelExportService: IgxExcelExporterService,
+        private csvExportService: IgxCsvExporterService,
+        private http: HttpClient) { }
 
     ngOnInit() {
 
@@ -112,6 +120,8 @@ export class RecruitmentappComponent implements OnInit {
 
     }
 
+    @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+
 
     //function for get all saved recruitment applications 
     getRecruitmentApps() {
@@ -120,7 +130,7 @@ export class RecruitmentappComponent implements OnInit {
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         this.http.get(this.serverUrl + 'api/getRecruitmentApprovalMain', { headers: reqHeader }).subscribe((data: any) => {
-            
+
             this.recruitmetAppsList = data;
         });
 
@@ -159,7 +169,7 @@ export class RecruitmentappComponent implements OnInit {
                     value: data[i].apprvngPrcssCd,
                 });
 
-                if(data[i].apprvngPrcssName == 'Interview'){
+                if (data[i].apprvngPrcssName == 'Interview') {
                     this.prInterviewCode = data[i].apprvngPrcssCd;
                 }
 
@@ -211,16 +221,16 @@ export class RecruitmentappComponent implements OnInit {
 
 
 
-    
+
 
     //Function for add new publishng chanel  row
     addPubChannel() {
 
-        if (this.ddlPubChannel == undefined || this.ddlPubChannel == "" ) {
+        if (this.ddlPubChannel == undefined || this.ddlPubChannel == "") {
             this.toastr.errorToastr('Please select publishing channel', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else{            
+        else {
 
             var duplicateChk = false;
 
@@ -230,11 +240,11 @@ export class RecruitmentappComponent implements OnInit {
                 }
             }
 
-            if (duplicateChk == true){
+            if (duplicateChk == true) {
                 this.toastr.errorToastr('Publishing channel already added', 'Error', { toastTimeout: (2500) });
                 return false;
             }
-            else{
+            else {
 
                 var dataList = [];
                 dataList = this.tempPublishingChannelList.filter(x => x.value == this.ddlPubChannel);
@@ -246,9 +256,9 @@ export class RecruitmentappComponent implements OnInit {
                 });
 
             }
-        }        
+        }
     }
-    
+
     //Deleting publishing channel row
     removePubChannel(item) {
         this.publishingChannelList.splice(item, 1);
@@ -257,15 +267,15 @@ export class RecruitmentappComponent implements OnInit {
     //Function for add new desc row
     addApprAuthority() {
 
-        if (this.ddlApprProcess == undefined || this.ddlApprProcess == "" ) {
+        if (this.ddlApprProcess == undefined || this.ddlApprProcess == "") {
             this.toastr.errorToastr('Please select approval stage', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.ddlApprAuthority == undefined || this.ddlApprAuthority == "" ) {
+        else if (this.ddlApprAuthority == undefined || this.ddlApprAuthority == "") {
             this.toastr.errorToastr('Please select approving authority', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else{            
+        else {
 
             var duplicateChk = false;
 
@@ -275,11 +285,11 @@ export class RecruitmentappComponent implements OnInit {
                 }
             }
 
-            if (duplicateChk == true){
+            if (duplicateChk == true) {
                 this.toastr.errorToastr('Stage and authority already added', 'Error', { toastTimeout: (2500) });
                 return false;
             }
-            else{
+            else {
 
                 var dataList = [];
                 dataList = this.apprProcessList.filter(x => x.value == this.ddlApprProcess);
@@ -298,9 +308,9 @@ export class RecruitmentappComponent implements OnInit {
                 });
 
             }
-        }        
+        }
     }
-    
+
     //Deleting publishing channel row
     removeApprAuthority(item) {
         this.approvalReqList.splice(item, 1);
@@ -309,11 +319,11 @@ export class RecruitmentappComponent implements OnInit {
     //Function for add new interview official row
     addInterviewPanel() {
 
-        if (this.ddlInterviewOfficial == undefined || this.ddlInterviewOfficial == "" ) {
+        if (this.ddlInterviewOfficial == undefined || this.ddlInterviewOfficial == "") {
             this.toastr.errorToastr('Please select official', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else{            
+        else {
 
             var duplicateChk = false;
 
@@ -323,11 +333,11 @@ export class RecruitmentappComponent implements OnInit {
                 }
             }
 
-            if (duplicateChk == true){
+            if (duplicateChk == true) {
                 this.toastr.errorToastr('Official already added', 'Error', { toastTimeout: (2500) });
                 return false;
             }
-            else{
+            else {
 
                 var dataList = [];
                 dataList = this.apprAuthorigyList.filter(x => x.value == this.ddlInterviewOfficial);
@@ -343,7 +353,7 @@ export class RecruitmentappComponent implements OnInit {
             }
         }
     }
-    
+
     //Deleting interview official row
     removeInterviewPanel(item) {
         this.interviewPanelList.splice(item, 1);
@@ -352,31 +362,31 @@ export class RecruitmentappComponent implements OnInit {
     //Function for add new interview official row
     addTest() {
 
-        if (this.ddlSubject == undefined || this.ddlSubject == "" ) {
+        if (this.ddlSubject == undefined || this.ddlSubject == "") {
             this.toastr.errorToastr('Please select subject', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.totalMarks == undefined || this.totalMarks == "" ) {
+        else if (this.totalMarks == undefined || this.totalMarks == "") {
             this.toastr.errorToastr('Please enter total marks', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.passingMarks == undefined || this.passingMarks == "" ) {
+        else if (this.passingMarks == undefined || this.passingMarks == "") {
             this.toastr.errorToastr('Please enter passing marks', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.totalMarks <= 0 || this.totalMarks > 100 ) {
+        else if (this.totalMarks <= 0 || this.totalMarks > 100) {
             this.toastr.errorToastr('Invalid total marks', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.passingMarks <= 0 || this.passingMarks > 100 ) {
+        else if (this.passingMarks <= 0 || this.passingMarks > 100) {
             this.toastr.errorToastr('Invalid passing marks', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.passingMarks > this.totalMarks ) {
+        else if (this.passingMarks > this.totalMarks) {
             this.toastr.errorToastr('Invalid passing marks', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else{            
+        else {
 
             var duplicateChk = false;
 
@@ -386,11 +396,11 @@ export class RecruitmentappComponent implements OnInit {
                 }
             }
 
-            if (duplicateChk == true){
+            if (duplicateChk == true) {
                 this.toastr.errorToastr('Subject already added', 'Error', { toastTimeout: (2500) });
                 return false;
             }
-            else{
+            else {
 
                 var dataList = [];
                 dataList = this.subjectList.filter(x => x.value == this.ddlSubject);
@@ -406,7 +416,7 @@ export class RecruitmentappComponent implements OnInit {
             }
         }
     }
-    
+
     //Deleting interview official row
     removeTest(item) {
         this.testSubjectList.splice(item, 1);
@@ -419,7 +429,7 @@ export class RecruitmentappComponent implements OnInit {
 
 
 
-    
+
 
 
 
@@ -427,7 +437,7 @@ export class RecruitmentappComponent implements OnInit {
     //Function for save and update publishig channel 
     savePubChannel() {
 
-        if (this.publishingChannelList.length == 0 ) {
+        if (this.publishingChannelList.length == 0) {
             this.toastr.errorToastr('Please enter publishing channel', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -474,10 +484,10 @@ export class RecruitmentappComponent implements OnInit {
 
                 //* ********************************************save data 
                 var saveData = {
-                    "VcncyID":                  1,
-                    "pubChannelList":          JSON.stringify(this.publishingChannelList),
-                    "ConnectedUser":            "12000",
-                    "DelFlag":                  0
+                    "VcncyID": 1,
+                    "pubChannelList": JSON.stringify(this.publishingChannelList),
+                    "ConnectedUser": "12000",
+                    "DelFlag": 0
                 };
 
                 //var token = localStorage.getItem(this.tokenKey);
@@ -609,7 +619,7 @@ export class RecruitmentappComponent implements OnInit {
             this.toastr.errorToastr('Invalid request', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.approvalReqList.length == 0 ) {
+        else if (this.approvalReqList.length == 0) {
             this.toastr.errorToastr('Please enter approving authority detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -685,7 +695,7 @@ export class RecruitmentappComponent implements OnInit {
     //Function for save and update approving authority 
     saveInterviewPanel() {
 
-        if (this.interviewPanelList.length == 0 ) {
+        if (this.interviewPanelList.length == 0) {
             this.toastr.errorToastr('Please enter interview panel detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -761,7 +771,7 @@ export class RecruitmentappComponent implements OnInit {
     //Function for save and update test  
     saveTest() {
 
-        if (this.testSubjectList.length == 0 ) {
+        if (this.testSubjectList.length == 0) {
             this.toastr.errorToastr('Please enter test detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -847,24 +857,24 @@ export class RecruitmentappComponent implements OnInit {
         this.JobPostLocationCd = item.jobPostLocationCd;
         this.OfficeName = item.officeName;
 
-        if(item.department == null){
+        if (item.department == null) {
             this.Department = "-";
-        }else{
+        } else {
             this.Department = item.department;
         }
 
         this.Section = item.section;
         this.JobProfile = item.jobTitle;
 
-        this.totalVacancies= item.vacancies1 + item.vacancies2;
+        this.totalVacancies = item.vacancies1 + item.vacancies2;
 
     }
 
-    clear(){
+    clear() {
 
         this.JobDesigID = "";
         this.JobPostDeptCd = "";
-        this.JobPostLocationCd = "" ;
+        this.JobPostLocationCd = "";
         this.OfficeName = "";
         this.Department = "";
         this.Section = "";
@@ -879,6 +889,162 @@ export class RecruitmentappComponent implements OnInit {
             this.reverse = !this.reverse;
         }
         this.order = value;
+    }
+
+
+
+    printDiv() {
+
+        // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
+
+        // var cssHeading = ".cssHeading {font-size: 25px; font-weight: bold;}";
+        // var cssAddress = ".cssAddress {font-size: 16px; }";
+        // var cssContact = ".cssContact {font-size: 16px; }";
+
+        // var tableCss = "table {width: 100%; border-collapse: collapse;}    table thead tr th {text-align: left; font-family: Arial, Helvetica, sans-serif; font-weight: bole; border-bottom: 1px solid black; margin-left: -3px;}     table tbody tr td {font-family: Arial, Helvetica, sans-serif; border-bottom: 1px solid #ccc; margin-left: -3px; height: 33px;}";
+
+        var printCss = this.app.printCSS();
+
+
+        //printCss = printCss + "";
+
+        var contents = $("#printArea").html();
+
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>DIV Contents</title>' + "<style>" + printCss + "</style>");
+
+
+        //Append the external CSS file.  <link rel="stylesheet" href="../../../styles.scss" />  <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+        frameDoc.document.write('<style type="text/css" media="print">/*@page { size: landscape; }*/</style>');
+
+        frameDoc.document.write('</head><body>');
+
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+
+        frameDoc.document.close();
+
+
+        //alert(frameDoc.document.head.innerHTML);
+        // alert(frameDoc.document.body.innerHTML);
+
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+    }
+
+
+    downloadPDF() { }
+
+
+    downloadCSV() {
+        //alert('CSV works');
+        // case 1: When tblSearch is empty then assign full data list
+        if (this.tblSearch == "") {
+            var completeDataList = [];
+            for (var i = 0; i < this.recruitmetAppsList.length; i++) {
+                //alert(this.tblSearch + " - " + this.skillCriteriaList[i].departmentName)
+                completeDataList.push({
+                    Office: this.recruitmetAppsList[i].officeName,
+                    Department: this.recruitmetAppsList[i].department,
+                    Section: this.recruitmetAppsList[i].section,
+                    JobProfie: this.recruitmetAppsList[i].jobTitle,
+                    BPS: this.recruitmetAppsList[i].bps,
+                    Vacancies: (this.recruitmetAppsList[i].vacancies1 + this.recruitmetAppsList[i].vacancies2),
+                    Requests: this.recruitmetAppsList[i].request
+                });
+            }
+            this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("RecApprovalCompleteCSV", CsvFileTypes.CSV));
+        }
+        // case 2: When tblSearch is not empty then assign new data list
+        else if (this.tblSearch != "") {
+            var filteredDataList = [];
+            for (var i = 0; i < this.recruitmetAppsList.length; i++) {
+                if (this.recruitmetAppsList[i].officeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.recruitmetAppsList[i].department.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.recruitmetAppsList[i].section.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.recruitmetAppsList[i].jobTitle.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.recruitmetAppsList[i].bps == this.tblSearch) {
+                    filteredDataList.push({
+                        Office: this.recruitmetAppsList[i].officeName,
+                        Department: this.recruitmetAppsList[i].department,
+                        Section: this.recruitmetAppsList[i].section,
+                        JobProfie: this.recruitmetAppsList[i].jobTitle,
+                        BPS: this.recruitmetAppsList[i].bps,
+                        Vacancies: (this.recruitmetAppsList[i].vacancies1 + this.recruitmetAppsList[i].vacancies2),
+                        Requests: this.recruitmetAppsList[i].request
+                    });
+                }
+            }
+
+            if (filteredDataList.length > 0) {
+                this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("RecApprovalFilterCSV", CsvFileTypes.CSV));
+            } else {
+                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+            }
+        }
+    }
+
+
+    downloadExcel() {
+        //alert('Excel works');
+        // case 1: When tblSearch is empty then assign full data list
+        if (this.tblSearch == "") {
+            //var completeDataList = [];
+            for (var i = 0; i < this.recruitmetAppsList.length; i++) {
+                this.excelDataList.push({
+                    Office: this.recruitmetAppsList[i].officeName,
+                    Department: this.recruitmetAppsList[i].department,
+                    Section: this.recruitmetAppsList[i].section,
+                    JobProfie: this.recruitmetAppsList[i].jobTitle,
+                    BPS: this.recruitmetAppsList[i].bps,
+                    Vacancies: (this.recruitmetAppsList[i].vacancies1 + this.recruitmetAppsList[i].vacancies2),
+                    Requests: this.recruitmetAppsList[i].request
+                });
+            }
+            this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("RecApprovalCompleteExcel"));
+            this.excelDataList = [];
+        }
+        // case 2: When tblSearch is not empty then assign new data list
+        else if (this.tblSearch != "") {
+            for (var i = 0; i < this.recruitmetAppsList.length; i++) {
+                if (this.recruitmetAppsList[i].officeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.recruitmetAppsList[i].department.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.recruitmetAppsList[i].section.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.recruitmetAppsList[i].jobTitle.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.recruitmetAppsList[i].bps == this.tblSearch) {
+                    this.excelDataList.push({
+                        Office: this.recruitmetAppsList[i].officeName,
+                        Department: this.recruitmetAppsList[i].department,
+                        Section: this.recruitmetAppsList[i].section,
+                        JobProfie: this.recruitmetAppsList[i].jobTitle,
+                        BPS: this.recruitmetAppsList[i].bps,
+                        Vacancies: (this.recruitmetAppsList[i].vacancies1 + this.recruitmetAppsList[i].vacancies2),
+                        Requests: this.recruitmetAppsList[i].request
+                    });
+                }
+            }
+
+            if (this.excelDataList.length > 0) {
+                //alert("Filter List " + this.excelDataList.length);
+
+                this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("RecApprovalFilterExcel"));
+                this.excelDataList = [];
+            }
+            else {
+                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+            }
+        }
     }
 
 }

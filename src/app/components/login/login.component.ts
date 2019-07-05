@@ -18,7 +18,10 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-    serverUrl = "http://localhost:11664/";
+    serverUrl = "https://localhost:5001/";
+
+    //serverUrl = "https://localhost:8008/";
+    //serverUrl = "http://localhost:11664/";
     //serverUrl = "http://192.168.200.19:3006/";
     tokenKey = "token";
 
@@ -29,7 +32,11 @@ export class LoginComponent implements OnInit {
     txtUserName = '';
     txtPassword = '';
 
-    constructor(private http: HttpClient, private formBuilder: FormBuilder, public toastr: ToastrManager, private router: Router, private app: AppComponent) { }
+    constructor(private http: HttpClient,
+        private formBuilder: FormBuilder,
+        public toastr: ToastrManager,
+        private router: Router,
+        private app: AppComponent) { }
 
 
     ngOnInit() {
@@ -49,20 +56,20 @@ export class LoginComponent implements OnInit {
             return false;
         }
         else {
-            
-            // localStorage.setItem('userName', this.txtUserName);
-            // localStorage.setItem('myActModNam', 'HR');
-            // this.app.checkLogin('Yes');
-            // return false;
+
+            //localStorage.setItem('userName', this.txtUserName);
+            //localStorage.setItem('myActModNam', 'HR');
+            //this.app.checkLogin('Yes');
+            //return false;
 
             var loginData = { "IndvdlERPUsrID": this.txtUserName, "IndvdlERPPsswrd": this.txtPassword };
 
             var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-            this.http.post(this.serverUrl + 'api/getUsers', loginData, { headers: reqHeader }).subscribe((data: any) => {
+            this.http.post(this.serverUrl + 'api/chkLogin', loginData, { headers: reqHeader }).subscribe((data: any) => {
 
 
-                if (data.msg == "Logedin Successfully!") {
+                if (data.msg == "Login Successfully!") {
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     localStorage.setItem('userName', this.txtUserName);
                     localStorage.setItem('myActModNam', 'HR');
@@ -73,7 +80,7 @@ export class LoginComponent implements OnInit {
                     $(".mat-form-field-label").css("color", "red");
                 }
 
-                
+
             });
 
 

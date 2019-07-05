@@ -42,7 +42,7 @@
 <br>
 
 <!-- Table Container Starts -->
-<div class="container bgWhite">
+<div class="myContainer bgWhite">
   <!--Start search textbox Row-->
   <div class="row">
     <div class="col-md-12">
@@ -99,19 +99,21 @@
       </tbody>
     </table>
     <!-- Pagination Starts -->
-    <div class="col-md-10">
-      <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
-    </div>
-    <div class="col-md-2 text-right">
-      <mat-form-field class="fullwidth pagenateList">
-        <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
-          <mat-option value="5">5</mat-option>
-          <mat-option value="10">10</mat-option>
-          <mat-option value="25">25</mat-option>
-          <mat-option value="50">50</mat-option>
-          <mat-option value="100">100</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="row tab-margin">
+      <div class="col-md-10">
+        <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div class="col-md-2 text-right">
+        <mat-form-field class="fullwidth pagenateList">
+          <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
+            <mat-option value="5">5</mat-option>
+            <mat-option value="10">10</mat-option>
+            <mat-option value="25">25</mat-option>
+            <mat-option value="50">50</mat-option>
+            <mat-option value="100">100</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
     <!-- Pagination Ends -->
   </div>
