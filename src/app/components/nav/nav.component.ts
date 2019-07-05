@@ -1,8 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-
-
 declare var $: any;
 
 @Component({

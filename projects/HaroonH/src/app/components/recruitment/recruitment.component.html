@@ -92,7 +92,7 @@
               <td class="col-3">{{item.appName}}</td>
               <td class="col-3 text-center">{{item.receivedOn|date:'dd-MM-yyyy'}}</td>
               <td class="col-2 text-center">
-                <a href="" data-toggle="modal" data-target="#matchModal">{{item.appMatch}}</a>
+                <a href="" data-toggle="modal" data-target="#matchModal" (click)="getSkillDetail(item.appID, item.appName)">{{item.appMatch}}</a>
               </td>
               <td class="col-2 text-center">
                 <a href="" data-toggle="modal" data-target="#statusModal"
@@ -248,9 +248,10 @@
           <thead>
             <tr class='d-flex'>
               <th class='col-2 text-center'>Sr#</th>
-              <th class='col-6'>Applicant</th>
+              <th class='col-5'>Applicant</th>
               <th class='col-2 text-center'>Interviewer</th>
               <th class='col-2 text-center'>Status</th>
+              <th class='col-1 text-center'>Detail</th>
             </tr>
           </thead>
           <tbody>
@@ -258,11 +259,14 @@
               <!-- <tr *ngFor="let item of taxDetail | search:'UserName,Email': query" class='d-flex'> -->
 
               <td class="col-2 text-center">{{i + 1}}</td>
-              <td class="col-6">{{item.appName}}</td>
+              <td class="col-5">{{item.appName}}</td>
               <td class="col-2 text-center">{{item.marks}}</td>
               <td class="col-2 text-center">
                 <a href="" data-toggle="modal" data-target="#statusModal"
                   (click)="getStepperID(5, item.appID)">{{item.appStatus}}</a>
+              </td>
+              <td class="col-1 text-center">
+                <span class="fa fa-list-alt pointerCursor" (click)="getInterviewDetail(item.appID)" data-toggle="modal" data-target="#interviewModal"></span>
               </td>
             </tr>
           </tbody>
@@ -390,6 +394,72 @@
 </div>
 <!-- End Search vacancy Modal Window  -->
 
+<!-- Start interview Modal Window -->
+<div class="modal fade" id="interviewModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Interview</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--start table row-->
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table table-striped fullwidth">
+              <thead>
+                <tr class='d-flex'>
+                  <th class='col-2 text-center'>Sr#</th>
+                  <th class='col-2 text-left'>InterViewer Name</th>
+                  <th class='col-2 text-left'>Designation</th>
+                  <th class='col-2 text-left'>BPS</th>
+                  <th class='col-4 text-center'>Marks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class='d-flex'>
+                <tr *ngFor="let item of interviewDetailList let i=index" class='d-flex'>
+                  <td class='col-2 text-center'>{{i+1}}</td>
+                  <td class='col-2 text-left'>{{item.indvdlFullName}}</td>
+                  <td class='col-2 text-left'>{{item.jobDesigName}}</td>
+                  <td class='col-2 text-left'>{{item.payGradeName}}</td>
+                  <td class='col-4 text-center'>
+                    <input type="text" pInputText [(ngModel)]="item.marks" [style]="{'width':'100%'}" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--end table row-->
+        <br/>        
+        <!--start button row-->
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <button mat-raised-button color="primary" (click)="saveInterviewMarks()">Save</button>
+          </div>
+        </div>
+        <!--end button row-->
+  
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Search vacancy Modal Window  -->
+
 
 <!-- Start Search vacancy Modal Window -->
 <div class="modal fade" id="matchModal">
@@ -411,7 +481,7 @@
             <h5>Applicant: </h5>
           </div>
           <div class="col-md-4 text-center">
-            <h5 style="font-weight: normal;">Qureshi</h5>
+            <h5 style="font-weight: normal;">{{lblApplicantName}}</h5>
           </div>
         </div>
         <!--end 1st row-->
@@ -424,25 +494,21 @@
                 <table class="table table-striped fullwidth">
                   <thead>
                     <tr class='d-flex'>
-                      <th class='col-2 text-center'>Sr#</th>
-                      <th class='col-4'>Skills</th>
-                      <th class='col-3'>Required</th>
-                      <th class='col-3'>Received</th>
+                      <th class='col-1 text-center'>Sr#</th>
+                      <th class='col-3 text-center'>Skills</th>
+                      <th class='col-3 text-center'>Required</th>
+                      <th class='col-3 text-center'>Received</th>
+                      <th class='col-2 text-center'>Level</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class='d-flex'>
-                      <!-- <tr *ngFor="let item of taxDetail | search:'UserName,Email': query" class='d-flex'> -->
-                      <td class="col-2 text-center">1</td>
-                      <td class="col-4">English</td>
-                      <td class="col-3">Advanced</td>
-                      <td class="col-3">Avg</td>
-                    </tr>
-                    <tr class='d-flex'>
-                      <td class="col-2 text-center">2</td>
-                      <td class="col-4">VB.Net</td>
-                      <td class="col-3">Expert</td>
-                      <td class="col-3">Advance</td>
+                    <!-- <tr class='d-flex'> -->
+                    <tr *ngFor="let item of skillDetailList let i = index" class='d-flex'>
+                      <td class="col-1 text-center">{{i + 1}}</td>
+                      <td class="col-3 text-center">{{item.qlfctnCriteriaName}}</td>
+                      <td class="col-3 text-center">{{item.qlfctnCriteriaReqdLvl}}</td>
+                      <td class="col-3 text-center">{{item.applcntQlfctnCriteriaLvl}}</td>
+                      <td class="col-2">{{item.reqLevel}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -450,7 +516,7 @@
             </div>
           </div>
           <div class="col-md-6 shadow-md bgWhite">
-            <div [chart]="Line_chart" style=" height: 100%;width:100%;"></div>
+            <div [chart]="Line_chart" style=" height: 15.5em;width:100%;"></div>
           </div>
         </div>
         <!--end table row-->

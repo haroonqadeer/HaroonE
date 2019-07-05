@@ -1,9 +1,10 @@
 .iconContainer {
     border: 0px solid red;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     //margin-left: 1%;
     //margin-right: 10px;
+    //<<<<<<< HEAD
     margin: 3px 5px 0 1%;
 }
 
@@ -16,6 +17,13 @@
 }
 
 .iconContainer .icon-hr-leaveType {
+    //=======
+    margin: 7px 5px 0 1%;
+}
+
+
+.iconContainer .icon-hr-leaveRule {
+    //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
     width: 100%;
     height: 100%;
     mask: url(./assets/images/vacations.svg) no-repeat center;

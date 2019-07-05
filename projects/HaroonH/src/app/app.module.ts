@@ -37,13 +37,15 @@ import { OrderModule } from 'ngx-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
-import { CheckboxModule } from 'primeng/checkbox';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import {CheckboxModule} from 'primeng/checkbox';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
 import { TrainingComponent } from './components/training/training.component';
 import { TrainingemployeeComponent } from './components/trainingemployee/trainingemployee.component';
 import { ShiftComponent } from './components/shift/shift.component';
+import { AttendanceComponent } from './components/attendance/attendance.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { ShiftComponent } from './components/shift/shift.component';
     SearchPipe,
     TrainingComponent,
     TrainingemployeeComponent,
-    ShiftComponent
+    ShiftComponent,
+    AttendanceComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +92,8 @@ import { ShiftComponent } from './components/shift/shift.component';
     DropdownModule,
     IgxGridModule,
     CheckboxModule,
-    InputSwitchModule
+    InputSwitchModule,
+    NgxSpinnerModule
   ],
   providers: [IgxExcelExporterService, IgxCsvExporterService],
   bootstrap: [AppComponent],

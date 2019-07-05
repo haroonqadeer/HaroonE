@@ -122,6 +122,12 @@
             </a>
           </li>
           <li routerLinkActive='active'>
+            <a routerLink="HR/attendance">
+              <span class="fa logo"><img src="../assets/images/Year-Calendar.svg"></span>
+              <span class="text">Attendance</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
             <a routerLink="HR/yearcalendar">
               <span class="fa logo"><img src="../assets/images/Year-Calendar.svg"></span>
               <span class="text">Year Calendar</span>
@@ -269,6 +275,16 @@
         </div>
 
       </div>
+      <!-- <<<<<<< HEAD
+======= -->
+
+      <ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.91)" size="medium" color="#ff871c"
+        type="ball-clip-rotate-multiple" fullScreen="true">
+        <p style="color: white"> Loading... </p>
+      </ngx-spinner>
+
+      <router-outlet></router-outlet>
+      <!-- >>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9 -->
     </div>
 
     <router-outlet></router-outlet>

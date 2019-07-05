@@ -26,8 +26,12 @@ declare var $: any;
 export class JobprofileComponent implements OnInit {
 
     //serverUrl = "http://192.168.200.19:3009/";
+    // <<<<<<< HEAD
     //serverUrl = "http://localhost:47807/";
     serverUrl = "https://localhost:3003";
+    // =======
+    //serverUrl = "http://localhost:47807/";
+    // >>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
     tokenKey = "token";
 
     httpOptions = {
@@ -77,7 +81,12 @@ export class JobprofileComponent implements OnInit {
 
 
     jobsList = [];
+    //<<<<<<< HEAD
 
+    //=======
+    jobProfilesList = [];
+
+    //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
     certificateList = [];
     degreeList = [];
     experienceList = [];
@@ -111,6 +120,7 @@ export class JobprofileComponent implements OnInit {
     DesigId = 0;
     DeptId = 0;
     LocationId = 0;
+    editFlag = false;
 
     Qualification = "";
 
@@ -142,6 +152,8 @@ export class JobprofileComponent implements OnInit {
     leaveNature;
     leaveLimit;
     limitType;
+    lblBPS;
+    lblJobType;
 
     //* setp 2 ng models
     ddlDegree = "";
@@ -183,15 +195,18 @@ export class JobprofileComponent implements OnInit {
     ddlFacility = "";
 
 
-
     txtdPassword = '';
     txtdPin = '';
 
+    //<<<<<<< HEAD
 
 
 
 
+    //    show = false;
+    //=======
     show = false;
+    //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
 
     formGroup1: FormGroup;
     formGroup2: FormGroup;
@@ -216,6 +231,7 @@ export class JobprofileComponent implements OnInit {
     ngOnInit() {
 
         this.steperSetting();
+        this.getJobProfileMain();
         this.getJobPosts();
         this.getQualificationCriteria();
         this.getJobDesc();
@@ -274,6 +290,7 @@ export class JobprofileComponent implements OnInit {
 
     }
 
+
     //function for get all saved job descriptions 
     getJobDesc() {
         //var Token = localStorage.getItem(this.tokenKey);
@@ -295,6 +312,7 @@ export class JobprofileComponent implements OnInit {
 
     }
 
+
     //function for get all saved leave rules 
     getLeaveRules() {
         //var Token = localStorage.getItem(this.tokenKey);
@@ -315,6 +333,7 @@ export class JobprofileComponent implements OnInit {
             }
         });
     }
+
 
     //function for get all saved facility types 
     getFacilityType() {
@@ -350,6 +369,7 @@ export class JobprofileComponent implements OnInit {
         });
     }
 
+
     //function for get all saved degrees, certificate and skills 
     getQualificationCriteria() {
         //var Token = localStorage.getItem(this.tokenKey);
@@ -379,19 +399,24 @@ export class JobprofileComponent implements OnInit {
                 }
 
                 //getting skills
+                //<<<<<<< HEAD
                 if (data[i].qlfctnTypeName == 'Skills') {
-                    this.experienceList.push({
-                        label: data[i].qlfctnName + " - " + data[i].qlfctnCriteriaName,
-                        value: data[i].qlfctnCriteriaCd,
-                    });
+                    //=======
+                    if (data[i].qlfctnTypeName == 'Experience') {
+                        //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
+                        this.experienceList.push({
+                            label: data[i].qlfctnName + " - " + data[i].qlfctnCriteriaName,
+                            value: data[i].qlfctnCriteriaCd,
+                        });
+                    }
+
                 }
 
             }
-
         });
-
     }
 
+    //<<<<<<< HEAD
     onTypeChange(item) {
 
         if (item.label == 'Contract') {
@@ -401,11 +426,114 @@ export class JobprofileComponent implements OnInit {
         }
     }
 
-    clear() {
+    //clear() {}
+    //======
+
+    //function for get all saved job profiles 
+    getJobProfileMain() {
+        //var Token = localStorage.getItem(this.tokenKey);
+        //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+        this.http.get(this.serverUrl + 'api/getJobProfileMain', { headers: reqHeader }).subscribe((data: any) => {
+
+            this.jobProfilesList = data;
+
+        });
 
     }
 
     //Function for save and update leave nature 
+    getSpecificJobProfile() {
+
+        if (this.DesigId == 0 || this.DeptId == 0 || this.LocationId == 0) {
+            this.toastr.errorToastr('Invalid Request', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else {
+
+            //* ********************************************save data 
+            var reqData = {
+                "JobDesigID": this.DesigId,
+                "JobPostDeptCd": this.DeptId,
+                "JobPostLocationCd": this.LocationId,
+            };
+
+            //var token = localStorage.getItem(this.tokenKey);
+
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+            this.http.post(this.serverUrl + 'api/getSpecificJobProfile', reqData, { headers: reqHeader }).subscribe((data: any) => {
+
+                if (data.msg != "Done") {
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                    return false;
+                } else {
+
+                    this.tempDegreeList = data.degreeList;
+                    this.tempCertificateList = data.certificateList;
+                    this.tempExperienceList = data.experienceList;
+                    this.tempDescList = data.descList;
+                    this.tempLeaveRulesList = data.leaveRuleList;
+                    this.jobFacilityList = data.facilityList;
+
+                }
+            });
+        }
+    }
+
+
+    //function for empay all fields
+    clear() {
+
+        this.DesigId = 0;
+        this.DeptId = 0;
+        this.LocationId = 0;
+        this.lblBPS = "";
+        this.lblJobType = "";
+        this.editFlag = false;
+        this.jobProfileId = "";
+        this.jobTitle = "";
+
+        this.tempDegreeList = [];
+        this.tempCertificateList = [];
+        this.tempExperienceList = [];
+        this.tempDescList = [];
+        this.tempLeaveRulesList = [];
+        this.jobFacilityList = [];
+
+
+        this.txtdPassword = '';
+        this.txtdPin = '';
+        //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
+
+    }
+
+
+    //function for edit record
+    edit(item) {
+
+        this.clear();
+
+        this.jobProfileId = "1";
+
+        this.DesigId = item.jobDesigID;
+        this.DeptId = item.jobPostDeptCd;
+        this.LocationId = item.jobPostLocationCd;
+        this.lblBPS = item.payGradeName;
+        this.lblJobType = item.jobTypeName;
+        this.editFlag = true;
+
+        this.jobTitle = item.jobDesigID;
+
+        this.getSpecificJobProfile();
+
+    }
+
+
+    //Function for save and update record 
     save() {
 
 
@@ -420,11 +548,19 @@ export class JobprofileComponent implements OnInit {
             this.toastr.errorToastr('Please enter qualifiation detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
+        //<<<<<<< HEAD
         else if (this.tempCertificateList.length == 0) {
             this.toastr.errorToastr('Please enter certification detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
+        //else if (this.tempExperienceList.length == 0) {
+        //=======
+        // else if (this.tempCertificateList.length == 0 ) {
+        //     this.toastr.errorToastr('Please enter certification detail', 'Error', { toastTimeout: (2500) });
+        //     return false;
+        // }
         else if (this.tempExperienceList.length == 0) {
+            //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
             this.toastr.errorToastr('Please enter experience detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -432,7 +568,15 @@ export class JobprofileComponent implements OnInit {
             this.toastr.errorToastr('Please enter job description detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
+        //<<<<<<< HEAD
+        //        else if (this.jobFacilityList.length == 0) {
+        //=======
+        else if (this.tempLeaveRulesList.length == 0) {
+            this.toastr.errorToastr('Please enter leave rules detail', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
         else if (this.jobFacilityList.length == 0) {
+            //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
             this.toastr.errorToastr('Please enter facilities detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -445,34 +589,39 @@ export class JobprofileComponent implements OnInit {
 
                 // //this.app.showSpinner();
                 // // this.app.hideSpinner();
-                // //* ********************************************update data 
-                // var updateData = {
-                //     "LeaveNatureCd": this.leaveNatureId,
-                //     "LeaveNatureName": this.leaveNature,
-                //     "LeaveNatureDesc": this.natureDescription,
-                //     "ConnectedUser": "2",
-                //     "DelFlag": 0,
-                //     "DelStatus": "No"
-                // };
+                //* ********************************************update data 
+                var updateData = {
+                    "jobProfileID": 1,
+                    "JobDesigID": this.DesigId,
+                    "JobPostDeptCd": this.DeptId,
+                    "JobPostLocationCd": this.LocationId,
+                    "jobQualificationList": JSON.stringify(this.tempDegreeList),
+                    "jobCertificationList": JSON.stringify(this.tempCertificateList),
+                    "jobExperienceList": JSON.stringify(this.tempExperienceList),
+                    "jobDescriptionList": JSON.stringify(this.tempDescList),
+                    "jobLeaveRuleList": JSON.stringify(this.tempLeaveRulesList),
+                    "jobFacilityList": JSON.stringify(this.jobFacilityList),
+                    "ConnectedUser": "12000",
+                    "DelFlag": 0
+                };
 
-                // //var token = localStorage.getItem(this.tokenKey);
+                //var token = localStorage.getItem(this.tokenKey);
 
-                // //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+                //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token 
 
-                // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-                // this.http.put(this.serverUrl + 'api/updateLeaveNature', updateData, { headers: reqHeader }).subscribe((data: any) => {
+                this.http.post(this.serverUrl + 'api/saveJobProfileDegree', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                //     if (data.msg != "Record Updated Successfully!") {
-                //         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                //         return false;
-                //     } else {
-                //         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                //         $('#leaveNatureModal').modal('hide');
-                //         this.getLeaveNature();
-                //         return false;
-                //     }
-                // });
+                    if (data.msg != "Record Updated Successfully!") {
+                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                        return false;
+                    } else {
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                        this.getJobProfileMain();
+                        return false;
+                    }
+                });
 
             }
             else {
@@ -506,13 +655,14 @@ export class JobprofileComponent implements OnInit {
                         return false;
                     } else {
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                        this.getJobDesc();
+                        this.getJobProfileMain();
                         return false;
                     }
                 });
             }
         }
     }
+
 
     //Function for add new desc row
     addDesc() {
@@ -527,12 +677,16 @@ export class JobprofileComponent implements OnInit {
             var desc = this.ddlDescription;
             var myDesc = Number(desc);
 
-            if (!Number.isNaN(myDesc)) {
+            //<<<<<<< HEAD
+            //            if (!Number.isNaN(myDesc)) {
 
+            //=======
+            if (!Number.isNaN(myDesc)) {
+                //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
                 var duplicateChk = false;
 
                 for (var i = 0; i < this.tempDescList.length; i++) {
-                    if (this.tempDescList[i].RspnsbltyCd == this.ddlDescription) {
+                    if (this.tempDescList[i].rspnsbltyCd == this.ddlDescription) {
                         duplicateChk = true;
                     }
                 }
@@ -547,9 +701,9 @@ export class JobprofileComponent implements OnInit {
                     dataList = this.descList.filter(x => x.value == this.ddlDescription);
 
                     this.tempDescList.push({
-                        RspnsbltyCd: this.ddlDescription,
-                        RspnsbltyDesc: dataList[0].label,
-                        MndtryIndctr: false
+                        rspnsbltyCd: this.ddlDescription,
+                        rspnsbltyDesc: dataList[0].label,
+                        mndtryIndctr: false
                     });
 
                 }
@@ -559,7 +713,11 @@ export class JobprofileComponent implements OnInit {
                 var duplicateChk = false;
 
                 for (var i = 0; i < this.tempDescList.length; i++) {
-                    if (this.tempDescList[i].RspnsbltyDesc == this.ddlDescription) {
+                    //<<<<<<< HEAD
+                    //if (this.tempDescList[i].RspnsbltyDesc == this.ddlDescription) {
+                    //=======
+                    if (this.tempDescList[i].rspnsbltyDesc.toUpperCase() == this.ddlDescription.trim().toUpperCase()) {
+                        //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
                         duplicateChk = true;
                     }
                 }
@@ -576,17 +734,23 @@ export class JobprofileComponent implements OnInit {
                     if (dataList.length > 0) {
 
                         this.tempDescList.push({
-                            RspnsbltyCd: dataList[0].value,
-                            RspnsbltyDesc: dataList[0].label,
-                            MndtryIndctr: false
+                            rspnsbltyCd: dataList[0].value,
+                            rspnsbltyDesc: dataList[0].label,
+                            mndtryIndctr: false
                         });
 
                     } else {
 
                         this.tempDescList.push({
-                            RspnsbltyCd: 0,
-                            RspnsbltyDesc: this.ddlDescription.trim(),
-                            MndtryIndctr: false
+                            //<<<<<<< HEAD
+                            // RspnsbltyCd: 0,
+                            // RspnsbltyDesc: this.ddlDescription.trim(),
+                            // MndtryIndctr: false
+                            //=======
+                            rspnsbltyCd: 0,
+                            rspnsbltyDesc: this.ddlDescription.trim(),
+                            mndtryIndctr: false
+                            //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
                         });
                     }
                 }
@@ -594,11 +758,11 @@ export class JobprofileComponent implements OnInit {
         }
     }
 
+
     //Deleting description row
     removeDesc(item) {
         this.tempDescList.splice(item, 1);
     }
-
 
 
     //Function for add leave rule
@@ -620,7 +784,7 @@ export class JobprofileComponent implements OnInit {
             var duplicateChk = false;
 
             for (var i = 0; i < this.tempLeaveRulesList.length; i++) {
-                if (this.tempLeaveRulesList[i].LeaveRuleID == this.ddlLeaveRule) {
+                if (this.tempLeaveRulesList[i].leaveRuleID == this.ddlLeaveRule) {
                     duplicateChk = true;
                 }
             }
@@ -635,21 +799,21 @@ export class JobprofileComponent implements OnInit {
                 dataList = this.leaveRulesList.filter(x => x.value == this.ddlLeaveRule);
 
                 this.tempLeaveRulesList.push({
-                    LeaveRuleID: this.ddlLeaveRule,
-                    LeaveRuleTitle: dataList[0].label,
-                    LeaveLmtAmount: dataList[0].limit,
-                    EffectiveDt: this.efectDate,
-                    EndDt: this.efectDate
+                    leaveRuleID: this.ddlLeaveRule,
+                    leaveRuleTitle: dataList[0].label,
+                    leaveLmtAmoUNt: dataList[0].limit,
+                    effectiveDt: this.efectDate,
+                    endDt: this.efectDate
                 });
             }
         }
     }
 
+
     //Deleting leave rule row
     removeLeaveRule(item) {
         this.tempLeaveRulesList.splice(item, 1);
     }
-
 
 
     //Function for add facility
@@ -668,7 +832,7 @@ export class JobprofileComponent implements OnInit {
             var duplicateChk = false;
 
             for (var i = 0; i < this.jobFacilityList.length; i++) {
-                if (this.jobFacilityList[i].FacilityTypeCd == this.ddlFacilityType && this.jobFacilityList[i].FacilityID == this.ddlFacility) {
+                if (this.jobFacilityList[i].facilityTypeCd == this.ddlFacilityType && this.jobFacilityList[i].facilityID == this.ddlFacility) {
                     duplicateChk = true;
                 }
             }
@@ -686,20 +850,20 @@ export class JobprofileComponent implements OnInit {
                 dataList1 = this.tempFacilityList.filter(x => x.value == this.ddlFacility);
 
                 this.jobFacilityList.push({
-                    FacilityTypeCd: this.ddlFacilityType,
-                    FacilityID: this.ddlFacility,
-                    FacilityTypeTitle: dataList[0].label,
-                    FacilityTitle: dataList1[0].label,
+                    facilityTypeCd: this.ddlFacilityType,
+                    facilityID: this.ddlFacility,
+                    facilityTypeName: dataList[0].label,
+                    facilityName: dataList1[0].label,
                 });
             }
         }
     }
 
+
     //Deleting facility row
     removeFacility(item) {
         this.jobFacilityList.splice(item, 1);
     }
-
 
 
     //function for save temp degrees
@@ -736,7 +900,7 @@ export class JobprofileComponent implements OnInit {
             var duplicateDegreeChk = false;
 
             for (var i = 0; i < this.tempDegreeList.length; i++) {
-                if (this.tempDegreeList[i].QlfctnCriteriaCD == this.QualificationCriteriaId) {
+                if (this.tempDegreeList[i].qlfctnCriteriaCD == this.QualificationCriteriaId) {
                     duplicateDegreeChk = true;
                 }
             }
@@ -748,15 +912,15 @@ export class JobprofileComponent implements OnInit {
             else {
 
                 this.tempDegreeList.push({
-                    QlfctnRuleCriteriaCD: 0,
-                    ReqdQlfctnRuleNo: 0,
-                    QlfctnCriteriaCD: this.QualificationCriteriaId,
-                    QlfctnTypeCd: this.QualificationTypeId,
-                    QlfctnCD: this.QualificationId,
-                    QlfctnCriteriaReqdLvl: this.degreeReqLevel,
-                    QlfctnCriteriaMaxLvl: this.degreeMaxLelvel,
-                    PrefIndctr: this.chkDegreePI,
-                    DegreeLabel: this.Qualification
+                    qlfctnRuleCriteriaCD: 0,
+                    reqdQlfctnRuleNo: 0,
+                    qlfctnCriteriaCD: this.QualificationCriteriaId,
+                    qlfctnTypeCd: this.QualificationTypeId,
+                    qlfctnCD: this.QualificationId,
+                    qlfctnCriteriaReqdLvl: this.degreeReqLevel,
+                    qlfctnCriteriaMaxLvl: this.degreeMaxLelvel,
+                    prefIndctr: this.chkDegreePI,
+                    degreeLabel: this.Qualification
                 });
 
             }
@@ -766,11 +930,11 @@ export class JobprofileComponent implements OnInit {
 
     }
 
+
     //Deleting degree row
     removeDegree(item) {
         this.tempDegreeList.splice(item, 1);
     }
-
 
 
     //function for save temp degrees
@@ -802,7 +966,7 @@ export class JobprofileComponent implements OnInit {
             var duplicateChk = false;
 
             for (var i = 0; i < this.tempExperienceList.length; i++) {
-                if (this.tempExperienceList[i].QlfctnCriteriaCD == this.ExperienceCriteriaId) {
+                if (this.tempExperienceList[i].qlfctnCriteriaCD == this.ExperienceCriteriaId) {
                     duplicateChk = true;
                 }
             }
@@ -817,19 +981,32 @@ export class JobprofileComponent implements OnInit {
 
 
                 this.tempExperienceList.push({
-                    QlfctnRuleCriteriaCD: 0,
-                    ReqdQlfctnRuleNo: 0,
-                    QlfctnCriteriaCD: this.ExperienceCriteriaId,
-                    QlfctnTypeCd: this.ExperienceTypeId,
-                    QlfctnCD: this.ExperienceId,
-                    QlfctnCriteriaReqdLvl: this.experienceInMonth,
-                    QlfctnCriteriaMaxLvl: 0,
-                    PrefIndctr: this.chkExperiencePI,
-                    ExperienceLabel: this.Experience
+                    //<<<<<<< HEAD
+                    // QlfctnRuleCriteriaCD: 0,
+                    // ReqdQlfctnRuleNo: 0,
+                    // QlfctnCriteriaCD: this.ExperienceCriteriaId,
+                    // QlfctnTypeCd: this.ExperienceTypeId,
+                    // QlfctnCD: this.ExperienceId,
+                    // QlfctnCriteriaReqdLvl: this.experienceInMonth,
+                    // QlfctnCriteriaMaxLvl: 0,
+                    // PrefIndctr: this.chkExperiencePI,
+                    // ExperienceLabel: this.Experience
+                    //=======
+                    qfctnRuleCriteriaCD: 0,
+                    reqdQlfctnRuleNo: 0,
+                    qlfctnCriteriaCD: this.ExperienceCriteriaId,
+                    qlfctnTypeCd: this.ExperienceTypeId,
+                    qlfctnCD: this.ExperienceId,
+                    qlfctnCriteriaReqdLvl: this.experienceInMonth,
+                    qlfctnCriteriaMaxLvl: 0,
+                    prefIndctr: this.chkExperiencePI,
+                    degreeLabel: this.Experience
+                    //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
                 });
             }
         }
     }
+
 
     //Deleting experience row
     removeExperience(item) {
@@ -871,7 +1048,7 @@ export class JobprofileComponent implements OnInit {
             var duplicateChk = false;
 
             for (var i = 0; i < this.tempCertificateList.length; i++) {
-                if (this.tempCertificateList[i].QlfctnCriteriaCD == this.CertificateCriteriaId) {
+                if (this.tempCertificateList[i].qlfctnCriteriaCD == this.CertificateCriteriaId) {
                     duplicateChk = true;
                 }
             }
@@ -883,25 +1060,37 @@ export class JobprofileComponent implements OnInit {
             else {
 
                 this.tempCertificateList.push({
-                    QlfctnRuleCriteriaCD: 0,
-                    ReqdQlfctnRuleNo: 0,
-                    QlfctnCriteriaCD: this.CertificateCriteriaId,
-                    QlfctnTypeCd: this.CertificateTypeId,
-                    QlfctnCD: this.CertificateId,
-                    QlfctnCriteriaReqdLvl: this.certificateReqLevel,
-                    QlfctnCriteriaMaxLvl: this.certificateMaxLelvel,
-                    PrefIndctr: this.chkCertificatePI,
-                    DegreeLabel: this.Certificate
+                    //<<<<<<< HEAD
+                    // QlfctnRuleCriteriaCD: 0,
+                    // ReqdQlfctnRuleNo: 0,
+                    // QlfctnCriteriaCD: this.CertificateCriteriaId,
+                    // QlfctnTypeCd: this.CertificateTypeId,
+                    // QlfctnCD: this.CertificateId,
+                    // QlfctnCriteriaReqdLvl: this.certificateReqLevel,
+                    // QlfctnCriteriaMaxLvl: this.certificateMaxLelvel,
+                    // PrefIndctr: this.chkCertificatePI,
+                    // DegreeLabel: this.Certificate
+                    //=======
+                    qlfctnRuleCriteriaCD: 0,
+                    reqdQlfctnRuleNo: 0,
+                    qlfctnCriteriaCD: this.CertificateCriteriaId,
+                    qlfctnTypeCd: this.CertificateTypeId,
+                    qlfctnCD: this.CertificateId,
+                    qlfctnCriteriaReqdLvl: this.certificateReqLevel,
+                    qlfctnCriteriaMaxLvl: this.certificateMaxLelvel,
+                    prefIndctr: this.chkCertificatePI,
+                    degreeLabel: this.Certificate
+                    //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
                 });
             }
         }
     }
 
+
     //Deleting certificate row
     removeCertificate(item) {
         this.tempCertificateList.splice(item, 1);
     }
-
 
 
     //function for get filtere list from job post
@@ -921,6 +1110,8 @@ export class JobprofileComponent implements OnInit {
             this.DesigId = dataList[0].jobDesigID;
             this.DeptId = dataList[0].jobPostDeptCd;
             this.LocationId = dataList[0].jobPostLocationCd;
+            this.lblBPS = dataList[0].payGradeName;
+            this.lblJobType = dataList[0].jobTypeName;
 
         }
 
@@ -962,6 +1153,7 @@ export class JobprofileComponent implements OnInit {
         if (filterOption == "facility") {
 
             this.tempFacilityList = [];
+            this.ddlFacility = "";
 
             dataList = this.facilityList.filter(x => x.facilityTypeCd == this.ddlFacilityType);
             for (var i = 0; i < dataList.length; i++) {
@@ -973,8 +1165,65 @@ export class JobprofileComponent implements OnInit {
         }
     }
 
+    delete() {
+        if (this.txtdPassword == '') {
+            this.toastr.errorToastr('Please enter password', 'Error', { toastTimeout: (2500) });
+            return false
+        }
+        else if (this.txtdPin == '') {
+            this.toastr.errorToastr('Please enter PIN', 'Error', { toastTimeout: (2500) });
+            return false
+        }
+        else if (this.DesigId == 0 || this.DeptId == 0 || this.LocationId == 0) {
+            this.toastr.errorToastr('Invalid delete request', 'Error', { toastTimeout: (2500) });
+            return false
+        }
+        else {
+
+            //this.app.showSpinner();
+            // this.app.hideSpinner();
+
+            //* ********************************************update data 
+            var updateData = {
+                "jobProfileID": 1,
+                "JobDesigID": this.DesigId,
+                "JobPostDeptCd": this.DeptId,
+                "JobPostLocationCd": this.LocationId,
+                "jobQualificationList": JSON.stringify(this.tempDegreeList),
+                "jobCertificationList": JSON.stringify(this.tempCertificateList),
+                "jobExperienceList": JSON.stringify(this.tempExperienceList),
+                "jobDescriptionList": JSON.stringify(this.tempDescList),
+                "jobLeaveRuleList": JSON.stringify(this.tempLeaveRulesList),
+                "jobFacilityList": JSON.stringify(this.jobFacilityList),
+                "ConnectedUser": "12000",
+                "DelFlag": 1
+            };
+
+            //var token = localStorage.getItem(this.tokenKey);
+
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+            this.http.post(this.serverUrl + 'api/saveJobProfileDegree', updateData, { headers: reqHeader }).subscribe((data: any) => {
+
+                if (data.msg != "Record Deleted Successfully!") {
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                    return false;
+                } else {
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    $('#deleteModal').modal('hide');
+                    this.getLeaveRules();
+                    this.clear();
+                    return false;
+                }
+            });
+            //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
+        }
+    }
 
 
+    //<<<<<<< HEAD
 
     printDiv() {
 
@@ -1031,21 +1280,20 @@ export class JobprofileComponent implements OnInit {
 
 
     downloadCSV() {
-        alert('CSV works ' + this.jobProfileListDetails.length);
+        alert('CSV works ' + this.jobProfilesList.length);
         // case 1: When tblSearch is empty then assign full data list
         if (this.tblSearch == "") {
             var completeDataList = [];
-            for (var i = 0; i < this.jobProfileListDetails.length; i++) {
+            for (var i = 0; i < this.jobProfilesList.length; i++) {
                 //alert(this.tblSearch + " - " + this.skillCriteriaList[i].departmentName)
                 completeDataList.push({
-                    OfficeName: this.jobProfileListDetails[i].officeName,
-                    Department: this.jobProfileListDetails[i].department,
-                    Section: this.jobProfileListDetails[i].section,
-                    JobTitle: this.jobProfileListDetails[i].jobTitle,
-                    JobType: this.jobProfileListDetails[i].jobType,
-                    Qty: this.jobProfileListDetails[i].quantity,
-                    Education: this.jobProfileListDetails[i].education,
-                    Experience: this.jobProfileListDetails[i].experience
+                    OfficeName: this.jobProfilesList[i].locationName,
+                    Department: this.jobProfilesList[i].deptName,
+                    JobTitle: this.jobProfilesList[i].jobDesigName,
+                    JobType: this.jobProfilesList[i].jobTypeName,
+                    Qty: this.jobProfilesList[i].quantity,
+                    Education: this.jobProfilesList[i].degree,
+                    Experience: this.jobProfilesList[i].experience
                 });
             }
             this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("jobProfileCompleteCSV", CsvFileTypes.CSV));
@@ -1053,22 +1301,20 @@ export class JobprofileComponent implements OnInit {
         // case 2: When tblSearch is not empty then assign new data list
         else if (this.tblSearch != "") {
             var filteredDataList = [];
-            for (var i = 0; i < this.jobProfileListDetails.length; i++) {
-                if (this.jobProfileListDetails[i].officeName.includes(this.tblSearch) ||
-                    this.jobProfileListDetails[i].department.includes(this.tblSearch) ||
-                    this.jobProfileListDetails[i].section.includes(this.tblSearch) ||
-                    this.jobProfileListDetails[i].jobTitle.includes(this.tblSearch) ||
-                    this.jobProfileListDetails[i].jobType.includes(this.tblSearch) ||
-                    this.jobProfileListDetails[i].education.includes(this.tblSearch)) {
+            for (var i = 0; i < this.jobProfilesList.length; i++) {
+                if (this.jobProfilesList[i].officeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].department.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].jobTitle.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].jobType.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].education.toUpperCase().includes(this.tblSearch.toUpperCase())) {
                     filteredDataList.push({
-                        OfficeName: this.jobProfileListDetails[i].officeName,
-                        Department: this.jobProfileListDetails[i].department,
-                        Section: this.jobProfileListDetails[i].section,
-                        JobTitle: this.jobProfileListDetails[i].jobTitle,
-                        JobType: this.jobProfileListDetails[i].jobType,
-                        Qty: this.jobProfileListDetails[i].quantity,
-                        Education: this.jobProfileListDetails[i].education,
-                        Experience: this.jobProfileListDetails[i].experience
+                        OfficeName: this.jobProfilesList[i].locationName,
+                        Department: this.jobProfilesList[i].deptName,
+                        JobTitle: this.jobProfilesList[i].jobDesigName,
+                        JobType: this.jobProfilesList[i].jobTypeName,
+                        Qty: this.jobProfilesList[i].quantity,
+                        Education: this.jobProfilesList[i].degree,
+                        Experience: this.jobProfilesList[i].experience
                     });
                 }
             }
@@ -1078,25 +1324,36 @@ export class JobprofileComponent implements OnInit {
             } else {
                 this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
             }
+            //=======
+            //functions for delete entry
+            // deleteTemp(item) {
+            //     this.clear();
+            //     this.DesigId = item.jobDesigID;
+            //     this.DeptId = item.jobPostDeptCd;
+            //     this.LocationId = item.jobPostLocationCd;
+            // }
+
+
+
+            //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
         }
     }
 
-
+    //<<<<<<< HEAD
     downloadExcel() {
         //alert('Excel works');
         // case 1: When tblSearch is empty then assign full data list
         if (this.tblSearch == "") {
             //var completeDataList = [];
-            for (var i = 0; i < this.jobProfileListDetails.length; i++) {
+            for (var i = 0; i < this.jobProfilesList.length; i++) {
                 this.excelDataList.push({
-                    OfficeName: this.jobProfileListDetails[i].officeName,
-                    Department: this.jobProfileListDetails[i].department,
-                    Section: this.jobProfileListDetails[i].section,
-                    JobTitle: this.jobProfileListDetails[i].jobTitle,
-                    JobType: this.jobProfileListDetails[i].jobType,
-                    Qty: this.jobProfileListDetails[i].quantity,
-                    Education: this.jobProfileListDetails[i].education,
-                    Experience: this.jobProfileListDetails[i].experience
+                    OfficeName: this.jobProfilesList[i].locationName,
+                    Department: this.jobProfilesList[i].deptName,
+                    JobTitle: this.jobProfilesList[i].jobDesigName,
+                    JobType: this.jobProfilesList[i].jobTypeName,
+                    Qty: this.jobProfilesList[i].quantity,
+                    Education: this.jobProfilesList[i].degree,
+                    Experience: this.jobProfilesList[i].experience
                 });
             }
             this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("jobProfileCompleteExcel"));
@@ -1104,22 +1361,20 @@ export class JobprofileComponent implements OnInit {
         }
         // case 2: When tblSearch is not empty then assign new data list
         else if (this.tblSearch != "") {
-            for (var i = 0; i < this.jobProfileListDetails.length; i++) {
-                if (this.jobProfileListDetails[i].officeName.includes(this.tblSearch) ||
-                    this.jobProfileListDetails[i].department.includes(this.tblSearch) ||
-                    this.jobProfileListDetails[i].section.includes(this.tblSearch) ||
-                    this.jobProfileListDetails[i].jobTitle.includes(this.tblSearch) ||
-                    this.jobProfileListDetails[i].jobType.includes(this.tblSearch) ||
-                    this.jobProfileListDetails[i].education.includes(this.tblSearch)) {
+            for (var i = 0; i < this.jobProfilesList.length; i++) {
+                if (this.jobProfilesList[i].officeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].department.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].jobTitle.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].jobType.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].education.toUpperCase().includes(this.tblSearch.toUpperCase())) {
                     this.excelDataList.push({
-                        OfficeName: this.jobProfileListDetails[i].officeName,
-                        Department: this.jobProfileListDetails[i].department,
-                        Section: this.jobProfileListDetails[i].section,
-                        JobTitle: this.jobProfileListDetails[i].jobTitle,
-                        JobType: this.jobProfileListDetails[i].jobType,
-                        Qty: this.jobProfileListDetails[i].quantity,
-                        Education: this.jobProfileListDetails[i].education,
-                        Experience: this.jobProfileListDetails[i].experience
+                        OfficeName: this.jobProfilesList[i].locationName,
+                        Department: this.jobProfilesList[i].deptName,
+                        JobTitle: this.jobProfilesList[i].jobDesigName,
+                        JobType: this.jobProfilesList[i].jobTypeName,
+                        Qty: this.jobProfilesList[i].quantity,
+                        Education: this.jobProfilesList[i].degree,
+                        Experience: this.jobProfilesList[i].experience
                     });
                 }
             }
@@ -1137,4 +1392,14 @@ export class JobprofileComponent implements OnInit {
     }
 
 
+
+    //=======
+
+    //function for sort table data 
+    setOrder(value: string) {
+        if (this.order === value) {
+            this.reverse = !this.reverse;
+        }
+        this.order = value;
+    }
 }

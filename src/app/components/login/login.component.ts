@@ -18,10 +18,15 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
+    //<<<<<<< HEAD
     serverUrl = "https://localhost:5001/";
 
     //serverUrl = "https://localhost:8008/";
     //serverUrl = "http://localhost:11664/";
+    //=======
+    //serverUrl = "http://192.168.200.52:1001/";
+    //serverUrl = "http://localhost:23145/";
+    //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
     //serverUrl = "http://192.168.200.19:3006/";
     tokenKey = "token";
 
@@ -71,9 +76,15 @@ export class LoginComponent implements OnInit {
 
                 if (data.msg == "Login Successfully!") {
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+
                     localStorage.setItem('userName', this.txtUserName);
                     localStorage.setItem('myActModNam', 'HR');
                     this.app.checkLogin('Yes');
+                    this.app.branchList = data.userDetail;
+                    this.app.locationId = data.userDetail[0].locationCd;
+                    this.app.cmpnyId = data.userDetail[0].cmpnyId;
+                    this.app.cmpnyName = data.userDetail[0].locationName;
+
                 } else {
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     $(".mat-form-field-underline").css("background-color", "red");
@@ -86,6 +97,22 @@ export class LoginComponent implements OnInit {
 
 
         }
+    }
+
+    getUserDetail(item) {
+
+        //var Token = localStorage.getItem(this.tokenKey);
+
+        //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+        this.http.get(this.serverUrl + 'api/getUserDept?empID=' + item, { headers: reqHeader }).subscribe((data: any) => {
+
+            //this.posts = data;
+            localStorage.setItem('deptCd', data[0].jobPostDeptCd);
+
+        });
+
     }
 
     getKeyPressed(e) {

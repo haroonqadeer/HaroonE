@@ -26,10 +26,7 @@ export class AttendanceComponent implements OnInit {
     var today = new Date();
 
     this.lblTime = today.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-    
-    // var network = Request.user;
-        // Show a pop up if it works
-        // alert(network.computerName);
+    // alert(require('getmac'));
   }
 
   saveAttendance(){
@@ -43,6 +40,8 @@ export class AttendanceComponent implements OnInit {
     } else {
       
       var saveData = {
+        empID: localStorage.getItem('userID'),
+        deptCd: localStorage.getItem('deptCd'),
         serverTime: this.lblTime,
         compMac: this.lblComputerName,
         inputOption: this.rdbInput,

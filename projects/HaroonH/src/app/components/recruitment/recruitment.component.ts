@@ -26,8 +26,8 @@ export interface Officer {
 })
 export class RecruitmentComponent implements OnInit {
 
-  serverUrl = "http://192.168.200.19:3014/";
-  //serverUrl = "http://localhost:3005/";
+  // serverUrl = "http://192.168.200.19:3014/";
+  serverUrl = "http://localhost:3005/";
 
   Line_chart: Chart;
 
@@ -69,6 +69,12 @@ export class RecruitmentComponent implements OnInit {
   lblJPLocCd = "";
   lblStepperID = 0;
   lblApplicantID = 0;
+  lblApplicantName = "";
+
+  interviewListCount = 0;
+  appointmentListCount = 0;
+  shortListInterviewCount = 0;
+  shortListTestCount = 0;
 
   vcncyList = [];
 
@@ -86,8 +92,11 @@ export class RecruitmentComponent implements OnInit {
   // For Appointment
   appointmentList = []
 
+  interviewDetailList = [];
 
+  skillDetailList = [];
 
+  
   constructor(
     private _formBuilder: FormBuilder,
     private toastr: ToastrManager,
@@ -97,47 +106,61 @@ export class RecruitmentComponent implements OnInit {
 
   ngOnInit() {
 
-    this.LineChart_init();
     this.getJobVcncy();
   }
 
   LineChart_init() {
 
-    // let chart = new Chart({
-    //   chart: {
-    //     type: 'line'
-    //   },
-    //   title: {
-    //     text: 'Graph'
-    //   },
-    //   xAxis: {
-    //     categories: ['English', 'VB.Net']
-    //   },
-    //   yAxis: {
-    //     title: {
-    //       text: 'Required Skills'
-    //     }
-    //   },
-    //   credits: {
-    //     enabled: false
-    //   },
-    //   series: [{
-    //     name: 'English',
-    //     data: [1, 4]
-    //   }, {
-    //     name: 'VB.Net',
-    //     data: [2, 5]
-    //   }]
-    // });
-    // this.Line_chart = chart;
+    var series1=[];
+    var qty=[];
+    
+    for (var i = 0; i < this.skillDetailList.length; i++) {
+      qty = [];
+      
+      qty.push(
+        this.skillDetailList[i].qlfctnCriteriaReqdLvl,
+        this.skillDetailList[i].qlfctnCriteriaMaxLvl
+      );
+      series1.push({
+        type:'line',
+        name: this.skillDetailList[i].qlfctnCriteriaName,
+        data: qty
+      });
+    }    
+
+    let chart = new Chart({
+      title: {
+        text: 'Graph'
+      },
+      xAxis: {
+        categories: ['English', 'VB.Net']
+      },
+      yAxis: {
+        title: {
+          text: 'Required Skills'
+        }
+      },
+      credits: {
+        enabled: false
+      },
+      series:series1
+    });
+    this.Line_chart = chart;
+  
   }
 
   getJobVcncy() {
+
+    this.app.showSpinner();
+
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     this.http.get(this.serverUrl + 'api/getVcncy', { headers: reqHeader }).subscribe((data: any) => {
 
       this.vcncyList = data;
+
+      this.app.hideSpinner();
+
     });
   }
 
@@ -343,6 +366,29 @@ export class RecruitmentComponent implements OnInit {
       }
     }
   }
+    
+  getSkillDetail(item, name){
+    
+    this.skillDetailList = [];
+    this.lblApplicantName = '';
+    
+    this.lblApplicantName = name;
+
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.get(this.serverUrl + 'api/getSkillDetail?applicantID=' + item, { headers: reqHeader }).subscribe((data: any) => {
+
+      this.skillDetailList = data;
+
+      this.LineChart_init();
+
+    });
+
+  }
+
   onVcncySelect(item) {
     this.clear();
 
@@ -356,10 +402,19 @@ export class RecruitmentComponent implements OnInit {
       }
     }
 
+    this.getAppointments(item);
+  }
+
+  getAppointments(item){
+
+    this.app.showSpinner();
+
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     //getting appointments data
     this.http.get(this.serverUrl + 'api/getRecPrcssAppointment?jPVcncyID=' + item, { headers: reqHeader }).subscribe((data: any) => {
+
+      this.appointmentListCount = data.length;
 
       for (var i = 0; i < data.length; i++) {
         var status = "";
@@ -381,14 +436,29 @@ export class RecruitmentComponent implements OnInit {
           appStatus: status
         });
       }
+
+      this.app.hideSpinner();
+
+      this.getInterviews(item, this.appointmentListCount);
     });
 
+  }
+
+  getInterviews(item, count){
+
+    this.app.showSpinner();
+
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    // alert(count);return;
     //getting Interviewers data
     this.http.get(this.serverUrl + 'api/getRecPrcssInterview?jPVcncyID=' + item, { headers: reqHeader }).subscribe((data: any) => {
 
+      this.interviewListCount = data.length;
+
       for (var i = 0; i < data.length; i++) {
         var status = "Waiting";
-        if (this.appointmentList.length == 0) {
+        if (count == 0) {
           this.interviewList.push({
             appID: data[i].applicantID,
             appName: data[i].fullName,
@@ -411,15 +481,29 @@ export class RecruitmentComponent implements OnInit {
         }
 
       }
+
+      this.app.hideSpinner();
+
+      this.getShortListInterview(item, this.interviewListCount);
+
     });
+    
+  }
+
+  getShortListInterview(item, count){
+
+    this.app.showSpinner();
+
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     //getting shortlisted for interview data
     this.http.get(this.serverUrl + 'api/getRecPrcssShrtLstInterview?jPVcncyID=' + item, { headers: reqHeader }).subscribe((data: any) => {
 
+      this.shortListInterviewCount = data.length;
       //this.applicantList = data;
       for (var i = 0; i < data.length; i++) {
         var status = "Waiting";
-        if (this.interviewList.length == 0) {
+        if (count == 0) {
           this.shortListInterview.push({
             appID: data[i].applicantID,
             appName: data[i].fullName,
@@ -444,7 +528,20 @@ export class RecruitmentComponent implements OnInit {
         }
 
       }
+
+      this.app.hideSpinner();
+
+      this.getTest(item, this.shortListInterviewCount);
+
     });
+
+  }
+
+  getTest(item, count){
+
+    this.app.showSpinner();
+
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     //getting applicants test data
     this.http.get(this.serverUrl + 'api/getRecPrcssTest?jPVcncyID=' + item, { headers: reqHeader }).subscribe((data: any) => {
@@ -459,7 +556,7 @@ export class RecruitmentComponent implements OnInit {
           testThrough = "Web";
         }
 
-        if (this.shortListInterview.length == 0) {
+        if (count == 0) {
           this.testList.push({
             appID: data[i].applicantID,
             appName: data[i].fullName,
@@ -486,10 +583,24 @@ export class RecruitmentComponent implements OnInit {
         }
       }
 
+      this.app.hideSpinner();
+
+      this.getShorListTest(item);
+
     });
+
+  }
+
+  getShorListTest(item){
+
+    this.app.showSpinner();
+
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     //getting shortlist for test data
     this.http.get(this.serverUrl + 'api/getRecPrcssShrtLstTest?jPVcncyID=' + item, { headers: reqHeader }).subscribe((data: any) => {
+
+      this.shortListTestCount = data.length;
 
       for (var i = 0; i < data.length; i++) {
         var status = "";
@@ -506,37 +617,128 @@ export class RecruitmentComponent implements OnInit {
           appStatus: status
         });
       }
+
+      this.app.hideSpinner();
+
+      this.getInitialScreening(item, this.shortListTestCount);
     });
+
+  }
+
+  getInitialScreening(item, count){
+
+    this.app.showSpinner();
+
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     //getting initial screening data
     this.http.get(this.serverUrl + 'api/getRecPrcssApp?jPVcncyID=' + item, { headers: reqHeader }).subscribe((data: any) => {
 
       this.procList = data;
       for (var i = 0; i < data.length; i++) {
-        var status = "";
+        var status = "Waiting";
         if (data[i].match != "FAIL") {
-          for (var j = 0; j < this.shortListTest.length; j++) {
-            if (this.procList[i].applcntID == this.shortListTest[j].appID) {
-              status = "ShortList";
-              j = this.shortListTest.length + 1;
-            } else {
-              status = "Waiting";
+          if(count != 0){
+            for (var j = 0; j < this.shortListTest.length; j++) {
+              if (this.procList[i].applcntID == this.shortListTest[j].appID) {
+                status = "ShortList";
+                j = this.shortListTest.length + 1;
+              } else {
+                status = "Waiting";
+              }
             }
+            this.applicantList.push({
+              jobPostVcncyID: data[i].jobPostVcncyID,
+              appID: data[i].applcntID,
+              appName: data[i].indvdlFullName,
+              receivedOn: data[i].receivedDate,
+              appMatch: data[i].match,
+              appStatus: status
+            });
           }
-          this.applicantList.push({
-            jobPostVcncyID: data[i].jobPostVcncyID,
-            appID: data[i].applcntID,
-            appName: data[i].indvdlFullName,
-            receivedOn: data[i].receivedDate,
-            appMatch: data[i].match,
-            appStatus: status
-          });
         }
       }
+
+      this.app.hideSpinner();
+
     });
 
   }
 
+  getInterviewDetail(item){
+    
+    this.interviewDetailList = [];
+    this.lblApplicantID = item;
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.get(this.serverUrl + 'api/getInterviewPanel?jPVcncyID=' + localStorage.getItem('jobPostVcncyID'), { headers: reqHeader }).subscribe((data: any) => {
+
+      //this.interviewDetailList = data;
+
+      for(var i = 0; i < data.length; i++){
+        this.interviewDetailList.push({
+          actlPrcssEmpID: data[i].actlPrcssEmpID,
+          indvdlFullName: data[i].indvdlFullName,
+          jobDesigName: data[i].jobDesigName,
+          payGradeName: data[i].payGradeName,
+          jobDesigID: data[i].jobDesigID,
+          jobPostVcncyID: data[i].jobPostVcncyID,
+          jobPostDeptCd: data[i].jobPostDeptCd,
+          jobPostLocationCd: data[i].jobPostLocationCd,
+          apprvngPrcssCd: data[i].apprvngPrcssCd,
+          marks: data[i].marks
+        });
+      }
+
+    });
+
+  }
+
+  saveInterviewMarks(){
+    
+    if(this.interviewDetailList.length == 0){
+      this.toastr.errorToastr('No Record Found!', 'Error!', { toastTimeout: (2500) });
+      return;
+    }else{
+
+      for(var i=0;i<this.interviewDetailList.length;i++){
+        if(this.interviewDetailList[i].marks == '' || this.interviewDetailList[i].marks == 0){
+          this.toastr.errorToastr('Please Enter Marks!', 'Error!', { toastTimeout: (2500) });
+          return;
+        }
+      }
+
+      var saveData = {
+        interviewDetail: JSON.stringify(this.interviewDetailList),
+        applcntID: this.lblApplicantID,
+        jobPostVcncyID: localStorage.getItem('jobPostVcncyID')
+      };
+
+      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+      this.http.post(this.serverUrl + 'api/saveInterviewDetail', saveData, { headers: reqHeader }).subscribe((data: any) => {
+
+        if (data.msg == "Record Saved Successfully!") {
+          this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+          this.clear();
+          $('#interviewModal').modal('hide');
+          //this.app.hideSpinner();
+          this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
+          return false;
+        } else {
+          this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+          //$('#companyModal').modal('hide');
+          //this.app.hideSpinner();
+          return false;
+        }
+      });
+
+    }
+
+  }
   clear() {
     this.lblApplicantID = 0;
     this.lblStepperID = 0;

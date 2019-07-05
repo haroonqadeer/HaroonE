@@ -165,6 +165,10 @@ export class YearcalendarComponent implements OnInit {
         this.Sunday == '') {
       this.toastr.errorToastr('Please Select Weekend!', 'Error', { toastTimeout: (2500) });
       return;
+    }  
+    else if (this.txtRemarks == '') {
+      this.toastr.errorToastr('Please Enter Remarks', 'Error', { toastTimeout: (2500) });
+      return false;
     }else{
       
       var saveData = {

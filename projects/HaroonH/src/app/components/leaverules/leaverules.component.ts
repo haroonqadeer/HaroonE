@@ -57,7 +57,6 @@ export class LeaverulesComponent implements OnInit {
 
     leaveRuleId;
 
-    dateApplied;
     leaveType;
     leaveNature;
     leaveLimit;
@@ -161,18 +160,13 @@ export class LeaverulesComponent implements OnInit {
     }
 
 
-
     //Function for save and update leave Type 
     save() {
 
         var limitType = parseInt(this.limitType);
         var leaveLimit = parseInt(this.leaveLimit);
 
-        if (this.dateApplied == '') {
-            this.toastr.errorToastr('Please enter date', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else if (this.leaveType == '') {
+        if (this.leaveType == '') {
             this.toastr.errorToastr('Please enter leave type', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -220,9 +214,8 @@ export class LeaverulesComponent implements OnInit {
                     "DdctnSubTypeCd": 1,
                     "LeaveCalcMthdCd": 1,
                     "LeaveLmtAmoUNt": leaveLimit,
-                    "ConnectedUser": "3",
-                    "DelFlag": 0,
-                    "DelStatus": "No"
+                    "ConnectedUser": this.app.empId,
+                    "DelFlag": 0
                 };
 
                 //var token = localStorage.getItem(this.tokenKey);
@@ -231,7 +224,7 @@ export class LeaverulesComponent implements OnInit {
 
                 var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-                this.http.put(this.serverUrl + 'api/updateLeaveRule', updateData, { headers: reqHeader }).subscribe((data: any) => {
+                this.http.post(this.serverUrl + 'api/saveLeaveRule', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Updated Successfully!") {
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
@@ -250,6 +243,7 @@ export class LeaverulesComponent implements OnInit {
 
                 //* ********************************************save data 
                 var saveData = {
+                    "LeaveRuleID": 0,
                     "LeaveTypeCd": this.leaveType,
                     "LeaveNatureCd": this.leaveNature,
                     "LeaveLmtCd": limitType,
@@ -257,9 +251,8 @@ export class LeaverulesComponent implements OnInit {
                     "DdctnSubTypeCd": 1,
                     "LeaveCalcMthdCd": 1,
                     "LeaveLmtAmoUNt": leaveLimit,
-                    "ConnectedUser": "2",
-                    "DelFlag": 0,
-                    "DelStatus": "No"
+                    "ConnectedUser": this.app.empId,
+                    "DelFlag": 0
                 };
 
                 //var token = localStorage.getItem(this.tokenKey);
@@ -275,7 +268,6 @@ export class LeaverulesComponent implements OnInit {
                         return false;
                     } else {
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                        $('#newRuleModal').modal('hide');
                         this.getLeaveRules();
                         return false;
                     }
@@ -329,9 +321,15 @@ export class LeaverulesComponent implements OnInit {
             var updateData = {
 
                 "LeaveRuleID": this.leaveRuleId,
-                "ConnectedUser": "4",
-                "DelFlag": 1,
-                "DelStatus": "Yes"
+                "LeaveTypeCd": 0,
+                "LeaveNatureCd": 0,
+                "LeaveLmtCd": 0,
+                "DdctnTypeCd": 1,
+                "DdctnSubTypeCd": 1,
+                "LeaveCalcMthdCd": 1,
+                "LeaveLmtAmoUNt": 0,
+                "ConnectedUser": this.app.empId,
+                "DelFlag": 1
             };
 
             //var token = localStorage.getItem(this.tokenKey);
@@ -340,7 +338,7 @@ export class LeaverulesComponent implements OnInit {
 
             var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-            this.http.put(this.serverUrl + 'api/updateLeaveRule', updateData, { headers: reqHeader }).subscribe((data: any) => {
+            this.http.post(this.serverUrl + 'api/saveLeaveRule', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Deleted Successfully!") {
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
@@ -363,7 +361,6 @@ export class LeaverulesComponent implements OnInit {
         this.updateFlag = false;
 
         this.leaveRuleId = '';
-        this.dateApplied = '';
         this.leaveType = '';
         this.leaveNature = '';
         this.leaveLimit = '';
@@ -433,6 +430,7 @@ export class LeaverulesComponent implements OnInit {
             frame1.remove();
         }, 500);
     }
+    // <<<<<<< HEAD
 
 
     downloadPDF() { }
@@ -525,4 +523,6 @@ export class LeaverulesComponent implements OnInit {
     }
 
 
+    // =======
+    // >>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
 }

@@ -22,8 +22,8 @@ declare var $: any;
 })
 export class LeavetypeComponent implements OnInit {
 
-    // serverUrl = "http://localhost:25986/";
-    serverUrl = "http://192.168.200.19:3005/";
+    serverUrl = "http://localhost:25986/";
+    //serverUrl = "http://192.168.200.19:3005/";
     tokenKey = "token";
 
 
@@ -134,11 +134,10 @@ export class LeavetypeComponent implements OnInit {
                 //* ********************************************update data 
                 var updateData = {
                     "LeaveTypeCd": this.leaveTypeId,
-                    "LeaveTypeName": this.leaveType,
-                    "LeaveTypeDesc": this.leaveDescription,
-                    "ConnectedUser": "2",
-                    "DelFlag": 0,
-                    "DelStatus": "No"
+                    "LeaveTypeName": this.leaveType.trim(),
+                    "LeaveTypeDesc": this.leaveDescription.trim(),
+                    "ConnectedUser": this.app.empId,
+                    "DelFlag": 0
                 };
 
                 //var token = localStorage.getItem(this.tokenKey);
@@ -147,7 +146,7 @@ export class LeavetypeComponent implements OnInit {
 
                 var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-                this.http.put(this.serverUrl + 'api/updateLeaveType', updateData, { headers: reqHeader }).subscribe((data: any) => {
+                this.http.post(this.serverUrl + 'api/saveLeaveType', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Updated Successfully!") {
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
@@ -166,11 +165,11 @@ export class LeavetypeComponent implements OnInit {
 
                 //* ********************************************save data 
                 var saveData = {
-                    "LeaveTypeName": this.leaveType,
-                    "LeaveTypeDesc": this.leaveDescription,
-                    "ConnectedUser": "2",
-                    "DelFlag": 0,
-                    "DelStatus": "No"
+                    "LeaveTypeCd": 0,
+                    "LeaveTypeName": this.leaveType.trim(),
+                    "LeaveTypeDesc": this.leaveDescription.trim(),
+                    "ConnectedUser": this.app.empId,
+                    "DelFlag": 0
                 };
 
                 //var token = localStorage.getItem(this.tokenKey);
@@ -235,12 +234,11 @@ export class LeavetypeComponent implements OnInit {
 
             //* ********************************************update data 
             var updateData = {
-                "LeaveTypeCd": this.leaveTypeId,
+                "LeaveTypeCd":  this.leaveTypeId,
                 "LeaveTypeName": null,
                 "LeaveTypeDesc": null,
-                "ConnectedUser": "3",
-                "DelFlag": 1,
-                "DelStatus": "Yes"
+                "ConnectedUser": this.app.empId,
+                "DelFlag": 1
             };
 
             //var token = localStorage.getItem(this.tokenKey);
@@ -249,7 +247,7 @@ export class LeavetypeComponent implements OnInit {
 
             var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-            this.http.put(this.serverUrl + 'api/updateLeaveType', updateData, { headers: reqHeader }).subscribe((data: any) => {
+            this.http.post(this.serverUrl + 'api/saveLeaveType', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Deleted Successfully!") {
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
@@ -286,11 +284,10 @@ export class LeavetypeComponent implements OnInit {
                 //* ********************************************update data 
                 var updateData = {
                     "LeaveNatureCd": this.leaveNatureId,
-                    "LeaveNatureName": this.leaveNature,
-                    "LeaveNatureDesc": this.natureDescription,
-                    "ConnectedUser": "2",
-                    "DelFlag": 0,
-                    "DelStatus": "No"
+                    "LeaveNatureName": this.leaveNature.trim(),
+                    "LeaveNatureDesc": this.natureDescription.trim(),
+                    "ConnectedUser": this.app.empId,
+                    "DelFlag": 0
                 };
 
                 //var token = localStorage.getItem(this.tokenKey);
@@ -299,7 +296,7 @@ export class LeavetypeComponent implements OnInit {
 
                 var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-                this.http.put(this.serverUrl + 'api/updateLeaveNature', updateData, { headers: reqHeader }).subscribe((data: any) => {
+                this.http.post(this.serverUrl + 'api/saveLeaveNature', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Updated Successfully!") {
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
@@ -318,11 +315,11 @@ export class LeavetypeComponent implements OnInit {
 
                 //* ********************************************save data 
                 var saveData = {
-                    "LeaveNatureName": this.leaveNature,
-                    "LeaveNatureDesc": this.natureDescription,
-                    "ConnectedUser": "2",
-                    "DelFlag": 0,
-                    "DelStatus": "No"
+                    "LeaveNatureCd": 0,
+                    "LeaveNatureName": this.leaveNature.trim(),
+                    "LeaveNatureDesc": this.natureDescription.trim(),
+                    "ConnectedUser": this.app.empId,
+                    "DelFlag": 0
                 };
 
                 //var token = localStorage.getItem(this.tokenKey);
@@ -338,7 +335,6 @@ export class LeavetypeComponent implements OnInit {
                         return false;
                     } else {
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                        $('#leaveNatureModal').modal('hide');
                         this.getLeaveNature();
                         return false;
                     }
@@ -392,9 +388,8 @@ export class LeavetypeComponent implements OnInit {
                 "LeaveNatureCd": this.leaveNatureId,
                 "LeaveNatureName": null,
                 "LeaveNatureDesc": null,
-                "ConnectedUser": "3",
-                "DelFlag": 1,
-                "DelStatus": "Yes"
+                "ConnectedUser": this.app.empId,
+                "DelFlag": 1
             };
 
             //var token = localStorage.getItem(this.tokenKey);
@@ -403,7 +398,7 @@ export class LeavetypeComponent implements OnInit {
 
             var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-            this.http.put(this.serverUrl + 'api/updateLeaveNature', updateData, { headers: reqHeader }).subscribe((data: any) => {
+            this.http.post(this.serverUrl + 'api/saveLeaveNature', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Deleted Successfully!") {
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
