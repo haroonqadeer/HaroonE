@@ -1,10 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
 
+import {
+    IgxExcelExporterOptions,
+    IgxExcelExporterService,
+    IgxGridComponent,
+    IgxCsvExporterService,
+    IgxCsvExporterOptions,
+    CsvFileTypes
+} from "igniteui-angular";
 
 declare var $: any;
 
@@ -22,6 +30,7 @@ export class LeaverulesComponent implements OnInit {
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
+
 
     //*Bolean variable 
     updateFlag = false;
@@ -57,11 +66,11 @@ export class LeaverulesComponent implements OnInit {
     txtdPin = '';
 
 
-    constructor(
-        private toastr: ToastrManager,
-        private http: HttpClient,
-        private app: AppComponent
-    ) { }
+    constructor(public toastr: ToastrManager,
+        private app: AppComponent,
+        private excelExportService: IgxExcelExporterService,
+        private csvExportService: IgxCsvExporterService,
+        private http: HttpClient) { }
 
     ngOnInit() {
 
@@ -70,6 +79,8 @@ export class LeaverulesComponent implements OnInit {
         this.getLeaveLimitType();
         this.getLeaveRules();
     }
+
+    @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
 
     //function for get all saved leave rules 
@@ -419,4 +430,99 @@ export class LeaverulesComponent implements OnInit {
             frame1.remove();
         }, 500);
     }
+    // <<<<<<< HEAD
+
+
+    downloadPDF() { }
+
+
+    downloadCSV() {
+        //alert('CSV works');
+        // case 1: When tblSearch is empty then assign full data list
+        if (this.tblSearch == "") {
+            var completeDataList = [];
+            for (var i = 0; i < this.leaveRuleList.length; i++) {
+                //alert(this.tblSearch + " - " + this.skillCriteriaList[i].departmentName)
+                completeDataList.push({
+                    LeaveType: this.leaveRuleList[i].leaveTypeName,
+                    Nature: this.leaveRuleList[i].leaveNatureName,
+                    Limit: this.leaveRuleList[i].leaveLmtAmoUNt,
+                    Per_Month_Annual: this.leaveRuleList[i].leaveLmtName
+                });
+            }
+            this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("LeaveRulesCompleteCSV", CsvFileTypes.CSV));
+        }
+        // case 2: When tblSearch is not empty then assign new data list
+        else if (this.tblSearch != "") {
+            var filteredDataList = [];
+            for (var i = 0; i < this.leaveRuleList.length; i++) {
+                if (this.leaveRuleList[i].leaveTypeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.leaveRuleList[i].leaveNatureName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.leaveRuleList[i].leaveLmtName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.leaveRuleList[i].leaveLmtAmoUNt == this.tblSearch) {
+                    filteredDataList.push({
+                        LeaveType: this.leaveRuleList[i].leaveTypeName,
+                        Nature: this.leaveRuleList[i].leaveNatureName,
+                        Limit: this.leaveRuleList[i].leaveLmtAmoUNt,
+                        Per_Month_Annual: this.leaveRuleList[i].leaveLmtName
+                    });
+                }
+            }
+
+            if (filteredDataList.length > 0) {
+                this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("LeaveRulesFilterCSV", CsvFileTypes.CSV));
+            } else {
+                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+            }
+        }
+    }
+
+
+    downloadExcel() {
+        //alert('Excel works');
+        // case 1: When tblSearch is empty then assign full data list
+        if (this.tblSearch == "") {
+            //var completeDataList = [];
+            for (var i = 0; i < this.leaveRuleList.length; i++) {
+                this.excelDataList.push({
+                    LeaveType: this.leaveRuleList[i].leaveTypeName,
+                    Nature: this.leaveRuleList[i].leaveNatureName,
+                    Limit: this.leaveRuleList[i].leaveLmtAmoUNt,
+                    Per_Month_Annual: this.leaveRuleList[i].leaveLmtName
+                });
+            }
+            this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("LeaveRulesCompleteExcel"));
+            this.excelDataList = [];
+        }
+        // case 2: When tblSearch is not empty then assign new data list
+        else if (this.tblSearch != "") {
+            for (var i = 0; i < this.leaveRuleList.length; i++) {
+                if (this.leaveRuleList[i].leaveTypeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.leaveRuleList[i].leaveNatureName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.leaveRuleList[i].leaveLmtName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.leaveRuleList[i].leaveLmtAmoUNt == this.tblSearch) {
+                    this.excelDataList.push({
+                        LeaveType: this.leaveRuleList[i].leaveTypeName,
+                        Nature: this.leaveRuleList[i].leaveNatureName,
+                        Limit: this.leaveRuleList[i].leaveLmtAmoUNt,
+                        Per_Month_Annual: this.leaveRuleList[i].leaveLmtName
+                    });
+                }
+            }
+
+            if (this.excelDataList.length > 0) {
+                //alert("Filter List " + this.excelDataList.length);
+
+                this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("LeaveRulesFilterExcel"));
+                this.excelDataList = [];
+            }
+            else {
+                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+            }
+        }
+    }
+
+
+    // =======
+    // >>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
 }

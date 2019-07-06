@@ -1,9 +1,20 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
+//<<<<<<< HEAD
+import {
+  IgxExcelExporterOptions,
+  IgxExcelExporterService,
+  IgxGridComponent,
+  IgxCsvExporterService,
+  IgxCsvExporterOptions,
+  CsvFileTypes
+} from "igniteui-angular";
+//=======
 import { AppComponent } from 'src/app/app.component';
+//>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
 
 declare var $: any;
 
@@ -16,10 +27,20 @@ declare var $: any;
 })
 export class PostComponent implements OnInit {
 
+// <<<<<<< HEAD
   serverUrl = "http://localhost:9013/";
+// =======
+  //<<<<<<< HEAD
+  // serverUrl = "http://localhost:26880/";
+  //serverUrl = "http://192.168.200.19:3003/";
+  // serverUrl = "https://localhost:3001/";
+  //=======
+  //serverUrl = "http://localhost:3001/";
+// >>>>>>> 6baa61dccfa396920caf44af3017542ec596dd83
   // serverUrl = "http://192.168.200.19:3003/";
+  //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
 
-  //ngprime organization chart 
+  //ngprime organization chart
   data1: TreeNode[];
 
   selectedNode: TreeNode;
@@ -75,6 +96,8 @@ export class PostComponent implements OnInit {
 
   public chartData = []
 
+  //* Excel Data List
+  excelDataList = [];
 
   //* variables for pagination and orderby pipe
   p = 1;
@@ -88,8 +111,10 @@ export class PostComponent implements OnInit {
   //itemPerPageGroup = '5';
 
 
-  constructor(private toastr: ToastrManager,
+  constructor(public toastr: ToastrManager,
     private app: AppComponent,
+    private excelExportService: IgxExcelExporterService,
+    private csvExportService: IgxCsvExporterService,
     private http: HttpClient) { }
 
   ngOnInit() {
@@ -100,27 +125,33 @@ export class PostComponent implements OnInit {
     this.getJobNature();
   }
 
-  // onNodeSelect(event) {
+  //<<<<<<< HEAD
+  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
-  //   // this.clearPost();
+  onNodeSelect(event) {
+    //=======
+    // onNodeSelect(event) {
+    //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
 
-  //   // this.orgChartDesigName = event.node.label;
-  //   //alert(event.node.label)
-  //   //alert(this.chartData.length)
-  //   for (var i = 0; i < this.chartData.length; i++) {
-  //     if (this.orgChartDesigName == this.chartData[i].jobDesigName) {
-  //       this.orgChartBPSCd = String(this.chartData[i].payGradeCd);
-  //       this.orgChartDesigID = String(this.chartData[i].jobDesigID);
-  //       this.orgChartDeptCd = String(this.chartData[i].jobPostDeptCd);
+    //   // this.clearPost();
 
-  //       i = this.chartData.length + 1;
-  //     }
+    //   // this.orgChartDesigName = event.node.label;
+    //   //alert(event.node.label)
+    //   //alert(this.chartData.length)
+    //   for (var i = 0; i < this.chartData.length; i++) {
+    //     if (this.orgChartDesigName == this.chartData[i].jobDesigName) {
+    //       this.orgChartBPSCd = String(this.chartData[i].payGradeCd);
+    //       this.orgChartDesigID = String(this.chartData[i].jobDesigID);
+    //       this.orgChartDeptCd = String(this.chartData[i].jobPostDeptCd);
 
-  //   }
+    //       i = this.chartData.length + 1;
+    //     }
 
-  //   $('#jobModal').modal('show');
+    //   }
 
-  // }
+    //   $('#jobModal').modal('show');
+
+  }
 
   onDeptChange(item) {
 
@@ -132,7 +163,7 @@ export class PostComponent implements OnInit {
 
       this.sections = data;
     });
-    
+
     this.http.get(this.serverUrl + 'api/getDeptJobDesignation?deptCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
 
       this.jobPost = data;
@@ -157,12 +188,12 @@ export class PostComponent implements OnInit {
     //   this.cmbPost = true;
     //   this.btnAddPost = true;
 
-      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-      this.http.get(this.serverUrl + 'api/getDeptJobDesignation?deptCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get(this.serverUrl + 'api/getDeptJobDesignation?deptCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
 
-        this.jobPost = data;
-      });
+      this.jobPost = data;
+    });
     // } else {
     //   this.cmbPost = false;
     //   this.btnAddPost = false;
@@ -314,22 +345,22 @@ export class PostComponent implements OnInit {
   //   }
   // }
 
-  onJobChange(item){
-    
-      for(var i = 0; i < this.jobPost.length; i++){
-        if(item == this.jobPost[i].jobDesigID){
-          this.lblJobDeptCd = this.jobPost[i].jobPostDeptCd;
-          i = this.jobPost.length + 1;
-        }
+  onJobChange(item) {
+
+    for (var i = 0; i < this.jobPost.length; i++) {
+      if (item == this.jobPost[i].jobDesigID) {
+        this.lblJobDeptCd = this.jobPost[i].jobPostDeptCd;
+        i = this.jobPost.length + 1;
       }
-      
+    }
+
   }
 
-  editPost(item){
-    
+  editPost(item) {
+
     this.lblDeptCd = "";
     this.lblLocCd = "";
-    
+
     this.lblDeptCd = item.locCd;
     this.lblLocCd = item.deptCd;
 
@@ -345,8 +376,8 @@ export class PostComponent implements OnInit {
 
   }
 
-  updatePost(item){
-    
+  updatePost(item) {
+
     var saveData = {
       jobDesigName: item.jobDesigName,
       jobDesigID: item.jobDesigID
@@ -373,8 +404,8 @@ export class PostComponent implements OnInit {
     });
 
   }
-  
-  deletePost(item){
+
+  deletePost(item) {
 
     var saveData = {
       jobPostDeptCd: this.lblDeptCd,
@@ -407,7 +438,7 @@ export class PostComponent implements OnInit {
   save() {
 
     var bpsJobPost = 0;
-    
+
     if (this.officeName == '') {
       this.toastr.errorToastr('Please select Office', 'Error', { toastTimeout: (2500) });
       return;
@@ -432,7 +463,7 @@ export class PostComponent implements OnInit {
     } else {
 
       if (this.sectionName == '') {
-        
+
         if (this.jobPostName == '') {
 
           var saveData = {
@@ -464,18 +495,18 @@ export class PostComponent implements OnInit {
             }
           });
 
-        }else{
+        } else {
           for (var i = 0; i < this.jobPost.length; i++) {
             if (this.jobPostName == this.jobPost[i].jobDesigID) {
-            bpsJobPost = this.jobPost[i].payGradeCd;
+              bpsJobPost = this.jobPost[i].payGradeCd;
             }
           }
-    
+
           if (bpsJobPost <= parseInt(this.BPS)) {
             this.toastr.errorToastr('BPS is Greater than Old Post BPS', 'Error', { toastTimeout: (2500) });
             return;
           }
-        
+
           var savedata = {
             jobTypeCd: this.jobType,
             jobNatureCd: this.jobNature,
@@ -507,13 +538,13 @@ export class PostComponent implements OnInit {
             }
           });
         }
-        
+
       } else {
 
-        if(this.jobPostName==''){
+        if (this.jobPostName == '') {
           this.toastr.errorToastr('Please select Job Designation', 'Error', { toastTimeout: (2500) });
           return;
-        }else{
+        } else {
           for (var i = 0; i < this.jobPost.length; i++) {
             if (this.jobPostName == this.jobPost[i].jobDesigID) {
               bpsJobPost = this.jobPost[i].payGradeCd;
@@ -608,6 +639,7 @@ export class PostComponent implements OnInit {
     this.designation = '';
 
   }
+
   printDiv() {
 
     // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
@@ -660,7 +692,7 @@ export class PostComponent implements OnInit {
     }, 500);
   }
 
-  downPDF() {
+  downloadPDF() {
     // let doc = new jsPDF();
     // let specialElementHandlers = {
     //   '#editor': function (element, renderer) {
@@ -676,106 +708,107 @@ export class PostComponent implements OnInit {
   }
 
 
-  //For CSV File 
-  public downloadCSV() {
-    // case 1: When userSearch is empty then assign full data list
-    // if (this.userSearch == "") {
-    //   var completeDataList = [];
-    //   for (var i = 0; i < this.userData.length; i++) {
-    //     completeDataList.push({
-    //       userName: this.userData[i].uName,
-    //       email: this.userData[i].uEmail,
-    //       role: this.userData[i].uRole,
-    //       userSince: this.userData[i].uSince,
-    //       lastLogin: this.userData[i].lastLogin
-    //     });
-    //   }
-    //   this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("UserProfileCompleteCSV", CsvFileTypes.CSV));
-    // }
-    // // case 2: When userSearch is not empty then assign new data list
-    // else if (this.userSearch != "") {
-    //   var filteredDataList = [];
-    //   for (var i = 0; i < this.userData.length; i++) {
+  //For CSV
+  downloadCSV() {
+    //alert('CSV works');
 
-    //     if (this.userData[i].uName.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].uEmail.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].uRole.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].uSince.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].lastLogin.toUpperCase().includes(this.userSearch.toUpperCase())) {
-    //       filteredDataList.push({
-    //         userName: this.userData[i].uName,
-    //         email: this.userData[i].uEmail,
-    //         role: this.userData[i].uRole,
-    //         userSince: this.userData[i].uSince,
-    //         lastLogin: this.userData[i].lastLogin
-    //       });
-    //     }
-    //   }
+    // case 1: When postSearch is empty then assign full data list
+    if (this.postSearch == "") {
+      var completeDataList = [];
+      for (var i = 0; i < this.posts.length; i++) {
+        //alert(this.postSearch + " - " + this.skillCriteriaList[i].departmentName)
+        completeDataList.push({
+          Office: this.posts[i].office,
+          Department: this.posts[i].department,
+          Section: this.posts[i].section,
+          JobTitle: this.posts[i].designation,
+          Quantity: this.posts[i].desigCount
+        });
+      }
+      this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("postCompleteCSV", CsvFileTypes.CSV));
+    }
 
-    //   if (filteredDataList.length > 0) {
-    //     this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("UserProfileFilterCSV", CsvFileTypes.CSV));
-    //   }
-    //   else {
-    //     this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
-    //   }
-    // }
+    // case 2: When postSearch is not empty then assign new data list
+    else if (this.postSearch != "") {
+      var filteredDataList = [];
+      for (var i = 0; i < this.posts.length; i++) {
+        if (this.posts[i].office.toUpperCase().includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].department.toUpperCase().includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].section.toUpperCase().includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].designation.toUpperCase().includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].desigCount == this.postSearch) {
+          filteredDataList.push({
+            Office: this.posts[i].office,
+            Department: this.posts[i].department,
+            Section: this.posts[i].section,
+            JobTitle: this.posts[i].designation,
+            Quantity: this.posts[i].desigCount
+          });
+        }
+      }
+
+      if (filteredDataList.length > 0) {
+        this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("postFilterCSV", CsvFileTypes.CSV));
+      } else {
+        this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+      }
+    }
   }
 
 
-  //For Exce File
-  public downloadExcel() {
-    // case 1: When userSearch is empty then assign full data list
-    // if (this.userSearch == "") {
-    //   for (var i = 0; i < this.userData.length; i++) {
-    //     this.excelDataList.push({
-    //       userName: this.userData[i].uName,
-    //       email: this.userData[i].uEmail,
-    //       role: this.userData[i].uRole,
-    //       userSince: this.userData[i].uSince,
-    //       lastLogin: this.userData[i].lastLogin
-    //     });
-    //   }
+  downloadExcel() {
+    //alert('Excel works');
+    // case 1: When postSearch is empty then assign full data list
+    if (this.postSearch == "") {
+      //var completeDataList = [];
+      for (var i = 0; i < this.posts.length; i++) {
+        this.excelDataList.push({
+          Office: this.posts[i].office,
+          Department: this.posts[i].department,
+          Section: this.posts[i].section,
+          JobTitle: this.posts[i].designation,
+          Quantity: this.posts[i].desigCount
+        });
+      }
+      this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("postCompleteExcel"));
+      this.excelDataList = [];
+    }
+    // case 2: When postSearch is not empty then assign new data list
+    else if (this.postSearch != "") {
+      for (var i = 0; i < this.posts.length; i++) {
+        if (this.posts[i].office.toUpperCase().includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].department.toUpperCase().includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].section.toUpperCase().includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].designation.toUpperCase().includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].desigCount == this.postSearch) {
+          this.excelDataList.push({
+            Office: this.posts[i].office,
+            Department: this.posts[i].department,
+            Section: this.posts[i].section,
+            JobTitle: this.posts[i].designation,
+            Quantity: this.posts[i].desigCount
+          });
+        }
+      }
 
-    //   this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("UserProfileCompleteExcel"));
-    //   this.excelDataList = [];
-    // }
-    // // case 2: When userSearch is not empty then assign new data list
-    // else if (this.userSearch != "") {
+      if (this.excelDataList.length > 0) {
+        //alert("Filter List " + this.excelDataList.length);
 
-    //   for (var i = 0; i < this.userData.length; i++) {
-    //     if (this.userData[i].uName.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].uEmail.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].uRole.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].uSince.toUpperCase().includes(this.userSearch.toUpperCase()) ||
-    //       this.userData[i].lastLogin.toUpperCase().includes(this.userSearch.toUpperCase())) {
-    //       this.excelDataList.push({
-    //         userName: this.userData[i].uName,
-    //         email: this.userData[i].uEmail,
-    //         role: this.userData[i].uRole,
-    //         userSince: this.userData[i].uSince,
-    //         lastLogin: this.userData[i].lastLogin
-    //       });
-    //     }
-    //   }
-
-    //   if (this.excelDataList.length > 0) {
-
-    //     this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("UserProfileFilterExcel"));
-    //     this.excelDataList = [];
-
-    //   }
-    //   else {
-    //     this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
-    //   }
-    // }
+        this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("postFilterExcel"));
+        this.excelDataList = [];
+      }
+      else {
+        this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+      }
+    }
   }
 
-  //function for sort table data 
+  //function for sort table data
   setOrder(value: string) {
     if (this.order === value) {
-        this.reverse = !this.reverse;
+      this.reverse = !this.reverse;
     }
     this.order = value;
   }
-  
+
 }

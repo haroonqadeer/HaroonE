@@ -20,17 +20,17 @@
             </span>
             <h1>Leave Types</h1>
 
-            <a class="pointerCursor">
+            <a class="pointerCursor" (click)="downloadExcelType()">
               <i class="fa fa-file-excel-o"></i>
               Excel
             </a>
 
-            <a class="pointerCursor">
+            <a class="pointerCursor" (click)="downloadCSVType()">
               <i class="fa fa-file-text-o"></i>
               CSV
             </a>
 
-            <a class="pointerCursor">
+            <a class="pointerCursor" (click)="downloadPDFType()">
               <i class="fa fa-file-pdf-o"></i>
               PDF
             </a>
@@ -137,17 +137,17 @@
               </span>
               <h1>Leave Natures</h1>
 
-            <a class="pointerCursor">
+            <a class="pointerCursor" (click)="downloadExcelNature()">
               <i class="fa fa-file-excel-o"></i>
               Excel
             </a>
 
-            <a class="pointerCursor">
+            <a class="pointerCursor" (click)="downloadCSVNature()">
               <i class="fa fa-file-text-o"></i>
               CSV
             </a>
 
-            <a class="pointerCursor">
+            <a class="pointerCursor" (click)="downloadPDFNature()">
               <i class="fa fa-file-pdf-o"></i>
               PDF
             </a>
@@ -296,6 +296,11 @@
 </div>
 <!-- Hidden Table for Print and PDF files ends-->
 
+<!-- Hidden Table Starts for Excel and CSV files -->
+<igx-grid #excelDataContentType [data]="excelDataListType" [autoGenerate]="false" height="null" width="null"
+  [hidden]="true">
+</igx-grid>
+<!-- Hidden Table Ends  for Excel and CSV files -->
 
 <!-- Hidden Table for Print and PDF files starts-->
 <div class="container printArea" id="printAreaNature" [hidden]=true>
@@ -343,7 +348,11 @@
 </div>
 <!-- Hidden Table for Print and PDF files ends-->
 
-
+<!-- Hidden Table Starts for Excel and CSV files -->
+<igx-grid #excelDataContentNature [data]="excelDataListNature" [autoGenerate]="false" height="null" width="null"
+  [hidden]="true">
+</igx-grid>
+<!-- Hidden Table Ends  for Excel and CSV files -->
 
 <!-- Start Modal Window to delete leave type -->
 <div class="modal fade" id="deleteModal">

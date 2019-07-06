@@ -1,190 +1,615 @@
-<br />
-<!--heading row-->
-<div class="row">
-  <div class="col-md-12 text-center">
-    <h1 class="bottomBorder">Performance Evaluation</h1>
-  </div>
-</div>
-<!--end heading row-->
-<br />
-
 <!--start container-->
 <div class="container">
-  <!--start table row-->
-  <div class="example-container mat-elevation-z8">
-    <div class="example-table-container">
-      <table class="table table-striped">
-        <thead>
-          <tr class='d-flex'>
-            <th class='col-1 text-center'>Sr #</th>
-            <th class='col-3'>Employee Name</th>
-            <th class='col-2'>Job Profile</th>
-            <th class='col-2 text-center'>Job Years</th>
-            <th class='col-2 text-center'>Evaluated Year</th>
-            <th class='col-2 text-center'>Evaluation</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-          <tr class='d-flex'>
-            <td class='col-1 text-center'>1</td>
-            <td class='col-3'>Saqib Qureshi</td>
-            <td class='col-2'>Accountant</td>
-            <td class='col-2 text-center'>3</td>
-            <td class='col-2 text-center'>3.5</td>
-            <td class='col-2 text-center'>
-              <span class="fa fa-list-alt fontPrimary pointerCursor" data-toggle="modal"
-                data-target="#employeeModal"></span>
-            </td>
-          </tr>
-          <tr class='d-flex'>
-            <td class='col-1 text-center'>2</td>
-            <td class='col-3'>Imran Nazir</td>
-            <td class='col-2'>Accountant</td>
-            <td class='col-2 text-center'>2</td>
-            <td class='col-2 text-center'>3</td>
-            <td class='col-2 text-center'>
-              <span class="fa fa-list-alt fontPrimary pointerCursor" data-toggle="modal"
-                data-target="#employeeModal"></span>
-          </tr>
-        </tbody>
-      </table>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="fullwidth">
+        <mat-select placeholder="Select an Employee" [(ngModel)]="employeeName" (selectionChange)="empChange($event)">
+          <mat-option *ngFor="let item of newEmployeeList" [value]="item.indvdlID">
+            {{item.indvdlFirstName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4"><br>
+      <label>
+        <h5>Designation | <b>{{empDesignation}}</b></h5>
+      </label>
+    </div>
+    <div class="col-md-4"><br>
+      <label>
+        <h5>BPS | <b>{{empGrade}}</b></h5>
+      </label>
     </div>
   </div>
-  <!--end table row-->
+</div>
+<!--end container-->
+
+<!-- <br> -->
+
+<!--start container-->
+<div class="myContainer bgWhite">
+  <!--* Mat-Tab-Group Starts -->
+  <mat-tab-group>
+    <!-- Mat-Tab_01 Starts -->
+    <mat-tab label="Reviews">
+
+
+      <!-- start menubar buttons -->
+      <div class="topnav boxShadow">
+        <div>
+          <h2>Reviews</h2>
+
+          <a class="pointerCursor" (click)="downloadExcelReviews()">
+            <i class="fa fa-file-excel-o"></i>
+            Excel
+          </a>
+
+          <a class="pointerCursor" (click)="downloadCSVReviews()">
+            <i class="fa fa-file-text-o"></i>
+            CSV
+          </a>
+
+          <a class="pointerCursor" (click)="downloadPDFReviews()">
+            <i class="fa fa-file-pdf-o"></i>
+            PDF
+          </a>
+
+          <a class="pointerCursor" (click)="printDivReviews()">
+            <i class="fa fa-print"></i>
+            Print
+          </a>
+
+        </div>
+      </div>
+      <!-- end menubar buttons -->
+
+
+
+      <!--Start search textbox Row-->
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="fullwidth">
+            <input matInput [(ngModel)]="tblSearchReviews" placeholder="Search">
+          </mat-form-field>
+          <i class="fab fa-accessible-icon"></i>
+        </div>
+      </div>
+      <!--end search textbox Row-->
+
+      <!--start table row-->
+      <div class="example-container">
+        <div class="example-table-container">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-left'>Date</th>
+                <!-- <th class='text-left'>Employee</th> -->
+                <th class='text-left'>Knowledge</th>
+                <th class='text-left'>WrkQlty</th>
+                <th class='text-left'>Attendance</th>
+                <th class='text-left'>Communication</th>
+                <th class='text-left'>Dependability</th>
+                <th class='text-center'>Add</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let item of reviewsList; let i=index">
+                <td class='text-left'>{{item.ReviewDate | date:'dd-MM-yyyy'}}</td>
+                <!-- <td class='text-left'>{{item.EmployeeName}}</td> -->
+                <td class='text-left'>{{item.RateJobKnowledge}}</td>
+                <td class='text-left'>{{item.RateWorkQlty}}</td>
+                <td class='text-left'>{{item.RateAttendance}}</td>
+                <td class='text-left'>{{item.RateCommunication}}</td>
+                <td class='text-left'>{{item.RateDependability}}</td>
+                <td class='text-center'>
+                  <span class="fa fa-minus pointerCursor" (click)="removeReviews(i)"></span>
+                </td>
+              </tr>
+
+              <tr>
+                <td class='text-left'>
+                  <mat-form-field class="fullwidth">
+                    <input [(ngModel)]="reviewDate" matInput [matDatepicker]="pickerReviewDate" placeholder="Date">
+                    <mat-datepicker-toggle matSuffix [for]="pickerReviewDate"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerReviewDate></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <!-- <td class='text-left'>
+                  <mat-form-field class="fullwidth">
+                    <mat-select placeholder="Name" [(ngModel)]="employeeName">
+                      <mat-option *ngFor="let item of employeeList" [value]="item.indvdlID">
+                        {{item.indvdlFullName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td> -->
+                <td class='text-left'>
+                  <p-rating class="rating-size" [(ngModel)]="rateJobKnowledge" [cancel]="false">
+                  </p-rating>
+                </td>
+                <td class='text-left'>
+                  <p-rating class="rating-size" [(ngModel)]="rateWorkQlty" [cancel]="false">
+                  </p-rating>
+                </td>
+                <td class='text-left'>
+                  <p-rating class="rating-size" [(ngModel)]="rateAttendance" [cancel]="false">
+                  </p-rating>
+                </td>
+                <td class='text-left'>
+                  <p-rating class="rating-size" [(ngModel)]="rateCommunication" [cancel]="false">
+                  </p-rating>
+                </td>
+                <td class='text-left'>
+                  <p-rating class="rating-size" [(ngModel)]="rateDependability" [cancel]="false">
+                  </p-rating>
+                </td>
+                <td class='text-center'>
+                  <button mat-icon-button class='noneOutLine'><span class="fa fa-plus"
+                      (click)="addReviews()"></span></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!--button tag Row Starts-->
+          <div class="row">
+            <div class="col-md-1 text-left">
+              <button mat-raised-button color="primary" (click)="saveReviews()">Save</button>
+            </div>
+            <div class="col-md-11 text-left">
+              <button mat-raised-button (click)="clearReviews()">Reset</button>
+            </div>
+          </div>
+          <!-- Button tag Row Ends -->
+          <br>
+
+        </div>
+      </div>
+      <!--end table row-->
+    </mat-tab>
+    <!-- Mat-Tab_01 Ends -->
+
+    <!-- Mat-Tab_02 Starts -->
+    <mat-tab label="Goals">
+
+      <!-- start menubar buttons -->
+      <div class="topnav boxShadow">
+        <div>
+          <h2>Goals</h2>
+
+          <a class="pointerCursor" (click)="downloadExcelGoals()">
+            <i class="fa fa-file-excel-o"></i>
+            Excel
+          </a>
+
+          <a class="pointerCursor" (click)="downloadCSVGoals()">
+            <i class="fa fa-file-text-o"></i>
+            CSV
+          </a>
+
+          <a class="pointerCursor" (click)="downloadPDFGoals()">
+            <i class="fa fa-file-pdf-o"></i>
+            PDF
+          </a>
+
+          <a class="pointerCursor" (click)="printDivGoals()">
+            <i class="fa fa-print"></i>
+            Print
+          </a>
+
+        </div>
+      </div>
+      <!-- end menubar buttons -->
+
+      <!--Start search textbox Row-->
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="fullwidth">
+            <input matInput [(ngModel)]="tblSearchGoals" placeholder="Search">
+          </mat-form-field>
+          <i class="fab fa-accessible-icon"></i>
+        </div>
+      </div>
+      <!--end search textbox Row-->
+
+      <!--start table row-->
+      <div class="example-container">
+        <div class="example-table-container">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-left'>Set Date</th>
+                <th class='text-left'>Completion Date</th>
+                <th class='text-left'>Goal Description</th>
+                <th class='text-left'>Employee Assessment </th>
+                <th class='text-left'>Supervisor</th>
+                <th class='text-left'>Supervisor Assessment </th>
+                <th class='text-center'>Add</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let item of goalsList; let i=index">
+                <td class='text-left'>{{item.SetDate | date:'dd-MM-yyyy'}}</td>
+                <td class='text-left'>{{item.CompletionDate | date:'dd-MM-yyyy'}}</td>
+                <td class='text-left'>{{item.GoalDescription}}</td>
+                <td class='text-left'>{{item.RateEmpAssessment}}</td>
+                <td class='text-left'>{{item.SupervisorName}}</td>
+                <td class='text-left'>{{item.RateSprvsrAssessment}}</td>
+                <td class='text-center'>
+                  <span class="fa fa-minus pointerCursor" (click)="removeGoals(i)"></span>
+                </td>
+              </tr>
+
+              <tr>
+                <td class='text-left'>
+                  <mat-form-field class="fullwidth">
+                    <input [(ngModel)]="setDate" matInput [matDatepicker]="setDatePicker" placeholder="Date">
+                    <mat-datepicker-toggle matSuffix [for]="setDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #setDatePicker></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td class='text-left'>
+                  <mat-form-field class="fullwidth">
+                    <input [(ngModel)]="completionDate" matInput [matDatepicker]="completionDatePicker"
+                      placeholder="Date">
+                    <mat-datepicker-toggle matSuffix [for]="completionDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #completionDatePicker></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td class='text-left'>
+                  <mat-form-field class="fullwidth">
+                    <input [(ngModel)]="goalDescription" matInput placeholder="Goal Description">
+                  </mat-form-field>
+                </td>
+                <td class='text-left'>
+                  <p-rating class="rating-size" [(ngModel)]="rateEmpAssessment" [cancel]="false">
+                  </p-rating>
+                </td>
+                <td class='text-left'>
+                  <mat-form-field class="fullwidth">
+                    <mat-select placeholder="Name" [(ngModel)]="supervisorName">
+                      <mat-option *ngFor="let item of supervisorList" [value]="item.indvdlID">
+                        {{item.indvdlFirstName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td class='text-left'>
+                  <p-rating class="rating-size" [(ngModel)]="rateSprvsrAssessment" [cancel]="false">
+                  </p-rating>
+                </td>
+                <td class='text-center'>
+                  <button mat-icon-button class='noneOutLine'><span class="fa fa-plus"
+                      (click)="addGoals()"></span></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!--button tag Row Starts-->
+          <div class="row">
+            <div class="col-md-1 text-left">
+              <button mat-raised-button color="primary" (click)="saveGoals()">Save</button>
+            </div>
+            <div class="col-md-11 text-left">
+              <button mat-raised-button (click)="clearGoals()">Reset</button>
+            </div>
+          </div>
+          <!-- Button tag Row Ends -->
+          <br>
+
+        </div>
+      </div>
+      <!--end table row-->
+    </mat-tab>
+    <!-- Mat-Tab_02 Ends -->
+
+    <!-- Mat-Tab_03 Starts -->
+    <mat-tab label="Skills">
+
+      <!-- start menubar buttons -->
+      <div class="topnav boxShadow">
+        <div>
+          <h2>Skills</h2>
+
+          <a class="pointerCursor" (click)="downloadExcelSkills()">
+            <i class="fa fa-file-excel-o"></i>
+            Excel
+          </a>
+
+          <a class="pointerCursor" (click)="downloadCSVSkills()">
+            <i class="fa fa-file-text-o"></i>
+            CSV
+          </a>
+
+          <a class="pointerCursor" (click)="downloadPDFSkills()">
+            <i class="fa fa-file-pdf-o"></i>
+            PDF
+          </a>
+
+          <a class="pointerCursor" (click)="printDivSkills()">
+            <i class="fa fa-print"></i>
+            Print
+          </a>
+
+        </div>
+      </div>
+      <!-- end menubar buttons -->
+
+      <!--Start search textbox Row-->
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="fullwidth">
+            <input matInput [(ngModel)]="tblSearchSkills" placeholder="Search">
+          </mat-form-field>
+          <i class="fab fa-accessible-icon"></i>
+        </div>
+      </div>
+      <!--end search textbox Row-->
+
+      <!--start table row-->
+      <div class="example-container">
+        <div class="example-table-container">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-left'>Date</th>
+                <th class='text-left'>Skill Name</th>
+                <th class='text-left'>Achieved Level</th>
+                <th class='text-left'>Histroy</th>
+                <th class='text-center'>Add</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let item of skillsList; let i=index">
+                <td class='text-left'>{{item.SkillDate | date:'dd-MM-yyyy'}}</td>
+                <td class='text-left'>{{item.SkillName}}</td>
+                <td class='text-left'>{{item.RateAchvdLevel}}</td>
+                <td class='text-left'>{{item.SkillHistoryDescription}}</td>
+                <td class='text-center'>
+                  <span class="fa fa-minus pointerCursor" (click)="removeSkills(i)"></span>
+                </td>
+              </tr>
+
+              <tr>
+                <td class='text-left'>
+                  <mat-form-field class="fullwidth">
+                    <input [(ngModel)]="skillDate" matInput [matDatepicker]="skillDatePicker" placeholder="Date">
+                    <mat-datepicker-toggle matSuffix [for]="skillDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #skillDatePicker></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td class='text-left'>
+                  <mat-form-field class="fullwidth">
+                    <mat-select placeholder="Name" [(ngModel)]="skillName">
+                      <mat-option *ngFor="let item of skillsNameList" [value]="item.qlfctnCriteriaCd">
+                        {{item.qlfctnCriteriaName}}
+                      </mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td class='text-left'>
+                  <p-rating class="rating-size" [(ngModel)]="rateAchvdLevel" [cancel]="false">
+                  </p-rating>
+                </td>
+                <td class='text-left'>
+                  <mat-form-field class="fullwidth">
+                    <input [(ngModel)]="skillHistoryDescription" matInput placeholder="Skill History Description">
+                  </mat-form-field>
+                </td>
+                <td class="text-center">
+                  <button mat-icon-button class='noneOutLine'><span class="fa fa-plus"
+                      (click)="addSkills()"></span></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!--button tag Row Starts-->
+          <div class="row">
+            <div class="col-md-1 text-left">
+              <button mat-raised-button color="primary" (click)="saveSkills()">Save</button>
+            </div>
+            <div class="col-md-11 text-left">
+              <button mat-raised-button (click)="clearSkills()">Reset</button>
+            </div>
+          </div>
+          <!-- Button tag Row Ends -->
+          <br>
+
+        </div>
+      </div>
+      <!--end table row-->
+    </mat-tab>
+    <!-- Mat-Tab_03 Ends -->
+  </mat-tab-group>
+  <!--* Mat-Tab-Group Ends -->
 </div>
 <!--end container -->
 
-<!-- Start Modal Window to view employee data -->
-<div class="modal fade" id="employeeModal">
-  <div class="modal-dialog shadow-lg-dark">
-    <div class="modal-content">
-      <!--start Modal body -->
-      <div class="modal-body">
-        <br>
-        <!--employee heading row-->
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-10">
-            <h2>Saqib Qureshi</h2>
-          </div>
-        </div><br />
-        <!--end employee heading row-->
-        <!--table row-->
-        <div class="row">
-          <table class="table table-striped">
-            <thead>
-              <tr class='d-flex'>
-                <th class='col-2 text-center'>Sr #</th>
-                <th class='col-5'>Evaluation Year</th>
-                <th class='col-3'>Evaluated</th>
-                <th class='col-2 text-center'>Detail</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-              <tr class='d-flex'>
-                <td class='col-2 text-center'>1</td>
-                <td class='col-5'>2017</td>
-                <td class='col-3'><span class="fa fa-check text-success"></span></td>
-                <td class='col-2 text-center'>
-                  <span class="fa fa-file-text pointerCursor" data-toggle="modal" data-target="#empDetailModal"></span>
-                </td>
-              </tr>
-              <tr class='d-flex'>
-                <td class='col-2 text-center'>2</td>
-                <td class='col-5'>2016</td>
-                <td class='col-3'><span class="fa fa-times text-danger"></span></td>
-                <td class='col-2 text-center'>
-                  <span class="fa fa-file-text pointerCursor" data-toggle="modal" data-target="#empDetailModal"></span>
-                </td>
-              </tr>
-              <tr class='d-flex'>
-                <td class='col-2 text-center'>3</td>
-                <td class='col-5'>2015</td>
-                <td class='col-3'><span class="fa fa-check text-success"></span></td>
-                <td class='col-2 text-center'>
-                  <span class="fa fa-file-text pointerCursor" data-toggle="modal" data-target="#empDetailModal"></span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!--end table row-->
-      </div>
-      <!--end Modal body -->
 
-      <!--start Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-      <!--end Modal footer -->
+<!--* -------- Reviews ------ -->
 
-    </div>
+<!-- Hidden Table for Print and PDF files starts-->
+<div class="container printArea" id="printAreaReviews" [hidden]=true>
+  <div class="printDiv">
+
+    <!--Start heading table -->
+    <table>
+      <tr>
+        <td width="15%" style="border:none;">
+          <img src="../../../assets/images/Ambit-Logo.svg" width="135px">
+        </td>
+
+        <td style="border:none;">
+          <div class="commonCss cssHeading">Infovative Solutions</div>
+          <div class="commonCss cssAddress">Office #209, 3rd Floor Anayat Plaza, G11 Markaz Islamabad.</div>
+          <div class="commonCss cssContact">Mobile: 0313-1234567, Ph. 051-5544661</div>
+        </td>
+      </tr>
+    </table>
+    <!--End heading table -->
+
+    <br /><br />
+
+    <!--Start table Row-->
+    <div class="row">
+      <table>
+        <thead>
+          <tr>
+            <th>Sr #</th>
+            <th>Review Date</th>
+            <th>Employee Name</th>
+            <th>Rate JobKnowledge</th>
+            <th>Rate WorkQlty</th>
+            <th>Rate Attendance</th>
+            <th>Rate Communication</th>
+            <th>Rate Dependability</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of reviewsList | search:'EmployeeName':tblSearchReviews  let i=index">
+            <td>{{i+1}}</td>
+            <td>{{item.ReviewDate}}</td>
+            <td>{{item.EmployeeName}}</td>
+            <td>{{item.RateJobKnowledge}}</td>
+            <td>{{item.RateWorkQlty}}</td>
+            <td>{{item.RateAttendance}}</td>
+            <td>{{item.RateCommunication}}</td>
+            <td>{{item.RateDependability}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end table row -->
   </div>
 </div>
-<!-- End Modal Window to view employee data -->
+<!-- Hidden Table for Print and PDF files ends-->
 
-<!-- Start Modal Window to view employee detail data -->
-<div class="modal fade" id="empDetailModal">
-  <div class="modal-dialog shadow-lg-dark modal-lg">
-    <div class="modal-content">
-      <!--start Modal body -->
-      <div class="modal-body">
-        <br>
-        <!--table row-->
-        <div class="row">
-          <table class="table table-striped bottomBorder">
-            <thead>
-              <tr class='d-flex'>
-                <th class='col-2 text-center'>Sr #</th>
-                <th class='col-5'>Description</th>
-                <th class='col-3 text-center'>Required Level</th>
-                <th class='col-2'>Level Achieve</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-              <tr class='d-flex'>
-                <td class='col-2 text-center'>1</td>
-                <td class='col-5'>High Level of Logic</td>
-                <td class='col-3 text-center'>5</td>
-                <td class='col-2'>
-                  <mat-form-field class="fullwidth">
-                    <input matInput placeholder="Enter Number">
-                  </mat-form-field>
-                </td>
-              </tr>
-              <tr class='d-flex'>
-                <td class='col-2 text-center'>2</td>
-                <td class='col-5'>Good Communication Skill</td>
-                <td class='col-3 text-center'>4</td>
-                <td class='col-2'>
-                  <mat-form-field class="fullwidth">
-                    <input matInput placeholder="Enter Number">
-                  </mat-form-field>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!--end table row-->
-        <br />
-        <!--button row-->
-        <div class="text-right">
-          <button mat-raised-button color="primary" data-dismiss="modal">Save</button>
-        </div>
-        <!--end button row-->
-      </div>
-      <!--end Modal body -->
+<!-- Hidden Table Starts for Excel and CSV files -->
+<igx-grid #excelDataContentReviews [data]="excelDataListReviews" [autoGenerate]="false" height="null" width="null"
+  [hidden]="true">
+</igx-grid>
+<!-- Hidden Table Ends  for Excel and CSV files -->
 
-      <!--start Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-      <!--end Modal footer -->
+<!--* -------- Goals ------ -->
 
-    </div>
+<!-- Hidden Table for Print and PDF files starts-->
+<div class="container printArea" id="printAreaGoals" [hidden]=true>
+  <div class="printDiv">
+
+    <!--Start heading table -->
+    <table>
+      <tr>
+        <td width="15%" style="border:none;">
+          <img src="../../../assets/images/Ambit-Logo.svg" width="135px">
+        </td>
+
+        <td style="border:none;">
+          <div class="commonCss cssHeading">Infovative Solutions</div>
+          <div class="commonCss cssAddress">Office #209, 3rd Floor Anayat Plaza, G11 Markaz Islamabad.</div>
+          <div class="commonCss cssContact">Mobile: 0313-1234567, Ph. 051-5544661</div>
+        </td>
+      </tr>
+    </table>
+    <!--End heading table -->
+
+    <br /><br />
+
+    <!--Start table Row-->
+    <div class="row">
+      <table>
+        <thead>
+          <tr>
+            <th>Sr #</th>
+            <th>Set Date</th>
+            <th>Completion Date</th>
+            <th>Goal Description</th>
+            <th>Rate EmpAssessment</th>
+            <th>Supervisor Name</th>
+            <th>Rate SprvsrAssessment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of goalsList | search:'SupervisorName':tblSearchGoals  let i=index">
+            <td>{{i+1}}</td>
+            <td>{{item.SetDate}}</td>
+            <td>{{item.CompletionDate}}</td>
+            <td>{{item.GoalDescription}}</td>
+            <td>{{item.RateEmpAssessment}}</td>
+            <td>{{item.SupervisorName}}</td>
+            <td>{{item.RateSprvsrAssessment}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end table row -->
   </div>
 </div>
-<!-- End Modal Window to view employee detail data -->
+<!-- Hidden Table for Print and PDF files ends-->
+
+<!-- Hidden Table Starts for Excel and CSV files -->
+<igx-grid #excelDataContentGoals [data]="excelDataListGoals" [autoGenerate]="false" height="null" width="null"
+  [hidden]="true">
+</igx-grid>
+<!-- Hidden Table Ends  for Excel and CSV files -->
+
+
+<!--* -------- Skills ------ -->
+
+<!-- Hidden Table for Print and PDF files starts-->
+<div class="container printArea" id="printAreaSkills" [hidden]=true>
+  <div class="printDiv">
+
+    <!--Start heading table -->
+    <table>
+      <tr>
+        <td width="15%" style="border:none;">
+          <img src="../../../assets/images/Ambit-Logo.svg" width="135px">
+        </td>
+
+        <td style="border:none;">
+          <div class="commonCss cssHeading">Infovative Solutions</div>
+          <div class="commonCss cssAddress">Office #209, 3rd Floor Anayat Plaza, G11 Markaz Islamabad.</div>
+          <div class="commonCss cssContact">Mobile: 0313-1234567, Ph. 051-5544661</div>
+        </td>
+      </tr>
+    </table>
+    <!--End heading table -->
+
+    <br /><br />
+
+    <!--Start table Row-->
+    <div class="row">
+      <table>
+        <thead>
+          <tr>
+            <th>Sr #</th>
+            <th>Skill Date</th>
+            <th>Skill Name</th>
+            <th>Rate AchvdLevel</th>
+            <th>Skill History Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of skillsList | search:'SkillName':tblSearchSkills  let i=index">
+            <td>{{i+1}}</td>
+            <td>{{item.SkillDate}}</td>
+            <td>{{item.SkillName}}</td>
+            <td>{{item.RateAchvdLevel}}</td>
+            <td>{{item.SkillHistoryDescription}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end table row -->
+  </div>
+</div>
+<!-- Hidden Table for Print and PDF files ends-->
+
+<!-- Hidden Table Starts for Excel and CSV files -->
+<igx-grid #excelDataContentSkills [data]="excelDataListSkills" [autoGenerate]="false" height="null" width="null"
+  [hidden]="true">
+</igx-grid>
+<!-- Hidden Table Ends  for Excel and CSV files -->

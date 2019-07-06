@@ -7,19 +7,19 @@
     </span>
     <h1> Performance Standards</h1>
 
-    <a class="pointerCursor">
+    <a class="pointerCursor" (click)="downloadExcel()">
       <i class="fa fa-file-excel-o"></i>
       Excel
     </a>
 
     <!-- (click)="downloadCSV()" -->
-    <a class="pointerCursor">
+    <a class="pointerCursor" (click)="downloadCSV()">
       <i class="fa fa-file-text-o"></i>
       CSV
     </a>
 
     <!-- (click)="downPDF()" -->
-    <a class="pointerCursor">
+    <a class="pointerCursor" (click)="downloadPDF()">
       <i class="fa fa-file-pdf-o"></i>
       PDF
     </a>
@@ -153,6 +153,11 @@
   </div>
 </div>
 <!-- Hidden Table for Print and PDF files ends-->
+
+<!-- Hidden Table Starts for Excel and CSV files -->
+<igx-grid #excelDataContent [data]="excelDataList" [autoGenerate]="false" height="null" width="null" [hidden]="true">
+</igx-grid>
+<!-- Hidden Table Ends  for Excel and CSV files -->
 
 
 <!-- Start Modal Window to delete performance standard -->

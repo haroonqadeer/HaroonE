@@ -316,7 +316,35 @@ export class SkillstandardComponent implements OnInit {
             return false;
           }
 
-          else if (data.msg == "Insert - Record Already Exists!") {
+          else if (data.msg == "Insert - Required Rule Already Exists!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addSkillModal').modal('hide');
+            $('#editSkillModal').modal('hide');
+            this.getSkillStandard();
+            this.getSkillStandardDetails();
+            return false;
+          }
+          else if (data.msg == "Update - Required Rule Already Exists!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addSkillModal').modal('hide');
+            $('#editSkillModal').modal('hide');
+            this.getSkillStandard();
+            this.getSkillStandardDetails();
+            return false;
+          }
+
+          else if (data.msg == "Insert - Rule Criteria Already Exist!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addSkillModal').modal('hide');
+            $('#editSkillModal').modal('hide');
+            this.getSkillStandard();
+            this.getSkillStandardDetails();
+            return false;
+          }
+          else if (data.msg == "Update - Rule Criteria Already Exist!") {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillModal').modal('hide');

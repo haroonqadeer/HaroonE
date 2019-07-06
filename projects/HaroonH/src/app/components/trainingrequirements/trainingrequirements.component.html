@@ -1,36 +1,42 @@
-<br />
-<!--heading row-->
-<div class="row">
-  <div class="col-md-12 text-center">
-    <h1 class="bottomBorder">Training Requirements</h1>
-  </div>
-</div>
-<!--end heading row-->
-<br />
-
 <!-- start menubar buttons -->
 <div class="topnav boxShadow">
-  <div class="container">
-    <a class="pointerCursor" data-toggle="modal" data-target="#addTrainingModal" (click)="clear()">
-      <i class="fa fa-plus-square"></i>
-      Add New
-    </a>
-    <a class="pointerCursor" (click)="printDiv()">
-      <i class="fa fa-print"></i>
-      Print
-    </a>
-    <a class="pointerCursor" (click)="downloadPDF()">
-      <i class="fa fa-file-pdf-o"></i>
-      PDF
-    </a>
-    <a class="pointerCursor" (click)="downloadCSV()">
-      <i class="fa fa-file-text-o"></i>
-      CSV
-    </a>
+  <div>
+    <!--class="container" -->
+    <span class="fa iconContainer">
+      <span class="fa icon-hr-training"> </span>
+      <!-- <span class="fa logo"><img src="../assets/images/Training.svg"></span> -->
+    </span>
+    <h1>Training Requirements</h1>
+
+    <!-- (click)="downloadExcel()" -->
     <a class="pointerCursor" (click)="downloadExcel()">
       <i class="fa fa-file-excel-o"></i>
       Excel
     </a>
+
+    <!-- (click)="downloadCSV()" -->
+    <a class="pointerCursor" (click)="downloadCSV()">
+      <i class="fa fa-file-text-o"></i>
+      CSV
+    </a>
+
+    <!-- (click)="downPDF()" -->
+    <a class="pointerCursor" (click)="downloadPDF()">
+      <i class="fa fa-file-pdf-o"></i>
+      PDF
+    </a>
+
+    <!-- (click)="printDiv()" -->
+    <a class="pointerCursor" (click)="printDiv()">
+      <i class="fa fa-print"></i>
+      Print
+    </a>
+
+    <!-- <a class="pointerCursor" data-toggle="modal" data-target="#addTrainingModal" (click)="clear()">
+      <i class="fa fa-plus-square"></i>
+      Add New
+    </a> -->
+
   </div>
 </div>
 <!-- end menubar buttons -->
@@ -38,7 +44,7 @@
 <br>
 
 <!-- Table Container Starts -->
-<div class="container bgWhite">
+<div class="myContainer bgWhite">
   <!--Start search textbox Row-->
   <div class="row">
     <div class="col-md-12">
@@ -108,6 +114,60 @@
   </div>
 </div>
 <!-- Table Container Ends -->
+
+
+<!-- Hidden Table for Print and PDF files starts-->
+<div class="container printArea" id="printArea" [hidden]=true>
+  <div class="printDiv">
+
+    <!--Start heading table -->
+    <table>
+      <tr>
+        <td width="15%" style="border:none;">
+          <img src="../../../assets/images/Ambit-Logo.svg" width="135px">
+        </td>
+
+        <td style="border:none;">
+          <div class="commonCss cssHeading">Infovative Solutions</div>
+          <div class="commonCss cssAddress">Office #209, 3rd Floor Anayat Plaza, G11 Markaz Islamabad.</div>
+          <div class="commonCss cssContact">Mobile: 0313-1234567, Ph. 051-5544661</div>
+        </td>
+      </tr>
+    </table>
+    <!--End heading table -->
+
+    <br /><br />
+
+    <!--Start table Row-->
+    <div class="row">
+      <table>
+        <thead>
+          <tr class="d-flex">
+            <th class='col-1 text-center'>Sr #</th>
+            <th class='col-4 text-left'>Employee Name</th>
+            <th class='col-4 text-left'>Job Profile</th>
+            <th class='col-3 text-center'>Skill Difference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="d-flex"
+            *ngFor="let item of trainingRequirementList | search:'indvdlFullName,jobDesigName' :tblSearch  let i=index">
+            <td class='col-1 text-center'>{{i+1}}</td>
+            <td class='col-4 text-left'>{{item.indvdlFullName}}</td>
+            <td class='col-4 text-left'>{{item.jobDesigName}}</td>
+            <td class='col-3 text-center'>{{calculate(item.qlfctnCriteriaReqdLvl,item.levelAchieved)}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end table row -->
+  </div>
+</div>
+<!-- Hidden Table for Print and PDF files ends-->
+
+<!-- Hidden Table Starts for Excel and CSV files -->
+<igx-grid #excelDataContent [data]="excelDataList" [autoGenerate]="false" height="null" width="null" [hidden]="true">
+</igx-grid>
+<!-- Hidden Table Ends  for Excel and CSV files -->
 
 
 <br>
