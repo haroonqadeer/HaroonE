@@ -35,8 +35,8 @@ declare var $: any;
 })
 export class DegreeeComponent implements OnInit {
 
-  //serverUrl = "http://localhost:28349/";
-  serverUrl = "http://192.168.200.19:3002/";
+  serverUrl = "http://localhost:9015/";
+  //serverUrl = "http://192.168.200.19:3002/";
 
   // serverUrl = "https://localhost:8001/";
   tokenKey = "token";

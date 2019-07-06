@@ -36,8 +36,9 @@ declare var $: any;
 export class CertificateComponent implements OnInit {
 
   // serverUrl = "http://localhost:49774/";
-  serverUrl = "http://192.168.200.19:3001/";
+  serverUrl = "http://localhost:9016/";
   // serverUrl = "https://localhost:8002/";
+  //serverUrl = "http://192.168.200.19:3001/";
   tokenKey = "token";
 
   httpOptions = {

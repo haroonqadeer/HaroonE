@@ -18,7 +18,7 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-    serverUrl = "http://192.168.200.52:1001/";
+    serverUrl = "http://125.1.1.252:9010/";
     //serverUrl = "http://localhost:23145/";
     //serverUrl = "http://192.168.200.19:3006/";
     tokenKey = "token";
@@ -75,6 +75,7 @@ export class LoginComponent implements OnInit {
                     this.app.cmpnyName = data.userDetail[0].locationName;
 
                 } else {
+                    alert(data.msg);
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     $(".mat-form-field-underline").css("background-color", "red");
                     $(".mat-form-field-label").css("color", "red");

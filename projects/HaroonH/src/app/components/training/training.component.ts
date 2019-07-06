@@ -23,7 +23,7 @@ declare var $: any;
 })
 export class TrainingComponent implements OnInit {
 
-  serverUrl = "https://localhost:8004/";
+  serverUrl = "http://localhost:9019/";
   tokenKey = "token";
 
   httpOptions = {
