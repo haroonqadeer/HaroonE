@@ -801,6 +801,17 @@ export class JobprofileComponent implements OnInit {
             }
             else{
 
+                var perfIndctr;
+                if(this.chkDegreePI == false)
+                {
+                    perfIndctr = 0;
+                }
+                else
+                {
+                    perfIndctr = 1;
+                }
+
+
                 this.tempDegreeList.push({
                     qlfctnRuleCriteriaCD: 0,
                     reqdQlfctnRuleNo: 0,
@@ -809,7 +820,7 @@ export class JobprofileComponent implements OnInit {
                     qlfctnCD: this.QualificationId,
                     qlfctnCriteriaReqdLvl: this.degreeReqLevel,
                     qlfctnCriteriaMaxLvl: this.degreeMaxLelvel,
-                    prefIndctr: this.chkDegreePI,
+                    prefIndctr: perfIndctr,
                     degreeLabel: this.Qualification
                 });
 
@@ -852,6 +863,15 @@ export class JobprofileComponent implements OnInit {
         }
         else{
 
+            var perfIndctr;
+            if(this.chkExperiencePI == false)
+            {
+                perfIndctr = 0;
+            }
+            else
+            {
+                perfIndctr = 1;
+            }
 
             var duplicateChk = false;
 
@@ -878,7 +898,7 @@ export class JobprofileComponent implements OnInit {
                     qlfctnCD:               this.ExperienceId,
                     qlfctnCriteriaReqdLvl:  this.experienceInMonth,
                     qlfctnCriteriaMaxLvl:   0,
-                    prefIndctr:             this.chkExperiencePI,
+                    prefIndctr:             perfIndctr,
                     degreeLabel:            this.Experience
                 });
             }   
@@ -922,6 +942,15 @@ export class JobprofileComponent implements OnInit {
         }
         else{
 
+            var perfIndctr;
+            if(this.chkCertificatePI == false)
+            {
+                perfIndctr = 0;
+            }
+            else
+            {
+                perfIndctr = 1;
+            }
 
             var duplicateChk = false;
 
@@ -945,7 +974,7 @@ export class JobprofileComponent implements OnInit {
                     qlfctnCD:               this.CertificateId,
                     qlfctnCriteriaReqdLvl:  this.certificateReqLevel,
                     qlfctnCriteriaMaxLvl:   this.certificateMaxLelvel,
-                    prefIndctr:             this.chkCertificatePI,
+                    prefIndctr:             perfIndctr,
                     degreeLabel:            this.Certificate
                 });
             }   

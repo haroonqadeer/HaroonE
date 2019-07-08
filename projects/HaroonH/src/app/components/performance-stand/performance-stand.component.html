@@ -1,47 +1,46 @@
-<!-- start menubar buttons -->
-<div class="topnav boxShadow">
-  <div>
-    <!--class="container" -->
-    <span class="fa iconContainer">
-      <span class="fa icon-hr-performanceStandard"> </span>
-    </span>
-    <h1> Performance Standards</h1>
-
-    <a class="pointerCursor">
-      <i class="fa fa-file-excel-o"></i>
-      Excel
-    </a>
-
-    <!-- (click)="downloadCSV()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-text-o"></i>
-      CSV
-    </a>
-
-    <!-- (click)="downPDF()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-pdf-o"></i>
-      PDF
-    </a>
-
-    <!-- (click)="printDiv()" -->
-    <a class="pointerCursor" (click)="printDiv()">
-      <i class="fa fa-print"></i>
-      Print
-    </a>
-
-    <a class="pointerCursor" data-toggle="modal" data-target="#standardModal" (click)="clear()">
-      <i class="fa fa-plus-square"></i>
-      Add New
-    </a>
-
-  </div>
-</div>
-<!-- end menubar buttons -->
-
-
 <!--start container-->
 <div class="myContainer mat-elevation-z8 bgWhite">
+
+  <!-- start menubar buttons -->
+  <div class="topnav boxShadow">
+    <div>
+      <!--class="container" -->
+      <span class="fa iconContainer">
+        <span class="fa icon-hr-performanceStandard"> </span>
+      </span>
+      <h1> Performance Standards</h1>
+  
+      <a class="pointerCursor">
+        <i class="fa fa-file-excel-o"></i>
+        Excel
+      </a>
+  
+      <!-- (click)="downloadCSV()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-text-o"></i>
+        CSV
+      </a>
+  
+      <!-- (click)="downPDF()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-pdf-o"></i>
+        PDF
+      </a>
+  
+      <!-- (click)="printDiv()" -->
+      <a class="pointerCursor" (click)="printDiv()">
+        <i class="fa fa-print"></i>
+        Print
+      </a>
+  
+      <a class="pointerCursor" data-toggle="modal" data-target="#standardModal" (click)="clear()">
+        <i class="fa fa-plus-square"></i>
+        Add New
+      </a>
+  
+    </div>
+  </div>
+  <!-- end menubar buttons -->
 
   <!--Start search textbox Row-->
   <div class="row">
@@ -61,13 +60,12 @@
         <thead>
           <tr class='d-flex'>
             <th class='col-1 text-center'>Sr #</th>
-            <th class='col-9' [class.active]="order === 'processStepTitle'" (click)="setOrder('processStepTitle')">
+            <th class='col-10' [class.active]="order === 'processStepTitle'" (click)="setOrder('processStepTitle')">
               Title
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
-            <th class='col-1 text-center'>Edit</th>
-            <th class='col-1 text-center'>Delete</th>
+            <th class='col-1 text-center'>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -76,9 +74,12 @@
               itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"
             class='d-flex'>
             <td class='col-1 text-center'>{{i + 1}}</td>
-            <td class='col-9'>{{item.processStepTitle}}</td>
-            <td class='col-1 text-center'><span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#standardModal" (click)="edit(item)"></span></td>
-            <td class='col-1 text-center'><span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal" (click)="deleteTemp(item)"></span></td>
+            <td class='col-10'>{{item.processStepTitle}}</td>
+            <td class='col-1 text-center'>
+              <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#standardModal" (click)="edit(item)"></span>
+              &nbsp;&nbsp;&nbsp;
+              <span class="fa fa-trash pointerCursor text-danger" data-toggle="modal" data-target="#deleteModal" (click)="deleteTemp(item)"></span>
+            </td>
           </tr>
         </tbody>
       </table>

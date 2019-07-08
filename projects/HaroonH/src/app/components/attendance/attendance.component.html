@@ -1,43 +1,43 @@
-<!-- start menubar buttons -->
-<div class="topnav boxShadow">
-  <div>
-    <!--class="container" -->
-    <span class="fa iconContainer">
-      <span class="fa icon-hr-jobprofile" > </span>
-    </span>
-    <h1> Attendance</h1>
-
-    <!-- (click)="downloadExcel()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-excel-o"></i>
-      Excel
-    </a>
-
-    <!-- (click)="downloadCSV()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-text-o"></i>
-      CSV
-    </a>
-
-    <!-- (click)="downPDF()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-pdf-o"></i>
-      PDF
-    </a>
-
-    <!-- (click)="printDiv()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-print"></i>
-      Print
-    </a>
-
-  </div>
-</div>
-<!-- end menubar buttons -->
-
-
 <!--tabs row-->
 <div class="myContainer mat-elevation-z8 bgWhite">
+
+  <!-- start menubar buttons -->
+  <div class="topnav boxShadow">
+    <div>
+      <!--class="container" -->
+      <span class="fa iconContainer">
+        <span class="fa icon-hr-jobprofile" > </span>
+      </span>
+      <h1> Attendance</h1>
+  
+      <!-- (click)="downloadExcel()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-excel-o"></i>
+        Excel
+      </a>
+  
+      <!-- (click)="downloadCSV()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-text-o"></i>
+        CSV
+      </a>
+  
+      <!-- (click)="downPDF()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-pdf-o"></i>
+        PDF
+      </a>
+  
+      <!-- (click)="printDiv()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-print"></i>
+        Print
+      </a>
+  
+    </div>
+  </div>
+  <!-- end menubar buttons -->
+
   <!--Start search textbox Row-->
   <div class="row tab-margin">
     <div class="col-md-3">
@@ -105,11 +105,10 @@
         <tr class='d-flex'>
           <th class='col-1 text-center'>Sr #</th>
           <th class='col-2'>Employee Name</th>
-          <th class='col-2'>Designation</th>
+          <th class='col-3'>Designation</th>
           <th class='col-1'>BPS</th>
-          <th class='col-1'>Status</th>
-          <th class='col-2'>Time</th>
-          <th class='col-2'>Remarks</th>
+          <th class='col-2'>IN Time</th>
+          <th class='col-2'>Out Time</th>
           <th class='col-1 text-center'>Edit</th>
         </tr>
       </thead>
@@ -117,13 +116,12 @@
         <tr *ngFor="let item of employeeList; let i=index" class='d-flex'>
           <td class='col-1 text-center'>{{i + 1}}</td> 
           <td class='col-2'>{{item.indvdlFullName}}</td>
-          <td class='col-2'>{{item.jobDesigName}}</td>
+          <td class='col-3'>{{item.jobDesigName}}</td>
           <td class='col-1'>{{item.payGradeName}}</td>
-          <td class='col-1'>{{item.attendanceStatName}}</td>
-          <td class='col-2'>{{item.attTime | date: 'HH:mm:ss a'}}</td>
-          <td class='col-2'>{{item.remarks}}</td>
+          <td class='col-2'>{{item.timeIn | date: 'HH:mm:ss a'}}</td>
+          <td class='col-2'>{{item.timeOut | date: 'HH:mm:ss a'}}</td>
           <td class='col-1 text-center'>
-            <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#profileModal" (click)="edit(item)"></span>
+            <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#profileModal" (click)="edit(item)"></span>
           </td>
         </tr>
       </tbody>
@@ -181,6 +179,7 @@
             <!--end 1st row-->
 
 
+
             <!--start 2nd row-->
             <br/>
             <div class="row">
@@ -191,14 +190,53 @@
                 </span>
               </div>
 
-              <div class="col-md-9">
+              <div class="col-md-1 text-right" style="display: none;">
+                  <p-checkbox [(ngModel)]="chkAddBreak" binary="true" ></p-checkbox>
+              </div>
+            </div>
+            <!--end 2nd row -->
+
+
+
+            <!--start 3rd row-->
+            <br/>
+            <div class="row">
+              <div class="col-md-3">
+                <p-dropdown [options]="managerList" [(ngModel)]="ddlManager" [disabled]="!chkAddBreak" placeholder="Manager" filter="true" [style]="{'width':'100%'}">
+                  <ng-template let-itm pTemplate="item">
+                    <div style="position: relative;height: 25px; z-index: 100;">
+                      <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+              </div>
+
+
+
+              <div class="col-md-3">
+                <p-dropdown [options]="breakTypeList" [(ngModel)]="ddlBreakType" [disabled]="!chkAddBreak" placeholder="Break Type" filter="true" [style]="{'width':'100%'}">
+                  <ng-template let-itm pTemplate="item">
+                    <div style="position: relative;height: 25px; z-index: 100;">
+                      <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+              </div>
+
+
+
+
+              <div class="col-md-6">
                 <span class="ui-float-label">
-                  <input id="remarks" type="text" pInputText [(ngModel)]="attRemarks" class="fullwidth"> 
+                  <input id="remarks" type="text" pInputText [(ngModel)]="attRemarks" [disabled]="!chkAddBreak" class="fullwidth"> 
                   <label for="remarks">Remarks</label>
                 </span>
               </div>
             </div>
-            <!--end 2nd row-->
+            <!--end 3rd row-->
+
+
+
 
             <!--table row-->
             <br/>
@@ -207,18 +245,20 @@
                 <thead>
                   <tr class='d-flex'>
                     <th class='col-1 text-center'>Sr #</th>
-                    <th class='col-2'>Attendance Status</th>
-                    <th class='col-2'>Time</th>
-                    <th class='col-7'>Remarks</th>
+                    <th class='col-2'>Break Type</th>
+                    <th class='col-2'>Time Out</th>
+                    <th class='col-2'>Time In</th> 
+                    <th class='col-5'>Remarks</th>
                     <!-- <th class='col-1 text-center'>Edit</th> -->
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of empAttDetList; let i=index" class='d-flex'>
+                  <tr *ngFor="let item of empBreakList; let i=index" class='d-flex'>
                     <td class='col-1 text-center'>{{i + 1}}</td> 
-                    <td class='col-2'>{{item.attendanceStatName}}</td>
-                    <td class='col-2'>{{item.attTime | date: 'HH:mm:ss a'}}</td>
-                    <td class='col-7'>{{item.remarks}}</td>
+                    <td class='col-2'>{{item.typeName}}</td>
+                    <td class='col-2'>{{item.timeOut | date: 'HH:mm:ss a'}}</td>
+                    <td class='col-2'>{{item.timeIn | date: 'HH:mm:ss a'}}</td>
+                    <td class='col-5'>{{item.rsn}}</td>
                     <!-- <td class='col-1 text-center'>
                       <span class="fa fa-minus pointerCursor" (click)="removeDegree(i)"></span>
                     </td> -->

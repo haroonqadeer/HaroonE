@@ -1,47 +1,46 @@
-<!-- start menubar buttons -->
-<div class="topnav boxShadow">
+<div class="myContainer mat-elevation-z8 bgWhite">
+
+  <!-- start menubar buttons -->
+  <div class="topnav boxShadow">
     <div>
       <!--class="container" -->
       <span class="fa iconContainer">
         <span class="fa icon-hr-employeeprofile" > </span>
       </span>
       <h1> Employee Profile</h1>
-  
+
       <!-- (click)="downloadExcel()" -->
       <a class="pointerCursor">
         <i class="fa fa-file-excel-o"></i>
         Excel
       </a>
-  
+
       <!-- (click)="downloadCSV()" -->
       <a class="pointerCursor">
         <i class="fa fa-file-text-o"></i>
         CSV
       </a>
-  
+
       <!-- (click)="downPDF()" -->
       <a class="pointerCursor">
         <i class="fa fa-file-pdf-o"></i>
         PDF
       </a>
-  
+
       <!-- (click)="printDiv()" -->
       <a class="pointerCursor">
         <i class="fa fa-print"></i>
         Print
       </a>
-  
+
       <!-- <a class="pointerCursor" data-toggle="modal" data-target="#profileModal" (click)="clear()">
         <i class="fa fa-plus-square"></i>
         Add New
       </a> -->
-  
+
     </div>
-</div>
-<!-- end menubar buttons -->
-
-
-<div class="myContainer mat-elevation-z8 bgWhite">
+  </div>
+  <!-- end menubar buttons -->
 
   <!--Start search textbox Row-->
   <div class="row">
@@ -53,40 +52,57 @@
     </div>
   </div>
   <!--end search textbox Row-->
-  
-  <!--start table row-->       
+
+  <!--start table row-->
   <div class="example-container">
-    <div class="example-table-container">                      
+    <div class="example-table-container">
       <table class="table table-striped">
         <thead>
           <tr class='d-flex'>
             <th class='col-1 text-center'>Sr #</th>
-            <th class='col-3'>Employee Name</th>
-            <th class='col-2'>Job Profile</th>
-            <th class='col-2'>Office</th>
-            <th class='col-2'>Department</th>
-            <th class='col-1 text-center'>Edit</th>
-            <th class='col-1 text-center'>Delete</th>
+            <th class='col-3' [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')">
+              Employee Name
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-3' [class.active]="order === 'jobDesigName'" (click)="setOrder('jobDesigName')">
+              Job Profile
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-2' [class.active]="order === 'locationName'" (click)="setOrder('locationName')">
+              Office
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-2' [class.active]="order === 'deptName'" (click)="setOrder('deptName')">
+              Department
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-1 text-center'>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of employeeListMain | search:'UserName,Email': tblSearch | paginate: {
+          <tr *ngFor="let item of employeeListMain | search:'indvdlFullName,jobDesigName,locationName,deptName': tblSearch | paginate: {
             itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index" class='d-flex'>
-            <td class='col-1 text-center'>{{i + 1}}</td> 
+            <td class='col-1 text-center'>{{i + 1}}</td>
             <td class='col-3'>{{item.indvdlFullName}}</td>
-            <td class='col-2'>{{item.jobDesigName}}</td>
+            <td class='col-3'>{{item.jobDesigName}}</td>
             <td class='col-2'>{{item.locationName}}</td>
             <td class='col-2'>{{item.deptName}}</td>
             <td class='col-1 text-center'>
-              <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#employeeModal" (click)="edit(item)"></span>
-            </td>
-            <td class='col-1 text-center'>
-              <span class="fa fa-trash pointerCursor"></span>
-              <!-- data-toggle="modal" data-target="#deleteModal" -->
+              <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#employeeModal" (click)="edit(item)"></span>
+              <!-- &nbsp;&nbsp;&nbsp;
+              <span class="fa fa-trash pointerCursor text-danger"></span> -->
             </td>
           </tr>
 
-          
+
         </tbody>
       </table>
     </div>
@@ -111,7 +127,7 @@
         </mat-form-field>
       </div>
     </div>
-    
+
   </div>
   <!--end table row-->
 </div>
@@ -120,19 +136,19 @@
 
 <br/>
 
-<!--bootstrap modal window -->
-
 
 
 <!-- Start Modal Window -->
 <div class="modal fade" id="employeeModal">
   <div class="modal-dialog shadow-lg-dark modal-xl">
     <div class="modal-content">
-      
+
       <!--start Modal Header -->
       <div class="modal-header">
           <h4 class="modal-title">Employee Information</h4>
-          
+          <div>
+              <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+          </div>
       </div>
       <!--end Modal Header -->
 
@@ -143,8 +159,8 @@
         <!--Start Tabs  -->
         <mat-tab-group>
           <!--start tab 1-->
-          <mat-tab label="Personal Detail" style="overflow-x: hidden; overflow-y: scroll; "> 
-            
+          <mat-tab label="Personal Detail" style="overflow-x: hidden; overflow-y: scroll; ">
+
             <br/>
             <!--start heading-->
             <h5>Personal Detail</h5>
@@ -189,7 +205,7 @@
             <!-- start row 3-->
             <div class="row tab-margin">
               <div class="col-md-6">
-                <mat-form-field class="fullwidth"> 
+                <mat-form-field class="fullwidth">
                   <input matInput placeholder="Father/Husband Name" [(ngModel)]="fhName">
                 </mat-form-field>
               </div>
@@ -234,14 +250,14 @@
                 </div>
               </div>
 
-              <div *ngFor="let item of addressDetail; let i=index">
-                <div class="row">
-                  <table>
+              <div *ngFor="let item of addressDetail; let i=index" >
+                <!-- <div class="row" style="border: 1px solid blue;"> -->
+                  <table class="fullwidth" *ngIf="item.IDelFlag == 0">
                     <tr>
 
                       <!--address type combo box-->
-                      <td style="padding:0 15px 0 15px;">
-                        <p-dropdown [options]="addressType" filter="true" [(ngModel)]="item.addressType" placeholder="Address Type" required>
+                      <td style="padding:0 15px 0 15px; width: 300px">
+                        <p-dropdown [options]="addressType" filter="true" [(ngModel)]="item.addressType" placeholder="Address Type" [style]="{'width':'100%'}">
                           <ng-template let-itm pTemplate="item">
                             <div style="position: relative;height: 25px;">
                               <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -253,9 +269,7 @@
 
                       <!--address text box-->
                       <td colspan="3">
-                        <!-- [showMaskTyped]="true" required -->
-                        <input class="" type="text" pInputText [(ngModel)]="item.address" placeholder="Address"
-                          style="width: 100%;">
+                        <input class="fullwidth" type="text" pInputText [(ngModel)]="item.address" placeholder="Address">
                       </td>
 
                       <td rowspan="2" style="padding:0 0 5px 15px; width: 55px;">
@@ -270,8 +284,7 @@
                     <tr>
                       <!-- Country -->
                       <td style="padding:8px 15px 8px 15px;">
-                        <p-dropdown [options]="countryListForAddress" filter="true" [(ngModel)]="item.countryCode"
-                          placeholder="Select Country" required>
+                        <p-dropdown [options]="countryListForAddress" filter="true" [(ngModel)]="item.countryCode" placeholder="Select Country" [style]="{'width':'100%'}">
                           <ng-template let-itm pTemplate="item">
                             <div style="position: relative;height: 25px;">
                               <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -282,8 +295,7 @@
 
                       <!-- Province -->
                       <td>
-                        <p-dropdown [options]="provinceList" filter="true" [(ngModel)]="item.provinceCode"
-                          placeholder="Select Province" required>
+                        <p-dropdown [options]="provinceList" filter="true" [(ngModel)]="item.provinceCode" placeholder="Select Province" [style]="{'width':'100%'}">
                           <ng-template let-itm pTemplate="item">
                             <div style="position: relative;height: 25px;">
                               <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -294,8 +306,7 @@
 
                       <!-- District -->
                       <td>
-                        <p-dropdown [options]="districtList" filter="true" [(ngModel)]="item.districtCode"
-                          placeholder="Select District" required>
+                        <p-dropdown [options]="districtList" filter="true" [(ngModel)]="item.districtCode" placeholder="Select District" [style]="{'width':'100%'}">
                           <ng-template let-itm pTemplate="item">
                             <div style="position: relative;height: 25px;">
                               <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -306,8 +317,7 @@
 
                       <!-- City -->
                       <td>
-                        <p-dropdown [options]="cityList" filter="true" [(ngModel)]="item.cityCode"
-                          placeholder="Select City" required>
+                        <p-dropdown [options]="cityList" filter="true" [(ngModel)]="item.cityCode" placeholder="Select City" [style]="{'width':'100%'}">
                           <ng-template let-itm pTemplate="item">
                             <div style="position: relative;height: 25px;">
                               <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -319,18 +329,18 @@
 
                   </table>
 
-                </div>
+                <!-- </div> -->
               </div>
 
 
               <!--Add more Contact button-->
-              <div class="row">
-                <div class="col-md-3">
+              <!-- <div class="row" style="border: 1px solid blue;">
+                <div class="col-md-3" style="border: 1px solid blue;"> -->
                   <button mat-fab color="primary" (click)="addAddress()">
                     <span class="fa fa-plus"></span>
                   </button>
-                </div>
-              </div>
+                <!-- </div>
+              </div> -->
               <br />
             </div>
             <!-- *________________End Add Address Detail_____________________ -->
@@ -345,74 +355,73 @@
                     <h6>Contact Info</h6>
                   </div>
                 </div>
-  
-                <div *ngFor="let item of contactDetail; let i=index" class="tab-margin">
-                  <div class="row">
-                    <table bordre="1">
+
+                <div *ngFor="let item of contactDetail; let i=index">
+                  <!-- <div class="row"> -->
+                    <table class="fullwidth">
                       <tr>
-  
+
                         <!--contact type text box-->
-                        <td style="border: 0px solid red; padding:0 15px 0 15px;">
-                          <p-dropdown [options]="contactType" filter="true" [(ngModel)]="item.contactType" placeholder="Contact Type" required>
+                        <td style="padding:0 15px 0 15px; width: 300px">
+                          <p-dropdown [options]="contactType" filter="true" [(ngModel)]="item.contactType" placeholder="Contact Type" [style]="{'width':'100%'}">
                             <ng-template let-itm pTemplate="item">
                               <div style="position: relative;height: 25px;">
                                 <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
                               </div>
                             </ng-template>
                           </p-dropdown>
-  
+
                         </td>
-  
+
                         <!-- Country code combo box-->
                         <td style="border: 0px solid red;">
-  
-                          <p-dropdown [options]="countryList" filter="true" [(ngModel)]="item.countryCode" placeholder="Country Code" required>
+
+                          <p-dropdown [options]="countryList" filter="true" [(ngModel)]="item.countryCode" placeholder="Country Code" [style]="{'width':'100%'}">
                             <ng-template let-code pTemplate="item">
                               <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
                                 <div style="font-size:14px;float:left;margin-top:4px">{{code.label}}</div>
                               </div>
                             </ng-template>
                           </p-dropdown>
-  
+
                         </td>
-  
+
                         <!--Contact code combobox -->
                         <td colspan="2" style="border: 0px solid red;">
-                          <input type="text" pInputText [(ngModel)]="item.contactNumber" placeholder="Number"
-                            mask="0000000000" style="width: 100%">
+                          <input type="text" pInputText [(ngModel)]="item.contactNumber" placeholder="Number" mask="0000000000" class="fullwidth">
                         </td>
                         <!-- <td colspan="2" style="border: 0px solid red; width: 150px;" *ngIf="item.areaCode">
                           <input type="text" pInputText [(ngModel)]="item.contactNumber" placeholder="Number"
                             mask="00-0000000" style="width: 100%">
                         </td>
-  
+
                         <td colspan="2" style="border: 0px solid red; width: 150px;" *ngIf="item.mobileCode">
                           <input type="text" pInputText [(ngModel)]="item.mobileNumber" placeholder="Number"
                             mask="000-0000000" style="width: 100%">
                         </td> -->
-  
+
                         <!--Remove button -->
                         <td style="border: 0px solid red; padding:0 0 5px 15px; width: 55px;">
                           <button mat-fab color="warn" (click)="removeContact(i)">
                             <span class="fa fa-minus"></span>
                           </button>
                         </td>
-  
-  
+
+
                       </tr>
                     </table>
-  
-                  </div>
+
+                  <!-- </div> -->
                 </div>
-  
+
                 <!--Add more Contact button-->
-                <div class="row tab-margin">
-                  <div class="col-md-3">
+                <!-- <div class="row">
+                  <div class="col-md-3"> -->
                     <button mat-fab color="primary" (click)="addContact()">
                       <span class="fa fa-plus"></span>
                     </button>
-                  </div>
-                </div>
+                  <!-- </div>
+                </div> -->
                 <br />
             </div>
             <!-- *________________End Add Contacts Detail_____________________ -->
@@ -420,7 +429,7 @@
 
 
             <!-- *________________Start Add Email Detail_____________________ -->
-            <div class="tab-margin"> 
+            <div class="tab-margin">
 
               <div class="row">
                 <div class="col-md-12">
@@ -430,14 +439,13 @@
 
 
               <div *ngFor="let item of emailDetail; let i=index">
-                <div class="row">
-                  <table>
+                <!-- <div class="row"> -->
+                  <table class="fullwidth">
                     <tr>
 
                       <!--address type combo box-->
-                      <td style="border: 0px solid red; padding:0 15px 0 15px; width: 200px;">
-                        <p-dropdown [options]="emailType" filter="true" [(ngModel)]="item.type" placeholder="Email Type"
-                          required>
+                      <td style="padding:0 15px 0 15px; width: 300px;">
+                        <p-dropdown [options]="emailType" filter="true" [(ngModel)]="item.type" placeholder="Email Type" [style]="{'width':'100%'}">
                           <ng-template let-itm pTemplate="item">
                             <div style="position: relative;height: 25px;">
                               <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -450,8 +458,7 @@
                       <!--address text box-->
                       <td>
                         <!-- [showMaskTyped]="true" required -->
-                        <input class="" type="text" pInputText [(ngModel)]="item.email" placeholder="Email"
-                          style="width: 100%;">
+                        <input class="fullwidth" type="text" pInputText [(ngModel)]="item.email" placeholder="Email">
                       </td>
 
                       <td style="border: 0px solid red; padding:0 0 5px 15px; width: 55px;">
@@ -463,7 +470,7 @@
                     </tr>
                   </table>
 
-                </div>
+                <!-- </div> -->
                 <!-- Contact Table Ends -->
 
                 <!-- Contact Number Section Ends -->
@@ -499,12 +506,12 @@
 
           <!--start tab 2 ---------------------------------------------------------- -->
           <mat-tab label="Job Profile">
-            
+
             <br/>
             <!--start heading-->
             <h5>Job Profile</h5>
             <!--end heading-->
-            
+
             <!--start row 1-->
             <div class="row tab-margin">
               <div class="col-md-6">
@@ -516,7 +523,7 @@
                     </ng-template>
                   </p-dropdown>
               </div>
-              
+
             </div>
             <!-- end row 1-->
 
@@ -527,7 +534,7 @@
               <div class="col-md-3">
                 <b>Job Title</b>
               </div>
-              
+
               <div class="col-md-3">
                 {{lblJobTitle}}
               </div>
@@ -549,7 +556,7 @@
               <div class="col-md-3">
                 <b>Office</b>
               </div>
-              
+
               <div class="col-md-3">
                 {{lblOffice}}
               </div>
@@ -564,7 +571,7 @@
             </div>
             <!-- end row 3-->
 
-            
+
             <!--start row 4-->
             <div class="row tab-margin">
               <div class="col-md-3">
@@ -576,7 +583,7 @@
                 <br/>
                 {{lblAppointmentDate | date}}
               </div>
-              
+
               <div class="col-md-6">
                   <mat-form-field>
                     <input matInput [matDatepicker]="picker" placeholder="Joining Date" [(ngModel)]="startDate">
@@ -596,7 +603,7 @@
               <div class="col-md-3">
                 {{lblJobType}}
               </div>
-              
+
               <div class="col-md-3">
                 {{lblRetirementDate | date}}
               </div>
@@ -623,7 +630,7 @@
 
           <!--start tab 3 ---------------------------------------------------------- -->
           <mat-tab label="Qualification Detail">
-            
+
             <br/>
             <!--start heading-->
             <h5>Qualification Detail</h5>
@@ -632,9 +639,9 @@
             <!--Start row 1-->
             <div class="row tab-margin">
               <div class="col-md-12">
-                <!--start table row-->       
+                <!--start table row-->
                 <div class="example-container mat-elevation-z8">
-                  <div class="example-table-container">                      
+                  <div class="example-table-container">
                     <table class="table table-striped">
                       <thead>
                         <tr class='d-flex'>
@@ -649,18 +656,18 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let item of empDegreeList; let i=index" class='d-flex'>
-                          <td class='col-1 text-center'>{{i+1}}</td> 
-                          <td class='col-2'>{{item.degree}}</td>
-                          <td class='col-2'>{{item.CampusName}}</td>
-                          <td class='col-2'>{{item.PssngDt | date}}</td>
-                          <td class='col-2'>{{item.Grade}}</td>
-                          <td class='col-2'>{{item.DivIsion}}</td>
+                          <td class='col-1 text-center'>{{i+1}}</td>
+                          <td class='col-2'>{{item.qlfctnCriteriaName}}</td>
+                          <td class='col-2'>{{item.campusName}}</td>
+                          <td class='col-2'>{{item.pssngDt | date}}</td>
+                          <td class='col-2'>{{item.grade}}</td>
+                          <td class='col-2'>{{item.divIsion}}</td>
                           <td class='col-1 text-center'>
-                            <span class="fa fa-minus pointerCursor" (click)="removeQualification(i)"></span>
+                            <span class="fa fa-minus pointerCursor text-danger" (click)="removeQualification(i)"></span>
                           </td>
                         </tr>
 
-                        <tr class='d-flex'> 
+                        <tr class='d-flex'>
                           <td class='col-3'>
                             <p-dropdown [options]="degreeList" filter="true" [(ngModel)]="ddlDegree" (onChange)="getFilterItem('skill')" placeholder="Degree" [style]="{'width':'100%'}">
                               <ng-template let-itm pTemplate="item">
@@ -669,7 +676,7 @@
                                 </div>
                               </ng-template>
                             </p-dropdown>
-                          </td>             
+                          </td>
                           <td class='col-2'>
                             <input type="text" pInputText [(ngModel)]="empInstitute" class="fullwidth" placeholder="Institute">
                           </td>
@@ -695,7 +702,7 @@
                             </p-dropdown>
                           </td>
                           <td class='col-1 text-center'>
-                            <span class="fa fa-plus pointerCursor" (click)="addQualification()"></span>
+                            <span class="fa fa-plus pointerCursor text-primary" (click)="addQualification()"></span>
                           </td>
                         </tr>
 
@@ -722,7 +729,7 @@
 
           <!--start tab 4 ---------------------------------------------------------- -->
           <mat-tab label="Skill Detial">
-            
+
             <br/>
             <!--start heading-->
             <h5>Skills Detail</h5>
@@ -731,9 +738,9 @@
             <!--Start row 1-->
             <div class="row tab-margin">
               <div class="col-md-12">
-                <!--start table row-->       
+                <!--start table row-->
                 <div class="example-container mat-elevation-z8">
-                  <div class="example-table-container">                      
+                  <div class="example-table-container">
                     <table class="table table-striped">
                       <thead>
                         <tr class='d-flex'>
@@ -742,21 +749,21 @@
                           <th class='col-3'>Skill</th>
                           <th class='col-2'>Level</th>
                           <th class='col-3'>Remarks</th>
-                          <th class='col-1 text-center'>Delete</th>
+                          <th class='col-1 text-center'>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let item of empSkillList; let i=index" class='d-flex'>
-                          <td class='col-1 text-center'>{{i + 1}}</td> 
-                          <td class='col-2'>{{item.group}}</td>
-                          <td class='col-3'>{{item.skill}}</td>
-                          <td class='col-2'>{{item.SkillLvl}}</td>
-                          <td class='col-3'>{{item.SkillRmrks}}</td>
+                          <td class='col-1 text-center'>{{i + 1}}</td>
+                          <td class='col-2'>{{item.qlfctnName}}</td>
+                          <td class='col-3'>{{item.qlfctnCriteriaName}}</td>
+                          <td class='col-2'>{{item.skillLvl}}</td>
+                          <td class='col-3'>{{item.skillRmrks}}</td>
                           <td class='col-1 text-center'>
-                            <span class="fa fa-minus pointerCursor" (click)="removeSkill(i)"></span>
+                            <span class="fa fa-minus pointerCursor text-danger" (click)="removeSkill(i)"></span>
                           </td>
                         </tr>
-                        
+
                         <tr class='d-flex'>
                           <td class='col-3'>
                             <p-dropdown [options]="skillGroupList" filter="true" [(ngModel)]="ddlSkillGroup" (onChange)="getFilterItem('skill')" placeholder="Group" [style]="{'width':'100%'}">
@@ -766,7 +773,7 @@
                                 </div>
                               </ng-template>
                             </p-dropdown>
-                          </td>             
+                          </td>
                           <td class='col-3'>
                             <p-dropdown [options]="skillList" filter="true" [(ngModel)]="ddlSkill" placeholder="Skill" [style]="{'width':'100%'}">
                               <ng-template let-itm pTemplate="item">
@@ -783,7 +790,7 @@
                               <input type="text" pInputText [(ngModel)]="empSkillRemarks" class="fullwidth" placeholder="Remarks">
                           </td>
                           <td class='col-1 text-center'>
-                            <span class="fa fa-plus pointerCursor" (click)="addSkill()"></span>
+                            <span class="fa fa-plus pointerCursor text-primary" (click)="addSkill()"></span>
                           </td>
                         </tr>
 
@@ -795,7 +802,7 @@
               </div>
             </div>
             <!--end row 1-->
-            
+
             <!--start row 2-->
             <div class="row tab-margin">
               <div class="col-md-6">
@@ -804,7 +811,7 @@
               </div>
             </div>
             <!--end row 2-->
-            
+
           </mat-tab>
           <!--end tab 4-->
 
@@ -812,7 +819,7 @@
 
           <!--start tab 5 ---------------------------------------------------------- -->
           <mat-tab label="Previous Service Detail">
-            
+
             <br/>
             <!--start heading-->
             <h5>Previous Service Detail</h5>
@@ -821,9 +828,9 @@
             <!--Start row 1-->
             <div class="row tab-margin">
               <div class="col-md-12">
-                <!--start table row-->       
+                <!--start table row-->
                 <div class="example-container mat-elevation-z8">
-                  <div class="example-table-container">                      
+                  <div class="example-table-container">
                     <table class="table table-striped">
                       <thead>
                         <tr class='d-flex'>
@@ -838,22 +845,29 @@
                       <tbody>
                         <tr *ngFor="let item of empOrgList; let i=index" class='d-flex'>
                           <td class='col-1 text-center'>{{i+1}}</td>
-                          <td class='col-2'>{{item.Post}}</td>             
-                          <td class='col-3'>{{item.OrgName}}</td>
-                          <td class='col-3'>{{item.StartDt | date}}</td>
-                          <td class='col-2'>{{item.LeavingDt | date}}</td>
+                          <td class='col-3'>{{item.desigRmrks}}</td>
+                          <td class='col-3'>{{item.qlfctnCriteriaName}}</td>
+                          <td class='col-2'>{{item.startDt | date}}</td>
+                          <td class='col-2'>{{item.leavingDt | date}}</td>
                           <td class='col-1 text-center'>
                             <span class="fa fa-minus pointerCursor" (click)="removePSD(i)"></span>
                           </td>
                         </tr>
-                        
+
                         <tr class='d-flex'>
                           <td class='col-1'></td>
                           <td class='col-3'>
                             <input type="text" pInputText [(ngModel)]="empPost" class="fullwidth" placeholder="Post">
-                          </td>             
+                          </td>
                           <td class='col-3'>
-                            <p-dropdown [options]="orgList" filter="true" [(ngModel)]="ddlOrg" placeholder="Organization" [style]="{'width':'100%'}">
+                            <!-- <p-dropdown [options]="orgList" filter="true" [(ngModel)]="ddlOrg" placeholder="Organization" [style]="{'width':'100%'}">
+                              <ng-template let-itm pTemplate="item">
+                                <div style="position: relative;height: 25px;">
+                                  <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                                </div>
+                              </ng-template>                                    (onChange)="getFilterItem('skill')"
+                            </p-dropdown> -->
+                            <p-dropdown [options]="experienceList" filter="true" [(ngModel)]="ddlExperience"  placeholder="Experience" [style]="{'width':'100%'}">
                               <ng-template let-itm pTemplate="item">
                                 <div style="position: relative;height: 25px;">
                                   <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -880,7 +894,7 @@
               </div>
             </div>
             <!--end row 1-->
-            
+
             <!--start row 2-->
             <div class="row tab-margin">
               <div class="col-md-6">
@@ -889,7 +903,7 @@
               </div>
             </div>
             <!--end row 2-->
-            
+
           </mat-tab>
           <!--end tab 5-->
 
@@ -897,7 +911,7 @@
 
           <!--start tab 6 ---------------------------------------------------------- -->
           <mat-tab label="Asset Declaration">
-            
+
             <br/>
             <!--start heading-->
             <h5>Asset Declaration</h5>
@@ -906,9 +920,9 @@
             <!--Start row 1-->
             <div class="row tab-margin">
               <div class="col-md-12">
-                <!--start table row-->       
+                <!--start table row-->
                 <div class="example-container mat-elevation-z8">
-                  <div class="example-table-container">                      
+                  <div class="example-table-container">
                     <table class="table table-striped">
                       <thead>
                         <tr class='d-flex'>
@@ -921,33 +935,33 @@
                       <tbody>
                         <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
                         <tr class='d-flex'>
-                          <td class='col-1'>1</td> 
-                          <td class='col-7'>2017</td> 
+                          <td class='col-1'>1</td>
+                          <td class='col-7'>2017</td>
                           <td class='col-2'>
                               <span class="fa fa-check"></span>
-                          </td>             
-                          <td class='col-2 text-center'>
-                            <span class="fa fa-file-text pointerCursor"></span>
                           </td>
-                        </tr>
-                        
-                        <tr class='d-flex'>
-                          <td class='col-1'>2</td> 
-                          <td class='col-7'>2016</td> 
-                          <td class='col-2'>
-                              <span class="fa fa-remove"></span>
-                          </td>             
                           <td class='col-2 text-center'>
                             <span class="fa fa-file-text pointerCursor"></span>
                           </td>
                         </tr>
 
                         <tr class='d-flex'>
-                          <td class='col-1'>3</td> 
-                          <td class='col-7'>2015</td> 
+                          <td class='col-1'>2</td>
+                          <td class='col-7'>2016</td>
+                          <td class='col-2'>
+                              <span class="fa fa-remove"></span>
+                          </td>
+                          <td class='col-2 text-center'>
+                            <span class="fa fa-file-text pointerCursor"></span>
+                          </td>
+                        </tr>
+
+                        <tr class='d-flex'>
+                          <td class='col-1'>3</td>
+                          <td class='col-7'>2015</td>
                           <td class='col-2'>
                               <span class="fa fa-check"></span>
-                          </td>             
+                          </td>
                           <td class='col-2 text-center'>
                             <span class="fa fa-file-text pointerCursor"></span>
                           </td>
@@ -969,7 +983,7 @@
 
           <!--start tab 7 ---------------------------------------------------------- -->
           <mat-tab label="ACR">
-            
+
             <br/>
             <!--start heading-->
             <h5>ACR</h5>
@@ -978,9 +992,9 @@
             <!--Start row 1-->
             <div class="row tab-margin">
               <div class="col-md-12">
-                <!--start table row-->       
+                <!--start table row-->
                 <div class="example-container mat-elevation-z8">
-                  <div class="example-table-container">                      
+                  <div class="example-table-container">
                     <table class="table table-striped">
                       <thead>
                         <tr class='d-flex'>
@@ -994,7 +1008,7 @@
                       <tbody>
                         <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
                         <tr class='d-flex'>
-                          <td class='col-1'>1</td> 
+                          <td class='col-1'>1</td>
                           <td class='col-3'>2017</td>
                           <td class='col-2'>
                               <span class="fa fa-check"></span>
@@ -1004,10 +1018,10 @@
                             <span class="fa fa-file-text pointerCursor"></span>
                           </td>
                         </tr>
-                        
+
                         <tr class='d-flex'>
-                          <td class='col-1'>2</td> 
-                          <td class='col-3'>2016</td> 
+                          <td class='col-1'>2</td>
+                          <td class='col-3'>2016</td>
                           <td class='col-2'>
                               <span class="fa fa-remove"></span>
                           </td>
@@ -1018,8 +1032,8 @@
                         </tr>
 
                         <tr class='d-flex'>
-                          <td class='col-1'>3</td> 
-                          <td class='col-3'>2015</td> 
+                          <td class='col-1'>3</td>
+                          <td class='col-3'>2015</td>
                           <td class='col-2'>
                               <span class="fa fa-check"></span>
                           </td>
@@ -1045,7 +1059,7 @@
 
           <!--start tab 8 ---------------------------------------------------------- -->
           <mat-tab label="Leave Info">
-            
+
             <br/>
             <!--start heading-->
             <h5>Leave Info</h5>
@@ -1054,9 +1068,9 @@
             <!--Start row 1-->
             <div class="row tab-margin">
               <div class="col-md-12">
-                <!--start table row-->       
+                <!--start table row-->
                 <div class="example-container mat-elevation-z8">
-                  <div class="example-table-container">                      
+                  <div class="example-table-container">
                     <table class="table table-striped">
                       <thead>
                         <tr class='d-flex'>
@@ -1070,19 +1084,19 @@
                       <tbody>
                         <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
                         <tr class='d-flex'>
-                          <td class='col-1'>1</td> 
-                          <td class='col-6'>Medical Leave</td> 
-                          <td class='col-2'>10</td>             
+                          <td class='col-1'>1</td>
+                          <td class='col-6'>Medical Leave</td>
+                          <td class='col-2'>10</td>
                           <td class='col-2'>3</td>
                           <td class='col-1 text-center'>
                             <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
                           </td>
                         </tr>
-                        
+
                         <tr class='d-flex'>
-                          <td class='col-1'>2</td> 
-                          <td class='col-6'>Casual Leave</td> 
-                          <td class='col-2'>10</td>             
+                          <td class='col-1'>2</td>
+                          <td class='col-6'>Casual Leave</td>
+                          <td class='col-2'>10</td>
                           <td class='col-2'>2</td>
                           <td class='col-1 text-center'>
                             <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
@@ -1090,7 +1104,7 @@
                         </tr>
 
                         <tr class='d-flex'>
-                          <td class='col-11'></td> 
+                          <td class='col-11'></td>
                           <td class='col-1 text-center'>
                             <span class="fa fa-plus pointerCursor"></span>
                           </td>
@@ -1111,7 +1125,7 @@
 
           <!--start tab 9 ---------------------------------------------------------- -->
           <mat-tab label="Facilities">
-            
+
             <br/>
             <!--start heading-->
             <h5>Facilities</h5>
@@ -1120,9 +1134,9 @@
             <!--Start row 1-->
             <div class="row tab-margin">
               <div class="col-md-12">
-                <!--start table row-->       
+                <!--start table row-->
                 <div class="example-container mat-elevation-z8">
-                  <div class="example-table-container">                      
+                  <div class="example-table-container">
                     <table class="table table-striped">
                       <thead>
                         <tr class='d-flex'>
@@ -1133,7 +1147,7 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let item of empFacilityList; let i=index" class='d-flex'>
-                          <td class='col-1 text-center'>{{i + 1}}</td> 
+                          <td class='col-1 text-center'>{{i + 1}}</td>
                           <td class='col-10'>{{item.facilityName}}</td>
                           <td class='col-1 text-center'>
                             <!-- <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span> -->
@@ -1141,7 +1155,7 @@
                         </tr>
 
                         <!-- <tr class='d-flex'>
-                          <td class='col-11'></td> 
+                          <td class='col-11'></td>
                           <td class='col-1 text-center'>
                             <span class="fa fa-plus pointerCursor"></span>
                           </td>

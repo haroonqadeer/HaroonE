@@ -16,8 +16,8 @@ styleUrls: ['./recruitmentapp.component.scss']
 })
 export class RecruitmentappComponent implements OnInit {
 
-    serverUrl = "http://192.168.200.19:3013/";
-    //serverUrl = "http://localhost:52929/";
+    //serverUrl = "http://192.168.200.19:3013/";
+    serverUrl = "http://localhost:52929/";
     tokenKey = "token";
 
     httpOptions = {
@@ -45,13 +45,14 @@ export class RecruitmentappComponent implements OnInit {
     interviewPanelList = [];
     testSubjectList = [];
     subjectList = []
+    jobPostVacancyIdList = [];
 
 
     tempPublishingChannelList = [];
 
     //*hidden variables
     VacancyId = "";
-    JobPostVcncyID = 1;
+    JobPostVcncyID = "";
 
     prInterviewCode = 0;
 
@@ -72,6 +73,9 @@ export class RecruitmentappComponent implements OnInit {
     endDate;
     Quantity;
     Description;
+    ddlJobPostVacancyId;
+    jobPostVacancyFlag = false;
+    JobPostVcncyFnnclImpct = 0;
 
     //* step 2 ngModels
     ddlApprProcess;
@@ -206,7 +210,99 @@ export class RecruitmentappComponent implements OnInit {
         });
     }
 
+    //Function for get job post vacancy ids 
+    getJobPostVacancyId() {
 
+        if (this.JobDesigID == "" || this.JobPostDeptCd == "" || this.JobPostLocationCd == "") {
+            this.toastr.errorToastr('Invalid Request', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else {
+
+            //* ********************************************save data 
+            var reqData = {
+                "JobDesigID":               this.JobDesigID,
+                "JobPostDeptCd":            this.JobPostDeptCd,
+                "JobPostLocationCd":        this.JobPostLocationCd,
+            };
+
+            //var token = localStorage.getItem(this.tokenKey);
+
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+            this.http.post(this.serverUrl + 'api/getJobPostVacancyId', reqData, { headers: reqHeader }).subscribe((data: any) => {
+
+                if (data.msg != "Done") {
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                    return false;
+                } else {
+
+
+                    if(data.vacancyIdList.length > 0){
+                        this.jobPostVacancyFlag = true;
+                        this.jobPostVacancyIdList = data.vacancyIdList;
+                    }
+                    //this.tempDegreeList =           data.degreeList;
+                    //this.tempCertificateList =      data.certificateList;
+                    //this.tempExperienceList =       data.experienceList;
+                    //this.tempDescList =             data.descList;
+                    //this.tempLeaveRulesList =       data.leaveRuleList;
+                    //this.jobFacilityList =         data.facilityList;
+
+                }
+            });
+        }
+    }
+    
+    //Function for get job post vacancy detail 
+    getJobPostVacancyDetail() {
+
+        if (this.ddlJobPostVacancyId == undefined || this.ddlJobPostVacancyId == "") {
+            this.toastr.errorToastr('Invalid Request', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else {
+
+            //* ********************************************save data 
+            var reqData = {
+                "JobPostVcncyID":  this.ddlJobPostVacancyId,
+                "VcncyID":         this.ddlJobPostVacancyId
+            };
+
+            //var token = localStorage.getItem(this.tokenKey);
+
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+            this.http.post(this.serverUrl + 'api/getJobPostVacancyDetail', reqData, { headers: reqHeader }).subscribe((data: any) => {
+
+                if (data.msg != "Done") {
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                    return false;
+                } else {
+
+
+                    this.startDate = new Date(data.vcncyDetlList[0].vcncyStartDt);
+                    this.endDate = new Date(data.vcncyDetlList[0].vcncyExprtnDt);
+                    this.Quantity = data.vcncyDetlList[0].jobPostVcncyQty.toString();
+                    this.totalVacancies += data.vcncyDetlList[0].jobPostVcncyQty;
+                    this.VacancyId = data.vcncyDetlList[0].vcncyID;
+                    this.JobPostVcncyID = data.vcncyDetlList[0].jobPostVcncyID;
+                    this.JobPostVcncyFnnclImpct = data.vcncyDetlList[0].jobPostVcncyFnnclImpct;
+
+
+                    this.approvalReqList = data.aprList;
+                    this.interviewPanelList = data.intrvwList;
+                    this.testSubjectList = data.txtList;
+                    this.publishingChannelList = data.pubChnlList;
+
+                }
+            });
+        }
+    }
 
 
 
@@ -225,7 +321,7 @@ export class RecruitmentappComponent implements OnInit {
             var duplicateChk = false;
 
             for (var i = 0; i < this.publishingChannelList.length; i++) {
-                if (this.publishingChannelList[i].PblshngChnnlCd == this.ddlPubChannel) {
+                if (this.publishingChannelList[i].pblshngChnnlCd == this.ddlPubChannel) {
                     duplicateChk = true;
                 }
             }
@@ -240,9 +336,9 @@ export class RecruitmentappComponent implements OnInit {
                 dataList = this.tempPublishingChannelList.filter(x => x.value == this.ddlPubChannel);
 
                 this.publishingChannelList.push({
-                    PblshngChnnlCd: this.ddlPubChannel,
-                    PblshngChnnlName: dataList[0].label,
-                    PblshingStatus: false
+                    pblshngChnnlCd: this.ddlPubChannel,
+                    pblshngChnnlName: dataList[0].label,
+                    pblshingStatus: false
                 });
 
             }
@@ -270,7 +366,7 @@ export class RecruitmentappComponent implements OnInit {
             var duplicateChk = false;
 
             for (var i = 0; i < this.approvalReqList.length; i++) {
-                if (this.approvalReqList[i].ActlApprvngAthrtyEmpID == this.ddlApprAuthority && this.approvalReqList[i].ApprvngPrcssCd == this.ddlApprProcess) {
+                if (this.approvalReqList[i].actlApprvngAthrtyEmpID == this.ddlApprAuthority && this.approvalReqList[i].apprvngPrcssCd == this.ddlApprProcess) {
                     duplicateChk = true;
                 }
             }
@@ -288,13 +384,13 @@ export class RecruitmentappComponent implements OnInit {
                 dataList1 = this.apprAuthorigyList.filter(x => x.value == this.ddlApprAuthority);
 
                 this.approvalReqList.push({
-                    ApprvngPrcssCd: this.ddlApprProcess,
-                    ActlApprvngAthrtyEmpID: this.ddlApprAuthority,
-                    ActlApprvngAthrtyJobDesigID: dataList1[0].desgIdz,
-                    ActlApprvngAthrtyJobPostDeptCd: dataList1[0].postId,
-                    ActlApprvngAthrtyJobPostLocationCd: dataList1[0].locationId,
-                    Stage: dataList[0].label,
-                    Authority: dataList1[0].label
+                    apprvngPrcssCd: this.ddlApprProcess,
+                    actlApprvngAthrtyEmpID: this.ddlApprAuthority,
+                    actlApprvngAthrtyJobDesigID: dataList1[0].desgId,
+                    actlApprvngAthrtyJobPostDeptCd: dataList1[0].postId,
+                    actlApprvngAthrtyJobPostLocationCd: dataList1[0].locationId,
+                    apprvngPrcssName: dataList[0].label,
+                    authority: dataList1[0].label
                 });
 
             }
@@ -318,7 +414,7 @@ export class RecruitmentappComponent implements OnInit {
             var duplicateChk = false;
 
             for (var i = 0; i < this.interviewPanelList.length; i++) {
-                if (this.interviewPanelList[i].OfficialEmpID == this.ddlInterviewOfficial) {
+                if (this.interviewPanelList[i].empID == this.ddlInterviewOfficial) {
                     duplicateChk = true;
                 }
             }
@@ -333,12 +429,12 @@ export class RecruitmentappComponent implements OnInit {
                 dataList = this.apprAuthorigyList.filter(x => x.value == this.ddlInterviewOfficial);
 
                 this.interviewPanelList.push({
-                    ApprvngPrcssCd: this.prInterviewCode,
-                    OfficialEmpID: this.ddlInterviewOfficial,
-                    JobDesigID: dataList[0].desgId,
-                    JobPostDeptCd: dataList[0].postId,
-                    JobPostLocationCd: dataList[0].locationId,
-                    Official: dataList[0].label
+                    apprvngPrcssCd: this.prInterviewCode,
+                    empID: this.ddlInterviewOfficial,
+                    jobDesigID: dataList[0].desgId,
+                    jobPostDeptCd: dataList[0].postId,
+                    jobPostLocationCd: dataList[0].locationId,
+                    official: dataList[0].label
                 });
             }
         }
@@ -381,7 +477,7 @@ export class RecruitmentappComponent implements OnInit {
             var duplicateChk = false;
 
             for (var i = 0; i < this.testSubjectList.length; i++) {
-                if (this.testSubjectList[i].TestSbjctCd == this.ddlSubject) {
+                if (this.testSubjectList[i].testSbjctCd == this.ddlSubject) {
                     duplicateChk = true;
                 }
             }
@@ -396,12 +492,12 @@ export class RecruitmentappComponent implements OnInit {
                 dataList = this.subjectList.filter(x => x.value == this.ddlSubject);
 
                 this.testSubjectList.push({
-                    ApprvngPrcssCd: this.prInterviewCode,
-                    TestSbjctCd: this.ddlSubject,
-                    JobPostVcncyID: this.JobPostVcncyID,
-                    VcncyTestSbjctTotMrks: this.totalMarks,
-                    VcncyTestSbjctPssngMrks: this.passingMarks,
-                    Subject: dataList[0].label
+                    apprvngPrcssCd: this.prInterviewCode,
+                    testSbjctCd: this.ddlSubject,
+                    jobPostVcncyID: this.JobPostVcncyID,
+                    vcncyTestSbjctTotMrks: this.totalMarks,
+                    vcncyTestSbjctPssngMrks: this.passingMarks,
+                    testSbjctName: dataList[0].label
                 });
             }
         }
@@ -427,77 +523,40 @@ export class RecruitmentappComponent implements OnInit {
     //Function for save and update publishig channel 
     savePubChannel() {
 
-        if (this.publishingChannelList.length == 0 ) {
+        if (this.VacancyId == "" || this.VacancyId == undefined ) {
+            this.toastr.errorToastr('Invalid Request', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.publishingChannelList.length == 0 ) {
             this.toastr.errorToastr('Please enter publishing channel', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else {
 
-            // alert('ok');
-            // return false; 
+            //* ********************************************save data 
+            var saveData = {
+                "VcncyID":                this.VacancyId,
+                "pubChannelList":         JSON.stringify(this.publishingChannelList),
+                "ConnectedUser":          "12000",
+                "DelFlag":                0
+            };
 
-            if (this.VacancyId != '') {
+            //var token = localStorage.getItem(this.tokenKey);
 
-                // //this.app.showSpinner();
-                // // this.app.hideSpinner();
-                // //* ********************************************update data 
-                // var updateData = {
-                //     "LeaveNatureCd": this.leaveNatureId,
-                //     "LeaveNatureName": this.leaveNature,
-                //     "LeaveNatureDesc": this.natureDescription,
-                //     "ConnectedUser": "2",
-                //     "DelFlag": 0,
-                //     "DelStatus": "No"
-                // };
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
 
-                // //var token = localStorage.getItem(this.tokenKey);
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-                // //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+            this.http.post(this.serverUrl + 'api/savePubChannel', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
-                // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-                // this.http.put(this.serverUrl + 'api/updateLeaveNature', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-                //     if (data.msg != "Record Updated Successfully!") {
-                //         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                //         return false;
-                //     } else {
-                //         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                //         $('#leaveNatureModal').modal('hide');
-                //         this.getLeaveNature();
-                //         return false;
-                //     }
-                // });
-
-            }
-            else {
-
-                //* ********************************************save data 
-                var saveData = {
-                    "VcncyID":                  1,
-                    "pubChannelList":          JSON.stringify(this.publishingChannelList),
-                    "ConnectedUser":            "12000",
-                    "DelFlag":                  0
-                };
-
-                //var token = localStorage.getItem(this.tokenKey);
-
-                //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-                this.http.post(this.serverUrl + 'api/savePubChannel', saveData, { headers: reqHeader }).subscribe((data: any) => {
-
-                    if (data.msg != "Record Saved Successfully!") {
-                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                        return false;
-                    } else {
-                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                        //this.getJobDesc();
-                        return false;
-                    }
-                });
-            }
+                if (data.msg != "Record Saved Successfully!") {
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                    return false;
+                } else {
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    return false;
+                }
+            });
         }
     }
 
@@ -506,6 +565,10 @@ export class RecruitmentappComponent implements OnInit {
 
         if (this.JobDesigID == undefined || this.JobDesigID == '') {
             this.toastr.errorToastr('Invalid request', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.jobPostVacancyFlag == true && (this.ddlJobPostVacancyId == undefined || this.ddlJobPostVacancyId == '')) {
+            this.toastr.errorToastr('Please select job post vacancy id', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else if (this.startDate == undefined || this.startDate == null) {
@@ -520,46 +583,50 @@ export class RecruitmentappComponent implements OnInit {
             this.toastr.errorToastr('Please select quantity', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.Description == undefined || this.Description == "") {
-            this.toastr.errorToastr('Please enter description', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
+        // else if (this.Description == undefined || this.Description == "") {
+        //     this.toastr.errorToastr('Please enter description', 'Error', { toastTimeout: (2500) });
+        //     return false;
+        // }
         else {
 
-            if (this.VacancyId != '') {
+            if (this.jobPostVacancyFlag == true) {
 
                 // //this.app.showSpinner();
                 // // this.app.hideSpinner();
                 // //* ********************************************update data 
-                // var updateData = {
-                //     "PrcssStepID": this.pStandardId,
-                //     "ProcessStepTitle": this.pTitle,
-                //     "ProcessStepDesc": this.pDescription,
-                //     "PrcssID": 1,
-                //     "PrcssTypeCd": 1,
-                //     "ConnectedUser": "3",
-                //     "DelFlag": 0,
-                //     "DelStatus": "No"
-                // };
+                var updateData = {
+                    "JobPostVcncyID": this.ddlJobPostVacancyId,
+                    "VcncyID": this.VacancyId,
+                    "VcncyDocLnk": null,
+                    "VcncyStartDt": this.startDate,
+                    "VcncyExprtnDt": this.endDate,
+                    "JobDesigID": this.JobDesigID,
+                    "JobPostDeptCd": this.JobPostDeptCd,
+                    "JobPostLocationCd": this.JobPostLocationCd,
+                    "JobPostVcncyQty": this.Quantity,
+                    "JobPostVcncyFnnclImpct": this.JobPostVcncyFnnclImpct,
+                    "Description": this.Description,
+                    "ConnectedUser": "12000",
+                    "DelFlag": 0
+                };
 
-                // //var token = localStorage.getItem(this.tokenKey);
+                //var token = localStorage.getItem(this.tokenKey);
 
-                // //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+                //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
 
-                // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-                // this.http.put(this.serverUrl + 'api/updatePStandard', updateData, { headers: reqHeader }).subscribe((data: any) => {
+                this.http.post(this.serverUrl + 'api/saveRequest', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                //     if (data.msg != "Record Updated Successfully!") {
-                //         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                //         return false;
-                //     } else {
-                //         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                //         $('#standardModal').modal('hide');
-                //         this.getPStandard();
-                //         return false;
-                //     }
-                // });
+                    if (data.msg != "Record Updated Successfully!") {
+                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                        return false;
+                    } else {
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                        this.getRecruitmentApps();
+                        return false;
+                    }
+                });
 
             }
             else {
@@ -575,7 +642,7 @@ export class RecruitmentappComponent implements OnInit {
                     "JobPostDeptCd": this.JobPostDeptCd,
                     "JobPostLocationCd": this.JobPostLocationCd,
                     "JobPostVcncyQty": this.Quantity,
-                    "JobPostVcncyFnnclImpct": 0,
+                    "JobPostVcncyFnnclImpct": this.JobPostVcncyFnnclImpct,
                     "Description": this.Description,
                     "ConnectedUser": "12000",
                     "DelFlag": 0
@@ -589,12 +656,14 @@ export class RecruitmentappComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/saveRequest', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Saved Successfully!") {
-                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                         return false;
                     } else {
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                        //$('#standardModal').modal('hide');
-                        //this.getPStandard();
+                        this.VacancyId = data.vcncyId;
+                        this.JobPostVcncyID = data.jobPostVcncyID;
+
+                        this.getRecruitmentApps();
                         return false;
                     }
                 });
@@ -605,7 +674,7 @@ export class RecruitmentappComponent implements OnInit {
     //Function for save and update approving authority 
     saveApprAuthority() {
 
-        if (this.JobPostVcncyID == undefined || this.JobPostVcncyID == 0) {
+        if (this.JobPostVcncyID == undefined || this.JobPostVcncyID == "") {
             this.toastr.errorToastr('Invalid request', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -615,221 +684,113 @@ export class RecruitmentappComponent implements OnInit {
         }
         else {
 
-            if (this.VacancyId != '') {
+            //* ********************************************save data 
+            var saveData = {
+                "JobPostVcncyID": this.JobPostVcncyID,
+                "ApprovalAuthorityList": JSON.stringify(this.approvalReqList),
+                "ConnectedUser": "12000",
+                "DelFlag": 0
+            };
+            //var token = localStorage.getItem(this.tokenKey);
 
-                // //this.app.showSpinner();
-                // // this.app.hideSpinner();
-                // //* ********************************************update data 
-                // var updateData = {
-                //     "PrcssStepID": this.pStandardId,
-                //     "ProcessStepTitle": this.pTitle,
-                //     "ProcessStepDesc": this.pDescription,
-                //     "PrcssID": 1,
-                //     "PrcssTypeCd": 1,
-                //     "ConnectedUser": "3",
-                //     "DelFlag": 0,
-                //     "DelStatus": "No"
-                // };
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
 
-                // //var token = localStorage.getItem(this.tokenKey);
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-                // //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+            this.http.post(this.serverUrl + 'api/saveApproval', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
-                // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-                // this.http.put(this.serverUrl + 'api/updatePStandard', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-                //     if (data.msg != "Record Updated Successfully!") {
-                //         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                //         return false;
-                //     } else {
-                //         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                //         $('#standardModal').modal('hide');
-                //         this.getPStandard();
-                //         return false;
-                //     }
-                // });
-
-            }
-            else {
-
-                //* ********************************************save data 
-                var saveData = {
-                    "JobPostVcncyID": this.JobPostVcncyID,
-                    "ApprovalAuthorityList": JSON.stringify(this.approvalReqList),
-                    "ConnectedUser": "12000",
-                    "DelFlag": 0
-                };
-                //var token = localStorage.getItem(this.tokenKey);
-
-                //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-                this.http.post(this.serverUrl + 'api/saveApproval', saveData, { headers: reqHeader }).subscribe((data: any) => {
-
-                    if (data.msg != "Record Saved Successfully!") {
-                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
-                        return false;
-                    } else {
-                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                        //$('#standardModal').modal('hide');
-                        //this.getPStandard();
-                        return false;
-                    }
-                });
-            }
+                if (data.msg != "Record Saved Successfully!") {
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                    return false;
+                } else {
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    //$('#standardModal').modal('hide');
+                    //this.getPStandard();
+                    return false;
+                }
+            });
         }
     }
 
     //Function for save and update approving authority 
     saveInterviewPanel() {
 
-        if (this.interviewPanelList.length == 0 ) {
+        if (this.JobPostVcncyID == undefined || this.JobPostVcncyID == "") {
+            this.toastr.errorToastr('Invalid request', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.interviewPanelList.length == 0 ) {
             this.toastr.errorToastr('Please enter interview panel detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else {
 
-            if (this.VacancyId != '') {
+            //* ********************************************save data 
+            var saveData = {
+                "JobPostVcncyID": this.JobPostVcncyID,
+                "InterviewPanelList": JSON.stringify(this.interviewPanelList),
+                "ConnectedUser": "12000",
+                "DelFlag": 0
+            };
+            //var token = localStorage.getItem(this.tokenKey);
 
-                // //this.app.showSpinner();
-                // // this.app.hideSpinner();
-                // //* ********************************************update data 
-                // var updateData = {
-                //     "PrcssStepID": this.pStandardId,
-                //     "ProcessStepTitle": this.pTitle,
-                //     "ProcessStepDesc": this.pDescription,
-                //     "PrcssID": 1,
-                //     "PrcssTypeCd": 1,
-                //     "ConnectedUser": "3",
-                //     "DelFlag": 0,
-                //     "DelStatus": "No"
-                // };
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
 
-                // //var token = localStorage.getItem(this.tokenKey);
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-                // //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+            this.http.post(this.serverUrl + 'api/saveInterviewPanel', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
-                // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-                // this.http.put(this.serverUrl + 'api/updatePStandard', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-                //     if (data.msg != "Record Updated Successfully!") {
-                //         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                //         return false;
-                //     } else {
-                //         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                //         $('#standardModal').modal('hide');
-                //         this.getPStandard();
-                //         return false;
-                //     }
-                // });
-
-            }
-            else {
-
-                //* ********************************************save data 
-                var saveData = {
-                    "JobPostVcncyID": this.JobPostVcncyID,
-                    "InterviewPanelList": JSON.stringify(this.interviewPanelList),
-                    "ConnectedUser": "12000",
-                    "DelFlag": 0
-                };
-                //var token = localStorage.getItem(this.tokenKey);
-
-                //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-                this.http.post(this.serverUrl + 'api/saveInterviewPanel', saveData, { headers: reqHeader }).subscribe((data: any) => {
-
-                    if (data.msg != "Record Saved Successfully!") {
-                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
-                        return false;
-                    } else {
-                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                        //$('#standardModal').modal('hide');
-                        //this.getPStandard();
-                        return false;
-                    }
-                });
-            }
+                if (data.msg != "Record Saved Successfully!") {
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                    return false;
+                } else {
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    //$('#standardModal').modal('hide');
+                    //this.getPStandard();
+                    return false;
+                }
+            });
         }
     }
 
     //Function for save and update test  
     saveTest() {
 
-        if (this.testSubjectList.length == 0 ) {
+        if (this.JobPostVcncyID == undefined || this.JobPostVcncyID == "") {
+            this.toastr.errorToastr('Invalid request', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.testSubjectList.length == 0 ) {
             this.toastr.errorToastr('Please enter test detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else {
 
-            if (this.VacancyId != '') {
+            //* ********************************************save data 
+            var saveData = {
+                "JobPostVcncyID": this.JobPostVcncyID,
+                "TestSubjectList": JSON.stringify(this.testSubjectList),
+                "ConnectedUser": "12000",
+                "DelFlag": 0
+            };
+            //var token = localStorage.getItem(this.tokenKey);
 
-                // //this.app.showSpinner();
-                // // this.app.hideSpinner();
-                // //* ********************************************update data 
-                // var updateData = {
-                //     "PrcssStepID": this.pStandardId,
-                //     "ProcessStepTitle": this.pTitle,
-                //     "ProcessStepDesc": this.pDescription,
-                //     "PrcssID": 1,
-                //     "PrcssTypeCd": 1,
-                //     "ConnectedUser": "3",
-                //     "DelFlag": 0,
-                //     "DelStatus": "No"
-                // };
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
 
-                // //var token = localStorage.getItem(this.tokenKey);
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-                // //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+            this.http.post(this.serverUrl + 'api/saveTest', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
-                // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-                // this.http.put(this.serverUrl + 'api/updatePStandard', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-                //     if (data.msg != "Record Updated Successfully!") {
-                //         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                //         return false;
-                //     } else {
-                //         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                //         $('#standardModal').modal('hide');
-                //         this.getPStandard();
-                //         return false;
-                //     }
-                // });
-
-            }
-            else {
-
-                //* ********************************************save data 
-                var saveData = {
-                    "TestSubjectList": JSON.stringify(this.testSubjectList),
-                    "ConnectedUser": "12000",
-                    "DelFlag": 0
-                };
-                //var token = localStorage.getItem(this.tokenKey);
-
-                //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-                this.http.post(this.serverUrl + 'api/saveTest', saveData, { headers: reqHeader }).subscribe((data: any) => {
-
-                    if (data.msg != "Record Saved Successfully!") {
-                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
-                        return false;
-                    } else {
-                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                        //$('#standardModal').modal('hide');
-                        //this.getPStandard();
-                        return false;
-                    }
-                });
-            }
+                if (data.msg != "Record Saved Successfully!") {
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                    return false;
+                } else {
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    //$('#standardModal').modal('hide');
+                    //this.getPStandard();
+                    return false;
+                }
+            });
         }
     }
 
@@ -856,21 +817,35 @@ export class RecruitmentappComponent implements OnInit {
         this.Section = item.section;
         this.JobProfile = item.jobTitle;
 
-        this.totalVacancies= item.vacancies1 + item.vacancies2;
+        this.totalVacancies= (item.vacancies1 + item.vacancies2) - (item.request + item.process);
+        this.getJobPostVacancyId();
 
     }
 
     clear(){
 
+        this.VacancyId = "";
+        this.JobPostVcncyID = "";
         this.JobDesigID = "";
         this.JobPostDeptCd = "";
-        this.JobPostLocationCd = "" ;
+        this.JobPostLocationCd = "";
+
         this.OfficeName = "";
         this.Department = "";
         this.Section = "";
         this.JobProfile = "";
+        this.Quantity = 0;
+        this.startDate = "";
+        this.endDate = "";
         this.totalVacancies = 0;
+        this.ddlJobPostVacancyId = "";
+        this.jobPostVacancyFlag = false; 
 
+        this.jobPostVacancyIdList = [];
+        this.approvalReqList = []; 
+        this.interviewPanelList = [];
+        this.testSubjectList = [];
+        this.publishingChannelList = [];
     }
 
     //function for sort table data 

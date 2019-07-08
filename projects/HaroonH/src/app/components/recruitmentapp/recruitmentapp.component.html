@@ -1,48 +1,47 @@
-<!-- start menubar buttons -->
-<div class="topnav boxShadow">
-  <div>
-    <!--class="container" -->
-    <span class="fa iconContainer">
-      <span class="fa icon-hr-recruitmentapproval" > </span>
-    </span>
-    <h1> Recruitment</h1>
-
-    <!-- (click)="downloadExcel()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-excel-o"></i>
-      Excel
-    </a>
-
-    <!-- (click)="downloadCSV()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-text-o"></i>
-      CSV
-    </a>
-
-    <!-- (click)="downPDF()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-pdf-o"></i>
-      PDF
-    </a>
-
-    <!-- (click)="printDiv()" -->
-    <a class="pointerCursor">
-      <i class="fa fa-print"></i>
-      Print
-    </a>
-
-    <!-- <a class="pointerCursor" data-toggle="modal" data-target="#profileModal" (click)="clear()">
-      <i class="fa fa-plus-square"></i>
-      Add New
-    </a> -->
-
-  </div>
-</div>
-<!-- end menubar buttons -->
-  
-
 <!-- start table container-->
 <div class="myContainer mat-elevation-z8 bgWhite">
+  <!-- start menubar buttons -->
+  <div class="topnav boxShadow">
+    <div>
+      <!--class="container" -->
+      <span class="fa iconContainer">
+        <span class="fa icon-hr-recruitmentapproval" > </span>
+      </span>
+      <h1> Recruitment</h1>
+
+      <!-- (click)="downloadExcel()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-excel-o"></i>
+        Excel
+      </a>
+
+      <!-- (click)="downloadCSV()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-text-o"></i>
+        CSV
+      </a>
+
+      <!-- (click)="downPDF()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-pdf-o"></i>
+        PDF
+      </a>
+
+      <!-- (click)="printDiv()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-print"></i>
+        Print
+      </a>
+
+      <!-- <a class="pointerCursor" data-toggle="modal" data-target="#profileModal" (click)="clear()">
+        <i class="fa fa-plus-square"></i>
+        Add New
+      </a> -->
+
+    </div>
+  </div>
+  <!-- end menubar buttons -->
+
 
   <!--Start search textbox Row-->
   <div class="row">
@@ -85,7 +84,7 @@
             <td class='col-1'>{{item.section}}</td>
             <td class='col-2'>{{item.jobTitle}}</td>
             <td class='col-1'>{{item.bps}}</td>
-            <td class='col-1'>{{item.vacancies1 + item.vacancies2}}</td>
+            <td class='col-1'>{{(item.vacancies1 + item.vacancies2) - (item.request + item.process)}}</td>
             <td class='col-1'>{{item.request}}</td>
             <td class='col-1'>{{item.process}}</td>
             <td class='col-1 text-center'>
@@ -130,13 +129,13 @@
 
 <!-- Start Modal Window -->
 <div class="modal fade" id="requestModal">
-  <div class="modal-dialog shadow-lg-dark modal-lg">
+  <div class="modal-dialog shadow-lg-dark modal-xl">
     <div class="modal-content">
       
       <!--start Modal Header -->
       <div class="modal-header">
           <h4 class="modal-title">Recruitment</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
       </div>
       <!--end Modal Header -->
 
@@ -229,6 +228,21 @@
                       <br/>
 
                       <!--start row #4-->
+                      <div class="row" *ngIf="jobPostVacancyFlag">
+                        <div class="col-md-6">
+                          <mat-form-field class="fullwidth">
+                            <mat-select placeholder="Job Post Vacancy Id" [(ngModel)]="ddlJobPostVacancyId" (selectionChange)="getJobPostVacancyDetail()">
+                              <mat-option *ngFor="let item of jobPostVacancyIdList; let i=index" value="{{item.jobPostVcncyID}}">{{item.jobPostVcncyID}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        
+                      </div>
+                      <!--end row #4-->
+
+                      <br/>
+
+                      <!--start row #5-->
                       <div class="row">
                         <div class="col-md-6">
                           <mat-form-field class="fullwidth">
@@ -246,11 +260,11 @@
                           </mat-form-field>
                         </div>
                       </div>
-                      <!--end row #4-->
+                      <!--end row #5-->
 
                       <br/>
 
-                      <!--start row #5-->
+                      <!--start row #6-->
                       <div class="row">
                           <div class="col-md-6">
                             
@@ -267,12 +281,12 @@
                           </div>
                           <div class="col-md-3">
                             <br/>
-                            0
+                            {{JobPostVcncyFnnclImpct}}
                           </div>
                       </div>
-                      <!--end row #5-->
+                      <!--end row #6-->
 
-                      <!--start row #6-->
+                      <!--start row #7-->
                       <div class="row">
                         <div class="col-md-12">
                           <mat-form-field class="fullwidth">
@@ -280,7 +294,7 @@
                           </mat-form-field>
                         </div>
                       </div>
-                      <!--end row #6-->
+                      <!--end row #7-->
 
                       <br>
                       <!--start next step button div-->
@@ -329,8 +343,8 @@
                               <tbody>
                                 <tr *ngFor="let item of approvalReqList; let i=index" class='d-flex'>
                                   <td class='col-1 text-center'>{{i + 1}}</td>
-                                  <td class='col-5'>{{item.Stage}}</td>             
-                                  <td class='col-5'>{{item.Authority}}</td>
+                                  <td class='col-5'>{{item.apprvngPrcssName}}</td>             
+                                  <td class='col-5'>{{item.authority}}</td>
                                   <td class='col-1 text-center'>
                                     <span class="fa fa-minus pointerCursor" (click)="removeApprAuthority(i)"></span>
                                   </td>
@@ -413,7 +427,7 @@
                           <tbody>
                             <tr *ngFor="let item of interviewPanelList; let i=index" class='d-flex'>
                               <td class='col-1 text-center'>{{i + 1}}</td> 
-                              <td class='col-10'>{{item.Official}}</td>             
+                              <td class='col-10'>{{item.official}}</td>             
                               <td class='col-1 text-center'><span class="fa fa-minus pointerCursor" (click)="removeInterviewPanel(i)"></span></td>
                             </tr>
 
@@ -483,10 +497,10 @@
                               </thead>
                               <tbody>
                                 <tr *ngFor="let item of testSubjectList; let i=index" class='d-flex'>
-                                  <td class='col-1'>{{i+1}}</td> 
-                                  <td class='col-4'>{{item.Subject}}</td>             
-                                  <td class='col-3'>{{item.VcncyTestSbjctTotMrks}}</td>
-                                  <td class='col-3'>{{item.VcncyTestSbjctPssngMrks}}</td>
+                                  <td class='col-1 text-center'>{{i+1}}</td> 
+                                  <td class='col-4'>{{item.testSbjctName}}</td>             
+                                  <td class='col-3'>{{item.vcncyTestSbjctTotMrks}}</td>
+                                  <td class='col-3'>{{item.vcncyTestSbjctPssngMrks}}</td>
                                   <td class='col-1 text-center'>
                                     <span class="fa fa-minus pointerCursor" (click)="removeTest(i)"></span>
                                   </td>
@@ -564,7 +578,7 @@
                             <tbody>
                               <tr *ngFor="let item of publishingChannelList; let i=index" class='d-flex'>
                                 <td class='col-1'>{{i+1}}</td>             
-                                <td class='col-8'>{{item.PblshngChnnlName}}</td>
+                                <td class='col-8'>{{item.pblshngChnnlName}}</td>
                                 <td class='col-2'>
                                   <p-inputSwitch [(ngModel)]="item.PblshingStatus"></p-inputSwitch>
                                 </td>
@@ -610,15 +624,20 @@
       <!--end Modal body -->
 
       <!--start Modal footer -->
-      <div class="modal-footer">
+      <!--  
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
       <!--end Modal footer -->
 
     </div>
   </div>
 </div>
 <!-- End Modal Window  -->
+
+
+
+
+
 
 <!-- Start approval detail  Modal Window -->
 <div class="modal fade" id="detailModal">
@@ -728,142 +747,3 @@
     </div>
 </div>
 <!-- End approval detail Modal Window  -->
-
-<!-- Start edit subject modal -->
-<div class="modal fade" id="editTest">
-    <div class="modal-dialog shadow-lg-dark modal-lg">
-      <div class="modal-content">
-        
-        <!--start Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Edit Subject</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!--end Modal Header -->
-  
-        <!--start Modal body -->
-        <div class="modal-body"> 
-          <!--start row 1  -->
-          <div class="row">
-            <div class="col-md-6">
-              <mat-form-field>
-                <mat-select placeholder="Random Selection">
-                  <mat-option value="1">5</mat-option>
-                  <mat-option value="2">10</mat-option>
-                  <mat-option value="3">15</mat-option>
-                  <mat-option value="4">20</mat-option>
-                  <mat-option value="5">25</mat-option>
-                  <mat-option value="6">30</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          <!--end row 1-->
-          <br/>
-          <!--start table row-->       
-          <div class="example-container mat-elevation-z8">
-            <div class="example-table-container">                      
-              <table class="table table-striped">
-                <thead>
-                  <tr class='d-flex'>
-                    <th class='col-1'>Sr #</th>
-                    <th class='col-6'>Question</th>
-                    <th class='col-2'>Marks</th>
-                    <th class='col-2'>Time Req.</th>
-                    <th class='col-1'>Select</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                  <tr class='d-flex'>
-                    <td class='col-1'>1</td>             
-                    <td class='col-6'>What is your name?</td>
-                    <td class='col-2'>5</td>
-                    <td class='col-2'>1 min.</td>
-                    <td class='col-1 text-center'><mat-checkbox></mat-checkbox></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!--end table row-->    
-          <br/>   
-        </div>
-        <!--end Modal body -->
-  
-        <!--start Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        <!--end Modal footer -->
-  
-      </div>
-    </div>
-</div>
-<!-- End edit subject modal -->
-  
-<!-- Start add subject modal -->
-<div class="modal fade" id="addTest">
-  <div class="modal-dialog shadow-md-dark modal-md">
-    <div class="modal-content">
-      
-      <!--start Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Add Subject</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <!--end Modal Header -->
-
-      <!--start Modal body -->
-      <div class="modal-body"> 
-        <!--start row #1-->
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field>
-              <mat-select placeholder="Subject">
-                <mat-option value="option1">English</mat-option>
-                <mat-option value="option1">JK</mat-option>
-                <mat-option value="option1">VB</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <!--end row #1-->
-
-        <!--start row #2-->
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field>
-              <input matInput placeholder="Total Marks">
-            </mat-form-field>
-          </div>
-
-          <div class="col-md-6">
-            <mat-form-field>
-              <input matInput placeholder="Passing Marks">
-            </mat-form-field>
-          </div>
-        </div>
-        <!--end row #2-->
-        
-        <!--start row #2-->
-        <div class="row">
-          <div class="col-md-6">
-            <button mat-raised-button color="primary">Save</button>
-          </div>
-        </div>
-        <!--end row #2-->
-        
-      </div>
-      <!--end Modal body -->
-
-      <!--start Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-      <!--end Modal footer -->
-
-    </div>
-  </div>
-</div>
-<!-- End add subject modal -->

@@ -356,7 +356,7 @@
 
           <div class="col-md-6">
             <span class="ui-float-label">
-              <p-dropdown id="leave-type" [options]="leaveTypeList" [(ngModel)]="leaveType" placeholder="l" [style]="{'width':'100%'}">
+              <p-dropdown id="leave-type" [options]="leaveTypeList" [(ngModel)]="leaveType" placeholder="." [style]="{'width':'100%'}">
                 <ng-template let-itm pTemplate="item">
                   <div style="position: relative;height: 25px;">
                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -372,7 +372,7 @@
           <div class="col-md-6">
 
             <span class="ui-float-label">
-              <p-dropdown id="leave-nature" [options]="leaveNatureList" [(ngModel)]="leaveNature" placeholder="l" [style]="{'width':'100%'}">
+              <p-dropdown id="leave-nature" [options]="leaveNatureList" [(ngModel)]="leaveNature" placeholder="." [style]="{'width':'100%'}">
                 <ng-template let-itm pTemplate="item">
                   <div style="position: relative;height: 25px;">
                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -404,7 +404,7 @@
             
 
             <span class="ui-float-label">
-              <p-dropdown id="leave-limit" [options]="leaveLimitTypeList" [(ngModel)]="limitType" placeholder="I"
+              <p-dropdown id="leave-limit" [options]="leaveLimitTypeList" [(ngModel)]="limitType" placeholder="."
                 [style]="{'width':'100%'}">
                 <ng-template let-itm pTemplate="item">
                   <div style="position: relative;height: 25px;">
@@ -412,7 +412,7 @@
                   </div>
                 </ng-template>
               </p-dropdown>
-              <label for="leave-limit">Leave Limit</label>
+              <label for="leave-limit">Per month / annum</label>
             </span>
 
           </div>

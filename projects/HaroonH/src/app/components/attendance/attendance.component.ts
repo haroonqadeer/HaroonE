@@ -16,7 +16,7 @@ declare var $: any;
 })
 export class AttendanceComponent implements OnInit {
 
-  //serverUrl = "http://192.168.200.19:3009/";
+    //serverUrl = "http://192.168.200.19:3009/";
     serverUrl = "http://localhost:40035/";
     tokenKey = "token";
 
@@ -33,7 +33,10 @@ export class AttendanceComponent implements OnInit {
     sectnList = [];
     employeeList = [];
     empAttDetList = [];
-    
+    managerList = [];
+    breakTypeList = [];
+    empBreakList = [];
+
     tempAttDetList = [];
     tempSectnList = [];
     excelDataList = [];
@@ -53,6 +56,13 @@ export class AttendanceComponent implements OnInit {
     attStatus;
     editFlag = false;
 
+    myTimeIn;
+    myTimeOut;
+    myDeptCd = 0;
+    myDtID = 0;
+    myShifhCd = 0;
+
+
 
     //* Variables for NgModels
     tblSearch;
@@ -61,6 +71,8 @@ export class AttendanceComponent implements OnInit {
     ddlBranch;
     ddlDepartment;
     ddlSection;
+    ddlBreakType;
+    ddlManager;
 
     attTime;
     attRemarks;
@@ -68,6 +80,8 @@ export class AttendanceComponent implements OnInit {
     lblBPS;
     lblJobType;
     lblEmployee;
+
+    chkAddBreak = false;
 
     txtdPassword = '';
     txtdPin = '';   
@@ -85,10 +99,33 @@ export class AttendanceComponent implements OnInit {
 
         this.getDepartment();
         this.getSection();
+        this.getBreakType();
 
         this.brachList = this.app.branchList;
         this.ddlBranch = this.app.locationId;
     }
+
+
+    //function for get all saved break types
+    getBreakType() {
+        //var Token = localStorage.getItem(this.tokenKey);
+
+        //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+        this.http.get(this.serverUrl + 'api/getBreakType', { headers: reqHeader }).subscribe((data: any) => {
+
+            for (var i = 0; i < data.length; i++) {
+                this.breakTypeList.push({
+                    label: data[i].typeName,
+                    value: data[i].typeCd
+                });
+            }
+
+        });
+
+    }
+
 
 
 
@@ -200,7 +237,6 @@ export class AttendanceComponent implements OnInit {
             "DeptCd": this.ddlDepartment,
             "ParentDeptCd": this.ddlDepartment,
             "AttDate": this.attendanceDate
-
         };
 
         //var token = localStorage.getItem(this.tokenKey);
@@ -212,7 +248,7 @@ export class AttendanceComponent implements OnInit {
         this.http.post(this.serverUrl + 'api/getDeptEmp', reqData, { headers: reqHeader }).subscribe((data: any) => {
 
             this.employeeList = data.rows;
-            this.empAttDetList = data.det_rows;
+            this.empBreakList = data.breakDetail;
 
         });
     
@@ -260,7 +296,10 @@ export class AttendanceComponent implements OnInit {
         this.editFlag = false;
 
         this.attTime = "";
-        this.attRemarks = "";
+        this.attRemarks = "";  
+
+        this.ddlBreakType = "";
+        this.chkAddBreak = false;
 
         this.txtdPassword = '';
         this.txtdPin = ''; 
@@ -273,16 +312,30 @@ export class AttendanceComponent implements OnInit {
         this.clear();
 
         this.EmpId = item.indvdlID;
+        this.myDtID = item.dtID;
+        this.myShifhCd = item.shiftCd;
+        this.myTimeIn = item.timeIn;
+        this.myTimeOut = item.timeOut;
+        this.myDeptCd = item.deptCd;
+
+
         this.lblEmployee = item.indvdlFullName;
         this.lblJobType = item.jobDesigName;
         this.lblBPS = item.payGradeName;
         this.attStatus = item.attendanceStatCd;
 
-        if(this.attStatus == 1){
+        if(this.attStatus == null || this.attStatus == 0){
             this.attStatus = 2;
-        }else if(this.attStatus == 2){
-            this.attStatus = 1;
         }
+
+
+        if(this.myTimeOut == null){
+            this.chkAddBreak  = false;
+        }else{
+            this.chkAddBreak = true;
+        }
+
+        this.getFilterItem("empBreak");
 
     }
 
@@ -302,90 +355,102 @@ export class AttendanceComponent implements OnInit {
             this.toastr.errorToastr('Please enter time', 'Error', { toastTimeout: (2500) });
             return false;
         }
+        else if (this.chkAddBreak == true && (this.ddlBreakType == undefined || this.attTime == "" )) {
+            this.toastr.errorToastr('Please enter time', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
         else {
 
             if (this.attRemarks == undefined || this.attRemarks == "") {
                 this.attRemarks = "-";
             }
 
-            if (this.EmpCalCd != '') {
+            var myAddBreak = "No";
+            var ManagerId;
+            var BreakTypeId;
 
-                //this.app.showSpinner();
-                // this.app.hideSpinner();
-                //* ********************************************update data 
-                var updateData = {
-                    "EmpCalCd": this.EmpCalCd,
-                    "DeptCd": this.ddlDepartment,
-                    "IndvdlID": this.EmpId,
-                    "AttendanceStatCd": this.attStatus,
-                    "AttTime": this.attTime,
-                    "Remarks": this.attRemarks,
-                    "AttDate": this.attendanceDate,
-                    "ConnectedUser": "12000",
-                    "DelFlag": 0
-                };
 
-                //var token = localStorage.getItem(this.tokenKey);
-
-                //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token 
-
-                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-                this.http.post(this.serverUrl + 'api/saveEmpAttendance', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-                    if (data.msg != "Record Updated Successfully!") {
-                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                        return false;
-                    } else {
-                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                        if(this.ddlSection == undefined || this.ddlSection == ""){
-                            this.getDeptEmp();
-                        }else{
-                            this.getSectEmp();
-                        }
-                        return false;
-                    }
-                });
-
+            if(this.chkAddBreak == true){
+                myAddBreak = "Yes";
+                this.myTimeIn = this.attTime;
             }
-            else {
 
-                //* ********************************************save data 
-                var saveData = {
-                    "EmpCalCd": 0,
-                    "DeptCd": this.ddlDepartment,
-                    "IndvdlID": this.EmpId,
-                    "AttendanceStatCd": this.attStatus,
-                    "AttTime": this.attTime,
-                    "Remarks": this.attRemarks,
-                    "AttDate": this.attendanceDate,
-                    "ConnectedUser": "12000",
-                    "DelFlag": 0
-                };
 
-                //var token = localStorage.getItem(this.tokenKey);
-
-                //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-                this.http.post(this.serverUrl + 'api/saveEmpAttendance', saveData, { headers: reqHeader }).subscribe((data: any) => {
-
-                    if (data.msg != "Record Saved Successfully!") {
-                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                        return false;
-                    } else {
-                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                        
-                        if(this.ddlSection == undefined || this.ddlSection == ""){
-                            this.getDeptEmp();
-                        }else{
-                            this.getSectEmp();
-                        }
-                        return false;
-                    }
-                });
+            if(this.ddlManager == undefined || this.ddlManager == ""){
+                ManagerId = 0;
+            }else{
+                ManagerId = this.ddlManager;
             }
+
+
+            if(this.ddlBreakType == undefined || this.ddlBreakType == ""){
+                BreakTypeId = 0;
+            }else{
+                BreakTypeId = this.ddlBreakType;
+            }
+
+
+
+            if(this.myTimeIn == null){
+                this.myTimeIn = this.attTime;
+            }
+            
+            if(this.myTimeOut == null){
+                this.myTimeOut = this.attTime;
+            }
+
+
+
+            // //+ "DeptCd = " + this.myDeptCd + " --- " + "IndvdlID = " + this.EmpId + " ---- " + "DtID = " + this.myDtID + " --- " + "ShiftCd = " + this.myShifhCd + " --- " + "AttendanceStatCd = " + this.attStatus + " --- " 
+            // alert("AddBreak = " +  myAddBreak + " --- " + "ApprvngManagerID = " + ManagerId + " --- " + "TimeIn = " + this.myTimeIn + " --- " + "TimeOut = " + this.myTimeOut + " --- " + "Rsn = " + this.attRemarks + " --- " + "TypeCd = " + BreakTypeId);
+            // return false;
+
+            
+
+            //* ********************************************save data 
+            var saveData = {
+                "AddBreak": myAddBreak,
+                "DeptCd": this.myDeptCd,
+                "IndvdlID": this.EmpId,
+                "DtID": this.myDtID,
+                "ShiftCd": this.myShifhCd,
+                "AttendanceStatCd": this.attStatus,
+                "ApprvngManagerID": ManagerId,
+                "TimeIn": this.myTimeIn,
+                "TimeOut": this.myTimeOut,
+                "Rsn": this.attRemarks,
+                "TypeCd": BreakTypeId,
+                "ConnectedUser": "12000",
+                "DelFlag": 0
+            };
+
+            //var token = localStorage.getItem(this.tokenKey);
+
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+            this.http.post(this.serverUrl + 'api/saveEmpAttendance', saveData, { headers: reqHeader }).subscribe((data: any) => {
+
+                if (data.msg != "Record Saved Successfully!") {
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                    return false;
+                } else {
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    
+                    if(this.ddlSection == undefined || this.ddlSection == ""){
+                        this.getDeptEmp();
+                    }else{
+                        this.getSectEmp();
+                    }
+
+                    this.chkAddBreak = false;
+
+                    $('#profileModal').modal('hide');
+
+                    return false;
+                }
+            });
         }
     }
 
@@ -411,5 +476,17 @@ export class AttendanceComponent implements OnInit {
 
             this.getDeptEmp();
         }
+
+
+
+        if(filterOption == "empBreak"){
+
+            dataList = this.empBreakList.filter(x => x.deptCd == this.myDeptCd && x.empID == this.EmpId && x.dtID == this.myDtID && x.shiftCd == this.myShifhCd);
+
+            this.empBreakList = dataList;
+        }
+
+
+        
     }
 }

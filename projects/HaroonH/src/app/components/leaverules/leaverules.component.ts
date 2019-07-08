@@ -171,20 +171,20 @@ export class LeaverulesComponent implements OnInit {
             this.toastr.errorToastr('Please enter leave limit type', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (limitType == 1 && leaveLimit > 30) {
-            this.toastr.errorToastr('Invalid leave limit 1', 'Error', { toastTimeout: (2500) });
+        else if (limitType == 1 && leaveLimit > 10) {
+            this.toastr.errorToastr('Leave limit exceeded. Maximum 10 allowed.', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (limitType == 2 && leaveLimit > 90) {
-            this.toastr.errorToastr('Invalid leave limit 2', 'Error', { toastTimeout: (2500) });
+        else if (limitType == 2 && leaveLimit > 25) {
+            this.toastr.errorToastr('Leave limit exceeded. Maximum 25 allowed.', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (limitType == 3 && leaveLimit > 180) {
-            this.toastr.errorToastr('Invalid leave limit 3', 'Error', { toastTimeout: (2500) });
+        else if (limitType == 3 && leaveLimit > 40) {
+            this.toastr.errorToastr('Leave limit exceeded. Maximum 40 allowed.', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (limitType == 4 && leaveLimit > 365) {
-            this.toastr.errorToastr('Invalid leave limit 4', 'Error', { toastTimeout: (2500) });
+        else if (limitType == 4 && leaveLimit > 60) {
+            this.toastr.errorToastr('Leave limit exceeded. Maximum 60 allowed.', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else {

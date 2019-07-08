@@ -14,8 +14,8 @@ declare var $: any;
 })
 export class PerformanceStandComponent implements OnInit {
 
-    //serverUrl = "http://localhost:11664/";
-    serverUrl = "http://192.168.200.19:3006/";
+    serverUrl = "http://localhost:11664/";
+    //serverUrl = "http://192.168.200.19:3006/";
     tokenKey = "token";
 
     httpOptions = {
@@ -101,9 +101,8 @@ export class PerformanceStandComponent implements OnInit {
                     "ProcessStepDesc": this.pDescription,
                     "PrcssID": 1,
                     "PrcssTypeCd": 1,
-                    "ConnectedUser": "3",
-                    "DelFlag": 0,
-                    "DelStatus": "No"
+                    "ConnectedUser": "12000",
+                    "DelFlag": 0
                 };
 
                 //var token = localStorage.getItem(this.tokenKey);
@@ -112,7 +111,7 @@ export class PerformanceStandComponent implements OnInit {
 
                 var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-                this.http.put(this.serverUrl + 'api/updatePStandard', updateData, { headers: reqHeader }).subscribe((data: any) => {
+                this.http.post(this.serverUrl + 'api/savePStandard', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Updated Successfully!") {
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
@@ -131,13 +130,13 @@ export class PerformanceStandComponent implements OnInit {
 
                 //* ********************************************save data 
                 var saveData = {
+                    "PrcssStepID": 0,
                     "ProcessStepTitle": this.pTitle,
                     "ProcessStepDesc": this.pDescription,
                     "PrcssID": 1,
                     "PrcssTypeCd": 1,
-                    "ConnectedUser": "2",
-                    "DelFlag": 0,
-                    "DelStatus": "No"
+                    "ConnectedUser": "12000",
+                    "DelFlag": 0
                 };
 
                 //var token = localStorage.getItem(this.tokenKey);
@@ -207,9 +206,12 @@ export class PerformanceStandComponent implements OnInit {
             var updateData = {
 
                 "PrcssStepID": this.pStandardId,
-                "ConnectedUser": "4",
-                "DelFlag": 1,
-                "DelStatus": "Yes"
+                "ProcessStepTitle": null,
+                "ProcessStepDesc": null,
+                "PrcssID": 1,
+                "PrcssTypeCd": 1,
+                "ConnectedUser": "12000",
+                "DelFlag": 1
             };
 
             //var token = localStorage.getItem(this.tokenKey);
@@ -218,7 +220,7 @@ export class PerformanceStandComponent implements OnInit {
 
             var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-            this.http.put(this.serverUrl + 'api/updatePStandard', updateData, { headers: reqHeader }).subscribe((data: any) => {
+            this.http.post(this.serverUrl + 'api/savePStandard', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Deleted Successfully!") {
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
