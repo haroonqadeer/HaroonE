@@ -92,7 +92,7 @@
               <td class="col-3">{{item.appName}}</td>
               <td class="col-3 text-center">{{item.receivedOn|date:'dd-MM-yyyy'}}</td>
               <td class="col-2 text-center">
-                <a href="" data-toggle="modal" data-target="#matchModal">{{item.appMatch}}</a>
+                <a href="" data-toggle="modal" data-target="#matchModal" (click)="getSkillDetail(item.appID, item.appName)">{{item.appMatch}}</a>
               </td>
               <td class="col-2 text-center">
                 <a href="" data-toggle="modal" data-target="#statusModal"
@@ -266,7 +266,7 @@
                   (click)="getStepperID(5, item.appID)">{{item.appStatus}}</a>
               </td>
               <td class="col-1 text-center">
-                <span class="fa fa-list-alt pointerCursor" (click)="getInterviewDetail()" data-toggle="modal" data-target="#interviewModal"></span>
+                <span class="fa fa-list-alt pointerCursor" (click)="getInterviewDetail(item.appID)" data-toggle="modal" data-target="#interviewModal"></span>
               </td>
             </tr>
           </tbody>
@@ -415,16 +415,20 @@
               <thead>
                 <tr class='d-flex'>
                   <th class='col-2 text-center'>Sr#</th>
-                  <th class='col-4 text-center'>InterViewer Name</th>
-                  <th class='col-6 text-center'>Marks</th>
+                  <th class='col-2 text-left'>InterViewer Name</th>
+                  <th class='col-2 text-left'>Designation</th>
+                  <th class='col-2 text-left'>BPS</th>
+                  <th class='col-4 text-center'>Marks</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class='d-flex'>
-                <tr *ngFor="let item of vcncyList let i=index" class='d-flex'>
+                <tr *ngFor="let item of interviewDetailList let i=index" class='d-flex'>
                   <td class='col-2 text-center'>{{i+1}}</td>
-                  <td class='col-4 text-center'>{{item.interviewerName}}</td>
-                  <td class='col-6 text-center'>
+                  <td class='col-2 text-left'>{{item.indvdlFullName}}</td>
+                  <td class='col-2 text-left'>{{item.jobDesigName}}</td>
+                  <td class='col-2 text-left'>{{item.payGradeName}}</td>
+                  <td class='col-4 text-center'>
                     <input type="text" pInputText [(ngModel)]="item.marks" [style]="{'width':'100%'}" />
                   </td>
                 </tr>
@@ -477,7 +481,7 @@
             <h5>Applicant: </h5>
           </div>
           <div class="col-md-4 text-center">
-            <h5 style="font-weight: normal;">Qureshi</h5>
+            <h5 style="font-weight: normal;">{{lblApplicantName}}</h5>
           </div>
         </div>
         <!--end 1st row-->
@@ -490,25 +494,21 @@
                 <table class="table table-striped fullwidth">
                   <thead>
                     <tr class='d-flex'>
-                      <th class='col-2 text-center'>Sr#</th>
-                      <th class='col-4'>Skills</th>
-                      <th class='col-3'>Required</th>
-                      <th class='col-3'>Received</th>
+                      <th class='col-1 text-center'>Sr#</th>
+                      <th class='col-3 text-center'>Skills</th>
+                      <th class='col-3 text-center'>Required</th>
+                      <th class='col-3 text-center'>Received</th>
+                      <th class='col-2 text-center'>Level</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class='d-flex'>
-                      <!-- <tr *ngFor="let item of taxDetail | search:'UserName,Email': query" class='d-flex'> -->
-                      <td class="col-2 text-center">1</td>
-                      <td class="col-4">English</td>
-                      <td class="col-3">Advanced</td>
-                      <td class="col-3">Avg</td>
-                    </tr>
-                    <tr class='d-flex'>
-                      <td class="col-2 text-center">2</td>
-                      <td class="col-4">VB.Net</td>
-                      <td class="col-3">Expert</td>
-                      <td class="col-3">Advance</td>
+                    <!-- <tr class='d-flex'> -->
+                    <tr *ngFor="let item of skillDetailList let i = index" class='d-flex'>
+                      <td class="col-1 text-center">{{i + 1}}</td>
+                      <td class="col-3 text-center">{{item.qlfctnCriteriaName}}</td>
+                      <td class="col-3 text-center">{{item.qlfctnCriteriaReqdLvl}}</td>
+                      <td class="col-3 text-center">{{item.applcntQlfctnCriteriaLvl}}</td>
+                      <td class="col-2">{{item.reqLevel}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -516,7 +516,7 @@
             </div>
           </div>
           <div class="col-md-6 shadow-md bgWhite">
-            <div [chart]="Line_chart" style=" height: 100%;width:100%;"></div>
+            <div [chart]="Line_chart" style=" height: 15.5em;width:100%;"></div>
           </div>
         </div>
         <!--end table row-->

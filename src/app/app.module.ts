@@ -9,7 +9,7 @@ import { ChartModule } from 'angular-highcharts';
 //import { HttpModule } from '@angular/http';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -60,7 +60,8 @@ import { AttendanceComponent } from './components/attendance/attendance.componen
     NgxPaginationModule,
     InputTextModule,
     DropdownModule,
-    IgxGridModule
+    IgxGridModule,
+    NgxSpinnerModule
     //SearchPipe
   ],
   providers: [AttendanceComponent, NavComponent, IgxExcelExporterService, IgxCsvExporterService],

@@ -1,8 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { OrderPipe } from 'ngx-order-pipe';
+
+import {
+    IgxExcelExporterOptions,
+    IgxExcelExporterService,
+    IgxGridComponent,
+    IgxCsvExporterService,
+    IgxCsvExporterOptions,
+    CsvFileTypes
+} from "igniteui-angular";
 
 import { AppComponent } from 'src/app/app.component';
 
@@ -52,16 +61,19 @@ export class PerformanceStandComponent implements OnInit {
     txtdPin = '';
 
 
-    constructor(
-        private toastr: ToastrManager,
-        private http: HttpClient,
-        private app: AppComponent
-    ) { }
+    constructor(public toastr: ToastrManager,
+        private app: AppComponent,
+        private excelExportService: IgxExcelExporterService,
+        private csvExportService: IgxCsvExporterService,
+        private http: HttpClient) { }
 
     ngOnInit() {
 
         this.getPStandard();
     }
+
+    @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+
 
     //function for get all saved performance standards 
     getPStandard() {
@@ -311,4 +323,75 @@ export class PerformanceStandComponent implements OnInit {
             frame1.remove();
         }, 500);
     }
+
+    downloadPDF() { }
+
+    downloadCSV() {
+        //alert('CSV works');
+        // case 1: When tblSearch is empty then assign full data list
+        if (this.tblSearch == "") {
+            var completeDataList = [];
+            for (var i = 0; i < this.pStandardList.length; i++) {
+                //alert(this.tblSearch + " - " + this.skillCriteriaList[i].departmentName)
+                completeDataList.push({
+                    PerformanceTitle: this.pStandardList[i].processStepTitle
+                });
+            }
+            this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("perfStndrdCompleteCSV", CsvFileTypes.CSV));
+        }
+        // case 2: When tblSearch is not empty then assign new data list
+        else if (this.tblSearch != "") {
+            var filteredDataList = [];
+            for (var i = 0; i < this.pStandardList.length; i++) {
+                if (this.pStandardList[i].processStepTitle.toUpperCase().includes(this.tblSearch.toUpperCase())) {
+                    filteredDataList.push({
+                        PerformanceTitle: this.pStandardList[i].processStepTitle
+                    });
+                }
+            }
+
+            if (filteredDataList.length > 0) {
+                this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("perfStndrdFilterCSV", CsvFileTypes.CSV));
+            } else {
+                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+            }
+        }
+    }
+
+
+    downloadExcel() {
+        //alert('Excel works');
+        // case 1: When tblSearch is empty then assign full data list
+        if (this.tblSearch == "") {
+            //var completeDataList = [];
+            for (var i = 0; i < this.pStandardList.length; i++) {
+                this.excelDataList.push({
+                    PerformanceTitle: this.pStandardList[i].processStepTitle
+                });
+            }
+            this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("perfStndrdCompleteExcel"));
+            this.excelDataList = [];
+        }
+        // case 2: When tblSearch is not empty then assign new data list
+        else if (this.tblSearch != "") {
+            for (var i = 0; i < this.pStandardList.length; i++) {
+                if (this.pStandardList[i].processStepTitle.toUpperCase().includes(this.tblSearch.toUpperCase())) {
+                    this.excelDataList.push({
+                        PerformanceTitle: this.pStandardList[i].processStepTitle
+                    });
+                }
+            }
+
+            if (this.excelDataList.length > 0) {
+                //alert("Filter List " + this.excelDataList.length);
+
+                this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("perfStndrdFilterExcel"));
+                this.excelDataList = [];
+            }
+            else {
+                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+            }
+        }
+    }
+
 }

@@ -104,9 +104,21 @@
             </a>
           </li>
           <li routerLinkActive='active'>
+            <a routerLink="HR/training">
+              <span class="fa logo"><img src="../assets/images/Training.svg"></span>
+              <span class="text">Training</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
             <a routerLink="HR/trainingreq">
               <span class="fa logo"><img src="../assets/images/Training.svg"></span>
-              <span class="text">Training Request</span>
+              <span class="text">Training Requirements</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/trainingemp">
+              <span class="fa logo"><img src="../assets/images/Training.svg"></span>
+              <span class="text">Training Employee</span>
             </a>
           </li>
           <li routerLinkActive='active'>
@@ -126,10 +138,10 @@
     </div>
 
   </div>
-  
-  
-  
-  
+
+
+
+
   <!--Menu Side Bar For Config -->
   <div *ngIf="moduleConfig" id="mySidenav" class="sidenav">
 
@@ -176,98 +188,107 @@
     </div>
 
   </div>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  
-  
-  
-  
-  
-  
-    <!--Menu Top Bar -->
-    <div class="example-sidenav-content" style="z-index: 100;">
-      <div *ngIf="hideDiv" class="row bgBlue" >
-  
-        <!--Ambit Logo Button -->
-        <div class="col-md-1" style="border:0px solid red; background-color: #E6E6E6;">
-  
-          <button type="button" class="noneOutLine menuButton" mat-flat-button>
-            <img src="../assets/images/Ambit-Logo.svg" height="25px">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="fa fa-bars text-center" style="color:#4F6EB1;" (click)="openNav()"></span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--Menu Top Bar -->
+  <div class="example-sidenav-content" style="z-index: 100;">
+    <div *ngIf="hideDiv" class="row bgBlue">
+
+      <!--Ambit Logo Button -->
+      <div class="col-md-1" style="border:0px solid red; background-color: #E6E6E6;">
+
+        <button type="button" class="noneOutLine menuButton" mat-flat-button>
+          <img src="../assets/images/Ambit-Logo.svg" height="25px">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="fa fa-bars text-center" style="color:#4F6EB1;" (click)="openNav()"></span>
+        </button>
+      </div>
+
+
+      <div class=" offset-md-2 col-md-1 text-right">
+        <!-- <mat-icon matPrefix class="menuSIcon"><i class='fa fa-search'></i></mat-icon> -->
+      </div>
+
+      <div class="col-md-4" style="padding: 0;">
+
+        <!-- <h4>UMIS</h4> -->
+      </div>
+
+      <div class="col-md-3 text-right" style="border:0px solid red; padding: 0;">
+
+        <!-- <img src="../assets/images/icon_img.jpg" alt="" height="40px"> -->
+
+        <div class="dropdown">
+          <button class="dropbtn pointerCursor">
+            {{logedInUserName}} &nbsp;
+            <span class="fa fa-caret-down"></span>
           </button>
-        </div>
-  
-  
-        <div class=" offset-md-2 col-md-1 text-right">
-          <!-- <mat-icon matPrefix class="menuSIcon"><i class='fa fa-search'></i></mat-icon> -->
-        </div>
-  
-        <div class="col-md-4" style="padding: 0;">
-  
-          <!-- <h4>UMIS</h4> -->
-        </div>
-  
-        <div class="col-md-3 text-right" style="border:0px solid red; padding: 0;">
-  
-          <!-- <img src="../assets/images/icon_img.jpg" alt="" height="40px"> -->
-  
-          <div class="dropdown">
-            <button class="dropbtn pointerCursor">
-              {{logedInUserName}} &nbsp;
-              <span class="fa fa-caret-down"></span>
-            </button>
-  
-            <div class="dropdown-content">
-              <div class="btn" (click)="Logout()">
-                <span class="fa fa-sign-out"></span>
-                <span> Log out</span>
-              </div>
-  
-              <div class="btn" (click)=showBottom()>
-                <span class="fa fa-sitemap"></span>
-                <span> Modules</span>
-              </div>
-              <div class="btn" (click)=showAttendance()>
-                  <span class="fa fa-calendar-check-o"></span>
-                  <span> Attendance</span>
-              </div>
+
+          <div class="dropdown-content">
+            <div class="btn" (click)="Logout()">
+              <span class="fa fa-sign-out"></span>
+              <span> Log out</span>
+            </div>
+
+            <div class="btn" (click)=showBottom()>
+              <span class="fa fa-sitemap"></span>
+              <span> Modules</span>
+            </div>
+            <div class="btn" (click)=showAttendance()>
+              <span class="fa fa-calendar-check-o"></span>
+              <span> Attendance</span>
             </div>
           </div>
-  
-          <div class="row" style="border:0px solid red; padding: 0;">
-            <div class="col-md-2" style="border: 0px solid yellow; padding-right: 0;">
-  
-            </div>
-          </div>
-  
         </div>
-  
-        <div class="col-md-1 text-right">
-          <!-- <button type="button" class="noneOutLine leftBorderWhite" mat-flat-button>
+
+        <div class="row" style="border:0px solid red; padding: 0;">
+          <div class="col-md-2" style="border: 0px solid yellow; padding-right: 0;">
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-1 text-right">
+        <!-- <button type="button" class="noneOutLine leftBorderWhite" mat-flat-button>
               
           </button> -->
-  
-          <div class="btnSlider border-left">
-            <span class="fa fa-sliders"></span>
-          </div>
-  
+
+        <div class="btnSlider border-left">
+          <span class="fa fa-sliders"></span>
         </div>
+
       </div>
-  
+      <!-- <<<<<<< HEAD
+======= -->
+
+      <ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.91)" size="medium" color="#ff871c"
+        type="ball-clip-rotate-multiple" fullScreen="true">
+        <p style="color: white"> Loading... </p>
+      </ngx-spinner>
+
       <router-outlet></router-outlet>
+      <!-- >>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9 -->
     </div>
-  
-  
-  </mat-drawer-container>
-  
+
+    <router-outlet></router-outlet>
+  </div>
+
+
+</mat-drawer-container>

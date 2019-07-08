@@ -1,11 +1,20 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
 import { jsonpCallbackContext } from '@angular/common/http/src/module';
+
+import {
+    IgxExcelExporterOptions,
+    IgxExcelExporterService,
+    IgxGridComponent,
+    IgxCsvExporterService,
+    IgxCsvExporterOptions,
+    CsvFileTypes
+} from "igniteui-angular";
 
 declare var $: any;
 
@@ -17,7 +26,12 @@ declare var $: any;
 export class JobprofileComponent implements OnInit {
 
     //serverUrl = "http://192.168.200.19:3009/";
-    serverUrl = "http://localhost:47807/";
+    // <<<<<<< HEAD
+    //serverUrl = "http://localhost:47807/";
+    serverUrl = "https://localhost:3003";
+    // =======
+    //serverUrl = "http://localhost:47807/";
+    // >>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
     tokenKey = "token";
 
     httpOptions = {
@@ -27,12 +41,52 @@ export class JobprofileComponent implements OnInit {
     //*Bolean variable 
     updateFlag = false;
 
-    //* list variables
+    //* Excel Data List
     excelDataList = [];
+    jobProfileListDetails = [
+        {
+            srNo: 1,
+            officeName: 'Head Quarter',
+            department: 'Finance',
+            section: 'BK&C',
+            jobTitle: 'AD',
+            jobType: 'Regular',
+            quantity: '1',
+            education: 'ACCA',
+            experience: '5 Years'
+        },
+        {
+            srNo: 2,
+            officeName: 'Lahore Branch',
+            department: 'Finance',
+            section: 'BK&C',
+            jobTitle: 'AD',
+            jobType: 'Regular',
+            quantity: '1',
+            education: 'ACCA',
+            experience: '5 Years'
+        },
+        {
+            srNo: 3,
+            officeName: 'Karachi Branch',
+            department: 'Finance',
+            section: 'BK&C',
+            jobTitle: 'AD',
+            jobType: 'Regular',
+            quantity: '1',
+            education: 'ACCA',
+            experience: '5 Years'
+        }
+    ];
+
 
     jobsList = [];
+    //<<<<<<< HEAD
+
+    //=======
     jobProfilesList = [];
-    
+
+    //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
     certificateList = [];
     degreeList = [];
     experienceList = [];
@@ -42,7 +96,7 @@ export class JobprofileComponent implements OnInit {
     facilityTypeList = [];
     facilityList = [];
 
-    
+
     tempJobsList = [];
     tempQualificationCriteriaList = [];
     tempDegreeList = [];
@@ -87,7 +141,7 @@ export class JobprofileComponent implements OnInit {
 
 
     //* Variables for NgModels
-    tblSearch;
+    tblSearch = "";
 
     jobProfileId = "";
 
@@ -140,11 +194,19 @@ export class JobprofileComponent implements OnInit {
     ddlFacilityType = "";
     ddlFacility = "";
 
-    
+
     txtdPassword = '';
     txtdPin = '';
 
-    show=false;
+    //<<<<<<< HEAD
+
+
+
+
+    //    show = false;
+    //=======
+    show = false;
+    //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
 
     formGroup1: FormGroup;
     formGroup2: FormGroup;
@@ -154,18 +216,19 @@ export class JobprofileComponent implements OnInit {
     formGroup6: FormGroup;
     formGroup7: FormGroup;
 
-    
+
     searchDegree = '';
     searchcertification = '';
 
-    constructor(
-        private _formBuilder: FormBuilder,
-        private toastr: ToastrManager,
-        private http: HttpClient,
-        private app: AppComponent
-    ) { }
 
-    ngOnInit() {    
+    constructor(private _formBuilder: FormBuilder,
+        public toastr: ToastrManager,
+        private app: AppComponent,
+        private excelExportService: IgxExcelExporterService,
+        private csvExportService: IgxCsvExporterService,
+        private http: HttpClient) { }
+
+    ngOnInit() {
 
         this.steperSetting();
         this.getJobProfileMain();
@@ -178,29 +241,32 @@ export class JobprofileComponent implements OnInit {
 
     }
 
-    steperSetting(){
+    @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+
+
+    steperSetting() {
         this.formGroup1 = this._formBuilder.group({
             cmbType: ['', Validators.required]
-            });
-            this.formGroup2 = this._formBuilder.group({
+        });
+        this.formGroup2 = this._formBuilder.group({
             cmbDegree: ['', Validators.required]
-            });
-            this.formGroup3 = this._formBuilder.group({
+        });
+        this.formGroup3 = this._formBuilder.group({
             cmbCertificate: ['', Validators.required]
-            });
-            this.formGroup4 = this._formBuilder.group({
+        });
+        this.formGroup4 = this._formBuilder.group({
             fourthCtrl: ['', Validators.required]
-            });
-            this.formGroup5 = this._formBuilder.group({
+        });
+        this.formGroup5 = this._formBuilder.group({
             fifthCtrl: ['', Validators.required]
-            });
-            this.formGroup6 = this._formBuilder.group({
+        });
+        this.formGroup6 = this._formBuilder.group({
             sixthCtrl: ['', Validators.required]
-            });
-            this.formGroup7 = this._formBuilder.group({
+        });
+        this.formGroup7 = this._formBuilder.group({
             sixthCtrl: ['', Validators.required]
-            });
-            
+        });
+
     }
 
     //function for get all saved job posts 
@@ -210,7 +276,7 @@ export class JobprofileComponent implements OnInit {
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         this.http.get(this.serverUrl + 'api/getJobPosts', { headers: reqHeader }).subscribe((data: any) => {
-            
+
             this.tempJobsList = data;
 
             for (var i = 0; i < data.length; i++) {
@@ -232,7 +298,7 @@ export class JobprofileComponent implements OnInit {
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         this.http.get(this.serverUrl + 'api/getDesc', { headers: reqHeader }).subscribe((data: any) => {
-            
+
             //this.tempJobsList = data;
 
             for (var i = 0; i < data.length; i++) {
@@ -255,9 +321,9 @@ export class JobprofileComponent implements OnInit {
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         this.http.get(this.serverUrl + 'api/getLeaveRule', { headers: reqHeader }).subscribe((data: any) => {
-            
+
             //this.leaveRulesList = data;
-            
+
             for (var i = 0; i < data.length; i++) {
                 this.leaveRulesList.push({
                     label: data[i].leaveTypeName + " - " + data[i].leaveNatureName,
@@ -277,9 +343,9 @@ export class JobprofileComponent implements OnInit {
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         this.http.get(this.serverUrl + 'api/getFacilityType', { headers: reqHeader }).subscribe((data: any) => {
-            
+
             //this.leaveRulesList = data;
-            
+
             for (var i = 0; i < data.length; i++) {
                 this.facilityTypeList.push({
                     label: data[i].facilityTypeName,
@@ -297,9 +363,9 @@ export class JobprofileComponent implements OnInit {
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         this.http.get(this.serverUrl + 'api/getFacility', { headers: reqHeader }).subscribe((data: any) => {
-            
+
             this.facilityList = data;
-            
+
         });
     }
 
@@ -311,13 +377,13 @@ export class JobprofileComponent implements OnInit {
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         this.http.get(this.serverUrl + 'api/getQualificationCriteria', { headers: reqHeader }).subscribe((data: any) => {
-            
+
             this.tempQualificationCriteriaList = data;
 
             for (var i = 0; i < data.length; i++) {
 
                 //geting degree 
-                if (data[i].qlfctnTypeName == 'Degree'){
+                if (data[i].qlfctnTypeName == 'Degree') {
                     this.degreeList.push({
                         label: data[i].qlfctnName + " - " + data[i].qlfctnCriteriaName,
                         value: data[i].qlfctnCriteriaCd,
@@ -325,7 +391,7 @@ export class JobprofileComponent implements OnInit {
                 }
 
                 //getting certificate
-                if (data[i].qlfctnTypeName == 'Certificate'){
+                if (data[i].qlfctnTypeName == 'Certificate') {
                     this.certificateList.push({
                         label: data[i].qlfctnName + " - " + data[i].qlfctnCriteriaName,
                         value: data[i].qlfctnCriteriaCd,
@@ -333,19 +399,35 @@ export class JobprofileComponent implements OnInit {
                 }
 
                 //getting skills
-                if (data[i].qlfctnTypeName == 'Experience'){
-                    this.experienceList.push({
-                        label: data[i].qlfctnName + " - " + data[i].qlfctnCriteriaName,
-                        value: data[i].qlfctnCriteriaCd,
-                    });
+                //<<<<<<< HEAD
+                if (data[i].qlfctnTypeName == 'Skills') {
+                    //=======
+                    if (data[i].qlfctnTypeName == 'Experience') {
+                        //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
+                        this.experienceList.push({
+                            label: data[i].qlfctnName + " - " + data[i].qlfctnCriteriaName,
+                            value: data[i].qlfctnCriteriaCd,
+                        });
+                    }
+
                 }
 
             }
-
         });
-
     }
 
+    //<<<<<<< HEAD
+    onTypeChange(item) {
+
+        if (item.label == 'Contract') {
+            this.show = true;
+        } else {
+            this.show = false;
+        }
+    }
+
+    //clear() {}
+    //======
 
     //function for get all saved job profiles 
     getJobProfileMain() {
@@ -354,7 +436,7 @@ export class JobprofileComponent implements OnInit {
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         this.http.get(this.serverUrl + 'api/getJobProfileMain', { headers: reqHeader }).subscribe((data: any) => {
-            
+
             this.jobProfilesList = data;
 
         });
@@ -372,9 +454,9 @@ export class JobprofileComponent implements OnInit {
 
             //* ********************************************save data 
             var reqData = {
-                "JobDesigID":               this.DesigId,
-                "JobPostDeptCd":            this.DeptId,
-                "JobPostLocationCd":        this.LocationId,
+                "JobDesigID": this.DesigId,
+                "JobPostDeptCd": this.DeptId,
+                "JobPostLocationCd": this.LocationId,
             };
 
             //var token = localStorage.getItem(this.tokenKey);
@@ -390,12 +472,12 @@ export class JobprofileComponent implements OnInit {
                     return false;
                 } else {
 
-                    this.tempDegreeList =           data.degreeList;
-                    this.tempCertificateList =      data.certificateList;
-                    this.tempExperienceList =       data.experienceList;
-                    this.tempDescList =             data.descList;
-                    this.tempLeaveRulesList =       data.leaveRuleList;
-                    this.jobFacilityList =         data.facilityList;
+                    this.tempDegreeList = data.degreeList;
+                    this.tempCertificateList = data.certificateList;
+                    this.tempExperienceList = data.experienceList;
+                    this.tempDescList = data.descList;
+                    this.tempLeaveRulesList = data.leaveRuleList;
+                    this.jobFacilityList = data.facilityList;
 
                 }
             });
@@ -404,8 +486,8 @@ export class JobprofileComponent implements OnInit {
 
 
     //function for empay all fields
-    clear(){
-        
+    clear() {
+
         this.DesigId = 0;
         this.DeptId = 0;
         this.LocationId = 0;
@@ -425,12 +507,13 @@ export class JobprofileComponent implements OnInit {
 
         this.txtdPassword = '';
         this.txtdPin = '';
+        //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
 
     }
 
 
     //function for edit record
-    edit(item){
+    edit(item) {
 
         this.clear();
 
@@ -461,27 +544,39 @@ export class JobprofileComponent implements OnInit {
             this.toastr.errorToastr('Please select job post', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.tempDegreeList.length == 0 ) {
+        else if (this.tempDegreeList.length == 0) {
             this.toastr.errorToastr('Please enter qualifiation detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
+        //<<<<<<< HEAD
+        else if (this.tempCertificateList.length == 0) {
+            this.toastr.errorToastr('Please enter certification detail', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        //else if (this.tempExperienceList.length == 0) {
+        //=======
         // else if (this.tempCertificateList.length == 0 ) {
         //     this.toastr.errorToastr('Please enter certification detail', 'Error', { toastTimeout: (2500) });
         //     return false;
         // }
-        else if (this.tempExperienceList.length == 0 ) {
+        else if (this.tempExperienceList.length == 0) {
+            //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
             this.toastr.errorToastr('Please enter experience detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.tempDescList.length == 0 ) {
+        else if (this.tempDescList.length == 0) {
             this.toastr.errorToastr('Please enter job description detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.tempLeaveRulesList.length == 0 ) {
+        //<<<<<<< HEAD
+        //        else if (this.jobFacilityList.length == 0) {
+        //=======
+        else if (this.tempLeaveRulesList.length == 0) {
             this.toastr.errorToastr('Please enter leave rules detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.jobFacilityList.length == 0 ) {
+        else if (this.jobFacilityList.length == 0) {
+            //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
             this.toastr.errorToastr('Please enter facilities detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -496,18 +591,18 @@ export class JobprofileComponent implements OnInit {
                 // // this.app.hideSpinner();
                 //* ********************************************update data 
                 var updateData = {
-                    "jobProfileID":             1,
-                    "JobDesigID":               this.DesigId,
-                    "JobPostDeptCd":            this.DeptId,
-                    "JobPostLocationCd":        this.LocationId,
-                    "jobQualificationList":     JSON.stringify(this.tempDegreeList),
-                    "jobCertificationList":     JSON.stringify(this.tempCertificateList),
-                    "jobExperienceList":        JSON.stringify(this.tempExperienceList),
-                    "jobDescriptionList":       JSON.stringify(this.tempDescList),
-                    "jobLeaveRuleList":          JSON.stringify(this.tempLeaveRulesList),
-                    "jobFacilityList":          JSON.stringify(this.jobFacilityList),
-                    "ConnectedUser":            "12000",
-                    "DelFlag":                  0
+                    "jobProfileID": 1,
+                    "JobDesigID": this.DesigId,
+                    "JobPostDeptCd": this.DeptId,
+                    "JobPostLocationCd": this.LocationId,
+                    "jobQualificationList": JSON.stringify(this.tempDegreeList),
+                    "jobCertificationList": JSON.stringify(this.tempCertificateList),
+                    "jobExperienceList": JSON.stringify(this.tempExperienceList),
+                    "jobDescriptionList": JSON.stringify(this.tempDescList),
+                    "jobLeaveRuleList": JSON.stringify(this.tempLeaveRulesList),
+                    "jobFacilityList": JSON.stringify(this.jobFacilityList),
+                    "ConnectedUser": "12000",
+                    "DelFlag": 0
                 };
 
                 //var token = localStorage.getItem(this.tokenKey);
@@ -533,18 +628,18 @@ export class JobprofileComponent implements OnInit {
 
                 //* ********************************************save data 
                 var saveData = {
-                    "jobProfileID":             0,
-                    "JobDesigID":               this.DesigId,
-                    "JobPostDeptCd":            this.DeptId,
-                    "JobPostLocationCd":        this.LocationId,
-                    "jobQualificationList":     JSON.stringify(this.tempDegreeList),
-                    "jobCertificationList":     JSON.stringify(this.tempCertificateList),
-                    "jobExperienceList":        JSON.stringify(this.tempExperienceList),
-                    "jobDescriptionList":       JSON.stringify(this.tempDescList),
-                    "jobLeaveRuleList":          JSON.stringify(this.tempLeaveRulesList),
-                    "jobFacilityList":          JSON.stringify(this.jobFacilityList),
-                    "ConnectedUser":            "12000",
-                    "DelFlag":                  0
+                    "jobProfileID": 0,
+                    "JobDesigID": this.DesigId,
+                    "JobPostDeptCd": this.DeptId,
+                    "JobPostLocationCd": this.LocationId,
+                    "jobQualificationList": JSON.stringify(this.tempDegreeList),
+                    "jobCertificationList": JSON.stringify(this.tempCertificateList),
+                    "jobExperienceList": JSON.stringify(this.tempExperienceList),
+                    "jobDescriptionList": JSON.stringify(this.tempDescList),
+                    "jobLeaveRuleList": JSON.stringify(this.tempLeaveRulesList),
+                    "jobFacilityList": JSON.stringify(this.jobFacilityList),
+                    "ConnectedUser": "12000",
+                    "DelFlag": 0
                 };
 
                 //var token = localStorage.getItem(this.tokenKey);
@@ -572,17 +667,22 @@ export class JobprofileComponent implements OnInit {
     //Function for add new desc row
     addDesc() {
 
-        if (this.ddlDescription.toString().trim() == "" || this.ddlDescription == null ) {
+        if (this.ddlDescription.toString().trim() == "" || this.ddlDescription == null) {
             this.toastr.errorToastr('Please enter description', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else{
-            
+        else {
+
 
             var desc = this.ddlDescription;
             var myDesc = Number(desc);
 
-            if (!Number.isNaN(myDesc)){
+            //<<<<<<< HEAD
+            //            if (!Number.isNaN(myDesc)) {
+
+            //=======
+            if (!Number.isNaN(myDesc)) {
+                //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
                 var duplicateChk = false;
 
                 for (var i = 0; i < this.tempDescList.length; i++) {
@@ -591,11 +691,11 @@ export class JobprofileComponent implements OnInit {
                     }
                 }
 
-                if (duplicateChk == true){
+                if (duplicateChk == true) {
                     this.toastr.errorToastr('Description already added', 'Error', { toastTimeout: (2500) });
                     return false;
                 }
-                else{
+                else {
 
                     var dataList = [];
                     dataList = this.descList.filter(x => x.value == this.ddlDescription);
@@ -608,26 +708,30 @@ export class JobprofileComponent implements OnInit {
 
                 }
 
-            }else{
+            } else {
 
                 var duplicateChk = false;
 
                 for (var i = 0; i < this.tempDescList.length; i++) {
+                    //<<<<<<< HEAD
+                    //if (this.tempDescList[i].RspnsbltyDesc == this.ddlDescription) {
+                    //=======
                     if (this.tempDescList[i].rspnsbltyDesc.toUpperCase() == this.ddlDescription.trim().toUpperCase()) {
+                        //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
                         duplicateChk = true;
                     }
                 }
 
-                if (duplicateChk == true){
+                if (duplicateChk == true) {
                     this.toastr.errorToastr('Description already added', 'Error', { toastTimeout: (2500) });
                     return false;
                 }
-                else{
+                else {
 
                     var dataList = [];
-                    dataList = this.descList.filter(x => x.label.toUpperCase() == this.ddlDescription.toUpperCase());
-                    
-                    if(dataList.length > 0){
+                    dataList = this.descList.filter(x => x.label == this.ddlDescription);
+
+                    if (dataList.length > 0) {
 
                         this.tempDescList.push({
                             rspnsbltyCd: dataList[0].value,
@@ -635,12 +739,18 @@ export class JobprofileComponent implements OnInit {
                             mndtryIndctr: false
                         });
 
-                    }else{
+                    } else {
 
                         this.tempDescList.push({
+                            //<<<<<<< HEAD
+                            // RspnsbltyCd: 0,
+                            // RspnsbltyDesc: this.ddlDescription.trim(),
+                            // MndtryIndctr: false
+                            //=======
                             rspnsbltyCd: 0,
                             rspnsbltyDesc: this.ddlDescription.trim(),
                             mndtryIndctr: false
+                            //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
                         });
                     }
                 }
@@ -658,16 +768,16 @@ export class JobprofileComponent implements OnInit {
     //Function for add leave rule
     addLeaveRule() {
 
-        if (this.ddlLeaveRule == "" || this.ddlLeaveRule == null ) {
+        if (this.ddlLeaveRule == "" || this.ddlLeaveRule == null) {
             this.toastr.errorToastr('Please select leave rule', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        if (this.efectDate == "" || this.efectDate == null ) {
+        if (this.efectDate == "" || this.efectDate == null) {
             this.toastr.errorToastr('Please enter effect date', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else{
-            
+        else {
+
             //alert(this.efectDate);
             //return false;
 
@@ -679,11 +789,11 @@ export class JobprofileComponent implements OnInit {
                 }
             }
 
-            if (duplicateChk == true){
+            if (duplicateChk == true) {
                 this.toastr.errorToastr('Leave rule already added', 'Error', { toastTimeout: (2500) });
                 return false;
             }
-            else{
+            else {
 
                 var dataList = [];
                 dataList = this.leaveRulesList.filter(x => x.value == this.ddlLeaveRule);
@@ -709,15 +819,15 @@ export class JobprofileComponent implements OnInit {
     //Function for add facility
     addFacility() {
 
-        if (this.ddlFacilityType == "" || this.ddlFacilityType == null ) {
+        if (this.ddlFacilityType == "" || this.ddlFacilityType == null) {
             this.toastr.errorToastr('Please select facility type', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        if (this.ddlFacility == "" || this.ddlFacility == null ) {
+        if (this.ddlFacility == "" || this.ddlFacility == null) {
             this.toastr.errorToastr('Please select facility', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else{
+        else {
 
             var duplicateChk = false;
 
@@ -727,15 +837,15 @@ export class JobprofileComponent implements OnInit {
                 }
             }
 
-            if (duplicateChk == true){
+            if (duplicateChk == true) {
                 this.toastr.errorToastr('Facility already added', 'Error', { toastTimeout: (2500) });
                 return false;
             }
-            else{
+            else {
 
                 var dataList = [];
                 dataList = this.facilityTypeList.filter(x => x.value == this.ddlFacilityType);
-                
+
                 var dataList1 = [];
                 dataList1 = this.tempFacilityList.filter(x => x.value == this.ddlFacility);
 
@@ -757,10 +867,10 @@ export class JobprofileComponent implements OnInit {
 
 
     //function for save temp degrees
-    addDegree(){
+    addDegree() {
 
 
-        if (this.ddlDegree == "" || this.ddlDegree == null ) {
+        if (this.ddlDegree == "" || this.ddlDegree == null) {
             this.toastr.errorToastr('Please select degree', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -768,7 +878,7 @@ export class JobprofileComponent implements OnInit {
             this.toastr.errorToastr('Please required level', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.degreeReqLevel < 1 || this.degreeReqLevel > 99 ) {
+        else if (this.degreeReqLevel < 1 || this.degreeReqLevel > 99) {
             this.toastr.errorToastr('Invalid required level', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -776,15 +886,15 @@ export class JobprofileComponent implements OnInit {
             this.toastr.errorToastr('Please maximum level', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.degreeMaxLelvel < 1 || this.degreeMaxLelvel > 99 ) {
+        else if (this.degreeMaxLelvel < 1 || this.degreeMaxLelvel > 99) {
             this.toastr.errorToastr('Invalid maximum level', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.degreeMaxLelvel < this.degreeReqLevel ) {
+        else if (this.degreeMaxLelvel < this.degreeReqLevel) {
             this.toastr.errorToastr('Invalid maximum level', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else{
+        else {
 
 
             var duplicateDegreeChk = false;
@@ -795,11 +905,11 @@ export class JobprofileComponent implements OnInit {
                 }
             }
 
-            if (duplicateDegreeChk == true){
+            if (duplicateDegreeChk == true) {
                 this.toastr.errorToastr('Degree already exist', 'Error', { toastTimeout: (2500) });
                 return false;
             }
-            else{
+            else {
 
                 var perfIndctr;
                 if(this.chkDegreePI == false)
@@ -825,7 +935,7 @@ export class JobprofileComponent implements OnInit {
                 });
 
             }
-            
+
 
         }
 
@@ -839,9 +949,9 @@ export class JobprofileComponent implements OnInit {
 
 
     //function for save temp degrees
-    addExperience(){
+    addExperience() {
 
-        if (this.ddlExperience == "" || this.ddlExperience == null ) {
+        if (this.ddlExperience == "" || this.ddlExperience == null) {
             this.toastr.errorToastr('Please select experience title', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -849,7 +959,7 @@ export class JobprofileComponent implements OnInit {
             this.toastr.errorToastr('Please enter experience in year', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.experienceYear < 0 || this.experienceYear > 99 ) {
+        else if (this.experienceYear < 0 || this.experienceYear > 99) {
             this.toastr.errorToastr('Invalid experience in year', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -857,11 +967,11 @@ export class JobprofileComponent implements OnInit {
             this.toastr.errorToastr('Please enter experience in month', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.experienceMonth < 0 || this.experienceMonth > 12 ) {
+        else if (this.experienceMonth < 0 || this.experienceMonth > 12) {
             this.toastr.errorToastr('Invalid experience in month', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else{
+        else {
 
             var perfIndctr;
             if(this.chkExperiencePI == false)
@@ -881,11 +991,11 @@ export class JobprofileComponent implements OnInit {
                 }
             }
 
-            if (duplicateChk == true){
+            if (duplicateChk == true) {
                 this.toastr.errorToastr('Experience title already added', 'Error', { toastTimeout: (2500) });
                 return false;
             }
-            else{
+            else {
 
                 this.experienceInMonth = (this.experienceYear * 12) + this.experienceMonth;
 
@@ -901,7 +1011,7 @@ export class JobprofileComponent implements OnInit {
                     prefIndctr:             perfIndctr,
                     degreeLabel:            this.Experience
                 });
-            }   
+            }
         }
     }
 
@@ -913,10 +1023,10 @@ export class JobprofileComponent implements OnInit {
 
 
     //function for save temp degrees
-    addCertificate(){
+    addCertificate() {
 
 
-        if (this.ddlCertificate == "" || this.ddlCertificate == null ) {
+        if (this.ddlCertificate == "" || this.ddlCertificate == null) {
             this.toastr.errorToastr('Please select certificate', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -924,7 +1034,7 @@ export class JobprofileComponent implements OnInit {
             this.toastr.errorToastr('Please enter required level', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.certificateReqLevel < 1 || this.certificateReqLevel > 99 ) {
+        else if (this.certificateReqLevel < 1 || this.certificateReqLevel > 99) {
             this.toastr.errorToastr('Invalid required level', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -932,15 +1042,15 @@ export class JobprofileComponent implements OnInit {
             this.toastr.errorToastr('Please enter maximum level', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.certificateMaxLelvel < 1 || this.certificateMaxLelvel > 99 ) {
+        else if (this.certificateMaxLelvel < 1 || this.certificateMaxLelvel > 99) {
             this.toastr.errorToastr('Invalid maximum level', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.certificateMaxLelvel < this.certificateReqLevel ) {
+        else if (this.certificateMaxLelvel < this.certificateReqLevel) {
             this.toastr.errorToastr('Invalid maximum level', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else{
+        else {
 
             var perfIndctr;
             if(this.chkCertificatePI == false)
@@ -960,11 +1070,11 @@ export class JobprofileComponent implements OnInit {
                 }
             }
 
-            if (duplicateChk == true){
+            if (duplicateChk == true) {
                 this.toastr.errorToastr('Certificate already added', 'Error', { toastTimeout: (2500) });
                 return false;
             }
-            else{
+            else {
 
                 this.tempCertificateList.push({
                     qlfctnRuleCriteriaCD:   0,
@@ -977,7 +1087,7 @@ export class JobprofileComponent implements OnInit {
                     prefIndctr:             perfIndctr,
                     degreeLabel:            this.Certificate
                 });
-            }   
+            }
         }
     }
 
@@ -990,18 +1100,18 @@ export class JobprofileComponent implements OnInit {
 
     //function for get filtere list from job post
     getFilterItem(filterOption) {
-        
+
         // if(this.jobTitle != null){
         //     alert(this.jobTitle);
         // }
-        
+
         var dataList = [];
-        
+
         //filter for job post
-        if(filterOption == "jobs"){
+        if (filterOption == "jobs") {
 
             dataList = this.tempJobsList.filter(x => x.jobDesigID == this.jobTitle);
-        
+
             this.DesigId = dataList[0].jobDesigID;
             this.DeptId = dataList[0].jobPostDeptCd;
             this.LocationId = dataList[0].jobPostLocationCd;
@@ -1011,10 +1121,10 @@ export class JobprofileComponent implements OnInit {
         }
 
 
-        if(filterOption == "degree"){
+        if (filterOption == "degree") {
 
             dataList = this.tempQualificationCriteriaList.filter(x => x.qlfctnCriteriaCd == this.ddlDegree);
-            
+
             this.Qualification = dataList[0].qlfctnCriteriaName;
             this.QualificationId = dataList[0].qlfctnCd;
             this.QualificationTypeId = dataList[0].qlfctnTypeCd;
@@ -1022,10 +1132,10 @@ export class JobprofileComponent implements OnInit {
 
         }
 
-        if(filterOption == "certificate"){
+        if (filterOption == "certificate") {
 
             dataList = this.tempQualificationCriteriaList.filter(x => x.qlfctnCriteriaCd == this.ddlCertificate);
-            
+
             this.Certificate = dataList[0].qlfctnCriteriaName;
             this.CertificateId = dataList[0].qlfctnCd;
             this.CertificateTypeId = dataList[0].qlfctnTypeCd;
@@ -1033,10 +1143,10 @@ export class JobprofileComponent implements OnInit {
 
         }
 
-        if(filterOption == "experience"){
+        if (filterOption == "experience") {
 
             dataList = this.tempQualificationCriteriaList.filter(x => x.qlfctnCriteriaCd == this.ddlExperience);
-            
+
             this.Experience = dataList[0].qlfctnCriteriaName;
             this.ExperienceId = dataList[0].qlfctnCd;
             this.ExperienceTypeId = dataList[0].qlfctnTypeCd;
@@ -1045,7 +1155,7 @@ export class JobprofileComponent implements OnInit {
         }
 
 
-        if(filterOption == "facility"){
+        if (filterOption == "facility") {
 
             this.tempFacilityList = [];
             this.ddlFacility = "";
@@ -1058,16 +1168,6 @@ export class JobprofileComponent implements OnInit {
                 });
             }
         }
-    }
-
-
-
-    //functions for delete entry
-    deleteTemp(item) {
-        this.clear();
-        this.DesigId = item.jobDesigID;
-        this.DeptId = item.jobPostDeptCd;
-        this.LocationId = item.jobPostLocationCd;
     }
 
     delete() {
@@ -1090,16 +1190,16 @@ export class JobprofileComponent implements OnInit {
 
             //* ********************************************update data 
             var updateData = {
-                "jobProfileID":             1,
-                "JobDesigID":               this.DesigId,
-                "JobPostDeptCd":            this.DeptId,
-                "JobPostLocationCd":        this.LocationId,
-                "jobQualificationList":     JSON.stringify(this.tempDegreeList),
-                "jobCertificationList":     JSON.stringify(this.tempCertificateList),
-                "jobExperienceList":        JSON.stringify(this.tempExperienceList),
-                "jobDescriptionList":       JSON.stringify(this.tempDescList),
-                "jobLeaveRuleList":          JSON.stringify(this.tempLeaveRulesList),
-                "jobFacilityList":          JSON.stringify(this.jobFacilityList),
+                "jobProfileID": 1,
+                "JobDesigID": this.DesigId,
+                "JobPostDeptCd": this.DeptId,
+                "JobPostLocationCd": this.LocationId,
+                "jobQualificationList": JSON.stringify(this.tempDegreeList),
+                "jobCertificationList": JSON.stringify(this.tempCertificateList),
+                "jobExperienceList": JSON.stringify(this.tempExperienceList),
+                "jobDescriptionList": JSON.stringify(this.tempDescList),
+                "jobLeaveRuleList": JSON.stringify(this.tempLeaveRulesList),
+                "jobFacilityList": JSON.stringify(this.jobFacilityList),
                 "ConnectedUser": "12000",
                 "DelFlag": 1
             };
@@ -1123,10 +1223,182 @@ export class JobprofileComponent implements OnInit {
                     return false;
                 }
             });
+            //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
         }
     }
 
 
+    //<<<<<<< HEAD
+
+    printDiv() {
+
+        // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
+
+        // var cssHeading = ".cssHeading {font-size: 25px; font-weight: bold;}";
+        // var cssAddress = ".cssAddress {font-size: 16px; }";
+        // var cssContact = ".cssContact {font-size: 16px; }";
+
+        // var tableCss = "table {width: 100%; border-collapse: collapse;}    table thead tr th {text-align: left; font-family: Arial, Helvetica, sans-serif; font-weight: bole; border-bottom: 1px solid black; margin-left: -3px;}     table tbody tr td {font-family: Arial, Helvetica, sans-serif; border-bottom: 1px solid #ccc; margin-left: -3px; height: 33px;}";
+
+        var printCss = this.app.printCSS();
+
+
+        //printCss = printCss + "";
+
+        var contents = $("#printArea").html();
+
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>DIV Contents</title>' + "<style>" + printCss + "</style>");
+
+
+        //Append the external CSS file.  <link rel="stylesheet" href="../../../styles.scss" />  <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+        frameDoc.document.write('<style type="text/css" media="print">/*@page { size: landscape; }*/</style>');
+
+        frameDoc.document.write('</head><body>');
+
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+
+        frameDoc.document.close();
+
+
+        //alert(frameDoc.document.head.innerHTML);
+        // alert(frameDoc.document.body.innerHTML);
+
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+    }
+
+
+    downloadPDF() { }
+
+
+    downloadCSV() {
+        alert('CSV works ' + this.jobProfilesList.length);
+        // case 1: When tblSearch is empty then assign full data list
+        if (this.tblSearch == "") {
+            var completeDataList = [];
+            for (var i = 0; i < this.jobProfilesList.length; i++) {
+                //alert(this.tblSearch + " - " + this.skillCriteriaList[i].departmentName)
+                completeDataList.push({
+                    OfficeName: this.jobProfilesList[i].locationName,
+                    Department: this.jobProfilesList[i].deptName,
+                    JobTitle: this.jobProfilesList[i].jobDesigName,
+                    JobType: this.jobProfilesList[i].jobTypeName,
+                    Qty: this.jobProfilesList[i].quantity,
+                    Education: this.jobProfilesList[i].degree,
+                    Experience: this.jobProfilesList[i].experience
+                });
+            }
+            this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("jobProfileCompleteCSV", CsvFileTypes.CSV));
+        }
+        // case 2: When tblSearch is not empty then assign new data list
+        else if (this.tblSearch != "") {
+            var filteredDataList = [];
+            for (var i = 0; i < this.jobProfilesList.length; i++) {
+                if (this.jobProfilesList[i].officeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].department.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].jobTitle.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].jobType.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].education.toUpperCase().includes(this.tblSearch.toUpperCase())) {
+                    filteredDataList.push({
+                        OfficeName: this.jobProfilesList[i].locationName,
+                        Department: this.jobProfilesList[i].deptName,
+                        JobTitle: this.jobProfilesList[i].jobDesigName,
+                        JobType: this.jobProfilesList[i].jobTypeName,
+                        Qty: this.jobProfilesList[i].quantity,
+                        Education: this.jobProfilesList[i].degree,
+                        Experience: this.jobProfilesList[i].experience
+                    });
+                }
+            }
+
+            if (filteredDataList.length > 0) {
+                this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("jobProfileFilterCSV", CsvFileTypes.CSV));
+            } else {
+                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+            }
+            //=======
+            //functions for delete entry
+            // deleteTemp(item) {
+            //     this.clear();
+            //     this.DesigId = item.jobDesigID;
+            //     this.DeptId = item.jobPostDeptCd;
+            //     this.LocationId = item.jobPostLocationCd;
+            // }
+
+
+
+            //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
+        }
+    }
+
+    //<<<<<<< HEAD
+    downloadExcel() {
+        //alert('Excel works');
+        // case 1: When tblSearch is empty then assign full data list
+        if (this.tblSearch == "") {
+            //var completeDataList = [];
+            for (var i = 0; i < this.jobProfilesList.length; i++) {
+                this.excelDataList.push({
+                    OfficeName: this.jobProfilesList[i].locationName,
+                    Department: this.jobProfilesList[i].deptName,
+                    JobTitle: this.jobProfilesList[i].jobDesigName,
+                    JobType: this.jobProfilesList[i].jobTypeName,
+                    Qty: this.jobProfilesList[i].quantity,
+                    Education: this.jobProfilesList[i].degree,
+                    Experience: this.jobProfilesList[i].experience
+                });
+            }
+            this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("jobProfileCompleteExcel"));
+            this.excelDataList = [];
+        }
+        // case 2: When tblSearch is not empty then assign new data list
+        else if (this.tblSearch != "") {
+            for (var i = 0; i < this.jobProfilesList.length; i++) {
+                if (this.jobProfilesList[i].officeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].department.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].jobTitle.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].jobType.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+                    this.jobProfilesList[i].education.toUpperCase().includes(this.tblSearch.toUpperCase())) {
+                    this.excelDataList.push({
+                        OfficeName: this.jobProfilesList[i].locationName,
+                        Department: this.jobProfilesList[i].deptName,
+                        JobTitle: this.jobProfilesList[i].jobDesigName,
+                        JobType: this.jobProfilesList[i].jobTypeName,
+                        Qty: this.jobProfilesList[i].quantity,
+                        Education: this.jobProfilesList[i].degree,
+                        Experience: this.jobProfilesList[i].experience
+                    });
+                }
+            }
+
+            if (this.excelDataList.length > 0) {
+                //alert("Filter List " + this.excelDataList.length);
+
+                this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("jobProfileFilterExcel"));
+                this.excelDataList = [];
+            }
+            else {
+                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+            }
+        }
+    }
+
+
+
+    //=======
 
     //function for sort table data 
     setOrder(value: string) {
@@ -1135,5 +1407,4 @@ export class JobprofileComponent implements OnInit {
         }
         this.order = value;
     }
-
 }
