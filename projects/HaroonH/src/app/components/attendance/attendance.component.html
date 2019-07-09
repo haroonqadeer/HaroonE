@@ -42,7 +42,7 @@
   <div class="row tab-margin">
     <div class="col-md-3">
       <br/>
-      <p-dropdown [options]="brachList" [(ngModel)]="ddlBranch" [disabled]="editFlag" placeholder="Branch" filter="true" [style]="{'width':'100%'}">
+      <p-dropdown appendTo="body" [options]="brachList" [(ngModel)]="ddlBranch" [disabled]="editFlag" placeholder="Branch" filter="true" [style]="{'width':'100%'}">
         <ng-template let-itm pTemplate="item">
           <div style="position: relative;height: 25px; z-index: 100;">
             <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -53,8 +53,8 @@
 
     <div class="col-md-3">
       <br/>
-      <p-dropdown [options]="deptList" [(ngModel)]="ddlDepartment" (onChange)="getFilterItem('section')" [disabled]="editFlag" placeholder="Department" filter="true" [style]="{'width':'100%'}">
-        <ng-template let-itm pTemplate="item">
+      <p-dropdown appendTo="body" [options]="deptList" [(ngModel)]="ddlDepartment" (onChange)="getFilterItem('section')" [disabled]="editFlag" placeholder="Department" filter="true" [style]="{'width':'100%'}">
+        <ng-template let-i8tm pTemplate="item">
           <div style="position: relative;height: 25px; z-index: 100;">
             <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
           </div>
@@ -64,7 +64,7 @@
 
     <div class="col-md-3">
       <br/>
-      <p-dropdown [options]="sectnList" [(ngModel)]="ddlSection" (onChange)="getSectEmp()" [disabled]="editFlag" placeholder="Section" filter="true" [style]="{'width':'100%'}">
+      <p-dropdown appendTo="body" [options]="sectnList" [(ngModel)]="ddlSection" (onChange)="getSectEmp()" [disabled]="editFlag" placeholder="Section" filter="true" [style]="{'width':'100%'}">
           <ng-template let-itm pTemplate="item">
             <div style="position: relative;height: 25px; z-index: 100;">
               <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -202,7 +202,7 @@
             <br/>
             <div class="row">
               <div class="col-md-3">
-                <p-dropdown [options]="managerList" [(ngModel)]="ddlManager" [disabled]="!chkAddBreak" placeholder="Manager" filter="true" [style]="{'width':'100%'}">
+                <p-dropdown appendTo="body" [options]="managerList" [(ngModel)]="ddlManager" [disabled]="!chkAddBreak" placeholder="Manager" filter="true" [style]="{'width':'100%'}">
                   <ng-template let-itm pTemplate="item">
                     <div style="position: relative;height: 25px; z-index: 100;">
                       <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -214,7 +214,7 @@
 
 
               <div class="col-md-3">
-                <p-dropdown [options]="breakTypeList" [(ngModel)]="ddlBreakType" [disabled]="!chkAddBreak" placeholder="Break Type" filter="true" [style]="{'width':'100%'}">
+                <p-dropdown appendTo="body" [options]="breakTypeList" [(ngModel)]="ddlBreakType" [disabled]="!chkAddBreak" placeholder="Break Type" filter="true" [style]="{'width':'100%'}">
                   <ng-template let-itm pTemplate="item">
                     <div style="position: relative;height: 25px; z-index: 100;">
                       <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>

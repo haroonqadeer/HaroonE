@@ -260,7 +260,7 @@
   
                         <!--address type combo box-->
                         <td style="padding:0 15px 0 15px; width: 300px">
-                          <p-dropdown [options]="addressType" filter="true" [(ngModel)]="item.addressType" placeholder="Address Type" [style]="{'width':'100%'}">
+                          <p-dropdown appendTo="body" [options]="addressType" filter="true" [(ngModel)]="item.addressType" placeholder="Address Type" [style]="{'width':'100%'}">
                             <ng-template let-itm pTemplate="item">
                               <div style="position: relative;height: 25px;">
                                 <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -287,7 +287,7 @@
                       <tr>
                         <!-- Country -->
                         <td style="padding:8px 15px 8px 15px;">
-                          <p-dropdown [options]="countryListForAddress" filter="true" [(ngModel)]="item.countryCode" placeholder="Select Country" [style]="{'width':'100%'}">
+                          <p-dropdown appendTo="body" [options]="countryListForAddress" filter="true" [(ngModel)]="item.countryCode" placeholder="Select Country" [style]="{'width':'100%'}">
                             <ng-template let-itm pTemplate="item">
                               <div style="position: relative;height: 25px;">
                                 <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -298,7 +298,7 @@
   
                         <!-- Province -->
                         <td>
-                          <p-dropdown [options]="provinceList" filter="true" [(ngModel)]="item.provinceCode" placeholder="Select Province" [style]="{'width':'100%'}">
+                          <p-dropdown appendTo="body" [options]="provinceList" filter="true" [(ngModel)]="item.provinceCode" placeholder="Select Province" [style]="{'width':'100%'}">
                             <ng-template let-itm pTemplate="item">
                               <div style="position: relative;height: 25px;">
                                 <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -309,7 +309,7 @@
   
                         <!-- District -->
                         <td>
-                          <p-dropdown [options]="districtList" filter="true" [(ngModel)]="item.districtCode" placeholder="Select District" [style]="{'width':'100%'}">
+                          <p-dropdown appendTo="body" [options]="districtList" filter="true" [(ngModel)]="item.districtCode" placeholder="Select District" [style]="{'width':'100%'}">
                             <ng-template let-itm pTemplate="item">
                               <div style="position: relative;height: 25px;">
                                 <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -320,7 +320,7 @@
   
                         <!-- City -->
                         <td>
-                          <p-dropdown [options]="cityList" filter="true" [(ngModel)]="item.cityCode" placeholder="Select City" [style]="{'width':'100%'}">
+                          <p-dropdown appendTo="body" [options]="cityList" filter="true" [(ngModel)]="item.cityCode" placeholder="Select City" [style]="{'width':'100%'}">
                             <ng-template let-itm pTemplate="item">
                               <div style="position: relative;height: 25px;">
                                 <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -368,7 +368,7 @@
   
                           <!--contact type text box-->
                           <td style="padding:0 15px 0 15px; width: 300px">
-                            <p-dropdown [options]="contactType" filter="true" [(ngModel)]="item.contactType" placeholder="Contact Type" [style]="{'width':'100%'}">
+                            <p-dropdown appendTo="body" [options]="contactType" filter="true" [(ngModel)]="item.contactType" placeholder="Contact Type" [style]="{'width':'100%'}">
                               <ng-template let-itm pTemplate="item">
                                 <div style="position: relative;height: 25px;">
                                   <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -381,7 +381,7 @@
                           <!-- Country code combo box-->
                           <td style="border: 0px solid red;">
   
-                            <p-dropdown [options]="countryList" filter="true" [(ngModel)]="item.countryCode" placeholder="Country Code" [style]="{'width':'100%'}">
+                            <p-dropdown appendTo="body" [options]="countryList" filter="true" [(ngModel)]="item.countryCode" placeholder="Country Code" [style]="{'width':'100%'}">
                               <ng-template let-code pTemplate="item">
                                 <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
                                   <div style="font-size:14px;float:left;margin-top:4px">{{code.label}}</div>
@@ -452,7 +452,7 @@
   
                         <!--address type combo box-->
                         <td style="padding:0 15px 0 15px; width: 300px;">
-                          <p-dropdown [options]="emailType" filter="true" [(ngModel)]="item.type" placeholder="Email Type" [style]="{'width':'100%'}">
+                          <p-dropdown appendTo="body" [options]="emailType" filter="true" [(ngModel)]="item.type" placeholder="Email Type" [style]="{'width':'100%'}">
                             <ng-template let-itm pTemplate="item">
                               <div style="position: relative;height: 25px;">
                                 <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -523,7 +523,7 @@
               <!--start row 1-->
               <div class="row tab-margin">
                 <div class="col-md-6">
-                  <p-dropdown [options]="jobProfileList" [(ngModel)]="ddlJobProfile" (onChange)="getFilterItem('jobs')" placeholder="Job Title" filter="true" [style]="{'width':'100%'}">
+                  <p-dropdown appendTo="body" [options]="jobProfileList" [(ngModel)]="ddlJobProfile" (onChange)="getFilterItem('jobs')" placeholder="Job Title" filter="true" [style]="{'width':'100%'}">
                       <ng-template let-itm pTemplate="item">
                         <div style="position: relative;height: 25px; z-index: 100;">
                           <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -685,7 +685,7 @@
   
                           <tr class='d-flex'>
                             <td class='col-3'>
-                              <p-dropdown [options]="degreeList" filter="true" [(ngModel)]="ddlDegree" (onChange)="getFilterItem('skill')" placeholder="Degree" [style]="{'width':'100%'}">
+                              <p-dropdown appendTo="body" [options]="degreeList" filter="true" [(ngModel)]="ddlDegree" (onChange)="getFilterItem('skill')" placeholder="Degree" [style]="{'width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -700,7 +700,7 @@
                               <p-calendar [(ngModel)]="empDegreeYear" placeholder="Passing Year" view="month" dateFormat="mm/yy" [inputStyle]="{'width':'100%'}"></p-calendar>
                             </td>
                             <td class='col-2'>
-                              <p-dropdown [options]="gradeList" filter="true" [(ngModel)]="ddlGrade" placeholder="Grade" [style]="{'min-width':'100%'}">
+                              <p-dropdown appendTo="body" [options]="gradeList" filter="true" [(ngModel)]="ddlGrade" placeholder="Grade" [style]="{'min-width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -709,7 +709,7 @@
                               </p-dropdown>
                             </td>
                             <td class='col-2'>
-                              <p-dropdown [options]="divisionList" filter="true" [(ngModel)]="ddlDivision" placeholder="Division" [style]="{'min-width':'100%'}">
+                              <p-dropdown appendTo="body" [options]="divisionList" filter="true" [(ngModel)]="ddlDivision" placeholder="Division" [style]="{'min-width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -783,7 +783,7 @@
   
                           <tr class='d-flex'>
                             <td class='col-3'>
-                              <p-dropdown [options]="skillGroupList" filter="true" [(ngModel)]="ddlSkillGroup" (onChange)="getFilterItem('skill')" placeholder="Group" [style]="{'width':'100%'}">
+                              <p-dropdown appendTo="body" [options]="skillGroupList" filter="true" [(ngModel)]="ddlSkillGroup" (onChange)="getFilterItem('skill')" placeholder="Group" [style]="{'width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -792,7 +792,7 @@
                               </p-dropdown>
                             </td>
                             <td class='col-3'>
-                              <p-dropdown [options]="skillList" filter="true" [(ngModel)]="ddlSkill" placeholder="Skill" [style]="{'width':'100%'}">
+                              <p-dropdown appendTo="body" [options]="skillList" filter="true" [(ngModel)]="ddlSkill" placeholder="Skill" [style]="{'width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -877,14 +877,14 @@
                               <input type="text" pInputText [(ngModel)]="empPost" class="fullwidth" placeholder="Post">
                             </td>
                             <td class='col-3'>
-                              <!-- <p-dropdown [options]="orgList" filter="true" [(ngModel)]="ddlOrg" placeholder="Organization" [style]="{'width':'100%'}">
+                              <!-- <p-dropdown appendTo="body" [options]="orgList" filter="true" [(ngModel)]="ddlOrg" placeholder="Organization" [style]="{'width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
                                   </div>
                                 </ng-template>                                    (onChange)="getFilterItem('skill')"
                               </p-dropdown> -->
-                              <p-dropdown [options]="experienceList" filter="true" [(ngModel)]="ddlExperience"  placeholder="Experience" [style]="{'width':'100%'}">
+                              <p-dropdown appendTo="body" [options]="experienceList" filter="true" [(ngModel)]="ddlExperience"  placeholder="Experience" [style]="{'width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
