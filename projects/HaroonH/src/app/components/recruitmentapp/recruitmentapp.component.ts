@@ -489,7 +489,7 @@ export class RecruitmentappComponent implements OnInit {
                 }
             }
 
-            if (duplicateChk == true){
+            if (duplicateChk == true){ 
                 this.toastr.errorToastr('Subject already added', 'Error', { toastTimeout: (2500) });
                 return false;
             }
