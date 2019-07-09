@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit {
 
 
     ngOnInit() {
-
         this.app.checkLogin('Yes');
     }
 
@@ -95,12 +94,7 @@ export class LoginComponent implements OnInit {
                     $(".mat-form-field-underline").css("background-color", "red");
                     $(".mat-form-field-label").css("color", "red");
                 }
-
-
             });
-
-
-
         }
     }
 

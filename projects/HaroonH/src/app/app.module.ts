@@ -46,6 +46,7 @@ import { TrainingComponent } from './components/training/training.component';
 import { TrainingemployeeComponent } from './components/trainingemployee/trainingemployee.component';
 import { ShiftComponent } from './components/shift/shift.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
+import {NgxMaskModule} from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,9 @@ import { AttendanceComponent } from './components/attendance/attendance.componen
     IgxGridModule,
     CheckboxModule,
     InputSwitchModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgxMaskModule.forRoot()
+
   ],
   providers: [IgxExcelExporterService, IgxCsvExporterService],
   bootstrap: [AppComponent],

@@ -156,9 +156,11 @@ export class EmpolyeeprofileComponent implements OnInit {
     lblJobType;
     lblRetirementDate;
     lblContract;
+    chkJobType = true;
 
     startDate;
     ddlJobProfile;
+    
 
     //* tab 3 ngModels
     ddlDegree;
@@ -599,6 +601,8 @@ export class EmpolyeeprofileComponent implements OnInit {
     //Function for add previous service detail
     addPSD() {
 
+        var myDate = new Date();
+
         if (this.empPost == undefined || this.empPost.trim() == "" ) {
             this.toastr.errorToastr('Please enter post', 'Error', { toastTimeout: (2500) });
             return false;
@@ -620,10 +624,13 @@ export class EmpolyeeprofileComponent implements OnInit {
             return false;
         }
         else if (this.orgStartDate >=  this.orgEndDate ) {
+            this.toastr.errorToastr('Invalid job start date', 'Error', { toastTimeout: (2500) });
+            return false;
+        } else if (this.orgEndDate > myDate ){
             this.toastr.errorToastr('Invalid job end date', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else{            
+        else{
 
             var duplicateChk = false;
 
@@ -654,6 +661,12 @@ export class EmpolyeeprofileComponent implements OnInit {
                     experienceCriteriaCd: this.ddlExperience,
                     qlfctnCriteriaName: dataList[0].label
                 });
+
+                this.empPost = "";
+                this.ddlExperience = "";
+                this.orgStartDate = "";
+                this.orgEndDate = "";
+
             }
         }
     }
@@ -666,6 +679,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     //Function for add employee skill detail
     addSkill() {
 
+
         if (this.ddlSkillGroup == undefined || this.ddlSkillGroup == "" ) {
             this.toastr.errorToastr('Please select skill group', 'Error', { toastTimeout: (2500) });
             return false;
@@ -674,19 +688,17 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.toastr.errorToastr('Please enter skill', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.empSkillLevel == undefined || this.empSkillLevel == "" ) {
-            this.toastr.errorToastr('Please enter level', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else if (this.empSkillRemarks == undefined || this.empSkillRemarks == "") {
-            this.toastr.errorToastr('please enter remarks', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else if (this.empSkillLevel < 1 || this.empSkillLevel > 10) {
-            this.toastr.errorToastr('Level must be within 1 to 10', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
+        
         else{
+
+
+            if (this.empSkillLevel == undefined || this.empSkillLevel == "" ) {
+                this.empSkillLevel = 0;
+            }
+
+            if (this.empSkillRemarks == undefined || this.empSkillRemarks == "") {
+                this.empSkillRemarks = "-";
+            }
 
             var duplicateChk = false;
 
@@ -718,6 +730,12 @@ export class EmpolyeeprofileComponent implements OnInit {
                     qlfctnName: dataList[0].label,
                     qlfctnCriteriaName: dataList1[0].label
                 });
+
+                this.ddlSkillGroup = "";
+                this.ddlSkill = "";
+                this.empSkillLevel = "";
+                this.empSkillRemarks = "";
+
             }
         }
     }
@@ -728,7 +746,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     }
 
     //Function for add employee qualification detail
-    addQualification() {
+    addQualification() {        
 
         if (this.ddlDegree == undefined || this.ddlDegree == "" ) {
             this.toastr.errorToastr('Please select degree', 'Error', { toastTimeout: (2500) });
@@ -739,7 +757,7 @@ export class EmpolyeeprofileComponent implements OnInit {
             return false;
         }
         else if (this.empDegreeYear == undefined || this.empDegreeYear == "" || this.empDegreeYear == null) {
-            this.toastr.errorToastr('Please enter year', 'Error', { toastTimeout: (2500) });
+            this.toastr.errorToastr('Please enter passing year', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else if (this.ddlGrade == undefined || this.ddlGrade == "") {
@@ -751,6 +769,20 @@ export class EmpolyeeprofileComponent implements OnInit {
             return false;
         }
         else{
+
+            var myDate = new Date();
+            var crntYear = myDate.getFullYear();
+
+            myDate = new Date(this.empDegreeYear);
+
+            var usrYear = myDate.getFullYear();
+
+
+            if (usrYear > crntYear ) {
+                this.toastr.errorToastr('Invalid passing year', 'Error', { toastTimeout: (2500) });
+                return false;
+            }
+
 
             var duplicateChk = false;
 
@@ -788,6 +820,13 @@ export class EmpolyeeprofileComponent implements OnInit {
                     educationCriteriaCd: this.ddlDegree,
                     qlfctnCriteriaName: dataList[0].label
                 });
+
+                this.ddlDegree = "";
+                this.empInstitute = ""
+                this.empDegreeYear = "";
+                this.ddlGrade = "";
+                this.ddlDivision = "";
+
             }
         }
     }
@@ -834,6 +873,13 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.lblContract = "contract";
         this.ddlJobProfile = item.jobDesigID;
         this.startDate = new Date(item.empJobStartDt);
+
+        if(this.lblJobType == 'Regular'){
+            this.chkJobType = true;
+        }else{
+            this.chkJobType = false;
+        }
+
 
         if(this.lblJobType.toUpperCase() == 'REGULAR'){
             this.lblRetirementDate = new Date(this.lblAppointmentDate.getFullYear() + 60, this.lblAppointmentDate.getMonth(), this.lblAppointmentDate.getDay());

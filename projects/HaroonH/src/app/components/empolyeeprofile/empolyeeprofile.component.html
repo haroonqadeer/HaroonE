@@ -164,6 +164,7 @@
               <br/>
               <!--start heading-->
               <h5>Personal Detail</h5>
+              <hr>
               <!--end heading-->
   
               <!-- start row 1-->
@@ -212,7 +213,7 @@
   
                 <div class="col-md-6">
                   <mat-form-field class="fullwidth">
-                    <input matInput placeholder="CNIC" [(ngModel)]="CNIC">
+                    <input matInput placeholder="CNIC" [(ngModel)]="CNIC" mask="00000-0000000-0">
                   </mat-form-field>
                 </div>
               </div>
@@ -243,10 +244,12 @@
   
               <!-- *________________Start Add Address Detail_____________________ -->
               <div class="tab-margin">
-  
+                
+                <hr>
+
                 <div class="row">
                   <div class="col-md-12">
-                    <h6>Address Info</h6>
+                    <h6><b>Address Info</b></h6>
                   </div>
                 </div>
   
@@ -349,10 +352,12 @@
   
               <!-- *________________Start Add Contacts Detail_____________________ -->
               <div class="tab-margin">
-  
+                
+                <hr>
+
                   <div class="row">
                     <div class="col-md-12">
-                      <h6>Contact Info</h6>
+                      <h6><b>Contact Info</b></h6>
                     </div>
                   </div>
   
@@ -430,10 +435,12 @@
   
               <!-- *________________Start Add Email Detail_____________________ -->
               <div class="tab-margin">
-  
+                
+                <hr>
+
                 <div class="row">
                   <div class="col-md-12">
-                    <h6>Email Info</h6>
+                    <h6><b>Email Info</b></h6>
                   </div>
                 </div>
   
@@ -510,6 +517,7 @@
               <br/>
               <!--start heading-->
               <h5>Job Profile</h5>
+              <hr>
               <!--end heading-->
   
               <!--start row 1-->
@@ -583,18 +591,21 @@
                   <br/>
                   {{lblAppointmentDate | date}}
                 </div>
-  
-                <div class="col-md-6">
-                    <mat-form-field>
-                      <input matInput [matDatepicker]="picker" placeholder="Joining Date" [(ngModel)]="startDate">
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
+                
+                <div class="col-md-3">
+                  <br/>
+                  <b>Joining Date</b>
+                </div>
+                
+                <div class="col-md-3">
+                  <br/>
+                  <p-calendar [(ngModel)]="startDate" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
                 </div>
               </div>
               <!--end row 4-->
-  
+              
               <!--start row 5-->
+              <br/>
               <div class="row tab-margin">
                 <div class="col-md-3">
                   <b>Job Type</b>
@@ -603,14 +614,18 @@
                 <div class="col-md-3">
                   {{lblJobType}}
                 </div>
-  
-                <div class="col-md-3">
+                
+                <div class="col-md-3" *ngIf="chkJobType">
+                  <b>Retirement Date</b>
+                </div>
+
+                <div class="col-md-3" *ngIf="chkJobType">
                   {{lblRetirementDate | date}}
                 </div>
   
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                   {{lblContract}}
-                </div>
+                </div> -->
               </div>
               <!--end row 5-->
   
@@ -634,6 +649,7 @@
               <br/>
               <!--start heading-->
               <h5>Qualification Detail</h5>
+              <hr>
               <!--end heading-->
   
               <!--Start row 1-->
@@ -645,13 +661,13 @@
                       <table class="table table-striped">
                         <thead>
                           <tr class='d-flex'>
-                            <th class='col-1'>Sr #</th>
+                            <th class='col-1 text-center'>Sr #</th>
                             <th class='col-2'>Degree Title</th>
                             <th class='col-2'>Institute</th>
-                            <th class='col-2'>Passing Date</th>
+                            <th class='col-2'>Passing Year</th>
                             <th class='col-2'>Grade</th>
-                            <th class='col-2'>Doc.</th>
-                            <th class='col-1 text-center'>Delete</th>
+                            <th class='col-2'>Division</th>
+                            <th class='col-1 text-center'>Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -659,7 +675,7 @@
                             <td class='col-1 text-center'>{{i+1}}</td>
                             <td class='col-2'>{{item.qlfctnCriteriaName}}</td>
                             <td class='col-2'>{{item.campusName}}</td>
-                            <td class='col-2'>{{item.pssngDt | date}}</td>
+                            <td class='col-2'>{{item.pssngDt | date:'yyyy'}}</td>
                             <td class='col-2'>{{item.grade}}</td>
                             <td class='col-2'>{{item.divIsion}}</td>
                             <td class='col-1 text-center'>
@@ -681,10 +697,10 @@
                               <input type="text" pInputText [(ngModel)]="empInstitute" class="fullwidth" placeholder="Institute">
                             </td>
                             <td class='col-2'>
-                              <p-calendar [(ngModel)]="empDegreeYear" placeholder="Year"></p-calendar>
+                              <p-calendar [(ngModel)]="empDegreeYear" placeholder="Passing Year" view="month" dateFormat="mm/yy" [inputStyle]="{'width':'100%'}"></p-calendar>
                             </td>
                             <td class='col-2'>
-                              <p-dropdown [options]="gradeList" filter="true" [(ngModel)]="ddlGrade" placeholder="Grade" [style]="{'width':'100%'}">
+                              <p-dropdown [options]="gradeList" filter="true" [(ngModel)]="ddlGrade" placeholder="Grade" [style]="{'min-width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -693,7 +709,7 @@
                               </p-dropdown>
                             </td>
                             <td class='col-2'>
-                              <p-dropdown [options]="divisionList" filter="true" [(ngModel)]="ddlDivision" placeholder="Division" [style]="{'width':'100%'}">
+                              <p-dropdown [options]="divisionList" filter="true" [(ngModel)]="ddlDivision" placeholder="Division" [style]="{'min-width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -733,6 +749,7 @@
               <br/>
               <!--start heading-->
               <h5>Skills Detail</h5>
+              <hr>
               <!--end heading-->
   
               <!--Start row 1-->
@@ -747,7 +764,7 @@
                             <th class='col-1 text-center'>Sr #</th>
                             <th class='col-2'>Grouping</th>
                             <th class='col-3'>Skill</th>
-                            <th class='col-2'>Level</th>
+                            <th class='col-2'>Expertise</th>
                             <th class='col-3'>Remarks</th>
                             <th class='col-1 text-center'>Action</th>
                           </tr>
@@ -757,7 +774,7 @@
                             <td class='col-1 text-center'>{{i + 1}}</td>
                             <td class='col-2'>{{item.qlfctnName}}</td>
                             <td class='col-3'>{{item.qlfctnCriteriaName}}</td>
-                            <td class='col-2'>{{item.skillLvl}}</td>
+                            <td class='col-2'><p-rating class="rating-size" [(ngModel)]="item.skillLvl" [cancel]="false"></p-rating></td>
                             <td class='col-3'>{{item.skillRmrks}}</td>
                             <td class='col-1 text-center'>
                               <span class="fa fa-minus pointerCursor text-danger" (click)="removeSkill(i)"></span>
@@ -783,8 +800,8 @@
                                 </ng-template>
                               </p-dropdown>
                             </td>
-                            <td class='col-2'>
-                              <input type="number" pInputText [(ngModel)]="empSkillLevel" min="1" max="10" placeholder="Level" class="fullwidth">
+                            <td class='col-2'>                              
+                              <p-rating class="rating-size" [(ngModel)]="empSkillLevel" [cancel]="false"></p-rating>
                             </td>
                             <td class='col-3'>
                                 <input type="text" pInputText [(ngModel)]="empSkillRemarks" class="fullwidth" placeholder="Remarks">
@@ -823,6 +840,7 @@
               <br/>
               <!--start heading-->
               <h5>Previous Service Detail</h5>
+              <hr>
               <!--end heading-->
   
               <!--Start row 1-->
@@ -836,10 +854,10 @@
                           <tr class='d-flex'>
                             <th class='col-1 text-center'>Sr #</th>
                             <th class='col-3'>Post</th>
-                            <th class='col-3'>Organization</th>
+                            <th class='col-3'>Experience</th>
                             <th class='col-2'>From</th>
                             <th class='col-2'>To</th>
-                            <th class='col-1 text-center'>Delete</th>
+                            <th class='col-1 text-center'>Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -850,13 +868,12 @@
                             <td class='col-2'>{{item.startDt | date}}</td>
                             <td class='col-2'>{{item.leavingDt | date}}</td>
                             <td class='col-1 text-center'>
-                              <span class="fa fa-minus pointerCursor" (click)="removePSD(i)"></span>
+                              <span class="fa fa-minus pointerCursor text-danger" (click)="removePSD(i)"></span>
                             </td>
                           </tr>
   
                           <tr class='d-flex'>
-                            <td class='col-1'></td>
-                            <td class='col-3'>
+                            <td class='col-4'>
                               <input type="text" pInputText [(ngModel)]="empPost" class="fullwidth" placeholder="Post">
                             </td>
                             <td class='col-3'>
@@ -876,13 +893,13 @@
                               </p-dropdown>
                             </td>
                             <td class='col-2'>
-                              <p-calendar [(ngModel)]="orgStartDate" placeholder="Job Start Date"></p-calendar>
+                              <p-calendar [(ngModel)]="orgStartDate" placeholder="Job Start Date" [inputStyle]="{'width':'100%'}"></p-calendar>
                             </td>
                             <td class='col-2'>
-                              <p-calendar [(ngModel)]="orgEndDate" placeholder="Job End Date"></p-calendar>
+                              <p-calendar [(ngModel)]="orgEndDate" placeholder="Job End Date" [inputStyle]="{'width':'100%'}"></p-calendar>
                             </td>
                             <td class='col-1 text-center'>
-                              <span class="fa fa-plus pointerCursor" (click)="addPSD()"></span>
+                              <span class="fa fa-plus pointerCursor text-primary" (click)="addPSD()"></span>
                             </td>
                           </tr>
   
@@ -910,17 +927,18 @@
   
   
             <!--start tab 6 ---------------------------------------------------------- -->
-            <mat-tab label="Asset Declaration">
+            <!-- <mat-tab label="Asset Declaration">
   
               <br/>
-              <!--start heading-->
+              
               <h5>Asset Declaration</h5>
-              <!--end heading-->
+              <hr>
+              
   
-              <!--Start row 1-->
+              
               <div class="row tab-margin">
                 <div class="col-md-12">
-                  <!--start table row-->
+                  
                   <div class="example-container mat-elevation-z8">
                     <div class="example-table-container">
                       <table class="table table-striped">
@@ -933,8 +951,8 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                          <tr class='d-flex'>
+                          <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'>
+                          
                             <td class='col-1'>1</td>
                             <td class='col-7'>2017</td>
                             <td class='col-2'>
@@ -971,28 +989,29 @@
                       </table>
                     </div>
                   </div>
-                  <!--end table row-->
+                  
                 </div>
               </div>
-              <!--end row 1-->
+              
               <br/>
-            </mat-tab>
+            </mat-tab> -->
             <!--end tab 6-->
   
   
   
             <!--start tab 7 ---------------------------------------------------------- -->
-            <mat-tab label="ACR">
+            <!-- <mat-tab label="ACR">
   
               <br/>
-              <!--start heading-->
+              
               <h5>ACR</h5>
-              <!--end heading-->
+              <hr>
+              
   
-              <!--Start row 1-->
+              
               <div class="row tab-margin">
                 <div class="col-md-12">
-                  <!--start table row-->
+                  
                   <div class="example-container mat-elevation-z8">
                     <div class="example-table-container">
                       <table class="table table-striped">
@@ -1006,8 +1025,8 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                          <tr class='d-flex'>
+                          <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'>
+                          
                             <td class='col-1'>1</td>
                             <td class='col-3'>2017</td>
                             <td class='col-2'>
@@ -1047,28 +1066,29 @@
                       </table>
                     </div>
                   </div>
-                  <!--end table row-->
+                  
                 </div>
               </div>
-              <!--end row 1-->
+              
               <br/>
-            </mat-tab>
+            </mat-tab> -->
             <!--end tab 7-->
   
   
   
             <!--start tab 8 ---------------------------------------------------------- -->
-            <mat-tab label="Leave Info">
+            <!-- <mat-tab label="Leave Info">
   
               <br/>
-              <!--start heading-->
+              
               <h5>Leave Info</h5>
-              <!--end heading-->
+              <hr>
+              
   
-              <!--Start row 1-->
+              
               <div class="row tab-margin">
                 <div class="col-md-12">
-                  <!--start table row-->
+                  
                   <div class="example-container mat-elevation-z8">
                     <div class="example-table-container">
                       <table class="table table-striped">
@@ -1082,8 +1102,8 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                          <tr class='d-flex'>
+                          <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'>
+                          
                             <td class='col-1'>1</td>
                             <td class='col-6'>Medical Leave</td>
                             <td class='col-2'>10</td>
@@ -1114,12 +1134,12 @@
                       </table>
                     </div>
                   </div>
-                  <!--end table row-->
+                  
                 </div>
               </div>
-              <!--end row 1-->
+              
               <br/>
-            </mat-tab>
+            </mat-tab> -->
             <!--end tab 8-->
   
   
@@ -1129,6 +1149,7 @@
               <br/>
               <!--start heading-->
               <h5>Facilities</h5>
+              <hr>
               <!--end heading-->
   
               <!--Start row 1-->

@@ -341,6 +341,8 @@ export class RecruitmentappComponent implements OnInit {
                     pblshingStatus: false
                 });
 
+                this.ddlPubChannel = "";
+
             }
         }        
     }
@@ -393,6 +395,9 @@ export class RecruitmentappComponent implements OnInit {
                     authority: dataList1[0].label
                 });
 
+                this.ddlApprAuthority = "";
+                this.ddlApprProcess = "";
+
             }
         }        
     }
@@ -436,6 +441,8 @@ export class RecruitmentappComponent implements OnInit {
                     jobPostLocationCd: dataList[0].locationId,
                     official: dataList[0].label
                 });
+
+                this.ddlInterviewOfficial = "";
             }
         }
     }
@@ -499,6 +506,11 @@ export class RecruitmentappComponent implements OnInit {
                     vcncyTestSbjctPssngMrks: this.passingMarks,
                     testSbjctName: dataList[0].label
                 });
+
+                this.ddlSubject = "";
+                this.totalMarks = "";
+                this.passingMarks = "";
+
             }
         }
     }

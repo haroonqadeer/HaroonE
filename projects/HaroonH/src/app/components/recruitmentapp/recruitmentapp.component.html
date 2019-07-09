@@ -63,7 +63,7 @@
         <table class="table table-striped">
           <thead>
             <tr class='d-flex'>
-              <th class='col-1'>Sr #</th>
+              <th class='col-1 text-center'>Sr #</th>
               <th class='col-2' [class.active]="order === 'officeName'" (click)="setOrder('officeName')"> Office <span class="fa fa-angle-double-down" [hidden]="reverse"></span> <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th>
               <th class='col-1' [class.active]="order === 'department'" (click)="setOrder('department')">Department<span class="fa fa-angle-double-down" [hidden]="reverse"></span><span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th>
               <th class='col-1' [class.active]="order === 'section'" (click)="setOrder('section')">Section<span class="fa fa-angle-double-down" [hidden]="reverse"></span><span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th>
@@ -76,9 +76,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of recruitmetAppsList | search:'officeName,department,section,jobTitle,vacancies1':tblSearch | paginate: {
+            <tr *ngFor="let item of recruitmetAppsList | search:'officeName,department,section,jobTitle,bps,vacancies1,request,process':tblSearch | paginate: {
               itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index" class='d-flex'>
-              <td class='col-1'>{{i + 1}}</td>
+              <td class='col-1 text-center'>{{i + 1}}</td>
               <td class='col-2'>{{item.officeName}}</td>             
               <td class='col-1'>{{item.department}}</td>
               <td class='col-1'>{{item.section}}</td>
@@ -121,9 +121,9 @@
     <!--end table row-->
   
   
-  </div>
-  <br/>
-  <!--end container -->
+</div>
+<br/>
+<!--end container -->
   
   
   
@@ -658,21 +658,21 @@
               <div class="col-md-7">
                   <mat-card class="example-card">
   
-                      <mat-card-header>
-                        <div mat-card-avatar class="example-header-image"></div>
-                        <mat-card-title>Iftkhar Ali</mat-card-title>
-                        <mat-card-subtitle>HR Director</mat-card-subtitle>
-                      </mat-card-header>
-  
-                      <mat-card-content>
-                        <p>
-                          Request for approval of post.
-                        </p>
-                      </mat-card-content>
-                      <mat-card-actions class="text-right">
-                        <span class="fa fa-share"></span>
-                      </mat-card-actions>
-                    </mat-card>
+                    <mat-card-header>
+                      <div mat-card-avatar class="example-header-image"></div>
+                      <mat-card-title>Iftkhar Ali</mat-card-title>
+                      <mat-card-subtitle>HR Director</mat-card-subtitle>
+                    </mat-card-header>
+
+                    <mat-card-content>
+                      <p>
+                        Request for approval of post.
+                      </p>
+                    </mat-card-content>
+                    <mat-card-actions class="text-right">
+                      <span class="fa fa-share"></span>
+                    </mat-card-actions>
+                  </mat-card>
               </div>
             </div>
             <!--end of row #1 -->
@@ -708,7 +708,7 @@
   
             <br/>
   
-            <!--Row #1-->  
+            <!--Row #3-->  
             <div class="row">
                 <div class="col-md-7">
                     <mat-card class="example-card">
@@ -730,7 +730,7 @@
                       </mat-card>
                 </div>
             </div>
-            <!--end of row #1 -->
+            <!--end of row #3 -->
   
             <br/>
           <!--end Modal body -->
