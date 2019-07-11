@@ -18,7 +18,7 @@ declare var $: any;
 export class EmpolyeeprofileComponent implements OnInit {
 
     //serverUrl = "http://192.168.200.19:3011/";
-    serverUrl = "http://localhost:50124/";
+    serverUrl = "http://localhost:9026/";
     tokenKey = "token";
 
     httpOptions = {
@@ -678,7 +678,6 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     //Function for add employee skill detail
     addSkill() {
-
 
         if (this.ddlSkillGroup == undefined || this.ddlSkillGroup == "" ) {
             this.toastr.errorToastr('Please select skill group', 'Error', { toastTimeout: (2500) });
