@@ -34,11 +34,6 @@
           Print
         </a>
 
-        <a class="pointerCursor" data-toggle="modal" data-target="#promotionModal" (click)="clear()">
-          <i class="fa fa-plus-square"></i>
-          Add New
-        </a>
-
       </div>
     </div>
     <!-- end menubar buttons -->
@@ -62,25 +57,25 @@
             <tr class='d-flex'>
               <th class='col-1 text-center'>Sr #</th>
 
-              <th class='col-md-3' [class.active]="order === 'leaveTypeName'" (click)="setOrder('leaveTypeName')">
+              <th class='col-md-3' [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')">
                 Employee Name
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
 
-              <th class='col-3' [class.active]="order === 'leaveNatureName'" (click)="setOrder('leaveNatureName')">
+              <th class='col-3' [class.active]="order === 'jobDesigName'" (click)="setOrder('jobDesigName')">
                 Designation
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
 
-              <th class='col-2' [class.active]="order === 'leaveLmtAmoUNt'" (click)="setOrder('leaveLmtAmoUNt')">
+              <th class='col-2' [class.active]="order === 'payGradeName'" (click)="setOrder('payGradeName')">
                 Pay Garde
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
 
-              <th class='col-2' [class.active]="order === 'leaveLmtName'" (click)="setOrder('leaveLmtName')">
+              <th class='col-2' [class.active]="order === 'empJobStartDt'" (click)="setOrder('empJobStartDt')">
                 Joining Date
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
@@ -90,19 +85,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of leaveRuleList |
-              search:'leaveTypeName,leaveNatureName,leaveLmtAmoUNt,leaveLmtName':tblSearch | paginate: {
+            <tr *ngFor="let item of employeeList |
+              search:'indvdlFullName,jobDesigName,payGradeName,empJobStartDt':tblSearch | paginate: {
                 itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"
               class='d-flex'>
               <td class='col-1 text-center'>{{i + 1}}</td>
-              <td class='col-2'>{{item.leaveTypeName}}</td>
-              <td class='col-2'>{{item.leaveNatureName}}</td>
-              <td class='col-2'>{{item.leaveLmtAmoUNt}}</td>
-              <td class='col-4'>{{item.leaveLmtName}}</td>
+              <td class='col-3'>{{item.indvdlFullName}}</td>
+              <td class='col-3'>{{item.jobDesigName}}</td>
+              <td class='col-2'>{{item.payGradeName}}</td>
+              <td class='col-2'>{{item.empJobStartDt | date}}</td>
               <td class='col-1 text-center'>
-                <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#newRuleModal" (click)="edit(item)"></span>
-                &nbsp;&nbsp;&nbsp;
-                <span class="fa fa-trash pointerCursor text-danger" data-toggle="modal" data-target="#deleteModal" (click)="deleteTemp(item)"></span>
+                <span class="fa fa-signal pointerCursor text-primary" data-toggle="modal" data-target="#promotionModal" (click)="edit(item)"></span>
               </td>
             </tr>
           </tbody>
@@ -172,7 +165,7 @@
           </thead>
           <tbody>
             <tr class="d-flex"
-              *ngFor="let item of leaveRuleList | search:'leaveTypeName,leaveNatureName,leaveLmtAmoUNt,leaveLmtName' :tblSearch  let i=index">
+              *ngFor="let item of employeeList | search:'leaveTypeName,leaveNatureName,leaveLmtAmoUNt,leaveLmtName' :tblSearch  let i=index">
               <td class='col-1 text-center'>{{i + 1}}</td>
               <td class='col-3'>{{item.leaveTypeName}}</td>
               <td class='col-2'>{{item.leaveNatureName}}</td>
@@ -218,7 +211,7 @@
           <br>
           <div class="row">
             <div class="col-md-6">
-              <button mat-raised-button color="warn" (click)="delete()">Delete</button>
+              <button mat-raised-button color="warn">Delete</button>
             </div>
           </div>
           <br />
@@ -234,100 +227,7 @@
       </div>
     </div>
   </div>
-  <!-- End Modal Window to delete leave rule -->
-  
-  
-  
-  <!-- Start Modal Window for leave detail -->
-  <div class="modal fade" id="detailModal">
-    <div class="modal-dialog shadow-lg-dark modal-lg">
-      <div class="modal-content">
-  
-        <!--start Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Leave Rule Detail</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!--end Modal Header -->
-  
-        <!--start Modal body -->
-        <div class="modal-body">
-          <!--1st row-->
-          <div class="row">
-            <div class="col-md-3"><b>Leave Type: </b></div>
-            <div class="col-md-3">Casual Leave</div>
-            <div class="col-md-3"><b>Nature: </b></div>
-            <div class="col-md-3">W.P</div>
-          </div>
-          <!--end 1st row-->
-          <br />
-          <!--2nd row-->
-          <div class="row">
-            <div class="col-md-3">
-              <b>Limit:</b>
-            </div>
-            <div class="col-md-1 text-right">
-              <h5 style="font-weight: normal;">2</h5>
-            </div>
-            <div class="col-md-2 text-left">
-              /per month
-            </div>
-          </div>
-          <!--end 2nd row-->
-          <br />
-          <!--table row-->
-          <div class="row">
-            <table class="table table-striped">
-              <thead>
-                <tr class='d-flex'>
-                  <th class='col-1 text-center'>Sr #</th>
-                  <th class='col-5'>Job Profile</th>
-                  <th class='col-2 text-center'>Basic Pay</th>
-                  <th class='col-2 text-center'>Allowance</th>
-                  <th class='col-2 text-center'>Deduction</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                <tr class='d-flex'>
-                  <td class='col-1 text-center'>1</td>
-                  <td class='col-5'>Accountant</td>
-                  <td class='col-2 text-center'>5%</td>
-                  <td class='col-2 text-center'>2%</td>
-                  <td class='col-2 text-center'>4%</td>
-                </tr>
-                <tr class='d-flex'>
-                  <td class='col-1 text-center'>2</td>
-                  <td class='col-5'>Assistant</td>
-                  <td class='col-2 text-center'>7%</td>
-                  <td class='col-2 text-center'>3%</td>
-                  <td class='col-2 text-center'>6%</td>
-                </tr>
-                <tr class='d-flex'>
-                  <td class='col-1 text-center'>3</td>
-                  <td class='col-5'>Computer Operator</td>
-                  <td class='col-2 text-center'>3%</td>
-                  <td class='col-2 text-center'>3%</td>
-                  <td class='col-2 text-center'>2%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <!--end table row-->
-        </div>
-        <!--end Modal body -->
-  
-        <!--start Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        <!--end Modal footer -->
-  
-      </div>
-    </div>
-  </div>
-  <!-- End Modal Window for leave detail -->
-  
+  <!-- End Modal Window to delete leave rule -->  
   
   
   <!-- Start Modal Window for add new rule -->
@@ -339,7 +239,7 @@
         <div class="modal-header">
           <h4 class="modal-title">Promotion</h4>
           <div>
-              <button *ngIf="!updateFlag" type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Promote</button>
+              <button type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Promote</button>
   
               <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
           </div>
@@ -374,23 +274,23 @@
                 <tbody>
                   <tr class='d-flex'>
                     <td class='col-5'>Branch</td>
-                    <td class='col-7'>5%</td>
+                    <td class='col-7'>{{lblCBranch}}</td>
                   </tr>
+                  <tr class='d-flex'>
+                      <td class='col-5'>Designation</td>
+                      <td class='col-7'>{{lblDesignation}}</td>
+                    </tr>
                   <tr class='d-flex'>
                     <td class='col-5'>Department</td>
-                    <td class='col-7'>5%</td>
-                  </tr>
-                  <tr class='d-flex'>
-                    <td class='col-5'>Designation</td>
-                    <td class='col-7'>5%</td>
+                    <td class='col-7'>{{lblDepartment}}</td>
                   </tr>
                   <tr class='d-flex'>
                     <td class='col-5'>Pay Grade</td>
-                    <td class='col-7'>5%</td>
+                    <td class='col-7'>{{lblPayGrade}}</td>
                   </tr>
                   <tr class='d-flex'>
                       <td class='col-5'>Joining Date</td>
-                      <td class='col-7'>5%</td>
+                      <td class='col-7'>{{lblJoiningDate | date}}</td>
                     </tr>
                 </tbody>
               </table>
@@ -408,7 +308,7 @@
                     <td class='col-12'>
 
                       <span class="ui-float-label">
-                        <p-dropdown id="leave-limit" [options]="leaveLimitTypeList" [(ngModel)]="ddlJobPost" placeholder="." [style]="{'width':'100%'}">
+                        <p-dropdown id="leave-limit" [options]="availablePostsList" (onChange)="getFilterItem('promote')" [(ngModel)]="ddlJobPost" placeholder="." [style]="{'width':'100%'}">
                           <ng-template let-itm pTemplate="item">
                             <div style="position: relative;height: 25px;">
                               <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -423,12 +323,17 @@
 
                   <tr class='d-flex'>
                     <td class='col-5'>Branch</td>
-                    <td class='col-7'></td>
+                    <td class='col-7'>{{lblPBranch}}</td>
                   </tr>
 
                   <tr class='d-flex'>
                     <td class='col-5'>Department</td>
-                    <td class='col-7'></td>
+                    <td class='col-7'>{{lblPDepartment}}</td>
+                  </tr>
+
+                  <tr class='d-flex'>
+                    <td class='col-5'>Pay Grade</td>
+                    <td class='col-7'>{{lblPPayGrade}}</td>
                   </tr>
 
                   <tr class='d-flex'>

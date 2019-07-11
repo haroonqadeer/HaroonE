@@ -23,7 +23,7 @@ declare var $: any;
 })
 export class PromotionComponent implements OnInit {
 
-    serverUrl = "http://localhost:9014/";
+    serverUrl = "http://localhost:51127/";
     //serverUrl = "http://192.168.200.19:3004/";
     tokenKey = "token";
 
@@ -37,11 +37,10 @@ export class PromotionComponent implements OnInit {
     //* list for excel data
     excelDataList = [];
 
-    leaveTypeList = [];
-    leaveNatureList = [];
-    leaveLimitTypeList = [];
-    leaveRuleList = [];
-
+    availablePostsList = [];
+    employeeList = [];
+    
+    
 
     //* variables for pagination and orderby pipe
     p = 1;
@@ -50,12 +49,29 @@ export class PromotionComponent implements OnInit {
     sortedCollection: any[];
     itemPerPage = '10';
 
-
     //* Variables for NgModels
     tblSearch;
 
     ddlJobPost;
     efectDate;
+    IndvdlID;
+
+    pJobDesigID;
+    pJobPostDeptCd;
+    pJobPostLocationCd
+    lblPBranch;
+    lblPDepartment;
+    lblPPayGrade;
+
+    cJobDesigID;
+    cJobPostDeptCd;
+    cJobPostLocationCd
+    lblCBranch;
+    lblDesignation;
+    lblDepartment;
+    lblPayGrade;
+    lblJoiningDate;
+
 
     txtdPassword = '';
     txtdPin = '';
@@ -69,10 +85,8 @@ export class PromotionComponent implements OnInit {
 
     ngOnInit() {
 
-        this.getLeaveTypes();
-        this.getLeaveNature();
-        this.getLeaveLimitType();
-        this.getLeaveRules();
+        this.getAvailablePosts();
+        this.getEmployee();
 
     }
 
@@ -80,33 +94,24 @@ export class PromotionComponent implements OnInit {
     @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
 
-    //function for get all saved leave rules 
-    getLeaveRules() {
+    //function for get all available posts 
+    getAvailablePosts() {
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-        this.http.get(this.serverUrl + 'api/getLeaveRule', { headers: reqHeader }).subscribe((data: any) => {
-            this.leaveRuleList = data
-        });
-
-    }
-
-
-    //function for get all saved leave limit types 
-    getLeaveLimitType() {
-        //var Token = localStorage.getItem(this.tokenKey);
-
-        //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-        this.http.get(this.serverUrl + 'api/getLeaveLimit', { headers: reqHeader }).subscribe((data: any) => {
-
+        this.http.get(this.serverUrl + 'api/getAvailablePosts', { headers: reqHeader }).subscribe((data: any) => {
+            
             for (var i = 0; i < data.length; i++) {
-                this.leaveLimitTypeList.push({
-                    label: data[i].leaveLmtName,
-                    value: data[i].leaveLmtCd
+                this.availablePostsList.push({
+                    label: data[i].jobDesigName,
+                    value: data[i].jobDesigID,
+                    jobPostDeptCd: data[i].jobPostDeptCd,
+                    jobPostLocationCd: data[i].jobPostLocationCd,
+                    payGradeName: data[i].payGradeName,
+                    deptName: data[i].deptName,
+                    locationName: data[i].locationName
                 });
             }
 
@@ -115,69 +120,49 @@ export class PromotionComponent implements OnInit {
     }
 
 
-    //function for get all saved leave types 
-    getLeaveTypes() {
+    //function for get employees 
+    getEmployee() {
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-        this.http.get(this.serverUrl + 'api/getLeaveType', { headers: reqHeader }).subscribe((data: any) => {
+        this.http.get(this.serverUrl + 'api/getEmployee', { headers: reqHeader }).subscribe((data: any) => {
 
-            for (var i = 0; i < data.length; i++) {
-                this.leaveTypeList.push({
-                    label: data[i].leaveTypeName,
-                    value: data[i].leaveTypeCd
-                });
-            }
+            this.employeeList = data;
 
         });
 
     }
 
-
-    //function for get all saved leave nature 
-    getLeaveNature() {
-        //var Token = localStorage.getItem(this.tokenKey);
-
-        //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-        this.http.get(this.serverUrl + 'api/getLeaveNature', { headers: reqHeader }).subscribe((data: any) => {
-
-            for (var i = 0; i < data.length; i++) {
-                this.leaveNatureList.push({
-                    label: data[i].leaveNatureName,
-                    value: data[i].leaveNatureCd
-                });
-            }
-
-        });
-
-    }
 
 
     //Function for save and update leave Type 
     save() {
         
-
         if (this.ddlJobPost == undefined || this.ddlJobPost == "") {
             this.toastr.errorToastr('Please select job post', 'Error', { toastTimeout: (2500) });
+            return false;
+        } else if (this.efectDate == undefined || this.efectDate == "") {
+            this.toastr.errorToastr('Please enter effect date', 'Error', { toastTimeout: (2500) });
+            return false;
+        } else if (this.cJobDesigID == "" || this.pJobDesigID == "") {
+            this.toastr.errorToastr('Invalid request', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else {
 
             //* ********************************************save data 
             var saveData = {
-                "LeaveRuleID": 0,
-                // "LeaveTypeCd": this.leaveType,
-                // "LeaveNatureCd": this.leaveNature,
-                // "LeaveLmtCd": limitType,
-                // "DdctnTypeCd": 1,
-                // "DdctnSubTypeCd": 1,
-                // "LeaveCalcMthdCd": 1,
-                // "LeaveLmtAmoUNt": leaveLimit,
-                "ConnectedUser": this.app.empId,
+                "IndvdlID": this.IndvdlID,
+                "JobDesigID": this.cJobDesigID,
+                "JobPostDeptCd": this.cJobPostDeptCd,
+                "JobPostLocationCd": this.cJobPostLocationCd,
+                "EmpJobStartDt": this.efectDate,
+                "P_JobDesigID": this.pJobDesigID,
+                "P_JobPostDeptCd": this.pJobPostDeptCd,
+                "P_JobPostLocationCd": this.pJobPostLocationCd,
+                "ConnectedUser": 12000, //this.app.empId,
                 "DelFlag": 0
             };
 
@@ -187,14 +172,15 @@ export class PromotionComponent implements OnInit {
 
             var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-            this.http.post(this.serverUrl + 'api/saveLeaveRule', saveData, { headers: reqHeader }).subscribe((data: any) => {
+            this.http.post(this.serverUrl + 'api/promoteEmployee', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
-                if (data.msg != "Record Saved Successfully!") {
+                if (data.msg != "Record Updated Successfully!") {
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     return false;
                 } else {
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                    this.getLeaveRules();
+                    this.getEmployee();
+                    this.clear();
                     return false;
                 }
             });
@@ -208,7 +194,16 @@ export class PromotionComponent implements OnInit {
         this.clear();
         this.updateFlag = true;
 
-        
+        this.IndvdlID = item.indvdlID;
+
+        this.cJobDesigID = item.jobDesigID;
+        this.cJobPostDeptCd = item.jobPostDeptCd;
+        this.cJobPostLocationCd = item.jobPostLocationCd;
+        this.lblCBranch = item.locationName;
+        this.lblDesignation = item.jobDesigName;
+        this.lblDepartment = item.deptName;
+        this.lblPayGrade = item.payGradeName;
+        this.lblJoiningDate = item.empJobStartDt;
 
     }
 
@@ -217,8 +212,28 @@ export class PromotionComponent implements OnInit {
     //function for empty all fields
     clear() {
 
+        this.IndvdlID = "";
         this.updateFlag = false;
 
+        this.ddlJobPost = "";
+        this.efectDate = "";
+
+        this.pJobDesigID = "";  
+        this.pJobPostDeptCd = "";
+        this.pJobPostLocationCd = "";
+        this.lblPBranch = "";
+        this.lblPDepartment = "";
+        this.lblPPayGrade = "";
+
+        this.cJobDesigID = "";
+        this.cJobPostDeptCd = "";
+        this.cJobPostLocationCd = "";
+        this.lblCBranch = "";
+        this.lblDesignation = "";
+        this.lblDepartment = "";
+        this.lblPayGrade = "";
+        this.lblJoiningDate = "";
+        
         this.txtdPassword = '';
         this.txtdPin = '';
 
@@ -232,6 +247,29 @@ export class PromotionComponent implements OnInit {
             this.reverse = !this.reverse;
         }
         this.order = value;
+    }
+
+
+
+    //function for get filtere data from list 
+    getFilterItem(filterOption) {
+        
+        var dataList = [];
+        
+        if(filterOption == "promote"){
+
+            dataList = this.availablePostsList.filter(x => x.value == this.ddlJobPost);
+        
+            this.lblPBranch = dataList[0].locationName;
+            this.lblPDepartment = dataList[0].deptName;
+            this.lblPPayGrade = dataList[0].payGradeName;
+
+            this.pJobDesigID = this.ddlJobPost;
+            this.pJobPostDeptCd = dataList[0].jobPostDeptCd;
+            this.pJobPostLocationCd = dataList[0].jobPostLocationCd;
+
+        }
+
     }
 
     printDiv() {
@@ -290,89 +328,89 @@ export class PromotionComponent implements OnInit {
 
 
     downloadCSV() {
-        //alert('CSV works');
-        // case 1: When tblSearch is empty then assign full data list
-        if (this.tblSearch == "") {
-            var completeDataList = [];
-            for (var i = 0; i < this.leaveRuleList.length; i++) {
-                //alert(this.tblSearch + " - " + this.skillCriteriaList[i].departmentName)
-                completeDataList.push({
-                    LeaveType: this.leaveRuleList[i].leaveTypeName,
-                    Nature: this.leaveRuleList[i].leaveNatureName,
-                    Limit: this.leaveRuleList[i].leaveLmtAmoUNt,
-                    Per_Month_Annual: this.leaveRuleList[i].leaveLmtName
-                });
-            }
-            this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("LeaveRulesCompleteCSV", CsvFileTypes.CSV));
-        }
-        // case 2: When tblSearch is not empty then assign new data list
-        else if (this.tblSearch != "") {
-            var filteredDataList = [];
-            for (var i = 0; i < this.leaveRuleList.length; i++) {
-                if (this.leaveRuleList[i].leaveTypeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-                    this.leaveRuleList[i].leaveNatureName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-                    this.leaveRuleList[i].leaveLmtName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-                    this.leaveRuleList[i].leaveLmtAmoUNt == this.tblSearch) {
-                    filteredDataList.push({
-                        LeaveType: this.leaveRuleList[i].leaveTypeName,
-                        Nature: this.leaveRuleList[i].leaveNatureName,
-                        Limit: this.leaveRuleList[i].leaveLmtAmoUNt,
-                        Per_Month_Annual: this.leaveRuleList[i].leaveLmtName
-                    });
-                }
-            }
+        // //alert('CSV works');
+        // // case 1: When tblSearch is empty then assign full data list
+        // if (this.tblSearch == "") {
+        //     var completeDataList = [];
+        //     for (var i = 0; i < this.leaveRuleList.length; i++) {
+        //         //alert(this.tblSearch + " - " + this.skillCriteriaList[i].departmentName)
+        //         completeDataList.push({
+        //             LeaveType: this.leaveRuleList[i].leaveTypeName,
+        //             Nature: this.leaveRuleList[i].leaveNatureName,
+        //             Limit: this.leaveRuleList[i].leaveLmtAmoUNt,
+        //             Per_Month_Annual: this.leaveRuleList[i].leaveLmtName
+        //         });
+        //     }
+        //     this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("LeaveRulesCompleteCSV", CsvFileTypes.CSV));
+        // }
+        // // case 2: When tblSearch is not empty then assign new data list
+        // else if (this.tblSearch != "") {
+        //     var filteredDataList = [];
+        //     for (var i = 0; i < this.leaveRuleList.length; i++) {
+        //         if (this.leaveRuleList[i].leaveTypeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+        //             this.leaveRuleList[i].leaveNatureName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+        //             this.leaveRuleList[i].leaveLmtName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+        //             this.leaveRuleList[i].leaveLmtAmoUNt == this.tblSearch) {
+        //             filteredDataList.push({
+        //                 LeaveType: this.leaveRuleList[i].leaveTypeName,
+        //                 Nature: this.leaveRuleList[i].leaveNatureName,
+        //                 Limit: this.leaveRuleList[i].leaveLmtAmoUNt,
+        //                 Per_Month_Annual: this.leaveRuleList[i].leaveLmtName
+        //             });
+        //         }
+        //     }
 
-            if (filteredDataList.length > 0) {
-                this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("LeaveRulesFilterCSV", CsvFileTypes.CSV));
-            } else {
-                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
-            }
-        }
+        //     if (filteredDataList.length > 0) {
+        //         this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("LeaveRulesFilterCSV", CsvFileTypes.CSV));
+        //     } else {
+        //         this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+        //     }
+        // }
     }
 
 
     downloadExcel() {
-        //alert('Excel works');
-        // case 1: When tblSearch is empty then assign full data list
-        if (this.tblSearch == "") {
-            //var completeDataList = [];
-            for (var i = 0; i < this.leaveRuleList.length; i++) {
-                this.excelDataList.push({
-                    LeaveType: this.leaveRuleList[i].leaveTypeName,
-                    Nature: this.leaveRuleList[i].leaveNatureName,
-                    Limit: this.leaveRuleList[i].leaveLmtAmoUNt,
-                    Per_Month_Annual: this.leaveRuleList[i].leaveLmtName
-                });
-            }
-            this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("LeaveRulesCompleteExcel"));
-            this.excelDataList = [];
-        }
-        // case 2: When tblSearch is not empty then assign new data list
-        else if (this.tblSearch != "") {
-            for (var i = 0; i < this.leaveRuleList.length; i++) {
-                if (this.leaveRuleList[i].leaveTypeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-                    this.leaveRuleList[i].leaveNatureName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-                    this.leaveRuleList[i].leaveLmtName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-                    this.leaveRuleList[i].leaveLmtAmoUNt == this.tblSearch) {
-                    this.excelDataList.push({
-                        LeaveType: this.leaveRuleList[i].leaveTypeName,
-                        Nature: this.leaveRuleList[i].leaveNatureName,
-                        Limit: this.leaveRuleList[i].leaveLmtAmoUNt,
-                        Per_Month_Annual: this.leaveRuleList[i].leaveLmtName
-                    });
-                }
-            }
+        // //alert('Excel works');
+        // // case 1: When tblSearch is empty then assign full data list
+        // if (this.tblSearch == "") {
+        //     //var completeDataList = [];
+        //     for (var i = 0; i < this.leaveRuleList.length; i++) {
+        //         this.excelDataList.push({
+        //             LeaveType: this.leaveRuleList[i].leaveTypeName,
+        //             Nature: this.leaveRuleList[i].leaveNatureName,
+        //             Limit: this.leaveRuleList[i].leaveLmtAmoUNt,
+        //             Per_Month_Annual: this.leaveRuleList[i].leaveLmtName
+        //         });
+        //     }
+        //     this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("LeaveRulesCompleteExcel"));
+        //     this.excelDataList = [];
+        // }
+        // // case 2: When tblSearch is not empty then assign new data list
+        // else if (this.tblSearch != "") {
+        //     for (var i = 0; i < this.leaveRuleList.length; i++) {
+        //         if (this.leaveRuleList[i].leaveTypeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+        //             this.leaveRuleList[i].leaveNatureName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+        //             this.leaveRuleList[i].leaveLmtName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
+        //             this.leaveRuleList[i].leaveLmtAmoUNt == this.tblSearch) {
+        //             this.excelDataList.push({
+        //                 LeaveType: this.leaveRuleList[i].leaveTypeName,
+        //                 Nature: this.leaveRuleList[i].leaveNatureName,
+        //                 Limit: this.leaveRuleList[i].leaveLmtAmoUNt,
+        //                 Per_Month_Annual: this.leaveRuleList[i].leaveLmtName
+        //             });
+        //         }
+        //     }
 
-            if (this.excelDataList.length > 0) {
-                //alert("Filter List " + this.excelDataList.length);
+        //     if (this.excelDataList.length > 0) {
+        //         //alert("Filter List " + this.excelDataList.length);
 
-                this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("LeaveRulesFilterExcel"));
-                this.excelDataList = [];
-            }
-            else {
-                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
-            }
-        }
+        //         this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("LeaveRulesFilterExcel"));
+        //         this.excelDataList = [];
+        //     }
+        //     else {
+        //         this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+        //     }
+        // }
     }
 
 
