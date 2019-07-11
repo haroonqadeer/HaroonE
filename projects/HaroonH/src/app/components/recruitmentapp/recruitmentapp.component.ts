@@ -139,11 +139,19 @@ export class RecruitmentappComponent implements OnInit {
         this.http.get(this.serverUrl + 'api/getPubChannel', { headers: reqHeader }).subscribe((data: any) => {
 
             for (var i = 0; i < data.length; i++) {
-                this.tempPublishingChannelList.push({
-                    label: data[i].pblshngChnnlName,
-                    value: data[i].pblshngChnnlCd,
+                // this.tempPublishingChannelList.push({
+                //     label: data[i].pblshngChnnlName,
+                //     value: data[i].pblshngChnnlCd,
+                // });
+
+                this.publishingChannelList.push({
+                    pblshngChnnlCd: data[i].pblshngChnnlCd,
+                    pblshngChnnlName: data[i].pblshngChnnlName,
+                    pblshingStatus: false
                 });
             }
+
+            
 
         });
 
@@ -297,7 +305,18 @@ export class RecruitmentappComponent implements OnInit {
                     this.approvalReqList = data.aprList;
                     this.interviewPanelList = data.intrvwList;
                     this.testSubjectList = data.txtList;
-                    this.publishingChannelList = data.pubChnlList;
+                    //this.publishingChannelList = data.pubChnlList;
+
+                    // for (var i = 0; i < this.publishingChannelList.length; i++) {
+                    //     this.apprAuthorigyList.push({
+                    //         label: data[i].indvdlFullName + " - " + data[i].jobDesigName,
+                    //         value: data[i].empID,
+                    //         desgId: data[i].jobDesigID,
+                    //         postId: data[i].jobPostDeptCd,
+                    //         locationId: data[i].jobPostLocationCd
+                    //     });
+                    // }
+                    // data.pubChnlList;
 
                 }
             });
@@ -857,7 +876,6 @@ export class RecruitmentappComponent implements OnInit {
         this.approvalReqList = []; 
         this.interviewPanelList = [];
         this.testSubjectList = [];
-        this.publishingChannelList = [];
     }
 
     //function for sort table data 

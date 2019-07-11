@@ -1,139 +1,139 @@
 <!--start container-->
-<div class="myContainer mat-elevation-z8 bgWhite">
+  <div class="myContainer mat-elevation-z8 bgWhite">
 
-    <!-- start menubar buttons -->
-    <div class="topnav boxShadow">
-      <div>
-        <!--class="container" -->
-        <span class="fa iconContainer">
-          <span class="fa icon-hr-leaveRule"> </span>
-        </span>
-        <h1> Leave Rules</h1>
-  
-        <!-- (click)="downloadExcel()" -->
-        <a class="pointerCursor">
-          <i class="fa fa-file-excel-o"></i>
-          Excel
-        </a>
-  
-        <!-- (click)="downloadCSV()" -->
-        <a class="pointerCursor">
-          <i class="fa fa-file-text-o"></i>
-          CSV
-        </a>
-  
-        <!-- (click)="downPDF()" -->
-        <a class="pointerCursor">
-          <i class="fa fa-file-pdf-o"></i>
-          PDF
-        </a>
-  
-        <!-- (click)="printDiv()" -->
-        <a class="pointerCursor" (click)="printDiv()">
-          <i class="fa fa-print"></i>
-          Print
-        </a>
-  
-        <a class="pointerCursor" data-toggle="modal" data-target="#newRuleModal" (click)="clear()">
-          <i class="fa fa-plus-square"></i>
-          Add New
-        </a>
-  
-      </div>
+  <!-- start menubar buttons -->
+  <div class="topnav boxShadow">
+    <div>
+      <!--class="container" -->
+      <span class="fa iconContainer">
+        <span class="fa icon-hr-leaveRule"> </span>
+      </span>
+      <h1> Leave Rules</h1>
+
+      <!-- (click)="downloadExcel()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-excel-o"></i>
+        Excel
+      </a>
+
+      <!-- (click)="downloadCSV()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-text-o"></i>
+        CSV
+      </a>
+
+      <!-- (click)="downPDF()" -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-pdf-o"></i>
+        PDF
+      </a>
+
+      <!-- (click)="printDiv()" -->
+      <a class="pointerCursor" (click)="printDiv()">
+        <i class="fa fa-print"></i>
+        Print
+      </a>
+
+      <a class="pointerCursor" data-toggle="modal" data-target="#newRuleModal" (click)="clear()">
+        <i class="fa fa-plus-square"></i>
+        Add New
+      </a>
+
     </div>
-    <!-- end menubar buttons -->
-  
-    <!--Start search textbox Row-->
-    <div class="row">
-      <div class="col-md-12">
-        <div class="searchBar">
-          <span class="fa icon-search"></span>
-          <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
-        </div>
-      </div>
-    </div>
-    <!--end search textbox Row-->
-  
-    <!--start table row-->
-    <div class="example-container">
-      <div class="example-table-container">
-        <table class="table table-striped">
-          <thead>
-            <tr class='d-flex'>
-              <th class='col-1 text-center'>Sr #</th>
-  
-              <th class='col-md-2' [class.active]="order === 'leaveTypeName'" (click)="setOrder('leaveTypeName')">
-                Leave Type
-                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-              </th>
-  
-              <th class='col-2' [class.active]="order === 'leaveNatureName'" (click)="setOrder('leaveNatureName')">
-                Nature
-                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-              </th>
-  
-              <th class='col-2' [class.active]="order === 'leaveLmtAmoUNt'" (click)="setOrder('leaveLmtAmoUNt')">
-                Leave Limit
-                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-              </th>
-  
-              <th class='col-4' [class.active]="order === 'leaveLmtName'" (click)="setOrder('leaveLmtName')">
-                Per month/annum
-                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-              </th>
-  
-              <th class='col-1 text-center'>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of leaveRuleList |
-              search:'leaveTypeName,leaveNatureName,leaveLmtAmoUNt,leaveLmtName':tblSearch | paginate: {
-                itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"
-              class='d-flex'>
-              <td class='col-1 text-center'>{{i + 1}}</td>
-              <td class='col-2'>{{item.leaveTypeName}}</td>
-              <td class='col-2'>{{item.leaveNatureName}}</td>
-              <td class='col-2'>{{item.leaveLmtAmoUNt}}</td>
-              <td class='col-4'>{{item.leaveLmtName}}</td>
-              <td class='col-1 text-center'>
-                <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#newRuleModal" (click)="edit(item)"></span>
-                &nbsp;&nbsp;&nbsp;
-                <span class="fa fa-trash pointerCursor text-danger" data-toggle="modal" data-target="#deleteModal" (click)="deleteTemp(item)"></span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  
-      <div class="row tab-margin">
-        <div class="col-md-11 text-right">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </div>
-        <div class="col-md-1">
-          <mat-form-field class="fullwidth pagenateList">
-            <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
-              <mat-option value="10">10</mat-option>
-              <mat-option value="15">15</mat-option>
-              <mat-option value="20">20</mat-option>
-              <mat-option value="25">25</mat-option>
-              <mat-option value="30">30</mat-option>
-              <mat-option value="35">35</mat-option>
-              <mat-option value="40">40</mat-option>
-              <mat-option value="45">45</mat-option>
-              <mat-option value="50">50</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-    </div>
-    <!--end table row-->
-  
   </div>
-  <!--end container -->
+  <!-- end menubar buttons -->
+
+  <!--Start search textbox Row-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+      </div>
+    </div>
+  </div>
+  <!--end search textbox Row-->
+
+  <!--start table row-->
+  <div class="example-container">
+    <div class="example-table-container">
+      <table class="table table-striped">
+        <thead>
+          <tr class='d-flex'>
+            <th class='col-1 text-center'>Sr #</th>
+
+            <th class='col-md-2' [class.active]="order === 'leaveTypeName'" (click)="setOrder('leaveTypeName')">
+              Leave Type
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-2' [class.active]="order === 'leaveNatureName'" (click)="setOrder('leaveNatureName')">
+              Nature
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-2' [class.active]="order === 'leaveLmtAmoUNt'" (click)="setOrder('leaveLmtAmoUNt')">
+              Leave Limit
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-4' [class.active]="order === 'leaveLmtName'" (click)="setOrder('leaveLmtName')">
+              Per month/annum
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-1 text-center'>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of leaveRuleList |
+            search:'leaveTypeName,leaveNatureName,leaveLmtAmoUNt,leaveLmtName':tblSearch | paginate: {
+              itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"
+            class='d-flex'>
+            <td class='col-1 text-center'>{{i + 1}}</td>
+            <td class='col-2'>{{item.leaveTypeName}}</td>
+            <td class='col-2'>{{item.leaveNatureName}}</td>
+            <td class='col-2'>{{item.leaveLmtAmoUNt}}</td>
+            <td class='col-4'>{{item.leaveLmtName}}</td>
+            <td class='col-1 text-center'>
+              <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#newRuleModal" (click)="edit(item)"></span>
+              &nbsp;&nbsp;&nbsp;
+              <span class="fa fa-trash pointerCursor text-danger" data-toggle="modal" data-target="#deleteModal" (click)="deleteTemp(item)"></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row tab-margin">
+      <div class="col-md-11 text-right">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div class="col-md-1">
+        <mat-form-field class="fullwidth pagenateList">
+          <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
+            <mat-option value="10">10</mat-option>
+            <mat-option value="15">15</mat-option>
+            <mat-option value="20">20</mat-option>
+            <mat-option value="25">25</mat-option>
+            <mat-option value="30">30</mat-option>
+            <mat-option value="35">35</mat-option>
+            <mat-option value="40">40</mat-option>
+            <mat-option value="45">45</mat-option>
+            <mat-option value="50">50</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <!--end table row-->
+
+  </div>
+<!--end container -->
   
   
   <!-- Hidden Table for Print and PDF files starts-->

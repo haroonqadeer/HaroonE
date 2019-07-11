@@ -47,6 +47,8 @@ import { TrainingemployeeComponent } from './components/trainingemployee/trainin
 import { ShiftComponent } from './components/shift/shift.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
 import {NgxMaskModule} from 'ngx-mask';
+import { PromotionComponent } from './components/promotion/promotion.component';
+import { TransferpostingComponent } from './components/transferposting/transferposting.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,9 @@ import {NgxMaskModule} from 'ngx-mask';
     TrainingComponent,
     TrainingemployeeComponent,
     ShiftComponent,
-    AttendanceComponent
+    AttendanceComponent,
+    PromotionComponent,
+    TransferpostingComponent
   ],
   imports: [
     BrowserModule,

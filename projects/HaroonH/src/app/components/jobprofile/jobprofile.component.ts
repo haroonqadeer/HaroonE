@@ -17,7 +17,7 @@ declare var $: any;
 export class JobprofileComponent implements OnInit {
 
     //serverUrl = "http://192.168.200.19:3009/";
-    serverUrl = "http://localhost:9024/";
+    serverUrl = "http://localhost:47807/";
     tokenKey = "token";
 
     httpOptions = {
@@ -93,6 +93,8 @@ export class JobprofileComponent implements OnInit {
 
     //*step 1 ng models
     jobTitle = "";
+
+    lblJobProfile;
 
     leaveType;
     leaveNature;
@@ -441,7 +443,10 @@ export class JobprofileComponent implements OnInit {
         this.LocationId = item.jobPostLocationCd;
         this.lblBPS = item.payGradeName;
         this.lblJobType = item.jobTypeName;
+        
         this.editFlag = true;
+        this.lblJobProfile = item.jobDesigName;
+
 
         this.jobTitle = item.jobDesigID;
 
@@ -541,7 +546,7 @@ export class JobprofileComponent implements OnInit {
                     "jobCertificationList":     JSON.stringify(this.tempCertificateList),
                     "jobExperienceList":        JSON.stringify(this.tempExperienceList),
                     "jobDescriptionList":       JSON.stringify(this.tempDescList),
-                    "jobLeaveRuleList":          JSON.stringify(this.tempLeaveRulesList),
+                    "jobLeaveRuleList":         JSON.stringify(this.tempLeaveRulesList),
                     "jobFacilityList":          JSON.stringify(this.jobFacilityList),
                     "ConnectedUser":            "12000",
                     "DelFlag":                  0

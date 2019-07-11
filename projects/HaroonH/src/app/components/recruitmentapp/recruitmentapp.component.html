@@ -570,22 +570,22 @@
                               <thead>
                                 <tr class='d-flex'>
                                   <th class='col-1'>Sr #</th>
-                                  <th class='col-8'>Recruiting Channel</th>
+                                  <th class='col-9'>Recruiting Channel</th>
                                   <th class='col-2'>Publish</th>
-                                  <th class='col-1'>Delete</th>
+                                  <!-- <th class='col-1'>Delete</th> -->
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr *ngFor="let item of publishingChannelList; let i=index" class='d-flex'>
                                   <td class='col-1'>{{i+1}}</td>             
-                                  <td class='col-8'>{{item.pblshngChnnlName}}</td>
+                                  <td class='col-9'>{{item.pblshngChnnlName}}</td>
                                   <td class='col-2'>
                                     <p-inputSwitch [(ngModel)]="item.PblshingStatus"></p-inputSwitch>
                                   </td>
-                                  <td class='col-1 text-center'><span class="fa fa-minus pointerCursor" (click)="removePubChannel(i)"></span></td>
+                                  <!-- <td class='col-1 text-center'><span class="fa fa-minus pointerCursor" (click)="removePubChannel(i)"></span></td> -->
                                 </tr>
   
-                                <tr class='d-flex'>
+                                <!-- <tr class='d-flex'>
                                   <td class='col-1'></td>             
                                   <td class='col-10'>
                                       <p-dropdown appendTo="body" [options]="tempPublishingChannelList" filter="true" [(ngModel)]="ddlPubChannel" placeholder="Channel" [style]="{'width':'100%'}">
@@ -596,10 +596,8 @@
                                         </ng-template>
                                       </p-dropdown>
                                   </td>
-                                  <td class='col-1 text-center'>
-                                      <span class="fa fa-plus pointerCursor" (click)="addPubChannel()"></span>
-                                  </td>
-                                </tr>
+                                  <td class='col-1 text-center'> <span class="fa fa-plus pointerCursor" (click)="addPubChannel()"></span></td>
+                                </tr> -->
   
   
                                 

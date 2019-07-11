@@ -25,6 +25,8 @@ import { TrainingComponent } from './components/training/training.component';
 import { TrainingemployeeComponent } from './components/trainingemployee/trainingemployee.component';
 
 import { AttendanceComponent } from './components/attendance/attendance.component';
+import { PromotionComponent } from './components/promotion/promotion.component';
+import { TransferpostingComponent } from './components/transferposting/transferposting.component';
 
 const routes: Routes = [
   // {
@@ -106,6 +108,14 @@ const routes: Routes = [
   {
     path: 'HR/attendance',
     component: AttendanceComponent
+  },
+  {
+    path: 'HR/promotion',
+    component: PromotionComponent
+  },
+  {
+    path: 'HR/transfer',
+    component: TransferpostingComponent
   },
   // { 
   //   path: 'HR', 

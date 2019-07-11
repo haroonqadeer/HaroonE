@@ -156,8 +156,8 @@
         </div>
     </div>
   
-  </div>
-  <!--end tabs row-->
+</div>
+<!--end tabs row-->
   
   
   
@@ -195,15 +195,17 @@
                   <span class="label">Job Title</span>
                 </div>
                 <div class="col-md-10">
-                  <p-dropdown  appendTo="body" [options]="jobsList" [(ngModel)]="jobTitle" (onChange)="getFilterItem('jobs')" [disabled]="editFlag" placeholder="Job Title" filter="true" [style]="{'width':'100%'}">
+                  <p-dropdown  *ngIf="!editFlag"  appendTo="body" [options]="jobsList" [(ngModel)]="jobTitle" (onChange)="getFilterItem('jobs')" [disabled]="editFlag" placeholder="Job Title" filter="true" [style]="{'width':'100%'}">
                     <ng-template let-itm pTemplate="item">
                       <div style="position: relative;height: 25px; z-index: 100;">
                         <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
                       </div>
                     </ng-template>
                   </p-dropdown>
+                  <span class="label" *ngIf="editFlag"><b>{{lblJobProfile}}</b></span>
                 </div>
               </div>
+              <br/>
               <!-- filter="true" [showClear]="true" -->
               <!--end 1st row-->
   
@@ -225,7 +227,7 @@
                   </div>
               </div>
               <!-- filter="true" [showClear]="true" -->
-              <br/> <br/> <br/> <br/> <br/> <br/> <br/><br/>
+              <br/> <br/> 
               <!--end 2nd row-->
               
               <!--start next step button div-->
@@ -252,8 +254,8 @@
                     <tr class='d-flex'>
                       <th class='col-1 text-center'>Sr #</th>
                       <th class='col-4'>Degree Title</th>
-                      <th class='col-2'>Max Level</th>
-                      <th class='col-2'>Req Level</th>
+                      <th class='col-2'>Max Level (Year)</th>
+                      <th class='col-2'>Req Level (Year)</th>
                       <th class='col-2'>Preference</th>
                       <th class='col-1 text-center'>Delete</th>
                     </tr>
