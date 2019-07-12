@@ -24,10 +24,10 @@ declare var $: any;
 })
 export class SkillstandardComponent implements OnInit {
 
-  // serverUrl = "https://localhost:8003/";
+  serverUrl = "http://localhost:9018/";
   //serverUrl = "http://192.168.200.19:3007/";
 
-  serverUrl = "https://localhost:8003/";
+  //serverUrl = "https://localhost:8003/";
   tokenKey = "token";
 
 
@@ -316,7 +316,35 @@ export class SkillstandardComponent implements OnInit {
             return false;
           }
 
-          else if (data.msg == "Insert - Record Already Exists!") {
+          else if (data.msg == "Insert - Required Rule Already Exists!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addSkillModal').modal('hide');
+            $('#editSkillModal').modal('hide');
+            this.getSkillStandard();
+            this.getSkillStandardDetails();
+            return false;
+          }
+          else if (data.msg == "Update - Required Rule Already Exists!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addSkillModal').modal('hide');
+            $('#editSkillModal').modal('hide');
+            this.getSkillStandard();
+            this.getSkillStandardDetails();
+            return false;
+          }
+
+          else if (data.msg == "Insert - Rule Criteria Already Exist!") {
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.clear();
+            $('#addSkillModal').modal('hide');
+            $('#editSkillModal').modal('hide');
+            this.getSkillStandard();
+            this.getSkillStandardDetails();
+            return false;
+          }
+          else if (data.msg == "Update - Rule Criteria Already Exist!") {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             this.clear();
             $('#addSkillModal').modal('hide');

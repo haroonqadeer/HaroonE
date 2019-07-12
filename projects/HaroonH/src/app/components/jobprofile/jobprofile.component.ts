@@ -17,7 +17,7 @@ declare var $: any;
 export class JobprofileComponent implements OnInit {
 
     //serverUrl = "http://192.168.200.19:3009/";
-    serverUrl = "http://localhost:47807/";
+    serverUrl = "http://localhost:9024/";
     tokenKey = "token";
 
     httpOptions = {
@@ -93,6 +93,8 @@ export class JobprofileComponent implements OnInit {
 
     //*step 1 ng models
     jobTitle = "";
+
+    lblJobProfile;
 
     leaveType;
     leaveNature;
@@ -319,7 +321,7 @@ export class JobprofileComponent implements OnInit {
                 //geting degree 
                 if (data[i].qlfctnTypeName == 'Degree'){
                     this.degreeList.push({
-                        label: data[i].qlfctnName + " - " + data[i].qlfctnCriteriaName,
+                        label: data[i].qlfctnCriteriaName,
                         value: data[i].qlfctnCriteriaCd,
                     });
                 }
@@ -327,7 +329,7 @@ export class JobprofileComponent implements OnInit {
                 //getting certificate
                 if (data[i].qlfctnTypeName == 'Certificate'){
                     this.certificateList.push({
-                        label: data[i].qlfctnName + " - " + data[i].qlfctnCriteriaName,
+                        label: data[i].qlfctnCriteriaName,
                         value: data[i].qlfctnCriteriaCd,
                     });
                 }
@@ -335,7 +337,7 @@ export class JobprofileComponent implements OnInit {
                 //getting skills
                 if (data[i].qlfctnTypeName == 'Experience'){
                     this.experienceList.push({
-                        label: data[i].qlfctnName + " - " + data[i].qlfctnCriteriaName,
+                        label: data[i].qlfctnCriteriaName,
                         value: data[i].qlfctnCriteriaCd,
                     });
                 }
@@ -441,7 +443,10 @@ export class JobprofileComponent implements OnInit {
         this.LocationId = item.jobPostLocationCd;
         this.lblBPS = item.payGradeName;
         this.lblJobType = item.jobTypeName;
+        
         this.editFlag = true;
+        this.lblJobProfile = item.jobDesigName;
+
 
         this.jobTitle = item.jobDesigID;
 
@@ -541,7 +546,7 @@ export class JobprofileComponent implements OnInit {
                     "jobCertificationList":     JSON.stringify(this.tempCertificateList),
                     "jobExperienceList":        JSON.stringify(this.tempExperienceList),
                     "jobDescriptionList":       JSON.stringify(this.tempDescList),
-                    "jobLeaveRuleList":          JSON.stringify(this.tempLeaveRulesList),
+                    "jobLeaveRuleList":         JSON.stringify(this.tempLeaveRulesList),
                     "jobFacilityList":          JSON.stringify(this.jobFacilityList),
                     "ConnectedUser":            "12000",
                     "DelFlag":                  0
@@ -606,6 +611,8 @@ export class JobprofileComponent implements OnInit {
                         mndtryIndctr: false
                     });
 
+                    this.ddlDescription = "";
+
                 }
 
             }else{
@@ -643,6 +650,9 @@ export class JobprofileComponent implements OnInit {
                             mndtryIndctr: false
                         });
                     }
+
+                    this.ddlDescription = "";
+
                 }
             }
         }
@@ -695,6 +705,10 @@ export class JobprofileComponent implements OnInit {
                     effectiveDt: this.efectDate,
                     endDt: this.efectDate
                 });
+
+                this.ddlLeaveRule = "";
+                this.efectDate = "";
+
             }
         }
     }
@@ -745,6 +759,9 @@ export class JobprofileComponent implements OnInit {
                     facilityTypeName: dataList[0].label,
                     facilityName: dataList1[0].label,
                 });
+
+                this.ddlFacilityType = "";
+                this.ddlFacility = "";
             }
         }
     }
@@ -781,7 +798,7 @@ export class JobprofileComponent implements OnInit {
             return false;
         }
         else if (this.degreeMaxLelvel < this.degreeReqLevel ) {
-            this.toastr.errorToastr('Invalid maximum level', 'Error', { toastTimeout: (2500) });
+            this.toastr.errorToastr('Invalid required level', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else{
@@ -801,6 +818,17 @@ export class JobprofileComponent implements OnInit {
             }
             else{
 
+                var perfIndctr;
+                if(this.chkDegreePI == false)
+                {
+                    perfIndctr = 0;
+                }
+                else
+                {
+                    perfIndctr = 1;
+                }
+
+
                 this.tempDegreeList.push({
                     qlfctnRuleCriteriaCD: 0,
                     reqdQlfctnRuleNo: 0,
@@ -809,9 +837,14 @@ export class JobprofileComponent implements OnInit {
                     qlfctnCD: this.QualificationId,
                     qlfctnCriteriaReqdLvl: this.degreeReqLevel,
                     qlfctnCriteriaMaxLvl: this.degreeMaxLelvel,
-                    prefIndctr: this.chkDegreePI,
+                    prefIndctr: perfIndctr,
                     degreeLabel: this.Qualification
                 });
+
+                this.ddlDegree = "";
+                this.degreeReqLevel = null;
+                this.degreeMaxLelvel = null;
+                this.chkDegreePI = false;
 
             }
             
@@ -852,6 +885,15 @@ export class JobprofileComponent implements OnInit {
         }
         else{
 
+            var perfIndctr;
+            if(this.chkExperiencePI == false)
+            {
+                perfIndctr = 0;
+            }
+            else
+            {
+                perfIndctr = 1;
+            }
 
             var duplicateChk = false;
 
@@ -878,9 +920,15 @@ export class JobprofileComponent implements OnInit {
                     qlfctnCD:               this.ExperienceId,
                     qlfctnCriteriaReqdLvl:  this.experienceInMonth,
                     qlfctnCriteriaMaxLvl:   0,
-                    prefIndctr:             this.chkExperiencePI,
+                    prefIndctr:             perfIndctr,
                     degreeLabel:            this.Experience
                 });
+
+                this.ddlExperience = "";
+                this.experienceYear = null;
+                this.experienceMonth = null;
+                this.chkExperiencePI = false;
+
             }   
         }
     }
@@ -917,11 +965,20 @@ export class JobprofileComponent implements OnInit {
             return false;
         }
         else if (this.certificateMaxLelvel < this.certificateReqLevel ) {
-            this.toastr.errorToastr('Invalid maximum level', 'Error', { toastTimeout: (2500) });
+            this.toastr.errorToastr('Invalid required level', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else{
 
+            var perfIndctr;
+            if(this.chkCertificatePI == false)
+            {
+                perfIndctr = 0;
+            }
+            else
+            {
+                perfIndctr = 1;
+            }
 
             var duplicateChk = false;
 
@@ -945,9 +1002,15 @@ export class JobprofileComponent implements OnInit {
                     qlfctnCD:               this.CertificateId,
                     qlfctnCriteriaReqdLvl:  this.certificateReqLevel,
                     qlfctnCriteriaMaxLvl:   this.certificateMaxLelvel,
-                    prefIndctr:             this.chkCertificatePI,
+                    prefIndctr:             perfIndctr,
                     degreeLabel:            this.Certificate
                 });
+
+                this.ddlCertificate = "";
+                this.certificateMaxLelvel = null;
+                this.certificateReqLevel = null;
+                this.chkCertificatePI = false;
+
             }   
         }
     }

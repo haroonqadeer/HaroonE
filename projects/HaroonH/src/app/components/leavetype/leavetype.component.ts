@@ -1,8 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { OrderPipe } from 'ngx-order-pipe';
 import { AppComponent } from 'src/app/app.component';
+
+import {
+    IgxExcelExporterOptions,
+    IgxExcelExporterService,
+    IgxGridComponent,
+    IgxCsvExporterService,
+    IgxCsvExporterOptions,
+    CsvFileTypes
+} from "igniteui-angular";
 
 declare var $: any;
 
@@ -13,7 +22,7 @@ declare var $: any;
 })
 export class LeavetypeComponent implements OnInit {
 
-    serverUrl = "http://localhost:25986/";
+    serverUrl = "http://localhost:9012/";
     //serverUrl = "http://192.168.200.19:3005/";
     tokenKey = "token";
 
@@ -23,8 +32,10 @@ export class LeavetypeComponent implements OnInit {
     }
 
     updateFlag = false;
+
     //* list for excel data
-    excelDataList = [];
+    excelDataListType = [];
+    excelDataListNature = [];
 
     leaveTypeList = [];
     leaveNatureList = [];
@@ -56,12 +67,11 @@ export class LeavetypeComponent implements OnInit {
     txtdPin = '';
 
 
-    constructor(
-        private toastr: ToastrManager,
-        private http: HttpClient,
-        private orderPipe: OrderPipe,
-        private app: AppComponent
-    ) { }
+    constructor(public toastr: ToastrManager,
+        private app: AppComponent,
+        private excelExportService: IgxExcelExporterService,
+        private csvExportService: IgxCsvExporterService,
+        private http: HttpClient) { }
 
     ngOnInit() {
 
@@ -69,6 +79,11 @@ export class LeavetypeComponent implements OnInit {
         this.getLeaveNature();
 
     }
+
+    @ViewChild("excelDataContentType") public excelDataContentType: IgxGridComponent; //For excel
+    @ViewChild("excelDataContentNature") public excelDataContentNature: IgxGridComponent; //For excel
+
+
 
     //function for get all saved leave types 
     getLeaveTypes() {
@@ -477,6 +492,83 @@ export class LeavetypeComponent implements OnInit {
         }, 500);
     }
 
+    downloadPDFType() { }
+
+    downloadCSVType() {
+        //alert('CSV works');
+        // case 1: When tblSearch is empty then assign full data list
+        if (this.tblSearchType == "") {
+            var completeDataList = [];
+            for (var i = 0; i < this.leaveTypeList.length; i++) {
+                //alert(this.tblSearchType + " - " + this.skillCriteriaList[i].departmentName)
+                completeDataList.push({
+                    LeaveType: this.leaveTypeList[i].leaveTypeName,
+                    Description: this.leaveTypeList[i].leaveTypeDesc
+                });
+            }
+            this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("LeaveTypeCompleteCSV", CsvFileTypes.CSV));
+        }
+        // case 2: When tblSearchType is not empty then assign new data list
+        else if (this.tblSearchType != "") {
+            var filteredDataList = [];
+            for (var i = 0; i < this.leaveTypeList.length; i++) {
+                if (this.leaveTypeList[i].leaveTypeName.toUpperCase().includes(this.tblSearchType.toUpperCase()) ||
+                    this.leaveTypeList[i].leaveTypeDesc.toUpperCase().includes(this.tblSearchType.toUpperCase())) {
+                    filteredDataList.push({
+                        LeaveType: this.leaveTypeList[i].leaveTypeName,
+                        Description: this.leaveTypeList[i].leaveTypeDesc
+                    });
+                }
+            }
+
+            if (filteredDataList.length > 0) {
+                this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("LeaveTypeFilterCSV", CsvFileTypes.CSV));
+            } else {
+                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+            }
+        }
+    }
+
+    downloadExcelType() {
+        //alert('Excel works');
+        // case 1: When tblSearchType is empty then assign full data list
+        if (this.tblSearchType == "") {
+            //var completeDataList = [];
+            for (var i = 0; i < this.leaveTypeList.length; i++) {
+                this.excelDataListType.push({
+                    LeaveType: this.leaveTypeList[i].leaveTypeName,
+                    Description: this.leaveTypeList[i].leaveTypeDesc
+                });
+            }
+            this.excelExportService.export(this.excelDataContentType, new IgxExcelExporterOptions("LeaveTypeCompleteExcel"));
+            this.excelDataListType = [];
+        }
+        // case 2: When tblSearchType is not empty then assign new data list
+        else if (this.tblSearchType != "") {
+            for (var i = 0; i < this.leaveTypeList.length; i++) {
+                if (this.leaveTypeList[i].leaveTypeName.toUpperCase().includes(this.tblSearchType.toUpperCase()) ||
+                    this.leaveTypeList[i].leaveTypeDesc.toUpperCase().includes(this.tblSearchType.toUpperCase())) {
+                    this.excelDataListType.push({
+                        LeaveType: this.leaveTypeList[i].leaveTypeName,
+                        Description: this.leaveTypeList[i].leaveTypeDesc
+                    });
+                }
+            }
+
+            if (this.excelDataListType.length > 0) {
+                //alert("Filter List " + this.excelDataList.length);
+
+                this.excelExportService.export(this.excelDataContentType, new IgxExcelExporterOptions("LeaveTypeFilterExcel"));
+                this.excelDataListType = [];
+            }
+            else {
+                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+            }
+        }
+    }
+
+    //*------------------------------- Leave Nature (Print, PDF, CSV, Excel)
+
     printDivNature() {
         // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
 
@@ -526,5 +618,79 @@ export class LeavetypeComponent implements OnInit {
         }, 500);
     }
 
+    downloadPDFNature() { }
+
+    downloadCSVNature() {
+        //alert('CSV works');
+        // case 1: When tblSearchNature is empty then assign full data list
+        if (this.tblSearchNature == "") {
+            var completeDataList = [];
+            for (var i = 0; i < this.leaveNatureList.length; i++) {
+                //alert(this.tblSearchNature + " - " + this.skillCriteriaList[i].departmentName)
+                completeDataList.push({
+                    LeaveNature: this.leaveNatureList[i].leaveNatureName,
+                    Description: this.leaveNatureList[i].leaveNatureDesc
+                });
+            }
+            this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("LeaveNatureCompleteCSV", CsvFileTypes.CSV));
+        }
+        // case 2: When tblSearchNature is not empty then assign new data list
+        else if (this.tblSearchNature != "") {
+            var filteredDataList = [];
+            for (var i = 0; i < this.leaveNatureList.length; i++) {
+                if (this.leaveTypeList[i].leaveNatureName.toUpperCase().includes(this.tblSearchType.toUpperCase()) ||
+                    this.leaveTypeList[i].leaveNatureDesc.toUpperCase().includes(this.tblSearchType.toUpperCase())) {
+                    filteredDataList.push({
+                        LeaveNature: this.leaveNatureList[i].leaveNatureName,
+                        Description: this.leaveNatureList[i].leaveNatureDesc
+                    });
+                }
+            }
+
+            if (filteredDataList.length > 0) {
+                this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("LeaveNatureFilterCSV", CsvFileTypes.CSV));
+            } else {
+                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+            }
+        }
+    }
+
+    downloadExcelNature() {
+        //alert('Excel works');
+        // case 1: When tblSearchNature is empty then assign full data list
+        if (this.tblSearchNature == "") {
+            //var completeDataList = [];
+            for (var i = 0; i < this.leaveNatureList.length; i++) {
+                this.excelDataListNature.push({
+                    LeaveNature: this.leaveNatureList[i].leaveNatureName,
+                    Description: this.leaveNatureList[i].leaveNatureDesc
+                });
+            }
+            this.excelExportService.export(this.excelDataContentNature, new IgxExcelExporterOptions("LeaveNatureCompleteExcel"));
+            this.excelDataListNature = [];
+        }
+        // case 2: When tblSearchNature is not empty then assign new data list
+        else if (this.tblSearchNature != "") {
+            for (var i = 0; i < this.leaveNatureList.length; i++) {
+                if (this.leaveTypeList[i].leaveNatureName.toUpperCase().includes(this.tblSearchType.toUpperCase()) ||
+                    this.leaveTypeList[i].leaveNatureDesc.toUpperCase().includes(this.tblSearchType.toUpperCase())) {
+                    this.excelDataListNature.push({
+                        LeaveNature: this.leaveNatureList[i].leaveNatureName,
+                        Description: this.leaveNatureList[i].leaveNatureDesc
+                    });
+                }
+            }
+
+            if (this.excelDataListNature.length > 0) {
+                //alert("Filter List " + this.excelDataList.length);
+
+                this.excelExportService.export(this.excelDataContentNature, new IgxExcelExporterOptions("LeaveNatureFilterExcel"));
+                this.excelDataListNature = [];
+            }
+            else {
+                this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+            }
+        }
+    }
 
 }

@@ -48,6 +48,9 @@ import { ShiftComponent } from './components/shift/shift.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
 import { EmployeeShiftComponent } from './components/employee-shift/employee-shift.component';
 import { AttendanceDashboardComponent } from './components/attendance-dashboard/attendance-dashboard.component';
+import {NgxMaskModule} from 'ngx-mask';
+import { PromotionComponent } from './components/promotion/promotion.component';
+import { TransferpostingComponent } from './components/transferposting/transferposting.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +77,9 @@ import { AttendanceDashboardComponent } from './components/attendance-dashboard/
     ShiftComponent,
     AttendanceComponent,
     EmployeeShiftComponent,
-    AttendanceDashboardComponent
+    AttendanceDashboardComponent,
+    PromotionComponent,
+    TransferpostingComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +102,9 @@ import { AttendanceDashboardComponent } from './components/attendance-dashboard/
     IgxGridModule,
     CheckboxModule,
     InputSwitchModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgxMaskModule.forRoot()
+
   ],
   providers: [IgxExcelExporterService, IgxCsvExporterService],
   bootstrap: [AppComponent],

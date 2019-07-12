@@ -26,6 +26,8 @@ import { TrainingemployeeComponent } from './components/trainingemployee/trainin
 import { AttendanceComponent } from './components/attendance/attendance.component';
 import { EmployeeShiftComponent } from './components/employee-shift/employee-shift.component';
 import { AttendanceDashboardComponent } from './components/attendance-dashboard/attendance-dashboard.component';
+import { PromotionComponent } from './components/promotion/promotion.component';
+import { TransferpostingComponent } from './components/transferposting/transferposting.component';
 
 const routes: Routes = [
   // {
@@ -115,6 +117,14 @@ const routes: Routes = [
   {
     path: 'HR/attendance',
     component: AttendanceComponent
+  },
+  {
+    path: 'HR/promotion',
+    component: PromotionComponent
+  },
+  {
+    path: 'HR/transfer',
+    component: TransferpostingComponent
   },
   // { 
   //   path: 'HR', 

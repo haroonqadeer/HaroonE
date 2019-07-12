@@ -18,7 +18,7 @@ declare var $: any;
 export class EmpolyeeprofileComponent implements OnInit {
 
     //serverUrl = "http://192.168.200.19:3011/";
-    serverUrl = "http://localhost:50124/";
+    serverUrl = "http://localhost:9026/";
     tokenKey = "token";
 
     httpOptions = {
@@ -48,6 +48,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     empFacilityList = [];
     degreeList = [];
     empDegreeList = [];
+    experienceList = [];
 
 
     tempQualificationCriteriaList = [];
@@ -78,7 +79,9 @@ export class EmpolyeeprofileComponent implements OnInit {
             areaCode: true,
             mobileCode: false,
             contactNumber: "",
-            mobileNumber: ""
+            mobileNumber: "",
+            ContactDetailCode: 0,
+            IDelFlag: 0
         }
     ];
 
@@ -87,7 +90,9 @@ export class EmpolyeeprofileComponent implements OnInit {
         {
             id: 0,
             type: "",
-            email: ""
+            email: "",
+            ContactDetailCode: 0,
+            IDelFlag: 0
         }
     ];
 
@@ -101,10 +106,8 @@ export class EmpolyeeprofileComponent implements OnInit {
             provinceCode: "",
             districtCode: "",
             cityCode: "",
-            cntryLst: [], // this.countryListForAddress,
-            provinceList: [], // this.provinceList,
-            districtList: [], // this.districtList,
-            cityList: [] //this.cityList
+            ContactDetailCode: 0,
+            IDelFlag: 0
         }
     ];
 
@@ -128,6 +131,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     desigId;
     deptId;
     locationId;
+    cmpnyId;
 
     //* Variables for NgModels
     tblSearch;
@@ -152,9 +156,11 @@ export class EmpolyeeprofileComponent implements OnInit {
     lblJobType;
     lblRetirementDate;
     lblContract;
+    chkJobType = true;
 
     startDate;
     ddlJobProfile;
+    
 
     //* tab 3 ngModels
     ddlDegree;
@@ -178,6 +184,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     ddlOrg;
     orgStartDate;
     orgEndDate;
+    ddlExperience;
 
 
 
@@ -278,7 +285,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
             for (var i = 0; i < data.length; i++) {
 
-                // //geting degree 
+                //geting degree 
                 if (data[i].qlfctnTypeName == 'Degree'){
                     this.degreeList.push({
                         label: data[i].qlfctnCriteriaName,
@@ -288,13 +295,18 @@ export class EmpolyeeprofileComponent implements OnInit {
                     });
                 }
 
-                // //getting certificate
-                // if (data[i].qlfctnTypeName == 'Certificate'){
-                //     this.certificateList.push({
-                //         label: data[i].qlfctnName + " - " + data[i].qlfctnCriteriaName,
-                //         value: data[i].qlfctnCriteriaCd,
-                //     });
-                // }
+
+                //getting certificate
+                if (data[i].qlfctnTypeName == 'Experience'){
+                    this.experienceList.push({
+                        //label: data[i].qlfctnName + " - " + data[i].qlfctnCriteriaName,
+                        label: data[i].qlfctnCriteriaName,
+                        value: data[i].qlfctnCriteriaCd,
+                        qlfctnCd: data[i].qlfctnCd,
+                        qlfctnTypeCd: data[i].qlfctnTypeCd
+                    });
+                }
+
 
                 //getting skills
                 if (data[i].qlfctnTypeName == 'Skills'){
@@ -329,6 +341,96 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.allFacilityList = data;
         });
 
+    }
+
+    //Function for get specific employee data  
+    getSpecificEmployeeData() {
+
+        if (this.empId == 0 ) {
+            this.toastr.errorToastr('Invalid Request', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else {
+
+            //* ********************************************save data 
+            var reqData = {
+                "EmpID": this.empId
+            };
+
+            //var token = localStorage.getItem(this.tokenKey);
+
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+            this.http.post(this.serverUrl + 'api/getSpecificEmployeeData', reqData, { headers: reqHeader }).subscribe((data: any) => {
+
+                if (data.msg != "Done") {
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                    return false;
+                } else {
+
+                    this.removeAddress(0);
+                    this.removeContact(0);
+                    this.removeEmail(0);
+
+                    //getng emp adrs detl
+                    for (var i = 0; i < data.adrsList.length; i++) {
+                        this.addressDetail.push({
+                            id: 0,
+                            addressType: data.adrsList[i].addressTypeCd,
+                            address: data.adrsList[i].addressLine1,
+
+                            countryCode: data.adrsList[i].cntryCd.toString(),
+                            provinceCode: data.adrsList[i].prvncCd.toString(),
+                            districtCode: data.adrsList[i].districtCd.toString(),
+                            cityCode: data.adrsList[i].thslCd.toString(),
+
+                            ContactDetailCode: 0,
+                            IDelFlag : 0
+                        });
+                    }
+
+
+                    //getng emp cntct detl
+                    for (var i = 0; i < data.cntctList.length; i++) {
+                        this.contactDetail.push({
+                            id: 0,
+                            contactType:data.cntctList[i].teleTypeCd.toString(),
+                            countryCode: data.cntctList[i].cntryCd.trim(),
+                            contactCode: "",
+                            areaCode: true,
+                            mobileCode: false,
+                            contactNumber: data.cntctList[i].teleNo,
+                            mobileNumber: "",
+                            ContactDetailCode: 0,
+                            IDelFlag: 0
+                        });
+                    }
+
+
+                    //geting emp eml detl
+                    for (var i = 0; i < data.emlList.length; i++) {
+                        this.emailDetail.push({
+                            id: 0,
+                            type: data.emlList[i].emailTypeCd.toString(),
+                            email: data.emlList[i].emailAddrss,
+                            ContactDetailCode: 0,
+                            IDelFlag: 0
+                        });
+                    }
+
+
+                    //geting skil list 
+                    this.empSkillList = data.skilList;
+                    //getng qualification list
+                    this.empDegreeList = data.qlfctnList;
+                    //getng psd list 
+                    this.empOrgList = data.psdList;
+
+                }
+            });
+        }
     }
 
 
@@ -499,12 +601,18 @@ export class EmpolyeeprofileComponent implements OnInit {
     //Function for add previous service detail
     addPSD() {
 
+        var myDate = new Date();
+
         if (this.empPost == undefined || this.empPost.trim() == "" ) {
             this.toastr.errorToastr('Please enter post', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.ddlOrg == undefined || this.ddlOrg == "" ) {
-            this.toastr.errorToastr('Please select organization', 'Error', { toastTimeout: (2500) });
+        // else if (this.ddlOrg == undefined || this.ddlOrg == "" ) {
+        //     this.toastr.errorToastr('Please select organization', 'Error', { toastTimeout: (2500) });
+        //     return false;
+        // }
+        else if (this.ddlExperience == undefined || this.ddlExperience == "" ) {
+            this.toastr.errorToastr('Please select experience', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else if (this.orgStartDate == undefined || this.orgStartDate == "" || this.orgStartDate == null ) {
@@ -516,15 +624,18 @@ export class EmpolyeeprofileComponent implements OnInit {
             return false;
         }
         else if (this.orgStartDate >=  this.orgEndDate ) {
+            this.toastr.errorToastr('Invalid job start date', 'Error', { toastTimeout: (2500) });
+            return false;
+        } else if (this.orgEndDate > myDate ){
             this.toastr.errorToastr('Invalid job end date', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else{            
+        else{
 
             var duplicateChk = false;
 
             for (var i = 0; i < this.empOrgList.length; i++) {
-                if (this.empOrgList[i].Post.toUpperCase() == this.empPost.toUpperCase() && this.empOrgList[i].CmpnyID == this.ddlOrg) {
+                if (this.empOrgList[i].desigRmrks.toUpperCase() == this.empPost.trim().toUpperCase()) {
                     duplicateChk = true;
                 }
             }
@@ -536,17 +647,26 @@ export class EmpolyeeprofileComponent implements OnInit {
             else{
 
                 var dataList = [];
-                dataList = this.orgList.filter(x => x.value == this.ddlOrg);
+                dataList = this.experienceList.filter(x => x.value == this.ddlExperience);
 
                 this.empOrgList.push({
-                    IndvdlID: this.empId,
-                    CmpnyID: this.ddlOrg,
-                    JobDesigID: this.desigId,
-                    StartDt: this.orgStartDate,
-                    LeavingDt: this.orgEndDate,
-                    Post: this.empPost.trim(),
-                    OrgName: dataList[0].label
+                    indvdlID: this.empId,
+                    cmpnyID: this.cmpnyId,                           //-------this.ddlOrg,
+                    jobDesigID: this.desigId,
+                    startDt: this.orgStartDate,
+                    leavingDt: this.orgEndDate,
+                    desigRmrks: this.empPost.trim(),
+                    experienceTypeCd: dataList[0].qlfctnTypeCd,
+                    experienceCd: dataList[0].qlfctnCd,
+                    experienceCriteriaCd: this.ddlExperience,
+                    qlfctnCriteriaName: dataList[0].label
                 });
+
+                this.empPost = "";
+                this.ddlExperience = "";
+                this.orgStartDate = "";
+                this.orgEndDate = "";
+
             }
         }
     }
@@ -567,24 +687,22 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.toastr.errorToastr('Please enter skill', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.empSkillLevel == undefined || this.empSkillLevel == "" ) {
-            this.toastr.errorToastr('Please enter level', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else if (this.empSkillRemarks == undefined || this.empSkillRemarks == "") {
-            this.toastr.errorToastr('please enter remarks', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else if (this.empSkillLevel < 1 || this.empSkillLevel > 10) {
-            this.toastr.errorToastr('Level must be within 1 to 10', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
+        
         else{
+
+
+            if (this.empSkillLevel == undefined || this.empSkillLevel == "" ) {
+                this.empSkillLevel = 0;
+            }
+
+            if (this.empSkillRemarks == undefined || this.empSkillRemarks == "") {
+                this.empSkillRemarks = "-";
+            }
 
             var duplicateChk = false;
 
             for (var i = 0; i < this.empSkillList.length; i++) {
-                if (this.empSkillList[i].SkillCd == this.ddlSkillGroup && this.empSkillList[i].SkillsCriteriaCd == this.ddlSkill) {
+                if (this.empSkillList[i].skillCd == this.ddlSkillGroup && this.empSkillList[i].skillsCriteriaCd == this.ddlSkill) {
                     duplicateChk = true;
                 }
             }
@@ -602,15 +720,21 @@ export class EmpolyeeprofileComponent implements OnInit {
                 dataList1 = this.skillList.filter(x => x.value == this.ddlSkill);
 
                 this.empSkillList.push({
-                    IndvdlID: this.empId,
-                    SkillTypeCd: dataList[0].qlfctnTypeCd,
-                    SkillCd: this.ddlSkillGroup,
-                    SkillsCriteriaCd: this.ddlSkill,
-                    SkillLvl: this.empSkillLevel,
-                    SkillRmrks: this.empSkillRemarks,
-                    group: dataList[0].label,
-                    skill: dataList1[0].label
+                    indvdlID: this.empId,
+                    skillTypeCd: dataList[0].qlfctnTypeCd,
+                    skillCd: this.ddlSkillGroup,
+                    skillsCriteriaCd: this.ddlSkill,
+                    skillLvl: this.empSkillLevel,
+                    skillRmrks: this.empSkillRemarks,
+                    qlfctnName: dataList[0].label,
+                    qlfctnCriteriaName: dataList1[0].label
                 });
+
+                this.ddlSkillGroup = "";
+                this.ddlSkill = "";
+                this.empSkillLevel = "";
+                this.empSkillRemarks = "";
+
             }
         }
     }
@@ -621,7 +745,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     }
 
     //Function for add employee qualification detail
-    addQualification() {
+    addQualification() {        
 
         if (this.ddlDegree == undefined || this.ddlDegree == "" ) {
             this.toastr.errorToastr('Please select degree', 'Error', { toastTimeout: (2500) });
@@ -632,7 +756,7 @@ export class EmpolyeeprofileComponent implements OnInit {
             return false;
         }
         else if (this.empDegreeYear == undefined || this.empDegreeYear == "" || this.empDegreeYear == null) {
-            this.toastr.errorToastr('Please enter year', 'Error', { toastTimeout: (2500) });
+            this.toastr.errorToastr('Please enter passing year', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else if (this.ddlGrade == undefined || this.ddlGrade == "") {
@@ -645,10 +769,24 @@ export class EmpolyeeprofileComponent implements OnInit {
         }
         else{
 
+            var myDate = new Date();
+            var crntYear = myDate.getFullYear();
+
+            myDate = new Date(this.empDegreeYear);
+
+            var usrYear = myDate.getFullYear();
+
+
+            if (usrYear > crntYear ) {
+                this.toastr.errorToastr('Invalid passing year', 'Error', { toastTimeout: (2500) });
+                return false;
+            }
+
+
             var duplicateChk = false;
 
             for (var i = 0; i < this.empDegreeList.length; i++) {
-                if (this.empDegreeList[i].EducationCriteriaCd == this.ddlDegree) {
+                if (this.empDegreeList[i].educationCriteriaCd == this.ddlDegree) {
                     duplicateChk = true;
                 }
             }
@@ -664,23 +802,30 @@ export class EmpolyeeprofileComponent implements OnInit {
 
                 this.empDegreeList.push({
                     EmpID: this.empId,
-                    IndvdlID: this.empId,
-                    TBDProgramTitle: null,
-                    PssngDt: this.empDegreeYear,
-                    TotMrks: 0,
-                    MrksObtnd: 0,
-                    Grade: this.ddlGrade,
-                    DivIsion: this.ddlDivision,
-                    StartDt: null,
-                    CampusName: this.empInstitute,
-                    EducationalInstituteID: 1,//--------------------------------------
-                    MajorSbjcts: null,
-                    ProfileTypeCd: 0,
-                    EducationTypeCd: dataList[0].qlfctnTypeCd,
-                    EducationCd: dataList[0].qlfctnCd,
-                    EducationCriteriaCd: this.ddlDegree,
-                    degree: dataList[0].label
+                    indvdlID: this.empId,
+                    tBDProgramTitle: null,
+                    pssngDt: this.empDegreeYear,
+                    totMrks: 0,
+                    mrksObtnd: 0,
+                    grade: this.ddlGrade,
+                    divIsion: this.ddlDivision,
+                    startDt: null,
+                    campusName: this.empInstitute,
+                    educationalInstituteID: 1, //--------------------------------------
+                    majorSbjcts: null,
+                    profileTypeCd: 2,
+                    educationTypeCd: dataList[0].qlfctnTypeCd,
+                    educationCd: dataList[0].qlfctnCd,
+                    educationCriteriaCd: this.ddlDegree,
+                    qlfctnCriteriaName: dataList[0].label
                 });
+
+                this.ddlDegree = "";
+                this.empInstitute = ""
+                this.empDegreeYear = "";
+                this.ddlGrade = "";
+                this.ddlDivision = "";
+
             }
         }
     }
@@ -707,10 +852,11 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.desigId = item.jobDesigID;
         this.deptId = item.jobPostDeptCd;
         this.locationId = item.jobPostLocationCd;
+        this.cmpnyId = item.cmpnyID;
 
         //tab 1 fields
         this.firstName = item.indvdlFirstName;
-        this.midName = item.IndvdlMidName;
+        this.midName = item.indvdlMidName;
         this.lastName = item.indvdlLastName;
         this.fullName = item.indvdlFullName;
         this.fhName = item.indvdlFatherName;
@@ -727,11 +873,20 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.ddlJobProfile = item.jobDesigID;
         this.startDate = new Date(item.empJobStartDt);
 
+        if(this.lblJobType == 'Regular'){
+            this.chkJobType = true;
+        }else{
+            this.chkJobType = false;
+        }
+
+
         if(this.lblJobType.toUpperCase() == 'REGULAR'){
             this.lblRetirementDate = new Date(this.lblAppointmentDate.getFullYear() + 60, this.lblAppointmentDate.getMonth(), this.lblAppointmentDate.getDay());
         }
         
         this.getFilterItem("facility");
+
+        this.getSpecificEmployeeData();
 
     }
 
@@ -740,7 +895,8 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.empId = 0;
         this.desigId = 0;
         this.deptId= 0;
-        this.locationId =0;
+        this.locationId = 0;
+        this.cmpnyId = 0;
 
 
         //tab 2 fields
@@ -755,6 +911,53 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.startDate = "";
         this.ddlJobProfile = undefined;
 
+
+
+        //contact Detail
+        this.contactDetail = [
+            {
+                id: 0,
+                contactType: "",
+                countryCode: "",
+                contactCode: "",
+                areaCode: true,
+                mobileCode: false,
+                contactNumber: "",
+                mobileNumber: "",
+                ContactDetailCode: 0,
+                IDelFlag: 0
+            }
+        ];
+
+        //Emails Detail
+        this.emailDetail = [
+            {
+                id: 0,
+                type: "",
+                email: "",
+                ContactDetailCode: 0,
+                IDelFlag: 0
+            }
+        ];
+
+        //address Detail
+        this.addressDetail = [
+            {
+                id: 0,
+                addressType: "",
+                address: "",
+                countryCode: "",
+                provinceCode: "",
+                districtCode: "",
+                cityCode: "",
+                ContactDetailCode: 0,
+                IDelFlag: 0
+            }
+        ];
+
+        this.empSkillList = [];
+        this.empDegreeList = [];
+        this.empOrgList = [];
     }
 
 
@@ -1102,6 +1305,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
         }
 
+
         //filter for generate skill list
         if(filterOption == "skill"){
 
@@ -1116,6 +1320,7 @@ export class EmpolyeeprofileComponent implements OnInit {
                 });
             }
         }
+
 
         //filter for facility
         if(filterOption == "facility"){
@@ -1166,7 +1371,9 @@ export class EmpolyeeprofileComponent implements OnInit {
             areaCode: true,
             mobileCode: false,
             contactNumber: "",
-            mobileNumber: ""
+            mobileNumber: "",
+            ContactDetailCode: 0,
+            IDelFlag : 0
         });
 
     }
@@ -1182,10 +1389,8 @@ export class EmpolyeeprofileComponent implements OnInit {
             provinceCode: "",
             districtCode: "",
             cityCode: "",
-            cntryLst: this.countryListForAddress,
-            provinceList: this.provinceList,
-            districtList: this.districtList,
-            cityList: this.cityList
+            ContactDetailCode: 0,
+            IDelFlag : 0
         });
 
     }
@@ -1196,7 +1401,9 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.emailDetail.push({
             id: 0,
             type: "",
-            email: ""
+            email: "",
+            ContactDetailCode: 0,
+            IDelFlag : 0
         });
 
     }
@@ -1211,6 +1418,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     //Deleting address row
     removeAddress(item) {
         this.addressDetail.splice(item, 1);
+        //this.addressDetail.filter(x => index  === 3)[0].isReported = true;
     }
 
     //Deleting address row
