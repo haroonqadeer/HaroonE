@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit,  } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -67,6 +68,7 @@ export class YearcalendarComponent implements OnInit {
 
   constructor(
     private toastr: ToastrManager,
+    private app: AppComponent,
     private http: HttpClient
   ) { }
 
@@ -113,7 +115,8 @@ export class YearcalendarComponent implements OnInit {
   }
 
   getHolidays(){
-    
+
+    this.app.showSpinner();
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -122,11 +125,15 @@ export class YearcalendarComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getHolidays', { headers: reqHeader }).subscribe((data: any) => {
 
       this.holidayList = data;
+
+      this.app.hideSpinner();
     });
   }
   
   getEvents(){
     
+    this.app.showSpinner();
+
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -135,6 +142,8 @@ export class YearcalendarComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getEvents', { headers: reqHeader }).subscribe((data: any) => {
       
       this.events = data;
+
+      this.app.hideSpinner();
     });
   }
 
@@ -165,12 +174,14 @@ export class YearcalendarComponent implements OnInit {
         this.Sunday == '') {
       this.toastr.errorToastr('Please Select Weekend!', 'Error', { toastTimeout: (2500) });
       return;
-    }  
-    else if (this.txtRemarks == '') {
-      this.toastr.errorToastr('Please Enter Remarks', 'Error', { toastTimeout: (2500) });
-      return false;
+    // }  
+    // else if (this.txtRemarks == '') {
+    //   this.toastr.errorToastr('Please Enter Remarks', 'Error', { toastTimeout: (2500) });
+    //   return false;
     }else{
       
+      this.app.showSpinner();
+
       var saveData = {
         monday: this.Monday,
         tuesday: this.Tuesday,
@@ -189,12 +200,14 @@ export class YearcalendarComponent implements OnInit {
         if (data.msg == "Record Saved Successfully!") {
           this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
           this.clear();
-          //this.app.hideSpinner();
+          this.getEvents();
+          $('#calendarModal').modal('hide');
+          this.app.hideSpinner();
           return false;
         } else {
           this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
           //$('#companyModal').modal('hide');
-          //this.app.hideSpinner();
+          this.app.hideSpinner();
           return false;
         }
       });
@@ -205,7 +218,7 @@ export class YearcalendarComponent implements OnInit {
   saveEvent(){
     
     for(var i=0; i<this.holidayList.length;i++){
-      alert(this.convertDate(this.holidayList[i].eventDate) + ' - ' + this.convertDate(this.eventDate));
+      // alert(this.convertDate(this.holidayList[i].eventDate) + ' - ' + this.convertDate(this.eventDate));
       if(this.holidayList[i].holiday == this.cmbHoliday && this.convertDate(this.holidayList[i].eventDate) == this.convertDate(this.eventDate)){
         this.toastr.errorToastr('Holiday Already Saved!', 'Error', { toastTimeout: (2500) });
         return;
@@ -220,6 +233,8 @@ export class YearcalendarComponent implements OnInit {
       return;
     } else {
       
+      this.app.showSpinner();
+
       var saveData = {
         eventDate: this.eventDate,
         holiday: this.cmbHoliday,
@@ -232,13 +247,14 @@ export class YearcalendarComponent implements OnInit {
         if (data.msg == "Record Saved Successfully!") {
           this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
           this.getHolidays();
+          this.getEvents();
           this.clear();
-          //this.app.hideSpinner();
+          this.app.hideSpinner();
           return false;
         } else {
           this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
           //$('#companyModal').modal('hide');
-          //this.app.hideSpinner();
+          this.app.hideSpinner();
           return false;
         }
       });

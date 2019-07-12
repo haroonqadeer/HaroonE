@@ -1,9 +1,41 @@
 <!--heading row-->
-<div class="row">
-  <div class="col-md-12 text-center">
-    <h1 class="bottomBorder">Recruitment Process</h1>
+<!-- start menubar buttons -->
+<div class="topnav boxShadow">
+  <div>
+    <!--class="container" -->
+    <span class="fa iconContainer">
+      <span class="fa icon-hr-post"> </span>
+    </span>
+    <h1> Recruuitment Process</h1>
+
+    <!-- <a class="pointerCursor" (click)="downloadExcel()">
+      <i class="fa fa-file-excel-o"></i>
+      &nbsp;Excel
+    </a>
+
+    <a class="pointerCursor" (click)="downloadCSV()">
+      <i class="fa fa-file-text-o"></i>
+      &nbsp;CSV
+    </a>
+
+    <a class="pointerCursor" (click)="downPDF()">
+      <i class="fa fa-file-pdf-o"></i>
+      &nbsp;PDF
+    </a>
+
+    <a class="pointerCursor" (click)="printDiv()">
+      <i class="fa fa-print"></i>
+      &nbsp;Print
+    </a> 
+
+    <a class="pointerCursor" data-toggle="modal" data-target="#postModal" (click)="clear()">
+      <i class="fa fa-plus-square"></i>
+      &nbsp;Add New
+    </a> -->
+
   </div>
 </div>
+<!-- end menubar buttons -->
 <!--end heading row-->
 <br />
 
@@ -135,7 +167,7 @@
               <td class="col-5">{{item.appName}}</td>
               <td class="col-3 text-center">{{item.marks}}</td>
               <td class="col-2 text-center">
-                <a href="" data-toggle="modal" (click)="getStepperID(2, item.appID)"
+                <a href="" data-toggle="modal" (click)="getStepperID(2, item.appID,item)"
                   data-target="#statusModal">{{item.appStatus}}</a>
               </td>
             </tr>
@@ -463,7 +495,7 @@
 
 <!-- Start Search vacancy Modal Window -->
 <div class="modal fade" id="matchModal">
-  <div class="modal-dialog shadow-lg-dark modal-lg">
+  <div class="modal-dialog shadow-lg-dark modal-xl">
     <div class="modal-content">
 
       <!--start Modal Header -->
@@ -502,8 +534,41 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <tr>
+                      <td><label><b>Qualification</b></label></td>
+                    </tr>
                     <!-- <tr class='d-flex'> -->
+                    <tr *ngFor="let item of qualDetailList let i = index" class='d-flex'>
+                      <td class="col-1 text-center">{{i + 1}}</td>
+                      <td class="col-3 text-center">{{item.qlfctnCriteriaName}}</td>
+                      <td class="col-3 text-center">{{item.qlfctnCriteriaReqdLvl}}</td>
+                      <td class="col-3 text-center">{{item.applcntQlfctnCriteriaLvl}}</td>
+                      <td class="col-2">{{item.reqLevel}}</td>
+                    </tr>
+                    <tr>
+                      <td><label><b>Skill</b></label></td>
+                    </tr>
                     <tr *ngFor="let item of skillDetailList let i = index" class='d-flex'>
+                      <td class="col-1 text-center">{{i + 1}}</td>
+                      <td class="col-3 text-center">{{item.qlfctnCriteriaName}}</td>
+                      <td class="col-3 text-center">{{item.qlfctnCriteriaReqdLvl}}</td>
+                      <td class="col-3 text-center">{{item.applcntQlfctnCriteriaLvl}}</td>
+                      <td class="col-2">{{item.reqLevel}}</td>
+                    </tr>
+                    <tr>
+                      <td><label><b>Certifiation</b></label></td>
+                    </tr>
+                    <tr *ngFor="let item of certDetailList let i = index" class='d-flex'>
+                      <td class="col-1 text-center">{{i + 1}}</td>
+                      <td class="col-3 text-center">{{item.qlfctnCriteriaName}}</td>
+                      <td class="col-3 text-center">{{item.qlfctnCriteriaReqdLvl}}</td>
+                      <td class="col-3 text-center">{{item.applcntQlfctnCriteriaLvl}}</td>
+                      <td class="col-2">{{item.reqLevel}}</td>
+                    </tr>
+                    <tr>
+                      <td><label><b>Experience</b></label></td>
+                    </tr>
+                    <tr *ngFor="let item of expDetailList let i = index" class='d-flex'>
                       <td class="col-1 text-center">{{i + 1}}</td>
                       <td class="col-3 text-center">{{item.qlfctnCriteriaName}}</td>
                       <td class="col-3 text-center">{{item.qlfctnCriteriaReqdLvl}}</td>
@@ -623,12 +688,14 @@
         <div class="row">
           <div class="col-md-6">
             <br />
-            <p-dropdown class="fullwidth" [options]="status" [(ngModel)]="cmbStatus" placeholder="Status"
-              optionLabel="sName" [style]="{'width':'100%'}"></p-dropdown>
+            <p-dropdown placeholder="Select Status" 
+            [options]="statusList" [(ngModel)]="cmbStatus" [showClear]="true"></p-dropdown>
+            <!-- <p-dropdown class="fullwidth" [options]="status" [(ngModel)]="cmbStatus" 
+            placeholder="Status" [style]="{'width':'100%'}"></p-dropdown> -->
           </div>
           <div class="col-md-6">
-            <mat-form-field class="fullwidth">
-              <input matInput placeholder="Number" [(ngModel)]="txtNumber" required>
+            <mat-form-field class="fullwidth" *ngIf="hideNumber">
+              <input matInput type="number" placeholder="Number" [(ngModel)]="txtNumber" required>
             </mat-form-field>
           </div>
         </div>

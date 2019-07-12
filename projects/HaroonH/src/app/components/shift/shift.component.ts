@@ -11,6 +11,13 @@ export class ShiftComponent implements OnInit {
 
   serverUrl = "http://localhost:3006/";
 
+  p = 1;
+  //pGroup = 1;
+  // order = 'info.name';
+  // reverse = false;
+  // sortedCollection: any[];
+  itemPerPage = '10';
+
   cmbShift = "";
   cmbDepartment = "";
   startTime = "";
@@ -121,6 +128,13 @@ export class ShiftComponent implements OnInit {
   }
   saveShift(){
     
+    // alert(this.startTime);
+    // var startHour = (this.startTime).getHours();
+    var startTime = new Date("01/01/2019 " + "19:25").getHours();
+    var endTime = new Date("01/01/2007 " + this.endTime).getHours();
+    var hourDiff = startTime - endTime;
+
+    // alert(startTime);return;
     if (this.cmbShift == '') {
       this.toastr.errorToastr('Please select Shift', 'Error', { toastTimeout: (2500) });
       return;

@@ -1,3 +1,106 @@
-<p>
-  hrdashboard works!
-</p>
+<!-- start menubar buttons -->
+<div class="topnav boxShadow">
+  <div>
+    <!--class="container" -->
+    <span class="fa iconContainer">
+      <span class="fa icon-hr-dashboard" > </span>
+    </span>
+    <h1> HR Dashboard</h1>
+  </div>
+</div>
+<!-- end menubar buttons -->
+<br />
+
+<!--container row-->
+<div class="container">
+  <!--box row-->
+  <div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-indigo hover-expand-effect">
+        <div class="icon">
+          <i class="fa fa-users"></i>
+        </div>
+        <div class="content">
+          <div class="text">Employees</div>
+          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblEmployees}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-orange hover-expand-effect">
+        <div class="icon">
+          <i class="fa fa-line-chart"></i>
+        </div>
+        <div class="content">
+          <div class="text">Permanent</div>
+          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblPermanent}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-cyan hover-expand-effect">
+        <div class="icon">
+          <i class="fa fa-sign-out"></i>
+        </div>
+        <div class="content">
+          <div class="text">Contractual</div>
+          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblContractual}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-light-green hover-expand-effect">
+        <div class="icon">
+          <i class="fa fa-gears"></i>
+        </div>
+        <div class="content">
+          <div class="text">Job Profile</div>
+          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblJobProfile}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end box row-->
+  <br />
+  <!--chart row-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class=" shadow-md" [chart]="Type_Bar_Chart" style=" height: 200px;width:100%;"></div>
+    </div>
+  </div>
+  <!--end chart row-->
+  <br />
+  <!--chart and bar row-->
+  <div class="row">
+    <div class="col-md-6">
+      <div class=" shadow-md" [chart]="Column_Chart" style=" height: 100%;width:100%;"></div>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <div class=" shadow-md" [chart]="Gender_Bar_Chart" style=" height: 200px;width:100%;"></div>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-12">
+          <div class=" shadow-md" [chart]="Vacancy_Bar_Chart" style=" height: 200px;width:100%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end chart and bar row-->
+  <br />
+  <!--3rd chart row-->
+  <div class="row">
+    <div class="col-md-6">
+      <div class=" shadow-md" [chart]="Off_Column_Chart" style=" height: 250px;width:100%;"></div>
+    </div>
+    <div class="col-md-6">
+      <div class=" shadow-md" [chart]="Dept_Column_Chart" style=" height: 250px;width:100%;"></div>
+    </div>
+  </div>
+  <!--end 3rd chart row-->
+</div>
+<!--end container row-->
+<br />

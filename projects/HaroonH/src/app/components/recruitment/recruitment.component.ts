@@ -8,10 +8,10 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 declare var $: any;
 
 //use in status combobox
-export interface Status {
-  sId: string;
-  sName: string;
-}
+// export interface Status {
+//   value: Integer;
+//   sName: string;
+// }
 
 //use in Officer combobox
 export interface Officer {
@@ -32,9 +32,9 @@ export class RecruitmentComponent implements OnInit {
   Line_chart: Chart;
 
   //use in status combobox
-  status: Status[] = [
-    { sId: '1', sName: 'Accept' },
-    // { sId: '2', sName: 'Reject' },
+  statusList = [
+    { value: '1', label: 'Accept' },
+    { value: '2', label: 'Reject' }//,
     // { sId: '3', sName: 'Short List' },
     // { sId: '4', sName: 'Waiting' }
   ]
@@ -55,6 +55,7 @@ export class RecruitmentComponent implements OnInit {
     { oId: '4', oName: 'Moin' }
   ]
 
+  hideNumber = true;
   cmbTestThrough = '';
   cmbCType = '';
   cmbStatus = '';
@@ -95,7 +96,9 @@ export class RecruitmentComponent implements OnInit {
   interviewDetailList = [];
 
   skillDetailList = [];
-
+  qualDetailList = [];
+  certDetailList = [];
+  expDetailList = [];
   
   constructor(
     private _formBuilder: FormBuilder,
@@ -133,7 +136,7 @@ export class RecruitmentComponent implements OnInit {
         text: 'Graph'
       },
       xAxis: {
-        categories: ['English', 'VB.Net']
+        categories: ['Required Skill', 'Maximum Skill']
       },
       yAxis: {
         title: {
@@ -164,11 +167,140 @@ export class RecruitmentComponent implements OnInit {
     });
   }
 
-  getStepperID(item, appID) {
+  getStepperID(item, appID, itemObj) {
+
+    this.cmbStatus = '';
+    this.txtNumber = '0';
+    this.txtRemarks = '';
+    this.statusList = []
+    this.statusList = [
+      {value: '1', label: 'Accept'},
+      {value: '2', label: 'Reject'}
+    ];
+    
     this.lblStepperID = item;
     this.lblApplicantID = appID;
 
+    if(item == 1){
+      this.hideNumber = true;
+      for(var i = 0; i < this.applicantList.length;i++){
+
+        if(appID == this.applicantList[i].appID){
+          var statusValue = 0;
+          if(this.applicantList[i].appStatus == 'ShortList'){
+            statusValue = 1;
+            this.cmbStatus = statusValue.toString();
+          }
+
+          this.txtNumber = '0';
+          this.txtRemarks = '';
+          
+          i = this.applicantList.length + 1;
+        }
+      }
+    }else if (item == 2){
+      this.hideNumber = false;
+
+      for(var i = 0; i < this.shortListTest.length;i++){
+
+        if(appID == this.shortListTest[i].appID){
+          var statusValue = 0;
+          if(this.shortListTest[i].appStatus == 'Short List'){
+            statusValue = 1;
+            this.cmbStatus = statusValue.toString();
+            
+            this.txtNumber = '0';
+            this.txtRemarks = this.shortListTest[i].remarks;
+            
+          }
+
+          i = this.shortListTest.length + 1;
+        }
+      }
+    }else if (item == 3){
+      this.hideNumber = false;
+
+      for(var i = 0; i < this.testList.length;i++){
+
+        if(appID == this.testList[i].appID){
+          var statusValue = 0;
+          if(this.testList[i].appStatus == 'ShortList'){
+            statusValue = 1;
+            this.cmbStatus = statusValue.toString();
+            
+            this.txtNumber = '0';
+            this.txtRemarks = this.testList[i].remarks;
+            
+          }
+
+          i = this.testList.length + 1;
+        }
+      }
+    }else if (item == 4){
+      this.hideNumber = false;
+
+      for(var i = 0; i < this.shortListInterview.length;i++){
+
+        if(appID == this.shortListInterview[i].appID){
+          var statusValue = 0;
+          if(this.shortListInterview[i].appStatus == 'Short List'){
+            statusValue = 1;
+            this.cmbStatus = statusValue.toString();
+            
+            this.txtNumber = '0';
+            this.txtRemarks = this.shortListInterview[i].remarks;
+            
+          }
+
+          i = this.shortListInterview.length + 1;
+        }
+      }
+    }else if (item == 5){
+      this.hideNumber = false;
+
+      for(var i = 0; i < this.interviewList.length;i++){
+
+        if(appID == this.interviewList[i].appID){
+          var statusValue = 0;
+          if(this.interviewList[i].appStatus == 'Short List'){
+            statusValue = 1;
+            this.cmbStatus = statusValue.toString();
+            
+            this.txtNumber = '0';
+            this.txtRemarks = this.interviewList[i].remarks;
+            
+          }
+
+          i = this.interviewList.length + 1;
+        }
+      }
+    }else if (item == 6){
+      this.hideNumber = false;
+      this.statusList = []
+      this.statusList = [
+        {value: '1', label: 'Accept'}
+      ];
+
+      for(var i = 0; i < this.appointmentList.length;i++){
+
+        if(appID == this.appointmentList[i].appID){
+          var statusValue = 0;
+          if(this.appointmentList[i].appStatus == 'Completed'){
+            statusValue = 1;
+            this.cmbStatus = statusValue.toString();
+            
+            this.txtNumber = '0';
+            // this.txtRemarks = this.appointmentList[i].remarks;
+            
+          }
+
+          i = this.appointmentList.length + 1;
+        }
+      }
+    }
+
     if (item == 6) {
+      
       for (var i = 0; i < this.appointmentList.length; i++) {
         if (appID == this.appointmentList[i].appID) {
           this.lblJPLocCd = this.appointmentList[i].jobPostLocationCd;
@@ -182,6 +314,8 @@ export class RecruitmentComponent implements OnInit {
 
   saveStatus() {
 
+    // alert(this.cmbStatus);
+
     if (this.cmbStatus == '') {
       this.toastr.errorToastr('Please select Status', 'Error', { toastTimeout: (2500) });
       return;
@@ -194,10 +328,16 @@ export class RecruitmentComponent implements OnInit {
     } else {
 
       if (this.lblStepperID == 1) {
+        if (this.txtNumber > '10') {
+          this.toastr.errorToastr('Marks is Less than 10!', 'Error', { toastTimeout: (2500) });
+          return;
+        }
+        this.app.showSpinner();
+
         var saveData = {
           applicantID: this.lblApplicantID,
           jpVcncyCd: localStorage.getItem('jobPostVcncyID'),
-          // status: this.cmbStatus,
+          status: this.cmbStatus,
           marks: this.txtNumber,
           remarks: this.txtRemarks
         };
@@ -210,22 +350,36 @@ export class RecruitmentComponent implements OnInit {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#statusModal').modal('hide');
-            //this.app.hideSpinner();
+            this.app.hideSpinner();
+            this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
+            return false;
+          } else if (data.msg == "Record Updated Successfully!") {
+            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+            this.clear();
+            $('#statusModal').modal('hide');
+            this.app.hideSpinner();
             this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
             return false;
           } else {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             //$('#companyModal').modal('hide');
-            //this.app.hideSpinner();
+            this.app.hideSpinner();
             return false;
           }
         });
 
       } else if (this.lblStepperID == 2) {
+        if (this.txtNumber > '10') {
+          this.toastr.errorToastr('Marks is Less than 10!', 'Error', { toastTimeout: (2500) });
+          return;
+        }
+
+        this.app.showSpinner();
+
         var saveData = {
           applicantID: this.lblApplicantID,
           jpVcncyCd: localStorage.getItem('jobPostVcncyID'),
-          // status: this.cmbStatus,
+          status: this.cmbStatus,
           marks: this.txtNumber,
           remarks: this.txtRemarks
         };
@@ -238,22 +392,32 @@ export class RecruitmentComponent implements OnInit {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#statusModal').modal('hide');
-            //this.app.hideSpinner();
+            this.app.hideSpinner();
+            this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
+            return false;
+          } else if (data.msg == "Record Updated Successfully!") {
+            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+            this.clear();
+            $('#statusModal').modal('hide');
+            this.app.hideSpinner();
             this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
             return false;
           } else {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             //$('#companyModal').modal('hide');
-            //this.app.hideSpinner();
+            this.app.hideSpinner();
             return false;
           }
         });
 
       } else if (this.lblStepperID == 3) {
+        
+        this.app.showSpinner();
+
         var saveData = {
           applicantID: this.lblApplicantID,
           jpVcncyCd: localStorage.getItem('jobPostVcncyID'),
-          // status: this.cmbStatus,
+          status: this.cmbStatus,
           marks: this.txtNumber,
           remarks: this.txtRemarks
         };
@@ -266,22 +430,36 @@ export class RecruitmentComponent implements OnInit {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#statusModal').modal('hide');
-            //this.app.hideSpinner();
+            this.app.hideSpinner();
+            this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
+            return false;
+          } else if (data.msg == "Record Updated Successfully!") {
+            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+            this.clear();
+            $('#statusModal').modal('hide');
+            this.app.hideSpinner();
             this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
             return false;
           } else {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             //$('#companyModal').modal('hide');
-            //this.app.hideSpinner();
+            this.app.hideSpinner();
             return false;
           }
         });
 
       } else if (this.lblStepperID == 4) {
+        if (this.txtNumber > '10') {
+          this.toastr.errorToastr('Marks is Less than 10!', 'Error', { toastTimeout: (2500) });
+          return;
+        }
+
+        this.app.showSpinner();
+
         var saveData = {
           applicantID: this.lblApplicantID,
           jpVcncyCd: localStorage.getItem('jobPostVcncyID'),
-          // status: this.cmbStatus,
+          status: this.cmbStatus,
           marks: this.txtNumber,
           remarks: this.txtRemarks
         };
@@ -294,22 +472,32 @@ export class RecruitmentComponent implements OnInit {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#statusModal').modal('hide');
-            //this.app.hideSpinner();
+            this.app.hideSpinner();
+            this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
+            return false;
+          } else if (data.msg == "Record Updated Successfully!") {
+            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+            this.clear();
+            $('#statusModal').modal('hide');
+            this.app.hideSpinner();
             this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
             return false;
           } else {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             //$('#companyModal').modal('hide');
-            //this.app.hideSpinner();
+            this.app.hideSpinner();
             return false;
           }
         });
 
       } else if (this.lblStepperID == 5) {
+        
+        this.app.showSpinner();
+
         var saveData = {
           applicantID: this.lblApplicantID,
           jpVcncyCd: localStorage.getItem('jobPostVcncyID'),
-          // status: this.cmbStatus,
+          status: this.cmbStatus,
           marks: this.txtNumber,
           remarks: this.txtRemarks
         };
@@ -322,18 +510,28 @@ export class RecruitmentComponent implements OnInit {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#statusModal').modal('hide');
-            //this.app.hideSpinner();
+            this.app.hideSpinner();
+            this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
+            return false;
+          } else if (data.msg == "Record Updated Successfully!") {
+            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+            this.clear();
+            $('#statusModal').modal('hide');
+            this.app.hideSpinner();
             this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
             return false;
           } else {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             //$('#companyModal').modal('hide');
-            //this.app.hideSpinner();
+            this.app.hideSpinner();
             return false;
           }
         });
 
       } else if (this.lblStepperID == 6) {
+        
+        this.app.showSpinner();
+
         var saveAppoint = {
           applicantID: this.lblApplicantID,
           jpVcncyCd: localStorage.getItem('jobPostVcncyID'),
@@ -352,13 +550,20 @@ export class RecruitmentComponent implements OnInit {
             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
             this.clear();
             $('#statusModal').modal('hide');
-            //this.app.hideSpinner();
+            this.app.hideSpinner();
+            this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
+            return false;
+          } else if (data.msg == "Record Updated Successfully!") {
+            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+            this.clear();
+            $('#statusModal').modal('hide');
+            this.app.hideSpinner();
             this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
             return false;
           } else {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
             //$('#companyModal').modal('hide');
-            //this.app.hideSpinner();
+            this.app.hideSpinner();
             return false;
           }
         });
@@ -370,9 +575,15 @@ export class RecruitmentComponent implements OnInit {
   getSkillDetail(item, name){
     
     this.skillDetailList = [];
+    this.qualDetailList = [];
+    this.certDetailList = [];
+    this.expDetailList = [];
+  
     this.lblApplicantName = '';
     
     this.lblApplicantName = name;
+
+    this.app.showSpinner();
 
     //var Token = localStorage.getItem(this.tokenKey);
 
@@ -381,7 +592,21 @@ export class RecruitmentComponent implements OnInit {
 
     this.http.get(this.serverUrl + 'api/getSkillDetail?applicantID=' + item, { headers: reqHeader }).subscribe((data: any) => {
 
-      this.skillDetailList = data;
+      for(var i=0;i<data.length;i++){
+        if(data[i].qlfctnTypeName == 'Degree'){
+          this.qualDetailList.push(data[i]);
+        } else if(data[i].qlfctnTypeName == 'Certificate'){
+          this.certDetailList.push(data[i]);
+        } else if(data[i].qlfctnTypeName == 'Skills'){
+          this.skillDetailList.push(data[i]);
+        } else if(data[i].qlfctnTypeName == 'Experience'){
+          this.expDetailList.push(data[i]);
+        }
+      }
+
+      this.app.hideSpinner();
+
+      // this.skillDetailList = data;
 
       this.LineChart_init();
 
@@ -463,6 +688,7 @@ export class RecruitmentComponent implements OnInit {
             appID: data[i].applicantID,
             appName: data[i].fullName,
             marks: data[i].marks,
+            remarks: data[i].remarks,
             appStatus: status
           });
         } else {
@@ -475,6 +701,7 @@ export class RecruitmentComponent implements OnInit {
           this.interviewList.push({
             appID: data[i].applicantID,
             appName: data[i].fullName,
+            remarks: data[i].remarks,
             marks: data[i].marks,
             appStatus: status
           });
@@ -509,6 +736,7 @@ export class RecruitmentComponent implements OnInit {
             appName: data[i].fullName,
             screenMarks: data[i].screenMarks,
             testMarks: data[i].testMarks,
+            remarks: data[i].remarks,
             appStatus: status
           });
         } else {
@@ -522,6 +750,7 @@ export class RecruitmentComponent implements OnInit {
             appID: data[i].applicantID,
             appName: data[i].fullName,
             screenMarks: data[i].screenMarks,
+            remarks: data[i].remarks,
             testMarks: data[i].testMarks,
             appStatus: status
           });
@@ -551,7 +780,7 @@ export class RecruitmentComponent implements OnInit {
         var testThrough = "";
 
         if (data[i].obtainMarks == 0) {
-          testThrough = "Manual";
+          testThrough = "Web";
         } else {
           testThrough = "Web";
         }
@@ -563,6 +792,7 @@ export class RecruitmentComponent implements OnInit {
             test: testThrough,
             totalMarks: data[i].totalMarks,
             marks: data[i].obtainMarks,
+            remarks: data[i].remarks,
             appStatus: status
           });
         } else {
@@ -577,6 +807,7 @@ export class RecruitmentComponent implements OnInit {
             appName: data[i].fullName,
             test: testThrough,
             totalMarks: data[i].totalMarks,
+            remarks: data[i].remarks,
             marks: data[i].obtainMarks,
             appStatus: status
           });
@@ -614,7 +845,8 @@ export class RecruitmentComponent implements OnInit {
           appID: data[i].applicantID,
           appName: data[i].fullName,
           marks: data[i].marks,
-          appStatus: status
+          appStatus: status,
+          remarks: data[i].remarks
         });
       }
 
@@ -667,6 +899,8 @@ export class RecruitmentComponent implements OnInit {
 
   getInterviewDetail(item){
     
+    this.app.showSpinner();
+
     this.interviewDetailList = [];
     this.lblApplicantID = item;
     //var Token = localStorage.getItem(this.tokenKey);
@@ -674,7 +908,7 @@ export class RecruitmentComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    this.http.get(this.serverUrl + 'api/getInterviewPanel?jPVcncyID=' + localStorage.getItem('jobPostVcncyID'), { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get(this.serverUrl + 'api/getInterviewPanel?jPVcncyID=' + localStorage.getItem('jobPostVcncyID') + '&&applcntID=' + this.lblApplicantID, { headers: reqHeader }).subscribe((data: any) => {
 
       //this.interviewDetailList = data;
 
@@ -692,7 +926,9 @@ export class RecruitmentComponent implements OnInit {
           marks: data[i].marks
         });
       }
-
+      
+      this.app.hideSpinner();
+    
     });
 
   }
@@ -705,11 +941,15 @@ export class RecruitmentComponent implements OnInit {
     }else{
 
       for(var i=0;i<this.interviewDetailList.length;i++){
-        if(this.interviewDetailList[i].marks == '' || this.interviewDetailList[i].marks == 0){
+        if(this.interviewDetailList[i].marks == '' 
+        || this.interviewDetailList[i].marks == 0
+        || this.interviewDetailList[i].marks == null){
           this.toastr.errorToastr('Please Enter Marks!', 'Error!', { toastTimeout: (2500) });
           return;
         }
       }
+
+      this.app.showSpinner();
 
       var saveData = {
         interviewDetail: JSON.stringify(this.interviewDetailList),
@@ -725,13 +965,13 @@ export class RecruitmentComponent implements OnInit {
           this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
           this.clear();
           $('#interviewModal').modal('hide');
-          //this.app.hideSpinner();
+          this.app.hideSpinner();
           this.onVcncySelect(localStorage.getItem('jobPostVcncyID'));
           return false;
         } else {
           this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
           //$('#companyModal').modal('hide');
-          //this.app.hideSpinner();
+          this.app.hideSpinner();
           return false;
         }
       });

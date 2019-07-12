@@ -80,17 +80,21 @@
     </table>
     <!-- Pagination Starts -->
     <div class="row tab-margin">
-      <div class="col-md-10">
-        <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
+      <div class="col-md-11 text-right">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </div>
-      <div class="col-md-2 text-right">
+      <div class="col-md-1">
         <mat-form-field class="fullwidth pagenateList">
           <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
-            <mat-option value="5">5</mat-option>
             <mat-option value="10">10</mat-option>
+            <mat-option value="15">15</mat-option>
+            <mat-option value="20">20</mat-option>
             <mat-option value="25">25</mat-option>
+            <mat-option value="30">30</mat-option>
+            <mat-option value="35">35</mat-option>
+            <mat-option value="40">40</mat-option>
+            <mat-option value="45">45</mat-option>
             <mat-option value="50">50</mat-option>
-            <mat-option value="100">100</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -163,7 +167,12 @@
       <!--start Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Number of Questions</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div>
+          <!-- <button *ngIf="!updateFlag" type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Save</button>
+          <button *ngIf="updateFlag" type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Update</button> -->
+
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+      </div>
       </div>
       <!--end Modal Header -->
 
@@ -214,11 +223,11 @@
                         {{item.answer}}
                       </td>
                       <td class='col-1 text-center'>
-                        <span class="fa fa-edit pointerCursor" (click)="editQuestion(item)" data-toggle="modal"
+                        <span class="fa fa-edit pointerCursor text-primary" (click)="editQuestion(item)" data-toggle="modal"
                           data-target="#addQuestionsModal"></span>
                       </td>
                       <td class='col-1 text-center'>
-                        <span class="fa fa-trash pointerCursor" (click)="deleteQuestion(item)" data-toggle="modal"
+                        <span class="fa fa-trash pointerCursor text-danger" (click)="deleteQuestion(item)" data-toggle="modal"
                           data-target="#deleteModal"></span>
                       </td>
                     </tr>
@@ -253,7 +262,12 @@
       <!--start Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Job Profile</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveJobProfile()"><span class="fa fa-save"></span> &nbsp;Save</button>
+          <!-- <button *ngIf="updateFlag" type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Update</button> -->
+
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+      </div>
       </div>
       <!--end Modal Header -->
 
@@ -272,7 +286,7 @@
           <div class="col-md-5">
             <mat-form-field>
               <mat-select placeholder="Job Profile" [(ngModel)]="jobProfile">
-                <mat-option *ngFor="let item of jobDesigList" [value]="item.jobDesigID">
+                <mat-option *ngFor="let item of jobDesigList | orderBy: 'item.jobDesigName'" [value]="item.jobDesigID">
                   {{item.jobDesigName}}
                 </mat-option>
               </mat-select>
@@ -309,11 +323,11 @@
         </div>
         <br />
         <!--start row 2  -->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-12">
             <button mat-raised-button color="primary" (click)="saveJobProfile()">Save</button>
           </div>
-        </div>
+        </div> -->
         <!--end row 2-->
 
         <hr />
@@ -321,30 +335,30 @@
         <h4>Saved Data</h4>
 
         <!--start table row-->
-        <div class="example-container mat-elevation-z8">
-          <div class="example-table-container">
-            <table class="table table-striped">
-              <thead>
-                <tr class='d-flex'>
-                  <th class='col-1'>Sr #</th>
-                  <th class='col-9'>Job Profile</th>
-                  <th class='col-2 text-center'>Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                <tr class='d-flex' *ngFor="let item of jobProfileList let i=index">
-                  <td class='col-1'>{{i+1}}</td>
-                  <td class='col-9'>{{item.jobDesigName}}</td>
-                  <td class='col-2 text-center'>
-                    <span class="fa fa-trash pointerCursor" (click)="deleteJobProfile(item)" data-toggle="modal"
-                      data-target="#deleteModal"></span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <!-- <div class="example-container mat-elevation-z8"> -->
+        <div class="example-table-container">
+          <table class="table table-striped">
+            <thead>
+              <tr class='d-flex'>
+                <th class='col-1'>Sr #</th>
+                <th class='col-9'>Job Profile</th>
+                <th class='col-2 text-center'>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+              <tr class='d-flex' *ngFor="let item of jobProfileList let i=index">
+                <td class='col-1'>{{i+1}}</td>
+                <td class='col-9'>{{item.jobDesigName}}</td>
+                <td class='col-2 text-center'>
+                  <span class="fa fa-trash pointerCursor" (click)="deleteJobProfile(item)" data-toggle="modal"
+                    data-target="#deleteModal"></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+        <!-- </div> -->
         <!--end table row-->
         <br />
       </div>
@@ -369,7 +383,12 @@
       <!--start Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Add Questions</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveQuestion()"><span class="fa fa-save"></span> &nbsp;Save</button>
+          <!-- <button *ngIf="updateFlag" type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Update</button> -->
+
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+      </div>
       </div>
       <!--end Modal Header -->
 
@@ -390,7 +409,7 @@
         <div class="row">
           <div class="col-md-12">
             <mat-form-field>
-              <input matInput placeholder="Question Marks" [(ngModel)]="quesMarks">
+              <input matInput type="number" placeholder="Question Marks" [(ngModel)]="quesMarks">
             </mat-form-field>
           </div>
         </div>
@@ -441,11 +460,11 @@
         <!--end row 2-->
 
         <!--start row 3-->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-12">
             <button mat-raised-button color="primary" (click)="saveQuestion()">Save</button>
           </div>
-        </div>
+        </div> -->
         <!--end row 3-->
 
       </div>
@@ -470,7 +489,12 @@
       <!--start Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Add Subject</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveSubject()"><span class="fa fa-save"></span> &nbsp;Save</button>
+          <!-- <button *ngIf="updateFlag" type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Update</button> -->
+
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+      </div>
       </div>
       <!--end Modal Header -->
 
@@ -496,11 +520,11 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-6">
             <button mat-raised-button color="primary" (click)="saveSubject()">Save</button>
           </div>
-        </div>
+        </div> -->
         <!--end row #2-->
 
       </div>

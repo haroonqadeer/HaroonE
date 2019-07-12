@@ -1,0 +1,171 @@
+<!-- start menubar buttons -->
+<div class="topnav boxShadow">
+  <div>
+    <!--class="container" -->
+    <span class="fa iconContainer">
+      <span class="fa icon-hr-jobprofile" > </span>
+    </span>
+    <h1> Employee Shift</h1>
+
+    <!-- (click)="downloadExcel()" -->
+    <!-- <a class="pointerCursor">
+      <i class="fa fa-file-excel-o"></i>
+      Excel
+    </a> -->
+
+    <!-- (click)="downloadCSV()" -->
+    <!-- <a class="pointerCursor">
+      <i class="fa fa-file-text-o"></i>
+      CSV
+    </a> -->
+
+    <!-- (click)="downPDF()" -->
+    <!-- <a class="pointerCursor">
+      <i class="fa fa-file-pdf-o"></i>
+      PDF
+    </a> -->
+
+    <!-- (click)="printDiv()" -->
+    <!-- <a class="pointerCursor">
+      <i class="fa fa-print"></i>
+      Print
+    </a> -->
+
+  </div>
+</div>
+<!-- end menubar buttons -->
+<br/>
+
+<div class="myContainer mat-elevation-z8 bgWhite">
+    
+  <div class="row">
+    <div class="offset-md-1 col-md-3">
+      <mat-form-field class="fullwidth">
+        <mat-select placeholder="Branch" [(ngModel)]="officeName" (ngModelChange)="onBranchChange($event)">
+          <mat-option *ngFor="let item of officeList" [value]="item.locationCd">{{item.locationName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field class="fullwidth">
+        <mat-select placeholder="Department" [(ngModel)]="departmentName" (ngModelChange)="onDepartmentChange($event)">
+          <mat-option *ngFor="let item of departmentList" [value]="item.deptCd">{{item.deptName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field class="fullwidth">
+        <mat-select placeholder="Designation" [(ngModel)]="designationName" (ngModelChange)="onDesignationChange($event)">
+          <mat-option *ngFor="let item of designationList" [value]="item.jobDesigID">{{item.jobDesigName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <br/>
+
+  <!--Start search textbox Row-->
+  <div class="row">
+    <div class="col-md-12">
+      <!-- <mat-form-field class="fullwidth">
+        <mat-icon matPrefix ><i class='fa fa-search'></i></mat-icon>
+        <input matInput >
+      </mat-form-field> -->
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="shiftSearch">
+      </div>
+    </div>
+  </div>
+  <!--end search textbox Row-->
+  <br/>
+
+  
+  <!--start table row-->
+  <div class="row">
+
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr class='d-flex'>
+            <th class='col-1 text-center'>Sr #</th>
+              <th class='col-2' [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')">
+                Employee Name
+                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+              </th>
+
+              <th class='col-2' [class.active]="order === 'jobDesigName'" (click)="setOrder('jobDesigName')">
+                Designation
+                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+              </th>
+
+              <th class='col-2'> <!-- [class.active]="order === 'shift'" (click)="setOrder('shift')"> -->
+                Shift
+                <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span> -->
+                <!-- <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
+              </th>
+
+              <th class='col-2' [class.active]="order === 'branch'" (click)="setOrder('branch')">
+                From Date
+                <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
+              </th>
+
+              <th class='col-2 text-center' [class.active]="order === 'department'" (click)="setOrder('department')">
+                To Date
+                <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
+              </th>
+              <th class='col-1 text-center'>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+          <tr class='d-flex'
+            *ngFor="let item of employeeShift 
+                    | search:'indvdlFullName,jobDesigName':shiftSearch 
+                    | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' } 
+                    | orderBy: order:reverse:'case-insensitive' let i=index">
+            <td class='col-1 text-center'>{{i+1}}</td>
+            <td class='col-2'>{{item.indvdlFullName}}</td>
+            <td class='col-2'>{{item.jobDesigName}}</td>
+            <td class='col-2'>
+              <p-dropdown [options]="shiftList" [(ngModel)]="item.shiftCd" optionLabel="shiftName"></p-dropdown>
+            </td>
+            <td class='col-2'>
+              <p-calendar [(ngModel)]="item.fromDate"></p-calendar>
+            </td>
+            <td class='col-2 text-center'>
+              <p-calendar [(ngModel)]="item.toDate"></p-calendar>
+            </td>
+            <td class='col-1 text-center'>
+              <span class="fa fa-plus pointerCursor" (click)="saveEmployeeShift(item)"></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Pagination Starts -->
+      <div class="row tab-margin">
+        <div class="col-md-10">
+          <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
+        </div>
+        <div class="col-md-2 text-right">
+          <mat-form-field class="fullwidth pagenateList">
+            <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
+              <mat-option value="5">5</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="25">25</mat-option>
+              <mat-option value="50">50</mat-option>
+              <mat-option value="100">100</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- Pagination Ends -->
+      </div>
+    </div>
+    <!--end table row-->
+  </div>
+
+</div>
+<br/>

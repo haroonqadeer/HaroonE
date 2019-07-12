@@ -18,8 +18,8 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-    serverUrl = "http://192.168.200.52:1001/";
-    //serverUrl = "http://localhost:23145/";
+    // serverUrl = "http://192.168.200.52:1001/";
+    serverUrl = "http://localhost:3004/";
     //serverUrl = "http://192.168.200.19:3006/";
     tokenKey = "token";
 

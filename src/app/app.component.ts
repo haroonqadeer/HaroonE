@@ -18,7 +18,7 @@ declare var $: any;
 export class AppComponent {
 
     //serverUrl = "http://192.168.200.19:3009/";
-    serverUrl = "http://localhost:23145/";
+    serverUrl = "http://localhost:3004/";
     tokenKey = "token";
 
     httpOptions = {

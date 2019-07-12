@@ -23,8 +23,9 @@ import { ShiftComponent } from './components/shift/shift.component';
 
 import { TrainingComponent } from './components/training/training.component';
 import { TrainingemployeeComponent } from './components/trainingemployee/trainingemployee.component';
-
 import { AttendanceComponent } from './components/attendance/attendance.component';
+import { EmployeeShiftComponent } from './components/employee-shift/employee-shift.component';
+import { AttendanceDashboardComponent } from './components/attendance-dashboard/attendance-dashboard.component';
 
 const routes: Routes = [
   // {
@@ -36,7 +37,11 @@ const routes: Routes = [
   //   component: IntroPageComponent,
   // },
   {
-    path: 'HR/dashboard',
+    path: 'HR/attendancedashboard',
+    component: AttendanceDashboardComponent
+  },
+  {
+    path: 'HR/hrdashboard',
     component: HrdashboardComponent
   },
   {
@@ -50,6 +55,10 @@ const routes: Routes = [
   {
     path: 'HR/shift',
     component: ShiftComponent
+  },
+  {
+    path: 'HR/employeeShift',
+    component: EmployeeShiftComponent
   },
   {
     path: 'HR/recruitment',

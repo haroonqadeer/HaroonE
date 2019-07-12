@@ -47,12 +47,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="d-flex" *ngFor="let item of deptShiftList let i=index">
+        <tr class="d-flex" *ngFor="let item of deptShiftList | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' } let i=index">
             <td class="col-1 text-center">{{i + 1}}</td>
             <td class="col-2 text-center">{{item.shiftName}}</td>
             <td class="col-3 text-center">{{item.deptCd}}</td>
-            <td class="col-2 text-center">{{item.startTime| date: "h:mm a"}}</td>
-            <td class="col-2 text-center">{{item.endTime| date: "h:mm a"}}</td>
+            <td class="col-2 text-center">{{item.startTime}}</td>
+            <td class="col-2 text-center">{{item.endTime}}</td>
             <td class="col-1 text-center">-</td>
             <td class="col-1 text-center">
               <span class="fa fa-list-alt pointerCursor" data-toggle="modal" data-target="#shiftDetailModal" (click)="getDepartmentShiftDetail(item.shiftCd, item.shiftName, item.startTime, item.endTime)"></span>
@@ -79,6 +79,23 @@
         </tr>
       </tbody>
     </table>
+      <!-- Pagination Starts -->
+      <div class="row tab-margin">
+        <div class="col-md-10">
+          <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
+        </div>
+        <div class="col-md-2 text-right">
+          <mat-form-field class="fullwidth pagenateList">
+            <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
+              <mat-option value="5">5</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="25">25</mat-option>
+              <mat-option value="50">50</mat-option>
+              <mat-option value="100">100</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- Pagination Ends -->
   </div>
   <!--end table row-->
 </div>

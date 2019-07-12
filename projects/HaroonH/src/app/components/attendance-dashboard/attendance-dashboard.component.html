@@ -1,0 +1,101 @@
+<!-- start menubar buttons -->
+<div class="topnav boxShadow">
+  <div>
+    <!--class="container" -->
+    <span class="fa iconContainer">
+      <span class="fa icon-hr-dashboard" > </span>
+    </span>
+    <h1> Attendance Dashboard</h1>
+  </div>
+</div>
+<!-- end menubar buttons -->
+
+<br/>
+<div class="myContainer">
+  <!--box row-->
+  <div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-indigo hover-expand-effect">
+        <div class="icon">
+          <i class="fa fa-users"></i>
+        </div>
+        <div class="content">
+          <div class="text">Employees</div>
+          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblTotalEmp}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-orange hover-expand-effect">
+        <div class="icon">
+          <i class="fa fa-line-chart"></i>
+        </div>
+        <div class="content">
+          <div class="text">Present</div>
+          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblPresentEmp}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-cyan hover-expand-effect">
+        <div class="icon">
+          <i class="fa fa-sign-out"></i>
+        </div>
+        <div class="content">
+          <div class="text">Absent</div>
+          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblAbsentEmp}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-light-green hover-expand-effect">
+        <div class="icon">
+          <i class="fa fa-gears"></i>
+        </div>
+        <div class="content">
+          <div class="text">Late Comers</div>
+          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblLateComers}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br/>
+  <div class="row">
+    <div class="col-md-4">
+      <div class=" shadow-md" [chart]="Pie_Chart" style=" height: 20em;width:100%;"></div>
+      <!-- <div class=" shadow-md" [chart]="Column_Chart" style=" height: 100%;width:100%;"></div> -->
+    </div>
+    <div class="col-md-4 shadow-md mat-elevation-z8 bgWhite">
+      <div class="example-container">
+        <div class="example-table-container" style="height: 20em; overflow: scroll;">                      
+          <table class="table table-striped">
+            <thead>
+              <tr class='d-flex'>
+                <th class='col-1 text-center'>Sr #</th>
+                <th class='col-5'>Shift Name</th>
+                <th class='col-3 text-center'>Start Time</th>
+                <th class='col-3 text-center'>End TIme</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr class="d-flex"> -->
+              <tr *ngFor="let item of shiftList let i=index" class='d-flex'>
+                <td class='col-1 text-center'>{{i + 1}}</td> 
+                <td class='col-5'>{{item.shiftName}}</td>
+                <td class='col-3 text-center'>{{item.startTime}}</td>
+                <td class='col-3 text-center'>{{item.endTime}}</td>
+              </tr>
+    
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class=" shadow-md" [chart]="Column_Chart" style=" height: 20em;width:100%;"></div>
+    </div>
+  </div>
+  <br/>
+</div>

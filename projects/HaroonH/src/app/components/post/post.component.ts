@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-
 import { AppComponent } from 'src/app/app.component';
 
 declare var $: any;
@@ -68,6 +67,7 @@ export class PostComponent implements OnInit {
   posts = []
   jobPost = [];
   jobDesignation = [];
+  jobBpsList = [];
 
   public orgList = [];
   public orgChild = [];
@@ -100,43 +100,33 @@ export class PostComponent implements OnInit {
     this.getJobNature();
   }
 
-  // onNodeSelect(event) {
-
-  //   // this.clearPost();
-
-  //   // this.orgChartDesigName = event.node.label;
-  //   //alert(event.node.label)
-  //   //alert(this.chartData.length)
-  //   for (var i = 0; i < this.chartData.length; i++) {
-  //     if (this.orgChartDesigName == this.chartData[i].jobDesigName) {
-  //       this.orgChartBPSCd = String(this.chartData[i].payGradeCd);
-  //       this.orgChartDesigID = String(this.chartData[i].jobDesigID);
-  //       this.orgChartDeptCd = String(this.chartData[i].jobPostDeptCd);
-
-  //       i = this.chartData.length + 1;
-  //     }
-
-  //   }
-
-  //   $('#jobModal').modal('show');
-
-  // }
-
   onDeptChange(item) {
 
     this.clearJob();
+    
+    this.app.showSpinner();
 
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     this.http.get(this.serverUrl + 'api/getSection?DeptCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
 
       this.sections = data;
+      
+      this.app.hideSpinner();
+
     });
     
-    this.http.get(this.serverUrl + 'api/getDeptJobDesignation?deptCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
+    this.app.showSpinner();
+
+    this.http.get(this.serverUrl + 'api/getDeptJobDesignation?cmpnyID=' + 59 + '&&deptCd=' + item + '&&branch=' + this.officeName + '&&level=' + 1, { headers: reqHeader }).subscribe((data: any) => {
 
       this.jobPost = data;
+      
+      this.app.hideSpinner();
+
     });
+
+    this.app.showSpinner();
 
     this.http.get(this.serverUrl + 'api/getSectionPostQty?DeptCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
 
@@ -144,6 +134,9 @@ export class PostComponent implements OnInit {
         this.sectionQty = data[0].qty;
       else
         this.sectionQty = 0;
+        
+      this.app.hideSpinner();
+
     });
   }
 
@@ -152,39 +145,47 @@ export class PostComponent implements OnInit {
     this.clearJob();
     this.sectionName = item;
 
-    //alert(this.sectionQty);
-    // if (this.sectionQty == 0) {
-    //   this.cmbPost = true;
-    //   this.btnAddPost = true;
+    // alert(item);
+    this.app.showSpinner();
 
       var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-      this.http.get(this.serverUrl + 'api/getDeptJobDesignation?deptCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
+      this.http.get(this.serverUrl + 'api/getDeptJobDesignation?cmpnyID=' + 59 + '&&deptCd=' + item + '&&branch=' + this.officeName + '&&level=' + 2, { headers: reqHeader }).subscribe((data: any) => {
 
         this.jobPost = data;
+        
+        this.app.hideSpinner();
+
       });
-    // } else {
-    //   this.cmbPost = false;
-    //   this.btnAddPost = false;
-    // }
   }
 
   onBranchChange(item) {
+
+    this.app.showSpinner();
 
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     this.http.get(this.serverUrl + 'api/getDepartments?LocationCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
 
       this.departments = data;
+      
+      this.app.hideSpinner();
+
     });
   }
 
   onBPSChange(item) {
+    
+    this.app.showSpinner();
+
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     this.http.get(this.serverUrl + 'api/getDesignation?BPS=' + item, { headers: reqHeader }).subscribe((data: any) => {
 
       this.designations = data;
+      
+      this.app.hideSpinner();
+
     });
   }
 
@@ -198,30 +199,50 @@ export class PostComponent implements OnInit {
       return;
     } else if (this.sectionName == '') {
 
+      this.app.showSpinner();
+
       var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
       this.http.get(this.serverUrl + 'api/getOrgChartDept?deptCd=' + this.departmentName + '&locCd=' + this.officeName, { headers: reqHeader }).subscribe((data: any) => {
 
         this.data1 = data;
+        
+        this.app.hideSpinner();
+
       });
+
+      this.app.showSpinner();
 
       this.http.get(this.serverUrl + 'api/getOrgChart?deptCd=' + this.departmentName + '&locCd=' + this.officeName, { headers: reqHeader }).subscribe((data: any) => {
 
         this.chartData = data;
+        
+        this.app.hideSpinner();
+
       });
 
     } else {
+
+      this.app.showSpinner();
 
       var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
       this.http.get(this.serverUrl + 'api/getOrgChartSection?sectCd=' + this.sectionName + '&locCd=' + this.officeName, { headers: reqHeader }).subscribe((data: any) => {
 
         this.data1 = data;
+        
+        this.app.hideSpinner();
+
       });
+
+      this.app.showSpinner();
 
       this.http.get(this.serverUrl + 'api/getSecOrgChart?sectCd=' + this.sectionName + '&locCd=' + this.officeName, { headers: reqHeader }).subscribe((data: any) => {
 
         this.chartData = data;
+        
+        this.app.hideSpinner();
+
       });
 
     }
@@ -231,6 +252,8 @@ export class PostComponent implements OnInit {
   getPost() {
     //return false;
 
+    this.app.showSpinner();
+
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -239,11 +262,16 @@ export class PostComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getPost', { headers: reqHeader }).subscribe((data: any) => {
 
       this.posts = data;
+      
+      this.app.hideSpinner();
+
     });
   }
 
   getJobType() {
     //return false;
+
+    this.app.showSpinner();
 
     //var Token = localStorage.getItem(this.tokenKey);
 
@@ -253,11 +281,16 @@ export class PostComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getJobType', { headers: reqHeader }).subscribe((data: any) => {
 
       this.jobTypes = data;
+      
+      this.app.hideSpinner();
+
     });
   }
 
   getJobNature() {
     //return false;
+
+    this.app.showSpinner();
 
     //var Token = localStorage.getItem(this.tokenKey);
 
@@ -267,11 +300,16 @@ export class PostComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getJobNature', { headers: reqHeader }).subscribe((data: any) => {
 
       this.jobNatures = data;
+      
+      this.app.hideSpinner();
+
     });
   }
 
   getBPS() {
     //return false;
+
+    this.app.showSpinner();
 
     //var Token = localStorage.getItem(this.tokenKey);
 
@@ -281,11 +319,16 @@ export class PostComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getBPS', { headers: reqHeader }).subscribe((data: any) => {
 
       this.bpsList = data;
+      
+      this.app.hideSpinner();
+
     });
   }
 
   getOffices() {
     //return false;
+
+    this.app.showSpinner();
 
     //var Token = localStorage.getItem(this.tokenKey);
 
@@ -295,34 +338,33 @@ export class PostComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getBranches', { headers: reqHeader }).subscribe((data: any) => {
 
       this.offices = data;
+      
+      this.app.hideSpinner();
+
     });
   }
 
-  // addPost() {
-  //   if (this.officeName == '') {
-  //     this.toastr.errorToastr('Please select Office', 'Error', { toastTimeout: (2500) });
-  //     return;
-  //   } else if (this.departmentName == '') {
-  //     this.toastr.errorToastr('Please select Department', 'Error', { toastTimeout: (2500) });
-  //     return;
-  //   } else if (this.cmbPost == true && this.jobPostName == '') {
-  //     this.toastr.errorToastr('Please select Job Post', 'Error', { toastTimeout: (2500) });
-  //     return;
-  //   } else {
-
-  //     $('#jobModal').modal('show');
-  //   }
-  // }
-
   onJobChange(item){
     
-      for(var i = 0; i < this.jobPost.length; i++){
-        if(item == this.jobPost[i].jobDesigID){
-          this.lblJobDeptCd = this.jobPost[i].jobPostDeptCd;
-          i = this.jobPost.length + 1;
-        }
+    // this.jobBpsList = [];
+
+    for(var i = 0; i < this.jobPost.length; i++){
+      if(item == this.jobPost[i].jobDesigID){
+        this.lblJobDeptCd = this.jobPost[i].jobPostDeptCd;
+        i = this.jobPost.length + 1;
       }
-      
+    }
+    
+    
+    // for(var i = 0; i < this.bpsList.length; i++){
+    //   alert(item + ' - ' + this.bpsList[i].payGradeCd);
+    //   if(item < this.bpsList[i].payGradeCd){
+    //     this.jobBpsList.push({
+    //       payGradeCd: this.bpsList[i].payGradeCd,
+    //       payGradeName: this.bpsList[i].payGradeName
+    //     });
+    //   }
+    // }
   }
 
   editPost(item){
@@ -333,6 +375,8 @@ export class PostComponent implements OnInit {
     this.lblDeptCd = item.locCd;
     this.lblLocCd = item.deptCd;
 
+    this.app.showSpinner();
+
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -341,12 +385,17 @@ export class PostComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getJobDesignations?desigCd=' + item.desigCode + '&locCd=' + item.locCd + '&deptCd=' + item.deptCd, { headers: reqHeader }).subscribe((data: any) => {
 
       this.jobDesignation = data;
+      
+      this.app.hideSpinner();
+
     });
 
   }
 
   updatePost(item){
     
+    this.app.showSpinner();
+
     var saveData = {
       jobDesigName: item.jobDesigName,
       jobDesigID: item.jobDesigID
@@ -360,14 +409,14 @@ export class PostComponent implements OnInit {
         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
         this.getPost();
         $('#editPostModal').modal('hide');
-        //this.app.hideSpinner();
+        this.app.hideSpinner();
         this.clearJob();
         this.clear();
         return false;
       } else {
         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
         //$('#companyModal').modal('hide');
-        //this.app.hideSpinner();
+        this.app.hideSpinner();
         return false;
       }
     });
@@ -375,6 +424,8 @@ export class PostComponent implements OnInit {
   }
   
   deletePost(item){
+
+    this.app.showSpinner();
 
     var saveData = {
       jobPostDeptCd: this.lblDeptCd,
@@ -390,14 +441,14 @@ export class PostComponent implements OnInit {
         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
         this.getPost();
         $('#editPostModal').modal('hide');
-        //this.app.hideSpinner();
+        this.app.hideSpinner();
         this.clearJob();
         this.clear();
         return false;
       } else {
         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
         //$('#companyModal').modal('hide');
-        //this.app.hideSpinner();
+        this.app.hideSpinner();
         return false;
       }
     });
@@ -435,6 +486,8 @@ export class PostComponent implements OnInit {
         
         if (this.jobPostName == '') {
 
+          this.app.showSpinner();
+
           var saveData = {
             jobTypeCd: this.jobType,
             jobNatureCd: this.jobNature,
@@ -452,14 +505,14 @@ export class PostComponent implements OnInit {
             if (data.msg == "Record Saved Successfully!") {
               this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
               this.getPost();
-              //this.app.hideSpinner();
+              this.app.hideSpinner();
               this.clearJob();
               this.clear();
               return false;
             } else {
               this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
               //$('#companyModal').modal('hide');
-              //this.app.hideSpinner();
+              this.app.hideSpinner();
               return false;
             }
           });
@@ -475,6 +528,8 @@ export class PostComponent implements OnInit {
             this.toastr.errorToastr('BPS is Greater than Old Post BPS', 'Error', { toastTimeout: (2500) });
             return;
           }
+
+          this.app.showSpinner();
         
           var savedata = {
             jobTypeCd: this.jobType,
@@ -495,14 +550,14 @@ export class PostComponent implements OnInit {
             if (data.msg != undefined) {
               this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
               this.getPost();
-              //this.app.hideSpinner();
+              this.app.hideSpinner();
               this.clearJob();
               this.clear();
               return false;
             } else {
               this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
               //$('#companyModal').modal('hide');
-              //this.app.hideSpinner();
+              this.app.hideSpinner();
               return false;
             }
           });
@@ -525,6 +580,8 @@ export class PostComponent implements OnInit {
             return;
           } else {
 
+            this.app.showSpinner();
+
             var savedata = {
               jobTypeCd: this.jobType,
               jobNatureCd: this.jobNature,
@@ -546,14 +603,14 @@ export class PostComponent implements OnInit {
                 this.getPost();
                 //this.getOrganoGram();
                 //$('#jobModal').modal('hide');
-                //this.app.hideSpinner();
+                this.app.hideSpinner();
                 this.clearJob();
                 this.clear();
                 return false;
               } else {
                 this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                 //$('#companyModal').modal('hide');
-                //this.app.hideSpinner();
+                this.app.hideSpinner();
                 return false;
               }
             });

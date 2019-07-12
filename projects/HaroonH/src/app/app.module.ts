@@ -46,6 +46,8 @@ import { TrainingComponent } from './components/training/training.component';
 import { TrainingemployeeComponent } from './components/trainingemployee/trainingemployee.component';
 import { ShiftComponent } from './components/shift/shift.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
+import { EmployeeShiftComponent } from './components/employee-shift/employee-shift.component';
+import { AttendanceDashboardComponent } from './components/attendance-dashboard/attendance-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import { AttendanceComponent } from './components/attendance/attendance.componen
     TrainingComponent,
     TrainingemployeeComponent,
     ShiftComponent,
-    AttendanceComponent
+    AttendanceComponent,
+    EmployeeShiftComponent,
+    AttendanceDashboardComponent
   ],
   imports: [
     BrowserModule,
