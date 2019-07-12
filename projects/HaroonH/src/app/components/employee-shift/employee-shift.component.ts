@@ -50,6 +50,7 @@ export class EmployeeShiftComponent implements OnInit {
 
   getBranch(){
     
+    this.app.showSpinner();
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -58,12 +59,17 @@ export class EmployeeShiftComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getBranch', { headers: reqHeader }).subscribe((data: any) => {
 
       this.officeList = data;
+      
+      this.app.hideSpinner();
+
     });
 
   }
 
   getShift(){
     
+    this.app.showSpinner();
+
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -72,6 +78,9 @@ export class EmployeeShiftComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getShift', { headers: reqHeader }).subscribe((data: any) => {
 
       this.shiftList = data;
+
+      this.app.hideSpinner();
+
     });
 
   }
@@ -86,6 +95,8 @@ export class EmployeeShiftComponent implements OnInit {
 
   getEmployeeShift(){
     
+    this.app.showSpinner();
+
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -94,6 +105,9 @@ export class EmployeeShiftComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getEmployeeShift', { headers: reqHeader }).subscribe((data: any) => {
 
       this.employeeShift = data;
+
+      this.app.hideSpinner();
+
     });
 
   }
@@ -112,7 +126,7 @@ export class EmployeeShiftComponent implements OnInit {
 
   saveEmployeeShift(item){
 
-    alert(item.shiftCd)
+    // alert(item.shiftCd)
     // alert(item.toDate)
     if(item.fromDate.toString() > item.toDate.toString()){
       this.toastr.errorToastr("Select Correct Date!", 'Error!', { toastTimeout: (2500) });

@@ -27,8 +27,8 @@ export interface Officer {
 export class RecruitmentComponent implements OnInit {
 
   // serverUrl = "http://192.168.200.19:3014/";
-  // serverUrl = "http://localhost:3005/";
-  serverUrl = "http://localhost:9020/";
+  serverUrl = "http://localhost:3005/";
+  // serverUrl = "http://localhost:9020/";
 
   Line_chart: Chart;
 
@@ -72,6 +72,7 @@ export class RecruitmentComponent implements OnInit {
   lblStepperID = 0;
   lblApplicantID = 0;
   lblApplicantName = "";
+  lbljobPostVcncyID = 0;
 
   interviewListCount = 0;
   appointmentListCount = 0;
@@ -100,7 +101,8 @@ export class RecruitmentComponent implements OnInit {
   qualDetailList = [];
   certDetailList = [];
   expDetailList = [];
-  
+  qualList = [];
+
   constructor(
     private _formBuilder: FormBuilder,
     private toastr: ToastrManager,
@@ -118,24 +120,28 @@ export class RecruitmentComponent implements OnInit {
     var series1=[];
     var qty=[];
     
-    for (var i = 0; i < this.skillDetailList.length; i++) {
+    
+    for (var i = 0; i < this.qualList.length; i++) {
       qty = [];
       
       qty.push(
-        this.skillDetailList[i].qlfctnCriteriaReqdLvl,
-        this.skillDetailList[i].qlfctnCriteriaMaxLvl
+        this.qualList[i].qlfctnCriteriaReqdLvl,
+        this.qualList[i].qlfctnCriteriaMaxLvl
       );
       series1.push({
-        type:'line',
-        name: this.skillDetailList[i].qlfctnCriteriaName,
+        name: this.qualList[i].qlfctnCriteriaName,
         data: qty
       });
     }    
 
     let chart = new Chart({
+      chart:{
+        type:'line'
+      },
       title: {
         text: 'Graph'
       },
+      
       xAxis: {
         categories: ['Required Skill', 'Maximum Skill']
       },
@@ -335,6 +341,11 @@ export class RecruitmentComponent implements OnInit {
         }
         this.app.showSpinner();
 
+        alert(this.lblApplicantID)
+        alert(localStorage.getItem('jobPostVcncyID'))
+        alert(this.cmbStatus)
+        alert(this.txtNumber)
+        alert(this.txtRemarks)
         var saveData = {
           applicantID: this.lblApplicantID,
           jpVcncyCd: localStorage.getItem('jobPostVcncyID'),
@@ -593,6 +604,8 @@ export class RecruitmentComponent implements OnInit {
 
     this.http.get(this.serverUrl + 'api/getSkillDetail?applicantID=' + item, { headers: reqHeader }).subscribe((data: any) => {
 
+      this.qualList = data;
+
       for(var i=0;i<data.length;i++){
         if(data[i].qlfctnTypeName == 'Degree'){
           this.qualDetailList.push(data[i]);
@@ -615,9 +628,16 @@ export class RecruitmentComponent implements OnInit {
 
   }
 
+  getVcncyID(item){
+    localStorage.setItem('jobPostVcncyID', item);
+  }
+
   onVcncySelect(item) {
     this.clear();
 
+    // this.lbljobPostVcncyID = item;
+
+    // alert(this.lbljobPostVcncyID);
     for (var i = 0; i < this.vcncyList.length; i++) {
       if (item == this.vcncyList[i].jobPostVcncyID) {
         this.lblJobTitle = this.vcncyList[i].jobDesigName;

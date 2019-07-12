@@ -17,7 +17,8 @@
       &nbsp;CSV
     </a>
 
-    <a class="pointerCursor"><!-- </a> (click)="downPDF()"> -->
+    <!-- <a class="pointerCursor" (click)="downPDF()"> -->
+    <a class="pointerCursor">
       <i class="fa fa-file-pdf-o"></i>
       &nbsp;PDF
     </a>
@@ -164,170 +165,83 @@
 
     <!--Start table Row-->
     <div class="row">
-      <div class="col-md-12">
-        <!-- <mat-form-field class="fullwidth">
-          <mat-icon matPrefix ><i class='fa fa-search'></i></mat-icon>
-          <input matInput >
-        </mat-form-field> -->
-        <div class="searchBar">
-          <span class="fa icon-search"></span>
-          <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="postSearch">
+      <table>
+        <thead>
+          <tr class="d-flex">
+            <th class='col-1 text-center'>Sr #</th>
+            <th class='col-3'>Office</th>
+            <th class='col-2'>Department</th>
+            <th class='col-3'>Section</th>
+            <th class='col-2'>Job Title</th>
+            <th class='col-1 text-center'>Qty</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="d-flex"
+            *ngFor="let post of posts | search:'office,department,section,designation,desigCount':postSearch let i=index">
+            <td class='col-1 text-center'>{{i+1}}</td>
+            <td class='col-3'>{{post.office}}</td>
+            <td class='col-2'>{{post.department}}</td>
+            <td class='col-3'>{{post.section}}</td>
+            <td class='col-2'>{{post.designation}}</td>
+            <td class='col-1 text-center'>{{post.desigCount}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end table row -->
+  </div>
+</div>
+<!-- Hidden Table for Print and PDF files ends-->
+
+
+<!--bootstrap modal window -->
+
+<!-- Start chart of account Modal Window -->
+<div class="modal fade" id="postModal">
+  <div class="modal-dialog shadow-lg-dark modal-xl">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Job Post</h4>
+        <div>
+            <button type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Save</button>
+            <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
         </div>
       </div>
-    </div>
-    <!--end search textbox Row-->
-  
-  
-    <!--start table row-->
-    <div class="row">
-  
-      <div class="col-md-12">
-        <table class="table table-striped">
-          <thead>
-            <tr class='d-flex'>
-              <th class='col-1 text-center'>Sr #</th>
-                <th class='col-3' [class.active]="order === 'office'" (click)="setOrder('office')">
-                  Office
-                  <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                  <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                </th>
-  
-                <th class='col-2' [class.active]="order === 'department'" (click)="setOrder('department')">
-                  Department
-                  <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                  <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                </th>
-  
-                <th class='col-2' [class.active]="order === 'section'" (click)="setOrder('section')">
-                  Section
-                  <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                  <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                </th>
-  
-                <th class='col-2' [class.active]="order === 'designation'" (click)="setOrder('designation')">
-                  Job Title
-                  <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                  <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                </th>
-  
-                <th class='col-1 text-center' [class.active]="order === 'desigCount'" (click)="setOrder('desigCount')">
-                  Qty
-                  <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                  <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                </th>
-              <th class='col-1 text-center'>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-            <tr class='d-flex'
-              *ngFor="let post of posts | search:'office,department,section,designation,desigCount':postSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' } let i=index">
-              <td class='col-1 text-center'>{{i+1}}</td>
-              <td class='col-3'>{{post.office}}</td>
-              <td class='col-2'>{{post.department}}</td>
-              <td class='col-2'>{{post.section}}</td>
-              <td class='col-2'>{{post.designation}}</td>
-              <td class='col-1 text-center'>{{post.desigCount}}</td>
-              <td class='col-1 text-center'>
-                <span class="fa fa-edit pointerCursor" data-toggle="modal" data-target="#editPostModal" (click)="editPost(post)"></span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- Pagination Starts -->
-        <div class="row tab-margin">
-          <div class="col-md-10">
-            <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
-          </div>
-          <div class="col-md-2 text-right">
-            <mat-form-field class="fullwidth pagenateList">
-              <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
-                <mat-option value="5">5</mat-option>
-                <mat-option value="10">10</mat-option>
-                <mat-option value="25">25</mat-option>
-                <mat-option value="50">50</mat-option>
-                <mat-option value="100">100</mat-option>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--Row #1-->
+        <div class="row">
+          <!-- Office -->
+          <div class="col-md-4">
+            <mat-form-field>
+              <mat-select placeholder="Office" [(ngModel)]="officeName" (ngModelChange)="onBranchChange($event)">
+                <mat-option *ngFor="let item of offices" [value]="item.locationCd">{{item.locationName}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
-          <!-- Pagination Ends -->
-        </div>
-      </div>
-      <!--end table row-->
-    </div>
-  <!--end container -->
-  
-  
-  <br />
-  
-  
-  <!-- Hidden Table for Print and PDF files starts-->
-  <div class="container printArea" id="printArea" [hidden]=true>
-    <div class="printDiv">
-  
-      <!--Start heading table -->
-      <table>
-        <tr>
-          <td width="15%" style="border:none;">
-            <img src="../../../assets/images/Ambit-Logo.svg" width="135px">
-          </td>
-  
-          <td style="border:none;">
-            <div class="commonCss cssHeading">Infovative Solutions</div>
-            <div class="commonCss cssAddress">Office #209, 3rd Floor Anayat Plaza, G11 Markaz Islamabad.</div>
-            <div class="commonCss cssContact">Mobile: 0313-1234567, Ph. 051-5544661</div>
-          </td>
-        </tr>
-      </table>
-      <!--End heading table -->
-  
-      <br /><br />
-  
-      <!--Start table Row-->
-      <div class="row">
-        <table>
-          <thead>
-            <tr class="d-flex">
-              <th class='col-1 text-center'>Sr #</th>
-              <th class='col-3'>Office</th>
-              <th class='col-2'>Department</th>
-              <th class='col-3'>Section</th>
-              <th class='col-2'>Job Title</th>
-              <th class='col-1 text-center'>Qty</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="d-flex"
-              *ngFor="let post of posts | search:'office,department,section,designation,desigCount':postSearch let i=index">
-              <td class='col-1 text-center'>{{i+1}}</td>
-              <td class='col-3'>{{post.office}}</td>
-              <td class='col-2'>{{post.department}}</td>
-              <td class='col-3'>{{post.section}}</td>
-              <td class='col-2'>{{post.designation}}</td>
-              <td class='col-1 text-center'>{{post.desigCount}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div><!-- end table row -->
-    </div>
-  </div>
-  <!-- Hidden Table for Print and PDF files ends-->
-  
-  
-  <!--bootstrap modal window -->
-  
-  <!-- Start chart of account Modal Window -->
-  <div class="modal fade" id="postModal">
-    <div class="modal-dialog shadow-lg-dark modal-xl">
-      <div class="modal-content">
-  
-        <!--start Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Add Job Post</h4>
-          <div>
-              <button type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Save</button>
-              <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+
+          <!-- Department -->
+          <div class="col-md-4">
+            <mat-form-field>
+              <mat-select placeholder="Department" [(ngModel)]="departmentName" (ngModelChange)="onDeptChange($event)">
+                <mat-option *ngFor="let item of departments" [value]="item.deptCd">{{item.deptName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
+
+          <!-- Section -->
+          <div class="col-md-4">
+            <mat-form-field>
+              <mat-select placeholder="Section" [(ngModel)]="sectionName" (ngModelChange)="onSectionChange($event)">
+                <mat-option *ngFor="let item of sections" [value]="item.deptCd">{{item.deptName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
         </div>
         <!--end of row #1 -->
         <br />
@@ -340,76 +254,41 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <!--end of row #1 -->
-          <br />
-          <div class="row">
-            <div class="col-md-4">
-              <mat-form-field>
-                <mat-select placeholder="Job Designation"  (ngModelChange)="onJobChange($event)"
-                [(ngModel)]="jobPostName">
-                  <mat-option *ngFor="let item of jobPost" [value]="item.jobDesigID">{{item.jobDesigName}} - {{item.payGradeCd}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="offset-md-2 col-md-6 text-right">
-              <button mat-raised-button color="primary" (click)="getOrganoGram()">Load Organo Gram</button>
-              <!-- <button mat-raised-button color="primary" (click)="addPost()" *ngIf="btnAddPost">Add New Post</button> -->
-              <button mat-raised-button color="warn" (click)="clear()">Reset</button>
-            </div>
+          <div class="offset-md-2 col-md-6 text-right">
+            <button mat-raised-button color="primary" (click)="getOrganoGram()">Load Organo Gram</button>
+            <!-- <button mat-raised-button color="primary" (click)="addPost()" *ngIf="btnAddPost">Add New Post</button> -->
+            <button mat-raised-button color="warn" (click)="clear()">Reset</button>
           </div>
-          <br />
-          <div class="row">
-            <div class="col-md-4">
-              <!--1st row-->
-              <div class="row">
-                <div class="col-md-6">
-                  <mat-form-field>
-                    <mat-select placeholder="Job Type" [(ngModel)]="jobType">
-                      <mat-option *ngFor="let item of jobTypes" [value]="item.jobTypeCd">{{item.jobTypeName}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field>
-                    <mat-select placeholder="Job Nature" [(ngModel)]="jobNature">
-                      <mat-option *ngFor="let item of jobNatures" [value]="item.jobNatureCd">{{item.jobNatureName}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-md-4">
+            <!--1st row-->
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-select placeholder="Job Type" [(ngModel)]="jobType">
+                    <mat-option *ngFor="let item of jobTypes" [value]="item.jobTypeCd">{{item.jobTypeName}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
-              <!--end 1st row-->
-              <!--2nd row-->
-              <div class="row">
-                <div class="col-md-12">
-                  <mat-form-field class="fullwidth inputBox">
-                    <input matInput placeholder="Job Title" [(ngModel)]="jobTitle">
-                  </mat-form-field>
-                </div>
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-select placeholder="Job Nature" [(ngModel)]="jobNature">
+                    <mat-option *ngFor="let item of jobNatures" [value]="item.jobNatureCd">{{item.jobNatureName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
-              <!--end 2nd row-->
-              <br />
-              <!--3rd row-->
-              <div class="row">
-                <div class="col-md-6">
-                  <mat-form-field>
-                    <mat-select placeholder="Pay Grade" [(ngModel)]="BPS" (ngModelChange)="onBPSChange($event)">
-                      <mat-option *ngFor="let item of bpsList" [value]="item.payGradeCd">{{item.payGradeName}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field>
-                    <mat-select placeholder="Designation" [(ngModel)]="designation">
-                      <mat-option *ngFor="let item of designations" [value]="item.desigCd">{{item.desigName}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
+            </div>
+            <!--end 1st row-->
+            <!--2nd row-->
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field class="fullwidth inputBox">
+                  <input matInput placeholder="Job Title" [(ngModel)]="jobTitle">
+                </mat-form-field>
               </div>
-              <!--end 3rd row-->
-              <br />
-              <!--button tag-->
-              <!-- <button mat-raised-button color="primary">Save</button> -->
             </div>
             <!--end 2nd row-->
             <br />
@@ -430,32 +309,52 @@
                 </mat-form-field>
               </div>
             </div>
+            <!--end 3rd row-->
+            <br />
+            <!--button tag-->
+            <!-- <button mat-raised-button color="primary">Save</button> -->
           </div>
-          <!--Row #2-->
-          <div class="row">
-            <!--Chart-->
-            <div class="col-md-12">
-            </div>
+          <div class="col-md-8">
+            <!--ngprime organizational chart-->
+            <p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode"
+              styleClass="company">
+              <ng-template let-node pTemplate="person">
+                <div class="node-header ui-corner-top">{{node.label}}</div>
+                <div class="node-content">
+                  <div>{{node.data.name}}</div>
+                </div>
+              </ng-template>
+              <ng-template let-node pTemplate="department">
+                {{node.label}}
+              </ng-template>
+            </p-organizationChart>
+            <!--ngprime organizational chart-->
           </div>
-          <!--end of row #2 -->
-  
-          <div class="row">
-            <div class="col-md-12">
-  
-  
-  
-            </div>
-          </div>
-  
-          <!--end Modal body -->
-  
-          <!--start Modal footer -->
-          <!-- <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          </div> -->
-          <!--end Modal footer -->
-  
         </div>
+        <!--Row #2-->
+        <div class="row">
+          <!--Chart-->
+          <div class="col-md-12">
+          </div>
+        </div>
+        <!--end of row #2 -->
+
+        <div class="row">
+          <div class="col-md-12">
+
+
+
+          </div>
+        </div>
+
+        <!--end Modal body -->
+
+        <!--start Modal footer -->
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div> -->
+        <!--end Modal footer -->
+
       </div>
     </div>
   </div>
@@ -573,9 +472,9 @@
             </table>
           </div>
         </div>
-  
       </div>
+
     </div>
   </div>
-  <!-- End update job post Modal Window  -->
-  
+</div>
+<!-- End update job post Modal Window  -->

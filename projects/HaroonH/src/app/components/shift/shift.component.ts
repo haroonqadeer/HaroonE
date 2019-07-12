@@ -92,6 +92,7 @@ export class ShiftComponent implements OnInit {
 
   getDepartmentShift() {
 
+    this.app.showSpinner();
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -100,10 +101,15 @@ export class ShiftComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getDepartmentShift', { headers: reqHeader }).subscribe((data: any) => {
 
       this.deptShiftList = data;
+
+      this.app.hideSpinner();
+
     });
   }
 
   getDepartmentDetail() {
+
+    this.app.showSpinner();
 
     //var Token = localStorage.getItem(this.tokenKey);
 
@@ -113,6 +119,8 @@ export class ShiftComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getDepartmentShiftDetail', { headers: reqHeader }).subscribe((data: any) => {
 
       this.departmentDetailList = data;
+
+      this.app.hideSpinner();
 
     });
 
@@ -161,6 +169,8 @@ export class ShiftComponent implements OnInit {
       return;
     } else {
 
+      this.app.showSpinner();
+
       var saveData = {
         shiftCd: this.cmbShift,
         deptList: this.cmbDepartment,
@@ -176,12 +186,12 @@ export class ShiftComponent implements OnInit {
           this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
           this.getDepartmentShift();
           this.clear();
-          //this.app.hideSpinner();
+          this.app.hideSpinner();
           return false;
         } else {
           this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
           //$('#companyModal').modal('hide');
-          //this.app.hideSpinner();
+          this.app.hideSpinner();
           return false;
         }
       });
