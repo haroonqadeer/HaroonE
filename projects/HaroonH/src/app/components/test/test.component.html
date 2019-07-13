@@ -36,15 +36,15 @@
 </div>
 <!-- end menubar buttons -->
 
-<div class="myContainer mat-elevation-z8 bgWhite">
+<div class="container-fluid bottomBorder bgWhite">
 
   <!--Start search textbox Row-->
   <div class="row tab-margin">
     <div class="col-md-12">
         <div class="searchBar">
-            <span class="fa icon-search"></span>
-            <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="testSearch">
-          </div>
+          <span class="fa icon-search"></span>
+          <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="testSearch">
+        </div>
       <!-- <mat-form-field class="fullwidth">
         <input matInput [(ngModel)]="testSearch" placeholder="Search">
       </mat-form-field>
@@ -56,7 +56,7 @@
 
   <!--start table row-->
   <div class="example-table-container">
-    <table class="table table-striped">
+    <table class="table table-striped bottomBorder">
       <thead>
         <tr class='d-flex'>
           <th class='col-2 text-center'>Sr #</th>
@@ -70,22 +70,22 @@
         <tr class='d-flex'
           *ngFor="let item of testList | search:'testSbjctName,questionCount,jobCount':testSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' }  let i=index">
           <td class='col-2 text-center'>{{i+1}}</td>
-          <td class='col-4'>{{item.testSbjctName}}</td>
+          <td class='col-4'>{{item.testSbjctName}} - profiles</td>
           <td class='col-3 text-center'>
             <a href="" data-toggle="modal" data-target="#questionsModal"
-              (click)="getJobQuestion(item)">{{item.questionCount}}</a>
+              (click)="getJobQuestion(item)">{{item.questionCount}} - questions</a>
           </td>
           <td class='col-3 text-center'>
             <a href="" data-toggle="modal" data-target="#jobProfileModal"
-              (click)="getJobProfile(item)">{{item.jobCount}}</a>
+              (click)="getJobProfile(item)">{{item.jobCount}} - profiles</a>
           </td>
         </tr>
       </tbody>
     </table>
     <!-- Pagination Starts -->
-    <div class="row tab-margin">
-      <div class="col-md-11 text-right">
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <div class="row">
+      <div class="col-md-11">
+        <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
       </div>
       <div class="col-md-1">
         <mat-form-field class="fullwidth pagenateList">
@@ -189,26 +189,25 @@
 
         <!--start row 1-->
         <div class="row">
-          <div class="col-md-12 text-right">
-            <button mat-raised-button color="primary" (click)="addQuestion()" data-toggle="modal"
+          <div class="offset-md-9 col-md-3">
+            <button class='fullwidth noneOutLine' mat-raised-button color="" (click)="addQuestion()" data-toggle="modal"
               data-target="#addQuestionsModal">Add New</button>
           </div>
         </div>
         <!--end row 1-->
 
-        <br />
-
+        
         <!--Start row 2-->
         <div class="row">
           <div class="col-md-12">
             <!--start table row-->
-            <div class="example-container mat-elevation-z8">
+            <div class="example-container">
               <div class="example-table-container">
-                <table class="table table-striped">
+                <table class="table table-striped bottomBorder">
                   <thead>
                     <tr class='d-flex'>
                       <th class='col-1 text-center'>Sr #</th>
-                      <th class='col-6 text-center'>Question</th>
+                      <th class='col-6'>Question</th>
                       <th class='col-1 text-center'>Marks</th>
                       <th class='col-1 text-center'>Options</th>
                       <th class='col-1 text-center'>Answer</th>
@@ -220,7 +219,7 @@
                     <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
                     <tr class='d-flex' *ngFor="let item of testQuestionListCount let i=index">
                       <td class='col-1 text-center'>{{i+1}}</td>
-                      <td class='col-6 text-center'>{{item.testQuesText}}</td>
+                      <td class='col-6'>{{item.testQuesText}}</td>
                       <td class='col-1 text-center'>
                         {{item.marks}}
                       </td>
@@ -252,9 +251,9 @@
       <!--end Modal body -->
 
       <!--start Modal footer -->
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
       <!--end Modal footer -->
 
     </div>
@@ -309,7 +308,7 @@
 
         <br />
         <div class="example-table-container">
-          <table class="table table-striped">
+          <table class="table table-striped bottomBorder">
             <thead>
               <tr class='d-flex'>
                 <th class='col-1'>Sr #</th>
@@ -340,12 +339,12 @@
 
         <hr />
 
-        <h4>Saved Data</h4>
+        <h5>Saved Data</h5>
 
         <!--start table row-->
         <!-- <div class="example-container mat-elevation-z8"> -->
         <div class="example-table-container">
-          <table class="table table-striped">
+          <table class="table table-striped bottomBorder">
             <thead>
               <tr class='d-flex'>
                 <th class='col-1'>Sr #</th>
@@ -373,9 +372,9 @@
       <!--end Modal body -->
 
       <!--start Modal footer -->
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
       <!--end Modal footer -->
 
     </div>
@@ -385,7 +384,7 @@
 
 <!-- Start Add Questions  modal -->
 <div class="modal fade" id="addQuestionsModal">
-  <div class="modal-dialog shadow-md-dark modal-md">
+  <div class="modal-dialog shadow-lg-dark modal-md">
     <div class="modal-content">
 
       <!--start Modal Header -->
@@ -479,9 +478,9 @@
       <!--end Modal body -->
 
       <!--start Modal footer -->
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
       <!--end Modal footer -->
 
     </div>
