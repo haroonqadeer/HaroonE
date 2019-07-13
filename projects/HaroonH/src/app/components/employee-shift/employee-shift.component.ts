@@ -56,7 +56,7 @@ export class EmployeeShiftComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    this.http.get(this.serverUrl + 'api/getBranch', { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get(this.serverUrl + 'api/getBranch?cmpnyID=59', { headers: reqHeader }).subscribe((data: any) => {
 
       this.officeList = data;
       
@@ -102,7 +102,7 @@ export class EmployeeShiftComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    this.http.get(this.serverUrl + 'api/getEmployeeShift', { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get(this.serverUrl + 'api/getEmployeeShift?cmpnyID=59', { headers: reqHeader }).subscribe((data: any) => {
 
       this.employeeShift = data;
 

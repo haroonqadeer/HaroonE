@@ -165,7 +165,7 @@ export class RecruitmentComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    this.http.get(this.serverUrl + 'api/getVcncy', { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get(this.serverUrl + 'api/getVcncy?cmpnyID=59', { headers: reqHeader }).subscribe((data: any) => {
 
       this.vcncyList = data;
 
