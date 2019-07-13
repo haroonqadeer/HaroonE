@@ -1,5 +1,5 @@
   <!--start container-->
-  <div class="myContainer mat-elevation-z8 bgWhite">
+  <div class="myContainer bottomBorder bgWhite">
 
     <!-- start menubar buttons -->
     <div class="topnav boxShadow">
@@ -52,7 +52,7 @@
     <!--start table row-->
     <div class="example-container">
       <div class="example-table-container">
-        <table class="table table-striped">
+        <table class="table table-striped bottomBorder">
           <thead>
             <tr class='d-flex'>
               <th class='col-1 text-center'>Sr #</th>
@@ -101,9 +101,9 @@
           </tbody>
         </table>
       </div>
-
-      <div class="row tab-margin">
-        <div class="col-md-11 text-right">
+      
+      <div class="row">
+        <div class="col-md-11">
           <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
         <div class="col-md-1">
@@ -262,35 +262,34 @@
             </div>
           </div>
           <!-- end row 1-->
-
-          <!--2nd row-->
-          <br/>
+          <hr>
+          <!--2nd row-->          
           <div class="row">
             
             <!-- Left portion -->
-            <div class="col-md-6">
+            <div class="col-md-6 rightBorder">
               
               <table class="table test">
                 <tbody>
                   <tr class='d-flex'>
                     <td class='col-5'>Branch</td>
-                    <td class='col-7'>{{lblCBranch}}</td>
+                    <td class='col-7 bgWhiteGrey allBorder'>{{lblCBranch}}</td>
                   </tr>
                   <tr class='d-flex'>
                       <td class='col-5'>Designation</td>
-                      <td class='col-7'>{{lblDesignation}}</td>
+                      <td class='col-7 bgWhiteGrey allBorder'>{{lblDesignation}}</td>
                     </tr>
                   <tr class='d-flex'>
                     <td class='col-5'>Department</td>
-                    <td class='col-7'>{{lblDepartment}}</td>
+                    <td class='col-7 bgWhiteGrey allBorder'>{{lblDepartment}}</td>
                   </tr>
                   <tr class='d-flex'>
                     <td class='col-5'>Pay Grade</td>
-                    <td class='col-7'>{{lblPayGrade}}</td>
+                    <td class='col-7 bgWhiteGrey allBorder'>{{lblPayGrade}}</td>
                   </tr>
                   <tr class='d-flex'>
                       <td class='col-5'>Joining Date</td>
-                      <td class='col-7'>{{lblJoiningDate | date}}</td>
+                      <td class='col-7 bgWhiteGrey allBorder'>{{lblJoiningDate | date}}</td>
                     </tr>
                 </tbody>
               </table>
@@ -323,17 +322,17 @@
 
                   <tr class='d-flex'>
                     <td class='col-5'>Branch</td>
-                    <td class='col-7'>{{lblPBranch}}</td>
+                    <td class='col-7 bgWhiteGrey allBorder'>{{lblPBranch}}</td>
                   </tr>
 
                   <tr class='d-flex'>
                     <td class='col-5'>Department</td>
-                    <td class='col-7'>{{lblPDepartment}}</td>
+                    <td class='col-7 bgWhiteGrey allBorder'>{{lblPDepartment}}</td>
                   </tr>
 
                   <tr class='d-flex'>
                     <td class='col-5'>Pay Grade</td>
-                    <td class='col-7'>{{lblPPayGrade}}</td>
+                    <td class='col-7 bgWhiteGrey allBorder'>{{lblPPayGrade}}</td>
                   </tr>
 
                   <tr class='d-flex'>
@@ -353,8 +352,8 @@
   
           </div>
           <!--end 2nd row-->
-          <br />
-  
+          <hr>
+          
   
   
         </div>

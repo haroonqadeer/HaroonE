@@ -61,19 +61,19 @@
     <!--start table -->
     <div class="row">
       <div class="col-md-12">
-        <table class="table table-striped">
+        <table class="table table-striped bottomBorder">
           <thead>
             <tr class='d-flex'>
               <th class='col-1 text-center'>Sr #</th>
   
               <th class='col-2' [class.active]="order === 'locationName'" (click)="setOrder('locationName')" >
-                Office Name
+                Offices
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
   
               <th class='col-2' [class.active]="order === 'deptName'" (click)="setOrder('deptName')">
-                Department
+                Departments
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
@@ -90,19 +90,19 @@
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
   
-              <th class='col-1' [class.active]="order === 'quantity'" (click)="setOrder('quantity')">
-                Quantity
+              <th class='col-1 text-center' [class.active]="order === 'quantity'" (click)="setOrder('quantity')">
+                Qty
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
   
               <th class='col-1' [class.active]="order === 'degree'" (click)="setOrder('degree')">
-                Qualification
+                Education
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
   
-              <th class='col-1' [class.active]="order === 'experience'" (click)="setOrder('experience')">
+              <th class='col-1 text-right' [class.active]="order === 'experience'" (click)="setOrder('experience')">
                 Experience
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
@@ -119,9 +119,9 @@
               <td class='col-2'>{{item.deptName}}</td>             
               <td class='col-2'>{{item.jobDesigName}}</td>             
               <td class='col-1'>{{item.jobTypeName}}</td>             
-              <td class='col-1'>{{item.quantity}}</td>
+              <td class='col-1 text-center'>{{item.quantity}}</td>
               <td class='col-1'>{{item.degree}}</td>
-              <td class='col-1'>{{item.experience}} months</td>
+              <td class='col-1 text-right'>{{item.experience}} months</td>
               <td class='col-1 text-center'>
                 <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#profileModal" (click)="edit(item)"></span>
                 <!-- &nbsp;&nbsp;&nbsp;
@@ -135,8 +135,8 @@
   
   
     <!--start pagination -->
-    <div class="row tab-margin">
-        <div class="col-md-11 text-right">
+    <div class="row">
+        <div class="col-md-11">
           <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
         <div class="col-md-1">
@@ -189,12 +189,12 @@
             <!--start 2nd step form control div-->
   
               <!--start 1st row-->
-              <br/>
+              <hr/>
               <div class="row">
                 <div class="col-md-2">
-                  <span class="label">Job Title</span>
+                  <label>Job Title</label>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-6">
                   <p-dropdown  *ngIf="!editFlag"  appendTo="body" [options]="jobsList" [(ngModel)]="jobTitle" (onChange)="getFilterItem('jobs')" [disabled]="editFlag" placeholder="Job Title" filter="true" [style]="{'width':'100%'}">
                     <ng-template let-itm pTemplate="item">
                       <div style="position: relative;height: 25px; z-index: 100;">
@@ -204,37 +204,43 @@
                   </p-dropdown>
                   <span class="label" *ngIf="editFlag"><b>{{lblJobProfile}}</b></span>
                 </div>
-              </div>
-              <br/>
+              </div>              
               <!-- filter="true" [showClear]="true" -->
               <!--end 1st row-->
   
               <!--start 2nd row-->
+              <br/>              
+              <div class="row">
+                <div class="col-md-2">
+                  <label>BPS</label>
+                </div>
+                <div class="col-md-6 bgWhiteGrey fullWidth">
+                  <label><b>{{lblBPS}}</b></label>
+                </div>
+              </div>
               <br/>
               <div class="row">
                 <div class="col-md-2">
-                  <span class="label">BPS</span>
+                  <label>Job Type</label>
                 </div>
-                <div class="col-md-4">
-                  <span class="label"><b>{{lblBPS}}</b></span>
+                <div class="col-md-6 bgWhiteGrey fullWidth">
+                  <label><b>{{lblJobType}}</b></label>
                 </div>
-  
-                <div class="col-md-2">
-                    <span class="label">Job Type</span>
-                  </div>
-                  <div class="col-md-4">
-                    <span class="label"><b>{{lblJobType}}</b></span>
-                  </div>
-              </div>
+              </div>              
               <!-- filter="true" [showClear]="true" -->
               <br/> <br/> 
               <!--end 2nd row-->
-              
-              <!--start next step button div-->
-              <div class="text-right">
-                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              <hr/>
+              <div class="row">
+                <div class="offset-md-10 col-md-2">
+                  <!--start next step button div-->
+                  
+                  <button class="fullwidth" mat-raised-button color="primary" matStepperNext>Next</button>
+                  
+                  <!--end next step button div-->
+                </div>
               </div>
-              <!--end next step button div-->
+              
           </mat-step>
           <!--end 1st Step -->
   
@@ -254,8 +260,8 @@
                     <tr class='d-flex'>
                       <th class='col-1 text-center'>Sr #</th>
                       <th class='col-4'>Degree Title</th>
-                      <th class='col-2'>Max Level (Year)</th>
-                      <th class='col-2'>Req Level (Year)</th>
+                      <th class='col-2'>Max Req (year's)</th>
+                      <th class='col-2'>Min Req (year's)</th>
                       <th class='col-2'>Preference</th>
                       <th class='col-1 text-center'>Delete</th>
                     </tr>
@@ -301,13 +307,15 @@
               </div>
               <br/>
               <!--end table row-->
-  
-  
-              <!--start next step button div-->
-              <div class="text-right">
-                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              <hr/>
+              
+              <div class="row">
+                <div class="offset-md-10 col-md-2">
+                  <button class='fullwidth' mat-raised-button color="primary" matStepperNext>Next</button>  
+                </div>
               </div>
-              <!--end next step button div-->
+              <!--start next step button div-->              
+              
             <!--end 2nd step form control div-->
           </mat-step>
           <!--end 2nd Step -->
@@ -327,8 +335,8 @@
                   <tr class='d-flex'>
                     <th class='col-1 text-center'>Sr #</th>
                     <th class='col-4'>Certificate Title</th>
-                    <th class='col-2'>Max Level</th>
-                    <th class='col-2'>Req Level</th>
+                    <th class='col-2'>Max Req (month's)</th>
+                    <th class='col-2'>Min Req (month's)</th>
                     <th class='col-2'>Preference</th>
                     <th class='col-1 text-center'>Delete</th>
                   </tr>
@@ -375,12 +383,15 @@
             <br/>
             <!--end table row-->
   
-  
-            <!--start next step button div-->
-            <div class="text-right">
-              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <hr/>
+            <div class="row">
+              <div class="offset-md-10 col-md-2">
+                <!--start next step button div-->            
+                <button class="fullwidth" mat-raised-button color="primary" matStepperNext>Next</button>            
+                <!--end next step button div-->
+              </div>
             </div>
-            <!--end next step button div-->
+            
           <!--end 3rd step form control div-->
           </mat-step>
           <!--end 3rd Step --> 
@@ -399,8 +410,8 @@
                   <thead>
                     <tr class='d-flex'>
                       <th class='col-1 text-center'>Sr #</th>
-                      <th class='col-4'>Experience Title</th>
-                      <th class='col-4'>Experience</th>
+                      <th class='col-4'>Descriptoin</th>
+                      <th class='col-4'>Time Span</th>
                       <th class='col-2'>Preference</th>
                       <th class='col-1 text-center'>Delete</th>
                     </tr>
@@ -428,10 +439,10 @@
                         </p-dropdown>
                       </td>
                       <td class='col-2'>
-                        <input pInputText placeholder="Experience In Years" [(ngModel)]="experienceYear" type="number" min="0" max="99" class="fullwidth">
+                        <input pInputText placeholder="years" [(ngModel)]="experienceYear" type="number" min="0" max="99" class="fullwidth">
                       </td>
                       <td class='col-2'>
-                        <input pInputText placeholder="Experience In Months" [(ngModel)]="experienceMonth" type="number" min="0" max="12" class="fullwidth"> 
+                        <input pInputText placeholder="months" [(ngModel)]="experienceMonth" type="number" min="0" max="12" class="fullwidth"> 
                       </td>
                       <td class='col-2'>
                           <p-checkbox [(ngModel)]="chkExperiencePI" binary="true"></p-checkbox>
@@ -445,11 +456,13 @@
               </div>
               <br/>
               <!--end table row-->
-  
-  
+              
+              <hr/>
               <!--start next step button div-->
-              <div class="text-right">
-                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              <div class="row">
+                <div class="offset-md-10 col-md-2">
+                  <button class='fullwidth' mat-raised-button color="primary" matStepperNext>Next</button>  
+                </div>                
               </div>
               <!--end next step button div-->
             
@@ -480,7 +493,7 @@
                   <thead>
                     <tr class='d-flex'>
                       <th class='col-1 text-center'>Sr #</th>
-                      <th class='col-10'>Description</th>
+                      <th class='col-10'>Job Description</th>
                       <th class='col-1 text-center'>Add</th>
                     </tr>
                   </thead>
@@ -508,9 +521,12 @@
               </div>
               <!--end table row-->
               <br/>
+              <hr/>
               <!--start next step button div-->
-              <div class="text-right">
-                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              <div class="row">
+                <div class="offset-md-10 col-md-2">
+                  <button class='fullwidth' mat-raised-button color="primary" matStepperNext>Next</button>
+                </div>                
               </div>
               <!--end next step button div-->
             
@@ -533,7 +549,7 @@
                 <thead>
                   <tr class='d-flex'>
                     <th class='col-1 text-center'>Sr #</th>
-                    <th class='col-4'>Leave Rule Title</th>
+                    <th class='col-4'>Leave Rule</th>
                     <th class='col-3'>Leave Limit</th>
                     <th class='col-3'>Effect Date</th>
                     <th class='col-1 text-center'>Add</th>
@@ -566,9 +582,12 @@
             </div>
             <!--end table row-->
             <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <hr/>
             <!--start next step button div-->
-            <div class="text-right">
-              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <div class="row">
+              <div class="offset-md-10 col-md-2">
+                <button class='fullwidth' mat-raised-button color="primary" matStepperNext>Next</button>
+              </div>              
             </div>
             <!--end next step button div-->
             
@@ -591,8 +610,8 @@
                     <thead>
                       <tr class='d-flex'>
                         <th class='col-1 text-center'>Sr #</th>
-                        <th class='col-5'>Facility Type</th>
                         <th class='col-5'>Facility</th>
+                        <th class='col-5'>Limitation</th>
                         <th class='col-1 text-center'>Delete</th>
                       </tr>
                     </thead>
@@ -634,7 +653,7 @@
                 </div>
                 <br/><br/><br/><br/><br/>
                 <!--end table row-->
-    
+                <hr/>
     
                 
                 <!--start next step button div-->

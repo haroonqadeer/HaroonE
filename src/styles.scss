@@ -10,6 +10,16 @@
     height: 100%;
     }
 
+    /* scrollable organogram */
+    .autoScrollOrganogramJobPost{
+        height: 30em;
+        width: 45em;
+        overflow: auto !important;
+    }   
+
+    .mat-tab {
+        overflow-y: hidden !important;
+    }
     //////////////////////////////////////////
     /////// intro page background image //////
     //////////////////////////////////////////
@@ -106,6 +116,10 @@
 
     .bgWhite {
     background-color: #fff;
+    }
+
+    .bgWhiteGrey{
+        background-color: #f2f2f2 !important;
     }
 
     ///// headings
@@ -312,6 +326,11 @@
     //border:1px solid red;
     }
 
+    .topBorder {
+        border-bottom: 1px solid #ccc !important;
+        //border:1px solid red;
+    }
+
     .allBorder {
     border: 1px solid #ccc !important;
     }
@@ -324,12 +343,12 @@
     border-top: 1px solid #666 !important;
     }
 
-    .rightBorderWhite {
-    border-right: 1px solid red !important;
+    .rightBorder {
+    border-right: 1px solid #ccc !important;
     }
 
-    .leftBorderWhite {
-    border-left: 1px solid #e5e5e5 !important;
+    .leftBorder {
+    border-left: 1px solid #ccc !important;
     }
 
     ///////////////////////////////////////////
@@ -1556,20 +1575,23 @@
 
 
 
-    .myContainer{
-        border:0px solid red;
-        width: 98%;
-        margin-left: 1% !important;
-        margin-top: 1.5em !important;
-
+    .container{
+        // border:0px solid red;
+        // width: 98% !important;
+        // margin-left: 1% !important;
+        // margin-top: 1.5em !important;
+        //background-color: #00BCD4 !important;      
+        min-height: 70% !important;
     }
 
 
     //----------------------------------Modal window css start ----------------------------------------
+    
     .modal .modal-content{
         border:0px solid red; 
-        border-radius: 0;
-    }
+        border-radius: 0;    
+    }    
+    
 
     .modal .modal-header{
         border:0px solid green; 

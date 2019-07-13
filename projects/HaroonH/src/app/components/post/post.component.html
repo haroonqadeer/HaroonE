@@ -1,45 +1,49 @@
-<!-- start menubar buttons -->
-<div class="topnav boxShadow">
-  <div>
-    <!--class="container" -->
-    <span class="fa iconContainer">
-      <span class="fa icon-hr-post"> </span>
-    </span>
-    <h1> Post</h1>
-
-    <a class="pointerCursor" (click)="downloadExcel()">
-      <i class="fa fa-file-excel-o"></i>
-      &nbsp;Excel
-    </a>
-
-    <a class="pointerCursor" (click)="downloadCSV()">
-      <i class="fa fa-file-text-o"></i>
-      &nbsp;CSV
-    </a>
-
-    <!-- <a class="pointerCursor" (click)="downPDF()"> -->
-    <a class="pointerCursor">
-      <i class="fa fa-file-pdf-o"></i>
-      &nbsp;PDF
-    </a>
-
-    <a class="pointerCursor" (click)="printDiv()">
-      <i class="fa fa-print"></i>
-      &nbsp;Print
-    </a>
-
-    <a class="pointerCursor" data-toggle="modal" data-target="#postModal" (click)="clear()">
-      <i class="fa fa-plus-square"></i>
-      &nbsp;Add New
-    </a>
-
-  </div>
-</div>
-<!-- end menubar buttons -->
-
-
-
+<!-- start table container -->
 <div class="myContainer mat-elevation-z8 bgWhite">
+  <!-- start menubar buttons -->
+  <div class="topnav boxShadow">
+    <div>
+      <!--class="container" -->
+      <span class="fa iconContainer">
+        <span class="fa icon-hr-post"> </span>
+      </span>
+      <h1> Post</h1>
+  
+      <a class="pointerCursor" (click)="downloadExcel()">
+        <i class="fa fa-file-excel-o"></i>
+        &nbsp;Excel
+      </a>
+  
+      <a class="pointerCursor" (click)="downloadCSV()">
+        <i class="fa fa-file-text-o"></i>
+        &nbsp;CSV
+      </a>
+  
+      <!-- <a class="pointerCursor" (click)="downPDF()"> -->
+      <a class="pointerCursor">
+        <i class="fa fa-file-pdf-o"></i>
+        &nbsp;PDF
+      </a>
+  
+      <a class="pointerCursor" (click)="printDiv()">
+        <i class="fa fa-print"></i>
+        &nbsp;Print
+      </a>
+  
+      <a class="pointerCursor" data-toggle="modal" data-target="#postModal" (click)="clear()">
+        <i class="fa fa-plus-square"></i>
+        &nbsp;Add New
+      </a>
+  
+    </div>
+  </div>
+  <!-- end menubar buttons -->
+</div>
+
+
+
+
+<div class="container-fluid bottomBorder  bgWhite">
   <!--Start search textbox Row-->
   <div class="row">
     <div class="col-md-12">
@@ -60,30 +64,30 @@
   <div class="row">
 
     <div class="col-md-12">
-      <table class="table table-striped">
+      <table class="table table-striped bottomBorder">
         <thead>
           <tr class='d-flex'>
             <th class='col-1 text-center'>Sr #</th>
               <th class='col-3' [class.active]="order === 'office'" (click)="setOrder('office')">
-                Office
+                Offices
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
 
               <th class='col-2' [class.active]="order === 'department'" (click)="setOrder('department')">
-                Department
+                Departments
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
 
               <th class='col-2' [class.active]="order === 'section'" (click)="setOrder('section')">
-                Section
+                Sections
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
 
               <th class='col-2' [class.active]="order === 'designation'" (click)="setOrder('designation')">
-                Job Title
+                Job Titles
                 <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                 <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
               </th>
@@ -113,13 +117,14 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table>      
+      
       <!-- Pagination Starts -->
-      <div class="row tab-margin">
-        <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-11">
           <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
         </div>
-        <div class="col-md-2 text-right">
+        <div class="col-md-1">
           <mat-form-field class="fullwidth pagenateList">
             <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
               <mat-option value="5">5</mat-option>
@@ -206,6 +211,7 @@
         <h4 class="modal-title">Add Job Post</h4>
         <div>
             <button type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Save</button>
+            <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
             <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
         </div>
       </div>
@@ -213,56 +219,53 @@
 
       <!--start Modal body -->
       <div class="modal-body">
-        <!--Row #1-->
-        <div class="row">
-          <!-- Office -->
-          <div class="col-md-4">
-            <mat-form-field>
-              <mat-select placeholder="Office" [(ngModel)]="officeName" (ngModelChange)="onBranchChange($event)">
-                <mat-option *ngFor="let item of offices" [value]="item.locationCd">{{item.locationName}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+        <div class="row">        
 
-          <!-- Department -->
-          <div class="col-md-4">
-            <mat-form-field>
-              <mat-select placeholder="Department" [(ngModel)]="departmentName" (ngModelChange)="onDeptChange($event)">
-                <mat-option *ngFor="let item of departments" [value]="item.deptCd">{{item.deptName}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+          <div class="col-md-4 rightBorder">
+            <div class="row">
+              <!-- Office -->
+              <div class="col-md-12">
+                <mat-form-field>
+                  <mat-select placeholder="Office" [(ngModel)]="officeName" (ngModelChange)="onBranchChange($event)">
+                    <mat-option *ngFor="let item of offices" [value]="item.locationCd">{{item.locationName}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            
+            <div class="row">
+              <!-- Department -->
+              <div class="col-md-12">
+                <mat-form-field>
+                  <mat-select placeholder="Department" [(ngModel)]="departmentName" (ngModelChange)="onDeptChange($event)">
+                    <mat-option *ngFor="let item of departments" [value]="item.deptCd">{{item.deptName}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>          
+            </div>            
 
-          <!-- Section -->
-          <div class="col-md-4">
-            <mat-form-field>
-              <mat-select placeholder="Section" [(ngModel)]="sectionName" (ngModelChange)="onSectionChange($event)">
-                <mat-option *ngFor="let item of sections" [value]="item.deptCd">{{item.deptName}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-        </div>
-        <!--end of row #1 -->
-        <br />
-        <div class="row">
-          <div class="col-md-4">
-            <mat-form-field>
-              <mat-select placeholder="Job Designation"  (ngModelChange)="onJobChange($event)"
-              [(ngModel)]="jobPostName">
-                <mat-option *ngFor="let item of jobPost" [value]="item.jobDesigID">{{item.jobDesigName}} - {{item.payGradeCd}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="offset-md-2 col-md-6 text-right">
-            <button mat-raised-button color="primary" (click)="getOrganoGram()">Load Organo Gram</button>
-            <!-- <button mat-raised-button color="primary" (click)="addPost()" *ngIf="btnAddPost">Add New Post</button> -->
-            <button mat-raised-button color="warn" (click)="clear()">Reset</button>
-          </div>
-        </div>
-        <br />
-        <div class="row">
-          <div class="col-md-4">
+            <div class="row">
+              <!-- Section -->
+              <div class="col-md-12">
+                <mat-form-field>
+                  <mat-select placeholder="Section" [(ngModel)]="sectionName" (ngModelChange)="onSectionChange($event)">
+                    <mat-option *ngFor="let item of sections" [value]="item.deptCd">{{item.deptName}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <mat-select placeholder="Job Designation"  (ngModelChange)="onJobChange($event)"
+                  [(ngModel)]="jobPostName">
+                    <mat-option *ngFor="let item of jobPost" [value]="item.jobDesigID">{{item.jobDesigName}} - {{item.payGradeCd}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            
             <!--1st row-->
             <div class="row">
               <div class="col-md-6">
@@ -315,20 +318,35 @@
             <!-- <button mat-raised-button color="primary">Save</button> -->
           </div>
           <div class="col-md-8">
-            <!--ngprime organizational chart-->
-            <p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode"
-              styleClass="company">
-              <ng-template let-node pTemplate="person">
-                <div class="node-header ui-corner-top">{{node.label}}</div>
-                <div class="node-content">
-                  <div>{{node.data.name}}</div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <button class="fullwidth noneOutLine bgWhiteGrey" mat-raised-button color="" (click)="getOrganoGram()">Load Organogram</button>
+                <!-- <button mat-raised-button color="primary" (click)="addPost()" *ngIf="btnAddPost">Add New Post</button> -->
+                <!-- <button mat-raised-button color="warn" (click)="clear()">Reset</button> -->               
+              </div>                               
+            </div>
+            <hr>
+
+            <!-- scrollable div -->
+            <div class ="autoScrollOrganogramJobPost">
+              <div class="row">
+                  <!--ngprime organizational chart-->
+                  <p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode"
+                    styleClass="company">
+                    <ng-template let-node pTemplate="person">
+                      <div class="node-header ui-corner-top">{{node.label}}</div>
+                      <div class="node-content">
+                        <div>{{node.data.name}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-node pTemplate="department">
+                      {{node.label}}
+                    </ng-template>
+                  </p-organizationChart>
+                  <!--ngprime organizational chart-->
                 </div>
-              </ng-template>
-              <ng-template let-node pTemplate="department">
-                {{node.label}}
-              </ng-template>
-            </p-organizationChart>
-            <!--ngprime organizational chart-->
+            </div>
           </div>
         </div>
         <!--Row #2-->

@@ -14,7 +14,7 @@ declare var $: any;
 })
 export class EmployeeShiftComponent implements OnInit {
 
-  serverUrl = "http://localhost:3010/";
+  serverUrl = "http://localhost:9027/";
   
   //* variables for pagination and orderby pipe
   p = 1;
@@ -24,7 +24,7 @@ export class EmployeeShiftComponent implements OnInit {
   // orderGroup = 'info.name';
   // reverseGroup = false;
   sortedCollection: any[];
-  itemPerPage = '10';
+  itemPerPage = '7';
 
   shiftSearch = '';
   officeName = '';
