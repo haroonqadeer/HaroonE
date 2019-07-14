@@ -17,7 +17,7 @@ declare var $: any;
 })
 export class YearcalendarComponent implements OnInit {
 
-  serverUrl = "http://localhost:3007/";
+  serverUrl = "http://localhost:9021/";
 
   events: any[];
   options: any;
