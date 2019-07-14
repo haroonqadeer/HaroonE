@@ -364,7 +364,7 @@ export class PostComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    this.http.get(this.serverUrl + 'api/getBranches', { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get(this.serverUrl + 'api/getBranches?cmpnyID=59', { headers: reqHeader }).subscribe((data: any) => {
 
       this.offices = data;
       

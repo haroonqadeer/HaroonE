@@ -84,7 +84,7 @@ export class ShiftComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    this.http.get(this.serverUrl + 'api/getDepartment', { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get(this.serverUrl + 'api/getDepartment?cmpnyID=59', { headers: reqHeader }).subscribe((data: any) => {
 
       this.departmentList = data;
     });
@@ -98,7 +98,7 @@ export class ShiftComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    this.http.get(this.serverUrl + 'api/getDepartmentShift', { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get(this.serverUrl + 'api/getDepartmentShift?cmpnyID=59', { headers: reqHeader }).subscribe((data: any) => {
 
       this.deptShiftList = data;
 
@@ -116,7 +116,7 @@ export class ShiftComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    this.http.get(this.serverUrl + 'api/getDepartmentShiftDetail', { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get(this.serverUrl + 'api/getDepartmentShiftDetail?cmpnyID=59', { headers: reqHeader }).subscribe((data: any) => {
 
       this.departmentDetailList = data;
 
