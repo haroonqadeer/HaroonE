@@ -39,17 +39,15 @@
 </div>
 <!-- end menubar buttons -->
 
-<br>
-
 <!-- Table Container Starts -->
-<div class="myContainer bgWhite">
+<div class="container-fluid bottomBorder bgWhite">
   <!--Start search textbox Row-->
   <div class="row">
     <div class="col-md-12">
-      <mat-form-field class="fullwidth">
-        <input matInput [(ngModel)]="tblSearch" placeholder="Search">
-      </mat-form-field>
-      <i class="fab fa-accessible-icon"></i>
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+      </div>      
     </div>
   </div>
   <!--end search textbox Row-->

@@ -41,40 +41,39 @@
 </div>
 <!-- end menubar buttons -->
 
-<br>
-
 <!-- Table Container Starts -->
-<div class="myContainer bgWhite">
+<div class="container-fluid bgWhite">
+  
   <!--Start search textbox Row-->
   <div class="row">
     <div class="col-md-12">
-      <mat-form-field class="fullwidth">
-        <input matInput [(ngModel)]="tblSearch" placeholder="Search">
-      </mat-form-field>
-      <i class="fab fa-accessible-icon"></i>
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+      </div>      
     </div>
   </div>
   <!--end search textbox Row-->
 
   <div class="row">
-    <table class="table table-striped">
+    <table class="table table-striped bottomBorder">
       <thead>
         <tr class='d-flex'>
           <th class="col-1 text-center">Sr. #</th>
           <th class="col-2 text-left" [class.active]="order === 'qlfctnName'" (click)="setOrder('qlfctnName')">
-            Certificate Group
+            Grouping
             <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
           </th>
           <th class="col-3 text-left" [class.active]="order === 'qlfctnCriteriaName'"
             (click)="setOrder('qlfctnCriteriaName')">
-            Certificate Title
+            Title
             <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
           </th>
           <th class="col-4 text-left" [class.active]="order === 'qlfctnCriteriaDesc'"
             (click)="setOrder('qlfctnCriteriaDesc')">
-            Title Description
+            Description
             <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
           </th>
@@ -100,26 +99,26 @@
           </td>
         </tr>
       </tbody>
-    </table>
-    <!-- Pagination Starts -->
-    <div class="row tab-margin">
-      <div class="col-md-10">
-        <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
-      </div>
-      <div class="col-md-2 text-right">
-        <mat-form-field class="fullwidth pagenateList">
-          <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
-            <mat-option value="5">5</mat-option>
-            <mat-option value="10">10</mat-option>
-            <mat-option value="25">25</mat-option>
-            <mat-option value="50">50</mat-option>
-            <mat-option value="100">100</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-    <!-- Pagination Ends -->
+    </table>    
   </div>
+  <!-- Pagination Starts -->
+  <div class="row">
+    <div class="col-md-11">
+      <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
+    </div>
+    <div class="col-md-1">
+      <mat-form-field class="fullwidth pagenateList">
+        <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
+          <mat-option value="5">5</mat-option>
+          <mat-option value="10">10</mat-option>
+          <mat-option value="25">25</mat-option>
+          <mat-option value="50">50</mat-option>
+          <mat-option value="100">100</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- Pagination Ends -->
 </div>
 <!-- Table Container Ends -->
 <br>
@@ -180,13 +179,18 @@
 
 <!-- Add Certificate Modal Starts -->
 <div class="modal fade" id="addCertificateModal">
-  <div class="modal-dialog modal-md">
+  <div class="modal-dialog shadow-lg-dark modal-md">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Add Certificate</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveCertificateCriteria()"><span class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+        </div>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
       </div>
       <div class="modal-body">
         <!-- Row 1 -->
@@ -246,19 +250,20 @@
           </div>
         </div>
         <!--button tag Row Starts-->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-2 text-left">
             <button mat-raised-button color="primary" (click)="saveCertificateCriteria()">Save</button>
           </div>
           <div class="col-md-10 text-left">
             <button mat-raised-button (click)="clear()">Reset</button>
           </div>
-        </div>
+        </div> -->
         <!-- Button tag Row Ends -->
       </div>
-      <div class="modal-footer">
+      <br>
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -267,13 +272,18 @@
 
 <!-- Add Certificate Group Modal Starts -->
 <div class="modal fade" id="addCertificateGroupModal">
-  <div class="modal-dialog modal-md">
+  <div class="modal-dialog shadow-lg-dark modal-md">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Add Certificate Group</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveCertificateGroup()"><span class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+        </div>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
       </div>
       <div class="modal-body">
         <!-- Row 1 -->
@@ -294,19 +304,19 @@
           </div>
         </div>
         <!--button tag Row Starts-->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-2 text-left">
             <button mat-raised-button color="primary" (click)="saveCertificateGroup()">Save</button>
           </div>
           <div class="col-md-10 text-left">
             <button mat-raised-button (click)="clear()">Reset</button>
           </div>
-        </div>
+        </div> -->
         <!-- Button tag Row Ends -->
       </div>
 
       <!-- Table Container Starts -->
-      <div class="container bgWhite">
+      <div class="container-fluid">
         <!--Start search textbox Row-->
         <div class="row">
           <div class="col-md-12">
@@ -319,7 +329,7 @@
         <!--end search textbox Row-->
 
         <div class="row">
-          <table class="table table-striped">
+          <table class="table table-striped bottomBorder">
             <thead>
               <tr class='d-flex'>
                 <th class="col-1 text-center">#</th>
@@ -344,12 +354,14 @@
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table>          
+        </div>
+        <div class="row">
           <!-- Pagination Starts -->
           <div class="col-md-8">
             <pagination-controls id="second" (pageChange)="pGroup = $event"></pagination-controls>
           </div>
-          <div class="col-md-4 text-right">
+          <div class="col-md-4">
             <mat-form-field class="fullwidth pagenateList">
               <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPageGroup">
                 <mat-option value="5">5</mat-option>
@@ -363,9 +375,9 @@
       </div>
       <!-- Table Container Ends -->
 
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
