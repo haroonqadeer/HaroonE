@@ -273,8 +273,8 @@ export class TrainingrequirementsComponent implements OnInit {
 
   assignTraining() {
 
-    alert("List: " + this.selectedList.length);
-    alert("Trnnc Code: " + this.tTraining);
+    // alert("List: " + this.selectedList.length);
+    // alert("Trnnc Code: " + this.tTraining);
 
     if (this.tTrainingType == "") {
       this.toastr.errorToastr('Please Select Training Type', 'Error', { toastTimeout: (2500) });

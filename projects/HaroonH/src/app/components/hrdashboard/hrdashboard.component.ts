@@ -85,6 +85,9 @@ export class HrdashboardComponent implements OnInit {
       chart: {
         type: 'column'
       },
+      colors: [
+        '#8bc34a'
+      ],
       title: {
         text: 'Active Employee'
       },
@@ -133,6 +136,9 @@ export class HrdashboardComponent implements OnInit {
       chart: {
         type: 'column'
       },
+      colors:[
+        '#ff9800'
+      ],
       title: {
         text: 'Offices'
       },
@@ -180,6 +186,9 @@ export class HrdashboardComponent implements OnInit {
       chart: {
         type: 'column'
       },
+      colors:[
+        '#3f51b5'
+      ],
       title: {
         text: 'Department'
       },
@@ -225,6 +234,9 @@ export class HrdashboardComponent implements OnInit {
         chart: {
           type: 'bar'
         },
+        colors:[
+          '#ff9800','#00bcd4','#3f51b5','#ef0000'
+        ],
         title: {
           text: 'Type'
         },
@@ -265,6 +277,7 @@ export class HrdashboardComponent implements OnInit {
       chart: {
         type: 'bar'
       },
+      colors:['#b73377', '#2da9d9'],
       title: {
         text: 'Gender'
       },

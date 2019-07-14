@@ -41,42 +41,39 @@
 </div>
 <!-- end menubar buttons -->
 
-<br>
-
-
 <!-- Table Container Starts -->
-<div class="myContainer bgWhite">
+<div class="myContainer bottomBorder bgWhite">
 
   <!--Start search textbox Row-->
   <div class="row">
     <div class="col-md-12">
-      <mat-form-field class="fullwidth">
-        <input matInput [(ngModel)]="tblSearch" placeholder="Search">
-      </mat-form-field>
-      <i class="fab fa-accessible-icon"></i>
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+      </div>      
     </div>
   </div>
   <!--end search textbox Row-->
 
   <div class="row">
-    <table class="table table-striped">
+    <table class="table table-striped bottomBorder">
       <thead>
         <tr class='d-flex'>
           <th class="col-1 text-center">Sr.#</th>
           <th class="col-2 text-left" (click)="setOrder()">
-            Employee
+            Employee Name
             <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
           </th>
           <th class="col-2 text-left" (click)="setOrder()">
-            Job Profile
+            Job Profile's
             <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
           </th>
           <th class="col-2 text-left"> Training </th>
           <th class="col-2 text-left"> Institute </th>
-          <th class="col-1 text-center"> Duration </th>
-          <th class="col-2 text-left">Status</th>
+          <th class="col-2 "> Duration </th>
+          <th class="col-1 text-left">Status</th>
           <!-- <th class="col-1 text-center">Delete</th> -->
         </tr>
       </thead>
@@ -89,17 +86,17 @@
           <td class="col-2 text-left">{{item.jobDesigName}}</td>
           <td class="col-2 text-left">{{item.trnngName}}</td>
           <td class="col-2 text-left">{{item.orgName}}</td>
-          <td class="col-1 text-center">{{item.trnngDuration}}</td>
-          <td class="col-2 text-left">In-Process</td>
+          <td class="col-2 ">{{item.trnngDuration}} - months</td>
+          <td class="col-1 text-left">In-Process</td>
         </tr>
       </tbody>
 
     </table>
     <!-- Pagination Starts -->
-    <div class="col-md-10">
+    <div class="col-md-11">
       <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
     </div>
-    <div class="col-md-2 text-center">
+    <div class="col-md-1">
       <mat-form-field class="fullwidth pagenateList">
         <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
           <mat-option value="5">5</mat-option>

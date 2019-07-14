@@ -41,23 +41,25 @@
 </div>
 <!-- end menubar buttons -->
 
-<br>
-
 <!-- Table Container Starts -->
-<div class="myContainer bgWhite">
+<div class="myContainer bottomBorder bgWhite">
   <!--Start search textbox Row-->
   <div class="row">
     <div class="col-md-12">
-      <mat-form-field class="fullwidth">
+      <!-- <mat-form-field class="fullwidth">
         <input matInput [(ngModel)]="tblSearch" placeholder="Search">
       </mat-form-field>
-      <i class="fab fa-accessible-icon"></i>
+      <i class="fab fa-accessible-icon"></i> -->
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+      </div>
     </div>
   </div>
   <!--end search textbox Row-->
 
   <div class="row">
-    <table class="table table-striped">
+    <table class="table table-striped bottomBorder">
       <thead>
         <tr class='d-flex'>
           <th class="col-1 text-center">Sr. #</th>
@@ -92,7 +94,7 @@
           <td class="col-2 text-left">{{item.trnngTypeName}}</td>
           <td class="col-3 text-left">{{item.trnngName}}</td>
           <td class="col-2 text-left">{{item.orgName}}</td>
-          <td class="col-2 text-center">{{item.trnngDuration}}</td>
+          <td class="col-2 text-center">{{item.trnngDuration}} - month's</td>
           <td class="col-1 text-right">
             <i data-toggle="modal" data-target="#addTrainingModal" (click)="edit(item)"
               class="pointerCursor fa fa-pencil text-primary" aria-hidden="true"></i>
@@ -105,10 +107,10 @@
       </tbody>
     </table>
     <!-- Pagination Starts -->
-    <div class="col-md-10">
+    <div class="col-md-11">
       <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
     </div>
-    <div class="col-md-2 text-center">
+    <div class="col-md-1">
       <mat-form-field class="fullwidth pagenateList">
         <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
           <mat-option value="5">5</mat-option>
@@ -186,9 +188,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Add Training</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <div>
+            <button type="button" class="btn-ia cursorPointer text-right" (click)="saveTraining()"><span class="fa fa-save"></span> &nbsp;Save</button>
+            <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
+            <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+        </div>
       </div>
       <div class="modal-body">
         <!-- Row 1 -->
@@ -236,19 +240,21 @@
           </div>
         </div>
         <!--button tag Row Starts-->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-2 text-left">
             <button mat-raised-button color="primary" (click)="saveTraining()">Save</button>
           </div>
           <div class="col-md-10 text-left">
             <button mat-raised-button (click)="clear()">Reset</button>
           </div>
-        </div>
+        </div> -->
         <!-- Button tag Row Ends -->
       </div>
-      <div class="modal-footer">
+      <hr>
+      <br>
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -261,9 +267,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Add Training Type</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveTrainingType()"><span class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+        </div>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
       </div>
       <div class="modal-body">
         <!-- Row 1 -->
@@ -282,20 +293,18 @@
             </mat-form-field>
           </div>
         </div>
-        <!--button tag Row Starts-->
-        <div class="row">
-          <div class="col-md-2 text-left">
-            <button mat-raised-button color="primary" (click)="saveTrainingType()">Save</button>
-          </div>
-          <div class="col-md-10 text-left">
-            <button mat-raised-button (click)="clear()">Reset</button>
-          </div>
-        </div>
-        <!-- Button tag Row Ends -->
+        <br>        
       </div>
 
       <!-- Table Container Starts -->
-      <div class="container bgWhite">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-md-12">
+            <h5>Saved Training Tyes</h5>
+          </div>
+        </div>
+        <hr>
         <!--Start search textbox Row-->
         <div class="row">
           <div class="col-md-12">
@@ -308,52 +317,54 @@
         <!--end search textbox Row-->
 
         <div class="row">
-          <table class="table table-striped">
+          <table class="table table-striped bottomBorder">
             <thead>
               <tr class='d-flex'>
                 <th class="col-1 text-center">#</th>
-                <th class="col-3 text-left"> Type Name </th>
-                <th class="col-4 text-left"> Description </th>
-                <th class="col-4 text-center">Action</th>
+                <th class="col-4 text-left"> Type Name </th>
+                <th class="col-5 text-left"> Description </th>
+                <th class="col-2 text-center">Action</th>
               </tr>
             </thead>
             <tbody>
               <tr class='d-flex'
                 *ngFor="let item of trainingTypeList | search:'trnngTypeName,trnngTypeDesc':tblSearchType | paginate: { itemsPerPage: itemPerPageType, currentPage: pType, id: 'second' }  let i=index">
                 <td class="col-1 text-center">{{i+1}}</td>
-                <td class="col-3 text-left">{{item.trnngTypeName}}</td>
-                <td class="col-4 text-left">{{item.trnngTypeDesc}}</td>
-                <td class="col-2 text-right">
+                <td class="col-4 text-left">{{item.trnngTypeName}}</td>
+                <td class="col-5 text-left">{{item.trnngTypeDesc}}</td>
+                <td class="col-1 text-right">
                   <i data-toggle="modal" (click)="editTrainingType(item)"
                     class="pointerCursor fa fa-pencil text-primary" aria-hidden="true"></i>
                 </td>
-                <td class="col-2 text-left">
+                <td class="col-1 text-left">
                   <i data-toggle="modal" data-target="#deleteModal" (click)="deleteTrainingType(item)"
                     class="pointerCursor fa fa-trash text-danger" aria-hidden="true"></i>
                 </td>
               </tr>
             </tbody>
-          </table>
-          <!-- Pagination Starts -->
-          <div class="col-md-8">
-            <pagination-controls id="second" (pageChange)="pType = $event"></pagination-controls>
-          </div>
-          <div class="offset-1 col-md-3 text-right">
-            <mat-form-field class="fullwidth pagenateList">
-              <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPageType">
-                <mat-option value="5">5</mat-option>
-                <mat-option value="10">10</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <!-- Pagination Ends -->
+          </table>          
         </div>
       </div>
       <!-- Table Container Ends -->
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      <div class="row">
+        <!-- Pagination Starts -->
+        <div class="col-md-9">
+          <pagination-controls id="second" (pageChange)="pType = $event"></pagination-controls>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="fullwidth pagenateList">
+            <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPageType">
+              <mat-option value="5">5</mat-option>
+              <mat-option value="10">10</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- Pagination Ends -->
       </div>
+      <br>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div> -->
     </div>
   </div>
 </div>

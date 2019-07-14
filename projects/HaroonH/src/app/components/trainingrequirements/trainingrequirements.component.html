@@ -32,37 +32,36 @@
       Print
     </a>
 
-    <!-- <a class="pointerCursor" data-toggle="modal" data-target="#addTrainingModal" (click)="clear()">
+    <a class="pointerCursor" data-toggle="modal" data-target="#assignTrainingModal" (click)="clear()">
       <i class="fa fa-plus-square"></i>
-      Add New
-    </a> -->
+      Assign Training
+    </a>
 
   </div>
 </div>
 <!-- end menubar buttons -->
 
-<br>
 
 <!-- Table Container Starts -->
-<div class="myContainer bgWhite">
+<div class="myContainer bottomBorder bgWhite">
   <!--Start search textbox Row-->
   <div class="row">
     <div class="col-md-12">
-      <mat-form-field class="fullwidth">
-        <input matInput [(ngModel)]="tblSearch" placeholder="Search">
-      </mat-form-field>
-      <i class="fab fa-accessible-icon"></i>
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+      </div>      
     </div>
   </div>
   <!--end search textbox Row-->
 
   <div class="row">
-    <table class="table table-striped">
+    <table class="table table-striped bottomBorder">
       <thead>
         <tr class='d-flex'>
           <th class="col-1 text-center">Sr.#</th>
           <th class="col-3 text-left" [class.active]="order === 'indvdlFullName'" (click)="setOrder()">
-            Employee
+            Employee Name
             <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
           </th>
@@ -85,7 +84,7 @@
           <td class="col-1 text-center">{{i+1}}</td>
           <td class="col-3 text-left">{{item.indvdlFullName}}</td>
           <td class="col-4 text-left">{{item.jobDesigName}}</td>
-          <td class="col-2 text-center">{{calculate(item.qlfctnCriteriaReqdLvl,item.levelAchieved)}}</td>
+          <td class="col-2 text-center">{{calculate(item.qlfctnCriteriaReqdLvl,item.levelAchieved)}} - point's</td>
           <td class="col-2 text-center">
             <mat-checkbox [(ngModel)]="item.select" (change)="exist(item)" (click)="toggleSelection(item)">
             </mat-checkbox>
@@ -96,10 +95,10 @@
       </tbody>
     </table>
     <!-- Pagination Starts -->
-    <div class="col-md-10">
+    <div class="col-md-11">
       <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
     </div>
-    <div class="col-md-2 text-center">
+    <div class="col-md-1">
       <mat-form-field class="fullwidth pagenateList">
         <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
           <mat-option value="5">5</mat-option>
@@ -169,19 +168,6 @@
 </igx-grid>
 <!-- Hidden Table Ends  for Excel and CSV files -->
 
-
-<br>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12 text-center">
-      <button mat-raised-button color="primary" data-toggle="modal" data-target="#assignTrainingModal"
-        (click)="clear()">Assign
-        Training</button>
-    </div>
-  </div>
-</div>
-
 <br>
 
 <!-- Assign training Modal Starts -->
@@ -190,9 +176,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Assign Training</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="assignTraining()"><span class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+        </div>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
       </div>
       <div class="modal-body">
         <!-- Row 1 -->
@@ -264,7 +255,7 @@
 
 
         <!-- Table Container Starts -->
-        <div class="container bgWhite">
+        <div class="container-fluid bgWhite">
           <!--Start search textbox Row-->
           <!-- <div class="row">
             <div class="col-md-12">
@@ -275,9 +266,12 @@
             </div>
           </div> -->
           <!--end search textbox Row-->
-
+          <br>
+          <div class="row">            
+            <h5>Employee's List</h5>            
+          </div>
           <div class="row">
-            <table class="table table-striped">
+            <table class="table table-striped bottomBorder">
               <thead>
                 <tr class='d-flex'>
                   <th class="col-1 text-center">Sr.#</th>
@@ -329,19 +323,20 @@
 
 
         <!--button tag Row Starts-->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-2 text-left">
             <button mat-raised-button color="primary" (click)="assignTraining()">Assign</button>
           </div>
           <div class="col-md-10 text-left">
             <button mat-raised-button (click)="clear()">Reset</button>
           </div>
-        </div>
+        </div> -->
         <!-- Button tag Row Ends -->
-      </div>
-      <div class="modal-footer">
+      </div>      
+
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

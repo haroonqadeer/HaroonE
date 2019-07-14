@@ -23,7 +23,7 @@ declare var $: any;
 })
 export class TransferpostingComponent implements OnInit {
 
-    serverUrl = "http://localhost:25945/";
+    serverUrl = "http://localhost:9029/";
     //serverUrl = "http://192.168.200.19:3004/";
     tokenKey = "token";
 

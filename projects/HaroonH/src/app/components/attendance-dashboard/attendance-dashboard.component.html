@@ -10,8 +10,8 @@
 </div>
 <!-- end menubar buttons -->
 
-<br/>
-<div class="myContainer">
+<div class="container-fluid bgWhite">
+  <br>
   <!--box row-->
   <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -62,13 +62,13 @@
 
   <br/>
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
       <div class=" shadow-md" [chart]="Pie_Chart" style=" height: 20em;width:100%;"></div>
       <!-- <div class=" shadow-md" [chart]="Column_Chart" style=" height: 100%;width:100%;"></div> -->
     </div>
-    <div class="col-md-4 shadow-md mat-elevation-z8 bgWhite">
+    <div class="col-md-6 shadow-md mat-elevation-z8 bgWhite">
       <div class="example-container">
-        <div class="example-table-container" style="height: 20em; overflow: scroll;">                      
+        <div class="example-table-container" style="height: 20em; overflow: auto;">                      
           <table class="table table-striped">
             <thead>
               <tr class='d-flex'>
@@ -92,8 +92,13 @@
           </table>
         </div>
       </div>
-    </div>
-    <div class="col-md-4">
+    </div>    
+  </div>
+
+  <br>
+  <!-- row - 03 -->
+  <div class="row">
+    <div class="col-md-12">
       <div class=" shadow-md" [chart]="Column_Chart" style=" height: 20em;width:100%;"></div>
     </div>
   </div>
