@@ -18,20 +18,10 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-// <<<<<<< HEAD
-    serverUrl = "http://125.1.1.252:9010/";
-// =======
-    //<<<<<<< HEAD
-    // serverUrl = "https://localhost:5001/";
 
-    //serverUrl = "https://localhost:8008/";
-    //serverUrl = "http://localhost:11664/";
-    //=======
-    //serverUrl = "http://192.168.200.52:1001/";
-// >>>>>>> 6baa61dccfa396920caf44af3017542ec596dd83
-    //serverUrl = "http://localhost:23145/";
-    //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
-    //serverUrl = "http://192.168.200.19:3006/";
+    //serverUrl = "http://125.1.1.252:9010/";
+    serverUrl = "http://localhost:23145";
+
     tokenKey = "token";
 
     httpOptions = {
