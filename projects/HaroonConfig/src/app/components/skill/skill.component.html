@@ -175,13 +175,18 @@
 
 <!-- Add skill Modal Starts -->
 <div class="modal fade" id="addSkillModal">
-  <div class="modal-dialog modal-md">
+  <div class="modal-dialog shadow-lg-dark modal-md">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Add Skills</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveSkillCriteria()"><span class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+        </div>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
       </div>
       <div class="modal-body">
         <!-- Row 1 -->
@@ -240,19 +245,21 @@
           </div>
         </div>
         <!--button tag Row Starts-->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-2 text-left">
             <button mat-raised-button color="primary" (click)="saveSkillCriteria()">Save</button>
           </div>
           <div class="col-md-10 text-left">
             <button mat-raised-button (click)="clear()">Reset</button>
           </div>
-        </div>
+        </div> -->
         <!-- Button tag Row Ends -->
       </div>
-      <div class="modal-footer">
+      <hr>
+      <br>
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -261,13 +268,18 @@
 
 <!-- Add skill Group Modal Starts -->
 <div class="modal fade" id="addSkillGroupModal">
-  <div class="modal-dialog modal-md">
+  <div class="modal-dialog shadow-lg-dark modal-md">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Add skill Group</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveSkillGroup()"><span class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+        </div>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
       </div>
       <div class="modal-body">
         <!-- Row 1 -->
@@ -288,19 +300,24 @@
           </div>
         </div>
         <!--button tag Row Starts-->
+        <br>
+
         <div class="row">
-          <div class="col-md-2 text-left">
+          <!-- <div class="col-md-2 text-left">
             <button mat-raised-button color="primary" (click)="saveSkillGroup()">Save</button>
           </div>
           <div class="col-md-10 text-left">
             <button mat-raised-button (click)="clear()">Reset</button>
+          </div> -->
+          <div class="col-md-12">
+            <h5>Saved Skill Groups</h5>
           </div>
         </div>
         <!-- Button tag Row Ends -->
       </div>
 
       <!-- Table Container Starts -->
-      <div class="container bgWhite">
+      <div class="container-fluid bgWhite">
         <!--Start search textbox Row-->
         <div class="row">
           <div class="col-md-12">
@@ -313,7 +330,7 @@
         <!--end search textbox Row-->
 
         <div class="row">
-          <table class="table table-striped">
+          <table class="table table-striped bottomBorder">
             <thead>
               <tr class='d-flex'>
                 <th class="col-1 text-center">#</th>
@@ -340,10 +357,10 @@
             </tbody>
           </table>
           <!-- Pagination Starts -->
-          <div class="col-md-8">
+          <div class="col-md-9">
             <pagination-controls id="second" (pageChange)="pGroup = $event"></pagination-controls>
           </div>
-          <div class="col-md-4 text-right">
+          <div class="col-md-3 text-right">
             <mat-form-field class="fullwidth pagenateList">
               <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPageGroup">
                 <mat-option value="5">5</mat-option>
@@ -356,10 +373,10 @@
         </div>
       </div>
       <!-- Table Container Ends -->
-
-      <div class="modal-footer">
+      <br>
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
