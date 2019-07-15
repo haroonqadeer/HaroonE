@@ -23,8 +23,8 @@ declare var $: any;
 })
 export class PromotionComponent implements OnInit {
 
-    serverUrl = "http://localhost:9028/";
-    //serverUrl = "http://192.168.200.19:3004/";
+    //serverUrl = "http://localhost:9028/";
+    serverUrl = "http://localhost:51127/";
     tokenKey = "token";
 
     httpOptions = {

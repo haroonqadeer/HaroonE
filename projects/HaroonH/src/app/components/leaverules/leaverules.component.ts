@@ -23,8 +23,8 @@ declare var $: any;
 })
 export class LeaverulesComponent implements OnInit {
 
-    serverUrl = "http://localhost:9014/";
-    //serverUrl = "http://192.168.200.19:3004/";
+    //serverUrl = "http://localhost:9014/";
+    serverUrl = "http://localhost:13759/";
     tokenKey = "token";
 
     httpOptions = {
@@ -85,6 +85,9 @@ export class LeaverulesComponent implements OnInit {
 
     //function for get all saved leave rules 
     getLeaveRules() {
+
+        this.app.showSpinner();
+
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -92,6 +95,8 @@ export class LeaverulesComponent implements OnInit {
 
         this.http.get(this.serverUrl + 'api/getLeaveRule', { headers: reqHeader }).subscribe((data: any) => {
             this.leaveRuleList = data
+            
+            this.app.hideSpinner();
         });
 
     }
@@ -99,6 +104,9 @@ export class LeaverulesComponent implements OnInit {
 
     //function for get all saved leave limit types 
     getLeaveLimitType() {
+
+        this.app.showSpinner();
+
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -113,6 +121,8 @@ export class LeaverulesComponent implements OnInit {
                 });
             }
 
+            this.app.hideSpinner();
+
         });
 
     }
@@ -120,6 +130,9 @@ export class LeaverulesComponent implements OnInit {
 
     //function for get all saved leave types 
     getLeaveTypes() {
+
+        this.app.showSpinner();
+
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -134,6 +147,8 @@ export class LeaverulesComponent implements OnInit {
                 });
             }
 
+            this.app.hideSpinner();
+
         });
 
     }
@@ -141,8 +156,10 @@ export class LeaverulesComponent implements OnInit {
 
     //function for get all saved leave nature 
     getLeaveNature() {
-        //var Token = localStorage.getItem(this.tokenKey);
+        
+        this.app.showSpinner();
 
+        //var Token = localStorage.getItem(this.tokenKey);
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -155,6 +172,7 @@ export class LeaverulesComponent implements OnInit {
                 });
             }
 
+            this.app.hideSpinner();
         });
 
     }
@@ -200,10 +218,10 @@ export class LeaverulesComponent implements OnInit {
         }
         else {
 
+            this.app.showSpinner();
+
             if (this.leaveRuleId != '') {
 
-                //this.app.showSpinner();
-                // this.app.hideSpinner();
                 //* ********************************************update data 
                 var updateData = {
                     "LeaveRuleID": this.leaveRuleId,
@@ -227,10 +245,12 @@ export class LeaverulesComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/saveLeaveRule', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Updated Successfully!") {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                        this.app.hideSpinner();
                         $('#newRuleModal').modal('hide');
                         this.getLeaveRules();
                         return false;
@@ -264,9 +284,11 @@ export class LeaverulesComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/saveLeaveRule', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Saved Successfully!") {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
+                        this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         this.getLeaveRules();
                         return false;
@@ -314,8 +336,8 @@ export class LeaverulesComponent implements OnInit {
         }
         else {
 
-            //this.app.showSpinner();
-            // this.app.hideSpinner();
+            this.app.showSpinner();
+            
 
             //* ********************************************update data 
             var updateData = {
@@ -341,10 +363,12 @@ export class LeaverulesComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/saveLeaveRule', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Deleted Successfully!") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     return false;
                 } else {
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    this.app.hideSpinner();
                     $('#deleteModal').modal('hide');
                     this.getLeaveRules();
                     this.clear();
