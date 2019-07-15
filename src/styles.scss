@@ -10,6 +10,11 @@
     height: 100%;
     }
 
+    /* sticky div */
+    .topFixDiv{
+        position: fixed !important;
+        top:0 !important;
+    }
     /* scrollable organogram */
     .autoScrollOrganogramJobPost{
         height: 30em;
