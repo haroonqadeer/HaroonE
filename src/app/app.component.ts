@@ -17,8 +17,13 @@ declare var $: any;
 })
 export class AppComponent {
 
+
     //serverUrl = "http://192.168.200.19:3009/";
     serverUrl = "http://localhost:9010/";
+
+    //serverUrl = "http://localhost:23145/";
+    //serverUrl = "http://localhost:3004/";
+
     tokenKey = "token";
 
     httpOptions = {
@@ -147,7 +152,7 @@ constructor(
           this.cmpnyId = data.userDetail[0].cmpnyID;
           this.cmpnyName =  data.userDetail[0].locationName;
           this.locationId = data.userDetail[0].locationCd;
-          this.empId = data.userDetail[0].IndvdlID;
+          this.empId = data.userDetail[0].indvdlID;
 
           for (var i = 0; i < data.userDetail.length; i++) {
             this.branchList.push({
