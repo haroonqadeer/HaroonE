@@ -19,7 +19,7 @@ export class AppComponent {
 
 
     //serverUrl = "http://192.168.200.19:3009/";
-    serverUrl = "http://localhost:9010/";
+    serverUrl = "http://localhost:9011/";
 
     //serverUrl = "http://localhost:23145/";
     //serverUrl = "http://localhost:3004/";

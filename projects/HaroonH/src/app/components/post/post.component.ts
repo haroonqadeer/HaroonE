@@ -29,6 +29,7 @@ export class PostComponent implements OnInit {
 
 // <<<<<<< HEAD
   serverUrl = "http://localhost:9013/";
+  // serverUrl = "http://localhost:3001/";
 // =======
   //<<<<<<< HEAD
   // serverUrl = "http://localhost:26880/";
@@ -143,6 +144,7 @@ export class PostComponent implements OnInit {
       
       this.app.hideSpinner();
 
+      this.getBPS();
     });
     
     this.app.showSpinner();
@@ -384,16 +386,30 @@ export class PostComponent implements OnInit {
       }
     }
     
-    
-    // for(var i = 0; i < this.bpsList.length; i++){
-    //   alert(item + ' - ' + this.bpsList[i].payGradeCd);
-    //   if(item < this.bpsList[i].payGradeCd){
-    //     this.jobBpsList.push({
-    //       payGradeCd: this.bpsList[i].payGradeCd,
-    //       payGradeName: this.bpsList[i].payGradeName
-    //     });
-    //   }
-    // }
+    for(var i = 0; i < this.jobPost.length; i++){
+      if(item == this.jobPost[i].jobDesigID){
+        this.getPostBPS(this.jobPost[i].payGradeCd);
+        i = this.jobPost.length + 1;
+      }
+    }
+  }
+
+  getPostBPS(item){
+
+    this.app.showSpinner();
+
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.get(this.serverUrl + 'api/getJobBPS?payGradeCd=' + item , { headers: reqHeader }).subscribe((data: any) => {
+
+      this.bpsList = data;
+      
+      this.app.hideSpinner();
+
+    });
   }
 
   editPost(item) {
