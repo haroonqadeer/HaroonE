@@ -16,8 +16,8 @@ declare var $: any;
 })
 export class JobprofileComponent implements OnInit {
 
-    //serverUrl = "http://192.168.200.19:9024/";
-    serverUrl = "http://localhost:9024/";
+    serverUrl = "http://192.168.200.19:9024/";
+    // serverUrl = "http://localhost:9024/";
     tokenKey = "token";
 
     httpOptions = {
@@ -997,13 +997,16 @@ export class JobprofileComponent implements OnInit {
             }
 
             var duplicateChk = false;
-
-            for (var i = 0; i < this.tempSkillList.length; i++) {
-                if (this.tempSkillList[i].qlfctnCriteriaCD == this.SkillCriteriaId) {
-                    duplicateChk = true;
-                }
+            if(this.tempSkillList != undefined)
+            {
+                for (var i = 0; i < this.tempSkillList.length; i++) {
+                    if (this.tempSkillList[i].qlfctnCriteriaCD == this.SkillCriteriaId) {
+                        duplicateChk = true;
+                    }
+                }    
             }
-
+    
+            
             if (duplicateChk == true){
                 this.toastr.errorToastr('Skill already added', 'Error', { toastTimeout: (2500) });
                 return false;

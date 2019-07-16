@@ -23,8 +23,8 @@ declare var $: any;
 })
 export class LeaverulesComponent implements OnInit {
 
-    serverUrl = "http://localhost:9014/";
-    //serverUrl = "http://192.168.200.19:3004/";
+    // serverUrl = "http://localhost:9014/";
+    serverUrl = "http://192.168.200.19:9014/";
     tokenKey = "token";
 
     httpOptions = {

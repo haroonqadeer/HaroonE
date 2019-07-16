@@ -37,7 +37,8 @@ export class CertificateComponent implements OnInit {
 
   // serverUrl = "http://localhost:49774/";
 // <<<<<<< HEAD
-  serverUrl = "http://localhost:9016/";
+  // serverUrl = "http://localhost:9016/";
+  serverUrl = "http://192.168.200.19:9016/";
   // serverUrl = "https://localhost:8002/";
   //serverUrl = "http://192.168.200.19:3001/";
 // =======

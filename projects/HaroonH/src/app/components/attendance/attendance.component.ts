@@ -16,8 +16,8 @@ declare var $: any;
 })
 export class AttendanceComponent implements OnInit {
 
-    //serverUrl = "http://192.168.200.19:3009/";
-    serverUrl = "http://localhost:9032/";
+    serverUrl = "http://192.168.200.19:9032/";
+    // serverUrl = "http://localhost:9032/";
     tokenKey = "token";
 
     httpOptions = {

@@ -28,12 +28,12 @@ declare var $: any;
 export class PostComponent implements OnInit {
 
 // <<<<<<< HEAD
-  serverUrl = "http://localhost:9013/";
+  // serverUrl = "http://localhost:9013/";
   // serverUrl = "http://localhost:3001/";
 // =======
   //<<<<<<< HEAD
   // serverUrl = "http://localhost:26880/";
-  //serverUrl = "http://192.168.200.19:3003/";
+  serverUrl = "http://192.168.200.19:9013/";
   //serverUrl = "http://localhost:3001/";
   //=======
   //serverUrl = "http://localhost:3001/";

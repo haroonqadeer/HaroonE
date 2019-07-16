@@ -14,7 +14,8 @@ declare var $: any;
 })
 export class EmployeeShiftComponent implements OnInit {
 
-  serverUrl = "http://localhost:9027/";
+  serverUrl = "http://192.168.200.19:9027/";
+  // serverUrl = "http://localhost:9027/";
   
   //* variables for pagination and orderby pipe
   p = 1;
