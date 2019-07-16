@@ -17,7 +17,11 @@ styleUrls: ['./recruitmentapp.component.scss']
 export class RecruitmentappComponent implements OnInit {
 
     serverUrl = "http://192.168.200.19:9025/";
+// <<<<<<< HEAD
     // serverUrl = "http://localhost:9025/";
+// =======
+    //serverUrl = "http://localhost:9025/";
+// >>>>>>> 9522997859b027767e91c6b1f89039f147fa33af
     tokenKey = "token";
 
     httpOptions = {
@@ -119,6 +123,8 @@ export class RecruitmentappComponent implements OnInit {
 
     //function for get all saved recruitment applications 
     getRecruitmentApps() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -126,17 +132,23 @@ export class RecruitmentappComponent implements OnInit {
         this.http.get(this.serverUrl + 'api/getRecruitmentApprovalMain', { headers: reqHeader }).subscribe((data: any) => {
             
             this.recruitmetAppsList = data;
+
+            this.app.hideSpinner();
         });
 
     }
 
     //function for get all saved publishing channel 
     getPubChannel() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         this.http.get(this.serverUrl + 'api/getPubChannel', { headers: reqHeader }).subscribe((data: any) => {
+
+            this.publishingChannelList = [];
 
             for (var i = 0; i < data.length; i++) {
                 // this.tempPublishingChannelList.push({
@@ -151,7 +163,7 @@ export class RecruitmentappComponent implements OnInit {
                 });
             }
 
-            
+            this.app.hideSpinner();
 
         });
 
@@ -159,6 +171,8 @@ export class RecruitmentappComponent implements OnInit {
 
     //function for get all saved approving process 
     getApprProcess() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -177,12 +191,16 @@ export class RecruitmentappComponent implements OnInit {
 
             }
 
+            this.app.hideSpinner();
+
         });
 
     }
 
     //function for get all saved approving authority 
     getApprAuthority() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -198,11 +216,15 @@ export class RecruitmentappComponent implements OnInit {
                     locationId: data[i].jobPostLocationCd
                 });
             }
+        
+            this.app.hideSpinner();
         });
     }
 
     //function for get all saved subjects 
     getSubjct() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -215,6 +237,8 @@ export class RecruitmentappComponent implements OnInit {
                     value: data[i].testSbjctCd
                 });
             }
+            
+            this.app.hideSpinner();
         });
     }
 
@@ -226,6 +250,8 @@ export class RecruitmentappComponent implements OnInit {
             return false;
         }
         else {
+
+            this.app.showSpinner();
 
             //* ********************************************save data 
             var reqData = {
@@ -243,7 +269,8 @@ export class RecruitmentappComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/getJobPostVacancyId', reqData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Done") {
-                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                    this.app.hideSpinner();
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                     return false;
                 } else {
 
@@ -258,7 +285,7 @@ export class RecruitmentappComponent implements OnInit {
                     //this.tempDescList =             data.descList;
                     //this.tempLeaveRulesList =       data.leaveRuleList;
                     //this.jobFacilityList =         data.facilityList;
-
+                    this.app.hideSpinner();
                 }
             });
         }
@@ -272,6 +299,8 @@ export class RecruitmentappComponent implements OnInit {
             return false;
         }
         else {
+
+            this.app.showSpinner();
 
             //* ********************************************save data 
             var reqData = {
@@ -288,10 +317,10 @@ export class RecruitmentappComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/getJobPostVacancyDetail', reqData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Done") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     return false;
                 } else {
-
 
                     this.startDate = new Date(data.vcncyDetlList[0].vcncyStartDt);
                     this.endDate = new Date(data.vcncyDetlList[0].vcncyExprtnDt);
@@ -301,22 +330,12 @@ export class RecruitmentappComponent implements OnInit {
                     this.JobPostVcncyID = data.vcncyDetlList[0].jobPostVcncyID;
                     this.JobPostVcncyFnnclImpct = data.vcncyDetlList[0].jobPostVcncyFnnclImpct;
 
-
                     this.approvalReqList = data.aprList;
                     this.interviewPanelList = data.intrvwList;
                     this.testSubjectList = data.txtList;
-                    //this.publishingChannelList = data.pubChnlList;
+                    this.publishingChannelList = data.pubChnlList;
 
-                    // for (var i = 0; i < this.publishingChannelList.length; i++) {
-                    //     this.apprAuthorigyList.push({
-                    //         label: data[i].indvdlFullName + " - " + data[i].jobDesigName,
-                    //         value: data[i].empID,
-                    //         desgId: data[i].jobDesigID,
-                    //         postId: data[i].jobPostDeptCd,
-                    //         locationId: data[i].jobPostLocationCd
-                    //     });
-                    // }
-                    // data.pubChnlList;
+                    this.app.hideSpinner()
 
                 }
             });
@@ -564,6 +583,8 @@ export class RecruitmentappComponent implements OnInit {
         }
         else {
 
+            this.app.showSpinner();
+
             //* ********************************************save data 
             var saveData = {
                 "VcncyID":                this.VacancyId,
@@ -581,10 +602,13 @@ export class RecruitmentappComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/savePubChannel', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Saved Successfully!") {
-                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                    this.app.hideSpinner();
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    this.getPubChannel();
                     return false;
                 }
             });
@@ -620,10 +644,10 @@ export class RecruitmentappComponent implements OnInit {
         // }
         else {
 
+            this.app.showSpinner();
+
             if (this.jobPostVacancyFlag == true) {
 
-                // //this.app.showSpinner();
-                // // this.app.hideSpinner();
                 // //* ********************************************update data 
                 var updateData = {
                     "JobPostVcncyID": this.ddlJobPostVacancyId,
@@ -650,9 +674,11 @@ export class RecruitmentappComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/saveRequest', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Updated Successfully!") {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                         return false;
                     } else {
+                        this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         this.getRecruitmentApps();
                         return false;
@@ -687,9 +713,11 @@ export class RecruitmentappComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/saveRequest', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Saved Successfully!") {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                         return false;
                     } else {
+                        this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         this.VacancyId = data.vcncyId;
                         this.JobPostVcncyID = data.jobPostVcncyID;
@@ -715,6 +743,8 @@ export class RecruitmentappComponent implements OnInit {
         }
         else {
 
+            this.app.showSpinner();
+
             //* ********************************************save data 
             var saveData = {
                 "JobPostVcncyID": this.JobPostVcncyID,
@@ -731,12 +761,13 @@ export class RecruitmentappComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/saveApproval', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Saved Successfully!") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                    //$('#standardModal').modal('hide');
-                    //this.getPStandard();
+                    this.approvalReqList = [];
                     return false;
                 }
             });
@@ -756,6 +787,8 @@ export class RecruitmentappComponent implements OnInit {
         }
         else {
 
+            this.app.showSpinner();
+
             //* ********************************************save data 
             var saveData = {
                 "JobPostVcncyID": this.JobPostVcncyID,
@@ -772,12 +805,13 @@ export class RecruitmentappComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/saveInterviewPanel', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Saved Successfully!") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                    //$('#standardModal').modal('hide');
-                    //this.getPStandard();
+                    this.interviewPanelList = [];
                     return false;
                 }
             });
@@ -797,6 +831,8 @@ export class RecruitmentappComponent implements OnInit {
         }
         else {
 
+            this.app.showSpinner();
+
             //* ********************************************save data 
             var saveData = {
                 "JobPostVcncyID": this.JobPostVcncyID,
@@ -813,12 +849,13 @@ export class RecruitmentappComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/saveTest', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Saved Successfully!") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                    //$('#standardModal').modal('hide');
-                    //this.getPStandard();
+                    this.testSubjectList = [];
                     return false;
                 }
             });

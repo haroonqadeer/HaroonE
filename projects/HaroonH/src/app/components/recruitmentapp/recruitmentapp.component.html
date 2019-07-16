@@ -193,7 +193,13 @@
                             <div class="col-md-4 bgWhiteGrey allBorder">
                               {{JobProfile}}
                             </div> 
-                            
+                            <div class="col-md-2">
+                              Office
+                            </div>
+  
+                            <div class="col-md-4 bgWhiteGrey allBorder">
+                              {{OfficeName}}
+                            </div> 
                         </div>
                         <!--end row #2-->
   
@@ -202,26 +208,18 @@
                         <!--start row #3-->
                         <div class="row">
                           <div class="col-md-2">
-                            Office
-                          </div>
-
-                          <div class="col-md-2 bgWhiteGrey allBorder">
-                            {{OfficeName}}
-                          </div>  
-                            
-                          <div class="col-md-2 text-right">
                             Department
                           </div>
   
-                          <div class="col-md-2 bgWhiteGrey allBorder">
+                          <div class="col-md-4 bgWhiteGrey allBorder">
                             {{Department}}
                           </div>
 
-                          <div class="col-md-2 text-right">
+                          <div class="col-md-2">
                             Section
                           </div>
   
-                          <div class="col-md-2 bgWhiteGrey allBorder">
+                          <div class="col-md-4 bgWhiteGrey allBorder">
                             {{Section}}
                           </div>
                         </div>
@@ -587,7 +585,7 @@
                                   <td class='col-1'>{{i+1}}</td>             
                                   <td class='col-9'>{{item.pblshngChnnlName}}</td>
                                   <td class='col-2'>
-                                    <p-inputSwitch [(ngModel)]="item.PblshingStatus"></p-inputSwitch>
+                                    <p-inputSwitch [(ngModel)]="item.pblshingStatus"></p-inputSwitch>
                                   </td>
                                   <!-- <td class='col-1 text-center'><span class="fa fa-minus pointerCursor" (click)="removePubChannel(i)"></span></td> -->
                                 </tr>
