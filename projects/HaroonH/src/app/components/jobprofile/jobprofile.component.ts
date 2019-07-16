@@ -16,8 +16,8 @@ declare var $: any;
 })
 export class JobprofileComponent implements OnInit {
 
-    //serverUrl = "http://192.168.200.19:9024/";
-    serverUrl = "http://localhost:9024/";
+    serverUrl = "http://192.168.200.19:9024/";
+    //serverUrl = "http://localhost:9024/";
     tokenKey = "token";
 
     httpOptions = {
@@ -221,6 +221,8 @@ export class JobprofileComponent implements OnInit {
 
     //function for get all saved job posts 
     getJobPosts() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -236,6 +238,8 @@ export class JobprofileComponent implements OnInit {
                 });
             }
 
+            this.app.hideSpinner();
+
         });
 
     }
@@ -243,6 +247,8 @@ export class JobprofileComponent implements OnInit {
 
     //function for get all saved job descriptions 
     getJobDesc() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -258,6 +264,8 @@ export class JobprofileComponent implements OnInit {
                 });
             }
 
+            this.app.hideSpinner();
+
         });
 
     }
@@ -265,6 +273,8 @@ export class JobprofileComponent implements OnInit {
 
     //function for get all saved leave rules 
     getLeaveRules() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -281,12 +291,16 @@ export class JobprofileComponent implements OnInit {
                     limit: data[i].leaveLmtAmoUNt
                 });
             }
+
+            this.app.hideSpinner();
         });
     }
 
 
     //function for get all saved facility types 
     getFacilityType() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -302,11 +316,16 @@ export class JobprofileComponent implements OnInit {
                     value: data[i].facilityTypeCd
                 });
             }
+
+            this.app.hideSpinner();
         });
     }
 
+
     //function for get all saved facility  
     getFacility() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -316,12 +335,15 @@ export class JobprofileComponent implements OnInit {
             
             this.facilityList = data;
             
+            this.app.hideSpinner();
         });
     }
 
 
     //function for get all saved degrees, certificate and skills 
     getQualificationCriteria() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -364,7 +386,7 @@ export class JobprofileComponent implements OnInit {
                     });
                 }
                 
-
+                this.app.hideSpinner();
             }
 
         });
@@ -374,6 +396,8 @@ export class JobprofileComponent implements OnInit {
 
     //function for get all saved job profiles 
     getJobProfileMain() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -381,6 +405,8 @@ export class JobprofileComponent implements OnInit {
         this.http.get(this.serverUrl + 'api/getJobProfileMain', { headers: reqHeader }).subscribe((data: any) => {
             
             this.jobProfilesList = data;
+
+            this.app.hideSpinner();
 
         });
 
@@ -524,8 +550,8 @@ export class JobprofileComponent implements OnInit {
         }
         else {
 
-            // alert('ok');
-            // return false; 
+            
+            this.app.showSpinner();
 
             if (this.jobProfileId != '') {
 
@@ -557,9 +583,11 @@ export class JobprofileComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/saveJobProfileDegree', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Updated Successfully!") {
-                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                        this.app.hideSpinner();
+                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                         return false;
                     } else {
+                        this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         this.getJobProfileMain();
                         return false;
@@ -595,9 +623,11 @@ export class JobprofileComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/saveJobProfileDegree', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Saved Successfully!") {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
+                        this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         this.getJobProfileMain();
                         return false;
@@ -691,6 +721,7 @@ export class JobprofileComponent implements OnInit {
             }
         }
     }
+
 
     //Deleting description row
     removeDesc(item) {
@@ -1119,6 +1150,7 @@ export class JobprofileComponent implements OnInit {
     }
 
 
+    
     //function for get filtere list from job post
     getFilterItem(filterOption) {
         

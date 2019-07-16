@@ -169,7 +169,9 @@
       <div class="modal-header">
         <h4 class="modal-title">Add Job Profile</h4>
         <div>
-            <button type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Save</button>
+            <button *ngIf="!editFlag" type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Save</button>
+            <button *ngIf="editFlag" type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;update</button>
+            
             <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
         </div>
       </div>
@@ -228,7 +230,7 @@
                 </div>
               </div>              
               <!-- filter="true" [showClear]="true" -->
-              <br/> <br/> 
+              <br/>
               <!--end 2nd row-->
               <hr/>
               <div class="row">
@@ -395,9 +397,9 @@
           <!--end 3rd step form control div-->
           </mat-step>
           <!--end 3rd Step --> 
-  
-  
-  
+
+
+
           <!--start 4th Step -->
           <mat-step [stepControl]="formGroup4" optional>
             <!--stepper 4th label-->
@@ -651,8 +653,9 @@
                 </tbody>
               </table>
             </div>
+            <br/>
             <!--end table row-->
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            
             <hr/>
             <!--start next step button div-->
             <div class="row">
@@ -722,7 +725,7 @@
                     </tbody>
                   </table>
                 </div>
-                <br/><br/><br/><br/><br/>
+                <br/>
                 <!--end table row-->
                 <hr/>
     

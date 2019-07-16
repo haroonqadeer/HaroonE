@@ -219,6 +219,8 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     //function for get all saved employee 
     getEmployee() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -226,6 +228,8 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.http.get(this.serverUrl + 'api/getEmployee', { headers: reqHeader }).subscribe((data: any) => {
             
             this.employeeListMain = data;
+
+            this.app.hideSpinner();
         });
 
     }
@@ -352,6 +356,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         }
         else {
 
+            this.app.showSpinner();
             //* ********************************************save data 
             var reqData = {
                 "EmpID": this.empId
@@ -427,6 +432,8 @@ export class EmpolyeeprofileComponent implements OnInit {
                     this.empDegreeList = data.qlfctnList;
                     //getng psd list 
                     this.empOrgList = data.psdList;
+
+                    this.app.hideSpinner();
 
                 }
             });
@@ -690,7 +697,8 @@ export class EmpolyeeprofileComponent implements OnInit {
         
         else{
 
-
+            alert(this.empSkillLevel);
+            
             if (this.empSkillLevel == undefined || this.empSkillLevel == "" ) {
                 this.empSkillLevel = 0;
             }
@@ -1070,6 +1078,8 @@ export class EmpolyeeprofileComponent implements OnInit {
             if (this.midName == undefined || this.midName.trim() == ""){
                 this.midName = null;
             }
+
+            this.app.showSpinner();
             //* ********************************************save data 
             var updateData = {
                 "EmpID":             this.empId,
@@ -1095,13 +1105,13 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/updateEmpPersonalInfo', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Updated Successfully!") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     this.getEmployee();
-                    //this.ddlJobProfile = "";
-                    //this.startDate = "";
                     return false;
                 }
             });
@@ -1125,37 +1135,40 @@ export class EmpolyeeprofileComponent implements OnInit {
         
         else {
 
+            this.app.showSpinner();
+        
+            //* ********************************************save data 
+            var updateData = {
+                "EmpID":                this.empId,
+                "JobDesigID":           this.desigId,
+                "JobPostDeptCd":        this.deptId,
+                "JobPostLocationCd":    this.locationId,
+                "EmpJobStartDt":        this.startDate,
+                "ConnectedUser":        "12000",
+                "DelFlag":              0
+            };
 
-                //* ********************************************save data 
-                var updateData = {
-                    "EmpID":                this.empId,
-                    "JobDesigID":           this.desigId,
-                    "JobPostDeptCd":        this.deptId,
-                    "JobPostLocationCd":    this.locationId,
-                    "EmpJobStartDt":        this.startDate,
-                    "ConnectedUser":        "12000",
-                    "DelFlag":              0
-                };
+            //var token = localStorage.getItem(this.tokenKey);
 
-                //var token = localStorage.getItem(this.tokenKey);
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
 
-                //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+            this.http.post(this.serverUrl + 'api/updateEmpJobProfile', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                this.http.post(this.serverUrl + 'api/updateEmpJobProfile', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-                    if (data.msg != "Record Updated Successfully!") {
-                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
-                        return false;
-                    } else {
-                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                        this.getEmployee();
-                        this.ddlJobProfile = "";
-                        this.startDate = "";
-                        return false;
-                    }
-                });
+                if (data.msg != "Record Updated Successfully!") {
+                    this.app.hideSpinner();
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                    return false;
+                } else {
+                    this.app.hideSpinner();
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    this.getEmployee();
+                    this.ddlJobProfile = "";
+                    this.startDate = "";
+                    return false;
+                }
+            });
         }
     }
 
@@ -1168,6 +1181,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         }
         else {
 
+            this.app.showSpinner();
             //* ********************************************save data 
             var updateData = {
                 "EmpID": this.empId,
@@ -1184,12 +1198,12 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/updatePSD', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Updated Successfully!") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                    //$('#standardModal').modal('hide');
-                    //this.getPStandard();
                     return false;
                 }
             });
@@ -1205,6 +1219,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         }
         else {
 
+            this.app.showSpinner();
             //* ********************************************save data 
             var updateData = {
                 "EmpID": this.empId,
@@ -1221,9 +1236,11 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/updateSkill', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Updated Successfully!") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     //$('#standardModal').modal('hide');
                     //this.getPStandard();
@@ -1242,6 +1259,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         }
         else {
 
+            this.app.showSpinner();
             //* ********************************************save data 
             var updateData = {
                 "EmpID": this.empId,
@@ -1258,9 +1276,11 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/updateQualification', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Updated Successfully!") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     //$('#standardModal').modal('hide');
                     //this.getPStandard();

@@ -521,7 +521,7 @@
               <!--end heading-->
   
               <!--start row 1-->
-              <div class="row">
+              <div class="row" style="display: none;">
                 <div class="col-md-6">
                   <p-dropdown appendTo="body" [options]="jobProfileList" [(ngModel)]="ddlJobProfile" (onChange)="getFilterItem('jobs')" placeholder="Job Title" filter="true" [style]="{'width':'100%'}">
                       <ng-template let-itm pTemplate="item">
