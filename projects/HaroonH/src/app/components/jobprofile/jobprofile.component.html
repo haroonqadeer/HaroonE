@@ -469,11 +469,82 @@
             <!--end 4th step form control div-->
           </mat-step>
           <!--end 4th Step -->
-  
-  
-  
+
+
+
           <!--start 5th Step -->
           <mat-step [stepControl]="formGroup5" optional>
+            <!--stepper 4th label-->
+            <ng-template matStepLabel><b>Skills</b></ng-template>
+  
+              <br/>
+              <!--table row-->
+              <div class="row">
+                <table class="table table-striped">
+                  <thead>
+                    <tr class='d-flex'>
+                      <th class='col-1 text-center'>Sr #</th>
+                      <th class='col-4'>Skills</th>
+                      <th class='col-4'>Expertise</th>
+                      <th class='col-2'>Preference</th>
+                      <th class='col-1 text-center'>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>                    
+                    <tr *ngFor="let item of tempSkillList; let i=index" class='d-flex'>
+                      <td class='col-1 text-center'>{{i + 1}}</td> 
+                      <td class='col-4'>{{item.degreeLabel}}</td>
+                      <td class='col-4'><p-rating class="rating-size" [(ngModel)]="item.qlfctnCriteriaReqdLvl" [cancel]="false"></p-rating></td>
+                      <td class='col-2' *ngIf="item.prefIndctr == 1">Yes</td>
+                      <td class='col-2' *ngIf="item.prefIndctr != 1">No</td>
+                      <td class='col-1 text-center'>
+                        <span class="fa fa-minus pointerCursor text-danger" (click)="removeSkill(i)"></span>
+                      </td>
+                    </tr>
+  
+                    <tr class='d-flex'>
+                      <td class='col-5'>
+                        <p-dropdown appendTo="body" [options]="skillList" [(ngModel)]="ddlSkill" (onChange)="getFilterItem('skill')" placeholder="Skill" filter="true" [style]="{'width':'100%'}">
+                          <ng-template let-itm pTemplate="item">
+                            <div style="position: relative;height: 25px; z-index: 100;">
+                              <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                            </div>
+                          </ng-template>
+                        </p-dropdown>
+                      </td>
+                      <td class='col-4'>
+                        <p-rating class="rating-size" [(ngModel)]="skillLevel" [cancel]="false"></p-rating>
+                      </td>
+                      <td class='col-2'>
+                          <p-checkbox [(ngModel)]="chkSkillPI" binary="true"></p-checkbox>
+                      </td>
+                      <td class='col-1 text-center'>
+                        <span class="fa fa-plus pointerCursor text-primary" (click)="addSkill()"></span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <br/>
+              <!--end table row-->
+              
+              <hr/>
+              <!--start next step button div-->
+              <div class="row">
+                <div class="offset-md-10 col-md-2">
+                  <button class='fullwidth' mat-raised-button color="primary" matStepperNext>Next</button>  
+                </div>                
+              </div>
+              <!--end next step button div-->
+            
+            <!--end 4th step form control div-->
+          </mat-step>
+          <!--end 5th Step -->
+  
+  
+  
+          <!--start 6th Step -->
+          <mat-step [stepControl]="formGroup6" optional>
             <!--stepper 5th label-->
             <ng-template matStepLabel><b>Job Description</b></ng-template>
             <!--start 5th step form control div-->
@@ -532,12 +603,12 @@
             
             <!--end 5th step form control div-->
           </mat-step>
-          <!--end 5th Step -->
+          <!--end 6th Step -->
   
   
   
-          <!--start 6th stepper-->
-          <mat-step [stepControl]="formGroup6" optional>
+          <!--start 7th stepper-->
+          <mat-step [stepControl]="formGroup7" optional>
             <!--stepper 5th label-->
             <ng-template matStepLabel><b>Leaves</b></ng-template>
             <!--start 6th step form control div-->
@@ -593,11 +664,11 @@
             
             <!--end 5th step form control div-->
           </mat-step>
-          <!--end 6th stepper-->
+          <!--end 7th stepper-->
   
   
-          <!--start 2nd Step -->
-          <mat-step [stepControl]="formGroup7" optional>
+          <!--start 8th Step -->
+          <mat-step [stepControl]="formGroup8" optional>
               <!--stepper 2nd label-->
               <ng-template matStepLabel><b>Facilities</b></ng-template>
               <!--start 2nd step form control div-->
@@ -663,7 +734,7 @@
                 <!--end next step button div-->
               <!--end 2nd step form control div-->
           </mat-step>
-          <!--end 2nd Step -->
+          <!--end 8th Step -->
   
   
         </mat-horizontal-stepper>

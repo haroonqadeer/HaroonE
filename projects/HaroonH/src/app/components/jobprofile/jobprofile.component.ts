@@ -16,7 +16,7 @@ declare var $: any;
 })
 export class JobprofileComponent implements OnInit {
 
-    //serverUrl = "http://192.168.200.19:3009/";
+    //serverUrl = "http://192.168.200.19:9024/";
     serverUrl = "http://localhost:9024/";
     tokenKey = "token";
 
@@ -41,8 +41,9 @@ export class JobprofileComponent implements OnInit {
     jobFacilityList = [];
     facilityTypeList = [];
     facilityList = [];
+    skillList = [];
 
-    
+
     tempJobsList = [];
     tempQualificationCriteriaList = [];
     tempDegreeList = [];
@@ -51,6 +52,7 @@ export class JobprofileComponent implements OnInit {
     tempDescList = [];
     tempLeaveRulesList = [];
     tempFacilityList = [];
+    tempSkillList = [];
 
 
 
@@ -84,6 +86,11 @@ export class JobprofileComponent implements OnInit {
     ExperienceId = 0;
     ExperienceTypeId = 0;
     ExperienceCriteriaId = 0;
+
+    Skill = "";
+    SkillId = 0;
+    SkillTypeId = 0;
+    SkillCriteriaId = 0;
 
 
     //* Variables for NgModels
@@ -119,26 +126,30 @@ export class JobprofileComponent implements OnInit {
 
 
     //* setp 4 ng models
-    ddlSkill = "";
     ddlExperience = "";
     chkExperiencePI = false;
     experienceInMonth = 0;
     experienceYear = null;
     experienceMonth = null;
 
+    //* setp 4 ng models
+    ddlSkill = "";
+    skillLevel = 0;
+    chkSkillPI = false;
 
-    //* step 5 ng models 
+
+    //* step 6 ng models 
     ddlDescription = "";
 
 
 
-    //* step 6 ng models 
+    //* step 7 ng models 
     ddlLeaveRule = "";
     efectDate = "";
 
 
 
-    //* step 7 ng models 
+    //* step 8 ng models 
     ddlFacilityType = "";
     ddlFacility = "";
 
@@ -155,6 +166,7 @@ export class JobprofileComponent implements OnInit {
     formGroup5: FormGroup;
     formGroup6: FormGroup;
     formGroup7: FormGroup;
+    formGroup8: FormGroup;
 
     
     searchDegree = '';
@@ -202,7 +214,9 @@ export class JobprofileComponent implements OnInit {
             this.formGroup7 = this._formBuilder.group({
             sixthCtrl: ['', Validators.required]
             });
-            
+            this.formGroup8 = this._formBuilder.group({
+            sixthCtrl: ['', Validators.required]
+            });
     }
 
     //function for get all saved job posts 
@@ -334,13 +348,22 @@ export class JobprofileComponent implements OnInit {
                     });
                 }
 
-                //getting skills
+                //getting experience
                 if (data[i].qlfctnTypeName == 'Experience'){
                     this.experienceList.push({
                         label: data[i].qlfctnCriteriaName,
                         value: data[i].qlfctnCriteriaCd,
                     });
                 }
+
+                //getting skills
+                if (data[i].qlfctnTypeName == 'Skills'){
+                    this.skillList.push({
+                        label: data[i].qlfctnCriteriaName,
+                        value: data[i].qlfctnCriteriaCd,
+                    });
+                }
+                
 
             }
 
@@ -372,6 +395,8 @@ export class JobprofileComponent implements OnInit {
         }
         else {
 
+            this.app.showSpinner();
+
             //* ********************************************save data 
             var reqData = {
                 "JobDesigID":               this.DesigId,
@@ -397,9 +422,12 @@ export class JobprofileComponent implements OnInit {
                     this.tempExperienceList =       data.experienceList;
                     this.tempDescList =             data.descList;
                     this.tempLeaveRulesList =       data.leaveRuleList;
-                    this.jobFacilityList =         data.facilityList;
+                    this.jobFacilityList =          data.facilityList;
+                    this.tempSkillList =            data.skillList
 
                 }
+
+                this.app.hideSpinner();
             });
         }
     }
@@ -482,6 +510,10 @@ export class JobprofileComponent implements OnInit {
             this.toastr.errorToastr('Please enter job description detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
+        else if (this.tempSkillList.length == 0 ) {
+            this.toastr.errorToastr('Please enter skills detail', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
         else if (this.tempLeaveRulesList.length == 0 ) {
             this.toastr.errorToastr('Please enter leave rules detail', 'Error', { toastTimeout: (2500) });
             return false;
@@ -508,8 +540,9 @@ export class JobprofileComponent implements OnInit {
                     "jobQualificationList":     JSON.stringify(this.tempDegreeList),
                     "jobCertificationList":     JSON.stringify(this.tempCertificateList),
                     "jobExperienceList":        JSON.stringify(this.tempExperienceList),
+                    "jobSkillList":             JSON.stringify(this.tempSkillList),
                     "jobDescriptionList":       JSON.stringify(this.tempDescList),
-                    "jobLeaveRuleList":          JSON.stringify(this.tempLeaveRulesList),
+                    "jobLeaveRuleList":         JSON.stringify(this.tempLeaveRulesList),
                     "jobFacilityList":          JSON.stringify(this.jobFacilityList),
                     "ConnectedUser":            "12000",
                     "DelFlag":                  0
@@ -545,6 +578,7 @@ export class JobprofileComponent implements OnInit {
                     "jobQualificationList":     JSON.stringify(this.tempDegreeList),
                     "jobCertificationList":     JSON.stringify(this.tempCertificateList),
                     "jobExperienceList":        JSON.stringify(this.tempExperienceList),
+                    "jobSkillList":             JSON.stringify(this.tempSkillList),
                     "jobDescriptionList":       JSON.stringify(this.tempDescList),
                     "jobLeaveRuleList":         JSON.stringify(this.tempLeaveRulesList),
                     "jobFacilityList":          JSON.stringify(this.jobFacilityList),
@@ -657,7 +691,6 @@ export class JobprofileComponent implements OnInit {
             }
         }
     }
-
 
     //Deleting description row
     removeDesc(item) {
@@ -940,6 +973,70 @@ export class JobprofileComponent implements OnInit {
     }
 
 
+    //function for save  temp skills
+    addSkill(){
+
+        if (this.ddlSkill == "" || this.ddlSkill == null ) {
+            this.toastr.errorToastr('Please select skill title', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.skillLevel == 0) {
+            this.toastr.errorToastr('Please add experties', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else{
+
+            var perfIndctr;
+            if(this.chkSkillPI == false)
+            {
+                perfIndctr = 0;
+            }
+            else
+            {
+                perfIndctr = 1;
+            }
+
+            var duplicateChk = false;
+
+            for (var i = 0; i < this.tempSkillList.length; i++) {
+                if (this.tempSkillList[i].qlfctnCriteriaCD == this.SkillCriteriaId) {
+                    duplicateChk = true;
+                }
+            }
+
+            if (duplicateChk == true){
+                this.toastr.errorToastr('Skill already added', 'Error', { toastTimeout: (2500) });
+                return false;
+            }
+            else{
+
+                this.tempSkillList.push({
+                    qfctnRuleCriteriaCD:   0,
+                    reqdQlfctnRuleNo:       0,
+                    qlfctnCriteriaCD:       this.SkillCriteriaId,
+                    qlfctnTypeCd:           this.SkillTypeId,
+                    qlfctnCD:               this.SkillId,
+                    qlfctnCriteriaReqdLvl:  this.skillLevel,
+                    qlfctnCriteriaMaxLvl:   0,
+                    prefIndctr:             perfIndctr,
+                    degreeLabel:            this.Skill
+                });
+
+                this.ddlSkill = "";
+                this.skillLevel = 0;
+                this.chkSkillPI = false;
+
+            }   
+        }
+    }
+
+
+    //Deleting experience row
+    removeSkill(item) {
+        this.tempSkillList.splice(item, 1);
+    }
+
+
     //function for save temp degrees
     addCertificate(){
 
@@ -1078,6 +1175,16 @@ export class JobprofileComponent implements OnInit {
 
         }
 
+        if(filterOption == "skill"){
+
+            dataList = this.tempQualificationCriteriaList.filter(x => x.qlfctnCriteriaCd == this.ddlSkill);
+            
+            this.Skill = dataList[0].qlfctnCriteriaName;
+            this.SkillId = dataList[0].qlfctnCd;
+            this.SkillTypeId = dataList[0].qlfctnTypeCd;
+            this.SkillCriteriaId = dataList[0].qlfctnCriteriaCd;
+
+        }
 
         if(filterOption == "facility"){
 
