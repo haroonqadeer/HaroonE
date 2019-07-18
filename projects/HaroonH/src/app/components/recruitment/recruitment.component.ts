@@ -27,7 +27,7 @@ export interface Officer {
 export class RecruitmentComponent implements OnInit {
 
   serverUrl = "http://192.168.200.19:9020/";
-  //serverUrl = "http://localhost:3005/";
+  // serverUrl = "http://localhost:3005/";
   // serverUrl = "http://localhost:9020/";
 
   Line_chart: Chart;
@@ -908,6 +908,25 @@ export class RecruitmentComponent implements OnInit {
               appMatch: data[i].match,
               appStatus: status
             });
+          }else if (count == 0){
+            // if(count != 0){
+              for (var j = 0; j < this.shortListTest.length; j++) {
+                if (this.procList[i].applcntID == this.shortListTest[j].appID) {
+                  status = "ShortList";
+                  j = this.shortListTest.length + 1;
+                } else {
+                  status = "Waiting";
+                }
+              }
+              this.applicantList.push({
+                jobPostVcncyID: data[i].jobPostVcncyID,
+                appID: data[i].applcntID,
+                appName: data[i].indvdlFullName,
+                receivedOn: data[i].receivedDate,
+                appMatch: data[i].match,
+                appStatus: status
+              });
+            // }
           }
         }
       }
