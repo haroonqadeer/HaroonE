@@ -83,6 +83,8 @@ export class LoginComponent implements OnInit {
                 if (data.msg == "Login Successfully!") {
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
 
+                    this.app.hideSpinner();
+
                     localStorage.setItem('userName', this.txtUserName);
                     localStorage.setItem('myActModNam', 'HR');
                     this.app.checkLogin('Yes');
@@ -91,7 +93,6 @@ export class LoginComponent implements OnInit {
                     this.app.cmpnyId = data.userDetail[0].cmpnyId;
                     this.app.cmpnyName = data.userDetail[0].locationName;
                     
-                    this.app.hideSpinner();
 
                 } else {
                     // alert(data.msg);
