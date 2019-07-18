@@ -387,39 +387,42 @@
         <div class="modal-body">
           <!--start table row-->
           <div class="row">
-            <table class="table table-striped fullwidth">
-              <thead>
-                <tr class='d-flex'>
-                  <th class='col-1 text-center'>Sr#</th>
-                  <th class='col-2'>Job Title</th>
-                  <th class='col-2 text-center'>Vacancies</th>
-                  <th class='col-3'>Published on</th>
-                  <th class='col-3'>Last Date</th>
-                  <th class='col-1'>Select</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class='d-flex'>
-                <tr *ngFor="let item of vcncyList let i=index" class='d-flex'>
-                  <td class='col-1 text-center'>{{i+1}}</td>
-                  <td class='col-2'>{{item.jobDesigName}}</td>
-                  <td class='col-2 text-center'>{{item.jobPostVcncyQty}}</td>
-                  <td class='col-3'>{{item.vcncyStartDt|date:'dd-MM-yyyy'}}</td>
-                  <td class='col-3'>{{item.vcncyExprtnDt|date:'dd-MM-yyyy'}}</td>
-                  <td class='col-1'>
-                    <a href="" data-dismiss="modal" (click)="onVcncySelect(item.jobPostVcncyID); getVcncyID(item.jobPostVcncyID);">select</a>
-                  </td>
-                  <!-- <td class="col-1 text-center">1</td>
-                  <td class="col-2">Accountant</td>
-                  <td class="col-2 text-center">1</td>
-                  <td class="col-3">Jan 3, 2019</td>
-                  <td class="col-3">Feb 28, 2019</td>
-                  <td class="col-1">
-                    <a href="" data-dismiss="modal">select</a> -->
-                  <!-- </td> -->
-                </tr>
-              </tbody>
-            </table>
+            <div class="col-md-12" style="height:20em; overflow: scroll">
+              <table class="table table-striped fullwidth">
+                <thead>
+                  <tr class='d-flex'>
+                    <th class='col-1 text-center'>Sr#</th>
+                    <th class='col-2'>Job Title</th>
+                    <th class='col-2 text-center'>Vacancies</th>
+                    <th class='col-3'>Published on</th>
+                    <th class='col-3'>Last Date</th>
+                    <th class='col-1'>Select</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class='d-flex'>
+                  <tr *ngFor="let item of vcncyList let i=index" class='d-flex'>
+                    <td class='col-1 text-center'>{{i+1}}</td>
+                    <td class='col-2'>{{item.jobDesigName}}</td>
+                    <td class='col-2 text-center'>{{item.jobPostVcncyQty}}</td>
+                    <td class='col-3'>{{item.vcncyStartDt|date:'dd-MM-yyyy'}}</td>
+                    <td class='col-3'>{{item.vcncyExprtnDt|date:'dd-MM-yyyy'}}</td>
+                    <td class='col-1'>
+                      <a href="" data-dismiss="modal" (click)="onVcncySelect(item.jobPostVcncyID); getVcncyID(item.jobPostVcncyID);">select</a>
+                    </td>
+                    <!-- <td class="col-1 text-center">1</td>
+                    <td class="col-2">Accountant</td>
+                    <td class="col-2 text-center">1</td>
+                    <td class="col-3">Jan 3, 2019</td>
+                    <td class="col-3">Feb 28, 2019</td>
+                    <td class="col-1">
+                      <a href="" data-dismiss="modal">select</a> -->
+                    <!-- </td> -->
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
           </div>
           <!--end table row-->
         </div>

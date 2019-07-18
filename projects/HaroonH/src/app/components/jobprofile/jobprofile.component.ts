@@ -98,7 +98,7 @@ export class JobprofileComponent implements OnInit {
 
 
     //* Variables for NgModels
-    tblSearch;
+    tblSearch = '';
 
     jobProfileId = "";
 

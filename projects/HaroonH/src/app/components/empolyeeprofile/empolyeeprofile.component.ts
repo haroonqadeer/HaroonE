@@ -134,7 +134,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     cmpnyId;
 
     //* Variables for NgModels
-    tblSearch;
+    tblSearch = '';
 
     //* tab 1 ngModels
     firstName;

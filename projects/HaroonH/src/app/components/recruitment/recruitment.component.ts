@@ -341,11 +341,11 @@ export class RecruitmentComponent implements OnInit {
         }
         this.app.showSpinner();
 
-        alert(this.lblApplicantID)
-        alert(localStorage.getItem('jobPostVcncyID'))
-        alert(this.cmbStatus)
-        alert(this.txtNumber)
-        alert(this.txtRemarks)
+        // alert(this.lblApplicantID)
+        // alert(localStorage.getItem('jobPostVcncyID'))
+        // alert(this.cmbStatus)
+        // alert(this.txtNumber)
+        // alert(this.txtRemarks)
         var saveData = {
           applicantID: this.lblApplicantID,
           jpVcncyCd: localStorage.getItem('jobPostVcncyID'),
