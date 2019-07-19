@@ -380,50 +380,52 @@ export class EmpolyeeprofileComponent implements OnInit {
                     this.removeEmail(0);
 
                     //getng emp adrs detl
-                    for (var i = 0; i < data.adrsList.length; i++) {
-                        this.addressDetail.push({
-                            id: 0,
-                            addressType: data.adrsList[i].addressTypeCd,
-                            address: data.adrsList[i].addressLine1,
+                    if(data.adrsList.length >= 1){
+                        for (var i = 0; i < data.adrsList.length; i++) {
+                            this.addressDetail.push({
+                                id: 0,
+                                addressType: data.adrsList[i].addressTypeCd,
+                                address: data.adrsList[i].addressLine1,
 
-                            countryCode: data.adrsList[i].cntryCd.toString(),
-                            provinceCode: data.adrsList[i].prvncCd.toString(),
-                            districtCode: data.adrsList[i].districtCd.toString(),
-                            cityCode: data.adrsList[i].thslCd.toString(),
+                                countryCode: data.adrsList[i].cntryCd.toString(),
+                                provinceCode: data.adrsList[i].prvncCd.toString(),
+                                districtCode: data.adrsList[i].districtCd.toString(),
+                                cityCode: data.adrsList[i].thslCd.toString(),
 
-                            ContactDetailCode: 0,
-                            IDelFlag : 0
-                        });
-                    }
-
-
-                    //getng emp cntct detl
-                    for (var i = 0; i < data.cntctList.length; i++) {
-                        this.contactDetail.push({
-                            id: 0,
-                            contactType:data.cntctList[i].teleTypeCd.toString(),
-                            countryCode: data.cntctList[i].cntryCd.trim(),
-                            // countryCode: data.cntctList[i].cntryCd.toString(),
-                            contactCode: "",
-                            areaCode: true,
-                            mobileCode: false,
-                            contactNumber: data.cntctList[i].teleNo,
-                            mobileNumber: "",
-                            ContactDetailCode: 0,
-                            IDelFlag: 0
-                        });
-                    }
+                                ContactDetailCode: 0,
+                                IDelFlag : 0
+                            });
+                        }
 
 
-                    //geting emp eml detl
-                    for (var i = 0; i < data.emlList.length; i++) {
-                        this.emailDetail.push({
-                            id: 0,
-                            type: data.emlList[i].emailTypeCd.toString(),
-                            email: data.emlList[i].emailAddrss,
-                            ContactDetailCode: 0,
-                            IDelFlag: 0
-                        });
+                        //getng emp cntct detl
+                        for (var i = 0; i < data.cntctList.length; i++) {
+                            this.contactDetail.push({
+                                id: 0,
+                                contactType:data.cntctList[i].teleTypeCd.toString(),
+                                countryCode: data.cntctList[i].cntryCd.trim(),
+                                // countryCode: data.cntctList[i].cntryCd.toString(),
+                                contactCode: "",
+                                areaCode: true,
+                                mobileCode: false,
+                                contactNumber: data.cntctList[i].teleNo,
+                                mobileNumber: "",
+                                ContactDetailCode: 0,
+                                IDelFlag: 0
+                            });
+                        }
+
+
+                        //geting emp eml detl
+                        for (var i = 0; i < data.emlList.length; i++) {
+                            this.emailDetail.push({
+                                id: 0,
+                                type: data.emlList[i].emailTypeCd.toString(),
+                                email: data.emlList[i].emailAddrss,
+                                ContactDetailCode: 0,
+                                IDelFlag: 0
+                            });
+                        }
                     }
 
 
