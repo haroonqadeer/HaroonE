@@ -520,7 +520,7 @@ export class PostComponent implements OnInit {
       this.toastr.errorToastr('Please select Job Title', 'Error', { toastTimeout: (2500) });
       return;
     } else if (this.BPS == '') {
-      this.toastr.errorToastr('Please select BPS', 'Error', { toastTimeout: (2500) });
+      this.toastr.errorToastr('Please select Pay Grade', 'Error', { toastTimeout: (2500) });
       return;
     } else if (this.designation == '') {
       this.toastr.errorToastr('Please select Designation', 'Error', { toastTimeout: (2500) });

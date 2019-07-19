@@ -134,7 +134,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     cmpnyId;
 
     //* Variables for NgModels
-    tblSearch;
+    tblSearch = '';
 
     //* tab 1 ngModels
     firstName;
@@ -403,6 +403,7 @@ export class EmpolyeeprofileComponent implements OnInit {
                             id: 0,
                             contactType:data.cntctList[i].teleTypeCd.toString(),
                             countryCode: data.cntctList[i].cntryCd.trim(),
+                            // countryCode: data.cntctList[i].cntryCd.toString(),
                             contactCode: "",
                             areaCode: true,
                             mobileCode: false,

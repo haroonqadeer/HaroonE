@@ -71,6 +71,8 @@ export class LoginComponent implements OnInit {
             //this.app.checkLogin('Yes');
             //return false;
 
+            this.app.showSpinner();
+
             var loginData = { "IndvdlERPUsrID": this.txtUserName, "IndvdlERPPsswrd": this.txtPassword };
 
             var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -81,6 +83,8 @@ export class LoginComponent implements OnInit {
                 if (data.msg == "Login Successfully!") {
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
 
+                    this.app.hideSpinner();
+
                     localStorage.setItem('userName', this.txtUserName);
                     localStorage.setItem('myActModNam', 'HR');
                     this.app.checkLogin('Yes');
@@ -88,9 +92,11 @@ export class LoginComponent implements OnInit {
                     this.app.locationId = data.userDetail[0].locationCd;
                     this.app.cmpnyId = data.userDetail[0].cmpnyId;
                     this.app.cmpnyName = data.userDetail[0].locationName;
+                    
 
                 } else {
-                    alert(data.msg);
+                    // alert(data.msg);
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     $(".mat-form-field-underline").css("background-color", "red");
                     $(".mat-form-field-label").css("color", "red");

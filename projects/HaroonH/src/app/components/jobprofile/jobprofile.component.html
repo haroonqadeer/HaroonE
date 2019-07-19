@@ -265,7 +265,7 @@
                       <th class='col-2'>Max Req (year's)</th>
                       <th class='col-2'>Min Req (year's)</th>
                       <th class='col-2'>Preference</th>
-                      <th class='col-1 text-center'>Delete</th>
+                      <th class='col-1 text-center'>Add</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -340,7 +340,7 @@
                     <th class='col-2'>Max Req (month's)</th>
                     <th class='col-2'>Min Req (month's)</th>
                     <th class='col-2'>Preference</th>
-                    <th class='col-1 text-center'>Delete</th>
+                    <th class='col-1 text-center'>Add</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -415,7 +415,7 @@
                       <th class='col-4'>Descriptoin</th>
                       <th class='col-4'>Time Span</th>
                       <th class='col-2'>Preference</th>
-                      <th class='col-1 text-center'>Delete</th>
+                      <th class='col-1 text-center'>Add</th>
                     </tr>
                   </thead>
                   <tbody>                    
@@ -489,7 +489,7 @@
                       <th class='col-4'>Skills</th>
                       <th class='col-4'>Expertise</th>
                       <th class='col-2'>Preference</th>
-                      <th class='col-1 text-center'>Delete</th>
+                      <th class='col-1 text-center'>Add</th>
                     </tr>
                   </thead>
                   <tbody>                    
@@ -644,7 +644,7 @@
                       <p-dropdown appendTo="body" [options]="leaveRulesList" [(ngModel)]="ddlLeaveRule" placeholder="Leave Rule" filter="true" [style]="{'width':'100%'}"></p-dropdown>
                     </td>           
                     <td class='col-3'>
-                      <p-calendar [(ngModel)]="efectDate" placeholder="Effect Date"> </p-calendar>
+                      <p-calendar appendTo="body" [(ngModel)]="efectDate" placeholder="Effect Date"> </p-calendar>
                     </td>             
                     <td class='col-1 text-center'>
                       <span class="fa fa-plus pointerCursor" (click)="addLeaveRule()"></span>
@@ -686,7 +686,7 @@
                         <th class='col-1 text-center'>Sr #</th>
                         <th class='col-5'>Facility</th>
                         <th class='col-5'>Limitation</th>
-                        <th class='col-1 text-center'>Delete</th>
+                        <th class='col-1 text-center'>Add</th>
                       </tr>
                     </thead>
                     <tbody>
