@@ -17,8 +17,8 @@ declare var $: any;
 })
 export class EmpolyeeprofileComponent implements OnInit {
 
-    serverUrl = "http://192.168.200.19:9026/";
-    //serverUrl = "http://localhost:9026/";
+    //serverUrl = "http://192.168.200.19:9026/";
+    serverUrl = "http://localhost:9026/";
     tokenKey = "token";
 
     httpOptions = {
@@ -698,7 +698,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         else{
 
             alert(this.empSkillLevel);
-            
+
             if (this.empSkillLevel == undefined || this.empSkillLevel == "" ) {
                 this.empSkillLevel = 0;
             }

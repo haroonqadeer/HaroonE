@@ -27,7 +27,7 @@ declare var $: any;
 })
 export class PerformanceEvaComponent implements OnInit {
 
-  serverUrl = "https://localhost:8008/";
+  serverUrl = "https://localhost:9035/";
   tokenKey = "token";
 
   httpOptions = {

@@ -37,6 +37,8 @@
     "highcharts": "^6.2.0",
     "igniteui-angular": "^7.3.2",
     "jquery": "^3.4.1",
+    "jspdf": "^1.5.3",
+    "jspdf-autotable": "^3.1.3",
     "moment": "^2.24.0",
     "ng-circle-progress": "^1.4.0",
     "ng6-toastr-notifications": "^1.0.4",
