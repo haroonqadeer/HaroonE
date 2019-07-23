@@ -23,7 +23,7 @@ declare var $: any;
 export class LeavetypeComponent implements OnInit {
 
     //serverUrl = "http://localhost:9012/";
-    serverUrl = "http://52.163.189.189:9011/";
+    serverUrl = "http://52.163.189.189:9012/";
 
     tokenKey = "token";
 
@@ -88,13 +88,16 @@ export class LeavetypeComponent implements OnInit {
 
     //function for get all saved leave types 
     getLeaveTypes() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         this.http.get(this.serverUrl + 'api/getLeaveType', { headers: reqHeader }).subscribe((data: any) => {
-            this.leaveTypeList = data
+            this.leaveTypeList = data;
+            this.app.hideSpinner();
         });
 
     }
@@ -102,13 +105,16 @@ export class LeavetypeComponent implements OnInit {
 
     //function for get all saved leave nature 
     getLeaveNature() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         this.http.get(this.serverUrl + 'api/getLeaveNature', { headers: reqHeader }).subscribe((data: any) => {
-            this.leaveNatureList = data
+            this.leaveNatureList = data;
+            this.app.hideSpinner();
         });
 
     }
@@ -125,13 +131,10 @@ export class LeavetypeComponent implements OnInit {
             return false;
         }
         else {
-            // address type conditions for subsidiary
-
 
             if (this.leaveTypeId != '') {
 
-                //this.app.showSpinner();
-                // this.app.hideSpinner();
+                this.app.showSpinner();
                 //* ********************************************update data 
                 var updateData = {
                     "LeaveTypeCd": this.leaveTypeId,
@@ -150,9 +153,11 @@ export class LeavetypeComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/saveLeaveType', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Updated Successfully!") {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
+                        this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#typeModal').modal('hide');
                         this.getLeaveTypes();
@@ -163,7 +168,7 @@ export class LeavetypeComponent implements OnInit {
             }
             else {
 
-
+                this.app.showSpinner();
                 //* ********************************************save data 
                 var saveData = {
                     "LeaveTypeCd": 0,
@@ -182,9 +187,11 @@ export class LeavetypeComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/saveLeaveType', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Saved Successfully!") {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
+                        this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#typeModal').modal('hide');
                         this.getLeaveTypes();
@@ -230,8 +237,7 @@ export class LeavetypeComponent implements OnInit {
         }
         else {
 
-            //this.app.showSpinner();
-            // this.app.hideSpinner();
+            this.app.showSpinner();
 
             //* ********************************************update data 
             var updateData = {
@@ -251,9 +257,11 @@ export class LeavetypeComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/saveLeaveType', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Deleted Successfully!") {
-                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                    this.app.hideSpinner();
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     $('#deleteModal').modal('hide');
                     this.getLeaveTypes();
@@ -280,8 +288,7 @@ export class LeavetypeComponent implements OnInit {
 
             if (this.leaveNatureId != '') {
 
-                //this.app.showSpinner();
-                // this.app.hideSpinner();
+                this.app.showSpinner();
                 //* ********************************************update data 
                 var updateData = {
                     "LeaveNatureCd": this.leaveNatureId,
@@ -300,9 +307,11 @@ export class LeavetypeComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/saveLeaveNature', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Updated Successfully!") {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
+                        this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#leaveNatureModal').modal('hide');
                         this.getLeaveNature();
@@ -313,7 +322,7 @@ export class LeavetypeComponent implements OnInit {
             }
             else {
 
-
+                this.app.showSpinner();
                 //* ********************************************save data 
                 var saveData = {
                     "LeaveNatureCd": 0,
@@ -332,9 +341,11 @@ export class LeavetypeComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/saveLeaveNature', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Saved Successfully!") {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
+                        this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         this.getLeaveNature();
                         return false;
@@ -381,8 +392,7 @@ export class LeavetypeComponent implements OnInit {
         }
         else {
 
-            //this.app.showSpinner();
-            // this.app.hideSpinner();
+            this.app.showSpinner();
 
             //* ********************************************update data 
             var updateData = {
@@ -402,9 +412,11 @@ export class LeavetypeComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/saveLeaveNature', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Deleted Successfully!") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     $('#deleteNatureModal').modal('hide');
                     this.getLeaveNature();

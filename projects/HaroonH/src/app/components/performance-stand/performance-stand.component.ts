@@ -77,12 +77,17 @@ export class PerformanceStandComponent implements OnInit {
 
     //function for get all saved performance standards 
     getPStandard() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         this.http.get(this.serverUrl + 'api/getPStandard', { headers: reqHeader }).subscribe((data: any) => {
-            this.pStandardList = data
+            this.pStandardList = data;
+
+            this.app.hideSpinner();
+
         });
 
     }
@@ -104,8 +109,7 @@ export class PerformanceStandComponent implements OnInit {
 
             if (this.pStandardId != '') {
 
-                //this.app.showSpinner();
-                // this.app.hideSpinner();
+                this.app.showSpinner();
                 //* ********************************************update data 
                 var updateData = {
                     "PrcssStepID": this.pStandardId,
@@ -126,9 +130,11 @@ export class PerformanceStandComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/savePStandard', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Updated Successfully!") {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
+                        this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#standardModal').modal('hide');
                         this.getPStandard();
@@ -139,7 +145,7 @@ export class PerformanceStandComponent implements OnInit {
             }
             else {
 
-
+                this.app.showSpinner();
                 //* ********************************************save data 
                 var saveData = {
                     "PrcssStepID": 0,
@@ -160,9 +166,11 @@ export class PerformanceStandComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/savePStandard', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Saved Successfully!") {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
+                        this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#standardModal').modal('hide');
                         this.getPStandard();
@@ -211,8 +219,7 @@ export class PerformanceStandComponent implements OnInit {
         }
         else {
 
-            //this.app.showSpinner();
-            // this.app.hideSpinner();
+            this.app.showSpinner();
 
             //* ********************************************update data 
             var updateData = {
@@ -235,9 +242,11 @@ export class PerformanceStandComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/savePStandard', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Deleted Successfully!") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     $('#deleteModal').modal('hide');
                     this.getPStandard();

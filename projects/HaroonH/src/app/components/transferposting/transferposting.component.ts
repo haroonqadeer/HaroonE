@@ -97,6 +97,8 @@ export class TransferpostingComponent implements OnInit {
 
     //function for get all available posts 
     getAppointedEmployee() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -106,13 +108,17 @@ export class TransferpostingComponent implements OnInit {
             
             this.employeeList = data;
 
-        });
+            this.app.hideSpinner();
+
+        }); 
 
     }
 
 
     //function for get employees 
     getEmployee() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -135,6 +141,8 @@ export class TransferpostingComponent implements OnInit {
                     locationName: data[i].locationName
                 });
             }
+
+            this.app.hideSpinner();
 
         });
 
@@ -160,6 +168,7 @@ export class TransferpostingComponent implements OnInit {
         }
         else {
 
+            this.app.showSpinner();
             //* ********************************************save data 
             var saveData = {
                 "IndvdlID": this.ddlEmployee1,
@@ -184,9 +193,11 @@ export class TransferpostingComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/transferEmployee', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Updated Successfully!") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     this.getAppointedEmployee();
                     this.clear();
@@ -347,7 +358,6 @@ export class TransferpostingComponent implements OnInit {
             frame1.remove();
         }, 500);
     }
-    // <<<<<<< HEAD
 
 
     downloadPDF() { }
@@ -438,9 +448,5 @@ export class TransferpostingComponent implements OnInit {
         //     }
         // }
     }
-
-
-    // =======
-    // >>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
 
 }
