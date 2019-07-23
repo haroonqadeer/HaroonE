@@ -17,8 +17,8 @@ declare var $: any;
 })
 export class EmpolyeeprofileComponent implements OnInit {
 
-    //serverUrl = "http://192.168.200.19:9026/";
-    serverUrl = "http://localhost:9026/";
+    serverUrl = "http://192.168.200.19:9026/";
+    // serverUrl = "http://localhost:9026/";
     tokenKey = "token";
 
     httpOptions = {
@@ -396,26 +396,27 @@ export class EmpolyeeprofileComponent implements OnInit {
                                 IDelFlag : 0
                             });
                         }
-
-
+                    }
+                    // alert(data.cntctList.length)
+                    if(data.cntctList.length > 0){
                         //getng emp cntct detl
-                        for (var i = 0; i < data.cntctList.length; i++) {
-                            this.contactDetail.push({
-                                id: 0,
-                                contactType:data.cntctList[i].teleTypeCd.toString(),
-                                countryCode: data.cntctList[i].cntryCd.trim(),
+                        // for (var i = 0; i < data.cntctList.length; i++) {
+                        //     this.contactDetail.push({
+                        //         id: 0,
+                        //         contactType:data.cntctList[i].teleTypeCd.toString(),
+                                // countryCode: data.cntctList[i].cntryCd.trim(),
                                 // countryCode: data.cntctList[i].cntryCd.toString(),
-                                contactCode: "",
-                                areaCode: true,
-                                mobileCode: false,
-                                contactNumber: data.cntctList[i].teleNo,
-                                mobileNumber: "",
-                                ContactDetailCode: 0,
-                                IDelFlag: 0
-                            });
-                        }
-
-
+                        //         contactCode: "",
+                        //         areaCode: true,
+                        //         mobileCode: false,
+                        //         contactNumber: data.cntctList[i].teleNo,
+                        //         mobileNumber: "",
+                        //         ContactDetailCode: 0,
+                        //         IDelFlag: 0
+                        //     });
+                        // }
+                    }
+                    if(data.emlList.length > 0){
                         //geting emp eml detl
                         for (var i = 0; i < data.emlList.length; i++) {
                             this.emailDetail.push({
