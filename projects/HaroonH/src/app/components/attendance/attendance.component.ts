@@ -16,8 +16,8 @@ declare var $: any;
 })
 export class AttendanceComponent implements OnInit {
 
-    //serverUrl = "http://localhost:9032/";
-    serverUrl = "http://52.163.189.189:9032/";
+    serverUrl = "http://localhost:9032/";
+    //serverUrl = "http://52.163.189.189:9032/";
     tokenKey = "token";
 
     httpOptions = {
@@ -140,6 +140,7 @@ export class AttendanceComponent implements OnInit {
                     "LocationCd": this.app.locationId
                 };
 
+                this.app.showSpinner();
                 //var token = localStorage.getItem(this.tokenKey);
 
                 //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
@@ -154,6 +155,8 @@ export class AttendanceComponent implements OnInit {
                             value: data.rows[i].deptCd
                         });
                     }
+
+                    this.app.hideSpinner();
 
                 });
 
@@ -171,6 +174,7 @@ export class AttendanceComponent implements OnInit {
                 "LocationCd": this.app.locationId
             };
 
+            this.app.showSpinner();
             //var token = localStorage.getItem(this.tokenKey);
 
             //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
@@ -186,6 +190,8 @@ export class AttendanceComponent implements OnInit {
                     });
                 }
 
+                this.app.hideSpinner();
+
             });
         }
     }
@@ -200,6 +206,7 @@ export class AttendanceComponent implements OnInit {
         }
         else {
 
+            this.app.showSpinner();
             //* ********************************************save data 
             var reqData = {
                 "LocationCd": this.app.locationId
@@ -222,6 +229,8 @@ export class AttendanceComponent implements OnInit {
                     });
                 }
 
+                this.app.hideSpinner();
+
             });
         }
     }
@@ -231,6 +240,7 @@ export class AttendanceComponent implements OnInit {
     //Function for get specific department employee  
     getDeptEmp() {
 
+        this.app.showSpinner();
         //* ********************************************save data 
         var reqData = {
             "LocationCd": this.ddlBranch,
@@ -250,6 +260,8 @@ export class AttendanceComponent implements OnInit {
             this.employeeList = data.rows;
             this.empBreakList = data.breakDetail;
 
+            this.app.hideSpinner();
+
         });
     
     }
@@ -259,6 +271,7 @@ export class AttendanceComponent implements OnInit {
     //Function for get specific section employee
     getSectEmp() {
 
+        this.app.showSpinner();
         //* ********************************************save data 
         var reqData = {
             "LocationCd": this.ddlBranch,
@@ -277,6 +290,9 @@ export class AttendanceComponent implements OnInit {
 
             this.employeeList = data.rows;
             this.empAttDetList = data.det_rows;
+
+            this.app.hideSpinner();
+
         });
     
     }
@@ -352,10 +368,10 @@ export class AttendanceComponent implements OnInit {
             return false;
         }
         else if (this.attTime == undefined || this.attTime == "" ) {
-            this.toastr.errorToastr('Please enter time', 'Error', { toastTimeout: (2500) });
+            this.toastr.errorToastr('Please enter break type', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.chkAddBreak == true && (this.ddlBreakType == undefined || this.attTime == "" )) {
+        else if (this.chkAddBreak == true && (this.ddlBreakType == undefined || this.ddlBreakType == "" )) {
             this.toastr.errorToastr('Please enter time', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -393,20 +409,21 @@ export class AttendanceComponent implements OnInit {
 
             if(this.myTimeIn == null){
                 this.myTimeIn = this.attTime;
+                this.myTimeOut = null;
             }
             
-            if(this.myTimeOut == null){
+            if(this.myTimeIn != null && this.myTimeOut == null){
                 this.myTimeOut = this.attTime;
             }
 
 
 
-            // //+ "DeptCd = " + this.myDeptCd + " --- " + "IndvdlID = " + this.EmpId + " ---- " + "DtID = " + this.myDtID + " --- " + "ShiftCd = " + this.myShifhCd + " --- " + "AttendanceStatCd = " + this.attStatus + " --- " 
+            //+ "DeptCd = " + this.myDeptCd + " --- " + "IndvdlID = " + this.EmpId + " ---- " + "DtID = " + this.myDtID + " --- " + "ShiftCd = " + this.myShifhCd + " --- " + "AttendanceStatCd = " + this.attStatus + " --- " 
             // alert("AddBreak = " +  myAddBreak + " --- " + "ApprvngManagerID = " + ManagerId + " --- " + "TimeIn = " + this.myTimeIn + " --- " + "TimeOut = " + this.myTimeOut + " --- " + "Rsn = " + this.attRemarks + " --- " + "TypeCd = " + BreakTypeId);
             // return false;
 
+            this.app.showSpinner();
             
-
             //* ********************************************save data 
             var saveData = {
                 "AddBreak": myAddBreak,
@@ -433,9 +450,11 @@ export class AttendanceComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/saveEmpAttendance', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Saved Successfully!") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     
                     if(this.ddlSection == undefined || this.ddlSection == ""){

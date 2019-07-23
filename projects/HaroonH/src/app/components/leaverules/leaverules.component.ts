@@ -86,13 +86,16 @@ export class LeaverulesComponent implements OnInit {
 
     //function for get all saved leave rules 
     getLeaveRules() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         this.http.get(this.serverUrl + 'api/getLeaveRule', { headers: reqHeader }).subscribe((data: any) => {
-            this.leaveRuleList = data
+            this.leaveRuleList = data;
+            this.app.hideSpinner();
         });
 
     }
@@ -100,6 +103,8 @@ export class LeaverulesComponent implements OnInit {
 
     //function for get all saved leave limit types 
     getLeaveLimitType() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -114,6 +119,8 @@ export class LeaverulesComponent implements OnInit {
                 });
             }
 
+            this.app.hideSpinner();
+
         });
 
     }
@@ -121,6 +128,8 @@ export class LeaverulesComponent implements OnInit {
 
     //function for get all saved leave types 
     getLeaveTypes() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -135,6 +144,8 @@ export class LeaverulesComponent implements OnInit {
                 });
             }
 
+            this.app.hideSpinner();
+
         });
 
     }
@@ -142,6 +153,8 @@ export class LeaverulesComponent implements OnInit {
 
     //function for get all saved leave nature 
     getLeaveNature() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -155,6 +168,8 @@ export class LeaverulesComponent implements OnInit {
                     value: data[i].leaveNatureCd
                 });
             }
+
+            this.app.hideSpinner();
 
         });
 
@@ -203,8 +218,7 @@ export class LeaverulesComponent implements OnInit {
 
             if (this.leaveRuleId != '') {
 
-                //this.app.showSpinner();
-                // this.app.hideSpinner();
+                this.app.showSpinner();
                 //* ********************************************update data 
                 var updateData = {
                     "LeaveRuleID": this.leaveRuleId,
@@ -228,9 +242,11 @@ export class LeaverulesComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/saveLeaveRule', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Updated Successfully!") {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
+                        this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         $('#newRuleModal').modal('hide');
                         this.getLeaveRules();
@@ -241,7 +257,7 @@ export class LeaverulesComponent implements OnInit {
             }
             else {
 
-
+                this.app.showSpinner();
                 //* ********************************************save data 
                 var saveData = {
                     "LeaveRuleID": 0,
@@ -265,9 +281,11 @@ export class LeaverulesComponent implements OnInit {
                 this.http.post(this.serverUrl + 'api/saveLeaveRule', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                     if (data.msg != "Record Saved Successfully!") {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
+                        this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         this.getLeaveRules();
                         return false;
@@ -315,9 +333,7 @@ export class LeaverulesComponent implements OnInit {
         }
         else {
 
-            //this.app.showSpinner();
-            // this.app.hideSpinner();
-
+            this.app.showSpinner();
             //* ********************************************update data 
             var updateData = {
 
@@ -342,9 +358,11 @@ export class LeaverulesComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/saveLeaveRule', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Deleted Successfully!") {
+                    this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     $('#deleteModal').modal('hide');
                     this.getLeaveRules();
@@ -431,7 +449,6 @@ export class LeaverulesComponent implements OnInit {
             frame1.remove();
         }, 500);
     }
-    // <<<<<<< HEAD
 
 
     downloadPDF() { }
@@ -523,7 +540,4 @@ export class LeaverulesComponent implements OnInit {
         }
     }
 
-
-    // =======
-    // >>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
 }

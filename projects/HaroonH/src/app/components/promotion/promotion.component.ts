@@ -96,6 +96,8 @@ export class PromotionComponent implements OnInit {
 
     //function for get all available posts 
     getAvailablePosts() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -115,6 +117,7 @@ export class PromotionComponent implements OnInit {
                 });
             }
 
+            this.app.hideSpinner();
         });
 
     }
@@ -122,6 +125,8 @@ export class PromotionComponent implements OnInit {
 
     //function for get employees 
     getEmployee() {
+
+        this.app.showSpinner();
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -130,6 +135,8 @@ export class PromotionComponent implements OnInit {
         this.http.get(this.serverUrl + 'api/getEmployee', { headers: reqHeader }).subscribe((data: any) => {
 
             this.employeeList = data;
+
+            this.app.hideSpinner();
 
         });
 
@@ -152,6 +159,7 @@ export class PromotionComponent implements OnInit {
         }
         else {
 
+            this.app.showSpinner();
             //* ********************************************save data 
             var saveData = {
                 "IndvdlID": this.IndvdlID,
@@ -175,9 +183,11 @@ export class PromotionComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/promoteEmployee', saveData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Record Updated Successfully!") {
-                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                    this.app.hideSpinner();
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                     return false;
                 } else {
+                    this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     this.getEmployee();
                     this.clear();
@@ -321,8 +331,6 @@ export class PromotionComponent implements OnInit {
             frame1.remove();
         }, 500);
     }
-    // <<<<<<< HEAD
-
 
     downloadPDF() { }
 
@@ -412,10 +420,5 @@ export class PromotionComponent implements OnInit {
         //     }
         // }
     }
-
-
-    // =======
-    // >>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
-
 
 }
