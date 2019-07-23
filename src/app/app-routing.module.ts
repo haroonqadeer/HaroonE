@@ -18,7 +18,6 @@ const routes: Routes = [
   },
   {
     path: 'Config',
-<<<<<<< HEAD
     //loadChildren: () => ConfigSharedModule
     loadChildren: '../../projects/HaroonConfig/src/app/app.module#ConfigSharedModule'
   },
@@ -26,15 +25,6 @@ const routes: Routes = [
     path: 'HR',
     //loadChildren: () => HRSharedModule
     loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
-=======
-    loadChildren: () => ConfigSharedModule
-    // loadChildren: '../../projects/HaroonConfig/src/app/app.module#ConfigSharedModule'
-  },
-  {
-    path: 'HR',
-    loadChildren: () => HRSharedModule
-    // loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
->>>>>>> a3ced0e7610df56abd08562c86b8397e0645e4ad
 
   }
 ];
