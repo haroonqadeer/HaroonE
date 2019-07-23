@@ -16,7 +16,8 @@ styleUrls: ['./recruitmentapp.component.scss']
 })
 export class RecruitmentappComponent implements OnInit {
 
-    serverUrl = "http://localhost:9025/";
+    //serverUrl = "http://localhost:9025/";
+    serverUrl = "http://52.163.189.189:9025/";
 
     tokenKey = "token";
 

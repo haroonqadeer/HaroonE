@@ -17,12 +17,9 @@ declare var $: any;
 })
 export class EmpolyeeprofileComponent implements OnInit {
 
-// // <<<<<<< HEAD
-    // serverUrl = "http://192.168.200.19:9026/";
-    // serverUrl = "http://localhost:9026/";
-// =======
-    serverUrl = "http://localhost:9026/";
-// >>>>>>> 4985cc719e0ad7a3f91ab49b06aac487261b62a8
+    //serverUrl = "http://localhost:9026/";
+    serverUrl = "http://52.163.189.189:9026/";
+
     tokenKey = "token";
 
     httpOptions = {

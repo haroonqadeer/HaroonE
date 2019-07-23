@@ -27,7 +27,8 @@ export interface Officer {
 export class RecruitmentComponent implements OnInit {
 
   
-  serverUrl = "http://localhost:9020/";
+  //serverUrl = "http://localhost:9020/";
+  serverUrl = "http://52.163.189.189:9020/";
 
   Line_chart: Chart;
 

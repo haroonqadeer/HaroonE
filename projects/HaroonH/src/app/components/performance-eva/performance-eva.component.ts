@@ -27,7 +27,9 @@
     })
     export class PerformanceEvaComponent implements OnInit {
 
-    serverUrl = "http://localhost:9035/";
+    //serverUrl = "http://localhost:9035/";
+    serverUrl = "http://52.163.189.189:9035/";
+
     tokenKey = "token";
 
     httpOptions = {
