@@ -10,7 +10,8 @@ import { AppComponent } from 'src/app/app.component';
 })
 export class AttendanceDashboardComponent implements OnInit {
 
-  serverUrl = "http://localhost:9031/";
+  //serverUrl = "http://localhost:9031/";
+  serverUrl = "http://52.163.189.189:9031/";
     
   Column_Chart: Chart;
   Pie_Chart: Chart;

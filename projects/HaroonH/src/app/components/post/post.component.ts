@@ -26,7 +26,8 @@ declare var $: any;
 })
 export class PostComponent implements OnInit {
 
-  serverUrl = "http://localhost:9013/";
+  //serverUrl = "http://localhost:9013/";
+  serverUrl = "http://52.163.189.189:9013/";
   
   //ngprime organization chart
   data1: TreeNode[];

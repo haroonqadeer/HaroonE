@@ -21,7 +21,8 @@ declare var $: any;
 })
 export class ShiftComponent implements OnInit {
 
-  serverUrl = "http://localhost:9022/";
+  //serverUrl = "http://localhost:9022/";
+  serverUrl = "http://52.163.189.189:9022/";
 
   p = 1;
   //pGroup = 1;

@@ -10,8 +10,9 @@ import { AppComponent } from 'src/app/app.component';
 })
 export class HrdashboardComponent implements OnInit {
   
-  serverUrl = "http://localhost:9030/";
-    
+  //serverUrl = "http://localhost:9030/";
+  serverUrl = "http://52.163.189.189:9030/";
+  
   Column_Chart: Chart;
   Off_Column_Chart: Chart;
   Dept_Column_Chart: Chart;

@@ -17,7 +17,8 @@ declare var $: any;
 export class JobprofileComponent implements OnInit {
 
 
-    serverUrl = "http://localhost:9024/";
+    //serverUrl = "http://localhost:9024/";
+    serverUrl = "http://52.163.189.189:9024/";
 
     tokenKey = "token";
 

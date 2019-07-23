@@ -35,7 +35,8 @@ declare var $: any;
 })
 export class DegreeeComponent implements OnInit {
 
-  serverUrl = "http://localhost:9015/";
+  //serverUrl = "http://localhost:9015/";
+  serverUrl = "http://52.163.189.189:9015/";
 
   postSearch = "";
   

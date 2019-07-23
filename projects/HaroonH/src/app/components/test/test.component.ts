@@ -21,7 +21,8 @@ declare var $: any;
 export class TestComponent implements OnInit {
 
 
-  serverUrl = "http://localhost:9017/";
+  //serverUrl = "http://localhost:9017/";
+  serverUrl = "http://52.163.189.189:9017/";
 
   testSearch = '';
 
