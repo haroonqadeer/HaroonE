@@ -20,15 +20,8 @@ declare var $: any;
 })
 export class TestComponent implements OnInit {
 
-// <<<<<<< HEAD
-  // serverUrl = "http://localhost:9017/";
-  serverUrl = "http://192.168.200.19:9017/";
-// =======
-  //serverUrl = "https://localhost:3002/";
-  // serverUrl = "http://192.168.200.19:3008/";
-// >>>>>>> 6baa61dccfa396920caf44af3017542ec596dd83
-  // serverUrl = "https://localhost:3002/";
 
+  serverUrl = "http://localhost:9017/";
 
   testSearch = '';
 

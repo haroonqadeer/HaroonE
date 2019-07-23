@@ -19,11 +19,11 @@ declare var $: any;
 export class LoginComponent implements OnInit {
 
 // <<<<<<< HEAD
-    // serverUrl = "http://125.1.1.252:9011/";
-    serverUrl = "http://192.168.200.19:9010/";
+    //serverUrl = "http://52.163.189.189:9010/";
+    //serverUrl = "http://192.168.200.19:9010/";
 // =======
     //<<<<<<< HEAD
-    // serverUrl = "https://localhost:5001/";
+    serverUrl = "http://localhost:9010/";
 
     //serverUrl = "https://localhost:8008/";
     //serverUrl = "http://localhost:11664/";

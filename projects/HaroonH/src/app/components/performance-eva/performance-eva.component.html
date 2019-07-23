@@ -230,6 +230,76 @@
             </thead>
             <tbody>
 
+              
+
+              <!-- <tr *ngFor="let item of projectsList; let i=index">
+                <td class='text-left'>{{item.StartDate | date:'dd-MM-yyyy'}}</td>
+                <td class='text-left'>{{item.FinishDate | date:'dd-MM-yyyy'}}</td>
+                <td class='text-left'>{{item.ProjectDesc}}</td>
+                <td class='text-left'>{{item.RateEmpAssessment}}</td>
+                <td class='text-left'>{{item.Supervisor}}</td>
+                <td class='text-left'>{{item.RateSprvsrAssessment}}</td>
+                <td class='text-center'>
+                  <span class="fa fa-minus pointerCursor" (click)="removeGoals(i)"></span>
+                </td>
+              </tr> -->
+
+              <tr>
+                <td class='text-left'>
+                  <!-- <mat-form-field class="fullwidth">
+                    <input [(ngModel)]="startDate" matInput [matDatepicker]="startDatePicker"
+                      placeholder="Starting Date">
+                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker></mat-datepicker>
+                  </mat-form-field> -->
+                  <p-calendar [(ngModel)]="startDate" placeholder="Starting Date" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
+                </td>
+                <td class='text-left'>
+                  <!-- <mat-form-field class="fullwidth">
+                    <input [(ngModel)]="finishDate" matInput [matDatepicker]="finishDatePicker"
+                      placeholder="Completion Date">
+                    <mat-datepicker-toggle matSuffix [for]="finishDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #finishDatePicker></mat-datepicker>
+                  </mat-form-field> -->
+                  <p-calendar [(ngModel)]="finishDate" placeholder="Completion Date" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
+                </td>
+                <td class='text-left'>
+                  <!-- <mat-form-field class="fullwidth">
+                    <input [(ngModel)]="projectDesc" matInput placeholder="Project Description">
+                  </mat-form-field> -->
+                  <input type="text" pInputText [(ngModel)]="projectDesc" class="fullwidth" placeholder="Project Description">
+                </td>
+                <td class='text-left'>
+                  <p-rating class="rating-size" [(ngModel)]="rateEmpAssessment" [cancel]="false">
+                  </p-rating>
+                </td>
+                <td class='text-left'>
+                  <!-- <mat-form-field class="fullwidth">
+                    <mat-select placeholder="Name" [(ngModel)]="supervisorName">
+                      <mat-option *ngFor="let item of supervisorList" [value]="item.indvdlID">
+                        {{item.indvdlFirstName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field> -->
+
+                  <p-dropdown appendTo="body" [options]="supervisorList" filter="true" [(ngModel)]="supervisorName" placeholder="Supervisor Name" [style]="{'width':'100%'}">
+                    <ng-template let-itm pTemplate="item">
+                      <div style="position: relative;height: 25px;">
+                        <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                  
+                </td>
+                <td class='text-left'>
+                  <p-rating class="rating-size" [(ngModel)]="rateSprvsrAssessment" [cancel]="false">
+                  </p-rating>
+                </td>
+                <td class='text-center'>
+                  <button mat-icon-button class='noneOutLine'><span class="fa fa-save" (click)="addGoals()"></span></button>
+                </td>
+              </tr>
+
               <!-- Project Performance Data Start -->
               <tr *ngFor="let item of tempProjectsPerformanceData; let i=index">
                 <td class='text-left'>{{item.StartDate | date:'dd-MM-yyyy'}}</td>
@@ -246,63 +316,7 @@
                 </td>
               </tr>
               <!-- Project Performance Data End -->
-
-              <tr *ngFor="let item of projectsList; let i=index">
-                <td class='text-left'>{{item.StartDate | date:'dd-MM-yyyy'}}</td>
-                <td class='text-left'>{{item.FinishDate | date:'dd-MM-yyyy'}}</td>
-                <td class='text-left'>{{item.ProjectDesc}}</td>
-                <td class='text-left'>{{item.RateEmpAssessment}}</td>
-                <td class='text-left'>{{item.Supervisor}}</td>
-                <td class='text-left'>{{item.RateSprvsrAssessment}}</td>
-                <td class='text-center'>
-                  <span class="fa fa-minus pointerCursor" (click)="removeGoals(i)"></span>
-                </td>
-              </tr>
-
-              <tr>
-                <td class='text-left'>
-                  <mat-form-field class="fullwidth">
-                    <input [(ngModel)]="startDate" matInput [matDatepicker]="startDatePicker"
-                      placeholder="Starting Date">
-                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #startDatePicker></mat-datepicker>
-                  </mat-form-field>
-                </td>
-                <td class='text-left'>
-                  <mat-form-field class="fullwidth">
-                    <input [(ngModel)]="finishDate" matInput [matDatepicker]="finishDatePicker"
-                      placeholder="Completion Date">
-                    <mat-datepicker-toggle matSuffix [for]="finishDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #finishDatePicker></mat-datepicker>
-                  </mat-form-field>
-                </td>
-                <td class='text-left'>
-                  <mat-form-field class="fullwidth">
-                    <input [(ngModel)]="projectDesc" matInput placeholder="Project Description">
-                  </mat-form-field>
-                </td>
-                <td class='text-left'>
-                  <p-rating class="rating-size" [(ngModel)]="rateEmpAssessment" [cancel]="false">
-                  </p-rating>
-                </td>
-                <td class='text-left'>
-                  <mat-form-field class="fullwidth">
-                    <mat-select placeholder="Name" [(ngModel)]="supervisorName">
-                      <mat-option *ngFor="let item of supervisorList" [value]="item.indvdlID">
-                        {{item.indvdlFirstName}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </td>
-                <td class='text-left'>
-                  <p-rating class="rating-size" [(ngModel)]="rateSprvsrAssessment" [cancel]="false">
-                  </p-rating>
-                </td>
-                <td class='text-center'>
-                  <button mat-icon-button class='noneOutLine'><span class="fa fa-plus"
-                      (click)="addGoals()"></span></button>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
 
@@ -357,7 +371,7 @@
       <!-- end menubar buttons -->
 
       <!--Start search textbox Row-->
-      <div class="row">
+      <div class="row tab-margin">
         <div class="col-md-12">
           <mat-form-field class="fullwidth">
             <input matInput [(ngModel)]="tblSearchSkills" placeholder="Search">
@@ -410,32 +424,23 @@
 
               <tr>
                 <td class='text-left'>
-                  <mat-form-field class="fullwidth">
-                    <input [(ngModel)]="skillDate" matInput [matDatepicker]="skillDatePicker" placeholder="Date">
-                    <mat-datepicker-toggle matSuffix [for]="skillDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #skillDatePicker></mat-datepicker>
-                  </mat-form-field>
+                  <p-calendar [(ngModel)]="skillDate" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
                 </td>
                 <td class='text-left'>
-                  <mat-form-field class="fullwidth">
-                    <mat-select placeholder="Name" [(ngModel)]="skillCriteriaCd">
-                      <mat-option *ngFor="let item of skillsNameList" [value]="item.qlfctnCriteriaCd">
-                        {{item.qlfctnCriteriaName}}
-                        <!-- <input [(ngModel)]="qlfctnSkillName" [value]="item.qlfctnCriteriaName" matInput [hidden]=true> -->
-
-                      </mat-option>
-
-                    </mat-select>
-                  </mat-form-field>
+                  <p-dropdown appendTo="body" [options]="skillsNameList" filter="true" [(ngModel)]="skillCriteriaCd" placeholder="Group" [style]="{'width':'100%'}">
+                    <ng-template let-itm pTemplate="item">
+                      <div style="position: relative;height: 25px;">
+                        <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
                 </td>
                 <td class='text-left'>
                   <p-rating class="rating-size" [(ngModel)]="rateSkillLevel" [cancel]="false">
                   </p-rating>
                 </td>
                 <td class='text-left'>
-                  <mat-form-field class="fullwidth">
-                    <input [(ngModel)]="skillRemarks" matInput placeholder="Skill Remarks Description">
-                  </mat-form-field>
+                  <input type="text" pInputText [(ngModel)]="skillRemarks" class="fullwidth" placeholder="Remarks">
                 </td>
                 <td class="text-center">
                   <button mat-icon-button class='noneOutLine'><span class="fa fa-plus"

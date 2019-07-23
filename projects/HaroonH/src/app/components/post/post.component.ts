@@ -3,7 +3,6 @@ import { TreeNode } from 'primeng/api';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
-//<<<<<<< HEAD
 import {
   IgxExcelExporterOptions,
   IgxExcelExporterService,
@@ -12,9 +11,9 @@ import {
   IgxCsvExporterOptions,
   CsvFileTypes
 } from "igniteui-angular";
-//=======
+
 import { AppComponent } from 'src/app/app.component';
-//>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
+
 
 declare var $: any;
 
@@ -27,20 +26,8 @@ declare var $: any;
 })
 export class PostComponent implements OnInit {
 
-// <<<<<<< HEAD
-  // serverUrl = "http://localhost:9013/";
-  // serverUrl = "http://localhost:3001/";
-// =======
-  //<<<<<<< HEAD
-  // serverUrl = "http://localhost:26880/";
-  serverUrl = "http://192.168.200.19:9013/";
-  //serverUrl = "http://localhost:3001/";
-  //=======
-  //serverUrl = "http://localhost:3001/";
-// >>>>>>> 6baa61dccfa396920caf44af3017542ec596dd83
-  // serverUrl = "http://192.168.200.19:3003/";
-  //>>>>>>> 3989d7fefbd36ef29be1f3d121ba076c14d8cbf9
-
+  serverUrl = "http://localhost:9013/";
+  
   //ngprime organization chart
   data1: TreeNode[];
 

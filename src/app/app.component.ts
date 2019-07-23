@@ -17,12 +17,7 @@ declare var $: any;
 })
 export class AppComponent {
 
-
-    serverUrl = "http://192.168.200.19:9010/";
-    // serverUrl = "http://localhost:9011/";
-
-    //serverUrl = "http://localhost:23145/";
-    //serverUrl = "http://localhost:3004/";
+    serverUrl = "http://localhost:9010/";
 
     tokenKey = "token";
 
