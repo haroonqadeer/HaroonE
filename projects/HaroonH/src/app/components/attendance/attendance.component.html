@@ -54,7 +54,7 @@
     <div class="col-md-3">
       <br/>
       <p-dropdown appendTo="body" [options]="deptList" [(ngModel)]="ddlDepartment" (onChange)="getFilterItem('section')" [disabled]="editFlag" placeholder="Department" filter="true" [style]="{'width':'100%'}">
-        <ng-template let-i8tm pTemplate="item">
+        <ng-template let-itm pTemplate="item">
           <div style="position: relative;height: 25px; z-index: 100;">
             <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
           </div>

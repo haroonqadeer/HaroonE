@@ -24,10 +24,8 @@ declare var $: any;
 })
 export class SkillstandardComponent implements OnInit {
 
-  // serverUrl = "http://localhost:9018/";
-  serverUrl = "http://192.168.200.19:9018/";
-
-  //serverUrl = "https://localhost:8003/";
+  serverUrl = "http://localhost:9018/";
+  
   tokenKey = "token";
 
 

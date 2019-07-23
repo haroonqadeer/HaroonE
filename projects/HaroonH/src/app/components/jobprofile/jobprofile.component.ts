@@ -16,12 +16,9 @@ declare var $: any;
 })
 export class JobprofileComponent implements OnInit {
 
-    serverUrl = "http://192.168.200.19:9024/";
-// <<<<<<< HEAD
-    // serverUrl = "http://localhost:9024/";
-// =======
-    //serverUrl = "http://localhost:9024/";
-// >>>>>>> 9522997859b027767e91c6b1f89039f147fa33af
+
+    serverUrl = "http://localhost:9024/";
+
     tokenKey = "token";
 
     httpOptions = {

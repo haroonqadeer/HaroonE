@@ -23,8 +23,7 @@ declare var $: any;
 })
 export class PerformanceStandComponent implements OnInit {
 
-    // serverUrl = "http://localhost:9023/";
-    serverUrl = "http://192.168.200.19:9023/";
+    serverUrl = "http://localhost:9023/";
     tokenKey = "token";
 
     httpOptions = {
