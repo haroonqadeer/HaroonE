@@ -41,31 +41,32 @@
 </div>
 <!-- end menubar buttons -->
 
+<br>
 
 <!-- Table Container Starts -->
-<div class="myContainer bottomBorder bgWhite">
+<div class="myContainer bgWhite">
   <!--Start search textbox Row-->
   <div class="row">
     <div class="col-md-12">
-      <div class="searchBar">
-        <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
-      </div>      
+      <mat-form-field class="fullwidth">
+        <input matInput [(ngModel)]="tblSearch" placeholder="Search">
+      </mat-form-field>
+      <i class="fab fa-accessible-icon"></i>
     </div>
   </div>
   <!--end search textbox Row-->
 
   <div class="row">
-    <table class="table table-striped bottomBorder">
+    <table class="table table-striped">
       <thead>
         <tr class='d-flex'>
           <th class="col-1 text-center">Sr.#</th>
-          <th class="col-3 text-left" [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')">
-            Employee Name
+          <th class="col-3 text-left" [class.active]="order === 'indvdlFullName'" (click)="setOrder()">
+            Employee
             <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
           </th>
-          <th class="col-4 text-left" [class.active]="order === 'JobDesigName'" (click)="setOrder('JobDesigName')">
+          <th class="col-4 text-left" [class.active]="order === 'JobDesigName'" (click)="setOrder()">
             Job Profile
             <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
@@ -84,7 +85,7 @@
           <td class="col-1 text-center">{{i+1}}</td>
           <td class="col-3 text-left">{{item.indvdlFullName}}</td>
           <td class="col-4 text-left">{{item.jobDesigName}}</td>
-          <td class="col-2 text-center">{{calculate(item.qlfctnCriteriaReqdLvl,item.levelAchieved)}} - point's</td>
+          <td class="col-2 text-center">{{calculate(item.qlfctnCriteriaReqdLvl,item.levelAchieved)}}</td>
           <td class="col-2 text-center">
             <mat-checkbox [(ngModel)]="item.select" (change)="exist(item)" (click)="toggleSelection(item)">
             </mat-checkbox>
@@ -95,10 +96,10 @@
       </tbody>
     </table>
     <!-- Pagination Starts -->
-    <div class="col-md-11">
+    <div class="col-md-10">
       <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-2 text-center">
       <mat-form-field class="fullwidth pagenateList">
         <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
           <mat-option value="5">5</mat-option>
@@ -139,7 +140,7 @@
 
     <!--Start table Row-->
     <div class="row">
-      <table>
+      <table id='content'>
         <thead>
           <tr class="d-flex">
             <th class='col-1 text-center'>Sr #</th>
@@ -168,6 +169,19 @@
 </igx-grid>
 <!-- Hidden Table Ends  for Excel and CSV files -->
 
+
+<br>
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <button mat-raised-button color="primary" data-toggle="modal" data-target="#assignTrainingModal"
+        (click)="clear()">Assign
+        Training</button>
+    </div>
+  </div>
+</div> -->
+
 <br>
 
 <!-- Assign training Modal Starts -->
@@ -177,9 +191,15 @@
       <div class="modal-header">
         <h5 class="modal-title">Assign Training</h5>
         <div>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="assignTraining()"><span class="fa fa-save"></span> &nbsp;Save</button>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
-          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="assignTraining()">
+            <span class="fa fa-save"></span> &nbsp;Assign
+          </button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()">
+            <span class="fa fa-recycle"></span> &nbsp;Reset
+          </button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal">
+            <span class="fa fa-times-circle"></span> &nbsp;Close
+          </button>
         </div>
         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -255,7 +275,7 @@
 
 
         <!-- Table Container Starts -->
-        <div class="container-fluid bgWhite">
+        <div class="container bgWhite">
           <!--Start search textbox Row-->
           <!-- <div class="row">
             <div class="col-md-12">
@@ -266,21 +286,18 @@
             </div>
           </div> -->
           <!--end search textbox Row-->
-          <br>
-          <div class="row">            
-            <h5>Employee's List</h5>            
-          </div>
+
           <div class="row">
-            <table class="table table-striped bottomBorder">
+            <table class="table table-striped">
               <thead>
                 <tr class='d-flex'>
                   <th class="col-1 text-center">Sr.#</th>
-                  <th class="col-5 text-left" [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')">
+                  <th class="col-5 text-left" [class.active]="order === 'indvdlFullName'" (click)="setOrder()">
                     Employee
                     <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                     <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
                   </th>
-                  <th class="col-6 text-left" [class.active]="order === 'jobDesigName'" (click)="setOrder('jobDesigName')">
+                  <th class="col-6 text-left" [class.active]="order === 'jobDesigName'" (click)="setOrder()">
                     Job Profile
                     <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                     <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
@@ -332,8 +349,7 @@
           </div>
         </div> -->
         <!-- Button tag Row Ends -->
-      </div>      
-
+      </div>
       <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div> -->

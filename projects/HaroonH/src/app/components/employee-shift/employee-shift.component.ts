@@ -129,7 +129,7 @@ export class EmployeeShiftComponent implements OnInit {
 
     // alert(item.shiftCd)
     // alert(item.toDate)
-    if(item.fromDate.toString() > item.toDate.toString()){
+    if(item.fromDate > item.toDate){
       this.toastr.errorToastr("Select Correct Date!", 'Error!', { toastTimeout: (2500) });
         return;
     }
