@@ -372,7 +372,7 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.http.post(this.serverUrl + 'api/getSpecificEmployeeData', reqData, { headers: reqHeader }).subscribe((data: any) => {
 
                 if (data.msg != "Done") {
-                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
                     return false;
                 } else {
 
@@ -398,7 +398,7 @@ export class EmpolyeeprofileComponent implements OnInit {
                             });
                         }
                     }
-                    
+
                     // alert(data.cntctList.length)
                     if(data.cntctList.length > 0){
                         //getng emp cntct detl
