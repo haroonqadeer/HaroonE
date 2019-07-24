@@ -16,8 +16,8 @@ declare var $: any;
 })
 export class AttendanceComponent implements OnInit {
 
-    serverUrl = "http://localhost:9032/";
-    //serverUrl = "http://52.163.189.189:9032/";
+    //serverUrl = "http://localhost:9032/";
+    serverUrl = "http://52.163.189.189:9032/";
     tokenKey = "token";
 
     httpOptions = {
@@ -26,6 +26,7 @@ export class AttendanceComponent implements OnInit {
 
     //*Bolean variable 
     updateFlag = false;
+    disableFlag = true;
 
     //* list variables
     brachList = [];
@@ -368,11 +369,11 @@ export class AttendanceComponent implements OnInit {
             return false;
         }
         else if (this.attTime == undefined || this.attTime == "" ) {
-            this.toastr.errorToastr('Please enter break type', 'Error', { toastTimeout: (2500) });
+            this.toastr.errorToastr('Please enter time', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else if (this.chkAddBreak == true && (this.ddlBreakType == undefined || this.ddlBreakType == "" )) {
-            this.toastr.errorToastr('Please enter time', 'Error', { toastTimeout: (2500) });
+            this.toastr.errorToastr('Please enter break type', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else {

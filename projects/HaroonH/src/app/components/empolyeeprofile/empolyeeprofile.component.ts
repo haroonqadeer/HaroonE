@@ -398,25 +398,26 @@ export class EmpolyeeprofileComponent implements OnInit {
                             });
                         }
                     }
+                    
                     // alert(data.cntctList.length)
                     if(data.cntctList.length > 0){
                         //getng emp cntct detl
-                        // for (var i = 0; i < data.cntctList.length; i++) {
-                        //     this.contactDetail.push({
-                        //         id: 0,
-                        //         contactType:data.cntctList[i].teleTypeCd.toString(),
-                                // countryCode: data.cntctList[i].cntryCd.trim(),
-                                // countryCode: data.cntctList[i].cntryCd.toString(),
-                        //         contactCode: "",
-                        //         areaCode: true,
-                        //         mobileCode: false,
-                        //         contactNumber: data.cntctList[i].teleNo,
-                        //         mobileNumber: "",
-                        //         ContactDetailCode: 0,
-                        //         IDelFlag: 0
-                        //     });
-                        // }
+                        for (var i = 0; i < data.cntctList.length; i++) {
+                            this.contactDetail.push({
+                                id: 0,
+                                contactType:data.cntctList[i].teleTypeCd.toString(),
+                                countryCode: data.cntctList[i].cntryCd.trim(),
+                                contactCode: "",
+                                areaCode: true,
+                                mobileCode: false,
+                                contactNumber: data.cntctList[i].teleNo,
+                                mobileNumber: "",
+                                ContactDetailCode: 0,
+                                IDelFlag: 0
+                            });
+                        }
                     }
+
                     if(data.emlList.length > 0){
                         //geting emp eml detl
                         for (var i = 0; i < data.emlList.length; i++) {
