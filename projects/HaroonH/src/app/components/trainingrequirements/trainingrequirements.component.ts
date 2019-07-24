@@ -176,7 +176,7 @@ export class TrainingrequirementsComponent implements OnInit {
 
   tDuration(item) {
 
-    alert('T Duration Called');
+    //alert('T Duration Called');
     for (var i = 0; i < this.trainingList.length; i++) {
       if (item.value == this.trainingList[i].trnngCd) {
         this.tTrainingDuration = this.trainingList[i].trnngDuration;

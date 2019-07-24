@@ -496,7 +496,7 @@
                     <tr *ngFor="let item of tempSkillList; let i=index" class='d-flex'>
                       <td class='col-1 text-center'>{{i + 1}}</td> 
                       <td class='col-4'>{{item.degreeLabel}}</td>
-                      <td class='col-4'><p-rating class="rating-size" [(ngModel)]="item.qlfctnCriteriaReqdLvl" [cancel]="false"></p-rating></td>
+                      <td class='col-4'><p-rating class="rating-size" [(ngModel)]="item.qlfctnCriteriaReqdLvl" [cancel]="false" [disabled]="true"></p-rating></td>
                       <td class='col-2' *ngIf="item.prefIndctr == 1">Yes</td>
                       <td class='col-2' *ngIf="item.prefIndctr != 1">No</td>
                       <td class='col-1 text-center'>
@@ -515,7 +515,7 @@
                         </p-dropdown>
                       </td>
                       <td class='col-4'>
-                        <p-rating class="rating-size" [(ngModel)]="skillLevel" [cancel]="false"></p-rating>
+                        <p-rating class="rating-size" [(ngModel)]="skillLevel" [cancel]="false" ></p-rating>
                       </td>
                       <td class='col-2'>
                           <p-checkbox [(ngModel)]="chkSkillPI" binary="true"></p-checkbox>
