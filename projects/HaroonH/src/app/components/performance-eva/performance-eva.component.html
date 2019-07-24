@@ -5,7 +5,7 @@
       <mat-form-field class="fullwidth">
         <mat-select placeholder="Select an Employee" [(ngModel)]="employeeName" (selectionChange)="empChange($event)">
           <mat-option *ngFor="let item of newEmployeeList" [value]="item.indvdlID">
-            {{item.indvdlFirstName}}
+            {{item.indvdlFullName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -31,7 +31,7 @@
   <!--* Mat-Tab-Group Starts -->
   <mat-tab-group>
     <!-- Mat-Tab_01 Starts -->
-    <mat-tab label="Reviews">
+    <mat-tab label="Reviews" *ngIf="tabHide">
 
 
       <!-- start menubar buttons -->
@@ -66,7 +66,7 @@
 
 
       <!--Start search textbox Row-->
-      <div class="row">
+      <div class="row tab-margin">
         <div class="col-md-12">
           <mat-form-field class="fullwidth">
             <input matInput [(ngModel)]="tblSearchReviews" placeholder="Search">
@@ -154,7 +154,7 @@
 
           <!--button tag Row Starts-->
           <div class="row">
-            <div class="col-md-1 text-left">
+            <div class="col-md-1 text-center">
               <button mat-raised-button color="primary" (click)="saveReviews()">Save</button>
             </div>
             <div class="col-md-11 text-left">
@@ -203,7 +203,7 @@
       <!-- end menubar buttons -->
 
       <!--Start search textbox Row-->
-      <div class="row">
+      <div class="row tab-margin">
         <div class="col-md-12">
           <mat-form-field class="fullwidth">
             <input matInput [(ngModel)]="tblSearchGoals" placeholder="Search">
@@ -222,15 +222,15 @@
                 <th class='text-left'>Starting Date</th>
                 <th class='text-left'>Completion Date</th>
                 <th class='text-left'>Project Description</th>
-                <th class='text-left'>Employee Assessment </th>
+                <!-- <th class='text-left'>Employee Assessment </th> -->
                 <th class='text-left'>Supervisor</th>
                 <th class='text-left'>Supervisor Assessment </th>
-                <th class='text-center'>Add</th>
+                <th class='text-center'>Action</th>
               </tr>
             </thead>
             <tbody>
 
-              
+
 
               <!-- <tr *ngFor="let item of projectsList; let i=index">
                 <td class='text-left'>{{item.StartDate | date:'dd-MM-yyyy'}}</td>
@@ -252,7 +252,8 @@
                     <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #startDatePicker></mat-datepicker>
                   </mat-form-field> -->
-                  <p-calendar [(ngModel)]="startDate" placeholder="Starting Date" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
+                  <p-calendar [(ngModel)]="startDate" placeholder="Starting Date" [style]="{'width':'100%'}"
+                    [inputStyle]="{'width':'100%'}"></p-calendar>
                 </td>
                 <td class='text-left'>
                   <!-- <mat-form-field class="fullwidth">
@@ -261,18 +262,23 @@
                     <mat-datepicker-toggle matSuffix [for]="finishDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #finishDatePicker></mat-datepicker>
                   </mat-form-field> -->
-                  <p-calendar [(ngModel)]="finishDate" placeholder="Completion Date" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
+                  <p-calendar [(ngModel)]="finishDate" placeholder="Completion Date" [style]="{'width':'100%'}"
+                    [inputStyle]="{'width':'100%'}"></p-calendar>
                 </td>
                 <td class='text-left'>
                   <!-- <mat-form-field class="fullwidth">
                     <input [(ngModel)]="projectDesc" matInput placeholder="Project Description">
                   </mat-form-field> -->
-                  <input type="text" pInputText [(ngModel)]="projectDesc" class="fullwidth" placeholder="Project Description">
+                  <input type="text" pInputText [(ngModel)]="projectDesc" class="fullwidth"
+                    placeholder="Project Description">
                 </td>
-                <td class='text-left'>
+                <!--* Excluding employee Assessment column  -->
+                <!-- <td class='text-left'>
                   <p-rating class="rating-size" [(ngModel)]="rateEmpAssessment" [cancel]="false">
                   </p-rating>
-                </td>
+                </td> -->
+                <!--* Ends  -->
+
                 <td class='text-left'>
                   <!-- <mat-form-field class="fullwidth">
                     <mat-select placeholder="Name" [(ngModel)]="supervisorName">
@@ -282,32 +288,37 @@
                     </mat-select>
                   </mat-form-field> -->
 
-                  <p-dropdown appendTo="body" [options]="supervisorList" filter="true" [(ngModel)]="supervisorName" placeholder="Supervisor Name" [style]="{'width':'100%'}">
+                  <p-dropdown appendTo="body" [options]="supervisorList" filter="true" [(ngModel)]="supervisorName"
+                    placeholder="Supervisor Name" [style]="{'width':'100%'}">
                     <ng-template let-itm pTemplate="item">
                       <div style="position: relative;height: 25px;">
                         <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
                       </div>
                     </ng-template>
                   </p-dropdown>
-                  
+
                 </td>
                 <td class='text-left'>
                   <p-rating class="rating-size" [(ngModel)]="rateSprvsrAssessment" [cancel]="false">
                   </p-rating>
                 </td>
                 <td class='text-center'>
-                  <button mat-icon-button class='noneOutLine'><span class="fa fa-save" (click)="addGoals()"></span></button>
+                  <button mat-icon-button class='noneOutLine'><span class="fa fa-save"
+                      (click)="addGoals()"></span></button>
                 </td>
               </tr>
 
               <!-- Project Performance Data Start -->
-              <tr *ngFor="let item of tempProjectsPerformanceData; let i=index">
+              <tr *ngFor="let item of tempProjectsPerformanceData | search:'SupervisorName':tblSearchGoals let i=index">
                 <td class='text-left'>{{item.StartDate | date:'dd-MM-yyyy'}}</td>
                 <td class='text-left'>{{item.FinishDate | date:'dd-MM-yyyy'}}</td>
                 <td class='text-left'>{{item.ProjectDesc}}</td>
-                <td class='text-left'>{{item.RateEmpAssessment}}</td>
-                <td class='text-left'>{{item.SupervisorId}}</td>
-                <td class='text-left'>{{item.RateSprvsrAssessment}}</td>
+                <!-- <td class='text-left'>{{item.RateEmpAssessment}}</td> -->
+                <td class='text-left'>{{item.SupervisorName}}</td>
+                <td class='text-left'>
+                  <p-rating class="rating-size" [(ngModel)]="item.RateSprvsrAssessment" [disabled]="true"
+                    [cancel]="false"></p-rating>
+                </td>
                 <td class='text-center'>
                   <span class="fa fa-edit text-primary pointerCursor" (click)="editProjects(item)"></span>
                   &nbsp;&nbsp;
@@ -316,16 +327,16 @@
                 </td>
               </tr>
               <!-- Project Performance Data End -->
-              
+
             </tbody>
           </table>
 
           <!--button tag Row Starts-->
           <div class="row">
-            <div class="col-md-1 text-left">
-              <button mat-raised-button color="primary" (click)="saveProjects()">Save</button>
-            </div>
-            <div class="col-md-11 text-left">
+            <!-- <div class="col-md-1 text-center">
+              <button mat-raised-button color="primary" (click)="addGoals()">Save</button>
+            </div> -->
+            <div class="col-md-1 text-center">
               <button mat-raised-button (click)="clearProjects()">Reset</button>
             </div>
           </div>
@@ -397,7 +408,7 @@
             <tbody>
 
               <!-- Skills Performance Data Start -->
-              <tr *ngFor="let item of tempSkillsPerformanceData; let i=index">
+              <tr *ngFor="let item of tempSkillsPerformanceData | search:'SkillName':tblSearchSkills let i=index">
                 <td class='text-left'>{{item.SkillDate | date:'dd-MM-yyyy'}}</td>
                 <td class='text-left'>{{item.SkillName}}</td>
                 <td class='text-left'>{{item.RateSkillLevel}}</td>
@@ -412,7 +423,7 @@
               <!-- Skills Performance Data End -->
 
 
-              <tr *ngFor=" let item of skillsList; let i=index">
+              <tr *ngFor=" let item of skillsList | search:'QlfctnSkillName':tblSearchSkills let i=index">
                 <td class='text-left'>{{item.SkillDate | date:'dd-MM-yyyy'}}</td>
                 <td class='text-left'>{{item.QlfctnSkillName}}</td>
                 <td class='text-left'>{{item.RateSkillLevel}}</td>
@@ -424,10 +435,13 @@
 
               <tr>
                 <td class='text-left'>
-                  <p-calendar [(ngModel)]="skillDate" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
+                  <p-calendar [(ngModel)]="skillDate" placeholder="Select Date" [style]="{'width':'100%'}"
+                    [inputStyle]="{'width':'100%'}">
+                  </p-calendar>
                 </td>
                 <td class='text-left'>
-                  <p-dropdown appendTo="body" [options]="skillsNameList" filter="true" [(ngModel)]="skillCriteriaCd" placeholder="Group" [style]="{'width':'100%'}">
+                  <p-dropdown appendTo="body" [options]="skillsNameList" filter="true" [(ngModel)]="skillCriteriaCd"
+                    placeholder="Group" [style]="{'width':'100%'}">
                     <ng-template let-itm pTemplate="item">
                       <div style="position: relative;height: 25px;">
                         <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -452,7 +466,7 @@
 
           <!--button tag Row Starts-->
           <div class="row">
-            <div class="col-md-1 text-left">
+            <div class="col-md-1 text-center">
               <button mat-raised-button color="primary" (click)="saveSkills()">Save</button>
             </div>
             <div class="col-md-11 text-left">
@@ -536,7 +550,7 @@
 </igx-grid>
 <!-- Hidden Table Ends  for Excel and CSV files -->
 
-<!--* -------- Goals ------ -->
+<!--* -------- Projects ------ -->
 
 <!-- Hidden Table for Print and PDF files starts-->
 <div class="container printArea" id="printAreaGoals" [hidden]=true>
@@ -568,19 +582,17 @@
             <th>Sr #</th>
             <th>Set Date</th>
             <th>Completion Date</th>
-            <th>Goal Description</th>
-            <th>Rate EmpAssessment</th>
+            <th>Project Description</th>
             <th>Supervisor Name</th>
-            <th>Rate SprvsrAssessment</th>
+            <th>Supervisor Assessment</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of projectsList | search:'SupervisorName':tblSearchGoals  let i=index">
+          <tr *ngFor="let item of tempProjectsPerformanceData | search:'SupervisorName':tblSearchGoals  let i=index">
             <td>{{i+1}}</td>
-            <td>{{item.startDate}}</td>
-            <td>{{item.finishDate}}</td>
-            <td>{{item.projectDesc}}</td>
-            <td>{{item.RateEmpAssessment}}</td>
+            <td>{{item.StartDate | date:'dd-MM-yyyy'}}</td>
+            <td>{{item.FinishDate | date:'dd-MM-yyyy'}}</td>
+            <td>{{item.ProjectDesc}}</td>
             <td>{{item.SupervisorName}}</td>
             <td>{{item.RateSprvsrAssessment}}</td>
           </tr>
@@ -635,12 +647,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of skillsList | search:'SkillNameCd':tblSearchSkills  let i=index">
+          <tr *ngFor="let item of skillsList | search:'QlfctnSkillName':tblSearchSkills  let i=index">
             <td>{{i+1}}</td>
-            <td>{{item.SkillDate}}</td>
-            <td>{{item.SkillNameCd}}</td>
-            <td>{{item.rateSkillLevel}}</td>
-            <td>{{item.SkillHistoryDescription}}</td>
+            <td>{{item.SkillDate | date:'dd-MM-yyyy'}}</td>
+            <td>{{item.QlfctnSkillName}}</td>
+            <td>{{item.RateSkillLevel}}</td>
+            <td>{{item.SkillRemarks}}</td>
           </tr>
         </tbody>
       </table>
