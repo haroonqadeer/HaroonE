@@ -352,6 +352,8 @@ export class AttendanceComponent implements OnInit {
             this.chkAddBreak = true;
         }
 
+        
+
         this.getFilterItem("empBreak");
 
     }
@@ -408,15 +410,13 @@ export class AttendanceComponent implements OnInit {
 
 
 
-            if(this.myTimeIn == null){
+            if(this.myTimeIn == null && this.myTimeOut == null){
                 this.myTimeIn = this.attTime;
                 this.myTimeOut = null;
-            }
-            
-            if(this.myTimeIn != null && this.myTimeOut == null){
+            }else if (this.myTimeIn != null && this.myTimeOut == null) {
+                //this.myTimeIn = this.attTime;
                 this.myTimeOut = this.attTime;
             }
-
 
 
             //+ "DeptCd = " + this.myDeptCd + " --- " + "IndvdlID = " + this.EmpId + " ---- " + "DtID = " + this.myDtID + " --- " + "ShiftCd = " + this.myShifhCd + " --- " + "AttendanceStatCd = " + this.attStatus + " --- " 

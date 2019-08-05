@@ -330,7 +330,13 @@ export class RecruitmentappComponent implements OnInit {
                     this.approvalReqList = data.aprList;
                     this.interviewPanelList = data.intrvwList;
                     this.testSubjectList = data.txtList;
-                    this.publishingChannelList = data.pubChnlList;
+
+                    if(data.pubChnlList.length < 1){
+                        this.getPubChannel();
+                    }else{
+                        this.publishingChannelList = data.pubChnlList;
+                    }
+                    
 
                     this.app.hideSpinner()
 
