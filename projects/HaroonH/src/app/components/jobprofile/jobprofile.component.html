@@ -277,7 +277,7 @@
                       <td class='col-2' *ngIf="item.prefIndctr == 1">Yes</td>
                       <td class='col-2' *ngIf="item.prefIndctr != 1">No</td>
                       <td class='col-1 text-center'>
-                        <span class="fa fa-minus pointerCursor" (click)="removeDegree(i)"></span>
+                        <span class="fa fa-trash pointerCursor" (click)="removeDegree(i)"></span>
                       </td>
                     </tr>
   
@@ -352,7 +352,7 @@
                     <td class='col-2' *ngIf="item.prefIndctr == 1">Yes</td>
                     <td class='col-2' *ngIf="item.prefIndctr != 1">No</td>
                     <td class='col-1 text-center'>
-                      <span class="fa fa-minus pointerCursor" (click)="removeCertificate(i)"></span>
+                      <span class="fa fa-trash pointerCursor" (click)="removeCertificate(i)"></span>
                     </td>
                   </tr>
   
@@ -426,7 +426,7 @@
                       <td class='col-2' *ngIf="item.prefIndctr == 1">Yes</td>
                       <td class='col-2' *ngIf="item.prefIndctr != 1">No</td>
                       <td class='col-1 text-center'>
-                        <span class="fa fa-minus pointerCursor" (click)="removeExperience(i)"></span>
+                        <span class="fa fa-trash pointerCursor" (click)="removeExperience(i)"></span>
                       </td>
                     </tr>
   
@@ -500,7 +500,7 @@
                       <td class='col-2' *ngIf="item.prefIndctr == 1">Yes</td>
                       <td class='col-2' *ngIf="item.prefIndctr != 1">No</td>
                       <td class='col-1 text-center'>
-                        <span class="fa fa-minus pointerCursor text-danger" (click)="removeSkill(i)"></span>
+                        <span class="fa fa-trash pointerCursor text-danger" (click)="removeSkill(i)"></span>
                       </td>
                     </tr>
   
@@ -548,7 +548,7 @@
           <!--start 6th Step -->
           <mat-step [stepControl]="formGroup6" optional>
             <!--stepper 5th label-->
-            <ng-template matStepLabel><b>Job Description</b></ng-template>
+            <ng-template matStepLabel><b>Job Responsibilities</b></ng-template>
             <!--start 5th step form control div-->
               <br/>
               <!--start 1st row-->
@@ -574,11 +574,12 @@
                     <tr *ngFor="let item of tempDescList; let i=index" class='d-flex'>
                       <td class='col-1 text-center'>{{i + 1}}</td> 
                       <td class='col-10'>{{item.rspnsbltyDesc}}</td>
-                      <td class='col-1 text-center'><span class="fa fa-minus pointerCursor" (click)="removeDesc(i)"></span></td>
+                      <td class='col-1 text-center'><span class="fa fa-trash pointerCursor" (click)="removeDesc(i)"></span></td>
                     </tr>
   
                     <tr class='d-flex'>
-                      <td class='col-11'>
+                      <td class="col-1"></td>
+                      <td class='col-10'>
                         <p-dropdown  appendTo="body" [options]="descList" editable="true" filter="true" [(ngModel)]="ddlDescription" placeholder="Description" [style]="{'width':'100%'}">
                           <ng-template let-itm pTemplate="item">
                             <div style="position: relative;height: 25px;">
@@ -635,7 +636,7 @@
                     <td class='col-3'>{{item.leaveLmtAmoUNt}}</td>
                     <td class='col-3'>{{item.effectiveDt | date}}</td>       
                     <td class='col-1 text-center'>
-                      <span class="fa fa-minus pointerCursor" (click)="removeLeaveRule(i)"></span>
+                      <span class="fa fa-trash pointerCursor" (click)="removeLeaveRule(i)"></span>
                     </td>
                   </tr>
   
@@ -695,7 +696,7 @@
                         <td class='col-5'>{{item.facilityTypeName}}</td>
                         <td class='col-5'>{{item.facilityName}}</td>
                         <td class='col-1 text-center'>
-                          <span class="fa fa-minus pointerCursor" (click)="removeFacility(i)"></span>
+                          <span class="fa fa-trash pointerCursor" (click)="removeFacility(i)"></span>
                         </td>
                       </tr>
   
