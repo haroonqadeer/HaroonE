@@ -25,8 +25,10 @@ declare var $: any;
 export class SkillstandardComponent implements OnInit {
 
   //serverUrl = "http://localhost:9018/";
-  serverUrl = "http://52.163.189.189:9018/";
-  
+  // serverUrl = "http://52.163.189.189:9018/";
+  serverUrl = "https://localhost:8003/";
+
+
   tokenKey = "token";
 
 
@@ -110,7 +112,7 @@ export class SkillstandardComponent implements OnInit {
 
   // get skill group
   getSkillGroup() {
-
+    this.app.showSpinner();
     var Token = localStorage.getItem(this.tokenKey);
 
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -121,6 +123,7 @@ export class SkillstandardComponent implements OnInit {
       // this.skillId = this.skillTypeList[4].qlfctnTypeCd;
       // this.skillTypeName = this.skillTypeList[4].qlfctnTypeName;
     });
+    this.app.hideSpinner();
   }
 
   skillChanged(item) {
@@ -139,6 +142,7 @@ export class SkillstandardComponent implements OnInit {
 
   // get the skill criteria
   getSkillCriteria() {
+    this.app.showSpinner();
     var Token = localStorage.getItem(this.tokenKey);
 
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -146,10 +150,12 @@ export class SkillstandardComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getSkillCriteria', { headers: reqHeader }).subscribe((data: any) => {
       this.skillCriteriaList = data
     });
+    this.app.hideSpinner();
   }
 
   // get job profile
   getJobProfile() {
+    this.app.showSpinner();
     var Token = localStorage.getItem(this.tokenKey);
 
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -160,6 +166,7 @@ export class SkillstandardComponent implements OnInit {
       // this.skillId = this.skillTypeList[4].qlfctnTypeCd;
       // this.skillTypeName = this.skillTypeList[4].qlfctnTypeName;
     });
+    this.app.hideSpinner();
   }
 
   jobChanged(item) {
@@ -179,6 +186,7 @@ export class SkillstandardComponent implements OnInit {
 
   // get skill standard (display data on main page table)
   getSkillStandard() {
+    this.app.showSpinner();
     var Token = localStorage.getItem(this.tokenKey);
 
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -186,10 +194,12 @@ export class SkillstandardComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getSkillStandard', { headers: reqHeader }).subscribe((data: any) => {
       this.skillStandardList = data
     });
+    this.app.hideSpinner();
   }
 
   // get skill standard details (display individual data on detail modal window table)
   getSkillStandardDetails() {
+    this.app.showSpinner();
     var Token = localStorage.getItem(this.tokenKey);
 
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -197,6 +207,7 @@ export class SkillstandardComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getSkillStandardDetails', { headers: reqHeader }).subscribe((data: any) => {
       this.skillStandardDetailsList = data
     });
+    this.app.hideSpinner();
   }
 
   saveSkillStandards() {
@@ -298,6 +309,8 @@ export class SkillstandardComponent implements OnInit {
           "connectedUser": 12000
         };
 
+        this.app.showSpinner();
+
         var token = localStorage.getItem(this.tokenKey);
 
         // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
@@ -312,6 +325,7 @@ export class SkillstandardComponent implements OnInit {
             $('#editSkillModal').modal('hide');
             this.getSkillStandard();
             this.getSkillStandardDetails();
+            this.app.hideSpinner();
             return false;
           }
 
@@ -322,6 +336,7 @@ export class SkillstandardComponent implements OnInit {
             $('#editSkillModal').modal('hide');
             this.getSkillStandard();
             this.getSkillStandardDetails();
+            this.app.hideSpinner();
             return false;
           }
           else if (data.msg == "Update - Required Rule Already Exists!") {
@@ -331,6 +346,7 @@ export class SkillstandardComponent implements OnInit {
             $('#editSkillModal').modal('hide');
             this.getSkillStandard();
             this.getSkillStandardDetails();
+            this.app.hideSpinner();
             return false;
           }
 
@@ -341,6 +357,7 @@ export class SkillstandardComponent implements OnInit {
             $('#editSkillModal').modal('hide');
             this.getSkillStandard();
             this.getSkillStandardDetails();
+            this.app.hideSpinner();
             return false;
           }
           else if (data.msg == "Update - Rule Criteria Already Exist!") {
@@ -350,6 +367,7 @@ export class SkillstandardComponent implements OnInit {
             $('#editSkillModal').modal('hide');
             this.getSkillStandard();
             this.getSkillStandardDetails();
+            this.app.hideSpinner();
             return false;
           }
 
@@ -360,6 +378,7 @@ export class SkillstandardComponent implements OnInit {
             $('#editSkillModal').modal('hide');
             this.getSkillStandard();
             this.getSkillStandardDetails();
+            this.app.hideSpinner();
             return false;
           }
 
@@ -511,6 +530,7 @@ export class SkillstandardComponent implements OnInit {
           "connectedUser": 12000
         };
 
+        this.app.showSpinner();
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
@@ -526,10 +546,12 @@ export class SkillstandardComponent implements OnInit {
             $('#detailSkillModal').modal('hide');
             this.getSkillStandardDetails();
             this.getSkillStandard();
+            this.app.hideSpinner();
             return false;
           }
           else {
             this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+            this.app.hideSpinner();
             return false;
           }
 

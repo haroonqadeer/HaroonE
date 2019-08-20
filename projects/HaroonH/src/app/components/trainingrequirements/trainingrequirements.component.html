@@ -32,7 +32,8 @@
       Print
     </a>
 
-    <a class="pointerCursor" data-toggle="modal" data-target="#assignTrainingModal" (click)="clear()">
+    <a class="pointerCursor" data-toggle="modal" data-backdrop='false' data-target="#assignTrainingModal"
+      (click)="clear()">
       <i class="fa fa-plus-square"></i>
       Assign Training
     </a>
@@ -41,17 +42,22 @@
 </div>
 <!-- end menubar buttons -->
 
-<br>
+<!-- <br> -->
 
 <!-- Table Container Starts -->
 <div class="myContainer bgWhite">
   <!--Start search textbox Row-->
   <div class="row">
     <div class="col-md-12">
-      <mat-form-field class="fullwidth">
+      <!-- <mat-form-field class="fullwidth">
         <input matInput [(ngModel)]="tblSearch" placeholder="Search">
       </mat-form-field>
-      <i class="fab fa-accessible-icon"></i>
+      <i class="fab fa-accessible-icon"></i> -->
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search"
+          [(ngModel)]="tblSearch">
+      </div>
     </div>
   </div>
   <!--end search textbox Row-->
@@ -59,34 +65,42 @@
   <div class="row">
     <table class="table table-striped">
       <thead>
-        <tr class='d-flex'>
-          <th class="col-1 text-center">Sr.#</th>
-          <th class="col-3 text-left" [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')">
+        <tr>
+          <th class="text-center">Sr.#</th>
+          <th class="text-left" [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')">
             Employee
             <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
           </th>
-          <th class="col-4 text-left" [class.active]="order === 'JobDesigName'" (click)="setOrder('JobDesigName')">
+          <th class="text-left" [class.active]="order === 'JobDesigName'" (click)="setOrder('JobDesigName')">
             Job Profile
             <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
           </th>
-          <th class="col-2 text-center">
-            Skill Diff
+          <th class="text-left" [class.active]="order === 'qlfctnCriteriaName'"
+            (click)="setOrder('qlfctnCriteriaName')">
+            Skills
+            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
           </th>
-          <th class="col-2 text-center"> Select </th>
+          <!-- Skill Level Difference -->
+          <th class="text-center">
+            Level Difference
+          </th>
+          <th class="text-center"> Select </th>
           <!-- <th class="col-2 text-left">Status</th> -->
           <!-- <th class="col-1 text-center">Delete</th> -->
         </tr>
       </thead>
       <tbody>
-        <tr class='d-flex'
+        <tr
           *ngFor="let item of trainingRequirementList | search:'indvdlFullName,JobDesigName':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' } | orderBy: order:reverse:'case-insensitive' let i=index">
-          <td class="col-1 text-center">{{i+1}}</td>
-          <td class="col-3 text-left">{{item.indvdlFullName}}</td>
-          <td class="col-4 text-left">{{item.jobDesigName}}</td>
-          <td class="col-2 text-center">{{calculate(item.qlfctnCriteriaReqdLvl,item.levelAchieved)}}</td>
-          <td class="col-2 text-center">
+          <td class="text-center">{{i+1}}</td>
+          <td class="text-left">{{item.indvdlFullName}}</td>
+          <td class="text-left">{{item.jobDesigName}}</td>
+          <td class="text-left">{{item.qlfctnCriteriaName}}</td>
+          <td class="text-center">{{calculate(item.qlfctnCriteriaReqdLvl,item.levelAchieved)}}</td>
+          <td class="text-center">
             <mat-checkbox [(ngModel)]="item.select" (change)="exist(item)" (click)="toggleSelection(item)">
             </mat-checkbox>
           </td>
@@ -234,7 +248,7 @@
           <div class="col-md-6">
             <mat-form-field class="fullwidth">
               <mat-select [(ngModel)]="tTrainingInstitute" placeholder="Select Training Institute" required>
-                <mat-option *ngFor="let item of trainingInstituteList | search:'trnngCd':tTraining "
+                <mat-option *ngFor="let item of trainingInstituteList | search:'trnngTypeCd':tTrainingType"
                   [value]="item.vndrId">
                   {{item.orgName}}
                 </mat-option>
@@ -257,7 +271,8 @@
         <div class="row">
           <div class="col-md-6">
             <mat-form-field class="fullwidth">
-              <input matInput [(ngModel)]="startDate" [matDatepicker]="startPicker" placeholder="Start Date">
+              <input matInput [(ngModel)]="startDate" [matDatepicker]="startPicker" [min]='minDate'
+                placeholder="Start Date" (dateChange)="setDate($event)">
               <mat-datepicker-toggle matSuffix [for]="startPicker">
               </mat-datepicker-toggle>
               <!-- <button matSuffix [matDatepickerToggle]="startPicker"></button> -->
@@ -266,7 +281,8 @@
           </div>
           <div class="col-md-6">
             <mat-form-field class="fullwidth">
-              <input matInput [(ngModel)]="endDate" [matDatepicker]="endPicker" placeholder="End Date">
+              <input matInput [(ngModel)]="endDate" value="{{endDate}}" [matDatepicker]="endPicker" [min]='minDate'
+                placeholder="End Date">
               <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
               <mat-datepicker #endPicker></mat-datepicker>
             </mat-form-field>
@@ -292,12 +308,14 @@
               <thead>
                 <tr class='d-flex'>
                   <th class="col-1 text-center">Sr.#</th>
-                  <th class="col-5 text-left" [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')">
+                  <th class="col-5 text-left" [class.active]="order === 'indvdlFullName'"
+                    (click)="setOrder('indvdlFullName')">
                     Employee
                     <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                     <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
                   </th>
-                  <th class="col-6 text-left" [class.active]="order === 'jobDesigName'" (click)="setOrder('jobDesigName')">
+                  <th class="col-6 text-left" [class.active]="order === 'jobDesigName'"
+                    (click)="setOrder('jobDesigName')">
                     Job Profile
                     <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                     <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>

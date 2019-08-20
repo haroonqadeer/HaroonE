@@ -25,7 +25,9 @@ declare var $: any;
 export class TrainingrequirementsComponent implements OnInit {
 
   // serverUrl = "http://localhost:9019/";
-  serverUrl = "http://52.163.189.189:9019/";
+  // serverUrl = "http://52.163.189.189:9019/";
+  serverUrl = "https://localhost:8004/";
+
   tokenKey = "token";
 
   httpOptions = {
@@ -82,6 +84,7 @@ export class TrainingrequirementsComponent implements OnInit {
   endDate = '';
   startPicker = '';
   endPicker = '';
+  minDate = new Date();
 
   //* Excel Data List
   excelDataList = [];
@@ -120,11 +123,28 @@ export class TrainingrequirementsComponent implements OnInit {
 
   }
 
+
   @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
+  setDate(item) {
+
+    //alert(item.value);
+    //alert('start Date ' + this.startDate);
+
+    var date = new Date(item.value);
+
+    var month = Number(this.tTrainingDuration);
+    // var endPickerDate = new Date(date.setMonth(date.getMonth() + month)).toISOString();
+    // this.endDate = endPickerDate;
+    this.endDate = new Date(date.setMonth(date.getMonth() + month)).toISOString();
+
+    // alert(month + ' - New ' + this.endDate);
+
+  }
 
   // get training requirements list
   getTrainingRequirements() {
+    this.app.showSpinner();
     //return false;
     var Token = localStorage.getItem(this.tokenKey);
 
@@ -133,10 +153,12 @@ export class TrainingrequirementsComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getTrainingRequirements', { headers: reqHeader }).subscribe((data: any) => {
       this.trainingRequirementList = data
     });
+    this.app.hideSpinner();
   }
 
   // get training list
   getTraining() {
+    this.app.showSpinner();
     //return false;
     var Token = localStorage.getItem(this.tokenKey);
 
@@ -145,12 +167,13 @@ export class TrainingrequirementsComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getTraining', { headers: reqHeader }).subscribe((data: any) => {
       this.trainingList = data
     });
+    this.app.hideSpinner();
   }
 
 
   // get training type list
   getTrainingType() {
-
+    this.app.showSpinner();
     var Token = localStorage.getItem(this.tokenKey);
 
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -158,11 +181,13 @@ export class TrainingrequirementsComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getTrainingType', { headers: reqHeader }).subscribe((data: any) => {
       this.trainingTypeList = data
     });
+    this.app.hideSpinner();
 
   }
 
   // get training institute list
   getTrainingInstitute() {
+    this.app.showSpinner();
     //return false;
     var Token = localStorage.getItem(this.tokenKey);
 
@@ -171,6 +196,7 @@ export class TrainingrequirementsComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getTrainingInstitute', { headers: reqHeader }).subscribe((data: any) => {
       this.trainingInstituteList = data
     });
+    this.app.hideSpinner();
   }
 
 
@@ -281,6 +307,7 @@ export class TrainingrequirementsComponent implements OnInit {
 
   assignTraining() {
 
+    $("#assignTrainingModal").modal({ backdrop: "static" });
     //alert("List: " + this.selectedList.length);
     //alert("Trnnc Code: " + this.tTraining);
 
@@ -380,6 +407,7 @@ export class TrainingrequirementsComponent implements OnInit {
           "connectedUser": 12000
         };
 
+        this.app.showSpinner();
         var token = localStorage.getItem(this.tokenKey);
 
         // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
@@ -397,7 +425,7 @@ export class TrainingrequirementsComponent implements OnInit {
             $('#assignTrainingModal').modal('hide');
             this.getTraining();
             //this.getCertificateCriteria();
-
+            this.app.hideSpinner();
             return false;
           }
           else if (data.msg == "Insert - Training Already Exists") {
@@ -406,6 +434,7 @@ export class TrainingrequirementsComponent implements OnInit {
             //$('#addTrainingTypeModal').modal('hide');
             this.getTraining();
             //this.getCertificateCriteria();
+            this.app.hideSpinner();
             return false;
           }
           else if (data.msg == "Insert - Vendor Training Already Exist!") {
@@ -414,6 +443,7 @@ export class TrainingrequirementsComponent implements OnInit {
             //$('#addTrainingTypeModal').modal('hide');
             this.getTraining();
             //this.getCertificateCriteria();
+            this.app.hideSpinner();
             return false;
           }
           else {
@@ -422,6 +452,7 @@ export class TrainingrequirementsComponent implements OnInit {
             //$('#addTrainingTypeModal').modal('hide');
             this.getTraining();
             //this.getCertificateCriteria();
+            this.app.hideSpinner();
 
             return false;
           }
