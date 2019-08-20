@@ -48,10 +48,12 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -61,11 +63,13 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [{
-                "type": "initial",
-                "maximumWarning": "10mb",
-                "maximumError": "15mb"
-              }]
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "15mb"
+                }
+              ]
             }
           }
         },
@@ -187,10 +191,12 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [{
-                "replace": "projects/HaroonH/src/environments/environment.ts",
-                "with": "projects/HaroonH/src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "projects/HaroonH/src/environments/environment.ts",
+                  "with": "projects/HaroonH/src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -200,11 +206,13 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [{
-                "type": "initial",
-                "maximumWarning": "2mb",
-                "maximumError": "5mb"
-              }]
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
             }
           }
         },
@@ -326,10 +334,12 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [{
-                "replace": "projects/HaroonConfig/src/environments/environment.ts",
-                "with": "projects/HaroonConfig/src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "projects/HaroonConfig/src/environments/environment.ts",
+                  "with": "projects/HaroonConfig/src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -339,11 +349,13 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [{
-                "type": "initial",
-                "maximumWarning": "2mb",
-                "maximumError": "5mb"
-              }]
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
             }
           }
         },
@@ -416,6 +428,270 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "projects/HaroonConfig-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "HaroonU": {
+      "root": "projects/HaroonU/",
+      "sourceRoot": "projects/HaroonU/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/HaroonU",
+            "index": "projects/HaroonU/src/index.html",
+            "main": "projects/HaroonU/src/main.ts",
+            "polyfills": "projects/HaroonU/src/polyfills.ts",
+            "tsConfig": "projects/HaroonU/tsconfig.app.json",
+            "assets": [
+              "projects/HaroonU/src/favicon.ico",
+              "projects/HaroonU/src/assets"
+            ],
+            "styles": [
+              "projects/HaroonU/src/styles.scss"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/HaroonU/src/environments/environment.ts",
+                  "with": "projects/HaroonU/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "HaroonU:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "HaroonU:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "HaroonU:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/HaroonU/src/test.ts",
+            "polyfills": "projects/HaroonU/src/polyfills.ts",
+            "tsConfig": "projects/HaroonU/tsconfig.spec.json",
+            "karmaConfig": "projects/HaroonU/karma.conf.js",
+            "styles": [
+              "projects/HaroonU/src/styles.scss"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/HaroonU/src/favicon.ico",
+              "projects/HaroonU/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/HaroonU/tsconfig.app.json",
+              "projects/HaroonU/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "HaroonU-e2e": {
+      "root": "projects/HaroonU-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/HaroonU-e2e/protractor.conf.js",
+            "devServerTarget": "HaroonU:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "HaroonU:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/HaroonU-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "HaroonC": {
+      "root": "projects/HaroonC/",
+      "sourceRoot": "projects/HaroonC/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/HaroonC",
+            "index": "projects/HaroonC/src/index.html",
+            "main": "projects/HaroonC/src/main.ts",
+            "polyfills": "projects/HaroonC/src/polyfills.ts",
+            "tsConfig": "projects/HaroonC/tsconfig.app.json",
+            "assets": [
+              "projects/HaroonC/src/favicon.ico",
+              "projects/HaroonC/src/assets"
+            ],
+            "styles": [
+              "projects/HaroonC/src/styles.scss"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/HaroonC/src/environments/environment.ts",
+                  "with": "projects/HaroonC/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "HaroonC:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "HaroonC:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "HaroonC:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/HaroonC/src/test.ts",
+            "polyfills": "projects/HaroonC/src/polyfills.ts",
+            "tsConfig": "projects/HaroonC/tsconfig.spec.json",
+            "karmaConfig": "projects/HaroonC/karma.conf.js",
+            "styles": [
+              "projects/HaroonC/src/styles.scss"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/HaroonC/src/favicon.ico",
+              "projects/HaroonC/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/HaroonC/tsconfig.app.json",
+              "projects/HaroonC/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "HaroonC-e2e": {
+      "root": "projects/HaroonC-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/HaroonC-e2e/protractor.conf.js",
+            "devServerTarget": "HaroonC:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "HaroonC:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/HaroonC-e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**"
             ]

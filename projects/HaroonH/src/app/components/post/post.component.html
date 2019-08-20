@@ -30,7 +30,7 @@
         &nbsp;Print
       </a>
   
-      <a class="pointerCursor" data-toggle="modal" data-target="#postModal" (click)="clear()">
+      <a class="pointerCursor" data-toggle="modal" data-target="#postModal">
         <i class="fa fa-plus-square"></i>
         &nbsp;Add New
       </a>
@@ -141,7 +141,7 @@
     <!--end table row-->
   </div>
 <!--end container -->
-
+</div>
 
 <br />
 
@@ -208,7 +208,7 @@
 
       <!--start Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Add Job Post</h4>
+        <h4 class="modal-title">Create Post</h4>
         <div>
           <button type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Save</button>
           <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
@@ -226,7 +226,7 @@
               <!-- Office -->
               <div class="col-md-12">
                 <mat-form-field>
-                  <mat-select placeholder="Office" [(ngModel)]="officeName" (ngModelChange)="onBranchChange($event)">
+                  <mat-select placeholder="Office*" [(ngModel)]="officeName" (ngModelChange)="onBranchChange($event)">
                     <mat-option *ngFor="let item of offices" [value]="item.locationCd">{{item.locationName}}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -237,7 +237,7 @@
               <!-- Department -->
               <div class="col-md-12">
                 <mat-form-field>
-                  <mat-select placeholder="Department" [(ngModel)]="departmentName" (ngModelChange)="onDeptChange($event)">
+                  <mat-select placeholder="Department*" [(ngModel)]="departmentName" (ngModelChange)="onDeptChange($event)">
                     <mat-option *ngFor="let item of departments" [value]="item.deptCd">{{item.deptName}}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -270,14 +270,14 @@
             <div class="row">
               <div class="col-md-6">
                 <mat-form-field>
-                  <mat-select placeholder="Job Type" [(ngModel)]="jobType">
+                  <mat-select placeholder="Job Type*" [(ngModel)]="jobType">
                     <mat-option *ngFor="let item of jobTypes" [value]="item.jobTypeCd">{{item.jobTypeName}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
               <div class="col-md-6">
                 <mat-form-field>
-                  <mat-select placeholder="Job Nature" [(ngModel)]="jobNature">
+                  <mat-select placeholder="Job Nature*" [(ngModel)]="jobNature">
                     <mat-option *ngFor="let item of jobNatures" [value]="item.jobNatureCd">{{item.jobNatureName}}
                     </mat-option>
                   </mat-select>
@@ -289,7 +289,7 @@
             <div class="row">
               <div class="col-md-12">
                 <mat-form-field class="fullwidth inputBox">
-                  <input matInput placeholder="Job Title" [(ngModel)]="jobTitle">
+                  <input matInput placeholder="Job Title*" [(ngModel)]="jobTitle" maxlength="100">
                 </mat-form-field>
               </div>
             </div>
@@ -299,14 +299,14 @@
             <div class="row">
               <div class="col-md-6">
                 <mat-form-field>
-                  <mat-select placeholder="Pay Grade" [(ngModel)]="BPS" (ngModelChange)="onBPSChange($event)">
+                  <mat-select placeholder="Pay Grade*" [(ngModel)]="BPS" (ngModelChange)="onBPSChange($event)">
                     <mat-option *ngFor="let item of bpsList" [value]="item.payGradeCd">{{item.payGradeName}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
               <div class="col-md-6">
                 <mat-form-field>
-                  <mat-select placeholder="Designation" [(ngModel)]="designation">
+                  <mat-select placeholder="Designation*" [(ngModel)]="designation">
                     <mat-option *ngFor="let item of designations" [value]="item.desigCd">{{item.desigName}}</mat-option>
                   </mat-select>
                 </mat-form-field>
