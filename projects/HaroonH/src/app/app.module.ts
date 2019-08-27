@@ -37,8 +37,8 @@ import { OrderModule } from 'ngx-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
-import {CheckboxModule} from 'primeng/checkbox';
-import {InputSwitchModule} from 'primeng/inputswitch';
+import { CheckboxModule} from 'primeng/checkbox';
+import { InputSwitchModule} from 'primeng/inputswitch';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
@@ -48,7 +48,7 @@ import { ShiftComponent } from './components/shift/shift.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
 import { EmployeeShiftComponent } from './components/employee-shift/employee-shift.component';
 import { AttendanceDashboardComponent } from './components/attendance-dashboard/attendance-dashboard.component';
-import {NgxMaskModule} from 'ngx-mask';
+import { NgxMaskModule} from 'ngx-mask';
 import { PromotionComponent } from './components/promotion/promotion.component';
 import { TransferpostingComponent } from './components/transferposting/transferposting.component';
 

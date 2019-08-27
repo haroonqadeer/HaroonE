@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
 
     serverUrl = "http://52.163.49.124:9010/";
     //serverUrl = "http://localhost:9010/";
+    //serverUrl = "http://52.163.189.189:9010/";
+    //serverUrl = "http://localhost:9010/";
     tokenKey = "token";
 
     httpOptions = {
