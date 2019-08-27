@@ -18,7 +18,7 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-    serverUrl = "http://52.163.189.189:9010/";
+    serverUrl = "http://52.163.49.124:9010/";
     //serverUrl = "http://localhost:9010/";
     tokenKey = "token";
 
@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
                     this.app.locationId = data.userDetail[0].locationCd;
                     this.app.cmpnyId = data.userDetail[0].cmpnyId;
                     this.app.cmpnyName = data.userDetail[0].locationName;
-                    
+
 
                 } else {
                     // alert(data.msg);
