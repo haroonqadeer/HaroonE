@@ -43,7 +43,7 @@
     "ng-circle-progress": "^1.4.0",
     "ng6-toastr-notifications": "^1.0.4",
     "ngx-bootstrap": "^4.1.1",
-    "ngx-mask": "^8.0.1",
+    "ngx-mask": "^8.0.2",
     "ngx-order-pipe": "^2.0.2",
     "ngx-pagination": "^3.2.1",
     "ngx-spinner": "^7.1.4",

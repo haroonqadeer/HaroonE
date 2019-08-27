@@ -65,6 +65,7 @@ export class TrainingemployeeComponent implements OnInit {
 
   // get training requirements list
   getEmployeeJobTraining() {
+    this.app.showSpinner();
     //return false;
     var Token = localStorage.getItem(this.tokenKey);
 
@@ -73,6 +74,7 @@ export class TrainingemployeeComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getEmployeeJobTraining', { headers: reqHeader }).subscribe((data: any) => {
       this.empJobTrainingList = data
     });
+    this.app.hideSpinner();
   }
 
   clear() { }

@@ -32,7 +32,8 @@
       Print
     </a>
 
-    <a class="pointerCursor" data-toggle="modal" data-target="#addTrainingModal" (click)="clear()">
+    <a class="pointerCursor" data-toggle="modal" data-backdrop='false' data-target="#addTrainingModal"
+      (click)="clear()">
       <i class="fa fa-plus-square"></i>
       Add New
     </a>
@@ -52,7 +53,8 @@
       <i class="fab fa-accessible-icon"></i> -->
       <div class="searchBar">
         <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search"
+          [(ngModel)]="tblSearch">
       </div>
     </div>
   </div>
@@ -96,11 +98,11 @@
           <td class="col-2 text-left">{{item.orgName}}</td>
           <td class="col-2 text-center">{{item.trnngDuration}} - month's</td>
           <td class="col-1 text-right">
-            <i data-toggle="modal" data-target="#addTrainingModal" (click)="edit(item)"
+            <i data-toggle="modal" data-backdrop='false' data-target="#addTrainingModal" (click)="edit(item)"
               class="pointerCursor fa fa-pencil text-primary" aria-hidden="true"></i>
           </td>
           <td class="col-1 text-left">
-            <i data-toggle="modal" data-target="#deleteModal" (click)="deleteTraining(item)"
+            <i data-toggle="modal" data-backdrop='false' data-target="#deleteModal" (click)="deleteTraining(item)"
               class="pointerCursor fa fa-trash text-danger" aria-hidden="true"></i>
           </td>
         </tr>
@@ -189,9 +191,12 @@
       <div class="modal-header">
         <h5 class="modal-title">Add Training</h5>
         <div>
-            <button type="button" class="btn-ia cursorPointer text-right" (click)="saveTraining()"><span class="fa fa-save"></span> &nbsp;Save</button>
-            <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
-            <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveTraining()"><span
+              class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span
+              class="fa fa-undo"></span> &nbsp;Reset</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span
+              class="fa fa-times-circle"></span> &nbsp;Close</button>
         </div>
       </div>
       <div class="modal-body">
@@ -207,8 +212,8 @@
             </mat-form-field>
           </div>
           <div class="col-md-3">
-            <button mat-fab color="primary" class='noneOutLine' data-toggle="modal" data-target="#addTrainingTypeModal"
-              (click)="clear()"><span class="fa fa-plus"></span></button>
+            <button mat-fab color="primary" class='noneOutLine' data-toggle="modal" data-backdrop='false'
+              data-target="#addTrainingTypeModal" (click)="clear()"><span class="fa fa-plus"></span></button>
           </div>
         </div>
         <!-- Row 2 -->
@@ -235,7 +240,8 @@
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class="fullwidth">
-              <input matInput type="number" min="0" [(ngModel)]="trainingDuration" placeholder="Duration in Months">
+              <input matInput type="number" pattern="[0-9]" min="0" [(ngModel)]="trainingDuration"
+                placeholder="Duration in Months">
             </mat-form-field>
           </div>
         </div>
@@ -263,14 +269,17 @@
 
 <!-- Add training type Modal Starts -->
 <div class="modal fade" id="addTrainingTypeModal">
-  <div class="modal-dialog modal-md">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Add Training Type</h5>
         <div>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveTrainingType()"><span class="fa fa-save"></span> &nbsp;Save</button>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
-          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveTrainingType()"><span
+              class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span
+              class="fa fa-undo"></span> &nbsp;Reset</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span
+              class="fa fa-times-circle"></span> &nbsp;Close</button>
         </div>
         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -279,21 +288,21 @@
       <div class="modal-body">
         <!-- Row 1 -->
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <mat-form-field class="fullwidth">
               <input matInput [(ngModel)]="trainingTypeName" placeholder="Enter Training Type" required>
             </mat-form-field>
           </div>
-        </div>
-        <!-- Row 4 -->
-        <div class="row">
-          <div class="col-md-12">
+          <!-- </div> -->
+          <!-- Row 4 -->
+          <!-- <div class="row"> -->
+          <div class="col-md-6">
             <mat-form-field class="fullwidth">
               <input matInput [(ngModel)]="trainingTypeDesc" placeholder="Enter Description" required>
             </mat-form-field>
           </div>
         </div>
-        <br>        
+        <br>
       </div>
 
       <!-- Table Container Starts -->
@@ -301,10 +310,10 @@
 
         <div class="row">
           <div class="col-md-12">
-            <h5>Saved Training Tyes</h5>
+            <h5><b>Training Types</b></h5>
           </div>
         </div>
-        <hr>
+        <!-- <hr> -->
         <!--Start search textbox Row-->
         <div class="row">
           <div class="col-md-12">
@@ -337,12 +346,13 @@
                     class="pointerCursor fa fa-pencil text-primary" aria-hidden="true"></i>
                 </td>
                 <td class="col-1 text-left">
-                  <i data-toggle="modal" data-target="#deleteModal" (click)="deleteTrainingType(item)"
-                    class="pointerCursor fa fa-trash text-danger" aria-hidden="true"></i>
+                  <i data-toggle="modal" data-target="#deleteModal" data-backdrop='false'
+                    (click)="deleteTrainingType(item)" class="pointerCursor fa fa-trash text-danger"
+                    aria-hidden="true"></i>
                 </td>
               </tr>
             </tbody>
-          </table>          
+          </table>
         </div>
       </div>
       <!-- Table Container Ends -->
@@ -371,7 +381,7 @@
 <!-- Add training type Modal Ends -->
 
 
-<!-- Delete Certificate Modal Window Starts -->
+<!-- Delete training Modal Window Starts -->
 <div class="modal fade" id="deleteModal">
   <div class="modal-dialog shadow-lg-dark modal-md">
     <div class="modal-content">
@@ -379,7 +389,15 @@
       <!--start Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Delete</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="delete()">
+            <span class="fa fa-trash"></span> &nbsp;Delete
+          </button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal">
+            <span class="fa fa-times-circle"></span> &nbsp;Close
+          </button>
+        </div>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
       </div>
       <!--end Modal Header -->
 
@@ -406,17 +424,17 @@
         <!--end 2nd row-->
         <br />
         <!--button tag-->
-        <button mat-raised-button color="warn" (click)="delete()">Delete</button>
+        <!-- <button mat-raised-button color="warn" (click)="delete()">Delete</button> -->
       </div>
       <!--end Modal body -->
 
       <!--start Modal footer -->
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
       <!--end Modal footer -->
 
     </div>
   </div>
 </div>
-<!-- Delete certificate Modal Window Ends -->
+<!-- Delete training Modal Window Ends -->

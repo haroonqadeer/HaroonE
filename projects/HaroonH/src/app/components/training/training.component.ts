@@ -26,7 +26,8 @@ declare var $: any;
 export class TrainingComponent implements OnInit {
 
   //serverUrl = "http://localhost:9019/";
-  serverUrl = "http://52.163.189.189:9019/";
+  // serverUrl = "http://52.163.189.189:9019/";
+  serverUrl = "https://localhost:8004/";
   tokenKey = "token";
 
   httpOptions = {
@@ -85,7 +86,7 @@ export class TrainingComponent implements OnInit {
   ngOnInit() {
     this.getTraining();
     this.getTrainingType();
-    this.getTrainingInstitute();
+    this.getVendors();
   }
 
   @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
@@ -93,8 +94,13 @@ export class TrainingComponent implements OnInit {
 
   //*---------------------- Get Functions --------------------//
 
+
+
+
+
   // get training list
   getTraining() {
+    this.app.showSpinner();
     //return false;
     var Token = localStorage.getItem(this.tokenKey);
 
@@ -103,11 +109,13 @@ export class TrainingComponent implements OnInit {
     this.http.get(this.serverUrl + 'api/getTraining', { headers: reqHeader }).subscribe((data: any) => {
       this.trainingList = data
     });
+    this.app.hideSpinner();
   }
 
 
   // get training type list
   getTrainingType() {
+    this.app.showSpinner();
 
     var Token = localStorage.getItem(this.tokenKey);
 
@@ -117,18 +125,22 @@ export class TrainingComponent implements OnInit {
       this.trainingTypeList = data
     });
 
+    this.app.hideSpinner();
+
   }
 
   // get training institute list
-  getTrainingInstitute() {
+  getVendors() {
+    this.app.showSpinner();
     //return false;
     var Token = localStorage.getItem(this.tokenKey);
 
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
 
-    this.http.get(this.serverUrl + 'api/getTrainingInstitute', { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get(this.serverUrl + 'api/getVendors', { headers: reqHeader }).subscribe((data: any) => {
       this.trainingInstituteList = data
     });
+    this.app.hideSpinner();
   }
 
 
@@ -164,6 +176,8 @@ export class TrainingComponent implements OnInit {
           "connectedUser": 12000
         };
 
+        this.app.showSpinner();
+
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
@@ -180,7 +194,7 @@ export class TrainingComponent implements OnInit {
             $('#addTrainingTypeModal').modal('hide');
             this.getTraining();
             //this.getCertificateCriteria();
-
+            this.app.hideSpinner();
             return false;
 
           }
@@ -189,6 +203,7 @@ export class TrainingComponent implements OnInit {
             this.clear();
             //$('#addTrainingTypeModal').modal('hide');
             this.getTraining();
+            this.app.hideSpinner();
             //this.getCertificateCriteria();
             return false;
           }
@@ -197,6 +212,7 @@ export class TrainingComponent implements OnInit {
             this.clear();
             //$('#addTrainingTypeModal').modal('hide');
             this.getTraining();
+            this.app.hideSpinner();
             //this.getCertificateCriteria();
             return false;
           }
@@ -205,6 +221,7 @@ export class TrainingComponent implements OnInit {
             this.clear();
             //$('#addTrainingTypeModal').modal('hide');
             this.getTraining();
+            this.app.hideSpinner();
             //this.getCertificateCriteria();
             return false;
           }
@@ -222,6 +239,7 @@ export class TrainingComponent implements OnInit {
           "connectedUser": 12000
         };
 
+        this.app.showSpinner();
         var token = localStorage.getItem(this.tokenKey);
 
         // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
@@ -239,7 +257,7 @@ export class TrainingComponent implements OnInit {
             $('#addTrainingTypeModal').modal('hide');
             this.getTraining();
             //this.getCertificateCriteria();
-
+            this.app.hideSpinner();
             return false;
           }
           else if (data.msg == "Insert - Training Already Exists") {
@@ -247,6 +265,7 @@ export class TrainingComponent implements OnInit {
             this.clear();
             //$('#addTrainingTypeModal').modal('hide');
             this.getTraining();
+            this.app.hideSpinner();
             //this.getCertificateCriteria();
             return false;
           }
@@ -255,6 +274,7 @@ export class TrainingComponent implements OnInit {
             this.clear();
             //$('#addTrainingTypeModal').modal('hide');
             this.getTraining();
+            this.app.hideSpinner();
             //this.getCertificateCriteria();
             return false;
           }
@@ -263,6 +283,7 @@ export class TrainingComponent implements OnInit {
             this.clear();
             //$('#addTrainingTypeModal').modal('hide');
             this.getTraining();
+            this.app.hideSpinner();
             //this.getCertificateCriteria();
 
             return false;
@@ -307,6 +328,7 @@ export class TrainingComponent implements OnInit {
           "connectedUser": 12000
         };
 
+        this.app.showSpinner();
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
@@ -323,7 +345,7 @@ export class TrainingComponent implements OnInit {
             //$('#addTrainingTypeModal').modal('hide');
             this.getTrainingType();
             //this.getCertificateCriteria();
-
+            this.app.hideSpinner();
             return false;
 
           }
@@ -333,6 +355,7 @@ export class TrainingComponent implements OnInit {
             //$('#addTrainingTypeModal').modal('hide');
             this.getTrainingType();
             //this.getCertificateCriteria();
+            this.app.hideSpinner();
             return false;
           }
           else {
@@ -340,6 +363,7 @@ export class TrainingComponent implements OnInit {
             this.clear();
             //$('#addTrainingTypeModal').modal('hide');
             this.getTrainingType();
+            this.app.hideSpinner();
             //this.getCertificateCriteria();
             return false;
           }
@@ -354,6 +378,7 @@ export class TrainingComponent implements OnInit {
           "connectedUser": 12000
         };
 
+        this.app.showSpinner();
         var token = localStorage.getItem(this.tokenKey);
 
         // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
@@ -371,7 +396,7 @@ export class TrainingComponent implements OnInit {
             //$('#addTrainingTypeModal').modal('hide');
             this.getTrainingType();
             //this.getCertificateCriteria();
-
+            this.app.hideSpinner();
             return false;
           }
           else if (data.msg == "Insert - Record Already Exists!") {
@@ -380,7 +405,7 @@ export class TrainingComponent implements OnInit {
             //$('#addTrainingTypeModal').modal('hide');
             this.getTrainingType();
             //this.getCertificateCriteria();
-
+            this.app.hideSpinner();
             return false;
           }
           else {
@@ -389,7 +414,7 @@ export class TrainingComponent implements OnInit {
             //$('#addTrainingTypeModal').modal('hide');
             this.getTrainingType();
             //this.getCertificateCriteria();
-
+            this.app.hideSpinner();
             return false;
           }
         });
