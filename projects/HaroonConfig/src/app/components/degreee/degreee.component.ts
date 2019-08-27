@@ -36,10 +36,10 @@ declare var $: any;
 export class DegreeeComponent implements OnInit {
 
   //serverUrl = "http://localhost:9015/";
-  serverUrl = "http://52.163.189.189:9015/";
+  serverUrl = "http://52.163.49.124:9015/";
 
   postSearch = "";
-  
+
   tokenKey = "token";
 
   httpOptions = {
@@ -409,6 +409,8 @@ export class DegreeeComponent implements OnInit {
 
   // CSV Function
   public downloadCSV() {
+    this.app.download_CSV(this.degreeCriteriaList);
+    return false;
     // case 1: When tblSearch is empty then assign full data list
     if (this.tblSearch == "") {
       var completeDataList = [];
@@ -447,6 +449,8 @@ export class DegreeeComponent implements OnInit {
 
   // Excel Xlxs Function
   public downloadExcel() {
+    this.app.download_Excel(this.degreeCriteriaList);
+    return false;
     // case 1: When tblSearch is empty then assign full data list
     if (this.tblSearch == "") {
       //var completeDataList = [];
