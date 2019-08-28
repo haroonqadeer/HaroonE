@@ -1,5 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from './shared/material.module';
+import { PNPrimeModule } from './shared/pnprime/pnprime.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchPipe } from './shared/pipe-filters/pipe-search';
+import { ChartModule } from 'angular-highcharts';
+//import { HttpModule } from '@angular/http';
+import { MatRadioModule } from '@angular/material/radio';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { ToastrModule } from 'ng6-toastr-notifications';
+import { OrderModule } from 'ngx-order-pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule} from 'primeng/checkbox';
+import { InputSwitchModule} from 'primeng/inputswitch';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
+import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
+import { NgxMaskModule} from 'ngx-mask';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,6 +29,7 @@ import { UserprofileComponent } from './components/userprofile/userprofile.compo
 import { UserrolesComponent } from './components/userroles/userroles.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreatepasswordComponent } from './components/createpassword/createpassword.component';
+// import { ErpBottomSheetComponent } from './components/erp-bottom-sheet/erp-bottom-sheet.component';
 
 @NgModule({
   declarations: [
@@ -18,9 +41,37 @@ import { CreatepasswordComponent } from './components/createpassword/createpassw
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MaterialModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ChartModule,
+    ReactiveFormsModule,
+    PNPrimeModule,
+    //HttpModule,
+    MatRadioModule,
+    NgCircleProgressModule.forRoot({}),
+    ToastrModule.forRoot(),
+    HttpClientModule,
+    OrderModule,
+    NgxPaginationModule,
+    InputTextModule,
+    DropdownModule,
+    IgxGridModule,
+    CheckboxModule,
+    InputSwitchModule,
+    NgxSpinnerModule,
+    NgxMaskModule.forRoot()
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [IgxExcelExporterService, IgxCsvExporterService],
+  bootstrap: [AppComponent],
+  // entryComponents: [ErpBottomSheetComponent],
 })
-export class AppModule { }
+export class AppModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AppModule,
+      providers: []
+    }
+  }
+ }
