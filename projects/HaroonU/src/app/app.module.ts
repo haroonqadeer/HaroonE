@@ -6,7 +6,7 @@ import { PNPrimeModule } from './shared/pnprime/pnprime.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchPipe } from './shared/pipe-filters/pipe-search';
 import { ChartModule } from 'angular-highcharts';
-//import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/common/http';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
