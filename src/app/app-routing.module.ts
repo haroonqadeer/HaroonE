@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HRSharedModule } from 'projects/HaroonH/src/app/app.module';
 import { ConfigSharedModule } from 'projects/HaroonConfig/src/app/app.module';
+import { UMSharedModule } from 'projects/HaroonU/src/app/app.module';
 import { LoginComponent } from './components/login/login.component';
 import { IntroPageComponent } from '../../projects/HaroonH/src/app/components/intro-page/intro-page.component';
 
@@ -25,6 +26,13 @@ const routes: Routes = [
   {
     path: 'HR',
     loadChildren: () => HRSharedModule
+    // loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
+    //loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
+
+  },
+  {
+    path: 'UM',
+    loadChildren: () => UMSharedModule
     // loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
     //loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
 

@@ -14,8 +14,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HRSharedModule } from 'projects/HaroonH/src/app/app.module';
-import { ConfigSharedModule } from 'projects/HaroonConfig/src/app/app.module';
 import { NavComponent } from './components/nav/nav.component';
 import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
 
@@ -28,6 +26,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SearchPipe } from './shared/pipe-filters/pipe-search';
 import { LoginComponent } from './components/login/login.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
+
+
+import { HRSharedModule } from 'projects/HaroonH/src/app/app.module';
+import { ConfigSharedModule } from 'projects/HaroonConfig/src/app/app.module';
+import { UMSharedModule } from 'projects/HaroonU/src/app/app.module';
+
 
 @NgModule({
   declarations: [
@@ -42,7 +46,7 @@ import { AttendanceComponent } from './components/attendance/attendance.componen
     AppRoutingModule,
     HRSharedModule.forRoot(),
     ConfigSharedModule.forRoot(),
-
+    UMSharedModule.forRoot(),
 
 
     MaterialModule,

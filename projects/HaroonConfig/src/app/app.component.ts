@@ -3,6 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { MatBottomSheet } from '@angular/material';
 
 import { Event, Router, NavigationStart, NavigationEnd } from "@angular/router";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import { Event, Router, NavigationStart, NavigationEnd } from "@angular/router";
 export class AppComponent {
   
   constructor(private router: Router,
-    private bottomSheet: MatBottomSheet) {
+    private bottomSheet: MatBottomSheet,
+    private spinner: NgxSpinnerService) {
 
   }
 

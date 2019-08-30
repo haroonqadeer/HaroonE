@@ -15,6 +15,8 @@ export class NavComponent implements OnInit {
 
     public moduleHR = false;
     public moduleConfig = false;
+    public moduleUM = false;
+
 
     constructor(private router: Router) { }
 
@@ -26,12 +28,16 @@ export class NavComponent implements OnInit {
 
         this.moduleHR = false;
         this.moduleConfig = false;
+        this.moduleUM = false;
 
         if (moduleName == 'HR') {
             localStorage.setItem('myActModNam', 'HR');
         }
         else if (moduleName == 'Config') {
             localStorage.setItem('myActModNam', 'Config');
+        }
+        else if (moduleName == 'UM') {
+            localStorage.setItem('myActModNam', 'UM');
         }
 
     }
@@ -78,7 +84,9 @@ export class NavComponent implements OnInit {
         }
         //user
         else if (val == 3) {
-            window.open('http://192.168.200.16:9001/')
+            this.activeModule("UM");
+            //this.router.navigate(['']);
+            window.location.replace(this.appLocation);
         }
         //payroll
         else if (val == 4) {

@@ -39,6 +39,7 @@ export class AppComponent {
   //modules variable declaration
   moduleHR = false;
   moduleConfig = false;
+  moduleUM = false;
 
   public branchList = [];
   public locationId;
@@ -189,6 +190,7 @@ export class AppComponent {
 
     this.moduleHR = false;
     this.moduleConfig = false;
+    this.moduleUM = false;
 
 
     var myModuleName = localStorage.getItem('myActModNam');
@@ -198,6 +200,9 @@ export class AppComponent {
     }
     else if (myModuleName == "Config") {
       this.moduleConfig = true;
+    }
+    else if (myModuleName == "UM") {
+      this.moduleUM = true;
     }
 
     //show menu setting

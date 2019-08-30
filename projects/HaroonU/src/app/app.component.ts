@@ -174,6 +174,7 @@ export class AppComponent {
 
   /* Set the width of the side navigation to 250px */
   public openNav() {
+    alert('ok;');
     document.getElementById("mySidenav").style.width = "248px";
   }
 

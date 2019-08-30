@@ -70,11 +70,15 @@ import { CreatepasswordComponent } from './components/createpassword/createpassw
   bootstrap: [AppComponent],
   // entryComponents: [ErpBottomSheetComponent],
 })
-export class AppModule {
+export class AppModule {}
+
+
+@NgModule({})
+export class UMSharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: AppModule,
       providers: []
     }
   }
- }
+}

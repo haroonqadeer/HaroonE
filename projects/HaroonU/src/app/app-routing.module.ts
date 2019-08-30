@@ -21,7 +21,8 @@ const routes: Routes = [
   {
     path: 'UM/createPassword',
     component: CreatepasswordComponent
-  }
+  },
+  { path: 'UM', redirectTo: 'UM/userProfile' }
 ];
 
 @NgModule({
