@@ -9,6 +9,7 @@ import { ChartModule } from 'angular-highcharts';
 //import { HttpModule } from '@angular/http';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ToastrModule } from 'ng6-toastr-notifications';
@@ -37,7 +38,8 @@ import { CreatepasswordComponent } from './components/createpassword/createpassw
     UserprofileComponent,
     UserrolesComponent,
     DashboardComponent,
-    CreatepasswordComponent
+    CreatepasswordComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,8 @@ import { CreatepasswordComponent } from './components/createpassword/createpassw
     CheckboxModule,
     InputSwitchModule,
     NgxSpinnerModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    MatPasswordStrengthModule
   ],
   providers: [IgxExcelExporterService, IgxCsvExporterService],
   bootstrap: [AppComponent],

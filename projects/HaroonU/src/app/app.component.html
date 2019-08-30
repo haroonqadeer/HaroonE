@@ -1,21 +1,181 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<mat-drawer-container class="example-container" autosize>
+  <!--Menu Side Bar -->
+  
+  <div id="mySidenav" class="sidenav">
 
-<router-outlet></router-outlet>
+    <div class="row">
+      <!--Ambit Logo -->
+      <div class="col-md-12">
+        <button type="button" class="noneOutLine closeBtn" mat-flat-button (click)="closeNav()">
+          <img src="../assets/images/Ambit-Logo.svg" height="25px">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="fa fa-times text-center" style="color:#4F6EB1;"></span>
+        </button>
+      </div>
+
+
+      <!--Menu btns -->
+      <div class="col-md-12">
+        <ul class="nav">
+          <li>
+            <a>
+              <!-- <span class="fa logo"><img src="../assets/images/search.svg"></span> -->
+              <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink='UM/userDashboard'>
+              <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+              <span class="text">User Dashboard</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink='UM/userProfile'>
+              <!-- <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span> -->
+              <span class="text">User Profile</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="UM/userRole">
+              <!-- <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span> -->
+              <span class="text">User Role</span>
+            </a>
+          </li> 
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div id="mySidenav" class="sidenav">
+
+    <div class="row">
+      <!--Ambit Logo -->
+      <div class="col-md-12">
+        <button type="button" class="noneOutLine closeBtn" mat-flat-button (click)="closeNav()">
+          <img src="../assets/images/Ambit-Logo.svg" height="25px">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="fa fa-times text-center" style="color:#4F6EB1;"></span>
+        </button>
+      </div>
+
+
+      <!--Menu btns -->
+      <div class="col-md-12">
+        <ul class="nav">
+          <li routerLinkActive='active'>
+            <a routerLink='HR/dashboard'>
+              <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+              <span class="text">Dashboard</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="post">
+              <!-- <span class="fa logo"><img src="../assets/images/Post.svg"></span> -->
+              <span class="text">Post</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  <!--Menu Top Bar -->
+  <div class="example-sidenav-content">
+    <div class="row bgBlue" *ngIf="hideDiv">
+
+      <!--Ambit Logo Button -->
+      <div class="col-md-1" style="border:0px solid red; background-color: #E6E6E6;">
+
+        <button type="button" class="noneOutLine menuButton" mat-flat-button>
+          <!-- <img src="../assets/images/Ambit-Logo.svg" height="25px"> -->
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="fa fa-bars text-center" style="color:#4F6EB1;" (click)="openNav()"></span>
+        </button>
+      </div>
+
+
+      <div class=" offset-md-2 col-md-1 text-right">
+        <!-- <mat-icon matPrefix class="menuSIcon"><i class='fa fa-search'></i></mat-icon> -->
+      </div>
+
+      <div class="col-md-4" style="padding: 0;">
+
+        <!-- <h4>UMIS</h4> -->
+      </div>
+
+      <div class="col-md-3 text-right" style="border:0px solid red; padding: 0;">
+
+        <!-- <img src="../assets/images/icon_img.jpg" alt="" height="40px"> -->
+
+        <div class="dropdown">
+          <button class="dropbtn">
+            Welcome! Umer Shaheen
+            <span class="fa fa-caret-down"></span>
+          </button>
+
+          <div class="dropdown-content">
+            <a href="#" (click)="Logout()">
+              <span class="fa fa-sign-out"></span>
+              <span> Log out</span>
+            </a>
+
+            <a href="#" (click)=showBottom()>
+              <span class="fa fa-sitemap"></span>
+              <span> Modules</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="row" style="border:0px solid red; padding: 0;">
+          <div class="col-md-2" style="border: 0px solid yellow; padding-right: 0;">
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-1 text-right">
+        <!-- <button type="button" class="noneOutLine leftBorderWhite" mat-flat-button>
+            
+        </button> -->
+
+        <div class="btnSlider border-left">
+          <span class="fa fa-sliders"></span>
+        </div>
+
+      </div>
+    </div>
+
+    <router-outlet></router-outlet>
+  </div>
+
+
+
+
+
+
+
+
+</mat-drawer-container>
