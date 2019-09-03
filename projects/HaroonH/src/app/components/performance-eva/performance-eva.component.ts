@@ -28,7 +28,8 @@ declare var $: any;
 export class PerformanceEvaComponent implements OnInit {
 
 //   serverUrl = "https://localhost:8008/";
-  serverUrl = "http://52.163.189.189:9035/";
+  // serverUrl = "http://52.163.189.189:9035/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9035/";
   //serverUrl = "http://localhost:9035/";
   tokenKey = "token";
 

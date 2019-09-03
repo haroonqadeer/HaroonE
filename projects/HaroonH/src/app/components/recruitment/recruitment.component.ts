@@ -28,8 +28,8 @@ export class RecruitmentComponent implements OnInit {
 
   
   //serverUrl = "http://localhost:9020/";
-  serverUrl = "http://52.163.189.189:9020/";
-
+  // serverUrl = "http://52.163.189.189:9020/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9020/";
   Line_chart: Chart;
 
   //use in status combobox
