@@ -1,10 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from './shared/material.module';
-import { PNPrimeModule } from './shared/pnprime/pnprime.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SearchPipe } from './shared/pipe-filters/pipe-search';
+
 import { ChartModule } from 'angular-highcharts';
 // import { HttpModule } from '@angular/common/http';
 import { MatRadioModule } from '@angular/material/radio';
@@ -23,6 +21,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
 import { NgxMaskModule} from 'ngx-mask';
+
+
+//Shared items
+import { MaterialModule } from '../app/shared/material.module';
+import { PNPrimeModule } from '../app/shared/pnprime/pnprime.module';
+import { SearchPipe } from '../app/shared/pipe-filters/pipe-search';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

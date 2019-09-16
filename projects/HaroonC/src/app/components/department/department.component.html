@@ -1,3 +1,388 @@
-<p>
-  department works!
-</p>
+<!-- Page Title Row Start-->
+<br>
+<div class="row">
+
+  <div class="col-md-12 text-center">
+    <h1>Department</h1>
+  </div>
+</div>
+<!-- Page Title Row End-->
+
+<!-- start menubar buttons -->
+<div class="topnav boxShadow">
+  <div class="container">
+    <a class="pointerCursor" data-toggle="modal" data-target="#departmentModal" (click)="clear()">
+      <i class="fa fa-plus-square"></i>
+      Add New
+    </a>
+    <a class="pointerCursor" (click)="printDiv()">
+      <i class="fa fa-print"></i>
+      Print
+    </a>
+    <a class="pointerCursor" (click)="downloadPDF()">
+      <i class="fa fa-file-pdf-o"></i>
+      PDF
+    </a>
+    <a class="pointerCursor" (click)="downloadCSV()">
+      <i class="fa fa-file-text-o"></i>
+      CSV
+    </a>
+    <a class="pointerCursor" (click)="downloadExcel()">
+      <i class="fa fa-file-excel-o"></i>
+      Excel
+    </a>
+  </div>
+</div>
+<!-- end menubar buttons -->
+
+<br>
+
+<!-- Table Section Starts -->
+<div class="container">
+  <!--Start search textbox Row-->
+  <div class="row">
+    <div class="col-md-12">
+      <mat-form-field class="fullwidth">
+        <input matInput [(ngModel)]="tblSearch" placeholder="Search">
+      </mat-form-field>
+      <i class="fab fa-accessible-icon"></i>
+    </div>
+  </div>
+  <!--end search textbox Row-->
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr class="d-flex">
+          <th class="col-1 text-center">Sr. #</th>
+          <th [class.active]="order === 'deptName'" (click)="setOrder('deptName')" class="col-4 text-left">
+            Department Name
+            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+          </th>
+          <th [class.active]="order === 'locationName'" (click)="setOrder('locationName')" class="col-5 text-left">
+            Branch Location
+            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+          </th>
+          <!-- <th class="col-1 text-right">Edit</th>
+          <th class="col-1 text-center">Delete</th> -->
+          <th class="col-2 text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="d-flex"
+          *ngFor="let dept of departmentsDetails | search:'deptName,locationName' :tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' } | orderBy: order:reverse:'case-insensitive' let i=index">
+          <td class="col-1 text-center">{{i+1}}</td>
+          <td class="col-4 text-left">{{dept.deptName}}</td>
+          <td class="col-5 text-left">{{dept.locationName}}</td>
+          <!-- <td class="col-1 text-right"><span data-toggle="modal" data-target="#departmentModal"
+              class="pointerCursor fa fa-edit text-primary" (click)="edit(dept)"></span></td> -->
+          <td class="col-2 text-center"><span data-toggle="modal" data-target="#deleteModal"
+              class="pointerCursor fa fa-trash text-danger" (click)="deleteDeptDetails(dept)"></span></td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Pagination Starts -->
+    <div class="col-md-10">
+      <pagination-controls id="first" (pageChange)="p = $event"></pagination-controls>
+    </div>
+    <div class="col-md-2 text-right">
+      <mat-form-field class="fullwidth pagenateList">
+        <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
+          <mat-option value="5">5</mat-option>
+          <mat-option value="10">10</mat-option>
+          <mat-option value="25">25</mat-option>
+          <mat-option value="50">50</mat-option>
+          <mat-option value="100">100</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <!-- Pagination Ends -->
+  </div>
+</div>
+<!-- Table Section Ends -->
+
+<!-- Hidden Table for Print and PDF files starts-->
+<div class="container printArea" id="printArea">
+  <div class="printDiv">
+
+    <!--Start heading table -->
+    <table>
+      <tr>
+        <td width="15%" style="border:none;">
+          <img src="../../../assets/images/logo.png" width="135px">
+        </td>
+
+        <td style="border:none;">
+          <div class="commonCss cssHeading">Logix Solutions</div>
+          <div class="commonCss cssAddress">Office #209, 2nd Floor Ahmed Plaza, Rawalpindi Road Fateh Jang.</div>
+          <div class="commonCss cssContact">Mobile: 0313-5300471, Ph. 057-2212704</div>
+        </td>
+      </tr>
+    </table>
+    <!--End heading table -->
+
+    <br /><br />
+
+    <!--Start table Row-->
+    <div class="row">
+      <table>
+        <thead>
+          <tr class="d-flex">
+            <th class="col-1 text-center">Sr. #</th>
+            <th>Department Name </th>
+            <th>Branch Name </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="d-flex"
+            *ngFor="let dept of departmentsDetails | search:'deptName,locationName' :tblSearch  let i=index">
+            <td class="col-1 text-center">{{i+1}}</td>
+            <td class="col-4 text-left">{{dept.deptName}}</td>
+            <td class="col-5 text-left">{{dept.locationName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end table row -->
+  </div>
+</div>
+<!-- Hidden Table for Print and PDF files ends-->
+
+<!-- Hidden Table Starts for Excel and CSV files -->
+<igx-grid #excelDataContent [data]="excelDataList" [autoGenerate]="false" height="null" width="null" [hidden]="true">
+</igx-grid>
+<!-- Hidden Table Ends  for Excel and CSV files -->
+
+<!-- Start Department Modal Window -->
+<div class="modal fade" id="departmentModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Department Details</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+        <br>
+        <!-- Hidden deptId Starts -->
+        <!-- <div class="row">
+          <div class="col-md-12">
+            <input matInput [(ngModel)]="cmpnyId"  [hidden]=true>
+          </div>
+        </div> -->
+        <!-- Hidden deptId Ends -->
+        <!-- row - 01 -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="fullwidth">
+              <mat-select [(ngModel)]="departmentLocationCd" placeholder="Head Quarter / Branch"
+                (click)=onLocationClick()>
+                <div class="col-md-12">
+                  <mat-form-field class="fullwidth">
+                    <input matInput [(ngModel)]="dropSearchLocation" placeholder="Search">
+                  </mat-form-field>
+                </div>
+                <mat-option *ngFor="let location of locations | search:'locationName':dropSearchLocation"
+                  [value]="location.locationCd">{{location.locationName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- end row - 01 -->
+
+        <!-- row - 02 -->
+        <div class="row">
+          <div class="col-md-10">
+            <mat-form-field class="fullwidth">
+              <mat-select [(ngModel)]="departmentNameCd" placeholder="Department Name" (click)=onDeptClick()>
+                <div class="col-md-12">
+                  <mat-form-field class="fullwidth">
+                    <input matInput [(ngModel)]="dropSearchDept" placeholder="Search">
+                  </mat-form-field>
+                </div>
+                <mat-option *ngFor="let dept of departments | search:'deptName':dropSearchDept" [value]=" dept.deptCd">
+                  {{dept.deptName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1">
+            <button mat-fab color="primary" class='noneOutLine' data-toggle="modal" data-target="#deptModal"><span
+                class="fa fa-plus"></span></button>
+          </div>
+        </div>
+        <!-- end row - 02 -->
+
+        <!--button tag Row Starts-->
+        <div class="row">
+          <div class="col-md-1 text-left">
+            <button mat-raised-button color="primary" (click)="saveDepartmentDetails()">Save</button>
+          </div>
+          <div class="col-md-2 text-center">
+            <button mat-raised-button (click)="clear()">Reset</button>
+          </div>
+        </div>
+        <!-- Button tag Row Ends -->
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Department Modal Window  -->
+
+<!-- Start Add Dept Modal Window -->
+<div class="modal fade" id="deptModal">
+  <div class="modal-dialog shadow-lg-dark modal-md">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add New Department</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!-- Hidden deptId Starts -->
+        <!-- <div class="row">
+          <div class="col-md-12">
+            <label [(ngModel)]="departId" [hidden]=true></label>
+          </div>
+        </div> -->
+        <!-- Hidden deptId Ends -->
+
+        <!--start 1st row-->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="fullwidth">
+              <input matInput [(ngModel)]="departName" placeholder="Department Name" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <!--end 1st row-->
+        <br />
+        <!--button tag-->
+        <button mat-raised-button color="primary" (click)="saveDept()">Save</button>
+
+        <br /><br />
+
+        <div class="row">
+          <table class="table table-striped">
+            <thead>
+              <tr class="d-flex">
+                <th class="col-2 text-center">Sr. #</th>
+                <th [class.active]="order === 'deptName'" (click)="setOrder('deptName')" class="col-6 text-left">
+                  Department Name
+                  <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                  <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                </th>
+                <th class="col-4 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="d-flex"
+                *ngFor="let dept of departments | search:'deptName' :tblSearch | paginate: { itemsPerPage: itemPerPageDept, currentPage: pDept, id: 'second' } | orderBy: order:reverse:'case-insensitive' let i=index">
+                <td class="col-2 text-center">{{i+1}}</td>
+                <td class="col-6 text-left">{{dept.deptName}}</td>
+                <td class="col-2 text-right"><span data-toggle="modal" class="pointerCursor fa fa-edit text-primary"
+                    (click)="editDept(dept)"></span></td>
+                <td class="col-2 text-left"><span data-toggle="modal" data-target="#deleteModal"
+                    class="pointerCursor fa fa-trash text-danger" (click)="deleteDept(dept)"></span></td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- Pagination Starts -->
+          <div class="col-md-10">
+            <pagination-controls id="second" (pageChange)="pDept = $event"></pagination-controls>
+          </div>
+          <div class="col-md-2 text-right">
+            <mat-form-field class="fullwidth pagenateListDept">
+              <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPageDept">
+                <mat-option value="5">5</mat-option>
+                <mat-option value="10">10</mat-option>
+                <mat-option value="25">25</mat-option>
+                <mat-option value="50">50</mat-option>
+                <mat-option value="100">100</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- Pagination Ends -->
+        </div>
+
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- End Add Dept Modal Window  -->
+
+
+<!-- Delete Add Department Modal Window Starts -->
+<div class="modal fade" id="deleteModal">
+  <div class="modal-dialog shadow-lg-dark modal-md">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Delete</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--start 1st row-->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="fullwidth">
+              <input matInput [(ngModel)]="userPassword" type="password" placeholder="Enter Password" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <!--end 1st row-->
+        <br />
+        <!--start 2nd row-->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="fullwidth">
+              <input matInput [(ngModel)]="userPINCode" type="password" placeholder="Enter PIN Code" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <!--end 2nd row-->
+        <br />
+        <!--button tag-->
+        <button mat-raised-button color="warn" (click)="delete()">Delete</button>
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
+    </div>
+  </div>
+</div>
+<!-- Delete Add Department Modal Window Ends -->

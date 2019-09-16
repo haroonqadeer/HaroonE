@@ -11,40 +11,38 @@ import { CurrencyComponent } from './components/currency/currency.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: CompanydashboardComponent
-  }, {
-    path: 'dashboard',
+    path: 'Comp/dashboard',
     component: CompanydashboardComponent
   },
   {
-    path: 'company',
+    path: 'Comp/company',
     component: CompanyComponent
   },
   {
-    path: 'headquarter',
+    path: 'Comp/headquarter',
     component: HeadquarterComponent
   },
   {
-    path: 'branch',
+    path: 'Comp/branch',
     component: BranchComponent
   },
   {
-    path: 'department',
+    path: 'Comp/department',
     component: DepartmentComponent
   },
   {
-    path: 'section',
+    path: 'Comp/section',
     component: SectionComponent
   },
   {
-    path: 'subsidiaries',
+    path: 'Comp/subsidiaries',
     component: SubsidiarieComponent
   },
   {
-    path: 'currency',
+    path: 'Comp/currency',
     component: CurrencyComponent
-  }
+  },
+  { path: 'Comp', redirectTo: 'Comp/dashboard' }
 ];
 
 @NgModule({

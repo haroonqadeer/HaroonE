@@ -31,6 +31,7 @@ import { AttendanceComponent } from './components/attendance/attendance.componen
 import { HRSharedModule } from 'projects/HaroonH/src/app/app.module';
 import { ConfigSharedModule } from 'projects/HaroonConfig/src/app/app.module';
 import { UMSharedModule } from 'projects/HaroonU/src/app/app.module';
+import { CompSharedModule } from 'projects/HaroonC/src/app/app.module';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { UMSharedModule } from 'projects/HaroonU/src/app/app.module';
     HRSharedModule.forRoot(),
     ConfigSharedModule.forRoot(),
     UMSharedModule.forRoot(),
-
+    CompSharedModule.forRoot(),
+    
 
     MaterialModule,
     BrowserAnimationsModule,

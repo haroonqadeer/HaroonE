@@ -1,25 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-// import { ChartModule } from 'angular-highcharts';
+import { ChartModule } from 'angular-highcharts';
 import { ToastrModule } from 'ng6-toastr-notifications';
-//import { HttpModule } from '@angular/http';
-// import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-// import { NgxMaskModule } from "ngx-mask";
+import { NgxMaskModule } from "ngx-mask";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderModule } from 'ngx-order-pipe';
-// import { NgxSpinnerModule } from 'ngx-spinner';
-// import { ExportAsModule } from 'ngx-export-as';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ExportAsModule } from 'ngx-export-as';
 import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
-
+import {DropdownModule} from 'primeng/primeng';
 
 //shared items
-import { MaterialModule } from '../../../../src/app/shared/material.module';
-import { PNPrimeModule } from '../../../../src/app/shared/pnprime/pnprime.module';
-import { SearchPipe } from '../../../../src/app/shared/pipe-filters/pipe-search';
+import { MaterialModule } from '../app/shared/material.module';
+import { PNPrimeModule } from '../app/shared/pnprime/pnprime.module';
+import { SearchPipe } from '../app/shared/pipe-filters/pipe-search';
+import { MatStepperModule } from '@angular/material/stepper';
+//import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+//import { MaterialModule } from '../../../../src/app/shared/material.module';
+//import { PNPrimeModule } from '../../../../src/app/shared/pnprime/pnprime.module';
+//import { SearchPipe } from '../../../../src/app/shared/pipe-filters/pipe-search';
+
 
 
 //components 
@@ -37,7 +40,6 @@ import { SubsidiarieComponent } from './components/subsidiarie/subsidiarie.compo
 @NgModule({
     declarations: [
         AppComponent,
-        SearchPipe,
         BranchComponent,
         CompanyComponent,
         CompanydashboardComponent,
@@ -45,30 +47,42 @@ import { SubsidiarieComponent } from './components/subsidiarie/subsidiarie.compo
         DepartmentComponent,
         HeadquarterComponent,
         SectionComponent,
-        SubsidiarieComponent
+        SubsidiarieComponent,
+        SearchPipe
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-
         MaterialModule,
         BrowserAnimationsModule,
         FormsModule,
-        // ChartModule,
+        ChartModule,
         ReactiveFormsModule,
         PNPrimeModule,
         ToastrModule.forRoot(),
         //HttpModule,
         HttpClientModule,
-        // NgxMaskModule.forRoot(),
-        // IgxGridModule,
+        NgxMaskModule.forRoot(),
+        IgxGridModule,
         NgxPaginationModule,
         OrderModule,
-        // NgxSpinnerModule,
-        // ExportAsModule
-
+        NgxSpinnerModule,
+        ExportAsModule,
+        DropdownModule,
+        MatStepperModule
     ],
     providers: [IgxExcelExporterService, IgxCsvExporterService],
     bootstrap: [AppComponent]
     })
 export class AppModule { }
+
+
+@NgModule({})
+export class CompSharedModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AppModule,
+      providers: []
+    }
+  }
+}

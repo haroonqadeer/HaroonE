@@ -109,18 +109,18 @@ export class AppComponent {
     ];
   }
 
-  //*Functions for Show & Hide Spinner
-  showSpinner() {
-    this.spinner.show();
-  }
+  // //*Functions for Show & Hide Spinner
+  // showSpinner() {
+  //   this.spinner.show();
+  // }
 
 
-  hideSpinner() {
-      setTimeout(() => {
-          /** spinner ends after process done*/
-          this.spinner.hide();
-      }, 1000);
-  }
+  // hideSpinner() {
+  //     setTimeout(() => {
+  //         /** spinner ends after process done*/
+  //         this.spinner.hide();
+  //     }, 1000);
+  // }
 
 
   //method for show and hide manu bar with login and logout user
@@ -174,7 +174,6 @@ export class AppComponent {
 
   /* Set the width of the side navigation to 250px */
   public openNav() {
-    alert('ok;');
     document.getElementById("mySidenav").style.width = "248px";
   }
 
