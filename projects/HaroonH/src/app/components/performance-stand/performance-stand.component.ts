@@ -24,7 +24,8 @@ declare var $: any;
 export class PerformanceStandComponent implements OnInit {
 
     //serverUrl = "http://localhost:9023/";
-    serverUrl = "http://52.163.189.189:9023/";
+    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9023/";
+    // serverUrl = "http://52.163.189.189:9023/";
     tokenKey = "token";
 
     httpOptions = {
