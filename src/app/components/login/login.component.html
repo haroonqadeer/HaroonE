@@ -37,7 +37,7 @@
         <br />
         <div class="row">
           <div class="col-md-7">
-            <a href="">
+            <a class="cursorPointer" data-toggle="modal" data-target="#forgotModal">
               <div class="bgforgot">FORGOT PASSWORD</div>
             </a>
           </div>
@@ -51,8 +51,67 @@
     <button mat-raised-button class="fullwidth loginButton" color="primary" (click)="onSubmit()">LOGIN</button>
 
   </div>
-  <!-- <div class="boxBottomBorder">    
-  </div> -->
+  <!--start shadow  div-->
+  <div id="boxBottomBorder">    
+  </div>
+  <!--end shadow  div-->
+
 </div><!-- end main class -->
 
+<!--start infovative logo row-->
+<div class="row">
+  <div class="offset-md-10 col-md-2" style="position: fixed; bottom: 0.5em; right: -2em;">
+      <img class="mx-auto d-block text-right" src="../../../assets/images/PoweredBy.svg" alt="" width="140em">
+  </div>
+</div>
+<!--end infovative logo row-->
+
+<!--start copyright div-->
 <div class="copyRight">Copyright &copy; AMBIT. All rights reserved.</div>
+<!--end copyright div-->
+
+
+<!-- Start forgot password Modal Window -->
+<div class="modal fade modal-forgot" id="forgotModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg" style="width: 600px;">
+    <div class="modal-content">
+
+      <!--start Modal body -->
+      <div class="modal-body" style="background-color: #6c81f8">
+        <br/>
+        <!--start 1st row-->
+        <div class="row">
+          <div class="col-md-8">
+            <h4 class="fontWhite">Hi Amir!</h4>
+            <p class="fontWhite">
+              You just click Forgot Password,<br/>
+              Check your email to get temporary<br/>
+              password, which will be expired in 24 <br/>
+              hrs. Please login and change your <br/>
+              password before it expires.<br/>
+            </p>
+          </div>
+          <div class="col-md-4 text-center" style="bottom: -2em; right: 3em;">
+            <img class="mx-auto d-block text-right" src="../../../assets/images/FrgtPswrd.svg" alt="" width="170em">
+          </div>
+        </div>
+        <!--end 1st row-->
+        <br/>
+        <!--start 2nd row-->
+        <div class="row">
+          <div class="col-md-4">
+            <button type="button" class="btn-border cursorPointer text-right">&nbsp; OK &nbsp;</button>
+          </div>
+          <div class=" offset-md-2 col-md-6 text-center fontWhite">
+            <h5>FORGOT PASSWORD</h5>
+          </div>
+        </div>
+        <!--end 2nd row-->
+        <br/>
+      </div>
+      <!--end Modal body -->
+
+    </div>
+  </div>
+</div>
+<!-- End forgot password Modal Window -->
