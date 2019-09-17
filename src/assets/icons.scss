@@ -95,21 +95,6 @@
     background-color: #fff;
 }
 
-
-
-
-
-
-
-
-/************************** User Icon **************************/
-.iconContainer .icon-u-userprofile {
-    width: 100%;
-    height: 100%;
-    mask: url(./assets/images/UserProfile.svg) no-repeat center;
-    background-color: #B0C9FF;
-}
-
 .tableIcon .icon-u-deactiveUser {
     width: 100%;
     height: 100%;
@@ -130,3 +115,55 @@
     mask: url(./assets/images/ResetPswrd.svg) no-repeat center;
     background-color: #CC9966;
 }
+
+.tableIcon .icon-u-edit {
+    width: 100%;
+    height: 100%;
+    mask: url(./assets/images/Edit.svg) no-repeat center;
+    background-color: #4181C3;
+}
+
+.tableIcon .icon-u-edit {
+    width: 100%;
+    height: 100%;
+    mask: url(./assets/images/Edit.svg) no-repeat center;
+    background-color: #4181C3;
+}
+
+.tableIcon .icon-u-delete {
+    width: 100%;
+    height: 100%;
+    mask: url(./assets/images/Delete.svg) no-repeat center;
+    background-color: #CC3333;
+}
+
+
+
+
+
+/************************** User Profile Icon **************************/
+.iconContainer .icon-u-userprofile {
+    width: 100%;
+    height: 100%;
+    mask: url(./assets/images/UserProfile.svg) no-repeat center;
+    background-color: #B0C9FF;
+}
+
+
+
+
+
+
+
+
+
+
+
+/************************** User Role **************************/
+.iconContainer .icon-u-userprole {
+    width: 100%;
+    height: 100%;
+    mask: url(./assets/images/UserRole.svg) no-repeat center;
+    background-color: #B0C9FF;
+}
+
