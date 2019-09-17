@@ -52,6 +52,8 @@
     chart: Chart;
     eName = '';
 
+    tblSearch;
+
     //* variables for display values on page
     countAddition = 15;
     countUpdation = 10;
@@ -330,7 +332,7 @@
             },
             yAxis: {
                 title: {
-                    text: 'User Management Trend'
+                    text: 'USER'
                 }
             },
             series: [{

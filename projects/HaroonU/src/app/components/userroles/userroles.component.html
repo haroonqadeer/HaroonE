@@ -1,69 +1,58 @@
+<br/>
 <!-- start menubar buttons -->
-<div class="topnav boxShadow">
-  <div>
+<div class="myContainer mat-elevation-z8 bgWhite">
+  <div class="topnav boxShadow">
+    <div>
 
-    <div class="logo"><img src="../../../assets/images/skills.svg"></div>
-    <h1> User Role Permissions</h1>
+      <span class="fa iconContainer">
+        <span class="fa icon-u-userprole" ></span>
+      </span>
+      <h1> User Role Permissions</h1>
 
-    <a class="pointerCursor" (click)="downloadExcel()">
-      <i class="fa fa-file-excel-o"></i>
-      Excel
-    </a>
+      <!-- <a class="pointerCursor" (click)="downloadExcel()">
+        <i class="fa fa-file-excel-o"></i>
+        Excel
+      </a>
 
-    <a class="pointerCursor" (click)="downloadCSV()">
-      <i class="fa fa-file-text-o"></i>
-      CSV
-    </a>
+      <a class="pointerCursor" (click)="downloadCSV()">
+        <i class="fa fa-file-text-o"></i>
+        CSV
+      </a>
 
-    <a class="pointerCursor" (click)="downloadPDF()">
-      <i class="fa fa-file-pdf-o"></i>
-      PDF
-    </a>
+      <a class="pointerCursor" (click)="downloadPDF()">
+        <i class="fa fa-file-pdf-o"></i>
+        PDF
+      </a>
 
-    <a class="pointerCursor" (click)="printDiv()">
-      <i class="fa fa-print"></i>
-      Print
-    </a>
+      <a class="pointerCursor" (click)="printDiv()">
+        <i class="fa fa-print"></i>
+        Print
+      </a> -->
 
-    <a class="pointerCursor" data-toggle="modal" data-target="#userRoleModal" (click)="clear()">
-      <i class="fa fa-plus-square"></i>
-      ADD ROLE PERMISSIONS
-    </a>
+      <a class="pointerCursor" data-toggle="modal" data-target="#userRoleModal" (click)="clear()">
+        <i class="fa fa-plus-square"></i>
+        ADD ROLE PERMISSIONS
+      </a>
 
+    </div>
   </div>
 </div>
 <!-- end menubar buttons -->
 
-<br>
-
-<!-- button row -->
-<!-- <div class="row">
-  <div class="col-md-6">
-    <button class="noneOutline" mat-raised-button color="warn">Print</button>
-  </div>
-  <div class="col-md-6 text-right">
-    <button mat-raised-button color="primary" data-toggle="modal" data-target="#userRoleModal" (click)="clear()">New
-      Role</button>
-  </div>
-</div> -->
-<!-- end button - row -->
-
-<!---------------------------------------------->
 <!---------- Try Template Code Starts ---------->
 
-<br><br>
-<div class="container bgWhite allBorder">
-  <br>
+<div class="myContainer bgWhite">
   <!--Start search textbox Row-->
   <div class="row">
     <div class="col-md-12">
-      <mat-form-field>
-        <input matInput [(ngModel)]="roleSearch" placeholder="Search">
-      </mat-form-field>
-      <i class="fab fa-accessible-icon"></i>
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+      </div>
     </div>
   </div>
   <!--end search textbox Row-->
+
   <!--Start table Row-->
   <div class="row">
     <table class="table table-striped fullwidth">
@@ -95,42 +84,70 @@
           <td class="col-4 pointerCursor text-left">{{item.uRoleName}}</td>
           <td class="col-3 pointerCursor text-center">{{item.uNoModule}}</td>
           <td class="col-2 text-center">
-            <span class="fa fa-edit pointerCursor fontPrimary" data-toggle="modal" data-target="#userRoleModal"
-              (click)="edit(item)"></span>
+
+              <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal" (click)="edit(item)">
+                <span class="fa icon-u-edit" ></span>
+              </span> 
+
           </td>
           <td class="col-2 text-center">
-            <span class="fa fa-trash pointerCursor fontPrimary" data-toggle="modal" data-target="#dUserRoleModal"
-              (click)="delete(item)"></span>
+
+            <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#dUserRoleModal" (click)="delete(item)">
+              <span class="fa icon-u-delete" ></span>
+            </span> 
+
           </td>
+
+          
         </tr>
       </tbody>
     </table>
+    
+    
     <!-- Pagination Starts -->
-    <div class="col-md-10">
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
-    </div>
-    <div class="col-md-2 text-right">
-      <mat-form-field class="fullwidth pagenateList">
-        <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
-          <mat-option value="10">10</mat-option>
-          <mat-option value="15">15</mat-option>
-          <mat-option value="20">20</mat-option>
-          <mat-option value="25">25</mat-option>
-          <mat-option value="30">30</mat-option>
-          <mat-option value="35">35</mat-option>
-          <mat-option value="40">40</mat-option>
-          <mat-option value="45">45</mat-option>
-          <mat-option value="50">50</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="col-md-12 text-right">
+      <div class="paginationBox">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div class="paginationBox">
+        <mat-form-field class="pagenateList">
+          <mat-select [(ngModel)]="itemPerPage">
+            <mat-option value="1">1</mat-option>
+            <mat-option value="2">2</mat-option>
+            <mat-option value="10">10</mat-option>
+            <mat-option value="15">15</mat-option>
+            <mat-option value="20">20</mat-option>
+            <mat-option value="25">25</mat-option>
+            <mat-option value="30">30</mat-option>
+            <mat-option value="35">35</mat-option>
+            <mat-option value="40">40</mat-option>
+            <mat-option value="45">45</mat-option>
+            <mat-option value="50">50</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="paginationBox">
+        Item per page: &nbsp;&nbsp;
+      </div>
     </div>
     <!-- Pagination Ends -->
+    
+
+    <!-- copyright Starts -->
+    <div class="col-md-12">
+      <div class="copyRight">
+        Copyright &copy; InfoVative Solutions. All rights reserved.
+      </div>
+    </div>
+    <!-- copyright Ends -->
+
   </div>
   <!-- end table row -->
-  <br />
 </div>
 <!---------- Try Template Code Ends ------------>
-<!---------------------------------------------->
+<br />
+
+
 
 
 <!-- Hidden Table Starts for Excel and CSV files -->
@@ -198,7 +215,7 @@
       <!--start user role Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Edit Role Permission</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
       </div>
       <!--end user role Modal Header -->
 
@@ -207,52 +224,53 @@
         <label [hidden]="true" [(ngModel)]="erpRoleCd" ngDefaultControl></label>
 
         <div class="row">
-          <div class="col-md-10">
-            <mat-form-field class="example-full-width">
+          <div class="col-md-5">
+            <mat-form-field class="fullwidth">
               <input matInput [(ngModel)]="erpRoleName" placeholder="User Role">
             </mat-form-field>
           </div>
         </div>
         <br />
+
         <div class="row">
           <div class="col-md-5">
             <h5>Select Module List</h5>
-            <p-tree [value]="menuTree" selectionMode="multiple" [(selection)]="selectedMenu"></p-tree>
+            <p-tree class="fullwidth" [value]="menuTree" selectionMode="multiple" [(selection)]="selectedMenu"></p-tree>
           </div>
           <div class="col-md-2">
             <br /><br />
-            <button class="btn-ia" color="primary" (click)="addRoles()">
-              <h4>
-                &nbsp;<i class="fa fa-caret-right"></i>
-                <br/>
-              </h4>
+            <!-- <button mat-raised-button color="primary" (click)="addRoles()">
+              <h4>&nbsp;<i class="fa fa-caret-right"></i><br/></h4>
             </button>
             <br /><br />
-            <button class="btn-ia" color="primary" (click)="removeRoles()">
-              <h4>
-                &nbsp;<i class="fa fa-caret-left"></i>
-                <br/>
-              </h4>
-            </button>
+            <button mat-raised-button color="primary" (click)="removeRoles()">
+              <h4>&nbsp;<i class="fa fa-caret-left"></i><br/></h4>
+            </button> -->
+            <!-- <br/> -->
+            <div class="btn-Square" (click)="addRoles()">
+              &#9664;
+            </div>
+            <br/>
+            <div class="btn-Square" (click)="removeRoles()">
+              &#9654;
+            </div>
           </div>
           <div class="col-md-5">
             <h5>Selectd Permissions</h5>
-            <p-tree [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
+            <p-tree class="fullwidth" [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
           </div>
         </div>
         <br />
+
         <div class="row">
-          <div class="offset-md-10 col-md-2">
-            <button mat-raised-button color="primary" (click)="save()">Save</button>
+          <div class="col-md-12 text-right">
+            <button mat-raised-button color="primary" (click)="save()" style="border-radius: 0">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
           </div>
         </div>
       </div>
       <!--end user role Modal body -->
 
       <!--start user role Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
       <!--end user role Modal footer -->
 
     </div>
