@@ -41,98 +41,99 @@
       </div>
     </div>
     <!-- end menubar buttons -->
+</div>
+
+<div class='container-fluid bottomBorder bgWhite'>
+  <!--Start search textbox Row-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+      </div>
+    </div>
   </div>
-  <div class='container-fluid bottomBorder bgWhite'>
-    <!--Start search textbox Row-->
+  <!--end search textbox Row-->
+
+  <!--start table row-->
+  <div class="example-container">
+    <div class="example-table-container">
+      <table class="table table-striped bottomBorder">
+        <thead>
+          <tr class='d-flex'>
+            <th class='col-1 text-center'>Sr #</th>
+            <th class='col-3' [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')">
+              Employee Name
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-3' [class.active]="order === 'jobDesigName'" (click)="setOrder('jobDesigName')">
+              Job Profile
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-2' [class.active]="order === 'locationName'" (click)="setOrder('locationName')">
+              Office
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-2' [class.active]="order === 'deptName'" (click)="setOrder('deptName')">
+              Department
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+
+            <th class='col-1 text-center'>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of employeeListMain | search:'indvdlFullName,jobDesigName,locationName,deptName': tblSearch | paginate: {
+            itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index" class='d-flex'>
+            <td class='col-1 text-center'>{{i + 1}}</td>
+            <td class='col-3'>{{item.indvdlFullName}}</td>
+            <td class='col-3'>{{item.jobDesigName}}</td>
+            <td class='col-2'>{{item.locationName}}</td>
+            <td class='col-2'>{{item.deptName}}</td>
+            <td class='col-1 text-center'>
+              <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#employeeModal" (click)="edit(item)"></span>
+              <!-- &nbsp;&nbsp;&nbsp;
+              <span class="fa fa-trash pointerCursor text-danger"></span> -->
+            </td>
+          </tr>
+
+
+        </tbody>
+      </table>
+    </div>
+
     <div class="row">
-      <div class="col-md-12">
-        <div class="searchBar">
-          <span class="fa icon-search"></span>
-          <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
-        </div>
+      <div class="col-md-11">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div class="col-md-1">
+        <mat-form-field class="fullwidth pagenateList">
+          <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
+            <mat-option value="10">10</mat-option>
+            <mat-option value="15">15</mat-option>
+            <mat-option value="20">20</mat-option>
+            <mat-option value="25">25</mat-option>
+            <mat-option value="30">30</mat-option>
+            <mat-option value="35">35</mat-option>
+            <mat-option value="40">40</mat-option>
+            <mat-option value="45">45</mat-option>
+            <mat-option value="50">50</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
-    <!--end search textbox Row-->
-  
-    <!--start table row-->
-    <div class="example-container">
-      <div class="example-table-container">
-        <table class="table table-striped bottomBorder">
-          <thead>
-            <tr class='d-flex'>
-              <th class='col-1 text-center'>Sr #</th>
-              <th class='col-3' [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')">
-                Employee Name
-                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-              </th>
-  
-              <th class='col-3' [class.active]="order === 'jobDesigName'" (click)="setOrder('jobDesigName')">
-                Job Profile
-                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-              </th>
-  
-              <th class='col-2' [class.active]="order === 'locationName'" (click)="setOrder('locationName')">
-                Office
-                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-              </th>
-  
-              <th class='col-2' [class.active]="order === 'deptName'" (click)="setOrder('deptName')">
-                Department
-                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-              </th>
-  
-              <th class='col-1 text-center'>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of employeeListMain | search:'indvdlFullName,jobDesigName,locationName,deptName': tblSearch | paginate: {
-              itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index" class='d-flex'>
-              <td class='col-1 text-center'>{{i + 1}}</td>
-              <td class='col-3'>{{item.indvdlFullName}}</td>
-              <td class='col-3'>{{item.jobDesigName}}</td>
-              <td class='col-2'>{{item.locationName}}</td>
-              <td class='col-2'>{{item.deptName}}</td>
-              <td class='col-1 text-center'>
-                <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#employeeModal" (click)="edit(item)"></span>
-                <!-- &nbsp;&nbsp;&nbsp;
-                <span class="fa fa-trash pointerCursor text-danger"></span> -->
-              </td>
-            </tr>
-  
-  
-          </tbody>
-        </table>
-      </div>
-  
-      <div class="row">
-        <div class="col-md-11">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </div>
-        <div class="col-md-1">
-          <mat-form-field class="fullwidth pagenateList">
-            <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
-              <mat-option value="10">10</mat-option>
-              <mat-option value="15">15</mat-option>
-              <mat-option value="20">20</mat-option>
-              <mat-option value="25">25</mat-option>
-              <mat-option value="30">30</mat-option>
-              <mat-option value="35">35</mat-option>
-              <mat-option value="40">40</mat-option>
-              <mat-option value="45">45</mat-option>
-              <mat-option value="50">50</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-  
-    </div>
-    <!--end table row-->
+
   </div>
-  <!--end container -->
+  <!--end table row-->
+</div>
+<!--end container -->
   
   
   <br/>
