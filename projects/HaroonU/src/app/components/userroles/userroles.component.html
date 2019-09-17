@@ -3,7 +3,7 @@
   <div>
 
     <div class="logo"><img src="../../../assets/images/skills.svg"></div>
-    <h1> User Role</h1>
+    <h1> User Role Permissions</h1>
 
     <a class="pointerCursor" (click)="downloadExcel()">
       <i class="fa fa-file-excel-o"></i>
@@ -27,7 +27,7 @@
 
     <a class="pointerCursor" data-toggle="modal" data-target="#userRoleModal" (click)="clear()">
       <i class="fa fa-plus-square"></i>
-      Add New
+      ADD ROLE PERMISSIONS
     </a>
 
   </div>
@@ -71,26 +71,19 @@
         <tr class="d-flex">
           <th class="col-1 text-center ">Sr No.</th>
           <th [class.active]="order === 'uRoleName'" (click)="setOrder('uRoleName')"
-            class="col-3 pointerCursor text-left ">
+            class="col-4 pointerCursor text-left ">
             Role Name
             <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
           </th>
           <th [class.active]="order === 'uNoModule'" (click)="setOrder('uNoModule')"
-            class="col-2 pointerCursor text-center">
+            class="col-3 pointerCursor text-center">
             No. of Modules
             <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
           </th>
-          <th [class.active]="order === 'uNoPage'" (click)="setOrder('uNoPage')"
-            class="col-2 pointerCursor text-center">
-            No. of Pages
-            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-          </th>
-          <th class="col-1 text-center">Edit</th>
-          <th class="col-1 text-center">Delete</th>
-          <th class="col-2  text-center">Permissions</th>
+          <th class="col-2 text-center">Edit</th>
+          <th class="col-2 text-center">Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -99,20 +92,15 @@
           *ngFor="let item of rolesData | search:'uRoleName,uNoModule,uNoPage':roleSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index">
           <!-- <td class="col-1 text-center" hidden>{{item.erpRoleCd}}</td> -->
           <td class="col-1 text-center">{{i+1}}</td>
-          <td class="col-3 pointerCursor text-left">{{item.uRoleName}}</td>
-          <td class="col-2 pointerCursor text-center">{{item.uNoModule}}</td>
-          <td class="col-2 pointerCursor text-center">{{item.uNoPage}}</td>
-          <td class="col-1 text-center">
+          <td class="col-4 pointerCursor text-left">{{item.uRoleName}}</td>
+          <td class="col-3 pointerCursor text-center">{{item.uNoModule}}</td>
+          <td class="col-2 text-center">
             <span class="fa fa-edit pointerCursor fontPrimary" data-toggle="modal" data-target="#userRoleModal"
               (click)="edit(item)"></span>
           </td>
-          <td class="col-1 text-center">
+          <td class="col-2 text-center">
             <span class="fa fa-trash pointerCursor fontPrimary" data-toggle="modal" data-target="#dUserRoleModal"
               (click)="delete(item)"></span>
-          </td>
-          <td class="col-2 text-center">
-            <span class="fa fa-lock pointerCursor fontPrimary" data-toggle="modal" data-target="#userRolePrmsnModal"
-              (click)="addPermission(item)"></span>
           </td>
         </tr>
       </tbody>
@@ -209,7 +197,7 @@
 
       <!--start user role Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">User Role</h4>
+        <h4 class="modal-title">Edit Role Permission</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <!--end user role Modal Header -->
@@ -221,34 +209,40 @@
         <div class="row">
           <div class="col-md-10">
             <mat-form-field class="example-full-width">
-              <input matInput [(ngModel)]="erpRoleName" placeholder="Role Name">
+              <input matInput [(ngModel)]="erpRoleName" placeholder="User Role">
             </mat-form-field>
           </div>
         </div>
         <br />
         <div class="row">
           <div class="col-md-5">
-            <h3>Menu Tree</h3>
+            <h5>Select Module List</h5>
             <p-tree [value]="menuTree" selectionMode="multiple" [(selection)]="selectedMenu"></p-tree>
           </div>
           <div class="col-md-2">
             <br /><br />
-            <button mat-mini-fab color="primary" (click)="addRoles()">
-              <i class="fa fa-forward"></i>
+            <button class="btn-ia" color="primary" (click)="addRoles()">
+              <h4>
+                &nbsp;<i class="fa fa-caret-right"></i>
+                <br/>
+              </h4>
             </button>
             <br /><br />
-            <button mat-mini-fab color="primary" (click)="removeRoles()">
-              <i class="fa fa-backward"></i>
+            <button class="btn-ia" color="primary" (click)="removeRoles()">
+              <h4>
+                &nbsp;<i class="fa fa-caret-left"></i>
+                <br/>
+              </h4>
             </button>
           </div>
           <div class="col-md-5">
-            <h3>Role Tree</h3>
+            <h5>Selectd Permissions</h5>
             <p-tree [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
           </div>
         </div>
         <br />
         <div class="row">
-          <div class="col-md-10">
+          <div class="offset-md-10 col-md-2">
             <button mat-raised-button color="primary" (click)="save()">Save</button>
           </div>
         </div>
