@@ -9,11 +9,16 @@ import { CompSharedModule } from 'projects/HaroonC/src/app/app.module';
 
 import { LoginComponent } from './components/login/login.component';
 import { IntroPageComponent } from '../../projects/HaroonH/src/app/components/intro-page/intro-page.component';
+import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LoginComponent
+  },
+  {
+    path: 'forgotPassword',
+    component: ForgotpasswordComponent
   },
   {
     path: 'home',

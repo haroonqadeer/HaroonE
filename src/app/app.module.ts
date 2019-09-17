@@ -32,6 +32,7 @@ import { HRSharedModule } from 'projects/HaroonH/src/app/app.module';
 import { ConfigSharedModule } from 'projects/HaroonConfig/src/app/app.module';
 import { UMSharedModule } from 'projects/HaroonU/src/app/app.module';
 import { CompSharedModule } from 'projects/HaroonC/src/app/app.module';
+import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { CompSharedModule } from 'projects/HaroonC/src/app/app.module';
     NavComponent,
     SearchPipe,
     LoginComponent,
-    AttendanceComponent
+    AttendanceComponent,
+    ForgotpasswordComponent
   ],
   imports: [
     BrowserModule,
