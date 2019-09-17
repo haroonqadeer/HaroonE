@@ -7,7 +7,7 @@ import { OrderPipe } from 'ngx-order-pipe';
 import { strictEqual } from 'assert';
 //import { AppComponent } from 'src/app/app.component';
 
-import * as jsPDF from 'jspdf';
+// import * as jsPDF from 'jspdf';
 import {
     IgxExcelExporterOptions,
     IgxExcelExporterService,

@@ -5,7 +5,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 //import { SelectItem } from 'primeng/api';
 
-import * as jsPDF from 'jspdf';
+// import * as jsPDF from 'jspdf';
 import {
   IgxExcelExporterOptions,
   IgxExcelExporterService,
@@ -1023,30 +1023,30 @@ export class BranchComponent implements OnInit {
   // For PDF Download
   downloadPDF() {
 
-    var doc = new jsPDF("p", "pt", "A4"),
-      source = $("#printArea")[0],
-      margins = {
-        top: 75,
-        right: 30,
-        bottom: 50,
-        left: 30,
-        width: 50
-      };
-    doc.fromHTML(
-      source, // HTML string or DOM elem ref.
-      margins.left, // x coord
-      margins.top,
-      {
-        // y coord
-        width: margins.width // max width of content on PDF
-      },
-      function (dispose) {
-        // dispose: object with X, Y of the last line add to the PDF
-        //          this allow the insertion of new lines after html
-        doc.save("Test.pdf");
-      },
-      margins
-    );
+    // var doc = new jsPDF("p", "pt", "A4"),
+    //   source = $("#printArea")[0],
+    //   margins = {
+    //     top: 75,
+    //     right: 30,
+    //     bottom: 50,
+    //     left: 30,
+    //     width: 50
+    //   };
+    // doc.fromHTML(
+    //   source, // HTML string or DOM elem ref.
+    //   margins.left, // x coord
+    //   margins.top,
+    //   {
+    //     // y coord
+    //     width: margins.width // max width of content on PDF
+    //   },
+    //   function (dispose) {
+    //     // dispose: object with X, Y of the last line add to the PDF
+    //     //          this allow the insertion of new lines after html
+    //     doc.save("Test.pdf");
+    //   },
+    //   margins
+    // );
   }
 
 
