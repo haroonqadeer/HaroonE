@@ -394,7 +394,7 @@
               <div class="dropdown-content">
                 <div class="btn" (click)="Logout()">
                   <span class="fa fa-sign-out"></span>
-                  <span> Log out</span>
+                  <span>Log out</span>
                 </div>
     
                 <div class="btn" (click)=showBottom()>
@@ -403,7 +403,11 @@
                 </div>
                 <div class="btn" (click)=showAttendance()>
                     <span class="fa fa-calendar-check-o"></span>
-                    <span> Attendance</span>
+                    <span>Attendance</span>
+                </div>
+                <div class="btn" data-toggle="modal" data-target="#changePasWrdModal">
+                    <span class="fa fa-key"></span>
+                    <span>Change Password</span>
                 </div>
               </div>
             </div>
@@ -435,4 +439,85 @@
   
         <router-outlet></router-outlet>
       </div>
+
+
+
+
+
+
+  <!-- Start change password Modal Window -->
+  <div class="modal fade modal-forgot" id="changePasWrdModal">
+    <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
+      <div class="modal-content">
+  
+        <!--Start Action Modal Header -->
+        <div class="modal-header">
+          <h4></h4>
+          <div>
+            <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
+          </div>
+        </div>
+        <!--End Action Modal Header -->
+        
+        <!--start Modal body -->
+        <div class="modal-body">
+          <!--start 1st row-->
+          <div class="row">
+            <div class="col-md-7">
+              <p class="fontWhite">Change Password<br/></p>
+  
+              <div class="inputContainer">
+                <span class="ui-float-label">
+                  <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
+                  <label for="float-input">Enter Current Password</label>
+                </span>
+              </div>
+  
+              <!--start password row -->
+              <div class="inputContainer">
+                <span class="ui-float-label">
+                  <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine" #password> 
+                  <label for="float-input">Enter New Password</label>
+                </span>
+              </div>
+              <!-- <mat-password-strength [password]="password.value" ></mat-password-strength> -->
+              <!--end password row-->
+              
+              <!--start conform password row -->
+              <div class="inputContainer" style="margin-top: 5px;">
+                <span class="ui-float-label">
+                  <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
+                  <label for="float-input">Confirm New Password</label>
+                </span>
+              </div>
+              <!--end conform password row -->
+              
+              <!--buttons -->
+              <button mat-raised-button color="primary" class="buttonSquare">&nbsp;RE-ENTER&nbsp;</button>
+              &nbsp;
+              <button mat-raised-button color="primary" class="buttonSquare">&nbsp;SAVE & EMAIL&nbsp;</button>
+            </div>
+  
+  
+  
+            <div class="col-md-5 text-center">
+              <br/>
+              <img class="mx-auto d-block" src="../../../assets/images/ResetPassword-Large.svg" alt="" height="60%">
+              <br/>
+              <h5 class="fontWhite"><b>CHANGE PASSWORD</b></h5>
+            </div>
+  
+  
+  
+          </div>
+          <!--end 1st row-->
+  
+        </div>
+        <!--end Modal body -->
+  
+      </div>
+    </div>
+  </div>
+  <!-- End change password Modal Window -->
+
     </mat-drawer-container>
