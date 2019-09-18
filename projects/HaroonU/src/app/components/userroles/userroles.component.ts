@@ -64,7 +64,7 @@ export class UserrolesComponent implements OnInit {
   erpRoleName = '';
   cmbModule = '';
   roleSearch = '';
-
+  tblSearch;
   //* variables for pagination and orderby pipe
   p = 1;
   order = 'info.name';
