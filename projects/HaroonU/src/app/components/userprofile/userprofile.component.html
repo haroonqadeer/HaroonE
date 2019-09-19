@@ -1,69 +1,69 @@
 <!-- User management Trend block start -->
 <div class="userTrendContainer">
-    <div class="row">
-      <div class="col-md-3 imgBox" style="display: block;">
-        User<br/>Management<br/>Trends
+  <div class="row">
+    <div class="col-md-3 imgBox" style="display: block;">
+      User<br/>Management<br/>Trends
+    </div>
+    <div class="col-md-5" style="margin: 0; padding: 0;">
+      <div class="box">
+        <span style="color:#90ED7D">{{countAddition}}</span><br/>Additions
       </div>
-      <div class="col-md-5" style="margin: 0; padding: 0;">
-        <div class="box">
-          <span style="color:#90ED7D">{{countAddition}}</span><br/>Additions
-        </div>
-        <div class="box">
-          <span style="color:#7CB5EC">{{countUpdation}}</span><br/>Updations
-        </div>
-        <div class="box" style="border: none;">
-          <span style="color:#434348">{{countBanned}}</span><br/>Deactivated
-        </div>
+      <div class="box">
+        <span style="color:#7CB5EC">{{countUpdation}}</span><br/>Updations
       </div>
-      <div class="col-md-4" style="padding: 0;">
-        <div style="margin-top: -20px;">
-          <div [chart]="chart" style="height:150px; width:450px;"></div>
-        </div>
+      <div class="box" style="border: none;">
+        <span style="color:#434348">{{countBanned}}</span><br/>Deactivated
       </div>
     </div>
+    <div class="col-md-4" style="padding: 0;">
+      <div style="margin-top: -20px;">
+        <div [chart]="chart" style="height:150px; width:450px;"></div>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- User management Trend block End -->
 
 
 <div class="myContainer mat-elevation-z8 bgWhite">
 
-    <!-- start menubar buttons -->
-    <div class="topnav boxShadow">
-      <div>
-        <!--class="container" -->
-        <span class="fa iconContainer">
-          <span class="fa icon-u-userprofile" ></span>
-        </span>
-        <h1> User Profile</h1>
-  
-        <!-- <a class="pointerCursor">
-          <i class="fa fa-file-excel-o"></i>
-          Excel
-        </a>
-  
-        <a class="pointerCursor">
-          <i class="fa fa-file-text-o"></i>
-          CSV
-        </a>
-  
-        <a class="pointerCursor">
-          <i class="fa fa-file-pdf-o"></i>
-          PDF
-        </a>
-  
-        <a class="pointerCursor">
-          <i class="fa fa-print"></i>
-          Print
-        </a> -->
-  
-        <a class="pointerCursor" data-toggle="modal" data-target="#userModal" (click)="clear()">
-          <i class="fa fa-plus-square"></i>
-          ADD USER PROFILE
-        </a>
-  
-      </div>
+  <!-- start menubar buttons -->
+  <div class="topnav boxShadow">
+    <div>
+      <!--class="container" -->
+      <span class="fa iconContainer">
+        <span class="fa icon-u-userprofile" ></span>
+      </span>
+      <h1> User Profile</h1>
+
+      <!-- <a class="pointerCursor">
+        <i class="fa fa-file-excel-o"></i>
+        Excel
+      </a>
+
+      <a class="pointerCursor">
+        <i class="fa fa-file-text-o"></i>
+        CSV
+      </a>
+
+      <a class="pointerCursor">
+        <i class="fa fa-file-pdf-o"></i>
+        PDF
+      </a>
+
+      <a class="pointerCursor">
+        <i class="fa fa-print"></i>
+        Print
+      </a> -->
+
+      <a class="pointerCursor" data-toggle="modal" data-target="#userModal" (click)="clear()">
+        <i class="fa fa-plus-square"></i>
+        ADD USER PROFILE
+      </a>
+
     </div>
-    <!-- end menubar buttons -->
+  </div>
+  <!-- end menubar buttons -->
 </div>
 
 <!-- Start User Profile Container -->
@@ -80,6 +80,7 @@
   <!--end search textbox Row-->
 
   <!--Start table Row-->
+
   <div class="row">
     <table class="table table-striped fullwidth" id="myTable">
       <thead>
@@ -146,8 +147,6 @@
       </tbody>
     </table>
 
-
-
     <!-- Pagination Starts -->
     <div class="col-md-12 text-right">
       <div class="paginationBox">
@@ -205,53 +204,53 @@
 
 <!-- Hidden Table for Print and PDF files starts-->
 <div class="container mat-elevation-z8 printArea" id="printArea" #exportPDF [hidden]="true">
-  <div class="printDiv">
+<div class="printDiv">
 
-    <!--Start heading table -->
+  <!--Start heading table -->
+  <table>
+    <tr>
+      <td width="15%" style="border:none;">
+        <img src="../../../assets/images/logo.png" width="135px">
+      </td>
+
+      <td style="border:none;">
+        <div class="commonCss cssHeading">Logix Solutions</div>
+        <div class="commonCss cssAddress">Office #209, 2nd Floor Ahmed Plaza, Rawalpindi Road Fateh Jang.</div>
+        <div class="commonCss cssContact">Mobile: 0313-5300471, Ph. 057-2212704</div>
+      </td>
+    </tr>
+  </table>
+  <!--End heading table -->
+
+  <br /><br />
+
+  <!--Start table Row-->
+  <div class="row">
     <table>
-      <tr>
-        <td width="15%" style="border:none;">
-          <img src="../../../assets/images/logo.png" width="135px">
-        </td>
-
-        <td style="border:none;">
-          <div class="commonCss cssHeading">Logix Solutions</div>
-          <div class="commonCss cssAddress">Office #209, 2nd Floor Ahmed Plaza, Rawalpindi Road Fateh Jang.</div>
-          <div class="commonCss cssContact">Mobile: 0313-5300471, Ph. 057-2212704</div>
-        </td>
-      </tr>
+      <thead>
+        <tr class="d-flex">
+          <th class="col-1 text-center">Sr. #</th>
+          <th class="col-2 text-left"> User Name </th>
+          <th class="col-3 text-left"> Email </th>
+          <th class="col-2 text-left"> Role </th>
+          <th class="col-2 text-left"> User Since </th>
+          <th class="col-2 text-center"> Last Login </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="d-flex"
+          *ngFor="let user of userData | search:'uName,uEmail,uRole,uSince,lastLogin':userSearch let i=index">
+          <td class="col-1 text-center">{{i+1}}</td>
+          <td class="col-2 text-left">{{user.uName}}</td>
+          <td class="col-3 text-left">{{user.uEmail}}</td>
+          <td class="col-2 text-left">{{user.uRole}}</td>
+          <td class="col-2 text-left">{{user.uSince}}</td>
+          <td class="col-2 text-center">{{user.lastLogin}}</td>
+        </tr>
+      </tbody>
     </table>
-    <!--End heading table -->
-
-    <br /><br />
-
-    <!--Start table Row-->
-    <div class="row">
-      <table>
-        <thead>
-          <tr class="d-flex">
-            <th class="col-1 text-center">Sr. #</th>
-            <th class="col-2 text-left"> User Name </th>
-            <th class="col-3 text-left"> Email </th>
-            <th class="col-2 text-left"> Role </th>
-            <th class="col-2 text-left"> User Since </th>
-            <th class="col-2 text-center"> Last Login </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="d-flex"
-            *ngFor="let user of userData | search:'uName,uEmail,uRole,uSince,lastLogin':userSearch let i=index">
-            <td class="col-1 text-center">{{i+1}}</td>
-            <td class="col-2 text-left">{{user.uName}}</td>
-            <td class="col-3 text-left">{{user.uEmail}}</td>
-            <td class="col-2 text-left">{{user.uRole}}</td>
-            <td class="col-2 text-left">{{user.uSince}}</td>
-            <td class="col-2 text-center">{{user.lastLogin}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div><!-- end table row -->
-  </div>
+  </div><!-- end table row -->
+</div>
 </div>
 <!-- Hidden Table for Print and PDF files ends-->
 
@@ -260,6 +259,7 @@
 
 <!-- Start Modal Window to add & update new user -->
 <div class="modal fade" id="userModal">
+
   <div class="modal-dialog shadow-lg-dark modal-lg">
     <div class="modal-content">
 
@@ -279,7 +279,7 @@
         <div class="row">
           <div class="col-md-6">
             <mat-form-field class="fullwidth">
-              <mat-select placeholder="Select Employee Name" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
+              <mat-select placeholder="Select User" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
                 required>
                 <input type="text" class="form-control" [(ngModel)]="searchEmployee">
                 <mat-option
@@ -308,7 +308,7 @@
                 </div>
               </div>
             </mat-radio-group>
-            <!--end radio buttons row -->
+              <!--end radio buttons row -->
 
             <br/>
             <!--start user name row-->
@@ -382,6 +382,8 @@
 
           </div>
 
+            
+
 
           
           <div class="col-md-6">
@@ -406,56 +408,12 @@
             </div>
             <div class="captionBoxB">
               <label>Department:</label><br/>
-              Finance {{partyDepartment}}
+              Department name 
             </div>
-
           </div>
-        </div>
-        <!--End 1st row -->
-
         
-
-        <!-- <div class="container" id='hiddenDiv'>
-          <div class="row">
-            <div class="col-md-2">
-              <label style="color:#3f51b5">Email</label>
-            </div>
-            <div class="col-md-4 text-left border-bottom border-left" type="Email"></div>
-            <div class="col-md-3">
-              <label style="color:#3f51b5">Father Name</label>
-            </div>
-            <div class="col-md-3 text-left border-bottom border-left" type="text"></div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="col-md-2">
-              <label style="color:#3f51b5">Department</label>
-            </div>
-            <div class="col-md-4 text-left border-bottom border-left" type="text"></div>
-            <div class="col-md-3">
-              <label style="color:#3f51b5">Branch</label>
-            </div>
-            <div class="col-md-3 text-left border-bottom border-left" type="text"></div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="col-md-2">
-              <label style="color:#3f51b5">Address</label>
-            </div>
-            <div class="col-md-10 text-left border-bottom border-left" type="text"></div>
-          </div>
-          <br />
-          <div class="row" *ngIf="showLink">
-            <div class="col-md-2">
-              <label style="color:#3f51b5">Link</label>
-            </div>
-            <div class="col-md-4 text-left border-bottom border-left">
-              <mat-hint><a href="http://{{userLink + userLinkCode}}" target="_blank">{{userLink + userLinkCode}}</a>
-              </mat-hint>
-            </div>
-          </div>
-        </div> -->
-      
+        </div>
+        <!--end user Modal body -->
       </div>
       <!--end user Modal body -->
     </div>
@@ -465,194 +423,195 @@
 
 <!-- Start Action Modal Window -->
 <div class="modal fade" id="actionModal">
-  <div class="modal-dialog shadow-lg-dark">
-    <div class="modal-content">
+<div class="modal-dialog shadow-lg-dark">
+  <div class="modal-content">
 
-      <!--Start Action Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Action Modal</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <!--End Action Modal Header -->
-
-      <!--start Action Modal body -->
-      <div class="modal-body">
-        <br>
-        <!-- <div class="hidden" [(ngModel)]="employeeId" ngDefaultControl></div> -->
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class="fullwidth">
-              <mat-select placeholder="Select Action" [(ngModel)]="listAction" (ngModelChange)="onActionChange()"
-                required>
-
-                <mat-option *ngFor="let item of actions" [value]=" item.actionName">
-                  {{item.actionName}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row" *ngIf="actionBlockRow">
-          <div class="col-md-12">
-            <mat-form-field class="fullwidth">
-              <mat-select placeholder="Select Block Time" [(ngModel)]="listBlockedAction" required>
-                <mat-option *ngFor="let blk of blocks" [value]="blk.blockId">
-                  {{blk.blockName}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row" *ngIf="actionPassRow">
-          <div class="col-md-12">
-            <mat-form-field class="fullwidth">
-              <input matInput type="password" placeholder="Enter Password" [(ngModel)]="txtActionPassword" required>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row" *ngIf="actionPINCodeRow">
-          <div class="col-md-12">
-            <mat-form-field class="fullwidth">
-              <input id="idTxtActPIN" matInput type="password" placeholder="Enter PIN Code" [(ngModel)]="txtActionPIN"
-                required>
-            </mat-form-field>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-6">
-            <button mat-raised-button color="primary" (click)="saveAction()">Save</button>
-          </div>
-        </div>
-        <br />
-      </div>
-      <!--End Action Modal body -->
-
-      <!--start Action Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-      <!--end Action Modal footer -->
-
+    <!--Start Action Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title">Action Modal</h4>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
+    <!--End Action Modal Header -->
+
+    <!--start Action Modal body -->
+    <div class="modal-body">
+      <br>
+      <!-- <div class="hidden" [(ngModel)]="employeeId" ngDefaultControl></div> -->
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="fullwidth">
+            <mat-select placeholder="Select Action" [(ngModel)]="listAction" (ngModelChange)="onActionChange()"
+              required>
+
+              <mat-option *ngFor="let item of actions" [value]=" item.actionName">
+                {{item.actionName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="actionBlockRow">
+        <div class="col-md-12">
+          <mat-form-field class="fullwidth">
+            <mat-select placeholder="Select Block Time" [(ngModel)]="listBlockedAction" required>
+              <mat-option *ngFor="let blk of blocks" [value]="blk.blockId">
+                {{blk.blockName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="actionPassRow">
+        <div class="col-md-12">
+          <mat-form-field class="fullwidth">
+            <input matInput type="password" placeholder="Enter Password" [(ngModel)]="txtActionPassword" required>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="actionPINCodeRow">
+        <div class="col-md-12">
+          <mat-form-field class="fullwidth">
+            <input id="idTxtActPIN" matInput type="password" placeholder="Enter PIN Code" [(ngModel)]="txtActionPIN"
+              required>
+          </mat-form-field>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <button mat-raised-button color="primary" (click)="saveAction()">Save</button>
+        </div>
+      </div>
+      <br />
+    </div>
+    <!--End Action Modal body -->
+
+    <!--start Action Modal footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div>
+    <!--end Action Modal footer -->
+
   </div>
+</div>
 </div>
 <!-- End Action Modal Window -->
 
 <!-- Start reset password Modal Window -->
 <div class="modal fade modal-forgot" id="permissionModal">
   <div class="modal-dialog shadow-lg-dark modal-lg modalPopup" style="width: 24%;">
-    <div class="modal-content">
+  <div class="modal-content">
 
-      <!--start Modal body -->
-      <div class="modal-body">
-        <!--start 1st row-->
-        <div class="row">
-          <div class="col-md-12">
-            <p class="fontWhite">Selected Permissions for:</p>
-          </div>
+    <!--start Modal body -->
+    <div class="modal-body">
+      <!--start 1st row-->
+      <div class="row">
+        <div class="col-md-12">
+          <p class="fontWhite">Selected Permissions for:</p>
         </div>
-        <!--end 1st row-->
-        <!--start 1st row-->
-        <div class="row">
-          <div class="col-md-12">
-            <label><b>Role Name</b></label>
-          </div>
+      </div>
+      <!--end 1st row-->
+      <!--start 1st row-->
+      <div class="row">
+        <div class="col-md-12">
+          <label><b>Role Name</b></label>
         </div>
-        <!--end 1st row-->
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <p-tree class="fullwidth" [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
-          </div>
+      </div>
+      <!--end 1st row-->
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p-tree class="fullwidth" [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
         </div>
-        <br/>
-        <div class="row">
-          <div class="col-md-12">
-            <button mat-raised-button color="primary" class="fullwidth buttonSquare" data-dismiss="modal">Close</button>
-          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <button mat-raised-button color="primary" class="fullwidth buttonSquare" data-dismiss="modal">Close</button>
         </div>
       </div>
       <!--end Modal body -->
     </div>
+    <!--end Modal body -->
+  </div>
   </div>
 </div>
 
 <!-- Start reset password Modal Window -->
 <div class="modal fade modal-forgot" id="resetModal">
   <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
-    <div class="modal-content">
+  <div class="modal-content">
 
-      <!--Start Action Modal Header -->
-      <div class="modal-header">
-        <h4></h4>
-        <div>
-          <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
-        </div>
+    <!--Start Action Modal Header -->
+    <div class="modal-header">
+      <h4></h4>
+      <div>
+        <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
       </div>
-      <!--End Action Modal Header -->
-      
-      <!--start Modal body -->
-      <div class="modal-body">
-        <!--start 1st row-->
-        <div class="row">
-          <div class="col-md-7">
-            <p class="fontWhite">Reset password for Arshad.Khan:<br/></p>
+    </div>
+    <!--End Action Modal Header -->
+    
+    <!--start Modal body -->
+    <div class="modal-body">
+      <!--start 1st row-->
+      <div class="row">
+        <div class="col-md-7">
+          <p class="fontWhite">Reset password for Arshad.Khan:<br/></p>
 
-            <div class="inputContainer">
-              <span class="ui-float-label">
-                <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
-                <label for="float-input">Enter Current Password</label>
-              </span>
-            </div>
-
-            <!--start password row -->
-            <div class="inputContainer">
-              <span class="ui-float-label">
-                <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine" #password [(ngModel)]="txtPassword"> 
-                <label for="float-input">Enter New Password</label>
-              </span>
-            </div>
-            <mat-password-strength [password]="password.value" ></mat-password-strength>
-            <!--end password row-->
-            
-            <!--start conform password row -->
-            <div class="inputContainer" style="margin-top: 5px;">
-              <span class="ui-float-label">
-                <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
-                <label for="float-input">Confirm New Password</label>
-              </span>
-            </div>
-            <!--end conform password row -->
-            
-            <!--buttons -->
-            <button mat-raised-button color="primary" class="buttonSquare">&nbsp;RE-ENTER&nbsp;</button>
-            &nbsp;
-            <button mat-raised-button color="primary" class="buttonSquare">&nbsp;SAVE & EMAIL&nbsp;</button>
+          <div class="inputContainer">
+            <span class="ui-float-label">
+              <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
+              <label for="float-input">Enter Current Password</label>
+            </span>
           </div>
 
-
-
-          <div class="col-md-5 text-center">
-            <br/>
-            <img class="mx-auto d-block" src="../../../assets/images/ResetPassword-Large.svg" alt="" height="60%">
-            <br/>
-            <h5 class="fontWhite"><b>RESET PASSWORD</b></h5>
+          <!--start password row -->
+          <div class="inputContainer">
+            <span class="ui-float-label">
+              <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine" #password [(ngModel)]="txtPassword"> 
+              <label for="float-input">Enter New Password</label>
+            </span>
           </div>
-
-
-
+          <mat-password-strength [password]="password.value" ></mat-password-strength>
+          <!--end password row-->
+          
+          <!--start conform password row -->
+          <div class="inputContainer" style="margin-top: 5px;">
+            <span class="ui-float-label">
+              <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
+              <label for="float-input">Confirm New Password</label>
+            </span>
+          </div>
+          <!--end conform password row -->
+          
+          <!--buttons -->
+          <button mat-raised-button color="primary" class="buttonSquare">&nbsp;RE-ENTER&nbsp;</button>
+          &nbsp;
+          <button mat-raised-button color="primary" class="buttonSquare">&nbsp;SAVE & EMAIL&nbsp;</button>
         </div>
-        <!--end 1st row-->
+
+
+
+        <div class="col-md-5 text-center">
+          <br/>
+          <img class="mx-auto d-block" src="../../../assets/images/ResetPassword-Large.svg" alt="" height="60%">
+          <br/>
+          <h5 class="fontWhite"><b>RESET PASSWORD</b></h5>
+        </div>
+
+
 
       </div>
-      <!--end Modal body -->
+      <!--end 1st row-->
 
     </div>
+    <!--end Modal body -->
+
   </div>
+  </div>
+<!-- End reset password Modal Window -->
 </div>
 <!-- End reset password Modal Window -->
-
 
 <!-- Start active user Modal Window -->
 <div class="modal fade modal-forgot" id="activeUserModal">
@@ -715,3 +674,5 @@
   </div>
 </div>
 <!-- End active user Modal Window -->
+
+
