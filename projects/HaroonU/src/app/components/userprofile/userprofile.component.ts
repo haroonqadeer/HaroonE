@@ -5,6 +5,7 @@
     import { throwError } from 'rxjs';
     import { catchError, filter } from 'rxjs/operators';
     import { AppComponent } from 'src/app/app.component';
+    import { TreeNode } from '../../nodeTree/TreeNode';
     import {
         IgxExcelExporterOptions,
         IgxExcelExporterService,
@@ -54,6 +55,10 @@
 
     tblSearch;
 
+        
+    roleTree: TreeNode[];
+
+    selectedRole: TreeNode[];
     //* variables for display values on page
     countAddition = 15;
     countUpdation = 10;

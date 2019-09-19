@@ -1655,6 +1655,56 @@
         height: 24px;
         background: url('./assets/images/close.svg') no-repeat;
     }
+
+
+
+    .modal .modalPopup {
+        Border: 0px solid red;
+        top:21%;
+        width: 44%;
+        background-color: #5F84D5;
+    }
+
+    .modalPopup .modal-body {
+        border: 0px solid red;
+        background-color: #5F84D5;
+    }
+
+    .modalPopup .modal-body .inputContainer{
+        border: 0px solid red;
+        background: #fff;
+        padding: 15px 0 7px 0;
+        margin-bottom: 5px;
+    }
+
+    .buttonSquare{
+        border-radius: 0 !important;
+        outline: none !important;
+    }
+    
+    .modalPopup .modal-body .inputContainer input{
+        border: none;
+        box-shadow: none;
+    }
+
+    .modalPopup .modal-header{
+        border:0px solid red; 
+        background-color: #5F84D5;
+        padding: 5px 5px 0 8px;
+        border-radius: 0;
+    }
+
+    .modalPopup .modal-header .btn-close {
+        border: 0px solid red;
+        border-radius: 0;
+        background-color: transparent;
+        padding: 5px 8px 5px 8px;
+        box-shadow: none;
+        margin: 3px 5px 0 0;
+        width: 24px;
+        height: 24px;
+        background: url('./assets/images/close.svg') no-repeat;
+    }
     //----------------------------------Modal window css end ----------------------------------------
 
     //----------------------------------tabs css start ----------------------------------------
