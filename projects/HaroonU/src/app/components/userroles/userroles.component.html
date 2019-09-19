@@ -401,12 +401,12 @@
     <div class="modal-content">
   
       <!--Start Action Modal Header -->
-      <div class="modal-header">
+      <!-- <div class="modal-header">
         <h4></h4>
         <div>
           <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
         </div>
-      </div>
+      </div> -->
       <!--End Action Modal Header -->
       
       <!--start Modal body -->
@@ -414,50 +414,43 @@
         <!--start 1st row-->
         <div class="row">
           <div class="col-md-7">
-            <p class="fontWhite">Reset password for Arshad.Khan:<br/></p>
+            <p class="fontWhite"><b>Hi Arshad.Khan</b><br/></p>
+            <p class="fontWhite">
+              It seems you need to delete this user<br/> 
+              role,please enter your Password and<br/> 
+              PIN to proceed<br/>
+            </p>
   
             <div class="inputContainer">
               <span class="ui-float-label">
                 <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
-                <label for="float-input">Enter Current Password</label>
+                <label for="float-input">Enter Password</label>
               </span>
             </div>
-  
-            <!--start password row -->
-            <div class="inputContainer">
-              <span class="ui-float-label">
-                <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine" #password > 
-                <label for="float-input">Enter New Password</label>
-              </span>
-            </div>
-            <mat-password-strength [password]="password.value" ></mat-password-strength>
-            <!--end password row-->
-            
             <!--start conform password row -->
-            <div class="inputContainer" style="margin-top: 5px;">
-              <span class="ui-float-label">
-                <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
-                <label for="float-input">Confirm New Password</label>
-              </span>
+            <div class="row">
+              <div class="col-md-9">
+                <div class="inputContainer" style="margin-top: 5px;">
+                  <span class="ui-float-label">
+                    <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
+                    <label for="float-input">Enter PIN</label>
+                  </span>              
+                </div>        
+              </div>
+              <div class="col-md-3" style="right: 1.6em; top: 1em; height:100%; border: 1px solid black;">
+                <button mat-raised-button color="primary" class="buttonSquare" >DELETE</button>
+              </div>
             </div>
             <!--end conform password row -->
-            
             <!--buttons -->
-            <button mat-raised-button color="primary" class="buttonSquare">&nbsp;RE-ENTER&nbsp;</button>
-            &nbsp;
-            <button mat-raised-button color="primary" class="buttonSquare">&nbsp;SAVE & EMAIL&nbsp;</button>
           </div>
-  
-  
   
           <div class="col-md-5 text-center">
             <br/>
-            <img class="mx-auto d-block" src="../../../assets/images/ResetPassword-Large.svg" alt="" height="60%">
+            <img class="mx-auto d-block" src="../../../assets/images/Delete-Large.svg" alt=""  width="80%">
             <br/>
-            <h5 class="fontWhite"><b>RESET PASSWORD</b></h5>
+            <h5 class="fontWhite"><b>DELETE USER ROLE</b></h5>
           </div>
-  
-  
   
         </div>
         <!--end 1st row-->
