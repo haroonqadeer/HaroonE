@@ -303,45 +303,58 @@
               <div class="col-md-8">
                 <mat-radio-button value="employee">Employee</mat-radio-button>
               </div>
-              <div class="col-md-4">
-                <mat-radio-button value="visitor">Visitor</mat-radio-button>
+            </mat-radio-group>
+            <!--end radio buttons row -->
+
+            <br/>
+            <!--start user name row-->
+            <mat-form-field class="fullwidth" id="userNameEnable">
+              <input matInput placeholder="Username" type="text" [(ngModel)]="txtUsername"
+                [disabled]="!disabledPassword" required>
+            </mat-form-field>
+            <!--end user name row-->
+
+            <br/>
+            <!--start password row -->
+            <mat-form-field class="fullwidth" id="userPassEnable">
+              <input matInput #password placeholder="Password" type="password" [(ngModel)]="txtPassword"
+                [disabled]="!disabledPassword" required>
+            </mat-form-field>
+            <mat-password-strength [password]="password.value">
+            </mat-password-strength>
+            <!--end password row-->
+
+            <br/>
+            <!--start conform password row -->
+            <mat-form-field class="fullwidth" id="userCnfrmPassEnable">
+              <input matInput placeholder="Confirm Password" type="password" [(ngModel)]="txtCnfrmPassword"
+                [disabled]="!disabledPassword" required>
+            </mat-form-field>
+            <!--end conform password row -->
+
+            <br/>
+            <!--start view permissions row-->
+            <div class="row">
+              <div class="col-md-12 text-right">
+                  <a style="cursor: pointer;" data-toggle="modal" data-target="#permissionModal">VIEW PERMISSIONS</a>
               </div>
             </div>
-          </mat-radio-group>
-          <!--end radio buttons row -->
 
-          <br/>
-          <!--start user name row-->
-          <mat-form-field class="fullwidth" id="userNameEnable">
-            <input matInput placeholder="Username" type="text" [(ngModel)]="txtUsername"
-              [disabled]="!disabledPassword" required>
-          </mat-form-field>
-          <!--end user name row-->
+            <!--start view permissions row-->
 
-          <br/>
-          <!--start password row -->
-          <mat-form-field class="fullwidth" id="userPassEnable">
-            <input matInput #password placeholder="Password" type="password" [(ngModel)]="txtPassword"
-              [disabled]="!disabledPassword" required>
-          </mat-form-field>
-          <mat-password-strength [password]="password.value">
-          </mat-password-strength>
-          <!--end password row-->
+            <!--star enable password row -->
+            <section class="example-section">
+              <mat-checkbox class="example-margin" [(ngModel)]="disabledPassword">Enable Password</mat-checkbox>
+            </section>
+            <!--end enable password row -->
 
-          <br/>
-          <!--start conform password row -->
-          <mat-form-field class="fullwidth" id="userCnfrmPassEnable">
-            <input matInput placeholder="Confirm Password" type="password" [(ngModel)]="txtCnfrmPassword"
-              [disabled]="!disabledPassword" required>
-          </mat-form-field>
-          <!--end conform password row -->
+            <br/>
+            <!--start buttons row -->
+            <button mat-raised-button color="primary" (click)="saveEmployee()" style="border-radius: 0;">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
+            <!-- <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? false : true" (click)="saveEmployee()" style="border-radius: 0;">Save</button>
+            <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? true : false" style="border-radius: 0;">Send</button> -->
+            <!--end buttons row -->
 
-          <br/>
-          <!--start view permissions row-->
-          <div class="row">
-            <div class="col-md-12 text-right">
-                <a style="cursor: pointer;" data-toggle="modal" data-target="#permissionModal">VIEW PERMISSIONS</a>
-            </div>
           </div>
 
           <!--start view permissions row-->
@@ -383,58 +396,10 @@
             <label>Branch:</label><br/>
             Customer Service Center, F8 Markaz {{partyBranch}}
           </div>
-          <div class="captionBoxB">
-            <label>Department:</label><br/>
-            Finance {{partyDepartment}}
-          </div>
-
-        </div>
-      </div>
-      <!--End 1st row -->
-
+        </div> -->
       
-
-      <!-- <div class="container" id='hiddenDiv'>
-        <div class="row">
-          <div class="col-md-2">
-            <label style="color:#3f51b5">Email</label>
-          </div>
-          <div class="col-md-4 text-left border-bottom border-left" type="Email"></div>
-          <div class="col-md-3">
-            <label style="color:#3f51b5">Father Name</label>
-          </div>
-          <div class="col-md-3 text-left border-bottom border-left" type="text"></div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-2">
-            <label style="color:#3f51b5">Department</label>
-          </div>
-          <div class="col-md-4 text-left border-bottom border-left" type="text"></div>
-          <div class="col-md-3">
-            <label style="color:#3f51b5">Branch</label>
-          </div>
-          <div class="col-md-3 text-left border-bottom border-left" type="text"></div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-2">
-            <label style="color:#3f51b5">Address</label>
-          </div>
-          <div class="col-md-10 text-left border-bottom border-left" type="text"></div>
-        </div>
-        <br />
-        <div class="row" *ngIf="showLink">
-          <div class="col-md-2">
-            <label style="color:#3f51b5">Link</label>
-          </div>
-          <div class="col-md-4 text-left border-bottom border-left">
-            <mat-hint><a href="http://{{userLink + userLinkCode}}" target="_blank">{{userLink + userLinkCode}}</a>
-            </mat-hint>
-          </div>
-        </div>
-      </div> -->
-    
+      </div>
+      <!--end user Modal body -->
     </div>
     <!--end user Modal body -->
   </div>
@@ -544,17 +509,17 @@
         <div class="col-md-12 text-center">
           <p-tree class="fullwidth" [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
         </div>
-      </div>
-      <br/>
-      <div class="row">
-        <div class="col-md-12">
-          <button mat-raised-button color="primary" class="fullwidth buttonSquare" data-dismiss="modal">Close</button>
+        <br/>
+        <div class="row">
+          <div class="col-md-12">
+            <button mat-raised-button color="primary" class="fullwidth buttonSquare" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
+      <!--end Modal body -->
     </div>
     <!--end Modal body -->
   </div>
-</div>
 </div>
 
 <!-- Start reset password Modal Window -->
