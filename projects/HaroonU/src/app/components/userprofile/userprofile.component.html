@@ -129,8 +129,8 @@
               <span *ngIf="i != 2" class="fa icon-u-deactiveUser" ></span>
               <span *ngIf="i == 2" class="fa icon-u-activeUser" ></span>
             </span> 
-            <span *ngIf="i != 2" class="tableLink">Deactivate</span>
-            <span *ngIf="i == 2" class="tableLink">Active</span>
+            <span *ngIf="i != 2" class="tableLink" data-toggle="modal" data-target="#activeUserModal">Deactivate</span>
+            <span *ngIf="i == 2" class="tableLink" data-toggle="modal" data-target="#activeUserModal">Active</span>
           </td>
 
           <td class="col-2 text-center">
@@ -279,7 +279,7 @@
         <div class="row">
           <div class="col-md-6">
             <mat-form-field class="fullwidth">
-              <mat-select placeholder="Select User" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
+              <mat-select placeholder="Select Employee Name" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
                 required>
                 <input type="text" class="form-control" [(ngModel)]="searchEmployee">
                 <mat-option
@@ -335,6 +335,27 @@
                 [disabled]="!disabledPassword" required>
             </mat-form-field>
             <!--end conform password row -->
+
+            <br/>
+            <!--start user role row -->
+            <mat-form-field class="fullwidth">
+              <mat-select placeholder="Assign User Role" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
+                required>
+                <input type="text" class="form-control" [(ngModel)]="searchEmployee">
+                <mat-option
+                  *ngFor="let item of getFilterItem(rdbType) | search:'indvdlFirstName,emailAddrss':searchEmployee"
+                  [value]="item">
+                  <table>
+                    <tr class='d-flex'>
+                      <td class="col-4">{{ item.indvdlId }}</td>
+                      <td class="col-4 border-left">{{ item.indvdlFirstName }}</td>
+                      <td class="col-4 border-left">{{ item.emailAddrss }}</td>
+                    </tr>
+                  </table>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!--end user role row -->
 
             <br/>
             <!--start view permissions row-->
@@ -631,3 +652,66 @@
   </div>
 </div>
 <!-- End reset password Modal Window -->
+
+
+<!-- Start active user Modal Window -->
+<div class="modal fade modal-forgot" id="activeUserModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
+    <div class="modal-content">
+
+      <!--Start Action Modal Header -->
+      <div class="modal-header">
+        <h4></h4>
+        <div>
+          <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
+        </div>
+      </div>
+      <!--End Action Modal Header -->
+      
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--start 1st row-->
+        <div class="row">
+          <div class="col-md-7">
+            <p class="fontWhite">Hi Admin!<br/>
+              It seems you need to activate this user profile, please enter your PIN to proceed, if your PIN is already expired click Generate PIN to receive new PIN via email.<br/>
+            </p>
+
+            <div class="row">
+              <div class="col-md-10">
+                <div class="inputContainer">
+                  <span class="ui-float-label">
+                    <input id="float-input" type="text" size="32" pInputText class="fullwidth noneOutLine"> 
+                    <label for="float-input">Enter PIN</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+
+            <!--buttons -->
+            <button mat-raised-button color="primary" class="buttonSquare">&nbsp; ACTIVATE &nbsp;</button>
+            &nbsp; <a class="fontWhite" style="text-decoration: underline; cursor: pointer;">Generate PIN</a> &nbsp;
+          </div>
+
+
+
+          <div class="col-md-5 text-center">
+            <br/>
+            <img class="mx-auto d-block" src="../../../assets/images/ActivateUser-Large.svg" alt="" height="60%">
+            <br/>
+            <h5 class="fontWhite"><b>ACTIVATE USER</b></h5>
+          </div>
+
+
+
+        </div>
+        <!--end 1st row-->
+
+      </div>
+      <!--end Modal body -->
+
+    </div>
+  </div>
+</div>
+<!-- End active user Modal Window -->

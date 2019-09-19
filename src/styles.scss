@@ -178,13 +178,23 @@
     }
 
     .bgBlue .btnSlider {
-    border: 0px solid red;
-    height: 100%;
-    width: 75%;
-    font-size: 26px;
-    text-align: center;
-    color: #fff;
-    margin-left: 25%;
+        border: 0px solid red;
+        height: 100%;
+        width: 75%;
+        font-size: 26px;
+        text-align: center;
+        color: #fff;
+        margin-left: 25%;
+    }
+
+    .bgBlue .btnReport {
+        border: 0px solid red;
+        height: 100%;
+        width: 80%;
+        font-size: 26px;
+        text-align: center;
+        color: #fff;
+        margin-left: 25%;
     }
 
     .bgred {
@@ -226,11 +236,19 @@
     //     transition: all 0.3s linear;
     //   }
     .text {
-    position: relative;
-    top: 3px;
-    padding-left: 15px;
-    margin-top: 15px !important;
+        position: relative;
+        top: 3px;
+        padding-left: 15px;
+        margin-top: 15px !important;
     //border: 1px solid red;
+    }
+
+    .text_new {
+        position: relative;
+        top: 3px;
+        padding-left: 15px;
+        margin-top: -15px !important;
+        border: 1px solid red;
     }
 
     .nav {
@@ -296,7 +314,7 @@
     }
 
     .nav .logo {
-    //border: 1px solid orange;
+    border: 0px solid orange;
     //margin-left: 15px;
     width: 32px;
     height: 32px;

@@ -249,13 +249,13 @@
             </li>
             <li routerLinkActive='active'>
               <a routerLink='UM/userProfile'>
-                <!-- <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span> -->
+                <span class="fa logo"><img src="../assets/images/UserProfile.svg"></span>
                 <span class="text">User Profile</span>
               </a>
             </li>
             <li routerLinkActive='active'>
               <a routerLink="UM/userRole">
-                <!-- <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span> -->
+                <span class="fa logo"><img src="../assets/images/UserRole-24px.svg"></span>
                 <span class="text">User Role</span>
               </a>
             </li> 
@@ -361,7 +361,7 @@
       <div class="example-sidenav-content" style="z-index: 100;">
         <div *ngIf="hideDiv" class="row bgBlue boxShadow" >
     
-          <!--Ambit Logo Button -->
+          <!--Ambit Logo Button column -->
           <div class="col-md-1" style="border:0px solid red; background-color: #E6E6E6;">
     
             <button type="button" class="noneOutLine menuButton" mat-flat-button>
@@ -371,23 +371,18 @@
             </button>
           </div>
     
-    
-          <div class=" offset-md-2 col-md-1 text-right">
-            <!-- <mat-icon matPrefix class="menuSIcon"><i class='fa fa-search'></i></mat-icon> -->
+          <!--empty column -->
+          <div class=" offset-md-5 col-md-1 text-right">
           </div>
-    
-          <div class="col-md-4" style="padding: 0;">
-    
-            <!-- <h4>UMIS</h4> -->
-          </div>
-    
+          
+          <!--welcome column -->
           <div class="col-md-3 text-right" style="border:0px solid red; padding: 0;">
     
-            <!-- <img src="../assets/images/icon_img.jpg" alt="" height="40px"> -->
+            <img src="../assets/images/icon_img.jpg" alt="" height="40px">
     
             <div class="dropdown">
               <button class="dropbtn pointerCursor">
-                {{logedInUserName}} &nbsp;
+                WELCOME! {{logedInUserName}} &nbsp;
                 <span class="fa fa-caret-down"></span>
               </button>
     
@@ -419,16 +414,23 @@
             </div>
     
           </div>
+          
+          <!--reports column -->
+          <div class="col-md-1 text-right border-left" style="border:0px solid yellow; padding: 0;">
+
+              <div class="btnReport">
+                <span class="fa fa-file-archive-o">&nbsp;<span style="font-size: 15px; font-family: Roboto-Light;">REPORTS</span></span>
+              </div>
     
+          </div>
+
+          <!--slider column -->
           <div class="col-md-1 text-right">
-            <!-- <button type="button" class="noneOutLine leftBorderWhite" mat-flat-button>
-                
-            </button> -->
-    
+
             <div class="btnSlider border-left">
               <span class="fa fa-sliders"></span>
             </div>
-    
+
           </div>
         </div>
   

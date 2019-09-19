@@ -239,21 +239,11 @@
           </div>
           <div class="col-md-2">
             <br /><br />
-            <!-- <button mat-raised-button color="primary" (click)="addRoles()">
-              <h4>&nbsp;<i class="fa fa-caret-right"></i><br/></h4>
-            </button>
-            <br /><br />
-            <button mat-raised-button color="primary" (click)="removeRoles()">
-              <h4>&nbsp;<i class="fa fa-caret-left"></i><br/></h4>
-            </button> -->
-            <!-- <br/> -->
-            <div class="btn-Square" (click)="addRoles()">
-              &#9664;
-            </div>
+            
+            <div class="btn-Square" (click)="addRoles()"><span class="fa fa-caret-right"></span></div>
             <br/>
-            <div class="btn-Square" (click)="removeRoles()">
-              &#9654;
-            </div>
+            <div class="btn-Square" (click)="removeRoles()"><span class="fa fa-caret-left"></span></div>
+            
           </div>
           <div class="col-md-5">
             <h5>Selectd Permissions</h5>
@@ -395,12 +385,56 @@
 
 <!-- Start Modal Window to delete user role -->
 <div class="modal fade" id="dUserRoleModal">
-  <div class="modal-dialog shadow-lg-dark">
+  <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
     <div class="modal-content">
 
       <!--start delete user role Modal body -->
       <div class="modal-body">
-        <br>
+        <!--start 1st row-->
+        <div class="row">
+          <div class="col-md-7">
+            <p class="fontWhite">Hi Admin!<br/>
+              It seems you need to activate this user profile, please enter your PIN to proceed, if your PIN is already expired click Generate PIN to receive new PIN via email.<br/>
+            </p>
+
+            <div class="row">
+              <div class="col-md-10">
+                <div class="inputContainer">
+                  <span class="ui-float-label">
+                    <input id="float-input" type="text" size="32" pInputText class="fullwidth noneOutLine"> 
+                    <label for="float-input">Enter Password</label>
+                  </span>
+                </div>
+
+                <div class="inputContainer">
+                  <span class="ui-float-label">
+                    <input id="float-input" type="text" size="32" pInputText class="fullwidth noneOutLine"> 
+                    <label for="float-input">Enter PIN</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+
+            <!--buttons -->
+            <button mat-raised-button color="primary" class="buttonSquare">&nbsp; Delete &nbsp;</button>
+          </div>
+
+
+
+          <div class="col-md-5 text-center">
+            <br/>
+            <img class="mx-auto d-block" src="../../../assets/images/Delete-Large.svg" alt="" height="60%">
+            <br/>
+            <h5 class="fontWhite"><b>DELETE USER ROLE</b></h5>
+          </div>
+
+
+
+        </div>
+          <!--end 1st row-->
+
+        <!-- <br>
         <label [hidden]="true" [(ngModel)]="erpRoleCd" ngDefaultControl></label>
         <div class="row">
           <div class="col-md-2"></div>
@@ -428,15 +462,9 @@
             <button mat-raised-button color="warn" (click)="deleteRole()">Delete</button>
           </div>
         </div>
-        <br />
+        <br /> -->
       </div>
       <!--end delete user role Modal body -->
-
-      <!--start delete user role Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-      <!--end delete user role Modal footer -->
 
     </div>
   </div>
