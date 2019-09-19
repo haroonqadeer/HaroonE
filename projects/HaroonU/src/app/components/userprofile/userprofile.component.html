@@ -68,124 +68,123 @@
 
 <!-- Start User Profile Container -->
 <div class="myContainer bgWhite">
-<!--Start search textbox Row-->
-<div class="row">
-  <div class="col-md-12">
-    <div class="searchBar">
-      <span class="fa icon-search"></span>
-      <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+  <!--Start search textbox Row-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="searchBar">
+        <span class="fa icon-search"></span>
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+      </div>
     </div>
   </div>
-</div>
-<!--end search textbox Row-->
+  <!--end search textbox Row-->
 
-<!--Start table Row-->
-<div class="row">
-  <table class="table table-striped fullwidth" id="myTable">
-    <thead>
-      <tr class="d-flex">
-        <th class="col-1 text-center">Sr No.</th>
-        <th [class.active]="order === 'uName'" (click)="setOrder('uName')" class="col-2 text-left pointerCursor">
-          User Name
-          <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-          <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-        </th>
-        <th [class.active]="order === 'uEmail'" (click)="setOrder('uEmail')" class="col-2 text-left pointerCursor">
-          Email
-          <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-          <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-        </th>
-        <th [class.active]="order === 'uRole'" (click)="setOrder('uRole')" class="col-1 text-left pointerCursor">
-          Role
-          <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-          <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-        </th>
-        <th [class.active]="order === 'uSince'" (click)="setOrder('uSince')" class="col-1 text-left pointerCursor">
-          Since
-          <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-          <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-        </th>
-        <th [class.active]="order === 'lastLogin'" (click)="setOrder('lastLogin')" class="col-1 text-left pointerCursor">
-          Login
-          <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-          <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-        </th>
-        <th class="col-2 text-center">Action</th>
-        <th class="col-2 text-center">Reset Password</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class='d-flex'
-        *ngFor="let emp of userData | search:'uId,uName,uEmail,uRole,uSince,lastLogin':userSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
-        <td class="col-1 text-center">{{i+1}}</td>
-        <td class="col-2 text-left">{{emp.uName}}</td>
-        <td class="col-2 text-left">{{emp.uEmail}}</td>
-        <td class="col-1 text-left">{{emp.uRole}}</td>
-        <td class="col-1 text-left">{{emp.uSince}}</td>
-        <td class="col-1 text-left">{{emp.lastLogin}}</td>
-        <td class="col-2 text-center">
+  <!--Start table Row-->
 
-          <span class="fa tableIcon">
-            <span *ngIf="i != 2" class="fa icon-u-deactiveUser" ></span>
-            <span *ngIf="i == 2" class="fa icon-u-activeUser" ></span>
-          </span> 
-          <span *ngIf="i != 2" class="tableLink">Deactivate</span>
-          <span *ngIf="i == 2" class="tableLink">Active</span>
-        </td>
+  <div class="row">
+    <table class="table table-striped fullwidth" id="myTable">
+      <thead>
+        <tr class="d-flex">
+          <th class="col-1 text-center">Sr No.</th>
+          <th [class.active]="order === 'uName'" (click)="setOrder('uName')" class="col-2 text-left pointerCursor">
+            User Name
+            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+          </th>
+          <th [class.active]="order === 'uEmail'" (click)="setOrder('uEmail')" class="col-2 text-left pointerCursor">
+            Email
+            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+          </th>
+          <th [class.active]="order === 'uRole'" (click)="setOrder('uRole')" class="col-1 text-left pointerCursor">
+            Role
+            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+          </th>
+          <th [class.active]="order === 'uSince'" (click)="setOrder('uSince')" class="col-1 text-left pointerCursor">
+            Since
+            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+          </th>
+          <th [class.active]="order === 'lastLogin'" (click)="setOrder('lastLogin')" class="col-1 text-left pointerCursor">
+            Login
+            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+          </th>
+          <th class="col-2 text-center">Action</th>
+          <th class="col-2 text-center">Reset Password</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class='d-flex'
+          *ngFor="let emp of userData | search:'uId,uName,uEmail,uRole,uSince,lastLogin':userSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
+          <td class="col-1 text-center">{{i+1}}</td>
+          <td class="col-2 text-left">{{emp.uName}}</td>
+          <td class="col-2 text-left">{{emp.uEmail}}</td>
+          <td class="col-1 text-left">{{emp.uRole}}</td>
+          <td class="col-1 text-left">{{emp.uSince}}</td>
+          <td class="col-1 text-left">{{emp.lastLogin}}</td>
+          <td class="col-2 text-center">
 
-        <td class="col-2 text-center">
-          
-          <span class="fa tableIcon">
-            <span class="fa icon-u-reset" ></span>
-          </span> 
-          <span class="tableLink" data-toggle="modal" data-target="#resetModal">Reset</span>
-          
-          <!-- <span class="fa fa-exclamation-circle pointerCursor fontPrimary" data-toggle="modal" data-target="#actionModal">Reset</span> -->
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            <span class="fa tableIcon">
+              <span *ngIf="i != 2" class="fa icon-u-deactiveUser" ></span>
+              <span *ngIf="i == 2" class="fa icon-u-activeUser" ></span>
+            </span> 
+            <span *ngIf="i != 2" class="tableLink" data-toggle="modal" data-target="#activeUserModal">Deactivate</span>
+            <span *ngIf="i == 2" class="tableLink" data-toggle="modal" data-target="#activeUserModal">Active</span>
+          </td>
 
+          <td class="col-2 text-center">
+            
+            <span class="fa tableIcon">
+              <span class="fa icon-u-reset" ></span>
+            </span> 
+            <span class="tableLink" data-toggle="modal" data-target="#resetModal">Reset</span>
+            
+            <!-- <span class="fa fa-exclamation-circle pointerCursor fontPrimary" data-toggle="modal" data-target="#actionModal">Reset</span> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-
-  <!-- Pagination Starts -->
-  <div class="col-md-12 text-right">
-    <div class="paginationBox">
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <!-- Pagination Starts -->
+    <div class="col-md-12 text-right">
+      <div class="paginationBox">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div class="paginationBox">
+        <mat-form-field class="pagenateList">
+          <mat-select [(ngModel)]="itemPerPage">
+            <mat-option value="1">1</mat-option>
+            <mat-option value="2">2</mat-option>
+            <mat-option value="10">10</mat-option>
+            <mat-option value="15">15</mat-option>
+            <mat-option value="20">20</mat-option>
+            <mat-option value="25">25</mat-option>
+            <mat-option value="30">30</mat-option>
+            <mat-option value="35">35</mat-option>
+            <mat-option value="40">40</mat-option>
+            <mat-option value="45">45</mat-option>
+            <mat-option value="50">50</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="paginationBox">
+        Item per page: &nbsp;&nbsp;
+      </div>
     </div>
-    <div class="paginationBox">
-      <mat-form-field class="pagenateList">
-        <mat-select [(ngModel)]="itemPerPage">
-          <mat-option value="1">1</mat-option>
-          <mat-option value="2">2</mat-option>
-          <mat-option value="10">10</mat-option>
-          <mat-option value="15">15</mat-option>
-          <mat-option value="20">20</mat-option>
-          <mat-option value="25">25</mat-option>
-          <mat-option value="30">30</mat-option>
-          <mat-option value="35">35</mat-option>
-          <mat-option value="40">40</mat-option>
-          <mat-option value="45">45</mat-option>
-          <mat-option value="50">50</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <!-- Pagination Ends -->
+
+    <!-- copyright Starts -->
+    <div class="col-md-12">
+      <div class="copyRight">
+        Copyright &copy; InfoVative Solutions. All rights reserved.
+      </div>
     </div>
-    <div class="paginationBox">
-      Item per page: &nbsp;&nbsp;
-    </div>
+    <!-- copyright Ends -->
+
   </div>
-  <!-- Pagination Ends -->
-
-  <!-- copyright Starts -->
-  <div class="col-md-12">
-    <div class="copyRight">
-      Copyright &copy; InfoVative Solutions. All rights reserved.
-    </div>
-  </div>
-  <!-- copyright Ends -->
-
-</div>
-<!-- end table row -->
+  <!-- end table row -->
 </div>
 <!-- End User Profile Container -->
 <br>
@@ -260,42 +259,58 @@
 
 <!-- Start Modal Window to add & update new user -->
 <div class="modal fade" id="userModal">
-<div class="modal-dialog shadow-lg-dark modal-lg">
-  <div class="modal-content">
 
-    <!--start user Modal Header -->
-    <div class="modal-header">
-        <h4 class="modal-title">Add User Profile</h4>
-        <div>
-          <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
-        </div>
-    </div>
-    <!--end user Modal Header -->
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <div class="modal-content">
 
-    <!--start user Modal body -->
-    <div class="modal-body">
+      <!--start user Modal Header -->
+      <div class="modal-header">
+          <h4 class="modal-title">Add User Profile</h4>
+          <div>
+            <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
+          </div>
+      </div>
+      <!--end user Modal Header -->
 
-      <!--start 1st row -->
-      <div class="row">
-        <div class="col-md-6">
-          <mat-form-field class="fullwidth">
-            <mat-select placeholder="Select User" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
-              required>
-              <input type="text" class="form-control" [(ngModel)]="searchEmployee">
-              <mat-option
-                *ngFor="let item of getFilterItem(rdbType) | search:'indvdlFirstName,emailAddrss':searchEmployee"
-                [value]="item">
-                <table>
-                  <tr class='d-flex'>
-                    <td class="col-4">{{ item.indvdlId }}</td>
-                    <td class="col-4 border-left">{{ item.indvdlFirstName }}</td>
-                    <td class="col-4 border-left">{{ item.emailAddrss }}</td>
-                  </tr>
-                </table>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+      <!--start user Modal body -->
+      <div class="modal-body">
 
+<<<<<<< HEAD
+        <!--start 1st row -->
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="fullwidth">
+              <mat-select placeholder="Select User" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
+                required>
+                <input type="text" class="form-control" [(ngModel)]="searchEmployee">
+                <mat-option
+                  *ngFor="let item of getFilterItem(rdbType) | search:'indvdlFirstName,emailAddrss':searchEmployee"
+                  [value]="item">
+                  <table>
+                    <tr class='d-flex'>
+                      <td class="col-4">{{ item.indvdlId }}</td>
+                      <td class="col-4 border-left">{{ item.indvdlFirstName }}</td>
+                      <td class="col-4 border-left">{{ item.emailAddrss }}</td>
+                    </tr>
+                  </table>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <br/>
+            <!--start radio buttons row -->
+            <mat-radio-group [(ngModel)]="rdbType" (click)="getFilterItem($event)">
+              <div class="row">
+                <div class="col-md-8">
+                  <mat-radio-button value="employee">Employee</mat-radio-button>
+                </div>
+                <div class="col-md-4">
+                  <mat-radio-button value="visitor">Visitor</mat-radio-button>
+                </div>
+              </div>
+            </mat-radio-group>
+              <!--end radio buttons row -->
+=======
           <br/>
           <!--start radio buttons row -->
           <mat-radio-group [(ngModel)]="rdbType" (click)="getFilterItem($event)">
@@ -305,6 +320,7 @@
             </div>
           <!-- </mat-radio-group> -->
             <!--end radio buttons row -->
+>>>>>>> ff39e5c2bb8daefccb654cd07cc9f6e16c93d19d
 
             <br/>
             <!--start user name row-->
@@ -333,6 +349,27 @@
             <!--end conform password row -->
 
             <br/>
+            <!--start user role row -->
+            <mat-form-field class="fullwidth">
+              <mat-select placeholder="Assign User Role" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
+                required>
+                <input type="text" class="form-control" [(ngModel)]="searchEmployee">
+                <mat-option
+                  *ngFor="let item of getFilterItem(rdbType) | search:'indvdlFirstName,emailAddrss':searchEmployee"
+                  [value]="item">
+                  <table>
+                    <tr class='d-flex'>
+                      <td class="col-4">{{ item.indvdlId }}</td>
+                      <td class="col-4 border-left">{{ item.indvdlFirstName }}</td>
+                      <td class="col-4 border-left">{{ item.emailAddrss }}</td>
+                    </tr>
+                  </table>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!--end user role row -->
+
+            <br/>
             <!--start view permissions row-->
             <div class="row">
               <div class="col-md-12 text-right">
@@ -357,6 +394,9 @@
 
           </div>
 
+<<<<<<< HEAD
+            
+=======
           <!--start view permissions row-->
 
           <!--star enable password row -->
@@ -374,28 +414,45 @@
 
         <!-- </div> -->
 
+>>>>>>> ff39e5c2bb8daefccb654cd07cc9f6e16c93d19d
 
-        
-        <div class="col-md-6">
 
-          <div class="captionBoxB">
-            <label>Father's Name:</label><br/>
-            Ahmed Ali Khan {{partyFatherName}}
-            <div class="triangle"></div>
-          </div>
           
-          <div class="captionBoxW">
-            <label>Email id:</label><br>
-            Arshad.khan@outlook.com {{partyEmail}}
+          <div class="col-md-6">
+
+            <div class="captionBoxB">
+              <label>Father's Name:</label><br/>
+              Ahmed Ali Khan {{partyFatherName}}
+              <div class="triangle"></div>
+            </div>
+            
+            <div class="captionBoxW">
+              <label>Email id:</label><br>
+              Arshad.khan@outlook.com {{partyEmail}}
+            </div>
+            <div class="captionBoxB">
+              <label>Address:</label><br/>
+              Address line 1, Address line 2, Address line 3 {{partyAddress}}
+            </div>
+            <div class="captionBoxW">
+              <label>Branch:</label><br/>
+              Customer Service Center, F8 Markaz {{partyBranch}}
+            </div>
+            <div class="captionBoxB">
+              <label>Department:</label><br/>
+              Department name 
+            </div>
           </div>
-          <div class="captionBoxB">
-            <label>Address:</label><br/>
-            Address line 1, Address line 2, Address line 3 {{partyAddress}}
-          </div>
-          <div class="captionBoxW">
-            <label>Branch:</label><br/>
-            Customer Service Center, F8 Markaz {{partyBranch}}
-          </div>
+<<<<<<< HEAD
+        
+        </div>
+        <!--end user Modal body -->
+      </div>
+      <!--end user Modal body -->
+    </div>
+  </div>
+</div>
+=======
         <!-- </div> --> -->
       
       </div>
@@ -405,6 +462,7 @@
   <!-- </div> -->
 <!-- </div> -->
 <!-- </div> -->
+>>>>>>> ff39e5c2bb8daefccb654cd07cc9f6e16c93d19d
 <!-- End Modal Window to add & update new user -->
 
 <!-- Start Action Modal Window -->
@@ -486,7 +544,7 @@
 
 <!-- Start reset password Modal Window -->
 <div class="modal fade modal-forgot" id="permissionModal">
-<div class="modal-dialog shadow-lg-dark modal-lg modalPopup" style="width: 24%;">
+  <div class="modal-dialog shadow-lg-dark modal-lg modalPopup" style="width: 24%;">
   <div class="modal-content">
 
     <!--start Modal body -->
@@ -509,22 +567,23 @@
         <div class="col-md-12 text-center">
           <p-tree class="fullwidth" [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
         </div>
-        <br/>
-        <div class="row">
-          <div class="col-md-12">
-            <button mat-raised-button color="primary" class="fullwidth buttonSquare" data-dismiss="modal">Close</button>
-          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <button mat-raised-button color="primary" class="fullwidth buttonSquare" data-dismiss="modal">Close</button>
         </div>
       </div>
       <!--end Modal body -->
     </div>
     <!--end Modal body -->
   </div>
+  </div>
 </div>
 
 <!-- Start reset password Modal Window -->
 <div class="modal fade modal-forgot" id="resetModal">
-<div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
+  <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
   <div class="modal-content">
 
     <!--Start Action Modal Header -->
@@ -593,6 +652,71 @@
     <!--end Modal body -->
 
   </div>
-</div>
+  </div>
+<!-- End reset password Modal Window -->
 </div>
 <!-- End reset password Modal Window -->
+
+<!-- Start active user Modal Window -->
+<div class="modal fade modal-forgot" id="activeUserModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
+    <div class="modal-content">
+
+      <!--Start Action Modal Header -->
+      <div class="modal-header">
+        <h4></h4>
+        <div>
+          <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
+        </div>
+      </div>
+      <!--End Action Modal Header -->
+      
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--start 1st row-->
+        <div class="row">
+          <div class="col-md-7">
+            <p class="fontWhite">Hi Admin!<br/>
+              It seems you need to activate this user profile, please enter your PIN to proceed, if your PIN is already expired click Generate PIN to receive new PIN via email.<br/>
+            </p>
+
+            <div class="row">
+              <div class="col-md-10">
+                <div class="inputContainer">
+                  <span class="ui-float-label">
+                    <input id="float-input" type="text" size="32" pInputText class="fullwidth noneOutLine"> 
+                    <label for="float-input">Enter PIN</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+
+            <!--buttons -->
+            <button mat-raised-button color="primary" class="buttonSquare">&nbsp; ACTIVATE &nbsp;</button>
+            &nbsp; <a class="fontWhite" style="text-decoration: underline; cursor: pointer;">Generate PIN</a> &nbsp;
+          </div>
+
+
+
+          <div class="col-md-5 text-center">
+            <br/>
+            <img class="mx-auto d-block" src="../../../assets/images/ActivateUser-Large.svg" alt="" height="60%">
+            <br/>
+            <h5 class="fontWhite"><b>ACTIVATE USER</b></h5>
+          </div>
+
+
+
+        </div>
+        <!--end 1st row-->
+
+      </div>
+      <!--end Modal body -->
+
+    </div>
+  </div>
+</div>
+<!-- End active user Modal Window -->
+
+

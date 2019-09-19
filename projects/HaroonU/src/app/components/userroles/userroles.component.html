@@ -239,21 +239,11 @@
           </div>
           <div class="col-md-2">
             <br /><br />
-            <!-- <button mat-raised-button color="primary" (click)="addRoles()">
-              <h4>&nbsp;<i class="fa fa-caret-right"></i><br/></h4>
-            </button>
-            <br /><br />
-            <button mat-raised-button color="primary" (click)="removeRoles()">
-              <h4>&nbsp;<i class="fa fa-caret-left"></i><br/></h4>
-            </button> -->
-            <!-- <br/> -->
-            <div class="btn-Square" (click)="addRoles()">
-              &#9664;
-            </div>
+            
+            <div class="btn-Square" (click)="addRoles()"><span class="fa fa-caret-right"></span></div>
             <br/>
-            <div class="btn-Square" (click)="removeRoles()">
-              &#9654;
-            </div>
+            <div class="btn-Square" (click)="removeRoles()"><span class="fa fa-caret-left"></span></div>
+            
           </div>
           <div class="col-md-5">
             <h5>Selectd Permissions</h5>
@@ -393,6 +383,13 @@
 </div>
 <!-- End Modal Window to add user role permissions -->
 
+<<<<<<< HEAD
+<!-- Start Modal Window to delete user role -->
+<div class="modal fade" id="dUserRoleModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
+    <div class="modal-content">
+=======
+>>>>>>> ff39e5c2bb8daefccb654cd07cc9f6e16c93d19d
 
 
 <!-- Start delete user role Modal Window -->
@@ -412,6 +409,67 @@
       <!--start Modal body -->
       <div class="modal-body">
         <!--start 1st row-->
+<<<<<<< HEAD
+        <div class="row">
+          <div class="col-md-7">
+            <p class="fontWhite">Hi Admin!<br/>
+              It seems you need to activate this user profile, please enter your PIN to proceed, if your PIN is already expired click Generate PIN to receive new PIN via email.<br/>
+            </p>
+
+            <div class="row">
+              <div class="col-md-10">
+                <div class="inputContainer">
+                  <span class="ui-float-label">
+                    <input id="float-input" type="text" size="32" pInputText class="fullwidth noneOutLine"> 
+                    <label for="float-input">Enter Password</label>
+                  </span>
+                </div>
+
+                <div class="inputContainer">
+                  <span class="ui-float-label">
+                    <input id="float-input" type="text" size="32" pInputText class="fullwidth noneOutLine"> 
+                    <label for="float-input">Enter PIN</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+
+            <!--buttons -->
+            <button mat-raised-button color="primary" class="buttonSquare">&nbsp; Delete &nbsp;</button>
+          </div>
+
+
+
+          <div class="col-md-5 text-center">
+            <br/>
+            <img class="mx-auto d-block" src="../../../assets/images/Delete-Large.svg" alt="" height="60%">
+            <br/>
+            <h5 class="fontWhite"><b>DELETE USER ROLE</b></h5>
+          </div>
+
+
+
+        </div>
+          <!--end 1st row-->
+
+        <!-- <br>
+        <label [hidden]="true" [(ngModel)]="erpRoleCd" ngDefaultControl></label>
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-10">
+            <h2 [(ngModel)]="erpRoleName">{{erpRoleName}}</h2>
+          </div>
+        </div><br />
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Enter Password" type="password" [(ngModel)]="txtdPassword">
+            </mat-form-field>
+          </div>
+        </div><br>
+=======
+>>>>>>> ff39e5c2bb8daefccb654cd07cc9f6e16c93d19d
         <div class="row">
           <div class="col-md-7">
             <p class="fontWhite"><b>Hi Arshad.Khan</b><br/></p>
@@ -453,11 +511,18 @@
           </div>
   
         </div>
+<<<<<<< HEAD
+        <br /> -->
+      </div>
+      <!--end delete user role Modal body -->
+
+=======
         <!--end 1st row-->
   
       </div>
       <!--end Modal body -->
   
+>>>>>>> ff39e5c2bb8daefccb654cd07cc9f6e16c93d19d
     </div>
   </div>
 </div>
