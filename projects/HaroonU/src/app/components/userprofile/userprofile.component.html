@@ -336,31 +336,7 @@
             </mat-form-field>
             <!--end conform password row -->
 
-            <!--start assign user role row-->
-            <mat-form-field class="fullwidth">
-              <mat-select placeholder="Assign User Role" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
-                required>
-                <input type="text" class="form-control" [(ngModel)]="searchEmployee">
-                <mat-option
-                  *ngFor="let item of getFilterItem(rdbType) | search:'indvdlFirstName,emailAddrss':searchEmployee"
-                  [value]="item">
-                  <table>
-                    <tr class='d-flex'>
-                      <td class="col-4">{{ item.indvdlId }}</td>
-                      <td class="col-4 border-left">{{ item.indvdlFirstName }}</td>
-                      <td class="col-4 border-left">{{ item.emailAddrss }}</td>
-                    </tr>
-                  </table>
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <!--start assign user role row-->
-  
             <br/>
-            <!--start view permissions row-->
-            <a  data-toggle="modal" data-target="#permissionModal">VIEW PERMISSIONS</a>
-            <!--start view permissions row-->
-
             <!--star enable password row -->
             <section class="example-section">
               <mat-checkbox class="example-margin" [(ngModel)]="disabledPassword">Enable Password</mat-checkbox>
@@ -448,60 +424,8 @@
               </mat-hint>
             </div>
           </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-          <div class="col-md-12" id="userNameEnable">
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Username" type="text" [(ngModel)]="txtUsername"
-                [disabled]="!disabledPassword" required>
-            </mat-form-field>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-6" id="userPassEnable">
-            <mat-form-field class="example-full-width">
-              <input matInput #password placeholder="Password" type="password" [(ngModel)]="txtPassword"
-                [disabled]="!disabledPassword" required>
-            </mat-form-field>
-            <!-- <mat-password-strength [password]="password.value">
-            </mat-password-strength> -->
-          </div>
-          <div class="col-md-6" id="userCnfrmPassEnable">
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Confirm Password" type="password" [(ngModel)]="txtCnfrmPassword"
-                [disabled]="!disabledPassword" required>
-            </mat-form-field>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-6">
-            <section class="example-section">
-              <mat-checkbox class="example-margin" [(ngModel)]="disabledPassword">Enable
-                Password</mat-checkbox>
-            </section>
-          </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-          <div class="col-md-6">
-            <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? false : true"
-              (click)="saveEmployee()">Save
-              & Send</button>
-          </div>
-
-          <div class="col-md-6">
-            <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? true : false">Send</button>
-          </div>
-
-        </div>
-        <br />
+        </div> -->
+      
       </div>
       <!--end user Modal body -->
     </div>
@@ -586,47 +510,7 @@
 </div>
 <!-- End Action Modal Window -->
 
-<!-- Start reset password Modal Window -->
-<div class="modal fade modal-forgot" id="permissionModal">
-  <div class="modal-dialog shadow-lg-dark modal-lg modalPopup" style="width: 24%;">
-    <div class="modal-content">
 
-      <!--start Modal body -->
-      <div class="modal-body">
-        <!--start 1st row-->
-        <div class="row">
-          <div class="col-md-12">
-            <p class="fontWhite">Selected Permissions for:</p>
-          </div>
-        </div>
-        <!--end 1st row-->
-        <br/>
-        <!--start 1st row-->
-        <div class="row">
-          <div class="col-md-12">
-            <label><b>Role Name</b></label>
-          </div>
-        </div>
-        <!--end 1st row-->
-        <br/>
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <p-tree class="fullwidth" [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
-          </div>
-        </div>
-        <br/>
-        <div class="row">
-          <div class="col-md-12">
-            <button mat-raised-button color="primary" class="fullwidth buttonSquare">Close</button>
-          </div>
-        </div>
-      </div>
-      <!--end Modal body -->
-
-    </div>
-  </div>
-</div>
-<!-- End reset password Modal Window -->
 
 <!-- Start reset password Modal Window -->
 <div class="modal fade modal-forgot" id="resetModal">
