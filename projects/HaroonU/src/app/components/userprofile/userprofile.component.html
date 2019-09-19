@@ -275,6 +275,7 @@
       <!--start user Modal body -->
       <div class="modal-body">
 
+<<<<<<< HEAD
         <!--start 1st row -->
         <div class="row">
           <div class="col-md-6">
@@ -309,6 +310,17 @@
               </div>
             </mat-radio-group>
               <!--end radio buttons row -->
+=======
+          <br/>
+          <!--start radio buttons row -->
+          <mat-radio-group [(ngModel)]="rdbType" (click)="getFilterItem($event)">
+          <div class="row">
+            <div class="col-md-8">
+              <mat-radio-button value="employee">Employee</mat-radio-button>
+            </div>
+          <!-- </mat-radio-group> -->
+            <!--end radio buttons row -->
+>>>>>>> ff39e5c2bb8daefccb654cd07cc9f6e16c93d19d
 
             <br/>
             <!--start user name row-->
@@ -382,7 +394,27 @@
 
           </div>
 
+<<<<<<< HEAD
             
+=======
+          <!--start view permissions row-->
+
+          <!--star enable password row -->
+          <section class="example-section">
+            <mat-checkbox class="example-margin" [(ngModel)]="disabledPassword">Enable Password</mat-checkbox>
+          </section>
+          <!--end enable password row -->
+
+          <br/>
+          <!--start buttons row -->
+          <button mat-raised-button color="primary" (click)="saveEmployee()" style="border-radius: 0;">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
+          <!-- <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? false : true" (click)="saveEmployee()" style="border-radius: 0;">Save</button>
+          <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? true : false" style="border-radius: 0;">Send</button> -->
+          <!--end buttons row -->
+
+        <!-- </div> -->
+
+>>>>>>> ff39e5c2bb8daefccb654cd07cc9f6e16c93d19d
 
 
           
@@ -411,6 +443,7 @@
               Department name 
             </div>
           </div>
+<<<<<<< HEAD
         
         </div>
         <!--end user Modal body -->
@@ -419,6 +452,17 @@
     </div>
   </div>
 </div>
+=======
+        <!-- </div> --> -->
+      
+      </div>
+      <!--end user Modal body -->
+    <!-- </div> -->
+    <!--end user Modal body -->
+  <!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->
+>>>>>>> ff39e5c2bb8daefccb654cd07cc9f6e16c93d19d
 <!-- End Modal Window to add & update new user -->
 
 <!-- Start Action Modal Window -->
