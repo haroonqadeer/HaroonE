@@ -388,57 +388,70 @@
 <div class="modal fade modal-forgot" id="dUserRoleModal">
   <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
     <div class="modal-content">
+  
+      <!--Start Action Modal Header -->
+      <!-- <div class="modal-header">
+        <h4></h4>
+        <div>
+          <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
+        </div>
+      </div> -->
+      <!--End Action Modal Header -->
       
       <!--start Modal body -->
       <div class="modal-body">
         <!--start 1st row-->
-
         <div class="row">
           <div class="col-md-7">
-            <p class="fontWhite">Hi User!<br/>
-              It seems you need to delete this user role, please enter your Password and PIN to proceed.<br/>
+            <p class="fontWhite"><b>Hi Arshad.Khan</b><br/></p>
+            <p class="fontWhite">
+              It seems you need to delete this user<br/> 
+              role,please enter your Password and<br/> 
+              PIN to proceed<br/>
             </p>
-
+  
             <div class="row">
               <div class="col-md-10">
                 <div class="inputContainer">
                   <span class="ui-float-label">
-                    <input id="float-input" type="text" size="32" pInputText class="fullwidth noneOutLine"> 
+                    <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
                     <label for="float-input">Enter Password</label>
-                  </span>
-                </div>
-
-                <div class="inputContainer">
-                  <span class="ui-float-label">
-                    <input id="float-input" type="text" size="32" pInputText class="fullwidth noneOutLine"> 
-                    <label for="float-input">Enter PIN</label>
                   </span>
                 </div>
               </div>
             </div>
-            
-
+            <!--start conform password row -->
+            <div class="row">
+              <div class="col-md-7">
+                <div class="inputContainer" style="margin-top: 5px;">
+                  <span class="ui-float-label">
+                    <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
+                    <label for="float-input">Enter PIN</label>
+                  </span>              
+                </div>        
+              </div>
+              <div class="col-md-3" style="right: 1.6em; top: 0.4em;">
+                <button mat-raised-button color="primary" class="buttonSquare" style="height:80%;">DELETE</button>
+              </div>
+            </div>
+            <!--end conform password row -->
             <!--buttons -->
-            <button mat-raised-button color="primary" class="buttonSquare">&nbsp; Delete &nbsp;</button>
           </div>
-
-
-
+  
           <div class="col-md-5 text-center">
             <br/>
-            <img class="mx-auto d-block" src="../../../assets/images/Delete-Large.svg" alt="" height="60%">
+            <img class="mx-auto d-block" src="../../../assets/images/Delete-Large.svg" alt=""  width="80%">
             <br/>
             <h5 class="fontWhite"><b>DELETE USER ROLE</b></h5>
           </div>
-
-
-
-        </div>
-          <!--end 1st row-->
-
-      </div>
-    </div>
   
+        </div>
+        <!--end 1st row-->
+  
+      </div>
+      <!--end Modal body -->
+  
+    </div>
   </div>
 </div>
-  <!-- End delete user role Modal Window -->
+  <!-- End reset password Modal Window -->
