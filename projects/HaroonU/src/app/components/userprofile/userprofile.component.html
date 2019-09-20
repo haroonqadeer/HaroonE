@@ -314,7 +314,7 @@
               <!--start user name row-->
               <mat-form-field class="fullwidth" id="userNameEnable">
                 <input matInput placeholder="Username" type="text" [(ngModel)]="txtUsername"
-                  [disabled]="!disabledPassword" required>
+                  required>
               </mat-form-field>
               <!--end user name row-->
   
@@ -322,7 +322,7 @@
               <!--start password row -->
               <mat-form-field class="fullwidth" id="userPassEnable">
                 <input matInput #password placeholder="Password" type="password" [(ngModel)]="txtPassword"
-                  [disabled]="!disabledPassword" required>
+                  required>
               </mat-form-field>
               <mat-password-strength [password]="password.value">
               </mat-password-strength>
@@ -332,7 +332,7 @@
               <!--start conform password row -->
               <mat-form-field class="fullwidth" id="userCnfrmPassEnable">
                 <input matInput placeholder="Confirm Password" type="password" [(ngModel)]="txtCnfrmPassword"
-                  [disabled]="!disabledPassword" required>
+                  required>
               </mat-form-field>
               <!--end conform password row -->
   
