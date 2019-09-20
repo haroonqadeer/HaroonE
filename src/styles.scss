@@ -32,6 +32,12 @@
         margin-left: 1% !important;
         overflow: hidden;
     }
+    .dashboardContainer{
+        border: 0px solid red;
+        width: 95% !important;
+        margin-left: 2% !important;
+        overflow: hidden;
+    }
     //////////////////////////////////////////
     /////// intro page background image //////
     //////////////////////////////////////////
@@ -818,7 +824,7 @@
     .container_charts .pie_chart {
     border: 1px solid #ddd;
     width: 40%;
-    height: 70%;
+    // height: 100%;
     margin: 40px;
     position: absolute;
     left: 0;
@@ -930,6 +936,17 @@
     ////////////// Dashboard Boxes /////////////
     ////////////////////////////////////////////
     /**************** Info Box ******************/
+    .bg-blue {
+        background-color: #6766cc !important;
+        color: #fff;
+
+    }
+
+    .bg-blue .content .text,
+    .bg-blue .content .number {
+        color: #fff !important;
+    }
+    
     .bg-pink {
     background-color: #E91E63 !important;
     color: #fff;
@@ -952,10 +969,20 @@
     }
 
     .bg-light-green {
-    background-color: #8BC34A !important;
+    background-color: #66cc66 !important;
     color: #fff;
     }
 
+    .bg-brown {
+    background-color: #9a6052 !important;
+    color: #fff;
+    }
+    
+    .bg-half-baked {
+        background-color: #5B9599 !important;
+        color: #fff;
+        }
+        
     .bg-white {
     background-color: white !important;
     color: #273E94;
@@ -963,6 +990,16 @@
 
     .bg-light-green .content .text,
     .bg-light-green .content .number {
+    color: #fff !important;
+    }
+
+    .bg-half-baked .content .text,
+    .bg-half-baked .content .number {
+    color: #fff !important;
+    }
+
+    .bg-brown .content .text,
+    .bg-brown .content .number {
     color: #fff !important;
     }
 
@@ -1013,7 +1050,7 @@
     /* Infobox ===================================== */
     .info-box {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    height: 80px;
+    height: 90px;
     display: flex;
     cursor: default;
     background-color: #fff;
@@ -1075,7 +1112,7 @@
 
     .info-box .content .number {
     font-weight: normal;
-    font-size: 26px;
+    font-size: 20px;
     margin-top: -4px;
     color: #555;
     }

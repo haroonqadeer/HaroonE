@@ -1,75 +1,14 @@
+
 <div class="row">
-  <div class="col-md-12 text-center">
-    <h1 class="bottomBorder">User Management Dashboard</h1>
+  <div class="col-md-3 text-center headingContainer">
+    <!-- &nbsp;&nbsp;&nbsp; -->
+    <h5 class="buttonSquare headingColor">
+      USER MANAGEMENT DASHBOARD
+    </h5>
   </div>
 </div>
 
-<!-- <div class="topnav boxShadow">
-  <div>
-
-    <div class="logo"><img src="../../assets/images/Dashboard.svg"></div>
-    <h1> User Management Dashboard</h1>
-
-    <a class="pointerCursor">
-      <i class="fa fa-file-excel-o"></i>
-      Excel
-    </a>
-  </div>
-</div> -->
-
-<br /><br>
-
-<!-- container -->
-<div class="container">
-  <!-- box row -->
-  <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box bg-pink hover-expand-effect" data-toggle="modal" data-target="#userModal">
-        <div class="icon">
-          <i class="fa fa-users"></i>
-        </div>
-        <div class="content">
-          <div class="text">Users</div>
-          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">12</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box bg-cyan hover-expand-effect" data-toggle="modal" data-target="#roleModal">
-        <div class="icon">
-          <i class="fa fa-wrench"></i>
-        </div>
-        <div class="content">
-          <div class="text">Roles</div>
-          <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">5</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box bg-light-green hover-expand-effect" data-toggle="modal" data-target="#userReqModal">
-        <div class="icon">
-          <i class="fa fa-exchange"></i>
-        </div>
-        <div class="content">
-          <div class="text">User Request</div>
-          <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20">1</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box bg-indigo hover-expand-effect" data-toggle="modal" data-target="#roleReqModal">
-        <div class="icon">
-          <i class="fa fa-book"></i>
-        </div>
-        <div class="content">
-          <div class="text">Role Request</div>
-          <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20">1</div>
-        </div>
-      </div>
-    </div>
-  </div><!-- end box row -->
-
-</div><!-- end container -->
+<br />
 
 <!-- Bootstrap Modal Windows -->
 
@@ -762,21 +701,174 @@
   </div>
 </div>
 <!-- End Modal Window to send message -->
-
-<!-- row - charts -->
-<div class="container">
+<div class="dashboardContainer">
+  <!-- row - charts -->
   <div class="row">
-    <div class="col-md-6 shadow-md">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-2">
+          <div class="imgUserTrend"></div>
+        </div>
+        <div class="col-md-8 text-left" style="right: 10%;">
+          <h5><b>WEEKLY User Management Trends</b></h5>
+        </div>
+      </div>
+      <br/>
       <!-- pie-chart -->
-      <div class="pie_chart">
+      <div class="shadow-md bgWhite" style="height:89%;">
         <div [chart]="Pie_Chart" (click)="pie_data()"></div>
       </div>
     </div>
-    <div class="col-md-6 shadow-md">
-      <!--Line chart-->
-      <div class="line_chart">
-        <div [chart]="Line_chart"></div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-2">
+          <div class="imgCalendar"></div>
+        </div>
+        <div class="col-md-8 text-left" style="right: 10%;">
+          <h5><b>USER PROFILES for last 30 days</b></h5>
+        </div>
+      </div>
+      <br/>
+      <!-- box row -->
+      <div class="row">
+        <div class="col-md-6 text-center">
+          <div class="info-box bg-blue">
+            <div class="content">
+              <div class="row">
+                <div class="col-md-12 text-left">
+                  <div class="imgAddUser"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10 text-left" style="padding-top: 5%;">
+                  User Profiles Added
+                </div>
+                <div class="col-md-2" style="left:20%; border-left: 2px solid #a0a1e2;">
+                  <div style="font-size: 25px;">12</div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 text-center">
+          <div class="info-box bg-light-green">
+            <div class="content">
+              <div class="row">
+                <div class="col-md-12 text-left">
+                  <div class="imgActiveUser"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10 text-left" style="padding-top: 5%;">
+                  Active User Profiles
+                </div>
+                <div class="col-md-2" style="left:20%; border-left: 2px solid #a0a1e2;">
+                  <div style="font-size: 25px;">22</div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 text-center">
+          <div class="info-box bg-brown">
+            <div class="content">
+              <div class="row">
+                <div class="col-md-12 text-left">
+                  <div class="imgDeactiveUser"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10 text-left" style="padding-top: 5%;">
+                  Deactivated User Profiles
+                </div>
+                <div class="col-md-2" style="left:10%; border-left: 2px solid #a0a1e2;">
+                  <div style="font-size: 25px;">4</div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 text-center">
+          <div class="info-box bg-half-baked">
+            <div class="content">
+              <div class="row">
+                <div class="col-md-12 text-left">
+                  <div class="imgEditUser"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10 text-left" style="padding-top: 5%;">
+                  Users Updation Request
+                </div>
+                <div class="col-md-2" style="left:10%; border-left: 2px solid #a0a1e2;">
+                  <div style="font-size: 25px;">2</div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end box row -->
+      <div class="bgWhite allBorder">
+        <!-- <div class="row">
+          <div class="col-md-12">
+            <div class="searchBar">
+              <span class="fa icon-search"></span>
+              <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+            </div>
+          </div>
+        </div> -->
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table table-striped fullwidth">
+              <thead>
+                <tr class="d-flex">
+                  <th class="col-2 text-center ">Sr No.</th>
+                  <th class="col-10 text-left ">
+                    View
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class='d-flex'>
+                <!-- <tr class='d-flex'
+                  *ngFor="let item of rolesData | search:'uRoleName,uNoModule,uNoPage':roleSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"> -->
+                  <!-- <td class="col-1 text-center" hidden>{{item.erpRoleCd}}</td> -->
+                  <td class="col-2 text-center">1</td>
+                  <td class="col-6 pointerCursor text-left">Activity Log</td>
+                  <td class="col-4 pointerCursor text-center">6</td>            
+                </tr>
+                <tr class='d-flex'>
+                  <td class="col-2 text-center">2</td>
+                  <td class="col-6 pointerCursor text-left">Role Request</td>
+                  <td class="col-4 pointerCursor text-center">2</td>            
+                </tr>
+                <tr class='d-flex'>
+                  <td class="col-2 text-center">1</td>
+                  <td class="col-6 pointerCursor text-left">User Request</td>
+                  <td class="col-4 pointerCursor text-center">3</td>            
+                </tr>
+              </tbody>
+            </table>
+            
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div><!-- end row - charts -->
+    <!-- end row - charts -->
+
+  <!-- copyright Starts -->
+  <div class="col-md-12">
+    <div class="copyRight">
+      Copyright &copy; InfoVative Solutions. All rights reserved.
+    </div>
+  </div>
+  <!-- copyright Ends -->
+</div>

@@ -332,22 +332,46 @@ export class DashboardComponent implements OnInit {
 
     let chart = new Chart({
       chart: {
-        type: 'pie'
+        type: 'area'
       },
       title: {
-        text: 'Users pie chart'
+        text: ''
       },
-      credits: {
-        enabled: false
+      xAxis: {
+        categories: ['1', '2', '3', '4'],
+        tickmarkPlacement: 'on',
+        title: {
+          text: 'NUMBER OF WEEKS'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'NUMBER OF USER PROFILES'
+        }
+      },
+      tooltip: {
+        split: true
       },
       plotOptions: {
-        pie: {
-          showInLegend: true
+        area: {
+            stacking: 'normal',
+            lineColor: '#666666',
+            lineWidth: 1,
+            marker: {
+                lineWidth: 1,
+                lineColor: '#666666'
+            }
         }
       },
       series: [{
-        name: 'Users',
-        data: mySeries
+        name: 'ADDED',
+        data: [0, 2, 1, 2]
+      }, {
+        name: 'ACTIVE',
+        data: [6, 4, 7, 8]
+      }, {
+        name: 'DEACTIVATED',
+        data: [7, 4, 8, 9]
       }]
     });
     this.Pie_Chart = chart;
