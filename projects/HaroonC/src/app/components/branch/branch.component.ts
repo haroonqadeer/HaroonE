@@ -22,7 +22,7 @@ import { NgForOf } from '@angular/common';
 // import { DepartmentComponent } from "src/app/components/department/department.component";
 
 import { ValidationAddressService } from '../../shared/services/validation-address.service'; //'src/app/shared/services/validation-address.service';
-import { AddressComponent } from '../../shared/address/address.component';
+// import { AddressComponent } from '../../shared/address/address.component';
 
 
 //----------------------------------------------------------------------------//
@@ -47,7 +47,7 @@ declare var $: any;
 
 
 @Component({
-  providers: [AddressComponent],
+  // providers: [AddressComponent],
   selector: 'app-branch',
   templateUrl: './branch.component.html',
   styleUrls: ['./branch.component.scss']
@@ -397,7 +397,8 @@ export class BranchComponent implements OnInit {
     private csvExportService: IgxCsvExporterService,
     private fb: FormBuilder,
     private validObj: ValidationAddressService,
-    private addObj: AddressComponent) {
+    // private addObj: AddressComponent
+    ) {
 
   }
 
