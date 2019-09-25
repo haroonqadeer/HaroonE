@@ -18,18 +18,17 @@ declare var $: any;
 })
 export class ForgotpasswordComponent implements OnInit {
 
-    //serverUrl = "http://52.163.49.124:9010/";
-    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
-    //serverUrl = "http://52.163.189.189:9010/";
-    //serverUrl = "http://localhost:9010/";
+    //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
+    serverUrl = "http://localhost:9010/";
     tokenKey = "token";
 
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
 
-    txtUserName = '';
+    UserName = '';
     txtPassword = '';
+    txtCnfrmPassword = '';
 
     constructor(private http: HttpClient,
         private formBuilder: FormBuilder,
@@ -39,17 +38,56 @@ export class ForgotpasswordComponent implements OnInit {
 
 
 
-  ngOnInit() {
-  }
-
-  onSubmit(){
-    $('#forgotModal').modal('show');
-  }
-
-  getKeyPressed(e) {
-    if (e.keyCode == 13) {
-      // this.onSubmit();
+    ngOnInit() {
     }
-  }
+
+
+    //************************ Function for change password *************************/
+	changePassword() {
+
+        if (this.txtPassword == "") {
+            this.toastr.errorToastr('Please Enter New Password', 'Oops!', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.txtCnfrmPassword == "") {
+                this.toastr.errorToastr('Please Enter Comfirm Password', 'Oops!', { toastTimeout: (2500) });
+                return false;
+        }
+        else if (this.txtPassword != this.txtCnfrmPassword) {
+                this.toastr.errorToastr("Password doesn't match", 'Oops!', { toastTimeout: (2500) });
+                return false;
+        }
+        else {
+
+            this.app.showSpinner();
+            var Token = localStorage.getItem(this.tokenKey);
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });            
+
+            var data = { "IndvdlUserName": this.UserName, "newPassword": this.txtPassword };
+
+            this.http.post(this.serverUrl + 'api/forgotPassword', data, { headers: reqHeader }).subscribe((data: any) => {
+
+                if (data.msg != "Password Changed Successfully!") {
+                    this.app.hideSpinner();
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                    return false;
+                } else {
+                    this.app.hideSpinner();
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    this.txtPassword = '';
+                    this.txtCnfrmPassword = '';
+                    $('#forgotModal').modal('show');
+                    return false;
+                }
+
+            });
+        }
+    }
+
+    getKeyPressed(e) {
+        if (e.keyCode == 13) {
+        // this.onSubmit();
+        }
+    }
 }
 

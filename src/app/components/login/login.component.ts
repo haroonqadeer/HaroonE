@@ -110,4 +110,51 @@ export class LoginComponent implements OnInit {
             this.onSubmit();
         }
     }
+
+    //************************ Function for forgot password *************************/
+	forgotPassword() {
+
+        if (this.txtUserName.trim().length == 0) {
+            this.toastr.errorToastr('Please Enter User Name', 'Oops!', { toastTimeout: (2500) });
+            return false;
+        }
+        
+        else {
+
+            this.router.navigate(['forgotPassword']);
+            return false;
+
+            var genTime = new Date();
+            var link = window.location.href + 'forgotPassword?username=' + this.txtUserName;
+            var expTime = new Date();
+
+            expTime.setDate(genTime.getDate()+1);
+
+			this.app.showSpinner();
+			var Token = localStorage.getItem(this.tokenKey);
+			var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });            
+
+            var data = { 
+                            "IndvdlUserName": this.txtUserName, 
+                            "generationTime": genTime, 
+                            "linkURL": link,
+                            "expiryTime": expTime
+                        };
+
+            this.http.post(this.serverUrl + 'api/saveLink', data, { headers: reqHeader }).subscribe((data: any) => {
+
+                if (data.msg != "Link Sent Successfully!") {
+					this.app.hideSpinner();
+					this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+					return false;
+				} else {
+					this.app.hideSpinner();
+					this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    return false;
+                    //this.router.navigate(['forgotPassword']);
+				}
+
+            });
+        }
+    }
 }

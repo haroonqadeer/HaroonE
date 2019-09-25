@@ -407,7 +407,7 @@ export class AppComponent {
 	}
 
 
-
+	//************************ Function for change password *************************/
 	changePassword() {
 
         if (this.txtCrntPassword == "") {
