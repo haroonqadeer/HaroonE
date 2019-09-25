@@ -121,8 +121,8 @@ export class LoginComponent implements OnInit {
         
         else {
 
-            this.router.navigate(['forgotPassword']);
-            return false;
+            //this.router.navigate(['forgotPassword']);
+            //return false;
 
             var genTime = new Date();
             var link = window.location.href + 'forgotPassword?username=' + this.txtUserName;
