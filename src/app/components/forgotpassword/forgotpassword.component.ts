@@ -50,12 +50,12 @@ export class ForgotpasswordComponent implements OnInit {
             return false;
         }
         else if (this.txtCnfrmPassword == "") {
-                this.toastr.errorToastr('Please Enter Comfirm Password', 'Oops!', { toastTimeout: (2500) });
-                return false;
+            this.toastr.errorToastr('Please Enter Comfirm Password', 'Oops!', { toastTimeout: (2500) });
+            return false;
         }
         else if (this.txtPassword != this.txtCnfrmPassword) {
-                this.toastr.errorToastr("Password doesn't match", 'Oops!', { toastTimeout: (2500) });
-                return false;
+            this.toastr.errorToastr("Password doesn't match", 'Oops!', { toastTimeout: (2500) });
+            return false;
         }
         else {
 
@@ -63,7 +63,11 @@ export class ForgotpasswordComponent implements OnInit {
             var Token = localStorage.getItem(this.tokenKey);
             var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });            
 
-            var data = { "IndvdlUserName": this.UserName, "newPassword": this.txtPassword };
+
+            var tempUN = btoa(this.UserName);
+            var tempUserName = btoa(tempUN);
+            
+            var data = { "IndvdlUserName": tempUserName, "newPassword": this.txtPassword };
 
             this.http.post(this.serverUrl + 'api/forgotPassword', data, { headers: reqHeader }).subscribe((data: any) => {
 

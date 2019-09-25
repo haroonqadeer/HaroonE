@@ -114,6 +114,7 @@ export class LoginComponent implements OnInit {
     //************************ Function for forgot password *************************/
 	forgotPassword() {
 
+
         if (this.txtUserName.trim().length == 0) {
             this.toastr.errorToastr('Please Enter User Name', 'Oops!', { toastTimeout: (2500) });
             return false;
@@ -125,7 +126,7 @@ export class LoginComponent implements OnInit {
             //return false;
 
             var genTime = new Date();
-            var link = window.location.href + 'forgotPassword?username=' + this.txtUserName;
+            var link = window.location.href + 'forgotPassword?u=';
             var expTime = new Date();
 
             expTime.setDate(genTime.getDate()+1);
