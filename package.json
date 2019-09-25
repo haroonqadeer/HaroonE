@@ -29,6 +29,7 @@
     "@fullcalendar/timegrid": "^4.2.0",
     "angular-font-awesome": "^3.1.2",
     "angular-highcharts": "^7.0.2",
+    "angular-user-idle": "^2.2.1",
     "animate.css": "^3.7.0",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",

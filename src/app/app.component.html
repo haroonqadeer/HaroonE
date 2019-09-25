@@ -470,7 +470,7 @@
   
               <div class="inputContainer">
                 <span class="ui-float-label">
-                  <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
+                  <input id="float-input" type="password" size="32" [(ngModel)]="txtCrntPassword" pInputText class="fullwidth noneOutLine"> 
                   <label for="float-input">Enter Current Password</label>
                 </span>
               </div>
@@ -478,7 +478,7 @@
               <!--start password row -->
               <div class="inputContainer">
                 <span class="ui-float-label">
-                  <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine" #password> 
+                  <input id="float-input" type="password" size="32" [(ngModel)]="txtNewPassword" pInputText class="fullwidth noneOutLine" #password> 
                   <label for="float-input">Enter New Password</label>
                 </span>
               </div>
@@ -488,16 +488,14 @@
               <!--start conform password row -->
               <div class="inputContainer" style="margin-top: 5px;">
                 <span class="ui-float-label">
-                  <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
+                  <input id="float-input" type="password" size="32" [(ngModel)]="txtCnfrmPassword" pInputText class="fullwidth noneOutLine"> 
                   <label for="float-input">Confirm New Password</label>
                 </span>
               </div>
               <!--end conform password row -->
               
               <!--buttons -->
-              <button mat-raised-button color="primary" class="buttonSquare">&nbsp;RE-ENTER&nbsp;</button>
-              &nbsp;
-              <button mat-raised-button color="primary" class="buttonSquare">&nbsp;SAVE & EMAIL&nbsp;</button>
+              <button mat-raised-button color="primary" class="buttonSquare" (click)="changePassword()">&nbsp;SAVE & EMAIL&nbsp;</button>
             </div>
   
   

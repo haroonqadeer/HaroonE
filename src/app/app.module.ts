@@ -4,12 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './shared/material.module';
 import { PNPrimeModule } from './shared/pnprime/pnprime.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import { SearchPipe } from './shared/pipe-filters/pipe-search';
 import { ChartModule } from 'angular-highcharts';
 //import { HttpModule } from '@angular/http';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { UserIdleModule } from 'angular-user-idle';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -51,8 +51,6 @@ import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassw
     ConfigSharedModule.forRoot(),
     UMSharedModule.forRoot(),
     CompSharedModule.forRoot(),
-    
-
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -69,7 +67,13 @@ import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassw
     InputTextModule,
     DropdownModule,
     IgxGridModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+
+    // Optionally you can set time for `idle`, `timeout` and `ping` in seconds.
+    // Default values: `idle` is 60 (1 minutes), `timeout` is 30 (0.5 minutes) 
+    // and `ping` is 15 0.25 minutes).
+    UserIdleModule.forRoot({ idle: 300, timeout: 300, ping: 15 }),
+
     //SearchPipe
   ],
   providers: [AttendanceComponent, NavComponent, IgxExcelExporterService, IgxCsvExporterService],

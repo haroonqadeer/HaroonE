@@ -18,10 +18,8 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-    //serverUrl = "http://52.163.49.124:9010/";
-    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
-    //serverUrl = "http://52.163.189.189:9010/";
-    //serverUrl = "http://localhost:9010/";
+    //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
+    serverUrl = "http://localhost:9010/";
     tokenKey = "token";
 
     httpOptions = {
@@ -31,11 +29,7 @@ export class LoginComponent implements OnInit {
     txtUserName = '';
     txtPassword = '';
 
-    constructor(private http: HttpClient,
-        private formBuilder: FormBuilder,
-        public toastr: ToastrManager,
-        private router: Router,
-        private app: AppComponent) { }
+    constructor(private http: HttpClient, private formBuilder: FormBuilder, public toastr: ToastrManager, private router: Router, private app: AppComponent) { }
 
 
     ngOnInit() {
@@ -66,7 +60,7 @@ export class LoginComponent implements OnInit {
 
             var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-            this.http.post(this.serverUrl + 'api/chkLogin', loginData, { headers: reqHeader }).subscribe((data: any) => {
+            this.http.post(this.serverUrl + 'api/CreateToken', loginData, { headers: reqHeader }).subscribe((data: any) => {
 
 
                 if (data.msg == "Login Successfully!") {
@@ -75,7 +69,8 @@ export class LoginComponent implements OnInit {
                     this.app.hideSpinner();
 
                     localStorage.setItem('userName', this.txtUserName);
-                    localStorage.setItem('myActModNam', 'HR');
+                    localStorage.setItem('myActModNam', 'UM');
+                    localStorage.setItem('token', data.token);
                     this.app.checkLogin('Yes');
                     this.app.branchList = data.userDetail;
                     this.app.locationId = data.userDetail[0].locationCd;

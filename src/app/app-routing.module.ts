@@ -12,38 +12,38 @@ import { IntroPageComponent } from '../../projects/HaroonH/src/app/components/in
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: LoginComponent
-  },
-  {
-    path: 'forgotPassword',
-    component: ForgotpasswordComponent
-  },
-  {
-    path: 'home',
-    component: IntroPageComponent
-  },
-  {
-    path: 'Config',
-    //  loadChildren: () => ConfigSharedModule
-    loadChildren: '../../projects/HaroonConfig/src/app/app.module#ConfigSharedModule'
-  },
-  {
-    path: 'HR',
-    //  loadChildren: () => HRSharedModule
-    loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
-  },
-  {
-    path: 'UM',
-    // loadChildren: () => UMSharedModule
-    loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
-  },
-  {
-    path: 'Comp',
-    // loadChildren: () => CompSharedModule
-    loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
-  }
+    {
+        path: '',
+        component: LoginComponent
+    },
+    {
+        path: 'forgotPassword',
+        component: ForgotpasswordComponent
+    },
+    {
+        path: 'home',
+        component: IntroPageComponent
+    },
+    {
+        path: 'Config',
+        loadChildren: () => ConfigSharedModule
+        //loadChildren: '../../projects/HaroonConfig/src/app/app.module#ConfigSharedModule'
+    },
+    {
+        path: 'HR',
+        loadChildren: () => HRSharedModule
+        //loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
+    },
+    {
+        path: 'UM',
+        loadChildren: () => UMSharedModule
+        //loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
+    },
+    {
+        path: 'Comp',
+        loadChildren: () => CompSharedModule
+        //loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
+    }
 ];
 
 @NgModule({
