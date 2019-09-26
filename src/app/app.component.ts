@@ -81,6 +81,8 @@ export class AppComponent {
 
 	ngOnInit() {
 
+		alert('this.router.url');
+
 		//this.moduleHR = this.navApp.moduleHR;
 
 		this.checkLogin("No");

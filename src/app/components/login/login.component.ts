@@ -29,11 +29,17 @@ export class LoginComponent implements OnInit {
     txtUserName = '';
     txtPassword = '';
 
-    constructor(private http: HttpClient, private formBuilder: FormBuilder, public toastr: ToastrManager, private router: Router, private app: AppComponent) { }
+    constructor(
+                private http: HttpClient, 
+                private formBuilder: FormBuilder, 
+                public toastr: ToastrManager, 
+                private router: Router, 
+                private app: AppComponent) { }
 
 
     ngOnInit() {
         this.app.checkLogin('Yes');
+
     }
 
     onSubmit() {
