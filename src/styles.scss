@@ -42,15 +42,18 @@
     /////// intro page background image //////
     //////////////////////////////////////////
     .BgIntro {
-    margin-top: 3em;
-    //background-image: url("../src/assets/images/main-bg.svg") !important;
-    background-image: url("../src/assets/images/main-bg.svg") !important;
-    background-repeat: no-repeat !important;
-    background-size: 30em 25em !important;
-    background-position: bottom right !important;
-    min-height: 31em !important;
-    //min-width: 80em;
-    background: rgba(255, 255, 255, 0.8);
+        border: 0px solid red;
+        margin-top: 3%;
+        //background-image: url("../src/assets/images/main-bg.svg") !important;
+        background-image: url("../src/assets/images/main-bg.svg") !important;
+        background-repeat: no-repeat !important;
+        background-size: 30em 25em !important;
+        background-position: bottom right !important;
+        //min-width: 80em;
+        background: rgba(255, 255, 255, 0.8);
+        height: 86% !important;
+        position: absolute;
+        left: 8%;
     }
 
     .BtnIntro {

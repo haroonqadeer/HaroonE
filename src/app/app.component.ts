@@ -42,7 +42,7 @@ export class AppComponent {
   //modules variable declaration
 	moduleHR = false;
 	moduleConfig = false;
-	moduleUM = false;
+	moduleUM = true;
 	moduleComp = false;
 
 	public branchList = [];
@@ -206,6 +206,10 @@ export class AppComponent {
 
 		var myModuleName = localStorage.getItem('myActModNam');
 
+		if (myModuleName == null){
+			myModuleName = "UM";
+		}
+
 		if (myModuleName == "HR") {
 			this.moduleHR = true;
 		}
@@ -218,6 +222,7 @@ export class AppComponent {
 		else if (myModuleName == "Comp") {
 			this.moduleComp = true;
 		}
+
 
     	//show menu setting
 		if (showMenu == "Yes") {
