@@ -341,13 +341,13 @@
                 }
             },
             series: [{
-                name: 'Updations',
+                name: 'UPDATIONS',
                 data: [300, 500, 250, 200, 800, 1000, 2000]
             }, {
-                name: 'Banned',
+                name: 'DEACTIVATED',
                 data: [250, 100, 300, 650, 450, 800, 600]
             }, {
-                name: 'Additions',
+                name: 'ADDITIONS',
                 data: [1, 1, 1, 100, 500, 800, 450]
             }]
         });

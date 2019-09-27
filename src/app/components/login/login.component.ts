@@ -18,7 +18,7 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-    //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
+    // serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9050/";
     // serverUrl = "http://localhost:5000/";
     serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
     tokenKey = "token";
