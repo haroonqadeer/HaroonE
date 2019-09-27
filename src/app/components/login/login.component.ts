@@ -1,5 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
@@ -19,7 +19,8 @@ declare var $: any;
 export class LoginComponent implements OnInit {
 
     //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
-    serverUrl = "http://localhost:9010/";
+    // serverUrl = "http://localhost:5000/";
+    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
     tokenKey = "token";
 
     httpOptions = {
@@ -132,7 +133,8 @@ export class LoginComponent implements OnInit {
             //return false;
 
             var genTime = new Date();
-            var link = window.location.href + 'forgotPassword?u=';
+            // var link = window.location.href + 'forgotPassword?u=';
+            var link = 'http://ambit.southeastasia.cloudapp.azure.com:8998?u=';
             var expTime = new Date();
 
             expTime.setDate(genTime.getDate()+1);
