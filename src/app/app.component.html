@@ -241,19 +241,19 @@
                 <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
               </a>
             </li>
-            <li routerLinkActive='active'>
+            <li routerLinkActive='active' (click)="closeNav()">
               <a routerLink='UM/userDashboard'>
                 <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
                 <span class="text">User Dashboard</span>
               </a>
             </li>
-            <li routerLinkActive='active'>
+            <li routerLinkActive='active' (click)="closeNav()">
               <a routerLink='UM/userProfile'>
                 <span class="fa logo"><img src="../assets/images/UserProfile.svg"></span>
                 <span class="text">User Profile</span>
               </a>
             </li>
-            <li routerLinkActive='active'>
+            <li routerLinkActive='active' (click)="closeNav()">
               <a routerLink="UM/userRole">
                 <span class="fa logo"><img src="../assets/images/UserRole-24px.svg"></span>
                 <span class="text">User Role</span>
@@ -291,49 +291,49 @@
                 <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
               </a>
             </li>
-            <li routerLinkActive='active'>
+            <li routerLinkActive='active' (click)="closeNav()">
               <a routerLink='Comp/dashboard'>
                 <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
                 <span class="text">Dashboard</span>
               </a>
             </li>
-            <li routerLinkActive='active'>
+            <li routerLinkActive='active' (click)="closeNav()">
               <a routerLink='Comp/company'>
                 <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
                 <span class="text">New Company</span>
               </a>
             </li>
             <li routerLinkActive='active'>
-              <a routerLink="Comp/headquarter">
+              <a routerLink="Comp/headquarter" (click)="closeNav()">
                 <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
                 <span class="text">Head Quarter</span>
               </a>
             </li>
-            <li routerLinkActive='active'>
+            <li routerLinkActive='active' (click)="closeNav()">
               <a routerLink="Comp/branch">
                 <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
                 <span class="text">New Branch</span>
               </a>
             </li> 
-            <li routerLinkActive='active'>
+            <li routerLinkActive='active' (click)="closeNav()">
               <a routerLink="Comp/department">
                 <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
                 <span class="text">Add Department</span>
               </a>
             </li> 
-            <li routerLinkActive='active'>
+            <li routerLinkActive='active' (click)="closeNav()">
               <a routerLink="Comp/section">
                 <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
                 <span class="text">Add Section</span>
               </a>
             </li> 
-            <li routerLinkActive='active'>
+            <li routerLinkActive='active' (click)="closeNav()">
               <a routerLink="Comp/subsidiaries">
                 <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
                 <span class="text">New Subsidiaries</span>
               </a>
             </li> 
-            <li routerLinkActive='active'>
+            <li routerLinkActive='active' (click)="closeNav()">
               <a routerLink="Comp/currency">
                 <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
                 <span class="text">New Currency</span>
@@ -520,5 +520,11 @@
     </div>
   </div>
   <!-- End change password Modal Window -->
-
-    </mat-drawer-container>
+    <!-- copyright Starts -->
+    <div class="col-md-12">
+      <div class="copyRight">
+        Copyright &copy; InfoVative Solutions. All rights reserved.
+      </div>
+    </div>
+    <!-- copyright Ends -->
+  </mat-drawer-container>
