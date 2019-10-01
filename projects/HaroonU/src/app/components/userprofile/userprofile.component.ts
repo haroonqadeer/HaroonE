@@ -6,6 +6,7 @@
     import { catchError, filter } from 'rxjs/operators';
     import { AppComponent } from 'src/app/app.component';
     import { TreeNode } from '../../nodeTree/TreeNode';
+    import { ActivatedRoute} from '@angular/router';
     import {
         IgxExcelExporterOptions,
         IgxExcelExporterService,
@@ -309,7 +310,8 @@
             private excelExportService: IgxExcelExporterService,
             private csvExportService: IgxCsvExporterService,
             private app: AppComponent,
-            public toastr: ToastrManager) { }
+            public toastr: ToastrManager,
+            private actRoute: ActivatedRoute) { }
 
     ngOnInit() {
         this.init();

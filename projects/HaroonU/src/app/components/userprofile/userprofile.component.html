@@ -175,14 +175,6 @@
       </div>
       <!-- Pagination Ends -->
   
-      <!-- copyright Starts -->
-      <div class="col-md-12">
-        <div class="copyRight">
-          Copyright &copy; InfoVative Solutions. All rights reserved.
-        </div>
-      </div>
-      <!-- copyright Ends -->
-  
     </div>
     <!-- end table row -->
   </div>
@@ -361,7 +353,7 @@
               <!--start view permissions row-->
               <div class="row">
                 <div class="col-md-12 text-right">
-                    <a style="cursor: pointer; color:grey" data-toggle="modal" data-target="#permissionModal">VIEW PERMISSIONS</a>
+                    <a style="cursor: pointer; color:grey;" data-toggle="modal" data-target="#permissionModal">VIEW PERMISSIONS</a>
                 </div>
               </div>
   
@@ -556,7 +548,8 @@
         <!--start 1st row-->
         <div class="row">
           <div class="offset-md-1 col-md-6">
-            <p class="fontWhite">Reset password for username:<br/></p>
+            <p class="fontWhite">Reset password for username:</p>
+            <div class="marginSingleTop"></div>
             <p style='color:skyblue'><b>Arshad Khan</b></p>
             <div class="inputContainer">
               <span class="ui-float-label">
@@ -564,7 +557,8 @@
                 <label for="float-input">Enter Current Password</label>
               </span>
             </div>
-  
+
+            <div class="marginSingleTop"></div>
             <!--start password row -->
             <div class="inputContainer">
               <span class="ui-float-label">
@@ -572,18 +566,20 @@
                 <label for="float-input">Enter New Password</label>
               </span>
             </div>
-            <mat-password-strength [password]="password.value" ></mat-password-strength>
+            <mat-password-strength  [password]="password.value" ></mat-password-strength>
             <!--end password row-->
             
+            <div class="marginSingleTop"></div>
             <!--start conform password row -->
-            <div class="inputContainer" style="margin-top: 5px;">
+            <div class="inputContainer">
               <span class="ui-float-label">
                 <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
                 <label for="float-input">Confirm New Password</label>
               </span>
             </div>
             <!--end conform password row -->
-            
+
+            <div class="marginSingleTop"></div>
             <!--buttons -->
             <button mat-raised-button color="primary" class="buttonSquare">&nbsp;RE-ENTER&nbsp;</button>
             &nbsp;
@@ -647,7 +643,7 @@
                 </div>
               </div>
               
-  
+              <br>
               <!--buttons -->
               <button mat-raised-button color="primary" class="buttonSquare">&nbsp; ACTIVATE &nbsp;</button>
               &nbsp; <a class="fontWhite" style="text-decoration: underline; cursor: pointer;">Generate PIN</a> &nbsp;
