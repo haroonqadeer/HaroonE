@@ -233,10 +233,14 @@
         <br />
 
         <div class="row">
+
           <div class="col-md-5">
             <h5>Select Module List</h5>
-            <p-tree class="fullwidth" [value]="menuTree" selectionMode="multiple" [(selection)]="selectedMenu"></p-tree>
+            <p-tree class="fullwidth" [value]="menuTree" selectionMode="checkbox" [(selection)]="selectedMenu"></p-tree>
+            <!-- <div><span *ngFor="let file of selectedMenu">{{file.label}}<br/> </span></div> -->
           </div>
+
+
           <div class="col-md-2">
             <br /><br />
             
@@ -245,10 +249,14 @@
             <div class="btn-Square" (click)="removeRoles()"><span class="fa fa-caret-left"></span></div>
             
           </div>
+
+
           <div class="col-md-5">
             <h5>Selectd Permissions</h5>
-            <p-tree class="fullwidth" [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
+            <p-tree class="fullwidth" [value]="roleTree" selectionMode="checkbox" [(selection)]="selectedRole"></p-tree>
           </div>
+
+
         </div>
         <br />
 

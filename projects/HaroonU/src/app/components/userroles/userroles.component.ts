@@ -421,223 +421,366 @@ export class UserrolesComponent implements OnInit {
 
   //Adding modules and menu in role tree 
   addRoles() {
-    this.app.showSpinner();
-    this.app.hideSpinner();
+    
+    //this.app.showSpinner();
 
     var itemFound = false;
     var itemIndex = 0;
     this.roleChildren = [];
+    this.roleList = [];
+    this.roleTree = [];
+
+    
 
     //checking if menuTree data not selected
     if (this.selectedMenu == undefined) {
-      this.toastr.errorToastr('Please Select Nodes!', 'Error', { toastTimeout: (2500) }); return;
+        this.toastr.errorToastr('Please Select Nodes!', 'Error', { toastTimeout: (2500) }); return;
     }
 
-    //if module is selected
-    if (this.selectedMenu[0].data[0].typeCode == 1) {
-      //if role tree is empty
-      if (this.roleTree == undefined) {
+    //alert(this.selectedMenu.length);
 
-        for (var i = 0; i < this.selectedMenu[0].children.length; i++) {
-          //checking if children (menu) exists and children (menu) parent id and object parent id are same 
-          //then push children (menu) in role tree children 
-          if (this.selectedMenu[0].children[i].data[0].typeCode == 2
-            && this.selectedMenu[0].children[i].data[0].parentErpObjCd == this.selectedMenu[0].data[0].objCode) {
+    
+    for (var i = 0; i < this.selectedMenu.length; i++){
 
-            this.roleChildren.push({
-              label: this.selectedMenu[0].children[i].data[0].objName,
-              data: [{
-                objName: this.selectedMenu[0].children[i].data[0].objName,
-                typeCode: this.selectedMenu[0].children[i].data[0].typeCode,
-                objCode: this.selectedMenu[0].children[i].data[0].objCode,
-                parentErpoObjCd: this.selectedMenu[0].data[0].objCode
-              }]
-            });
-          }
-        }
+        //checking and moving parent menu 
+        if (this.selectedMenu[i].data[0].typeCode == 1){
+            //alert(this.selectedMenu[i].data[0].objName);
+            //alert("Children length - " + this.selectedMenu[i].children.length);
 
-        this.roleList.push({
-          label: this.selectedMenu[0].data[0].objName,
-          data: [{
-            objName: this.selectedMenu[0].data[0].objName,
-            typeCode: this.selectedMenu[0].data[0].typeCode,
-            objCode: this.selectedMenu[0].data[0].objCode
-          }],
-          children: this.roleChildren
-        });
-      }
-      else {
-        for (var i = 0; i < this.roleTree.length; i++) {
-          //checking if role tree object code is equal to selected menu object code
-          if (this.roleTree[i].data[0].objCode == this.selectedMenu[0].data[0].objCode) {
-            itemFound = true;
-            itemIndex = i;
-            i = this.roleTree.length + 1;
-          }
-          else {
-            itemFound = false;
-            itemIndex = 0;
-          }
-        }
+            for (var j = 0; j < this.selectedMenu[i].children.length; j++) {
 
-        if (itemFound == true) {
-          //checking if selected menu children length is equal to role tree children length  
-          if (this.selectedMenu[0].children.length == this.roleTree[itemIndex].children.length) {
-            this.toastr.errorToastr('Already Add ' + this.selectedMenu[0].data[0].objName + ' Menu!', 'Error', { toastTimeout: (2500) });
-            itemFound = false;
-            itemIndex = 0; return
-          }
-          else {
-            for (var i = 0; i < this.selectedMenu[0].children.length; i++) {
-              itemFound = false;
-              for (var j = 0; j < this.roleTree[itemIndex].children.length; j++) {
-                //checking if selected menu children id and role tree children id are same
-                if (this.selectedMenu[0].children[i].data[0].objCode == this.roleTree[itemIndex].children[j].data[0].objCode) {
-                  itemFound = true;
-                  j = this.roleTree[itemIndex].children.length + 1;
-                }
-              }
-
-              //if condtion true then push data in childrens
-              if (itemFound != true) {
                 this.roleChildren.push({
-                  label: this.selectedMenu[0].children[i].data[0].objName,
-                  data: [{
+                    label: this.selectedMenu[i].children[j].data[0].objName,
+                    data: [{
+                        objName: this.selectedMenu[i].children[j].data[0].objName,
+                        typeCode: this.selectedMenu[i].children[j].data[0].typeCode,
+                        objCode: this.selectedMenu[i].children[j].data[0].objCode,
+                        parentErpoObjCd: this.selectedMenu[i].data[0].objCode
+                    }]
+                });
+
+            }
+
+            this.roleList.push({
+                label: this.selectedMenu[i].data[0].objName,
+                data: [{
+                    objName: this.selectedMenu[i].data[0].objName,
+                    typeCode: this.selectedMenu[i].data[0].typeCode,
+                    objCode: this.selectedMenu[i].data[0].objCode
+                }],
+                children: this.roleChildren
+            });
+            this.roleChildren = [];
+    
+            
+            
+        }
+
+
+
+
+
+
+        if (this.selectedMenu[i].data[0].typeCode == 2){
+
+            //alert(this.selectedMenu[i].data[0].parentErpObjName + " - " + this.selectedMenu[i].data[0].objName + " - " + this.selectedMenu[i].data[0].objCode);
+
+            for (var j = 0; j < this.selectedMenu.length; j++) {
+
+
+                //if (this.selectedMenu[j].data[0].typeCode == 2 && this.selectedMenu[j].data[0].parentErpObjName == this.selectedMenu[i].data[0].objName) {
+
+                    alert(this.selectedMenu[j].data[0].typeCode + " -- " + this.selectedMenu[j].data[0].parentErpObjName + " -- " + this.selectedMenu[j].data[0].objName + " -- " + this.selectedMenu[j].data[0].parentErpObjCd + " -- " + this.selectedMenu[i].data[0].objCode);
+
+                    // this.roleChildren.push({
+                    //     label: this.selectedMenu[i].children[j].data[0].objName,
+                    //     data: [{
+                    //         objName: this.selectedMenu[i].children[j].data[0].objName,
+                    //         typeCode: this.selectedMenu[i].children[j].data[0].typeCode,
+                    //         objCode: this.selectedMenu[i].children[j].data[0].objCode,
+                    //         parentErpoObjCd: this.selectedMenu[i].data[0].objCode
+                    //     }]
+                    // });
+
+                //}
+
+            }
+
+            // this.roleList.push({
+            //     label: this.selectedMenu[i].data[0].objName,
+            //     data: [{
+            //         objName: this.selectedMenu[i].data[0].objName,
+            //         typeCode: this.selectedMenu[i].data[0].typeCode,
+            //         objCode: this.selectedMenu[i].data[0].objCode
+            //     }],
+            //     children: this.roleChildren
+            // });
+
+            // this.roleChildren = [];
+            //alert(this.selectedMenu[i].data[0].objName + " - " + this.selectedMenu[i].data[0].typeCode + " - " + this.selectedMenu[i].data[0].objCode);
+
+            
+        }   
+            //this.selectedMenu[0].children.length
+
+            //parentErpObjName
+            //parentErpObjTypeCd
+            //parentErpObjCd
+
+
+
+            // this.roleChildren.push({
+            //     label: this.selectedMenu[0].data[0].objName,
+            //     data: [{
+            //         objName: this.selectedMenu[0].data[0].objName,
+            //         typeCode: this.selectedMenu[0].data[0].typeCode,
+            //         objCode: this.selectedMenu[0].data[0].objCode
+            //     }]
+            // });
+
+            // this.roleList.push({
+            //     label: this.selectedMenu[0].data[0].parentErpObjName,
+            //     data: [{
+            //         objName: this.selectedMenu[0].data[0].parentErpObjName,
+            //         typeCode: this.selectedMenu[0].data[0].parentErpObjTypeCd,
+            //         objCode: this.selectedMenu[0].data[0].parentErpObjCd
+            //     }],
+            //     children: this.roleChildren
+            // });
+
+
+        //}
+    }
+
+
+
+    this.roleTree = this.roleList;
+    //this.app.hideSpinner();
+    return false;
+
+
+
+
+
+
+
+        //if module is selected
+        if (this.selectedMenu[0].data[0].typeCode == 1) {
+        //if role tree is empty
+        if (this.roleTree == undefined) {
+
+            for (var i = 0; i < this.selectedMenu[0].children.length; i++) {
+            //checking if children (menu) exists and children (menu) parent id and object parent id are same 
+            //then push children (menu) in role tree children 
+                if (this.selectedMenu[0].children[i].data[0].typeCode == 2
+                    && this.selectedMenu[0].children[i].data[0].parentErpObjCd == this.selectedMenu[0].data[0].objCode) {
+
+                    this.roleChildren.push({
+                    label: this.selectedMenu[0].children[i].data[0].objName,
+                    data: [{
+                        objName: this.selectedMenu[0].children[i].data[0].objName,
+                        typeCode: this.selectedMenu[0].children[i].data[0].typeCode,
+                        objCode: this.selectedMenu[0].children[i].data[0].objCode,
+                        parentErpoObjCd: this.selectedMenu[0].data[0].objCode
+                    }]
+                    });
+                }
+            }
+
+            this.roleList.push({
+                label: this.selectedMenu[0].data[0].objName,
+                data: [{
+                    objName: this.selectedMenu[0].data[0].objName,
+                    typeCode: this.selectedMenu[0].data[0].typeCode,
+                    objCode: this.selectedMenu[0].data[0].objCode
+                }],
+                children: this.roleChildren
+            });
+        }
+        else {
+            for (var i = 0; i < this.roleTree.length; i++) {
+            //checking if role tree object code is equal to selected menu object code
+            if (this.roleTree[i].data[0].objCode == this.selectedMenu[0].data[0].objCode) {
+                itemFound = true;
+                itemIndex = i;
+                i = this.roleTree.length + 1;
+            }
+            else {
+                itemFound = false;
+                itemIndex = 0;
+            }
+            }
+
+            if (itemFound == true) {
+            //checking if selected menu children length is equal to role tree children length  
+            if (this.selectedMenu[0].children.length == this.roleTree[itemIndex].children.length) {
+                this.toastr.errorToastr('Already Add ' + this.selectedMenu[0].data[0].objName + ' Menu!', 'Error', { toastTimeout: (2500) });
+                itemFound = false;
+                itemIndex = 0; return
+            }
+            else {
+                for (var i = 0; i < this.selectedMenu[0].children.length; i++) {
+                itemFound = false;
+                for (var j = 0; j < this.roleTree[itemIndex].children.length; j++) {
+                    //checking if selected menu children id and role tree children id are same
+                    if (this.selectedMenu[0].children[i].data[0].objCode == this.roleTree[itemIndex].children[j].data[0].objCode) {
+                    itemFound = true;
+                    j = this.roleTree[itemIndex].children.length + 1;
+                    }
+                }
+
+                //if condtion true then push data in childrens
+                if (itemFound != true) {
+                    this.roleChildren.push({
+                    label: this.selectedMenu[0].children[i].data[0].objName,
+                    data: [{
+                        objName: this.selectedMenu[0].children[i].data[0].objName,
+                        typeCode: this.selectedMenu[0].children[i].data[0].typeCode,
+                        objCode: this.selectedMenu[0].children[i].data[0].objCode,
+                        parentErpoObjCd: this.selectedMenu[0].data[0].objCode
+                    }]
+                    });
+                    this.roleList[itemIndex].children.push(this.roleChildren[0]);
+                    this.roleChildren = [];
+                }
+                }
+            }
+            }
+            else {
+            this.roleChildren = [];
+
+            for (var i = 0; i < this.selectedMenu[0].children.length; i++) {
+                //checking if selectedMenu type is menu and 
+                //selectedMenu children parent id and selectedMenu id are same then push data in role tree children
+                if (this.selectedMenu[0].children[i].data[0].typeCode == 2
+                && this.selectedMenu[0].children[i].data[0].parentErpObjCd == this.selectedMenu[0].data[0].objCode) {
+
+                this.roleChildren.push({
+                    label: this.selectedMenu[0].children[i].data[0].objName,
+                    data: [{
                     objName: this.selectedMenu[0].children[i].data[0].objName,
                     typeCode: this.selectedMenu[0].children[i].data[0].typeCode,
                     objCode: this.selectedMenu[0].children[i].data[0].objCode,
                     parentErpoObjCd: this.selectedMenu[0].data[0].objCode
-                  }]
+                    }]
                 });
-                this.roleList[itemIndex].children.push(this.roleChildren[0]);
-                this.roleChildren = [];
-              }
+                }
             }
-          }
-        }
-        else {
-          this.roleChildren = [];
 
-          for (var i = 0; i < this.selectedMenu[0].children.length; i++) {
-            //checking if selectedMenu type is menu and 
-            //selectedMenu children parent id and selectedMenu id are same then push data in role tree children
-            if (this.selectedMenu[0].children[i].data[0].typeCode == 2
-              && this.selectedMenu[0].children[i].data[0].parentErpObjCd == this.selectedMenu[0].data[0].objCode) {
-
-              this.roleChildren.push({
-                label: this.selectedMenu[0].children[i].data[0].objName,
+            this.roleList.push({
+                label: this.selectedMenu[0].data[0].objName,
                 data: [{
-                  objName: this.selectedMenu[0].children[i].data[0].objName,
-                  typeCode: this.selectedMenu[0].children[i].data[0].typeCode,
-                  objCode: this.selectedMenu[0].children[i].data[0].objCode,
-                  parentErpoObjCd: this.selectedMenu[0].data[0].objCode
-                }]
-              });
-            }
-          }
-
-          this.roleList.push({
-            label: this.selectedMenu[0].data[0].objName,
-            data: [{
-              objName: this.selectedMenu[0].data[0].objName,
-              typeCode: this.selectedMenu[0].data[0].typeCode,
-              objCode: this.selectedMenu[0].data[0].objCode
-            }],
-            children: this.roleChildren
-          });
-
-        }
-      }
-    }
-    else if (this.selectedMenu[0].data[0].typeCode == 2) {
-      //checking if role tree doesnot have any value
-      if (this.roleTree == undefined) {
-        this.roleChildren.push({
-          label: this.selectedMenu[0].data[0].objName,
-          data: [{
-            objName: this.selectedMenu[0].data[0].objName,
-            typeCode: this.selectedMenu[0].data[0].typeCode,
-            objCode: this.selectedMenu[0].data[0].objCode
-          }]
-        });
-
-        this.roleList.push({
-          label: this.selectedMenu[0].data[0].parentErpObjName,
-          data: [{
-            objName: this.selectedMenu[0].data[0].parentErpObjName,
-            typeCode: this.selectedMenu[0].data[0].parentErpObjTypeCd,
-            objCode: this.selectedMenu[0].data[0].parentErpObjCd
-          }],
-          children: this.roleChildren
-        });
-      }
-      else {
-        itemFound = false;
-        itemIndex = 0;
-        for (var i = 0; i < this.roleTree.length; i++) {
-          //checking if selectedMenu parent id and roletree id are same
-          if (this.selectedMenu[0].data[0].parentErpObjCd == this.roleTree[i].data[0].objCode) {
-            itemFound = true;
-            itemIndex = i;
-            i = this.roleTree.length + 1;
-          }
-        }
-
-        if (itemFound == true) {
-          itemFound = false;
-          for (var i = 0; i < this.roleTree[itemIndex].children.length; i++) {
-            //checking if selectedMenu id and roletree children id are same
-            if (this.selectedMenu[0].data[0].objCode == this.roleTree[itemIndex].children[i].data[0].objCode) {
-              itemFound = true;
-              i = this.roleTree[itemIndex].children.length + 1;
-            }
-            else {
-              itemFound = false;
-            }
-          }
-
-          if (itemFound == true) {
-            this.toastr.errorToastr('Already Add ' + this.selectedMenu[0].data[0].objName + 'Menu!', 'Error', { toastTimeout: (2500) });
-          }
-          else {
-            this.roleChildren.push({
-              label: this.selectedMenu[0].data[0].objName,
-              data: [{
                 objName: this.selectedMenu[0].data[0].objName,
                 typeCode: this.selectedMenu[0].data[0].typeCode,
                 objCode: this.selectedMenu[0].data[0].objCode
-              }]
+                }],
+                children: this.roleChildren
             });
-            //alert(this.roleChildren[0].data[0].objName);
-            this.roleList[itemIndex].children.push(this.roleChildren[0]);
-          }
 
+            }
         }
-        else {
-          this.roleChildren = [];
-          this.roleChildren.push({
-            label: this.selectedMenu[0].data[0].objName,
-            data: [{
-              objName: this.selectedMenu[0].data[0].objName,
-              typeCode: this.selectedMenu[0].data[0].typeCode,
-              objCode: this.selectedMenu[0].data[0].objCode
-            }]
-          });
 
-          this.roleList.push({
-            label: this.selectedMenu[0].data[0].parentErpObjName,
-            data: [{
-              objName: this.selectedMenu[0].data[0].parentErpObjName,
-              typeCode: this.selectedMenu[0].data[0].parentErpObjTypeCd,
-              objCode: this.selectedMenu[0].data[0].parentErpObjCd
-            }],
-            children: this.roleChildren
-          });
+
+
+
+        
         }
-      }
+        else if (this.selectedMenu[0].data[0].typeCode == 2) {
+        //checking if role tree doesnot have any value
+            if (this.roleTree == undefined) {
+
+                this.roleChildren.push({
+                    label: this.selectedMenu[0].data[0].objName,
+                    data: [{
+                        objName: this.selectedMenu[0].data[0].objName,
+                        typeCode: this.selectedMenu[0].data[0].typeCode,
+                        objCode: this.selectedMenu[0].data[0].objCode
+                    }]
+                });
+
+                this.roleList.push({
+                    label: this.selectedMenu[0].data[0].parentErpObjName,
+                    data: [{
+                        objName: this.selectedMenu[0].data[0].parentErpObjName,
+                        typeCode: this.selectedMenu[0].data[0].parentErpObjTypeCd,
+                        objCode: this.selectedMenu[0].data[0].parentErpObjCd
+                    }],
+                    children: this.roleChildren
+                });
+            }
+            else {
+                itemFound = false;
+                itemIndex = 0;
+                for (var i = 0; i < this.roleTree.length; i++) {
+                //checking if selectedMenu parent id and roletree id are same
+                    if (this.selectedMenu[0].data[0].parentErpObjCd == this.roleTree[i].data[0].objCode) {
+                        itemFound = true;
+                        itemIndex = i;
+                        i = this.roleTree.length + 1;
+                    }
+                }
+
+                if (itemFound == true) {
+                    itemFound = false;
+                    for (var i = 0; i < this.roleTree[itemIndex].children.length; i++) {
+                        //checking if selectedMenu id and roletree children id are same
+                        if (this.selectedMenu[0].data[0].objCode == this.roleTree[itemIndex].children[i].data[0].objCode) {
+                            itemFound = true;
+                            i = this.roleTree[itemIndex].children.length + 1;
+                        }
+                        else {
+                            itemFound = false;
+                        }
+                    }
+
+                    if (itemFound == true) {
+                        this.toastr.errorToastr('Already Added ' + this.selectedMenu[0].data[0].objName + 'Menu!', 'Error', { toastTimeout: (2500) });
+                        this.app.hideSpinner();
+                        return false;
+                    }
+                    else {
+                        this.roleChildren.push({
+                            label: this.selectedMenu[0].data[0].objName,
+                            data: [{
+                                objName: this.selectedMenu[0].data[0].objName,
+                                typeCode: this.selectedMenu[0].data[0].typeCode,
+                                objCode: this.selectedMenu[0].data[0].objCode
+                            }]
+                        });
+                        //alert(this.roleChildren[0].data[0].objName);
+                        this.roleList[itemIndex].children.push(this.roleChildren[0]);
+                    }
+
+                }
+                else {
+                    this.roleChildren = [];
+                    this.roleChildren.push({
+                        label: this.selectedMenu[0].data[0].objName,
+                        data: [{
+                        objName: this.selectedMenu[0].data[0].objName,
+                        typeCode: this.selectedMenu[0].data[0].typeCode,
+                        objCode: this.selectedMenu[0].data[0].objCode
+                        }]
+                    });
+
+                    this.roleList.push({
+                        label: this.selectedMenu[0].data[0].parentErpObjName,
+                        data: [{
+                        objName: this.selectedMenu[0].data[0].parentErpObjName,
+                        typeCode: this.selectedMenu[0].data[0].parentErpObjTypeCd,
+                        objCode: this.selectedMenu[0].data[0].parentErpObjCd
+                        }],
+                        children: this.roleChildren
+                    });
+                }
+            }
+        }
+
+
+
+        this.roleTree = this.roleList;
+        this.app.hideSpinner();
     }
-    this.roleTree = this.roleList;
-  }
 
 
   //clear all data
