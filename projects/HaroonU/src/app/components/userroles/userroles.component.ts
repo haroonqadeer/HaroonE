@@ -178,7 +178,7 @@ export class UserrolesComponent implements OnInit {
 
 
 
-  serverUrl = "http://localhost:4000/";
+  serverUrl = "http://localhost:2000/";
 
   //constructor(private http: HttpClient, public toastr: ToastrManager, private nodeService: NodeService) { }
 
@@ -376,6 +376,7 @@ export class UserrolesComponent implements OnInit {
             this.app.hideSpinner();
 
             var roleData = { erpObjct: JSON.stringify(this.erpObjct), erpRoleName: this.erpRoleName };
+
             this.http.post(this.serverUrl + 'api/saveUserRole', roleData).subscribe((data: any) => {
                 this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); return;
             });
