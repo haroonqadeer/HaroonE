@@ -26,13 +26,13 @@ const routes: Routes = [
     },
     {
         path: 'Config',
-        // loadChildren: () => ConfigSharedModule
-        loadChildren: '../../projects/HaroonConfig/src/app/app.module#ConfigSharedModule'
+        loadChildren: () => ConfigSharedModule
+        //loadChildren: '../../projects/HaroonConfig/src/app/app.module#ConfigSharedModule'
     },
     {
         path: 'HR',
-        // loadChildren: () => HRSharedModule
-        loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
+        loadChildren: () => HRSharedModule
+        //loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
     },
     {
         path: 'UM',
@@ -41,8 +41,8 @@ const routes: Routes = [
     },
     {
         path: 'Comp',
-        // loadChildren: () => CompSharedModule
-        loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
+        loadChildren: () => CompSharedModule
+        //loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
     }
 ];
 
