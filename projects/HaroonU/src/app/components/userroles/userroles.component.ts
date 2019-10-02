@@ -678,7 +678,7 @@ export class UserrolesComponent implements OnInit {
     }
 
 
-  //edit role data
+    //edit role data
     edit(item) {
 
         this.erpRoleName = item.erpRoleName;
@@ -689,7 +689,7 @@ export class UserrolesComponent implements OnInit {
     }
 
 
-  //Assign id and name to hidden labels
+    //Assign id and name to hidden labels
     delete(item) {
         this.clear();
 
