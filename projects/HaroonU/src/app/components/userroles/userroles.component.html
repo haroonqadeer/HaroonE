@@ -414,7 +414,7 @@
               <div class="col-md-10">
                 <div class="inputContainer">
                   <span class="ui-float-label">
-                    <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
+                    <input id="float-input" [(ngModel)]="txtdPassword" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
                     <label for="float-input">Enter Password</label>
                   </span>
                 </div>
@@ -425,13 +425,13 @@
               <div class="col-md-7">
                 <div class="inputContainer" style="margin-top: 5px;">
                   <span class="ui-float-label">
-                    <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
+                    <input id="float-input" [(ngModel)]="txtdPin" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
                     <label for="float-input">Enter PIN</label>
                   </span>              
                 </div>        
               </div>
               <div class="col-md-3" style="right: 1.6em; top: 0.4em;">
-                <button mat-raised-button color="primary" class="buttonSquare" style="height:80%;">DELETE</button>
+                <button mat-raised-button color="primary" class="buttonSquare" (click)="deleteRole()" style="height:80%;">DELETE</button>
               </div>
             </div>
             <!--end conform password row -->

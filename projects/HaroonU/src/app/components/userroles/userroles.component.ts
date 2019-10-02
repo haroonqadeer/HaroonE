@@ -712,8 +712,10 @@ export class UserrolesComponent implements OnInit {
         this.toastr.errorToastr('Please Enter Pin', 'Oops!', { toastTimeout: (2500) });
         return;
         }
-        //deleting roles from database 
-        this.http.delete(this.serverUrl + 'api/deleteUserRole' + this.erpRoleCd).subscribe((data: any) => {
+        //deleting roles from database
+        var roleData = {erpObjct: JSON.stringify(this.erpObjct), erpRoleCd: this.erpRoleCd };
+
+        this.http.put(this.serverUrl + 'api/deleteUserRole', roleData).subscribe((data: any) => {
         this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); return;
         });
     }
