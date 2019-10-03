@@ -396,24 +396,25 @@ export class UserrolesComponent implements OnInit {
         //Save roles in database
 
             this.app.showSpinner();
+            this.app.hideSpinner();
 
             var roleData = { erpObjct: JSON.stringify(this.erpObjct), erpRoleName: this.erpRoleName };
 
             this.http.post(this.serverUrl + 'api/saveUserRole', roleData).subscribe((data: any) => {
                 this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); 
                 this.getRole();
-                this.app.hideSpinner();
+                
                 return false;
             });
         } else {
             //Update roles in database
             this.app.showSpinner();
+            this.app.hideSpinner();
             
             var rolesData = { erpObjct: JSON.stringify(this.erpObjct), erpRoleCd: this.erpRoleCd, erpRoleName: this.erpRoleName };
             this.http.put(this.serverUrl + 'api/updateUserRole', rolesData).subscribe((data: any) => {
                 this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); 
                 this.getRole();
-                this.app.hideSpinner();
                 return false;
             });
         }
