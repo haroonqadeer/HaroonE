@@ -853,6 +853,11 @@ export class UserrolesComponent implements OnInit {
     }
 
 
+    //function for generate pin modal window 
+    genPin(){
+        this.app.genPin();
+    }
+
     // For Print Purpose 
     printDiv() {
 

@@ -404,6 +404,10 @@
                     <span class="fa fa-key"></span>&nbsp;
                     <span>Change Password</span>
                 </div>
+                <!-- <div class="btn" (click)=genPin()>
+                  <span class="fa fa-key"></span>&nbsp;
+                  <span>gen pin</span>
+                </div> -->
               </div>
             </div>
     
@@ -520,6 +524,76 @@
     </div>
   </div>
   <!-- End change password Modal Window -->
+
+
+
+
+  <!-- Start active user Modal Window -->
+  <div class="modal fade modal-forgot" id="generatePinModal">
+    <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
+      <div class="modal-content">
+  
+        <!--Start Action Modal Header -->
+        <div class="modal-header">
+          <h4></h4>
+          <div>
+            <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
+          </div>
+        </div>
+        <!--End Action Modal Header -->
+        
+        <!--start Modal body -->
+        <div class="modal-body">
+          <!--start 1st row-->
+          <div class="row">
+            <div class="offset-md-1 col-md-6">
+              <p class="fontWhite">Hi Admin!<br/>
+                It seems you need to activate this user profile, please enter your PIN to proceed, if your PIN is already expired click Generate PIN to receive new PIN via email.<br/>
+              </p>
+  
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="inputContainer">
+                    <span class="ui-float-label">
+                      <input id="float-input" type="text" size="32" pInputText class="fullwidth noneOutLine"> 
+                      <label for="float-input">Enter PIN</label>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              <br>
+              <!--buttons -->
+              <button mat-raised-button color="primary" class="buttonSquare">&nbsp; ACTIVATE &nbsp;</button>
+              &nbsp; <a class="fontWhite" style="text-decoration: underline; cursor: pointer;">Generate PIN</a> &nbsp;
+            </div>
+  
+  
+  
+            <div class="col-md-5 text-center">
+              <br/>
+              <img class="mx-auto d-block" src="../../../assets/images/ActivateUser-Large.svg" alt="" height="60%">
+              <br/>
+              <h5 class="fontWhite"><b>ACTIVATE USER</b></h5>
+            </div>
+  
+  
+  
+          </div>
+          <!--end 1st row-->
+  
+        </div>
+        <!--end Modal body -->
+  
+      </div>
+    </div>
+  </div>
+  <!-- End active user Modal Window -->  
+
+
+
+
+
     <!-- copyright Starts -->
     <div class="col-md-12">
       <div class="copyRight" style="position: fixed; bottom:5px;">
@@ -527,4 +601,4 @@
       </div>
     </div>
     <!-- copyright Ends -->
-  </mat-drawer-container>
+</mat-drawer-container>

@@ -352,6 +352,13 @@ export class AppComponent {
 	}
 
 
+	genPin(){
+
+		$("#generatePinModal").modal('show');
+
+	}
+
+
 
 	//user idle functions
 	stop() {
