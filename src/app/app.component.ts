@@ -430,7 +430,7 @@ export class AppComponent {
             return false;
 		}
 		else if (this.txtNewPassword != this.txtCnfrmPassword) {
-            this.toastr.errorToastr("Password doesn't match", 'Oops!', { toastTimeout: (2500) });
+            this.toastr.errorToastr("New Password doesn't match", 'Oops!', { toastTimeout: (2500) });
             return false;
         }
         else {

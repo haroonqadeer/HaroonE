@@ -134,7 +134,7 @@ export class LoginComponent implements OnInit {
 
             var genTime = new Date();
             // var link = window.location.href + 'forgotPassword?u=';
-            var link = 'http://ambit.southeastasia.cloudapp.azure.com:8998?u=';
+            var link = "http://ambit.southeastasia.cloudapp.azure.com:8998?u=";
             var expTime = new Date();
 
             expTime.setDate(genTime.getDate()+1);
@@ -152,7 +152,7 @@ export class LoginComponent implements OnInit {
 
             this.http.post(this.serverUrl + 'api/saveLink', data, { headers: reqHeader }).subscribe((data: any) => {
 
-                if (data.msg != "Link Sent Successfully!") {
+                if (data.msg != "Mail Sent!") {
 					this.app.hideSpinner();
 					this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
 					return false;
