@@ -401,10 +401,20 @@ export class UserrolesComponent implements OnInit {
             var roleData = { erpObjct: JSON.stringify(this.erpObjct), erpRoleName: this.erpRoleName };
 
             this.http.post(this.serverUrl + 'api/saveUserRole', roleData).subscribe((data: any) => {
-                this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); 
-                this.getRole();
+        
+                if (data.msg != "Record Saved Successfully!") {
+        
+                    this.app.hideSpinner();
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                    return false;
+                } else {
+                    this.app.hideSpinner();
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    this.getRole();
+                    $('#userRoleModal').modal('hide');
+                    return false;
+                }
                 
-                return false;
             });
         } else {
             //Update roles in database
@@ -413,9 +423,20 @@ export class UserrolesComponent implements OnInit {
             
             var rolesData = { erpObjct: JSON.stringify(this.erpObjct), erpRoleCd: this.erpRoleCd, erpRoleName: this.erpRoleName };
             this.http.put(this.serverUrl + 'api/updateUserRole', rolesData).subscribe((data: any) => {
-                this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); 
-                this.getRole();
-                return false;
+        
+                if (data.msg != "Record Updated Successfully!") {
+        
+                    this.app.hideSpinner();
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                    return false;
+                } else {
+                    this.app.hideSpinner();
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    this.getRole();
+                    $('#userRoleModal').modal('hide');
+                    return false;
+                }
+                
             });
         }
 
@@ -722,6 +743,7 @@ export class UserrolesComponent implements OnInit {
     //edit role data
     edit(item) {
 
+        this.roleTree = [];
         this.erpRoleName = item.erpRoleName;
         this.erpRoleCd = item.erpRoleCd;
         //getting specific role data and assign it to role tree
@@ -757,9 +779,20 @@ export class UserrolesComponent implements OnInit {
         var roleData = {erpObjct: JSON.stringify(this.erpObjct), erpRoleCd: this.erpRoleCd };
 
         this.http.put(this.serverUrl + 'api/deleteUserRole', roleData).subscribe((data: any) => {
-            this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); 
-            this.getRole();
-            return;
+            
+            if (data.msg != "Record Deleted Successfully!") {
+        
+                this.app.hideSpinner();
+                this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                return false;
+            } else {
+                this.app.hideSpinner();
+                this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                this.getRole();
+                $('#dUserRoleModal').modal('hide');
+                return false;
+            }
+            
         });
     }
 
