@@ -378,6 +378,7 @@ export class UserrolesComponent implements OnInit {
         this.toastr.errorToastr('Please Push Data in Role Tree', 'Error', { toastTimeout: (2500) }); return
     }
 
+    this.erpObjct = [];
     //Adding role tree data to another list
         for (var i = 0; i < this.roleTree.length; i++) {
 
