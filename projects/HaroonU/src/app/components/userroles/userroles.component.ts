@@ -66,120 +66,120 @@ export class UserrolesComponent implements OnInit {
     roleSearch = '';
     tblSearch;
     removeNodeFlag = false;
-  //* variables for pagination and orderby pipe
-  p = 1;
-  order = 'info.name';
-  reverse = false;
-  sortedCollection: any[];
-  itemPerPage = '10';
+    //* variables for pagination and orderby pipe
+    p = 1;
+    order = 'info.name';
+    reverse = false;
+    sortedCollection: any[];
+    itemPerPage = '10';
 
 
-  rolesData = [
-    {
-      uId: 1,
-      uRoleName: "Admin",
-      uNoModule: 3,
-      uNoPage: 4
-    },
-    {
-      uId: 2,
-      uRoleName: "Super Admin",
-      uNoModule: 5,
-      uNoPage: 5
-    },
-    {
-      uId: 3,
-      uRoleName: "Admin SCM",
-      uNoModule: 3,
-      uNoPage: 4
-    },
-    {
-      uId: 4,
-      uRoleName: "Admin Health",
-      uNoModule: 3,
-      uNoPage: 4
-    },
-    {
-      uId: 5,
-      uRoleName: "Auditor",
-      uNoModule: 9,
-      uNoPage: 15
-    },
-    {
-      uId: 6,
-      uRoleName: "Admin Housing",
-      uNoModule: 3,
-      uNoPage: 4
-    },
-    {
-      uId: 7,
-      uRoleName: "Procurement Manager",
-      uNoModule: 4,
-      uNoPage: 3
-    },
-    {
-      uId: 8,
-      uRoleName: "Accountant",
-      uNoModule: 3,
-      uNoPage: 12
-    },
-    {
-      uId: 9,
-      uRoleName: "Finance Admin",
-      uNoModule: 3,
-      uNoPage: 4
-    },
-    {
-      uId: 10,
-      uRoleName: "Admin",
-      uNoModule: 3,
-      uNoPage: 4
-    },
-    {
-      uId: 12,
-      uRoleName: "Admin",
-      uNoModule: 3,
-      uNoPage: 6
-    },
-    {
-      uId: 13,
-      uRoleName: "Finance Manager",
-      uNoModule: 7,
-      uNoPage: 7
-    },
-    {
-      uId: 14,
-      uRoleName: "HR Admin",
-      uNoModule: 6,
-      uNoPage: 4
-    },
-    {
-      uId: 15,
-      uRoleName: "SCM",
-      uNoModule: 3,
-      uNoPage: 4
-    },
-    {
-      uId: 16,
-      uRoleName: "HR",
-      uNoModule: 3,
-      uNoPage: 4
-    }
-  ]
+    rolesData = [
+        {
+        uId: 1,
+        uRoleName: "Admin",
+        uNoModule: 3,
+        uNoPage: 4
+        },
+        {
+        uId: 2,
+        uRoleName: "Super Admin",
+        uNoModule: 5,
+        uNoPage: 5
+        },
+        {
+        uId: 3,
+        uRoleName: "Admin SCM",
+        uNoModule: 3,
+        uNoPage: 4
+        },
+        {
+        uId: 4,
+        uRoleName: "Admin Health",
+        uNoModule: 3,
+        uNoPage: 4
+        },
+        {
+        uId: 5,
+        uRoleName: "Auditor",
+        uNoModule: 9,
+        uNoPage: 15
+        },
+        {
+        uId: 6,
+        uRoleName: "Admin Housing",
+        uNoModule: 3,
+        uNoPage: 4
+        },
+        {
+        uId: 7,
+        uRoleName: "Procurement Manager",
+        uNoModule: 4,
+        uNoPage: 3
+        },
+        {
+        uId: 8,
+        uRoleName: "Accountant",
+        uNoModule: 3,
+        uNoPage: 12
+        },
+        {
+        uId: 9,
+        uRoleName: "Finance Admin",
+        uNoModule: 3,
+        uNoPage: 4
+        },
+        {
+        uId: 10,
+        uRoleName: "Admin",
+        uNoModule: 3,
+        uNoPage: 4
+        },
+        {
+        uId: 12,
+        uRoleName: "Admin",
+        uNoModule: 3,
+        uNoPage: 6
+        },
+        {
+        uId: 13,
+        uRoleName: "Finance Manager",
+        uNoModule: 7,
+        uNoPage: 7
+        },
+        {
+        uId: 14,
+        uRoleName: "HR Admin",
+        uNoModule: 6,
+        uNoPage: 4
+        },
+        {
+        uId: 15,
+        uRoleName: "SCM",
+        uNoModule: 3,
+        uNoPage: 4
+        },
+        {
+            uId: 16,
+            uRoleName: "HR",
+            uNoModule: 3,
+            uNoPage: 4
+        }
+    ]
 
 
   //list for tree
-  menuTree: TreeNode[];
+    menuTree: TreeNode[];
 
-  selectedMenu: TreeNode[];
+    selectedMenu: TreeNode[];
 
-  roleTree: TreeNode[];
+    roleTree: TreeNode[];
 
-  selectedRole: TreeNode[];
+    selectedRole: TreeNode[];
 
 
 
-  serverUrl = "http://localhost:2000/";
+    serverUrl = "http://localhost:2000/";
 
   //constructor(private http: HttpClient, public toastr: ToastrManager, private nodeService: NodeService) { }
 
@@ -279,7 +279,8 @@ export class UserrolesComponent implements OnInit {
         }
 
         this.roleTree = this.roleList;
-
+        this.removeNodeFlag = true;
+        this.getMenu();
         });
     }
 
@@ -304,7 +305,8 @@ export class UserrolesComponent implements OnInit {
 
         this.http.get(this.serverUrl + 'api/getUserMenu').subscribe((data: any) => {
             this.employees = data;
-
+            this.menuList = [];
+            
             for (var i = 0; i < this.employees.length; i++) {
                 //checking if type is module
                 if (this.employees[i].erpobjctTypeCd == 1) {
@@ -341,7 +343,8 @@ export class UserrolesComponent implements OnInit {
                 });
                 }
             }
-        
+            
+            
             this.menuTree = this.menuList;
             
             if (this.removeNodeFlag == false && (this.roleTree == undefined || this.roleTree.length == 0)){
@@ -356,8 +359,10 @@ export class UserrolesComponent implements OnInit {
             }
 
             this.app.hideSpinner();
-            
+
         });
+
+        
     }
 
 
@@ -391,20 +396,25 @@ export class UserrolesComponent implements OnInit {
         //Save roles in database
 
             this.app.showSpinner();
-            this.app.hideSpinner();
 
             var roleData = { erpObjct: JSON.stringify(this.erpObjct), erpRoleName: this.erpRoleName };
 
             this.http.post(this.serverUrl + 'api/saveUserRole', roleData).subscribe((data: any) => {
-                this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); return;
+                this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); 
+                this.getRole();
+                this.app.hideSpinner();
+                return false;
             });
         } else {
             //Update roles in database
             this.app.showSpinner();
-            this.app.hideSpinner();
+            
             var rolesData = { erpObjct: JSON.stringify(this.erpObjct), erpRoleCd: this.erpRoleCd, erpRoleName: this.erpRoleName };
             this.http.put(this.serverUrl + 'api/updateUserRole', rolesData).subscribe((data: any) => {
-                this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); return;
+                this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); 
+                this.getRole();
+                this.app.hideSpinner();
+                return false;
             });
         }
 
@@ -437,11 +447,10 @@ export class UserrolesComponent implements OnInit {
         this.getRoleTree(this.erpRoleCd);
     }
 
-
     //Adding modules and menu in role tree 
     addRoles() {
     
-        this.app.showSpinner();       
+        //this.app.showSpinner();       
 
         //checking if menuTree data not selected
         if (this.selectedMenu == undefined) {
@@ -458,124 +467,152 @@ export class UserrolesComponent implements OnInit {
         this.myTempList = this.roleTree;
         this.roleList = [];
         this.roleTree = [];
+        this.roleList = this.myTempList;
 
-        //this.roleList = this.roleTree;
-        //this.roleList = this.myTempList;
-        //alert(this.roleList.length);
-
-        for (var i = 0; i < this.selectedMenu.length; i++){
-
-            if (this.selectedMenu[i].data[0].typeCode == 2){                
-
-                var tempRoleList = this.filterRoleList(this.selectedMenu[i].data[0].parentErpObjName, 2);
-                
-                var newRoleList = this.filterNewRoleList(this.selectedMenu[i].data[0].parentErpObjName, 1);
-
-                if(newRoleList.length <= 0){
-
-                    // if (this.myTempList.length > 0 ){
-                        
-                    //     var oldRoleList = this.oldRoleList(this.selectedMenu[i].data[0].parentErpObjName, 2);
-                        
-                    //     for (var j = 0; j < oldRoleList.length; j++) {
-
-                    //         //alert(oldRoleList[j].data[0].objName);
-
-                    //         this.roleChildren.push({
-                    //             label: oldRoleList[j].data[0].objName,
-                    //             data: [{
-                    //                 objName: oldRoleList[j].data[0].objName,
-                    //                 typeCode: oldRoleList[j].data[0].typeCode,
-                    //                 objCode: oldRoleList[j].data[0].objCode,
-                    //                 parentErpoObjCd: this.selectedMenu[i].data[0].objCode
-                    //             }]
-                    //         });
-    
-                    //     }
-
-                    // }
-
-                    for (var j = 0; j < tempRoleList.length; j++) {
-
-                        this.roleChildren.push({
-                            label: tempRoleList[j].data[0].objName,
-                            data: [{
-                                objName: tempRoleList[j].data[0].objName,
-                                typeCode: tempRoleList[j].data[0].typeCode,
-                                objCode: tempRoleList[j].data[0].objCode,
-                                parentErpoObjCd: this.selectedMenu[i].data[0].objCode
-                            }]
-                        });
-
-                    }
-                
-
-                    
-
-                    this.roleList.push({
-                        label: this.selectedMenu[i].data[0].parentErpObjName,
-                        data: [{
-                            objName: this.selectedMenu[i].data[0].parentErpObjName,
-                            typeCode: this.selectedMenu[i].data[0].parentErpObjTypeCd,
-                            objCode: this.selectedMenu[i].data[0].parentErpObjCd
-                        }],
-                        children: this.roleChildren
-                    });
-
-                }else{
-
-                }
-
-                this.roleChildren = [];
-
-                
-            }
         
+        if(this.myTempList.length > 0){
 
 
+            for (var i = 0; i < this.selectedMenu.length; i++){
 
-
-            if (this.selectedMenu[i].data[0].typeCode == 2){
-
-                for (var j = 0; j < this.tempRoleList.length; j++){
-
-                    if(this.selectedMenu[i].data[0].parentErpObjCd == this.tempRoleList[j].data[0].objCode){
-                        alert(this.selectedMenu[i].data[0].parentErpObjName +" - "+ this.tempRoleList[i].data[0].objName +" - "+ this.tempRoleList[j].data[0].objCode);
-
-                        // this.roleChildren.push({
-                        //     label: tempRoleList[j].data[0].objName,
-                        //     data: [{
-                        //         objName: tempRoleList[j].data[0].objName,
-                        //         typeCode: tempRoleList[j].data[0].typeCode,
-                        //         objCode: tempRoleList[j].data[0].objCode,
-                        //         parentErpoObjCd: this.selectedMenu[i].data[0].objCode
-                        //     }]
-                        // });
-
-                        // this.roleTree[i].push({
-                        //     children: this.roleChildren
-                        // });
-                    }
-
-                    // for (var k = 0; k < this.roleTree[j].children.length; k++){
+                if (this.selectedMenu[i].data[0].typeCode == 2){                
                     
-                    //     if (this.roleTree[j].children[k].data[0].objName == this.selectedMenu[i].data[0].objName){
-                    //         alert(this.selectedMenu[i].data[0].objName);
-                    //         //this.roleTree[j].children.splice(k, 1);
-                    //     }
-                    // }
+                    var foundParent = false;
+                    var foundChild = false;
+
+                    for (var j = 0; j < this.roleList.length; j++){
+
+                        //adding child node if parent node already exist 
+                        if(this.selectedMenu[i].data[0].parentErpObjName == this.roleList[j].label){
+
+                            //loop for checking child node exist or not 
+                            for (var k = 0; k < this.roleList[j].children.length; k++){
+
+                                if(this.selectedMenu[i].data[0].objCode == this.roleList[j].children[k].data[0].objCode){
+
+                                    foundChild = true;
+
+                                }
+
+                            }
+
+                            if (foundChild == false){
+
+                                this.roleList[j].children.push({
+                                    label: this.selectedMenu[i].data[0].objName,
+                                    data: [{
+                                        objName: this.selectedMenu[i].data[0].objName,
+                                        typeCode: this.selectedMenu[i].data[0].typeCode,
+                                        objCode: this.selectedMenu[i].data[0].objCode,
+                                        parentErpoObjCd: this.selectedMenu[i].data[0].objCode
+                                    }]
+                                })
+
+                            }
+
+                        }else {
+
+                            this.roleChildren = [];
+
+                            //loop for checking parent node exist or not 
+                            for (var m = 0; m < this.roleList.length; m++){
+
+                                if(this.selectedMenu[i].data[0].parentErpObjName == this.roleList[m].label){
+
+                                    foundParent = true;
+
+                                }
+                            }
+
+                            if (foundParent == false){
+
+                                this.roleChildren.push({
+                                    label: this.selectedMenu[i].data[0].objName,
+                                    data: [{
+                                        objName: this.selectedMenu[i].data[0].objName,
+                                        typeCode: this.selectedMenu[i].data[0].typeCode,
+                                        objCode: this.selectedMenu[i].data[0].objCode,
+                                        parentErpoObjCd: this.selectedMenu[i].data[0].objCode
+                                    }]
+                                });
+
+                                this.roleList.push({
+                                    label: this.selectedMenu[i].data[0].parentErpObjName,
+                                    data: [{
+                                        objName: this.selectedMenu[i].data[0].parentErpObjName,
+                                        typeCode: this.selectedMenu[i].data[0].parentErpObjTypeCd,
+                                        objCode: this.selectedMenu[i].data[0].parentErpObjCd
+                                    }],
+                                    children: this.roleChildren
+                                });
+
+                            }
+
+                        }
+                    }   
                 }
             }
+
+
+        }else{
+
+
+            for (var i = 0; i < this.selectedMenu.length; i++){
+
+                if (this.selectedMenu[i].data[0].typeCode == 2){                
+    
+                    var tempRoleList = this.filterRoleList(this.selectedMenu[i].data[0].parentErpObjName, 2);
+    
+                    var newRoleList = this.filterNewRoleList(this.selectedMenu[i].data[0].parentErpObjName, 1);
+    
+                    //var oldRoleList = this.oldRoleList(this.selectedMenu[i].data[0].parentErpObjName, 2);
+    
+                    //alert("current selected " +  newRoleList.length + " already exist " + oldRoleList.length);
+    
+                    if(newRoleList.length == 0){
+    
+                        for (var o = 0; o < tempRoleList.length; o++) {
+    
+                            this.roleChildren.push({
+                                label: tempRoleList[o].data[0].objName,
+                                data: [{
+                                    objName: tempRoleList[o].data[0].objName,
+                                    typeCode: tempRoleList[o].data[0].typeCode,
+                                    objCode: tempRoleList[o].data[0].objCode,
+                                    parentErpoObjCd: this.selectedMenu[i].data[0].objCode
+                                }]
+                            });
+    
+                        }
+    
+                        this.roleList.push({
+                            label: this.selectedMenu[i].data[0].parentErpObjName,
+                            data: [{
+                                objName: this.selectedMenu[i].data[0].parentErpObjName,
+                                typeCode: this.selectedMenu[i].data[0].parentErpObjTypeCd,
+                                objCode: this.selectedMenu[i].data[0].parentErpObjCd
+                            }],
+                            children: this.roleChildren
+                        });
+    
+                    }
+    
+                    this.roleChildren = [];
+    
+                    
+                }
+    
+            }
+
+
         }
 
-        
         this.roleTree = this.roleList;
         this.compareRoleList(this.menuTree, this.roleTree);
         this.selectedMenu = [];
         this.app.hideSpinner();
 
     }
-
 
     //filter array
     filterRoleList(name, code) {
@@ -585,6 +622,7 @@ export class UserrolesComponent implements OnInit {
 
     //filter array 
     oldRoleList(name, code) {
+        //alert(name);
         return this.myTempList.filter(x => x.label == name);
         //x => x.data.typeCode == code && x.data.parentErpObjName == name
     }
@@ -675,8 +713,10 @@ export class UserrolesComponent implements OnInit {
         this.erpRoleCd = "";
         this.txtdPassword = "";
         this.txtdPin = "";
-    }
 
+        this.getMenu();
+
+    }
 
     //edit role data
     edit(item) {
@@ -716,7 +756,9 @@ export class UserrolesComponent implements OnInit {
         var roleData = {erpObjct: JSON.stringify(this.erpObjct), erpRoleCd: this.erpRoleCd };
 
         this.http.put(this.serverUrl + 'api/deleteUserRole', roleData).subscribe((data: any) => {
-        this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); return;
+            this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); 
+            this.getRole();
+            return;
         });
     }
 
