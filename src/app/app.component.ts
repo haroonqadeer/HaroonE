@@ -371,7 +371,7 @@ export class AppComponent {
 
 			var empData = { indvdlID: this.empId, pin: this.txtPin };
 
-			this.http.post(this.serverUrl + 'api/checkPin', empData).subscribe((data: any) => {
+			this.http.post(this.serverUrl + 'api/activePin', empData).subscribe((data: any) => {
 			// this.http.post('http://localhost:5000/api/activePin', empData).subscribe((data: any) => {
 			
 				if (data.msg == "Sorry! Pin not Correct.") {

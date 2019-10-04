@@ -38,7 +38,6 @@ const routes: Routes = [
         path: 'UM',
         // loadChildren: () => UMSharedModule
         loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
-        // loadChildren: '../../projects/HaroonH/src/app/app.module#HRSharedModule'
     },
     {
         path: 'Comp',
