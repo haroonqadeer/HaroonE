@@ -176,10 +176,10 @@ export class UserrolesComponent implements OnInit {
     roleTree: TreeNode[];
 
     selectedRole: TreeNode[];
+    
+    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9036/";
 
-
-
-    serverUrl = "http://localhost:2000/";
+    // serverUrl = "http://localhost:2000/";
 
   //constructor(private http: HttpClient, public toastr: ToastrManager, private nodeService: NodeService) { }
 
@@ -759,6 +759,8 @@ export class UserrolesComponent implements OnInit {
 
         this.erpRoleName = item.erpRoleName;
         this.erpRoleCd = item.erpRoleCd;
+
+        this.generatePin();
     }
 
 
@@ -854,8 +856,33 @@ export class UserrolesComponent implements OnInit {
 
 
     //function for generate pin modal window 
-    genPin(){
-        this.app.genPin();
+    generatePin(){
+        
+        //check if global variable is empty
+        if(this.app.pin != ''){
+            //deleting roles from database
+            var roleData = {erpObjct: JSON.stringify(this.erpObjct), erpRoleCd: this.erpRoleCd };
+
+            this.http.put(this.serverUrl + 'api/deleteUserRole', roleData).subscribe((data: any) => {
+                
+                if (data.msg != "Record Deleted Successfully!") {
+            
+                    this.app.hideSpinner();
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                    return false;
+                } else {
+                    this.app.hideSpinner();
+                    this.app.pin = '';
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    this.getRole();
+                    $('#dUserRoleModal').modal('hide');
+                    return false;
+                }
+                
+            });
+        }else{
+            this.app.genPin();
+        }
     }
 
     // For Print Purpose 

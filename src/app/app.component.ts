@@ -56,7 +56,9 @@ export class AppComponent {
 	txtCrntPassword = '';
 	txtNewPassword = '';
 	txtCnfrmPassword = '';
+	txtPin = '';
 
+	pin = '';
 
 	public hideDiv = false;
 	items: MenuItem[];
@@ -353,12 +355,65 @@ export class AppComponent {
 
 
 	genPin(){
-
 		$("#generatePinModal").modal('show');
-
+		
+		this.getUserDetail(localStorage.getItem('userName'));
 	}
 
+	activePin(){
+		
+		//checking if pin is empty
+		if (this.txtPin.trim().length == 0) {
+			this.toastr.errorToastr('Please Enter Pin', 'Oops!', { toastTimeout: (2500) });
+			return;
+		}else{
+			this.showSpinner();
 
+			var empData = { indvdlID: this.empId, pin: this.txtPin };
+
+			this.http.post(this.serverUrl + 'api/checkPin', empData).subscribe((data: any) => {
+			// this.http.post('http://localhost:5000/api/activePin', empData).subscribe((data: any) => {
+			
+				if (data.msg == "Sorry! Pin not Correct.") {
+		
+					this.hideSpinner();
+					this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+					return false;
+				} else {
+					this.hideSpinner();
+					this.pin = this.txtPin; 
+					this.txtPin = '';
+					this.toastr.successToastr('Your Pin is Active! Now you can delete.', 'Success!', { toastTimeout: (2500) });
+                    $('#generatePinModal').modal('hide');
+					return false;
+				}
+				
+			});
+		}
+	}
+
+	sendPin(){
+
+		this.showSpinner();
+
+		var empData = { indvdlID: this.empId };
+
+		this.http.post(this.serverUrl + 'api/checkPin', empData).subscribe((data: any) => {
+		// this.http.post('http://localhost:5000/api/checkPin', empData).subscribe((data: any) => {
+        
+			if (data.msg != "Mail Sent!") {
+	
+				this.hideSpinner();
+				this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+				return false;
+			} else {
+				this.hideSpinner();
+				this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+				return false;
+			}
+			
+		});
+	}
 
 	//user idle functions
 	stop() {

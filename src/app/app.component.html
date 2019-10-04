@@ -547,7 +547,7 @@
           <!--start 1st row-->
           <div class="row">
             <div class="offset-md-1 col-md-6">
-              <p class="fontWhite">Hi Admin!<br/>
+              <p class="fontWhite">Hi {{logedInUserName}}!<br/>
                 It seems you need to activate this user profile, please enter your PIN to proceed, if your PIN is already expired click Generate PIN to receive new PIN via email.<br/>
               </p>
   
@@ -555,7 +555,7 @@
                 <div class="col-md-10">
                   <div class="inputContainer">
                     <span class="ui-float-label">
-                      <input id="float-input" type="text" size="32" pInputText class="fullwidth noneOutLine"> 
+                      <input id="float-input" [(ngModel)]="txtPin" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
                       <label for="float-input">Enter PIN</label>
                     </span>
                   </div>
@@ -564,8 +564,8 @@
               
               <br>
               <!--buttons -->
-              <button mat-raised-button color="primary" class="buttonSquare">&nbsp; ACTIVATE &nbsp;</button>
-              &nbsp; <a class="fontWhite" style="text-decoration: underline; cursor: pointer;">Generate PIN</a> &nbsp;
+              <button mat-raised-button color="primary" class="buttonSquare" (click)="activePin()">&nbsp; ACTIVATE &nbsp;</button>
+              &nbsp; <a class="fontWhite" style="text-decoration: underline; cursor: pointer;" (click)="sendPin()">Generate PIN</a> &nbsp;
             </div>
   
   
