@@ -356,7 +356,7 @@ export class AppComponent {
 
 	genPin(){
 		$("#generatePinModal").modal('show');
-		
+		this.txtPin = '';
 		this.getUserDetail(localStorage.getItem('userName'));
 	}
 

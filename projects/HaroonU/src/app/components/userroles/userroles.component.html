@@ -78,7 +78,7 @@
       <tbody>
         <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
         <tr class='d-flex'
-          *ngFor="let item of roles | search:'erpRoleName,noOfModules,uNoPage':roleSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index">
+          *ngFor="let item of roles | search:'erpRoleName,noOfModules,uNoPage':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index">
           <!-- <td class="col-1 text-center" hidden>{{item.erpRoleCd}}</td> -->
           <td class="col-1 text-center">{{i+1}}</td>
           <td class="col-4 pointerCursor text-left">{{item.erpRoleName}}</td>
