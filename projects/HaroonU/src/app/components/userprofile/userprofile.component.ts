@@ -41,7 +41,8 @@
     })
     export class UserprofileComponent implements OnInit {
 
-    serverUrl = "http://localhost:55536/";
+	serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9037/";
+    // serverUrl = "http://localhost:5000/";
     tokenKey = "token";
 
     httpOptions = {
@@ -58,12 +59,15 @@
 
         
     roleTree: TreeNode[];
+    roleList = [];
+    tempRoleList = [];
+    roleChildren = [];
 
     selectedRole: TreeNode[];
     //* variables for display values on page
-    countAddition = 15;
-    countUpdation = 10;
-    countBanned = 5;
+    countAddition = 0;
+    countUpdation = 0;
+    countBanned = 0;
     partyEmail = '';
     partyFatherName = '';
     partyDepartment = '';
@@ -71,7 +75,17 @@
     partyAddress = '';
     userLink = '';
     userLinkCode = '';
+    lblIndvdlID = 0;
+    lblFullName = '';
+    lblEmail = '';
+    lblJobDesigID = 0;
+    lblJobPostDeptCd = 0;
+    lblJobPostLocationCd = 0;
+    txtPin = '';
 
+	txtNewPassword = '';
+	txtNewCnfrmPassword = '';
+	
     //*Variables for NgModels 
     searchAction = '';
     txtActionPassword = '';
@@ -80,12 +94,14 @@
     userSearch = '';
     rdbType = 'employee';
     searchEmployee = '';
+    searchRole = '';
     txtUsername = '';
     txtPassword = "";
     txtCnfrmPassword = "";
+    lblRoleName = "";
 
     //*Boolean ng models and variables
-    disabledPassword = false;
+    chkPin = false;
     showLink = false;
     actionPassRow = false;
     actionPINCodeRow = false;
@@ -100,133 +116,14 @@
 
     //List variables
     public users = [];
+    public roles = [];
     listAction = '';
     listBlockedAction = '';
     cmbEmployee = '';
+    cmbRole = '';
 
-    userData = [
-        {
-            uId: 1,
-            uName: 'Aamir76',
-            uEmail: 'Aamir@gmail.com',
-            uRole: 'IT',
-            uSince: 'Friday',
-            lastLogin: 'Monday'
-        },
-        {
-            uId: 2,
-            uName: 'Ali456676',
-            uEmail: 'Ali@gmail.com',
-            uRole: 'Finance',
-            uSince: 'Monday',
-            lastLogin: 'Friday'
-        },
-        {
-            uId: 3,
-            uName: 'Waqas445776',
-            uEmail: 'Waqas@gmail.com',
-            uRole: 'HR',
-            uSince: 'Tuesday',
-            lastLogin: 'Monday'
-        },
-        {
-            uId: 4,
-            uName: 'Umair45676',
-            uEmail: 'Umair@gmail.com',
-            uRole: 'SCM',
-            uSince: 'Wednesday',
-            lastLogin: 'Thrusday'
-        },
-        {
-            uId: 5,
-            uName: 'Touseeq5676',
-            uEmail: 'Touseeq@gmail.com',
-            uRole: 'IT',
-            uSince: 'Tuesday',
-            lastLogin: 'Thrusday'
-        },
-        {
-            uId: 6,
-            uName: 'Ijaz45676',
-            uEmail: 'Ijaz@gmail.com',
-            uRole: 'Admin',
-            uSince: 'Monday',
-            lastLogin: 'Saturday'
-        },
-        {
-            uId: 7,
-            uName: 'Zain45676',
-            uEmail: 'Zain@gmail.com',
-            uRole: 'IT',
-            uSince: 'Sunday',
-            lastLogin: 'Monday'
-        },
-        {
-            uId: 8,
-            uName: 'Shahrukh45676',
-            uEmail: 'Shahrukh@gmail.com',
-            uRole: 'Admin',
-            uSince: 'Saturday',
-            lastLogin: 'Monday'
-        },
-        {
-            uId: 9,
-            uName: 'Osama6176',
-            uEmail: 'Osama@gmail.com',
-            uRole: 'Operations',
-            uSince: 'Friday',
-            lastLogin: 'Tuesday'
-        },
-        {
-            uId: 10,
-            uName: 'Bilal9445676',
-            uEmail: 'Bilal@gmail.com',
-            uRole: 'IT',
-            uSince: 'Wednesday',
-            lastLogin: 'Monday'
-        },
-        {
-            uId: 11,
-            uName: 'Nabeel45676',
-            uEmail: 'Nabeel@gmail.com',
-            uRole: 'IT',
-            uSince: 'Wednesday',
-            lastLogin: 'Wednesday'
-        },
-        {
-            uId: 12,
-            uName: 'Saad9676',
-            uEmail: 'Saad@gmail.com',
-            uRole: 'Procurement',
-            uSince: 'Employee',
-            lastLogin: 'Wednesday'
-        },
-        {
-            uId: 13,
-            uName: 'Zohaib676',
-            uEmail: 'Zohaib@gmail.com',
-            uRole: 'Management',
-            uSince: 'Contract',
-            lastLogin: 'Wednesday'
-        },
-        {
-            uId: 14,
-            uName: 'Zeeshan676',
-            uEmail: 'Zeeshan@gmail.com',
-            uRole: 'IT',
-            uSince: 'Employee',
-            lastLogin: 'Wednesday'
-        },
-        {
-            uId: 15,
-            uName: 'Arslan676',
-            uEmail: 'Arslan@gmail.com',
-            uRole: 'IT',
-            uSince: 'Permanent',
-            lastLogin: 'Wednesday'
-        },
-    ];
-
+    userData = [];
+    
     //Action Combobox object
     actions = [
         {
@@ -316,7 +213,10 @@
     ngOnInit() {
         this.init();
 
+        this.getUserDetail();
+        this.getUserTrend();
         this.getParty();
+        this.getRole();
         // this.rdbType = 'employee';
         // this.getFilterItem(this.rdbType);
     }
@@ -359,6 +259,14 @@
 
     //party list filter method 
     getFilterItem(type) {
+        
+        // this.cmbEmployee = '';
+        // this.partyFatherName = '';
+        // this.partyEmail = '';
+        // this.partyAddress = '';
+        // this.partyBranch = '';
+        // this.partyDepartment = '';
+
         return this.users.filter(x => x.type == type);
     }
 
@@ -368,13 +276,231 @@
 
         var itemBackup = localStorage.getItem(this.tokenKey);
 
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + itemBackup });
+        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+        // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + itemBackup });
 
-        this.http.get(this.serverUrl + 'api/usersDetail', { headers: reqHeader }).subscribe((data: any) => {
+        this.http.get(this.serverUrl + 'api/getUsers', { headers: reqHeader }).subscribe((data: any) => {
             this.users = data
         });
     }
 
+    //get partys function 
+    getUserDetail() {
+
+        this.app.showSpinner();
+        var itemBackup = localStorage.getItem(this.tokenKey);
+
+        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+        // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + itemBackup });
+
+        this.http.get(this.serverUrl + 'api/getUserDetail', { headers: reqHeader }).subscribe((data: any) => {
+            this.userData = data
+            
+            this.app.hideSpinner();
+        });
+    }
+    
+    //get partys function 
+    getUserTrend() {
+
+        this.app.showSpinner();
+        var itemBackup = localStorage.getItem(this.tokenKey);
+
+        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+        // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + itemBackup });
+
+        this.http.get(this.serverUrl + 'api/getUserTrends', { headers: reqHeader }).subscribe((data: any) => {
+            //alert(data.addition)
+            this.countAddition = data[0].addition;
+            this.countUpdation = data[0].updation;
+            this.countBanned = data[0].deactivated;
+
+            this.app.hideSpinner();
+        });
+    }
+    
+    //getting specific role data and assign it to role tree
+    getRoleTree() {
+
+        if (this.cmbRole == '' || this.cmbRole == undefined) {
+            this.toastr.errorToastr('Please Select User Role', 'Oops!', { toastTimeout: (2500) });
+            return;
+        }
+        
+        for(var i = 0; i < this.roles.length; i++){
+
+            if(this.roles[i].erpRoleCd == this.cmbRole){
+                this.lblRoleName = this.roles[i].erpRoleName;
+                i = this.roles.length + 1;
+            }
+        }
+
+        this.app.showSpinner();
+        this.roleTree = [];
+        this.roleList = [];
+
+        this.http.get(this.serverUrl + 'api/getRoleTree?erpRoleCd=' + this.cmbRole ).subscribe((data: any) => {
+
+        this.tempRoleList = data;
+        // this.employees = data;
+
+        for (var i = 0; i < this.tempRoleList.length; i++) {
+
+            //checking if type is module
+            if (this.tempRoleList[i].erpObjctTypeCd == 1) {
+
+            this.roleChildren = [];
+
+            for (var j = 0; j < this.tempRoleList.length; j++) {
+
+                if (this.tempRoleList[j].erpObjctTypeCd == 2
+                && this.tempRoleList[j].parentErpObjctCd == this.tempRoleList[i].erpObjctCd) {
+
+                this.roleChildren.push({
+                    label: this.tempRoleList[j].erpObjctName,
+                    data: [{
+                    objName: this.tempRoleList[j].erpObjctName,
+                    typeCode: this.tempRoleList[j].erpObjctTypeCd,
+                    objCode: this.tempRoleList[j].erpObjctCd,
+                    parentErpObjCd: this.tempRoleList[i].erpObjctCd,
+                    parentErpObjTypeCd: this.tempRoleList[i].erpObjctTypeCd,
+                    parentErpObjName: this.tempRoleList[i].erpObjctName
+                    }]
+                });
+                }
+            }
+
+            this.roleList.push({
+                label: this.tempRoleList[i].erpObjctName,
+                data: [{
+                objName: this.tempRoleList[i].erpObjctName,
+                typeCode: this.tempRoleList[i].erpObjctTypeCd,
+                objCode: this.tempRoleList[i].erpObjctCd
+                }],
+                children: this.roleChildren
+            });
+            }
+        }
+
+        this.roleTree = this.roleList;
+        
+        this.app.hideSpinner();
+        });
+        $('#permissionModal').modal('show');
+
+    }
+
+    //get Roles function 
+    getRole() {
+
+        var itemBackup = localStorage.getItem(this.tokenKey);
+
+        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+        // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + itemBackup });
+
+        this.http.get(this.serverUrl + 'api/getRoles', { headers: reqHeader }).subscribe((data: any) => {
+            this.roles = data
+        });
+    }
+
+    resetPassword(item){
+
+        this.txtNewPassword = '';
+        this.txtNewCnfrmPassword = '';
+
+        this.lblIndvdlID = item.indvdlID;
+        this.lblFullName = item.indvdlFullName;
+        this.lblEmail = item.emailAddrss;
+
+        $('#resetModal').modal('show');
+    }
+    
+    activeUser(item){
+
+        this.txtPin = '';
+
+        this.lblIndvdlID = item.indvdlID;
+        // this.lblFullName = item.indvdlFullName;
+        // this.lblEmail = item.emailAddrss;
+
+        $('#activeUserModal').modal('show');
+    }
+
+    saveActiveUser(){
+
+        if (this.txtPin == "") {
+            this.toastr.errorToastr('Please Enter Pin', 'Oops!', { toastTimeout: (2500) });
+            return false;
+		}
+        this.app.showSpinner();
+        var Token = localStorage.getItem(this.tokenKey);
+        // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });            
+        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });            
+
+        var data = { "IndvdlID": this.lblIndvdlID, "CrntUserLogin": localStorage.getItem('userName'), "CrntUserPin": this.txtPin, "ConnectedUser": this.app.empId };
+
+        this.http.post(this.serverUrl + 'api/activeUser', data, { headers: reqHeader }).subscribe((data: any) => {
+
+            if (data.msg != "User Deactivated Successfully!" && data.msg != "User Activated Successfully!" ) {
+                this.app.hideSpinner();
+                this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                return false;
+            } else {
+                this.app.hideSpinner();
+                this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (5000) });
+                this.getUserDetail();
+                this.getUserTrend();
+                this.getParty();
+                $('#activeUserModal').modal('hide');
+                this.txtPin = '';
+                return false;
+            }
+
+        });
+    }
+
+    savePassword(){
+
+        if (this.txtNewPassword == "") {
+            this.toastr.errorToastr('Please Enter New Password', 'Oops!', { toastTimeout: (2500) });
+            return false;
+		}
+		else if (this.txtNewCnfrmPassword == "") {
+            this.toastr.errorToastr('Please Enter Comfirm Password', 'Oops!', { toastTimeout: (2500) });
+            return false;
+		}
+		else if (this.txtNewPassword != this.txtNewCnfrmPassword) {
+            this.toastr.errorToastr("New Password doesn't match", 'Oops!', { toastTimeout: (2500) });
+            return false;
+        }
+        else {
+
+			this.app.showSpinner();
+			var Token = localStorage.getItem(this.tokenKey);
+			// var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });            
+			var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });            
+
+            var data = { "indvdlID": this.lblIndvdlID, "Email": this.lblEmail, "IndvdlERPPsswrd": this.txtNewPassword, "ConnectedUser": this.app.empId };
+
+            this.http.post(this.serverUrl + 'api/resetPassword', data, { headers: reqHeader }).subscribe((data: any) => {
+
+                if (data.msg != "Mail Sent!") {
+					this.app.hideSpinner();
+					this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+					return false;
+				} else {
+					this.app.hideSpinner();
+					this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (5000) });
+					this.txtNewPassword = '';
+                    this.txtNewCnfrmPassword = '';
+                    $('#resetModal').modal('hide');
+					return false;
+				}
+
+            });
+        }
+
+    }
 
     //bloock, delete and generate pin for user
     saveAction() {
@@ -425,11 +551,18 @@
 
     //create user name and password for party and send user name password
     saveEmployee() {
+        var type = '';
+        if(this.chkPin == false){
+            type = '2';
+        }else{
+            type = '1';
+        }
+
         if (this.rdbType == '') {
             this.toastr.errorToastr('Please select user type', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.rdbType == 'employee' || this.rdbType == 'visitor') {
+        else if (this.rdbType == 'Employee' || this.rdbType == 'Visitor') {
             if (this.cmbEmployee == '') {
                 this.toastr.errorToastr('Please select user', 'Error', { toastTimeout: (2500) });
                 return false;
@@ -443,44 +576,80 @@
                 return false;
             }
             else if (this.txtPassword != this.txtCnfrmPassword) {
-                this.toastr.errorToastr('Your password and confirmation password do not match.', 'Error', { toastTimeout: (2500) });
+                this.toastr.errorToastr('Your password and confirmation password does not match', 'Error', { toastTimeout: (2500) });
+                return false;
+            }
+            else if (this.cmbRole == '') {
+                this.toastr.errorToastr('Please select user role', 'Error', { toastTimeout: (2500) });
                 return false;
             }
             else {
+                
                 this.app.showSpinner();
-                this.app.hideSpinner();
 
-                var data = { "partyId": this.userId };
+                var data = { 
+                            "IndvdlID": this.userId, 
+                            "JobDesigID": this.lblJobDesigID, 
+                            "JobPostDeptCd": this.lblJobPostDeptCd, 
+                            "JobPostLocationCd": this.lblJobPostLocationCd, 
+                            "IndvdlERPUsrID": this.txtUsername, 
+                            "IndvdlERPPsswrd": this.txtPassword, 
+                            "ERPRoleCd": this.cmbRole, 
+                            "Type": this.rdbType, 
+                            "ERPPINStatCd": type,
+                            "ConnectedUser": this.app.empId, 
+                            "DelFlag": 0 
+                            };
 
                 var token = localStorage.getItem(this.tokenKey);
 
-                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+                // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-                this.http.put(this.serverUrl + 'api/pwCreate', data, { headers: reqHeader }).subscribe((data: any) => {
+                this.http.put(this.serverUrl + 'api/updateUser', data, { headers: reqHeader }).subscribe((data: any) => {
 
-                    if (data.msg != undefined) {
+                    if (data.msg != 'User Created Successfully!') {
+                        this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                         return false;
                     } else {
-                        this.toastr.successToastr('Record Inserted Successfully', 'Success!', { toastTimeout: (2500) });
-                        $('#actionModal').modal('hide');
+                        this.app.hideSpinner();
+                        this.getUserDetail();
+                        this.getUserTrend();
+                        this.getParty();
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                        $('#userModal').modal('hide');
+                        this.clear();
                         return false;
                     }
 
                 });
             }
         }
-        else {
-            return false;
-        }
     }
 
-
+    genPin(){
+        this.app.sendPin();
+    }
     //if you want to clear input
     clear() {
 
         this.userId = 0;
         this.txtUsername = '';
+        this.partyFatherName = '';
+        this.partyEmail = '';
+        this.partyDepartment = '';
+        this.partyBranch = '';
+        this.partyAddress = '';
+        this.cmbEmployee = '';
+        this.rdbType = '';
+        this.txtPassword = '';
+        this.txtCnfrmPassword = '';
+        this.cmbRole = '';
+        this.lblJobDesigID = 0;
+        this.lblJobPostDeptCd = 0;
+        this.lblJobPostLocationCd = 0;
+        this.chkPin = false;
 
     }
 
@@ -495,15 +664,18 @@
         }
         else if (actionType == 'link') {
 
-            this.userId = item.indvdlId;
-            this.userLink = "localhost:4200?code=";
-            this.userLinkCode = btoa(this.userId + "");
+            this.userId = item.indvdlID;
+            // this.userLink = "localhost:4200?code=";
+            // this.userLinkCode = btoa(this.userId + "");
 
             this.partyEmail = item.emailAddrss;
-            this.partyFatherName = '';
-            this.partyDepartment = '';
-            this.partyBranch = '';
-            this.partyAddress = item.indvdlFirstName;
+            this.partyFatherName = item.indvdlFatherName;
+            this.partyDepartment = item.deptName;
+            this.partyBranch = item.locationName;
+            this.partyAddress = item.address;
+            this.lblJobDesigID = item.jobDesigID;
+            this.lblJobPostDeptCd = item.jobPostDeptCd;
+            this.lblJobPostLocationCd = item.jobPostLocationCd;
 
             this.showLink = true;
         }

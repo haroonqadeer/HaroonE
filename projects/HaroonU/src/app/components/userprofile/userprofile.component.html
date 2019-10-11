@@ -86,28 +86,28 @@
         <thead>
           <tr class="d-flex">
             <th class="col-1 text-center">Sr No.</th>
-            <th [class.active]="order === 'uName'" (click)="setOrder('uName')" class="col-2 text-left pointerCursor">
+            <th [class.active]="order === 'indvdlERPUsrID'" (click)="setOrder('indvdlERPUsrID')" class="col-1 text-center pointerCursor">
               User Name
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
-            <th [class.active]="order === 'uEmail'" (click)="setOrder('uEmail')" class="col-2 text-left pointerCursor">
+            <th [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')" class="col-2 text-center pointerCursor">
+              Full Name
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+            <th [class.active]="order === 'emailAddrss'" (click)="setOrder('emailAddrss')" class="col-2 text-left pointerCursor">
               Email
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
-            <th [class.active]="order === 'uRole'" (click)="setOrder('uRole')" class="col-1 text-left pointerCursor">
-              Role
+            <th [class.active]="order === 'deptName'" (click)="setOrder('deptName')" class="col-1 text-center pointerCursor">
+              Department
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
-            <th [class.active]="order === 'uSince'" (click)="setOrder('uSince')" class="col-1 text-left pointerCursor">
-              Since
-              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-            </th>
-            <th [class.active]="order === 'lastLogin'" (click)="setOrder('lastLogin')" class="col-1 text-left pointerCursor">
-              Login
+            <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')" class="col-1 text-center pointerCursor">
+              User Role
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
@@ -117,21 +117,21 @@
         </thead>
         <tbody>
           <tr class='d-flex'
-            *ngFor="let emp of userData | search:'uId,uName,uEmail,uRole,uSince,lastLogin':userSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
+            *ngFor="let emp of userData | search:'indvdlERPUsrID,indvdlFullName,emailAddrss,erpRoleName,deptName':userSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
             <td class="col-1 text-center">{{i+1}}</td>
-            <td class="col-2 text-left">{{emp.uName}}</td>
-            <td class="col-2 text-left">{{emp.uEmail}}</td>
-            <td class="col-1 text-left">{{emp.uRole}}</td>
-            <td class="col-1 text-left">{{emp.uSince}}</td>
-            <td class="col-1 text-left">{{emp.lastLogin}}</td>
+            <td class="col-1 text-center">{{emp.indvdlERPUsrID}}</td>
+            <td class="col-2 text-center">{{emp.indvdlFullName}}</td>
+            <td class="col-2 text-left">{{emp.emailAddrss}}</td>
+            <td class="col-1 text-center">{{emp.deptName}}</td>
+            <td class="col-1 text-center">{{emp.erpRoleName}}</td>
             <td class="col-2 text-center">
   
               <span class="fa tableIcon">
-                <span *ngIf="i != 2" class="fa icon-u-deactiveUser" ></span>
-                <span *ngIf="i == 2" class="fa icon-u-activeUser" ></span>
+                <span *ngIf="emp.usrStatus == null" class="fa icon-u-deactiveUser" ></span>
+                <span *ngIf="emp.usrStatus != null" class="fa icon-u-activeUser" ></span>
               </span> 
-              <span *ngIf="i != 2" class="tableLink" data-toggle="modal" data-target="#activeUserModal">Deactivate</span>
-              <span *ngIf="i == 2" class="tableLink" data-toggle="modal" data-target="#activeUserModal">Active</span>
+              <span *ngIf="emp.usrStatus == null" class="tableLink" (click)="activeUser(emp)">Deactivate</span>
+              <span *ngIf="emp.usrStatus != null" class="tableLink" (click)="activeUser(emp)">Active</span>
             </td>
   
             <td class="col-2 text-center">
@@ -139,7 +139,7 @@
               <span class="fa tableIcon">
                 <span class="fa icon-u-reset" ></span>
               </span> 
-              <span class="tableLink" data-toggle="modal" data-target="#resetModal">Reset</span>
+              <span class="tableLink" (click)="resetPassword(emp)">Reset</span>
               
               <!-- <span class="fa fa-exclamation-circle pointerCursor fontPrimary" data-toggle="modal" data-target="#actionModal">Reset</span> -->
             </td>
@@ -279,8 +279,8 @@
                     [value]="item">
                     <table>
                       <tr class='d-flex'>
-                        <td class="col-4">{{ item.indvdlId }}</td>
-                        <td class="col-4 border-left">{{ item.indvdlFirstName }}</td>
+                        <td class="col-4">{{ item.indvdlID }}</td>
+                        <td class="col-4 border-left">{{ item.indvdlFullName }}</td>
                         <td class="col-4 border-left">{{ item.emailAddrss }}</td>
                       </tr>
                     </table>
@@ -293,10 +293,10 @@
               <mat-radio-group [(ngModel)]="rdbType" (click)="getFilterItem($event)">
                 <div class="row">
                   <div class="col-md-8">
-                    <mat-radio-button value="employee">Employee</mat-radio-button>
+                    <mat-radio-button value="Employee">Employee</mat-radio-button>
                   </div>
                   <div class="col-md-4">
-                    <mat-radio-button value="visitor">Visitor</mat-radio-button>
+                    <mat-radio-button value="Visitor">Visitor</mat-radio-button>
                   </div>
                 </div>
               </mat-radio-group>
@@ -331,17 +331,14 @@
               <br/>
               <!--start user role row -->
               <mat-form-field class="fullwidth">
-                <mat-select placeholder="Assign User Role" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
-                  required>
-                  <input type="text" class="form-control" [(ngModel)]="searchEmployee">
+                <mat-select placeholder="Assign User Role" [(ngModel)]="cmbRole" required>
+                  <input type="text" class="form-control" [(ngModel)]="searchRole">
                   <mat-option
-                    *ngFor="let item of getFilterItem(rdbType) | search:'indvdlFirstName,emailAddrss':searchEmployee"
-                    [value]="item">
+                    *ngFor="let item of roles | search:'erpRoleName':searchRole"
+                    [value]="item.erpRoleCd">
                     <table>
                       <tr class='d-flex'>
-                        <td class="col-4">{{ item.indvdlId }}</td>
-                        <td class="col-4 border-left">{{ item.indvdlFirstName }}</td>
-                        <td class="col-4 border-left">{{ item.emailAddrss }}</td>
+                        <td class="col-12">{{ item.erpRoleName }}</td>
                       </tr>
                     </table>
                   </mat-option>
@@ -353,7 +350,7 @@
               <!--start view permissions row-->
               <div class="row">
                 <div class="col-md-12 text-right">
-                    <a style="cursor: pointer; color:grey;" data-toggle="modal" data-target="#permissionModal">VIEW PERMISSIONS</a>
+                    <a style="cursor: pointer; color:grey;" (click)="getRoleTree()">VIEW PERMISSIONS</a>
                 </div>
               </div>
   
@@ -361,7 +358,7 @@
   
               <!--star enable password row -->
               <section class="example-section">
-                <mat-checkbox class="example-margin" [(ngModel)]="disabledPassword">Enable Password</mat-checkbox>
+                <mat-checkbox class="example-margin" [(ngModel)]="chkPin">Enable Pin</mat-checkbox>
               </section>
               <!--end enable password row -->
   
@@ -382,25 +379,25 @@
   
               <div class="captionBoxB">
                 <label>Father's Name:</label><br/>
-                Ahmed Ali Khan {{partyFatherName}}
+                {{partyFatherName}}
                 <div class="triangle"></div>
               </div>
               
               <div class="captionBoxW">
                 <label>Email id:</label><br>
-                Arshad.khan@outlook.com {{partyEmail}}
+                {{partyEmail}}
               </div>
               <div class="captionBoxB">
                 <label>Address:</label><br/>
-                Address line 1, Address line 2, Address line 3 {{partyAddress}}
+                {{partyAddress}}
               </div>
               <div class="captionBoxW">
                 <label>Branch:</label><br/>
-                Customer Service Center, F8 Markaz {{partyBranch}}
+                {{partyBranch}}
               </div>
               <div class="captionBoxB">
                 <label>Department:</label><br/>
-                Department name 
+                {{partyDepartment}} 
               </div>
             </div>
           
@@ -507,12 +504,12 @@
         <!--start 1st row-->
         <div class="row">
           <div class="col-md-12">
-            <p style='color:black;'><b>Role Name</b></p>
+            <p style='color:black;'><b>{{lblRoleName}}</b></p>
           </div>
         </div>
         <!--end 1st row-->
         <div class="row">
-          <div class="col-md-12 text-center">
+          <div class="col-md-12">
             <p-tree class="fullwidth" [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
           </div>
         </div>
@@ -550,19 +547,13 @@
           <div class="offset-md-1 col-md-6">
             <p class="fontWhite">Reset password for username:</p>
             <div class="marginSingleTop"></div>
-            <p style='color:skyblue'><b>Arshad Khan</b></p>
-            <div class="inputContainer">
-              <span class="ui-float-label">
-                <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
-                <label for="float-input">Enter Current Password</label>
-              </span>
-            </div>
+            <p style='color:skyblue'><b>{{lblFullName}}</b></p>
 
             <div class="marginSingleTop"></div>
             <!--start password row -->
             <div class="inputContainer">
               <span class="ui-float-label">
-                <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine" #password [(ngModel)]="txtPassword"> 
+                <input id="float-input" type="password" size="32" [(ngModel)]="txtNewPassword" pInputText class="fullwidth noneOutLine" #password [(ngModel)]="txtPassword"> 
                 <label for="float-input">Enter New Password</label>
               </span>
             </div>
@@ -573,7 +564,7 @@
             <!--start conform password row -->
             <div class="inputContainer">
               <span class="ui-float-label">
-                <input id="float-input" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
+                <input id="float-input" type="password" [(ngModel)]="txtNewCnfrmPassword" size="32" pInputText class="fullwidth noneOutLine"> 
                 <label for="float-input">Confirm New Password</label>
               </span>
             </div>
@@ -581,9 +572,7 @@
 
             <div class="marginSingleTop"></div>
             <!--buttons -->
-            <button mat-raised-button color="primary" class="buttonSquare">&nbsp;RE-ENTER&nbsp;</button>
-            &nbsp;
-            <button mat-raised-button color="primary" class="buttonSquare">&nbsp;SAVE & EMAIL&nbsp;</button>
+            <button mat-raised-button color="primary" class="buttonSquare" (click)="savePassword()">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
           </div>
   
   
@@ -636,7 +625,7 @@
                 <div class="col-md-10">
                   <div class="inputContainer">
                     <span class="ui-float-label">
-                      <input id="float-input" type="text" size="32" pInputText class="fullwidth noneOutLine"> 
+                      <input id="float-input" type="password" size="32" [(ngModel)]="txtPin" pInputText class="fullwidth noneOutLine"> 
                       <label for="float-input">Enter PIN</label>
                     </span>
                   </div>
@@ -645,8 +634,8 @@
               
               <br>
               <!--buttons -->
-              <button mat-raised-button color="primary" class="buttonSquare">&nbsp; ACTIVATE &nbsp;</button>
-              &nbsp; <a class="fontWhite" style="text-decoration: underline; cursor: pointer;">Generate PIN</a> &nbsp;
+              <button mat-raised-button color="primary" class="buttonSquare" (click)="saveActiveUser()">&nbsp; ACTIVATE &nbsp;</button>
+              &nbsp; <a class="fontWhite" style="text-decoration: underline; cursor: pointer;"  (click)="genPin()">Generate PIN</a> &nbsp;
             </div>
   
   

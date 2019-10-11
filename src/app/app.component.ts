@@ -5,6 +5,7 @@ import { Event, Router, NavigationStart, NavigationEnd } from "@angular/router";
 import { NgxSpinnerService } from 'ngx-spinner';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { UserIdleService } from 'angular-user-idle';
+import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 import { NavComponent } from './components/nav/nav.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
@@ -26,7 +27,7 @@ declare var $: any;
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 
 	serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
 
