@@ -56,48 +56,49 @@
 
         <!--Start data table -->
         <div class="row">
+          <div class="col-md-12">
             <table class="table table-striped fullwidth" id="myTable">
             <thead>
-                <tr class="d-flex">
-                  <th class="col-1 text-center">S#</th>
-                  <th [class.active]="order === 'indvdlERPUsrID'" (click)="setOrder('indvdlERPUsrID')" class="col-3 text-center pointerCursor">
+                <tr >
+                  <th >S#</th>
+                  <th [class.active]="order === 'indvdlERPUsrID'" (click)="setOrder('indvdlERPUsrID')" class="pointerCursor">
                       User Name
                       <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                       <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
                   </th>
-                  <th [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')" class="col-2 text-center pointerCursor">
+                  <th [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')" class="pointerCursor">
                       User Login
                       <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                       <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
                   </th>
-                  <th [class.active]="order === 'deptName'" (click)="setOrder('deptName')" class="col-2 text-center pointerCursor">
+                  <th [class.active]="order === 'deptName'" (click)="setOrder('deptName')" class="pointerCursor">
                       Department
                       <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                       <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
                   </th>
-                  <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')" class="col-2 text-center pointerCursor">
+                  <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')" class="pointerCursor">
                       User Role
                       <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                       <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
                   </th>
-                  <th class="col-2 text-center">Status</th>
+                  <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class='d-flex'
-                *ngFor="let emp of userData | search:'indvdlERPUsrID,indvdlFullName,emailAddrss,erpRoleName,deptName':userSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
-                <td class="col-1 text-center">{{i+1}}</td>
-                <td class="col-3 text-center">{{emp.indvdlFullName}}</td>
-                <td class="col-2 text-center">{{emp.indvdlERPUsrID}}</td>
-                <td class="col-2 text-center">{{emp.deptName}}</td>
-                <td class="col-2 text-center">{{emp.erpRoleName}}</td>
-                <td class="col-2 text-center">
+                <tr *ngFor="let emp of userData | search:'indvdlERPUsrID,indvdlFullName,emailAddrss,erpRoleName,deptName':userSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
+                <td >{{i+1}}</td>
+                <td >{{emp.indvdlFullName}}</td>
+                <td >{{emp.indvdlERPUsrID}}</td>
+                <td >{{emp.deptName}}</td>
+                <td >{{emp.erpRoleName}}</td>
+                <td >
                     <span *ngIf="emp.usrStatus != null">Deactivate</span>
                     <span *ngIf="emp.usrStatus == null">Active</span>
                 </td>
                 </tr>
             </tbody>
             </table>
+          </div>
 
             <!-- Pagination Starts -->
             <div class="col-md-12 text-right hideContent">
