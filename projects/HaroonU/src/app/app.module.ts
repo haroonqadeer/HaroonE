@@ -36,6 +36,7 @@ import { UserprofileComponent } from './components/userprofile/userprofile.compo
 import { UserrolesComponent } from './components/userroles/userroles.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreatepasswordComponent } from './components/createpassword/createpassword.component';
+import { RptUserComponent } from './components/rpt-user/rpt-user.component';
 // import { ErpBottomSheetComponent } from './components/erp-bottom-sheet/erp-bottom-sheet.component';
 
 @NgModule({
@@ -45,7 +46,8 @@ import { CreatepasswordComponent } from './components/createpassword/createpassw
     UserrolesComponent,
     DashboardComponent,
     CreatepasswordComponent,
-    SearchPipe
+    SearchPipe,
+    RptUserComponent
   ],
   imports: [
     BrowserModule,

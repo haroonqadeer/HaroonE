@@ -1,47 +1,33 @@
-    import { Component, OnInit, Injectable, ViewChild, ElementRef } from '@angular/core';
-    import { Chart } from 'angular-highcharts';
-    import { ToastrManager } from 'ng6-toastr-notifications';
-    import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-    import { throwError } from 'rxjs';
-    import { catchError, filter } from 'rxjs/operators';
-    import { AppComponent } from 'src/app/app.component';
-    import { TreeNode } from '../../nodeTree/TreeNode';
-    import { ActivatedRoute} from '@angular/router';
-    import {
-        IgxExcelExporterOptions,
-        IgxExcelExporterService,
-        IgxGridComponent,
-        IgxCsvExporterService,
-        IgxCsvExporterOptions,
-        CsvFileTypes
-    } from "igniteui-angular";
+import { Component, OnInit, Injectable, ViewChild, ElementRef } from '@angular/core';
+import { Chart } from 'angular-highcharts';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { catchError, filter } from 'rxjs/operators';
+import { AppComponent } from 'src/app/app.component';
+import { TreeNode } from '../../nodeTree/TreeNode';
+import { ActivatedRoute} from '@angular/router';
+import {
+    IgxExcelExporterOptions,
+    IgxExcelExporterService,
+    IgxGridComponent,
+    IgxCsvExporterService,
+    IgxCsvExporterOptions,
+    CsvFileTypes
+} from "igniteui-angular";
 
-    import * as jsPDF from 'jspdf';
-
-    //----------------------------------------------------------------------------//
-    //-------------------Working of this typescript file are as follows-----------//
-    //-------------------Getting filter Item data -------------------//
-    //-------------------Getting party data -------------------//
-    //-------------------Add action into database --------------------------//
-    //-------------------Add new employee into database --------------------------//
-    //-------------------Update employee into database ---------------------------//
-    //-------------------Export into PDF, CSV, Excel -----------------------------//
-    //-------------------Function for action change -----------------------------//
-    //-------------------Function for send link -----------------------------//
-    //-------------------For sorting the record-----------------------------//
-    //----------------------------------------------------------------------------//
+import * as jsPDF from 'jspdf';
+declare var $: any;
 
 
-    declare var $: any;
+@Component({
+    selector: 'app-rpt-user',
+    templateUrl: './rpt-user.component.html',
+    styleUrls: ['./rpt-user.component.scss']
+})
+export class RptUserComponent implements OnInit {
 
-    @Component({
-        selector: 'app-userprofile',
-        templateUrl: './userprofile.component.html',
-        styleUrls: ['./userprofile.component.scss']
-    })
-    export class UserprofileComponent implements OnInit {
-
-	serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9037/";
+    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9037/";
     // serverUrl = "http://localhost:5000/";
     tokenKey = "token";
 
@@ -56,8 +42,10 @@
     eName = '';
 
     tblSearch;
+    toDate;
 
-        
+    cmbDepartment;
+    
     roleTree: TreeNode[];
     roleList = [];
     tempRoleList = [];
@@ -123,139 +111,27 @@
     cmbRole = '';
 
     userData = [];
-    
-    //Action Combobox object
-    actions = [
-        {
-            actionId: '1',
-            actionName: 'Block'
-        },
-        {
-            actionId: '2',
-            actionName: 'Delete'
-        },
-        {
-            actionId: '3',
-            actionName: 'Generate PIN'
-        }
-    ];
 
-    // Block Action Combo Box
-    blocks = [
-        {
-            blockId: '1',
-            blockName: '1 Hour'
-        },
-        {
-            blockId: '2',
-            blockName: '1 Day'
-        },
-        {
-            blockId: '3',
-            blockName: '1 Week'
-        },
-        {
-            blockId: '4',
-            blockName: '1 Month'
-        },
-        {
-            blockId: '5',
-            blockName: 'Manual'
-        }
-    ]
 
-    //Employee Combobox object
-    employees = [
-        {
-            indvdlId: 1,
-            eCNIC: '6110113445676',
-            eName: 'Adnan',
-            eDept: 'IT',
-            eParty: 'Employee'
-        },
-        {
-            indvdlId: 2,
-            eCNIC: '6110112455675',
-            eName: 'Ahmed',
-            eDept: 'Accounts',
-            eParty: 'Visitor'
-        },
-        {
-            indvdlId: 3,
-            eCNIC: '6110114356574',
-            eName: 'Ali',
-            eDept: 'Sales',
-            eParty: 'Employee'
-        },
-        {
-                indvdlId: 4,
-                eCNIC: '6110116367563',
-                eName: 'Amir',
-                eDept: 'IT',
-                eParty: 'Visitor'
-            },
-            {
-                indvdlId: 5,
-                eCNIC: '6110167345672',
-                eName: 'Haroon',
-                eDept: 'IT',
-                eParty: 'Employee'
-            }
-        ];
-
-        constructor(private http: HttpClient,
+    constructor(private http: HttpClient,
             private excelExportService: IgxExcelExporterService,
             private csvExportService: IgxCsvExporterService,
             private app: AppComponent,
             public toastr: ToastrManager,
-            private actRoute: ActivatedRoute) { }
+        private actRoute: ActivatedRoute) { }
 
     ngOnInit() {
-        this.init();
-
         this.getUserDetail();
         this.getUserTrend();
         this.getParty();
         this.getRole();
-        // this.rdbType = 'employee';
-        // this.getFilterItem(this.rdbType);
+
+        this.toDate = new Date();
     }
 
     @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent;//For excel
     @ViewChild("exportPDF") public exportPDF: ElementRef;// for pdf
 
-    //get user management chart data
-    init() {
-
-        let chart = new Chart({
-            chart: {
-                type: 'area'
-            },
-            credits: {
-                enabled: false
-            },
-            title: {
-                text: ""
-            },
-            yAxis: {
-                title: {
-                    text: 'USER'
-                }
-            },
-            series: [{
-                name: 'UPDATIONS',
-                data: [300, 500, 250, 200, 800, 1000, 2000]
-            }, {
-                name: 'DEACTIVATED',
-                data: [250, 100, 300, 650, 450, 800, 600]
-            }, {
-                name: 'ADDITIONS',
-                data: [1, 1, 1, 100, 500, 800, 450]
-            }]
-        });
-
-        this.chart = chart;
-    }
 
     //party list filter method 
     getFilterItem(type) {
@@ -399,7 +275,15 @@
         // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + itemBackup });
 
         this.http.get(this.serverUrl + 'api/getRoles', { headers: reqHeader }).subscribe((data: any) => {
-            this.roles = data
+
+            for (var i = 0; i < data.length; i++) {
+                this.roles.push({
+                    label: data[i].erpRoleName,
+                    varue: i
+                    //value: data[i].erpRoleName
+                });
+            }
+
         });
     }
 
@@ -685,22 +569,14 @@
     // For Print Purpose 
     printDiv() {
 
-        // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
-
-        // var cssHeading = ".cssHeading {font-size: 25px; font-weight: bold;}";
-        // var cssAddress = ".cssAddress {font-size: 16px; }";
-        // var cssContact = ".cssContact {font-size: 16px; }";
-
-        // var tableCss = "table {width: 100%; border-collapse: collapse;}    table thead tr th {text-align: left; font-family: Arial, Helvetica, sans-serif; font-weight: bole; border-bottom: 1px solid black; margin-left: -3px;}     table tbody tr td {font-family: Arial, Helvetica, sans-serif; border-bottom: 1px solid #ccc; margin-left: -3px; height: 33px;}";
-
-        // var printCss = commonCss + cssHeading + cssAddress + cssContact + tableCss;
 
         var printCss = this.app.printCSS();
 
 
         //printCss = printCss + "";
+        $(".hideContent").hide();
 
-        var contents = $("#printArea").html();
+        var contents = $("#sampleReport").html();
 
         var frame1 = $('<iframe />');
         frame1[0].name = "frame1";
@@ -715,7 +591,7 @@
 
         //Append the external CSS file.  <link rel="stylesheet" href="../../../styles.scss" />  <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
         frameDoc.document.write('<style type="text/css" media="print">/*@page { size: landscape; }*/</style>');
-
+        frameDoc.document.write('<link rel="stylesheet" href="../../../assets/styles.css" type="text/css"  media="print"/>');
         frameDoc.document.write('</head><body>');
 
         //Append the DIV contents.
@@ -724,15 +600,13 @@
 
         frameDoc.document.close();
 
-
-        //alert(frameDoc.document.head.innerHTML);
-        // alert(frameDoc.document.body.innerHTML);
-
         setTimeout(function () {
             window.frames["frame1"].focus();
             window.frames["frame1"].print();
             frame1.remove();
         }, 500);
+
+        $(".hideContent").show();
     }
 
 
@@ -934,5 +808,6 @@
         }
         this.order = value;
     }
-}
+    
 
+}
