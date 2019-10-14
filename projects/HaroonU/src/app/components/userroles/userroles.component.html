@@ -1,7 +1,19 @@
+<!---------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------->
+<!---------------- This is the User Role screen in which admin or  ----------------->
+<!---------------- super admin can make any role. Admin can also   ----------------->
+<!----------------            update & delete the role.            ----------------->
+<!---------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------->
+
+
+
 <br/>
 <!-- start menubar buttons -->
 <div class="myContainer mat-elevation-z8 bgWhite">
+  <!--start top nav box shadow div-->
   <div class="topnav boxShadow">
+    <!-- start heading & logo div-->
     <div>
 
       <span class="fa iconContainer">
@@ -29,29 +41,35 @@
         Print
       </a> -->
 
+      <!--start add role permission button-->
       <a class="pointerCursor" data-toggle="modal" data-target="#userRoleModal" (click)="clear()">
         <i class="fa fa-plus-circle"></i>
         ADD ROLE PERMISSIONS
       </a>
-
+      <!--end add role permission button-->
     </div>
+    <!-- end heading & logo div-->
   </div>
+  <!--end top nav box shadow div-->
 </div>
 <!-- end menubar buttons -->
 
 <!---------- Try Template Code Starts ---------->
 
+<!--start myContainer div-->
 <div class="myContainer bgWhite">
-  <!--Start search textbox Row-->
+  <!--Start 1st Row-->
   <div class="row">
+    <!--start search textbox column-->
     <div class="col-md-12">
       <div class="searchBar">
         <span class="fa icon-search"></span>
         <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
       </div>
     </div>
+    <!--end search textbox column-->
   </div>
-  <!--end search textbox Row-->
+  <!--end 1st Row-->
 
   <!--Start table Row-->
   <div class="row">
@@ -139,10 +157,10 @@
   </div>
   <!-- end table row -->
 </div>
+<!--end myContainer div-->
+
 <!---------- Try Template Code Ends ------------>
 <br />
-
-
 
 
 <!-- Hidden Table Starts for Excel and CSV files -->
@@ -200,42 +218,55 @@
 
 
 
-<!-- Bootstrap Modal Windows -->
+
+<!----------------------------------------------------------->
+<!----------------------------------------------------------->
+<!----------------- Start Modal Windows --------------------->
+<!----------------------------------------------------------->
+<!----------------------------------------------------------->
+
 
 <!-- Start Modal Window to add user role -->
 <div class="modal fade" id="userRoleModal">
+  <!--start modal window dialog-->
   <div class="modal-dialog shadow-lg-dark modal-lg">
+    <!--start modal window contents-->
     <div class="modal-content">
 
-      <!--start user role Modal Header -->
+      <!--start userRoleModal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Edit Role Permission</h4>
         <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
       </div>
-      <!--end user role Modal Header -->
+      <!--end userRoleModal Header -->
 
-      <!--start user role Modal body -->
+      <!--start userRoleModal body -->
       <div class="modal-body">
         <label [hidden]="true" [(ngModel)]="erpRoleCd" ngDefaultControl></label>
 
+        <!--start userRoleModal 1st row-->
         <div class="row">
+          <!--start userRoleModal Role Name column-->
           <div class="col-md-5">
             <mat-form-field class="fullwidth">
               <input matInput [(ngModel)]="erpRoleName" placeholder="User Role">
             </mat-form-field>
           </div>
+          <!--end userRoleModal Role Name column-->
         </div>
+        <!--end userRoleModal 1st row-->
         <br />
-
+        <!--start userRoleModal 2nd row-->
         <div class="row">
-
+          <!--start userRoleModal menu tree column-->
           <div class="col-md-5">
             <h5>Select Module List</h5>
             <p-tree class="fullwidth" [value]="menuTree" selectionMode="checkbox" [(selection)]="selectedMenu"></p-tree>
             <!-- <div><span *ngFor="let file of selectedMenu">{{file.label}}<br/> </span></div> -->
           </div>
+          <!--end userRoleModal menu tree column-->
 
-
+          <!--start userRoleModal add or remove role buttons column-->
           <div class="col-md-2">
             <br /><br />
             
@@ -244,218 +275,34 @@
             <div class="btn-Square" (click)="removeRoles()"><span class="fa fa-caret-left"></span></div>
             
           </div>
-
-
+          <!--end userRoleModal add or remove role buttons column-->
+          
+          <!--start userRoleModal role tree column-->
           <div class="col-md-5">
             <h5>Selected Permissions</h5>
             <p-tree class="fullwidth" [value]="roleTree" selectionMode="checkbox" [(selection)]="selectedRole"></p-tree>
             <!-- <div><span *ngFor="let file of selectedRole">{{file.label}}<br/> </span></div> -->
           </div>
-
+          <!--end userRoleModal role tree column-->
 
         </div>
+        <!--end userRoleModal 2nd row-->
         <br />
-
+        <!--start userRoleModal 3rd row-->
         <div class="row">
+          <!--start userRoleModal save tree column-->
           <div class="col-md-12 text-right">
             <button mat-raised-button color="primary" (click)="save()" style="border-radius: 0">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
           </div>
+          <!--end userRoleModal save tree column-->
         </div>
+        <!--end userRoleModal 3rd row-->
       </div>
-      <!--end user role Modal body -->
-
-      <!--start user role Modal footer -->
-      <!--end user role Modal footer -->
+      <!--end userRoleModal body -->
 
     </div>
+    <!--end modal window contents-->
   </div>
+  <!--end modal window dialog-->
 </div>
 <!-- End Modal Window to user role permissions -->
-
-<!-- Start Modal Window to add user role -->
-<div class="modal fade" id="userRolePrmsnModal">
-  <div class="modal-dialog shadow-lg-dark modal-lg">
-    <div class="modal-content">
-
-      <!--start user role Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">User Role Permission</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <!--end user role Modal Header -->
-
-      <!--start user role Modal body -->
-      <div class="modal-body">
-        <label [hidden]="true" [(ngModel)]="erpRoleCd" ngDefaultControl></label>
-
-        <div class="row">
-          <div class="col-md-10">
-            <mat-form-field class="example-full-width">
-              <input matInput [(ngModel)]="erpRoleName" placeholder="Role Name" readonly="true">
-            </mat-form-field>
-          </div>
-        </div>
-        <br />
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class="example-full-width">
-              <mat-select placeholder="Select Module" [(ngModel)]="cmbModule" required>
-                <!-- <mat-option *ngFor="let module of getFilterModule()" [value]="module.erpobjctCd"> -->
-                <mat-option *ngFor="let item of getFilterModule()" [value]="item.erpObjctCd">
-                  {{ item.erpObjctName }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <br />
-        <!--Start table Row-->
-        <div class="row">
-          <div class="col-md-12">
-            <table class="table table-striped fullwidth allBorder">
-              <thead>
-                <tr class="d-flex">
-                  <th class="col-1 text-center pointerCursor" (click)="setOrder('uId')">
-                    Sr No. <span *ngIf="order =='uId'" [hidden]="reverse" class="fa fa-long-arrow-down"></span> <span
-                      *ngIf="order =='uId'" [hidden]="!reverse" class="fa fa-long-arrow-up"></span>
-                  </th>
-                  <th class="col-3 pointerCursor active" (click)="setOrder('uName')">
-                    Menu Name <span *ngIf="order =='uName'" [hidden]="reverse" class="fa fa-long-arrow-down"></span>
-                    <span *ngIf="order =='uName'" [hidden]="!reverse" class="fa fa-long-arrow-up"></span>
-                  </th>
-                  <th class="col-2 pointerCursor text-center" (click)="setOrder('uEmail')">
-                    Addition <span *ngIf="order =='uEmail'" [hidden]="reverse" class="fa fa-long-arrow-down"></span>
-                    <span *ngIf="order =='uEmail'" [hidden]="!reverse" class="fa fa-long-arrow-up"></span>
-                  </th>
-                  <th class="col-2 pointerCursor text-center" (click)="setOrder('uRole')">
-                    Updation <span *ngIf="order =='uRole'" [hidden]="reverse" class="fa fa-long-arrow-down"></span>
-                    <span *ngIf="order =='uRole'" [hidden]="!reverse" class="fa fa-long-arrow-up"></span>
-                  </th>
-                  <th class="col-2 pointerCursor text-center" (click)="setOrder('uSince')">
-                    Deletion <span *ngIf="order =='uSince'" [hidden]="reverse" class="fa fa-long-arrow-down"></span>
-                    <span *ngIf="order =='uSince'" [hidden]="!reverse" class="fa fa-long-arrow-up"></span>
-                  </th>
-                  <th class="col-2 pointerCursor text-center" (click)="setOrder('uSince')">
-                    Pin <span *ngIf="order =='uSince'" [hidden]="reverse" class="fa fa-long-arrow-down"></span>
-                    <span *ngIf="order =='uSince'" [hidden]="!reverse" class="fa fa-long-arrow-up"></span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                <tr class='d-flex'
-                  *ngFor="let item of getFilterMenu(cmbModule) | orderBy: order: reverse: 'case-insensitive'; let i=index">
-                  <!-- <tr class='d-flex' *ngFor="let item of employees | orderBy: order: reverse: 'case-insensitive'; let i=index"> -->
-                  <!-- <td class="col-1 text-center" hidden>{{item.erpRoleCd}}</td> -->
-                  <td class="col-1 text-center">{{i+1}}</td>
-                  <td class="col-3">{{item.erpObjctName}}</td>
-                  <td class="col-2 pointerCursor text-center">
-                    <mat-checkbox [(ngModel)]="item.Addition" class="example-margin"></mat-checkbox>
-                  </td>
-                  <td class="col-2 pointerCursor text-center">
-                    <mat-checkbox [(ngModel)]="item.Updation" class="example-margin"></mat-checkbox>
-                  </td>
-                  <td class="col-2 text-center">
-                    <mat-checkbox [(ngModel)]="item.Deletion" class="example-margin"></mat-checkbox>
-                  </td>
-                  <td class="col-2 text-center">
-                    <mat-checkbox [(ngModel)]="item.Pin" class="example-margin"></mat-checkbox>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <!-- end table row -->
-        <br />
-        <div class="row">
-          <div class="col-md-10">
-            <button mat-raised-button color="primary" (click)="savePermission()">Save</button>
-          </div>
-        </div>
-      </div>
-      <!--end user role Modal body -->
-
-      <!--start user role Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-      <!--end user role Modal footer -->
-
-    </div>
-  </div>
-</div>
-<!-- End Modal Window to add user role permissions -->
-
-
-<!-- Start delete user role Modal Window -->
-<div class="modal fade modal-forgot" id="dUserRoleModal">
-  <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
-    <div class="modal-content">
-  
-      <!--Start Action Modal Header -->
-      <!-- <div class="modal-header">
-        <h4></h4>
-        <div>
-          <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
-        </div>
-      </div> -->
-      <!--End Action Modal Header -->
-      
-      <!--start Modal body -->
-      <div class="modal-body">
-        <!--start 1st row-->
-        <div class="row">
-          <div class="offset-md-1 col-md-6"><br/>
-            <p class="fontWhite"><b>Hi Arshad.Khan</b><br/></p>
-            <p class="fontWhite">
-              It seems you need to delete this user<br/> 
-              role,please enter your Password and<br/> 
-              PIN to proceed<br/>
-            </p>
-  
-            <div class="row">
-              <div class="col-md-10">
-                <div class="inputContainer">
-                  <span class="ui-float-label">
-                    <input id="float-input" [(ngModel)]="txtdPassword" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
-                    <label for="float-input">Enter Password</label>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <!--start conform password row -->
-            <div class="row">
-              <div class="col-md-7">
-                <div class="inputContainer" style="margin-top: 5px;">
-                  <span class="ui-float-label">
-                    <input id="float-input" [(ngModel)]="txtdPin" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
-                    <label for="float-input">Enter PIN</label>
-                  </span>              
-                </div>        
-              </div>
-              <div class="col-md-3" style="right: 1.6em; top: 0.4em;">
-                <button mat-raised-button color="primary" class="buttonSquare" (click)="deleteRole()" style="height:80%;">DELETE</button>
-              </div>
-            </div>
-            <!--end conform password row -->
-            <!--buttons -->
-          </div>
-  
-          <div class="col-md-5 text-center">
-            <br/>
-            <img class="mx-auto d-block" src="../../../assets/images/Delete-Large.svg" alt=""  width="80%">
-            <br/>
-            <h5 class="fontWhite"><b>DELETE USER ROLE</b></h5>
-          </div>
-  
-        </div>
-        <!--end 1st row-->
-  
-      </div>
-      <!--end Modal body -->
-  
-    </div>
-  </div>
-</div>
-  <!-- End reset password Modal Window -->

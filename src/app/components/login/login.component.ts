@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
 
+    // Variable Declaration
     txtUserName = '';
     txtPassword = '';
 
@@ -45,11 +46,12 @@ export class LoginComponent implements OnInit {
 
     onSubmit() {
 
-
+        //check if login name is empty
         if (this.txtUserName.trim().length == 0) {
             this.toastr.errorToastr('Please Enter User Name', 'Oops!', { toastTimeout: (2500) });
             return false;
         }
+        //check if password is empty
         else if (this.txtPassword == "") {
             this.toastr.errorToastr('Please Enter Password', 'Oops!', { toastTimeout: (2500) });
             return false;
@@ -63,18 +65,22 @@ export class LoginComponent implements OnInit {
 
             this.app.showSpinner();
 
+            // list variable sending to api
             var loginData = { "IndvdlERPUsrID": this.txtUserName, "IndvdlERPPsswrd": this.txtPassword };
 
+            // header sending to api
             var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
+            //sending data to api and check if login exists or correct then create token
             this.http.post(this.serverUrl + 'api/CreateToken', loginData, { headers: reqHeader }).subscribe((data: any) => {
 
-
+                //check if message is login Successfully 
                 if (data.msg == "Login Successfully!") {
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
 
                     this.app.hideSpinner();
-
+                    
+                    //setting multiple items to local storage
                     localStorage.setItem('userName', this.txtUserName);
                     localStorage.setItem('myActModNam', 'UM');
                     localStorage.setItem('token', data.token);

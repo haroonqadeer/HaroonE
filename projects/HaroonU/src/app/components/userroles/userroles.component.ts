@@ -792,7 +792,7 @@ export class UserrolesComponent implements OnInit {
                 this.app.hideSpinner();
                 this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                 this.getRole();
-                $('#dUserRoleModal').modal('hide');
+                // $('#dUserRoleModal').modal('hide');
                 return false;
             }
             
@@ -875,7 +875,7 @@ export class UserrolesComponent implements OnInit {
                     this.app.pin = '';
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     this.getRole();
-                    $('#dUserRoleModal').modal('hide');
+                    // $('#dUserRoleModal').modal('hide');
                     return false;
                 }
                 
