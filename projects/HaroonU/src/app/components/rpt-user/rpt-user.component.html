@@ -1,0 +1,540 @@
+<br/>
+<!--start report-->
+<div id="sampleReport">
+    <!-- Report heading and logo -->
+    <div class="myContainer">
+
+        <div class="row">
+            <div class="col-md-6">
+                <img src="../assets/images/Ambit-Logo.svg" height="75px">
+            </div>
+            <div class="col-md-6 text-right">
+                <div class="reportHeading">User Report</div>
+                {{toDate | date}}
+            </div>
+        </div>
+
+    </div><!-- end Report heading and logo -->
+    
+    <br/>
+
+    <div class="myContainer bgWhite">
+        
+        <!--print button -->
+        <div class="row hideContent">
+            <div class="col-md-12 text-right">
+                <button mat-raised-button (click)="printDiv()" style="border-radius: 0; background-color: #2199E8; color: #fff;">&nbsp;&nbsp;PRINT&nbsp; <i class="fa fa-print"></i>&nbsp;</button>
+            </div>
+        </div>
+        <br class="hideContent">
+        
+        <!--combo box for filter -->
+        <div class="row hideContent">
+            <div class="col-md-4">
+                <p-dropdown [options]="roles" [(ngModel)]="cmbDepartment" placeholder="All Departments" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+            <div class="col-md-4">
+                <p-dropdown [options]="roles" [(ngModel)]="cmbDepartment" placeholder="All Roles" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+            <div class="col-md-4">
+                <p-dropdown [options]="roles" [(ngModel)]="cmbDepartment" placeholder="All Status" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+        </div>
+        
+        <hr class="hideContent">
+
+        <!--search box -->
+        <div class="row hideContent">
+            <div class="col-md-12">
+                <div class="searchBar">
+                    <span class="fa icon-search"></span>
+                    <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Advance Search" [(ngModel)]="tblSearch">
+                </div>
+            </div>
+        </div>
+        <!--end search textbox Row-->
+
+        <!--Start data table -->
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table table-striped fullwidth" id="myTable">
+            <thead>
+                <tr >
+                  <th >S#</th>
+                  <th [class.active]="order === 'indvdlERPUsrID'" (click)="setOrder('indvdlERPUsrID')" class="pointerCursor">
+                      User Name
+                      <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                      <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                  </th>
+                  <th [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')" class="pointerCursor">
+                      User Login
+                      <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                      <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                  </th>
+                  <th [class.active]="order === 'deptName'" (click)="setOrder('deptName')" class="pointerCursor">
+                      Department
+                      <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                      <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                  </th>
+                  <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')" class="pointerCursor">
+                      User Role
+                      <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                      <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                  </th>
+                  <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let emp of userData | search:'indvdlERPUsrID,indvdlFullName,emailAddrss,erpRoleName,deptName':userSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
+                <td >{{i+1}}</td>
+                <td >{{emp.indvdlFullName}}</td>
+                <td >{{emp.indvdlERPUsrID}}</td>
+                <td >{{emp.deptName}}</td>
+                <td >{{emp.erpRoleName}}</td>
+                <td >
+                    <span *ngIf="emp.usrStatus != null">Deactivate</span>
+                    <span *ngIf="emp.usrStatus == null">Active</span>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+          </div>
+
+            <!-- Pagination Starts -->
+            <div class="col-md-12 text-right hideContent">
+            <div class="paginationBox">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+            <div class="paginationBox">
+                <mat-form-field class="pagenateList">
+                <mat-select [(ngModel)]="itemPerPage">
+                    <mat-option value="1">1</mat-option>
+                    <mat-option value="2">2</mat-option>
+                    <mat-option value="10">10</mat-option>
+                    <mat-option value="15">15</mat-option>
+                    <mat-option value="20">20</mat-option>
+                    <mat-option value="25">25</mat-option>
+                    <mat-option value="30">30</mat-option>
+                    <mat-option value="35">35</mat-option>
+                    <mat-option value="40">40</mat-option>
+                    <mat-option value="45">45</mat-option>
+                    <mat-option value="50">50</mat-option>
+                </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="paginationBox">
+                Item per page: &nbsp;&nbsp;
+            </div>
+            </div>
+            <!-- Pagination Ends -->
+
+        </div>
+        <!--end data table -->
+
+    </div>
+</div> <!--end report -->
+
+
+<br>
+
+
+
+
+
+<!-- Hidden Table Starts for Excel and CSV files -->
+<igx-grid #excelDataContent [data]="excelDataList" [autoGenerate]="false" height="null" width="null" [hidden]="true">
+</igx-grid>
+<!-- Hidden Table Ends  for Excel and CSV files -->
+
+
+
+
+
+<!-- Hidden Table for Print and PDF files starts-->
+<div class="container mat-elevation-z8 printArea" id="printArea" #exportPDF [hidden]="true">
+<div class="printDiv">
+
+  <!--Start heading table -->
+  <table>
+    <tr>
+      <td width="15%" style="border:none;">
+        <img src="../../../assets/images/logo.png" width="135px">
+      </td>
+
+      <td style="border:none;">
+        <div class="commonCss cssHeading">Logix Solutions</div>
+        <div class="commonCss cssAddress">Office #209, 2nd Floor Ahmed Plaza, Rawalpindi Road Fateh Jang.</div>
+        <div class="commonCss cssContact">Mobile: 0313-5300471, Ph. 057-2212704</div>
+      </td>
+    </tr>
+  </table>
+  <!--End heading table -->
+
+  <br /><br />
+
+  <!--Start table Row-->
+  <div class="row">
+    <table>
+      <thead>
+        <tr class="d-flex">
+          <th class="col-1 text-center">Sr. #</th>
+          <th class="col-2 text-left"> User Name </th>
+          <th class="col-3 text-left"> Email </th>
+          <th class="col-2 text-left"> Role </th>
+          <th class="col-2 text-left"> User Since </th>
+          <th class="col-2 text-center"> Last Login </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="d-flex"
+          *ngFor="let user of userData | search:'uName,uEmail,uRole,uSince,lastLogin':userSearch let i=index">
+          <td class="col-1 text-center">{{i+1}}</td>
+          <td class="col-2 text-left">{{user.uName}}</td>
+          <td class="col-3 text-left">{{user.uEmail}}</td>
+          <td class="col-2 text-left">{{user.uRole}}</td>
+          <td class="col-2 text-left">{{user.uSince}}</td>
+          <td class="col-2 text-center">{{user.lastLogin}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- end table row -->
+</div>
+</div>
+<!-- Hidden Table for Print and PDF files ends-->
+
+
+
+
+<!-- Start Modal Window to add & update new user -->
+<div class="modal fade" id="userModal">
+
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <div class="modal-content">
+
+      <!--start user Modal Header -->
+      <div class="modal-header">
+          <h4 class="modal-title">Add User Profile</h4>
+          <div>
+            <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
+          </div>
+      </div>
+      <!--end user Modal Header -->
+
+      <!--start user Modal body -->
+      <div class="modal-body">
+
+        <!--start 1st row -->
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="fullwidth">
+              <mat-select placeholder="Select User" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
+                required>
+                <input type="text" class="form-control" [(ngModel)]="searchEmployee">
+                <mat-option
+                  *ngFor="let item of getFilterItem(rdbType) | search:'indvdlFirstName,emailAddrss':searchEmployee"
+                  [value]="item">
+                  <table>
+                    <tr class='d-flex'>
+                      <td class="col-4">{{ item.indvdlID }}</td>
+                      <td class="col-4 border-left">{{ item.indvdlFullName }}</td>
+                      <td class="col-4 border-left">{{ item.emailAddrss }}</td>
+                    </tr>
+                  </table>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <br/>
+            <!--start radio buttons row -->
+            <mat-radio-group [(ngModel)]="rdbType" (click)="getFilterItem($event)">
+              <div class="row">
+                <div class="col-md-8">
+                  <mat-radio-button value="Employee">Employee</mat-radio-button>
+                </div>
+                <div class="col-md-4">
+                  <mat-radio-button value="Visitor">Visitor</mat-radio-button>
+                </div>
+              </div>
+            </mat-radio-group>
+              <!--end radio buttons row -->
+
+            <br/>
+            <!--start user name row-->
+            <mat-form-field class="fullwidth" id="userNameEnable">
+              <input matInput placeholder="Username" type="text" [(ngModel)]="txtUsername"
+                required>
+            </mat-form-field>
+            <!--end user name row-->
+
+            <br/>
+            <!--start password row -->
+            <mat-form-field class="fullwidth" id="userPassEnable">
+              <input matInput #password placeholder="Password" type="password" [(ngModel)]="txtPassword"
+                required>
+            </mat-form-field>
+            <mat-password-strength [password]="password.value">
+            </mat-password-strength>
+            <!--end password row-->
+
+            <br/>
+            <!--start conform password row -->
+            <mat-form-field class="fullwidth" id="userCnfrmPassEnable">
+              <input matInput placeholder="Confirm Password" type="password" [(ngModel)]="txtCnfrmPassword"
+                required>
+            </mat-form-field>
+            <!--end conform password row -->
+
+            <br/>
+            <!--start user role row -->
+            <mat-form-field class="fullwidth">
+              <mat-select placeholder="Assign User Role" [(ngModel)]="cmbRole" required>
+                <input type="text" class="form-control" [(ngModel)]="searchRole">
+                <mat-option
+                  *ngFor="let item of roles | search:'erpRoleName':searchRole"
+                  [value]="item.erpRoleCd">
+                  <table>
+                    <tr class='d-flex'>
+                      <td class="col-12">{{ item.erpRoleName }}</td>
+                    </tr>
+                  </table>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!--end user role row -->
+
+            <br/>
+            <!--start view permissions row-->
+            <div class="row">
+              <div class="col-md-12 text-right">
+                  <a style="cursor: pointer; color:grey;" (click)="getRoleTree()">VIEW PERMISSIONS</a>
+              </div>
+            </div>
+
+            <!--start view permissions row-->
+
+            <!--star enable password row -->
+            <section class="example-section">
+              <mat-checkbox class="example-margin" [(ngModel)]="chkPin">Enable Pin</mat-checkbox>
+            </section>
+            <!--end enable password row -->
+
+            <br/>
+            <!--start buttons row -->
+            <button mat-raised-button color="primary" (click)="saveEmployee()" style="border-radius: 0;">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
+            <!-- <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? false : true" (click)="saveEmployee()" style="border-radius: 0;">Save</button>
+            <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? true : false" style="border-radius: 0;">Send</button> -->
+            <!--end buttons row -->
+
+          </div>
+
+            
+
+
+          
+          <div class="col-md-6">
+
+            <div class="captionBoxB">
+              <label>Father's Name:</label><br/>
+              {{partyFatherName}}
+              <div class="triangle"></div>
+            </div>
+            
+            <div class="captionBoxW">
+              <label>Email id:</label><br>
+              {{partyEmail}}
+            </div>
+            <div class="captionBoxB">
+              <label>Address:</label><br/>
+              {{partyAddress}}
+            </div>
+            <div class="captionBoxW">
+              <label>Branch:</label><br/>
+              {{partyBranch}}
+            </div>
+            <div class="captionBoxB">
+              <label>Department:</label><br/>
+              {{partyDepartment}} 
+            </div>
+          </div>
+        
+        </div>
+        <!--end user Modal body -->
+      </div>
+      <!--end user Modal body -->
+    </div>
+  </div>
+</div>
+<!-- End Modal Window to add & update new user -->
+
+<!-- Start reset password Modal Window -->
+<div class="modal fade modal-forgot" id="permissionModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg modalPopup" style="width: 24%;">
+  <div class="modal-content">
+
+    <!--start Modal body -->
+    <div class="modal-body">
+      <!--start 1st row-->
+      <div class="row">
+        <div class="col-md-12">
+          <p class="fontWhite">Selected Permissions for:</p>
+        </div>
+      </div>
+      <!--end 1st row-->
+      <!--start 1st row-->
+      <div class="row">
+        <div class="col-md-12">
+          <p style='color:black;'><b>{{lblRoleName}}</b></p>
+        </div>
+      </div>
+      <!--end 1st row-->
+      <div class="row">
+        <div class="col-md-12">
+          <p-tree class="fullwidth" [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
+        </div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <button mat-raised-button color="primary" style="width: 97%;" class="buttonSquare" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      <!--end Modal body -->
+    </div>
+    <!--end Modal body -->
+  </div>
+  </div>
+</div>
+
+<!-- Start reset password Modal Window -->
+<div class="modal fade modal-forgot" id="resetModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
+  <div class="modal-content">
+
+    <!--Start Action Modal Header -->
+    <div class="modal-header">
+      <h4></h4>
+      <div>
+        <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
+      </div>
+    </div>
+    <!--End Action Modal Header -->
+    
+    <!--start Modal body -->
+    <div class="modal-body">
+      <!--start 1st row-->
+      <div class="row">
+        <div class="offset-md-1 col-md-6">
+          <p class="fontWhite">Reset password for username:</p>
+          <div class="marginSingleTop"></div>
+          <p style='color:skyblue'><b>{{lblFullName}}</b></p>
+
+          <div class="marginSingleTop"></div>
+          <!--start password row -->
+          <div class="inputContainer">
+            <span class="ui-float-label">
+              <input id="float-input" type="password" size="32" [(ngModel)]="txtNewPassword" pInputText class="fullwidth noneOutLine" #password [(ngModel)]="txtPassword"> 
+              <label for="float-input">Enter New Password</label>
+            </span>
+          </div>
+          <mat-password-strength  [password]="password.value" ></mat-password-strength>
+          <!--end password row-->
+          
+          <div class="marginSingleTop"></div>
+          <!--start conform password row -->
+          <div class="inputContainer">
+            <span class="ui-float-label">
+              <input id="float-input" type="password" [(ngModel)]="txtNewCnfrmPassword" size="32" pInputText class="fullwidth noneOutLine"> 
+              <label for="float-input">Confirm New Password</label>
+            </span>
+          </div>
+          <!--end conform password row -->
+
+          <div class="marginSingleTop"></div>
+          <!--buttons -->
+          <button mat-raised-button color="primary" class="buttonSquare" (click)="savePassword()">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
+        </div>
+
+
+
+        <div class="col-md-5 text-center">
+          <br/>
+          <img class="mx-auto d-block" src="../../../assets/images/ResetPassword-Large.svg" alt="" height="60%">
+          <br/>
+          <h5 class="fontWhite"><b>RESET PASSWORD</b></h5>
+        </div>
+
+
+
+      </div>
+      <!--end 1st row-->
+
+    </div>
+    <!--end Modal body -->
+
+  </div>
+  </div>
+<!-- End reset password Modal Window -->
+</div>
+<!-- End reset password Modal Window -->
+
+<!-- Start active user Modal Window -->
+<div class="modal fade modal-forgot" id="activeUserModal">
+  <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
+    <div class="modal-content">
+
+      <!--Start Action Modal Header -->
+      <div class="modal-header">
+        <h4></h4>
+        <div>
+          <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
+        </div>
+      </div>
+      <!--End Action Modal Header -->
+      
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--start 1st row-->
+        <div class="row">
+          <div class="offset-md-1 col-md-6">
+            <p class="fontWhite">Hi Admin!<br/>
+              It seems you need to activate this user profile, please enter your PIN to proceed, if your PIN is already expired click Generate PIN to receive new PIN via email.<br/>
+            </p>
+
+            <div class="row">
+              <div class="col-md-10">
+                <div class="inputContainer">
+                  <span class="ui-float-label">
+                    <input id="float-input" type="password" size="32" [(ngModel)]="txtPin" pInputText class="fullwidth noneOutLine"> 
+                    <label for="float-input">Enter PIN</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            <br>
+            <!--buttons -->
+            <button mat-raised-button color="primary" class="buttonSquare" (click)="saveActiveUser()">&nbsp; ACTIVATE &nbsp;</button>
+            &nbsp; <a class="fontWhite" style="text-decoration: underline; cursor: pointer;"  (click)="genPin()">Generate PIN</a> &nbsp;
+          </div>
+
+
+
+          <div class="col-md-5 text-center">
+            <br/>
+            <img class="mx-auto d-block" src="../../../assets/images/ActivateUser-Large.svg" alt="" height="60%">
+            <br/>
+            <h5 class="fontWhite"><b>ACTIVATE USER</b></h5>
+          </div>
+
+
+
+        </div>
+        <!--end 1st row-->
+
+      </div>
+      <!--end Modal body -->
+
+    </div>
+  </div>
+</div>
+<!-- End active user Modal Window -->  

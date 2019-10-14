@@ -4,6 +4,7 @@ import { UserprofileComponent } from './components/userprofile/userprofile.compo
 import { UserrolesComponent } from './components/userroles/userroles.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreatepasswordComponent } from './components/createpassword/createpassword.component';
+import { RptUserComponent } from './components/rpt-user/rpt-user.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
     path: 'UM/createPassword',
     component: CreatepasswordComponent
   },
+  {
+    path: 'UM/userReport',
+    component: RptUserComponent
+  },
+  
   { path: 'UM', redirectTo: 'UM/userProfile' }
 ];
 
