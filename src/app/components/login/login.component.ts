@@ -3,13 +3,24 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { FormsModule } from '@angular/forms';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { AppComponent } from 'src/app/app.component';
-import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 declare var $: any;
+
+    ///////////////////////////////////////////////////////////////////////////////
+    /*** Module Call : User Mangement ***/
+    /*** Page Call : UMIS(User Login) ***/
+    /*** Screen No : 1.1 ***/
+    /*** Functionality : ***/
+    /*** 1 - Employee can make login if login exist ***/
+    /*** 2 - Sending Link and Save Link  ***/
+    /*** Functions List :  ***/
+    /*** 1- onSubmit() ***/
+    /*** 2- getUserDetail(item) ***/
+    /*** 3- getKeyPressed(e)  ***/
+    /*** 4- forgotPassword() ***/
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -18,19 +29,22 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-    // serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9050/";
-    // serverUrl = "http://localhost:5000/";
+    /*** Api link published in server ***/
     serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
     tokenKey = "token";
 
+    /*** http header ***/
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
 
-    // Variable Declaration
+    /*** Variable Declaration ***/
+    
+    //*Variable Declaration for NgModels
     txtUserName = '';
     txtPassword = '';
 
+    /*** Construction Function ***/
     constructor(
                 private http: HttpClient, 
                 private formBuilder: FormBuilder, 
@@ -38,49 +52,47 @@ export class LoginComponent implements OnInit {
                 private router: Router, 
                 private app: AppComponent) { }
 
-
+    /*** Page Initialization ***/
     ngOnInit() {
+
+        //* Functions Call
         this.app.checkLogin('Yes');
 
     }
 
+    /*** checking if login exist then create token ***/
     onSubmit() {
 
-        //check if login name is empty
+        //* checking if login name is empty
         if (this.txtUserName.trim().length == 0) {
             this.toastr.errorToastr('Please Enter User Name', 'Oops!', { toastTimeout: (2500) });
             return false;
         }
-        //check if password is empty
+        //* checking if password is empty
         else if (this.txtPassword == "") {
             this.toastr.errorToastr('Please Enter Password', 'Oops!', { toastTimeout: (2500) });
             return false;
         }
         else {
 
-            //localStorage.setItem('userName', this.txtUserName);
-            //localStorage.setItem('myActModNam', 'HR');
-            //this.app.checkLogin('Yes');
-            //return false;
-
             this.app.showSpinner();
 
-            // list variable sending to api
+            //* Initialize List and Assign data to list. Sending list to api 
             var loginData = { "IndvdlERPUsrID": this.txtUserName, "IndvdlERPPsswrd": this.txtPassword };
 
-            // header sending to api
+            //* header sending to api
             var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-            //sending data to api and check if login exists or correct then create token
+            
             this.http.post(this.serverUrl + 'api/CreateToken', loginData, { headers: reqHeader }).subscribe((data: any) => {
 
-                //check if message is login Successfully 
+                //* check if message is login Successfully 
                 if (data.msg == "Login Successfully!") {
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
 
                     this.app.hideSpinner();
                     
-                    //setting multiple items to local storage
+                    //* setting multiple items to local storage
                     localStorage.setItem('userName', this.txtUserName);
                     localStorage.setItem('myActModNam', 'UM');
                     localStorage.setItem('token', data.token);
@@ -92,7 +104,7 @@ export class LoginComponent implements OnInit {
 
 
                 } else {
-                    // alert(data.msg);
+                    
                     this.app.hideSpinner();
                     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
                     $(".mat-form-field-underline").css("background-color", "red");
@@ -102,6 +114,7 @@ export class LoginComponent implements OnInit {
         }
     }
 
+    /*** Getting Specific User Detail ***/
     getUserDetail(item) {
 
         //var Token = localStorage.getItem(this.tokenKey);
@@ -111,23 +124,23 @@ export class LoginComponent implements OnInit {
 
         this.http.get(this.serverUrl + 'api/getUserDept?empID=' + item, { headers: reqHeader }).subscribe((data: any) => {
 
-            //this.posts = data;
             localStorage.setItem('deptCd', data[0].jobPostDeptCd);
 
         });
 
     }
 
+    /*** Performing Action using Enter key ***/
     getKeyPressed(e) {
         if (e.keyCode == 13) {
             this.onSubmit();
         }
     }
 
-    //************************ Function for forgot password *************************/
+    /*** User Forgot password ***/
 	forgotPassword() {
 
-
+        //* checking if login name is empty
         if (this.txtUserName.trim().length == 0) {
             this.toastr.errorToastr('Please Enter User Name', 'Oops!', { toastTimeout: (2500) });
             return false;
@@ -135,11 +148,7 @@ export class LoginComponent implements OnInit {
         
         else {
 
-            //this.router.navigate(['forgotPassword']);
-            //return false;
-
             var genTime = new Date();
-            // var link = window.location.href + 'forgotPassword?u=';
             var link = "http://ambit.southeastasia.cloudapp.azure.com:8998?u=";
             var expTime = new Date();
 
@@ -149,6 +158,7 @@ export class LoginComponent implements OnInit {
 			var Token = localStorage.getItem(this.tokenKey);
 			var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });            
 
+            //* Initialize List and Assign data to list. Sending list to api 
             var data = { 
                             "IndvdlUserName": this.txtUserName, 
                             "generationTime": genTime, 
@@ -158,6 +168,7 @@ export class LoginComponent implements OnInit {
 
             this.http.post(this.serverUrl + 'api/saveLink', data, { headers: reqHeader }).subscribe((data: any) => {
 
+                //* checking if mail not sent
                 if (data.msg != "Mail Sent!") {
 					this.app.hideSpinner();
 					this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
@@ -166,7 +177,6 @@ export class LoginComponent implements OnInit {
 					this.app.hideSpinner();
 					this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     return false;
-                    //this.router.navigate(['forgotPassword']);
 				}
 
             });

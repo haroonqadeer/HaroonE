@@ -18,53 +18,79 @@
 
     import * as jsPDF from 'jspdf';
 
-    //----------------------------------------------------------------------------//
-    //-------------------Working of this typescript file are as follows-----------//
-    //-------------------Getting filter Item data -------------------//
-    //-------------------Getting party data -------------------//
-    //-------------------Add action into database --------------------------//
-    //-------------------Add new employee into database --------------------------//
-    //-------------------Update employee into database ---------------------------//
-    //-------------------Export into PDF, CSV, Excel -----------------------------//
-    //-------------------Function for action change -----------------------------//
-    //-------------------Function for send link -----------------------------//
-    //-------------------For sorting the record-----------------------------//
-    //----------------------------------------------------------------------------//
-
-
     declare var $: any;
 
-    @Component({
-        selector: 'app-userprofile',
-        templateUrl: './userprofile.component.html',
-        styleUrls: ['./userprofile.component.scss']
-    })
-    export class UserprofileComponent implements OnInit {
+    ///////////////////////////////////////////////////////////////////////////////
+    /*** Module Call : User Mangement ***/
+    /*** Page Call : UMIS(User Profile) ***/
+    /*** Screen No : 2.1 ***/
+    /*** Functionality : ***/
+    /*** 1 - Create User Login either Employee or External Party along with Defined Role ***/
+    /*** 2 - Reset User Password ***/
+    /*** 3 - View Application Role ***/
+    /*** 4 - Activate / DeActivate User ***/
+    /*** 5 - Updation of Users Login Profiles Credentials ***/
+    /*** 6 - Export into PDF, CSV, Excel ***/
+    /*** 7 - Send Link ***/
+    /*** 8 - Record Sorting ***/
+    /*** 9 - Filter multiple items ***/
+    /***10 - Generate Pin ***/
+    /***11 - Clear Fields ***/
+    /***12 - Assigning Chart data ***/
+    /*** Functions List :  ***/
+    /*** 1- getFilterItem(type) ***/
+    /*** 2- getParty() ***/
+    /*** 3- getUserDetail()  ***/
+    /*** 4- getUserTrend() ***/
+    /*** 5- getRoleTree()  ***/
+    /*** 6- getRole() ***/
+    /*** 7- resetPassword(item) ***/
+    /*** 8- activeUser(item) ***/
+    /*** 9- saveActiveUser() ***/
+    /***10- savePassword() ***/
+    /***11- saveEmployee() ***/
+    /***12- genPin() ***/
+    /***13- clear() ***/
+    /***14- edit(item, type) ***/
+    /***15- printDiv() ***/
+    /***16- downPDF() ***/
+    /***17- downloadCSV() ***/
+    /***18- downloadExcel() ***/
+    /***19- setOrder(value) ***/
 
+@Component({
+    selector: 'app-userprofile',
+    templateUrl: './userprofile.component.html',
+    styleUrls: ['./userprofile.component.scss']
+})
+export class UserprofileComponent implements OnInit {
+
+    /*** Api link published in server ***/
 	serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9037/";
-    // serverUrl = "http://localhost:5000/";
     tokenKey = "token";
 
+    /*** http header ***/
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
 
-    // list for excel data
-    excelDataList = [];
-
+    /*** Variable Declaration ***/
+    
+    //* Variables Declaration for chart
     chart: Chart;
-    eName = '';
 
-    tblSearch;
-
-        
+    //* List Declaration
+    selectedRole: TreeNode[];
     roleTree: TreeNode[];
     roleList = [];
     tempRoleList = [];
     roleChildren = [];
+    excelDataList = [];
+    public users = [];
+    public roles = [];
+    userData = [];
 
-    selectedRole: TreeNode[];
-    //* variables for display values on page
+    //* Variable Declaration for display values on page
     countAddition = 0;
     countUpdation = 0;
     countBanned = 0;
@@ -73,23 +99,18 @@
     partyDepartment = '';
     partyBranch = '';
     partyAddress = '';
-    userLink = '';
-    userLinkCode = '';
     lblIndvdlID = 0;
     lblFullName = '';
     lblEmail = '';
     lblJobDesigID = 0;
     lblJobPostDeptCd = 0;
     lblJobPostLocationCd = 0;
+    
+    //*Variable Declaration for NgModels
+    tblSearch;
     txtPin = '';
-
 	txtNewPassword = '';
 	txtNewCnfrmPassword = '';
-	
-    //*Variables for NgModels 
-    searchAction = '';
-    txtActionPassword = '';
-    txtActionPIN = '';
     userId = 0;
     userSearch = '';
     rdbType = 'employee';
@@ -99,132 +120,42 @@
     txtPassword = "";
     txtCnfrmPassword = "";
     lblRoleName = "";
-
-    //*Boolean ng models and variables
+    cmbEmployee = '';
+    cmbRole = '';
     chkPin = false;
-    showLink = false;
-    actionPassRow = false;
-    actionPINCodeRow = false;
-    actionBlockRow = false;
-
-    //* variables for pagination and orderby pipe
+    
+    //* Variable Declaration for pagination and orderby pipe
     p = 1;
     order = 'info.name';
     reverse = false;
     sortedCollection: any[];
-    itemPerPage = '10';
+    itemPerPage = '10';    
 
-    //List variables
-    public users = [];
-    public roles = [];
-    listAction = '';
-    listBlockedAction = '';
-    cmbEmployee = '';
-    cmbRole = '';
+    /*** Construction Function ***/
+    constructor(private http: HttpClient,
+        private excelExportService: IgxExcelExporterService,
+        private csvExportService: IgxCsvExporterService,
+        private app: AppComponent,
+        public toastr: ToastrManager,
+        private actRoute: ActivatedRoute) { }
 
-    userData = [];
-    
-    //Action Combobox object
-    actions = [
-        {
-            actionId: '1',
-            actionName: 'Block'
-        },
-        {
-            actionId: '2',
-            actionName: 'Delete'
-        },
-        {
-            actionId: '3',
-            actionName: 'Generate PIN'
-        }
-    ];
-
-    // Block Action Combo Box
-    blocks = [
-        {
-            blockId: '1',
-            blockName: '1 Hour'
-        },
-        {
-            blockId: '2',
-            blockName: '1 Day'
-        },
-        {
-            blockId: '3',
-            blockName: '1 Week'
-        },
-        {
-            blockId: '4',
-            blockName: '1 Month'
-        },
-        {
-            blockId: '5',
-            blockName: 'Manual'
-        }
-    ]
-
-    //Employee Combobox object
-    employees = [
-        {
-            indvdlId: 1,
-            eCNIC: '6110113445676',
-            eName: 'Adnan',
-            eDept: 'IT',
-            eParty: 'Employee'
-        },
-        {
-            indvdlId: 2,
-            eCNIC: '6110112455675',
-            eName: 'Ahmed',
-            eDept: 'Accounts',
-            eParty: 'Visitor'
-        },
-        {
-            indvdlId: 3,
-            eCNIC: '6110114356574',
-            eName: 'Ali',
-            eDept: 'Sales',
-            eParty: 'Employee'
-        },
-        {
-                indvdlId: 4,
-                eCNIC: '6110116367563',
-                eName: 'Amir',
-                eDept: 'IT',
-                eParty: 'Visitor'
-            },
-            {
-                indvdlId: 5,
-                eCNIC: '6110167345672',
-                eName: 'Haroon',
-                eDept: 'IT',
-                eParty: 'Employee'
-            }
-        ];
-
-        constructor(private http: HttpClient,
-            private excelExportService: IgxExcelExporterService,
-            private csvExportService: IgxCsvExporterService,
-            private app: AppComponent,
-            public toastr: ToastrManager,
-            private actRoute: ActivatedRoute) { }
-
+    /*** Page Initialization ***/
     ngOnInit() {
+        
+        //* Functions Call
         this.init();
 
         this.getUserDetail();
         this.getUserTrend();
         this.getParty();
         this.getRole();
-        // this.rdbType = 'employee';
-        // this.getFilterItem(this.rdbType);
     }
 
+    /*** Variable Declaration for exporting data to pdf  ***/
     @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent;//For excel
     @ViewChild("exportPDF") public exportPDF: ElementRef;// for pdf
 
-    //get user management chart data
+    /***  Getting User Management chart data ***/
     init() {
 
         let chart = new Chart({
@@ -257,21 +188,14 @@
         this.chart = chart;
     }
 
-    //party list filter method 
+    /*** Getting User list filter method ***/ 
     getFilterItem(type) {
         
-        // this.cmbEmployee = '';
-        // this.partyFatherName = '';
-        // this.partyEmail = '';
-        // this.partyAddress = '';
-        // this.partyBranch = '';
-        // this.partyDepartment = '';
-
         return this.users.filter(x => x.type == type);
     }
 
 
-    //get partys function 
+    /*** Getting User List who didn't have Application Access ***/
     getParty() {
 
         var itemBackup = localStorage.getItem(this.tokenKey);
@@ -284,7 +208,7 @@
         });
     }
 
-    //get partys function 
+    /*** get User List who have Application Access ***/ 
     getUserDetail() {
 
         this.app.showSpinner();
@@ -300,7 +224,7 @@
         });
     }
     
-    //get partys function 
+    /*** Get How many Users are Added, Modified and Blocked ***/
     getUserTrend() {
 
         this.app.showSpinner();
@@ -319,14 +243,16 @@
         });
     }
     
-    //getting specific role data and assign it to role tree
+    // Get specific role data and assign it to role tree list variable
     getRoleTree() {
 
+        //*checking if role is empty
         if (this.cmbRole == '' || this.cmbRole == undefined) {
             this.toastr.errorToastr('Please Select User Role', 'Oops!', { toastTimeout: (2500) });
             return;
         }
         
+        //*loop for checking if role name is exist in role list
         for(var i = 0; i < this.roles.length; i++){
 
             if(this.roles[i].erpRoleCd == this.cmbRole){
@@ -342,17 +268,17 @@
         this.http.get(this.serverUrl + 'api/getRoleTree?erpRoleCd=' + this.cmbRole ).subscribe((data: any) => {
 
         this.tempRoleList = data;
-        // this.employees = data;
 
         for (var i = 0; i < this.tempRoleList.length; i++) {
 
-            //checking if type is module
+            //*checking if type is module
             if (this.tempRoleList[i].erpObjctTypeCd == 1) {
 
             this.roleChildren = [];
 
             for (var j = 0; j < this.tempRoleList.length; j++) {
 
+                //* checking if type is menu and parent id matched
                 if (this.tempRoleList[j].erpObjctTypeCd == 2
                 && this.tempRoleList[j].parentErpObjctCd == this.tempRoleList[i].erpObjctCd) {
 
@@ -390,7 +316,7 @@
 
     }
 
-    //get Roles function 
+    /*** Application Roles List ***/
     getRole() {
 
         var itemBackup = localStorage.getItem(this.tokenKey);
@@ -403,6 +329,7 @@
         });
     }
 
+    /*** Empty and Assign data to fields. Also show modal window ***/
     resetPassword(item){
 
         this.txtNewPassword = '';
@@ -415,19 +342,20 @@
         $('#resetModal').modal('show');
     }
     
+    /*** Empty and Assign data to fields. Also show modal window ***/
     activeUser(item){
 
         this.txtPin = '';
 
         this.lblIndvdlID = item.indvdlID;
-        // this.lblFullName = item.indvdlFullName;
-        // this.lblEmail = item.emailAddrss;
-
+    
         $('#activeUserModal').modal('show');
     }
 
+    /*** Activate / DeActivate User ***/
     saveActiveUser(){
 
+        //* checking if Pin is empty
         if (this.txtPin == "") {
             this.toastr.errorToastr('Please Enter Pin', 'Oops!', { toastTimeout: (2500) });
             return false;
@@ -437,10 +365,12 @@
         // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });            
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });            
 
+        //* Initialize List and Assign data to list. Sending list to api 
         var data = { "IndvdlID": this.lblIndvdlID, "CrntUserLogin": localStorage.getItem('userName'), "CrntUserPin": this.txtPin, "ConnectedUser": this.app.empId };
 
         this.http.post(this.serverUrl + 'api/activeUser', data, { headers: reqHeader }).subscribe((data: any) => {
 
+            //* checking if user activate or deactivate
             if (data.msg != "User Deactivated Successfully!" && data.msg != "User Activated Successfully!" ) {
                 this.app.hideSpinner();
                 this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
@@ -459,16 +389,20 @@
         });
     }
 
+    /*** Reset User's Password  ***/
     savePassword(){
 
+        //* checking if New Password is empty
         if (this.txtNewPassword == "") {
             this.toastr.errorToastr('Please Enter New Password', 'Oops!', { toastTimeout: (2500) });
             return false;
-		}
+        }
+        //* checking if Confirm Password is empty
 		else if (this.txtNewCnfrmPassword == "") {
-            this.toastr.errorToastr('Please Enter Comfirm Password', 'Oops!', { toastTimeout: (2500) });
+            this.toastr.errorToastr('Please Enter Confirm Password', 'Oops!', { toastTimeout: (2500) });
             return false;
-		}
+        }
+        //* checking if New Password And Confirm Password not matched
 		else if (this.txtNewPassword != this.txtNewCnfrmPassword) {
             this.toastr.errorToastr("New Password doesn't match", 'Oops!', { toastTimeout: (2500) });
             return false;
@@ -479,11 +413,13 @@
 			var Token = localStorage.getItem(this.tokenKey);
 			// var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });            
 			var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });            
-
+            
+            //* Initialize List and Assign data to list. Sending list to api 
             var data = { "indvdlID": this.lblIndvdlID, "Email": this.lblEmail, "IndvdlERPPsswrd": this.txtNewPassword, "ConnectedUser": this.app.empId };
 
             this.http.post(this.serverUrl + 'api/resetPassword', data, { headers: reqHeader }).subscribe((data: any) => {
 
+                //* checking if mail not sent
                 if (data.msg != "Mail Sent!") {
 					this.app.hideSpinner();
 					this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
@@ -502,83 +438,45 @@
 
     }
 
-    //bloock, delete and generate pin for user
-    saveAction() {
-        if (this.listAction == '') {
-            this.toastr.errorToastr('Please Select Action Type', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else {
-            if (this.listAction == 'Block' && this.listBlockedAction == '') {
-                //this.isLoginError = true;
-                this.toastr.errorToastr('Please Select Block Time', 'Error', { toastTimeout: (2500) });
-                return false;
-            }
-            else if (this.txtActionPassword == '') {
-                //this.isLoginError = true;
-                this.toastr.errorToastr('Please Enter Password', 'Error', { toastTimeout: (2500) });
-                return false;
-            }
-            else if (this.txtActionPIN == '') {
-                this.toastr.errorToastr('Please Enter PIN Code', 'Error', { toastTimeout: (2500) });
-                return false;
-            }
-            else {
-                this.app.showSpinner();
-                this.app.hideSpinner();
-
-                var data = { "empId": this.userId, "action": this.listAction, "duration": this.listBlockedAction, "password": this.txtActionPassword, "pin": this.txtActionPIN };
-
-                var token = localStorage.getItem(this.tokenKey);
-
-                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-                return this.http.post(this.serverUrl + 'api/action', data, { headers: reqHeader }).subscribe((data: any) => {
-
-                    if (data.msg != undefined) {
-                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                        return false;
-                    } else {
-                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                        $('#actionModal').modal('hide');
-                        return false;
-                    }
-                });
-            }
-        }
-    }
-
-
-    //create user name and password for party and send user name password
+    /***  Updation of User's Login Profile Credentials ***/
     saveEmployee() {
+        
         var type = '';
+        //* pin checkbox is not checked
         if(this.chkPin == false){
             type = '2';
         }else{
             type = '1';
         }
 
+        //*checking if type is empty
         if (this.rdbType == '') {
             this.toastr.errorToastr('Please select user type', 'Error', { toastTimeout: (2500) });
             return false;
         }
+        //*checking if type is employee or visitor
         else if (this.rdbType == 'Employee' || this.rdbType == 'Visitor') {
+            //*checking if employee is empty
             if (this.cmbEmployee == '') {
                 this.toastr.errorToastr('Please select user', 'Error', { toastTimeout: (2500) });
                 return false;
             }
+            //*checking if login name is empty
             else if (this.txtUsername.trim().length == 0) {
                 this.toastr.errorToastr('Please enter user name', 'Error', { toastTimeout: (2500) });
                 return false;
             }
+            //*checking if password is empty
             else if (this.txtPassword.trim().length == 0) {
                 this.toastr.errorToastr('Please enter password', 'Error', { toastTimeout: (2500) });
                 return false;
             }
+            //*checking if password and confirm password not matched
             else if (this.txtPassword != this.txtCnfrmPassword) {
                 this.toastr.errorToastr('Your password and confirmation password does not match', 'Error', { toastTimeout: (2500) });
                 return false;
             }
+            //*checking if role is empty
             else if (this.cmbRole == '') {
                 this.toastr.errorToastr('Please select user role', 'Error', { toastTimeout: (2500) });
                 return false;
@@ -587,6 +485,7 @@
                 
                 this.app.showSpinner();
 
+                //* Initialize List and Assign data to list. Sending list to api 
                 var data = { 
                             "IndvdlID": this.userId, 
                             "JobDesigID": this.lblJobDesigID, 
@@ -608,6 +507,7 @@
 
                 this.http.put(this.serverUrl + 'api/updateUser', data, { headers: reqHeader }).subscribe((data: any) => {
 
+                    //* checking if user not updated
                     if (data.msg != 'User Created Successfully!') {
                         this.app.hideSpinner();
                         this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
@@ -628,10 +528,12 @@
         }
     }
 
+    /*** Pin Initialization***/
     genPin(){
         this.app.sendPin();
     }
-    //if you want to clear input
+
+    /*** Empty All Fields in page ***/
     clear() {
 
         this.userId = 0;
@@ -653,8 +555,7 @@
 
     }
 
-
-    //on Employee change model and action btn click 
+    /*** Assign values to variables for Updation ***/ 
     edit(item, actionType) {
 
         if (actionType == 'block') {
@@ -665,9 +566,6 @@
         else if (actionType == 'link') {
 
             this.userId = item.indvdlID;
-            // this.userLink = "localhost:4200?code=";
-            // this.userLinkCode = btoa(this.userId + "");
-
             this.partyEmail = item.emailAddrss;
             this.partyFatherName = item.indvdlFatherName;
             this.partyDepartment = item.deptName;
@@ -677,12 +575,11 @@
             this.lblJobPostDeptCd = item.jobPostDeptCd;
             this.lblJobPostLocationCd = item.jobPostLocationCd;
 
-            this.showLink = true;
         }
     }
 
 
-    // For Print Purpose 
+    /*** For Print Purpose ***/ 
     printDiv() {
 
         // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
@@ -735,7 +632,7 @@
         }, 500);
     }
 
-
+    /*** For PDF Download ***/
     downPDF() {
         let doc = new jsPDF();
         let specialElementHandlers = {
@@ -751,8 +648,7 @@
         doc.save('testabc.pdf');
     }
 
-
-    //For CSV File 
+    /*** For CSV File ***/ 
     public downloadCSV() {
         // case 1: When userSearch is empty then assign full data list
         if (this.userSearch == "") {
@@ -797,8 +693,7 @@
         }
     }
 
-
-    //For Exce File
+    /*** For Exce File ***/
     public downloadExcel() {
         // case 1: When userSearch is empty then assign full data list
         if (this.userSearch == "") {
@@ -846,87 +741,7 @@
         }
     }
 
-
-    // On Action Change Modal Window Combo Box
-    onActionChange() {
-        // When user selects "Delete" in the Combo Box
-        if (this.listAction == 'Delete') {
-            this.actionBlockRow = false;
-            this.actionPassRow = true;
-            this.actionPINCodeRow = true;
-            //Clear Text Boxes
-            this.txtActionPassword = '';
-            this.txtActionPIN = '';
-        }
-        // When user selects "Block" in the Combo Box
-        else if (this.listAction == 'Block') {
-            this.actionBlockRow = true;
-            this.actionPassRow = true;
-            this.actionPINCodeRow = true;
-            //Clear Text Boxes
-            this.listBlockedAction = '';
-            this.txtActionPassword = '';
-            this.txtActionPIN = '';
-        }
-        // When user selects "Generate PIN" in the Combo Box
-        else if (this.listAction == 'Generate PIN') {
-            this.actionBlockRow = false;
-            this.actionPassRow = true;
-            this.actionPINCodeRow = false;
-            //Clear Text Boxes
-            this.listBlockedAction = '';
-            this.txtActionPassword = '';
-            this.txtActionPIN = '';
-        }
-        else {
-            return false;
-        }
-    }
-
-
-    //create user name and password for party and send user name password
-    sendLink() {
-        if (this.rdbType == '') {
-            this.toastr.errorToastr('Please select user type', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else if (this.rdbType == 'employee' || this.rdbType == 'visitor') {
-
-            if (this.cmbEmployee == '') {
-                this.toastr.errorToastr('Please select user', 'Error', { toastTimeout: (2500) });
-                return false;
-            }
-            else {
-                this.app.showSpinner();
-                this.app.hideSpinner();
-
-                var data = { "partyId": this.userId };
-
-                var token = localStorage.getItem(this.tokenKey);
-
-                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-                this.http.put(this.serverUrl + 'api/pwCreate', data, { headers: reqHeader }).subscribe((data: any) => {
-
-                    if (data.msg != undefined) {
-                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                        return false;
-                    } else {
-                        this.toastr.successToastr('Record Inserted Successfully', 'Success!', { toastTimeout: (2500) });
-                        $('#actionModal').modal('hide');
-                        return false;
-                    }
-
-                });
-            }
-        }
-        else {
-            return false;
-        }
-    }
-
-
-    //*function for sort table data 
+    /***function for sort table data ***/ 
     setOrder(value: string) {
 
         if (this.order === value) {
@@ -934,5 +749,5 @@
         }
         this.order = value;
     }
-}
 
+}

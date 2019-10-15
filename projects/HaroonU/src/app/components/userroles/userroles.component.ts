@@ -16,27 +16,47 @@ import {
 } from "igniteui-angular";
 import * as jsPDF from 'jspdf';
 
-//----------------------------------------------------------------------------//
-//-------------------Working of this typescript file are as follows-----------//
-//-------------------Getting role data into main table------------------------// 
-//-------------------Getting modules and menu data in menuTree----------------//
-//-------------------Getting specific role data in drop down box--------------//
-//-------------------Getting specific module data in table--------------------//
-//-------------------Add menuTree data into roleTree--------------------------// 
-//-------------------Save permissions into database---------------------------//
-//-------------------Add permissions of roles---------------------------------//
-//-------------------Creation of roles, modules and menu in database----------//
-//-------------------Update roles, modules and menu into database-------------//
-//-------------------Delete roles, modules and menu into database-------------//
-//-------------------Remove roleTree data-------------------------------------// 
-//-------------------Export into PDF, CSV, Excel -----------------------------//
-//-------------------For sorting the record-----------------------------//
-//----------------------------------------------------------------------------//
-
-
 declare var $: any;
 
-//For Push Data in the Object array
+    ///////////////////////////////////////////////////////////////////////////////
+    /*** Module Call : User Mangement ***/
+    /*** Page Call : UMIS(User Role Permission) ***/
+    /*** Screen No : 2.2 ***/
+    /*** Functionality : ***/
+    /*** 1 - Create User Role ***/
+    /*** 2 - Add Or Remove Roles from different trees ***/
+    /*** 3 - Delete Role ***/
+    /*** 4 - Update Role ***/
+    /*** 5 - Record Sorting ***/
+    /*** 6 - Filter multiple item List ***/
+    /*** 7 - Generate Pin ***/
+    /*** 8 - Clear Fields ***/
+    /*** 9 - Export into PDF, CSV, Excel ***/
+    /*** Functions List :  ***/
+    /*** 1- getRole() ***/
+    /*** 2- getRoleTree(item) ***/
+    /*** 3- getFilterMenu(item)  ***/
+    /*** 4- getFilterModule() ***/
+    /*** 5- getMenu()  ***/
+    /*** 6- save() ***/
+    /*** 7- addRoles() ***/
+    /*** 8- filterRoleList(name, code) ***/
+    /*** 9- oldRoleList(name, code) ***/
+    /***10- filterNewRoleList(name, code) ***/
+    /***11- compareRoleList(MainRoleList, UserRoleList) ***/
+    /***12- delete(item) ***/
+    /***13- clear() ***/
+    /***14- edit(item) ***/
+    /***15- deleteRole() ***/
+    /***16- removeRoles() ***/
+    /***17- generatePin() ***/
+    /***18- printDiv() ***/
+    /***19- downPDF() ***/
+    /***20- downloadCSV() ***/
+    /***21- downloadExcel() ***/
+    /***22- setOrder(value) ***/
+
+/*** For Push Data in the Object array ***/
 export interface erpObject {
   erpObjctCd: string;
   erpObjctTypeCd: string;
@@ -49,15 +69,12 @@ export interface erpObject {
 })
 export class UserrolesComponent implements OnInit {
 
+    /*** Api link published in server ***/
+    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9036/";
 
-  // list for excel data
-  excelDataList = [];
+    /*** Variable Declaration ***/
 
-  // order: string = "uId";
-  // reverse: boolean = false;
-  //selectedEntry = "5";
-
-    //Page Models
+    //*Variable Decalration for NgModels
     erpRoleCd = '';
     txtdPassword = '';
     txtdPin = '';
@@ -66,130 +83,19 @@ export class UserrolesComponent implements OnInit {
     roleSearch = '';
     tblSearch;
     removeNodeFlag = false;
-    //* variables for pagination and orderby pipe
+
+    //* Variable Declaration for pagination and orderby pipe
     p = 1;
     order = 'info.name';
     reverse = false;
     sortedCollection: any[];
     itemPerPage = '10';
 
-
-    rolesData = [
-        {
-        uId: 1,
-        uRoleName: "Admin",
-        uNoModule: 3,
-        uNoPage: 4
-        },
-        {
-        uId: 2,
-        uRoleName: "Super Admin",
-        uNoModule: 5,
-        uNoPage: 5
-        },
-        {
-        uId: 3,
-        uRoleName: "Admin SCM",
-        uNoModule: 3,
-        uNoPage: 4
-        },
-        {
-        uId: 4,
-        uRoleName: "Admin Health",
-        uNoModule: 3,
-        uNoPage: 4
-        },
-        {
-        uId: 5,
-        uRoleName: "Auditor",
-        uNoModule: 9,
-        uNoPage: 15
-        },
-        {
-        uId: 6,
-        uRoleName: "Admin Housing",
-        uNoModule: 3,
-        uNoPage: 4
-        },
-        {
-        uId: 7,
-        uRoleName: "Procurement Manager",
-        uNoModule: 4,
-        uNoPage: 3
-        },
-        {
-        uId: 8,
-        uRoleName: "Accountant",
-        uNoModule: 3,
-        uNoPage: 12
-        },
-        {
-        uId: 9,
-        uRoleName: "Finance Admin",
-        uNoModule: 3,
-        uNoPage: 4
-        },
-        {
-        uId: 10,
-        uRoleName: "Admin",
-        uNoModule: 3,
-        uNoPage: 4
-        },
-        {
-        uId: 12,
-        uRoleName: "Admin",
-        uNoModule: 3,
-        uNoPage: 6
-        },
-        {
-        uId: 13,
-        uRoleName: "Finance Manager",
-        uNoModule: 7,
-        uNoPage: 7
-        },
-        {
-        uId: 14,
-        uRoleName: "HR Admin",
-        uNoModule: 6,
-        uNoPage: 4
-        },
-        {
-        uId: 15,
-        uRoleName: "SCM",
-        uNoModule: 3,
-        uNoPage: 4
-        },
-        {
-            uId: 16,
-            uRoleName: "HR",
-            uNoModule: 3,
-            uNoPage: 4
-        }
-    ]
-
-
-  //list for tree
+    //* List Declaration
     menuTree: TreeNode[];
-
     selectedMenu: TreeNode[];
-
     roleTree: TreeNode[];
-
     selectedRole: TreeNode[];
-    
-    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9036/";
-
-    // serverUrl = "http://localhost:2000/";
-
-  //constructor(private http: HttpClient, public toastr: ToastrManager, private nodeService: NodeService) { }
-
-    constructor(private http: HttpClient,
-        private excelExportService: IgxExcelExporterService,
-        private csvExportService: IgxCsvExporterService,
-        private app: AppComponent,
-        public toastr: ToastrManager) { }
-
-    //list variables
     public employees = [];
     public tempRoleList = [];
     public modules;
@@ -201,35 +107,36 @@ export class UserrolesComponent implements OnInit {
     public roleChildren = [];
     public erpObjct: Array<erpObject> = [];
     myTempList = [];
+    rolesData = [];
+    excelDataList = [];
 
+    /*** Construction Function ***/
+    constructor(private http: HttpClient,
+        private excelExportService: IgxExcelExporterService,
+        private csvExportService: IgxCsvExporterService,
+        private app: AppComponent,
+        public toastr: ToastrManager) { }
+
+    /*** Page Initialization */
     ngOnInit() {
 
+        //* Functions Call
         this.getMenu();
         this.getRole();
     }
 
+    /*** Variable Declaration for exporting data to pdf  ***/
     @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent;//For excel
     @ViewChild("exportPDF") public exportPDF: ElementRef;// for pdf
 
-
-    //setting ascending or descending order of table
-    // setOrder(value: any) {
-    //   if (this.order === value) {
-    //     this.reverse = !this.reverse;
-    //   }
-    //   this.order = value;
-    // }
-
-
-    //getting roles data from database and show in role table 
+    /*** Getting Roles List ***/ 
     getRole() {
         this.http.get(this.serverUrl + 'api/getUserRoles').subscribe((data: any) => {
             this.roles = data;
         });
     }
 
-
-    //getting specific role data and assign it to role tree
+    /*** Getting Specific Roles List ***/
     getRoleTree(item) {
 
         this.roleTree = [];
@@ -242,13 +149,14 @@ export class UserrolesComponent implements OnInit {
 
         for (var i = 0; i < this.employees.length; i++) {
 
-            //checking if type is module
+            //* checking if type is module
             if (this.employees[i].erpObjctTypeCd == 1) {
 
             this.roleChildren = [];
 
             for (var j = 0; j < this.employees.length; j++) {
 
+                //* checking if type is menu and parent id matched
                 if (this.employees[j].erpObjctTypeCd == 2
                 && this.employees[j].parentErpObjctCd == this.employees[i].erpObjctCd) {
 
@@ -284,21 +192,18 @@ export class UserrolesComponent implements OnInit {
         });
     }
 
-
-    //Menu list filter method 
+    /*** Menu list filter method  ***/
     getFilterMenu(item) {
         return this.tempRoleList.filter(x => x.parentErpObjctCd == item && x.erpObjctTypeCd == 2);
     }
 
-
-    //Module list filter method 
+    /*** Module list filter method ***/
     getFilterModule() {
         //alert(roleId);
         return this.tempRoleList.filter(x => x.erpObjctTypeCd == 1);
     }
 
-
-    //getting all modules including with menu and assign all data to menu tree 
+    /*** Getting Module & Menu List  ***/
     getMenu() {
 
         this.app.showSpinner();
@@ -308,13 +213,14 @@ export class UserrolesComponent implements OnInit {
             this.menuList = [];
             
             for (var i = 0; i < this.employees.length; i++) {
-                //checking if type is module
+                
+                //* checking if type is module
                 if (this.employees[i].erpobjctTypeCd == 1) {
 
                 this.children = [];
 
                 for (var j = 0; j < this.employees.length; j++) {
-                    //checking if type is menu and current menu parent id and module id are same 
+                    //* checking if type is menu and parent id matched
                     if (this.employees[j].erpobjctTypeCd == 2
                     && this.employees[j].parentErpobjctCd == this.employees[i].erpobjctCd) {
 
@@ -347,11 +253,13 @@ export class UserrolesComponent implements OnInit {
             
             this.menuTree = this.menuList;
             
+            //* checking if role list is empty and node flag also empty
             if (this.removeNodeFlag == false && (this.roleTree == undefined || this.roleTree.length == 0)){
 
                 this.roleTree = [];
 
             }
+            //* checking if node flag is not empty
             if (this.removeNodeFlag == true){
 
                 this.compareRoleList(this.menuTree, this.roleTree);
@@ -366,20 +274,21 @@ export class UserrolesComponent implements OnInit {
     }
 
 
-    //save role data in database
+    /*** Save User Role ***/
     save() {
 
-    //checking if role name is empty
-    if (this.erpRoleName.trim().length == 0) {
-        this.toastr.errorToastr('Please Enter Role Name', 'Oops!', { toastTimeout: (2500) });
-        return;
-    }
-    else if (this.roleTree == undefined) {
-        this.toastr.errorToastr('Please Push Data in Role Tree', 'Error', { toastTimeout: (2500) }); return
-    }
+        //* checking if role name is empty
+        if (this.erpRoleName.trim().length == 0) {
+            this.toastr.errorToastr('Please Enter Role Name', 'Oops!', { toastTimeout: (2500) });
+            return;
+        }
+        //* checking if role list is empty
+        else if (this.roleTree == undefined) {
+            this.toastr.errorToastr('Please Push Data in Role Tree', 'Error', { toastTimeout: (2500) }); return
+        }
 
-    this.erpObjct = [];
-    //Adding role tree data to another list
+        this.erpObjct = [];
+        //* Adding role tree data to another list
         for (var i = 0; i < this.roleTree.length; i++) {
 
             this.erpObjct.push({
@@ -393,16 +302,19 @@ export class UserrolesComponent implements OnInit {
                 });
         }
 
+        //* checking if role id is empty
         if (this.erpRoleCd == "") {
-        //Save roles in database
 
+            //* Save User Role
             this.app.showSpinner();
             this.app.hideSpinner();
 
+            //* Initialize List and Assign data to list. Sending list to api 
             var roleData = { erpObjct: JSON.stringify(this.erpObjct), erpRoleName: this.erpRoleName };
 
             this.http.post(this.serverUrl + 'api/saveUserRole', roleData).subscribe((data: any) => {
         
+                //* checking if role not saved
                 if (data.msg != "Record Saved Successfully!") {
         
                     this.app.hideSpinner();
@@ -418,13 +330,17 @@ export class UserrolesComponent implements OnInit {
                 
             });
         } else {
-            //Update roles in database
+            
+            //* Update User Role
             this.app.showSpinner();
             this.app.hideSpinner();
             
+            //* Initialize List and Assign data to list. Sending list to api 
             var rolesData = { erpObjct: JSON.stringify(this.erpObjct), erpRoleCd: this.erpRoleCd, erpRoleName: this.erpRoleName };
+            
             this.http.put(this.serverUrl + 'api/updateUserRole', rolesData).subscribe((data: any) => {
         
+                //* checking if role not update
                 if (data.msg != "Record Updated Successfully!") {
         
                     this.app.hideSpinner();
@@ -443,44 +359,17 @@ export class UserrolesComponent implements OnInit {
 
     }
 
-
-    //save each role permissions in database
-    savePermission() {
-        this.app.showSpinner();
-        this.app.hideSpinner();
-        for (var i = 0; i < this.tempRoleList.length; i++) {
-        if (this.tempRoleList[i].Addition == undefined)
-            this.tempRoleList[i].Addition = false;
-        }
-
-        var rolesData = { tempRoleList: JSON.stringify(this.tempRoleList), erpRoleCd: this.erpRoleCd };
-        this.http.put(this.serverUrl + 'api/savePermission', rolesData).subscribe((data: any) => {
-        this.toastr.successToastr(data, 'Success', { toastTimeout: (2500) }); return;
-        });
-    }
-
-
-    //add permissions of each menu
-    addPermission(item) {
-        this.app.showSpinner();
-        this.app.hideSpinner();
-        this.erpRoleName = item.erpRoleName;
-        this.erpRoleCd = item.erpRoleCd;
-        //getting specific role data and assign it to role tree
-        this.getRoleTree(this.erpRoleCd);
-    }
-
-    //Adding modules and menu in role tree 
+    /*** Adding Modules & Menu in role List  ***/
     addRoles() {
     
-        //this.app.showSpinner();       
-
-        //checking if menuTree data not selected
+        //* checking if menuTree data is not selected
         if (this.selectedMenu == undefined) {
             this.toastr.errorToastr('Please Select Nodes!', 'Error', { toastTimeout: (2500) });
             this.app.hideSpinner();
             return false;
-        }else if (this.selectedMenu.length == 0){
+        }
+        //* checking if menuTree data is not selected
+        else if (this.selectedMenu.length == 0){
             this.toastr.errorToastr('Please Select Nodes!', 'Error', { toastTimeout: (2500) });
             this.app.hideSpinner();
             return false;
@@ -493,11 +382,12 @@ export class UserrolesComponent implements OnInit {
         this.roleList = this.myTempList;
 
         
+        //* checking if temporary list is not empty
         if(this.myTempList.length > 0){
-
 
             for (var i = 0; i < this.selectedMenu.length; i++){
 
+                //* checking if type is menu
                 if (this.selectedMenu[i].data[0].typeCode == 2){                
                     
                     var foundParent = false;
@@ -505,10 +395,10 @@ export class UserrolesComponent implements OnInit {
 
                     for (var j = 0; j < this.roleList.length; j++){
 
-                        //adding child node if parent node already exist 
+                        //* Adding child node if parent node already exist 
                         if(this.selectedMenu[i].data[0].parentErpObjName == this.roleList[j].label){
 
-                            //loop for checking child node exist or not 
+                            //* loop for checking child node exist or not 
                             for (var k = 0; k < this.roleList[j].children.length; k++){
 
                                 if(this.selectedMenu[i].data[0].objCode == this.roleList[j].children[k].data[0].objCode){
@@ -537,7 +427,7 @@ export class UserrolesComponent implements OnInit {
 
                             this.roleChildren = [];
 
-                            //loop for checking parent node exist or not 
+                            //* loop for checking parent node exist or not 
                             for (var m = 0; m < this.roleList.length; m++){
 
                                 if(this.selectedMenu[i].data[0].parentErpObjName == this.roleList[m].label){
@@ -582,15 +472,12 @@ export class UserrolesComponent implements OnInit {
 
             for (var i = 0; i < this.selectedMenu.length; i++){
 
+                //* checking if type is menu
                 if (this.selectedMenu[i].data[0].typeCode == 2){                
     
                     var tempRoleList = this.filterRoleList(this.selectedMenu[i].data[0].parentErpObjName, 2);
     
                     var newRoleList = this.filterNewRoleList(this.selectedMenu[i].data[0].parentErpObjName, 1);
-    
-                    //var oldRoleList = this.oldRoleList(this.selectedMenu[i].data[0].parentErpObjName, 2);
-    
-                    //alert("current selected " +  newRoleList.length + " already exist " + oldRoleList.length);
     
                     if(newRoleList.length == 0){
     
@@ -637,53 +524,51 @@ export class UserrolesComponent implements OnInit {
 
     }
 
-    //filter array
+    /*** Filter array ***/
     filterRoleList(name, code) {
         return this.selectedMenu.filter(x => x.data[0].parentErpObjName == name && x.data[0].typeCode == code);
-        //x => x.data.typeCode == code && x.data.parentErpObjName == name
     }
 
-    //filter array 
+    /*** filter array  ***/
     oldRoleList(name, code) {
-        //alert(name);
         return this.myTempList.filter(x => x.label == name);
-        //x => x.data.typeCode == code && x.data.parentErpObjName == name
     }
 
-    //filter array
+    /*** filter array ***/
     filterNewRoleList(name, code) {
         return this.roleList.filter(x => x.data[0].objName == name && x.data[0].typeCode == code);
     }
 
-    //compare note tree 
+    /*** compare node tree ***/ 
     compareRoleList(MainRoleList, UserRoleList){
 
-        //loop for remove children nodes 
+        //* loop for remove children nodes 
         for (var i = 0; i < MainRoleList.length; i++){
 
-            //loop for User role list parent node
+            //* loop for User role list parent node
             for (var j = 0; j < UserRoleList.length; j++){
 
-                //checking roll exist in user list or not if exist then remove from main list 
+                //* checking if role exist in user list or not if exist then remove from main list 
                 if (MainRoleList[i].label ==  UserRoleList[j].label){
 
-                    //chicking children esixt or not of main list
+                    //* checking if children esixt or not of main list
                     if (MainRoleList[i].children.length > 0){
-                        //Loop for main list children node
+                        
+                        //* Loop for main list children node
                         for (var k = 0; k < MainRoleList[i].children.length; k++){
 
-                            //chicking children esixt or not of user list
+                            //* checking children esixt or not of user list
                             if (UserRoleList[j].children.length > 0){
 
-                                //loop for user list children node
+                                //* loop for user list children node
                                 for (var m = 0; m < UserRoleList[j].children.length; m++){
 
-                                    //chicking node is exist in both list or not if exist then remove from main list
+                                    //* checking node is exist in both list or not if exist then remove from main list
                                     if (MainRoleList[i].children[k].label ==  UserRoleList[j].children[m].label){
                                         MainRoleList[i].children.splice(k, 1);
                                     }
 
-                                    //if all children nodes exist in user list then remove from main list
+                                    //* checking if all children nodes exist in user list then remove from main list
                                     if (MainRoleList[i].children.length == 0){
 
                                         //MainRoleList.splice(i, 1);
@@ -696,12 +581,10 @@ export class UserrolesComponent implements OnInit {
 
                     }else{
                         
-                        //if children not exist remove parent node 
+                        //* checking if children not exist remove parent node 
                         MainRoleList.splice(i, 1);
 
                     }
-                    //alert(MainRoleList[i].children[0].data[0].objName);
-                    //MainRoleList.splice(i, 1);
 
                 }
 
@@ -710,13 +593,13 @@ export class UserrolesComponent implements OnInit {
         }
 
 
-        //loop for remove children nodes
+        //* loop for remove children nodes
         for (var i = 0; i < MainRoleList.length; i++){
 
-            //loop for User role list parent node
+            //* loop for User role list parent node
             for (var j = 0; j < UserRoleList.length; j++){
 
-                //checking roll exist in user list or not if exist then remove from main list 
+                //* checking role exist in user list or not if exist then remove from main list 
                 if (MainRoleList[i].label ==  UserRoleList[j].label && MainRoleList[i].children.length == 0){
                     MainRoleList.splice(i, 1);
                 }
@@ -727,7 +610,7 @@ export class UserrolesComponent implements OnInit {
         this.removeNodeFlag = false;
     }
 
-    //clear all data
+    /*** Empty All Fields in page ***/
     clear() {
 
         this.roleTree = [];
@@ -741,7 +624,7 @@ export class UserrolesComponent implements OnInit {
 
     }
 
-    //edit role data
+    /*** Assign values to variables for Updation ***/ 
     edit(item) {
 
         this.roleTree = [];
@@ -753,7 +636,7 @@ export class UserrolesComponent implements OnInit {
     }
 
 
-    //Assign id and name to hidden labels
+    /*** Clearing variables. Assign values to variables for Deletion ***/ 
     delete(item) {
         this.clear();
 
@@ -764,25 +647,29 @@ export class UserrolesComponent implements OnInit {
     }
 
 
-    //delete user role data from database
+    /*** Delete User Role ***/
     deleteRole() {
 
         this.app.showSpinner();
         this.app.hideSpinner();
-        //checking if password is empty
+
+        //* checking if password is empty
         if (this.txtdPassword.trim().length == 0) {
         this.toastr.errorToastr('Please Enter Password', 'Oops!', { toastTimeout: (2500) });
         return;
         }
+        //* checking if pin is empty
         else if (this.txtdPin.trim().length == 0) {
         this.toastr.errorToastr('Please Enter Pin', 'Oops!', { toastTimeout: (2500) });
         return;
         }
-        //deleting roles from database
+        
+        //* Initialize List and Assign data to list. Sending list to api 
         var roleData = {erpObjct: JSON.stringify(this.erpObjct), erpRoleCd: this.erpRoleCd };
 
         this.http.put(this.serverUrl + 'api/deleteUserRole', roleData).subscribe((data: any) => {
             
+            //* checking if record not Deleted
             if (data.msg != "Record Deleted Successfully!") {
         
                 this.app.hideSpinner();
@@ -792,7 +679,6 @@ export class UserrolesComponent implements OnInit {
                 this.app.hideSpinner();
                 this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                 this.getRole();
-                // $('#dUserRoleModal').modal('hide');
                 return false;
             }
             
@@ -800,22 +686,23 @@ export class UserrolesComponent implements OnInit {
     }
 
 
-    //removing selected menu or module from role tree
+    /*** removing selected menu or module from role tree ***/
     removeRoles() {
-        //this.app.showSpinner();
-        //this.app.hideSpinner();
 
-        //checking if roleTree data not selected
+        //* checking if roleTree data not selected
         if (this.selectedRole == undefined) {
             this.toastr.errorToastr('Please Select Nodes to Remove!', 'Error', { toastTimeout: (2500) }); return;
-        }else if (this.selectedRole.length == 0){
+        }
+        //* checking if roleTree data not selected
+        else if (this.selectedRole.length == 0){
             this.toastr.errorToastr('Please Select Nodes to Remove!', 'Error', { toastTimeout: (2500) }); return;
         }
 
 
-        //deleting children nodes ------loop for selected role 
+        //* removing children nodes ------loop for selected role 
         for (var i = 0; i < this.selectedRole.length; i++){
 
+            //* checking if type is menu
             if (this.selectedRole[i].data[0].typeCode == 2){
 
                 for (var j = 0; j < this.roleTree.length; j++){
@@ -823,7 +710,6 @@ export class UserrolesComponent implements OnInit {
                     for (var k = 0; k < this.roleTree[j].children.length; k++){
                     
                         if (this.selectedRole[i].data[0].objCode == this.roleTree[j].children[k].data[0].objCode){
-                            //alert(this.roleTree[j].children[k].data[0].objName);
                             this.roleTree[j].children.splice(k, 1);
                         }
                     }
@@ -832,7 +718,7 @@ export class UserrolesComponent implements OnInit {
         }
 
 
-        //deleting parent nodes ------loop for selected role 
+        //* removing parent nodes ------loop for selected role 
         for (var i = 0; i < this.selectedRole.length; i++){
 
             if (this.selectedRole[i].data[0].typeCode == 1){
@@ -855,12 +741,12 @@ export class UserrolesComponent implements OnInit {
     }
 
 
-    //function for generate pin modal window 
+    /*** Pin generation or Delete Role  ***/
     generatePin(){
         
-        //check if global variable is empty
+        //* check if global variable is empty
         if(this.app.pin != ''){
-            //deleting roles from database
+            //* Initialize List and Assign data to list. Sending list to api 
             var roleData = {erpObjct: JSON.stringify(this.erpObjct), erpRoleCd: this.erpRoleCd };
 
             this.http.put(this.serverUrl + 'api/deleteUserRole', roleData).subscribe((data: any) => {
@@ -875,7 +761,6 @@ export class UserrolesComponent implements OnInit {
                     this.app.pin = '';
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                     this.getRole();
-                    // $('#dUserRoleModal').modal('hide');
                     return false;
                 }
                 
@@ -885,7 +770,7 @@ export class UserrolesComponent implements OnInit {
         }
     }
 
-    // For Print Purpose 
+    /*** For Print Purpose ***/ 
     printDiv() {
 
         // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
@@ -932,14 +817,14 @@ export class UserrolesComponent implements OnInit {
         // alert(frameDoc.document.body.innerHTML);
 
         setTimeout(function () {
-        window.frames["frame1"].focus();
-        window.frames["frame1"].print();
-        frame1.remove();
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
         }, 500);
     }
 
 
-    // For PDF Download
+    /*** For PDF Download ***/
     downloadPDF() {
 
         var doc = new jsPDF("p", "pt", "A4"),
@@ -969,87 +854,87 @@ export class UserrolesComponent implements OnInit {
     }
 
 
-    //For CSV File 
+    /*** For CSV File ***/ 
     public downloadCSV() {
 
         // case 1: When tblSearch is empty then assign full data list
-        if (this.roleSearch == "") {
-        var completeDataList = [];
-        for (var i = 0; i < this.rolesData.length; i++) {
-            //alert(this.tblSearch + " - " + this.departmentsData[i].departmentName)
-            completeDataList.push({
-            roleName: this.rolesData[i].uRoleName,
-            noOfModule: this.rolesData[i].uNoModule,
-            noOfPages: this.rolesData[i].uNoPage
-            });
-        }
-        this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("UserRoleCompleteCSV", CsvFileTypes.CSV));
-        }
-        // case 2: When tblSearch is not empty then assign new data list
-        else if (this.roleSearch != "") {
-        var filteredDataList = [];
-        for (var i = 0; i < this.rolesData.length; i++) {
-            if (this.rolesData[i].uRoleName.toUpperCase().includes(this.roleSearch.toUpperCase()) ||
-            this.rolesData[i].uNoModule.toString().toUpperCase().includes(this.roleSearch.toUpperCase()) ||
-            this.rolesData[i].uNoPage.toString().toUpperCase().includes(this.roleSearch.toUpperCase())) {
-            filteredDataList.push({
-                roleName: this.rolesData[i].uRoleName,
-                noOfModule: this.rolesData[i].uNoModule,
-                noOfPages: this.rolesData[i].uNoPage
-            });
-            }
-        }
+        // if (this.roleSearch == "") {
+        // var completeDataList = [];
+        // for (var i = 0; i < this.rolesData.length; i++) {
+        //     //alert(this.tblSearch + " - " + this.departmentsData[i].departmentName)
+        //     completeDataList.push({
+        //     roleName: this.rolesData[i].uRoleName,
+        //     noOfModule: this.rolesData[i].uNoModule,
+        //     noOfPages: this.rolesData[i].uNoPage
+        //     });
+        // }
+        // this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("UserRoleCompleteCSV", CsvFileTypes.CSV));
+        // }
+        // // case 2: When tblSearch is not empty then assign new data list
+        // else if (this.roleSearch != "") {
+        //     var filteredDataList = [];
+        //     for (var i = 0; i < this.rolesData.length; i++) {
+        //         if (this.rolesData[i].uRoleName.toUpperCase().includes(this.roleSearch.toUpperCase()) ||
+        //         this.rolesData[i].uNoModule.toString().toUpperCase().includes(this.roleSearch.toUpperCase()) ||
+        //         this.rolesData[i].uNoPage.toString().toUpperCase().includes(this.roleSearch.toUpperCase())) {
+        //         filteredDataList.push({
+        //             roleName: this.rolesData[i].uRoleName,
+        //             noOfModule: this.rolesData[i].uNoModule,
+        //             noOfPages: this.rolesData[i].uNoPage
+        //         });
+        //         }
+        //     }
 
-        if (filteredDataList.length > 0) {
-            this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("UserRoleFilterCSV", CsvFileTypes.CSV));
-        } else {
-            this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
-        }
-        }
+        //     if (filteredDataList.length > 0) {
+        //         this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("UserRoleFilterCSV", CsvFileTypes.CSV));
+        //     } else {
+        //         this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+        //     }
+        // }
     }
 
 
-    //For Exce File
+    /*** For Exce File ***/
     public downloadExcel() {
 
         // case 1: When roleSearch is empty then assign full data list
-        if (this.roleSearch == "") {
-        for (var i = 0; i < this.rolesData.length; i++) {
-            this.excelDataList.push({
-            roleName: this.rolesData[i].uRoleName,
-            noOfModule: this.rolesData[i].uNoModule,
-            noOfPages: this.rolesData[i].uNoPage
-            });
-        }
-        this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("UserRoleCompleteExcel"));
-        this.excelDataList = [];
-        }
-        // case 2: When tblSearch is not empty then assign new data list
-        else if (this.roleSearch != "") {
-        for (var i = 0; i < this.rolesData.length; i++) {
-            if (this.rolesData[i].uRoleName.toUpperCase().includes(this.roleSearch.toUpperCase()) ||
-            this.rolesData[i].uNoModule.toString().toUpperCase().includes(this.roleSearch.toUpperCase()) ||
-            this.rolesData[i].uNoPage.toString().toUpperCase().includes(this.roleSearch.toUpperCase())) {
-            this.excelDataList.push({
-                roleName: this.rolesData[i].uRoleName,
-                noOfModule: this.rolesData[i].uNoModule,
-                noOfPages: this.rolesData[i].uNoPage
-            });
-            }
-        }
+        // if (this.roleSearch == "") {
+        // for (var i = 0; i < this.rolesData.length; i++) {
+        //     this.excelDataList.push({
+        //     roleName: this.rolesData[i].uRoleName,
+        //     noOfModule: this.rolesData[i].uNoModule,
+        //     noOfPages: this.rolesData[i].uNoPage
+        //     });
+        // }
+        // this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("UserRoleCompleteExcel"));
+        // this.excelDataList = [];
+        // }
+        // // case 2: When tblSearch is not empty then assign new data list
+        // else if (this.roleSearch != "") {
+        // for (var i = 0; i < this.rolesData.length; i++) {
+        //     if (this.rolesData[i].uRoleName.toUpperCase().includes(this.roleSearch.toUpperCase()) ||
+        //     this.rolesData[i].uNoModule.toString().toUpperCase().includes(this.roleSearch.toUpperCase()) ||
+        //     this.rolesData[i].uNoPage.toString().toUpperCase().includes(this.roleSearch.toUpperCase())) {
+        //     this.excelDataList.push({
+        //         roleName: this.rolesData[i].uRoleName,
+        //         noOfModule: this.rolesData[i].uNoModule,
+        //         noOfPages: this.rolesData[i].uNoPage
+        //     });
+        //     }
+        // }
 
-        if (this.excelDataList.length > 0) {
-            this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("UserRoleFilterExcel"));
-            this.excelDataList = [];
-        }
-        else {
-            this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
-        }
-        }
+        // if (this.excelDataList.length > 0) {
+        //     this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("UserRoleFilterExcel"));
+        //     this.excelDataList = [];
+        // }
+        // else {
+        //     this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+        // }
+        // }
     }
 
 
-    //*function for sort table data 
+    /*** function for sort table data ***/
     setOrder(value: string) {
         if (this.order === value) {
         this.reverse = !this.reverse;
