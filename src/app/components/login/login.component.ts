@@ -130,7 +130,7 @@ export class LoginComponent implements OnInit {
 
     }
 
-    /*** Performing Action using Enter key ***/
+    /*** Capture Enter key ***/
     getKeyPressed(e) {
         if (e.keyCode == 13) {
             this.onSubmit();
