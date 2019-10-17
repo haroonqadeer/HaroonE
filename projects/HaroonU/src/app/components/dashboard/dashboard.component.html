@@ -28,12 +28,12 @@
               <div class="col-md-6 text-right">
                 <div class="row">
                   <div class="col-md-11" style="margin-bottom: -10%;">
-                    <label style="font-size: 3em;">10</label>
+                    <label style="font-size: 3em;">{{countAddition}}</label>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-11">
-                    <label style="font-size: 0.9em;">OUT OF 150</label>
+                    <label style="font-size: 0.9em;">OUT OF {{countTotal}}</label>
                   </div>
                 </div>
               </div>
@@ -58,12 +58,12 @@
               <div class="col-md-6 text-right">
                 <div class="row">
                   <div class="col-md-11" style="margin-bottom: -10%;">
-                    <label style="font-size: 3em;">130</label>
+                    <label style="font-size: 3em;">{{countActive}}</label>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-11">
-                    <label style="font-size: 0.9em;">OUT OF 150</label>
+                    <label style="font-size: 0.9em;">OUT OF {{countTotal}}</label>
                   </div>
                 </div>
               </div>
@@ -88,12 +88,12 @@
               <div class="col-md-6 text-right">
                 <div class="row">
                   <div class="col-md-11" style="margin-bottom: -10%;">
-                    <label style="font-size: 3em;">20</label>
+                    <label style="font-size: 3em;">{{countDeactive}}</label>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-11">
-                    <label style="font-size: 0.9em;">OUT OF 150</label>
+                    <label style="font-size: 0.9em;">OUT OF {{countTotal}}</label>
                   </div>
                 </div>
               </div>
@@ -131,7 +131,9 @@
                     </tr>
                     <tr class='d-flex'>
                       <td class="col-7 text-left">Khan.Ahmed</td>
-                      <td class="col-5 text-center">30</td>
+                      <td class="col-5 text-center pointerCursor" >
+                        <a style="cursor: pointer;" data-toggle="modal" data-target="#permissionModal">30</a>
+                      </td>
                     </tr>
                     <tr class='d-flex'>
                       <td class="col-7 text-left">Aliraza</td>
@@ -218,115 +220,83 @@
       </div>
     </div>
   </div>
-  
+  <br/>  
 </div>
 <br/>
 
 
-<!-- Bootstrap Modal Windows -->
+<!----------------------------------------------------------->
+<!----------------------------------------------------------->
+<!----------------- Start Modal Windows --------------------->
+<!----------------------------------------------------------->
+<!----------------------------------------------------------->
 
-<!-- Start Modal Window for Users to view users data -->
-<div class="modal fade" id="userModal">
-  <div class="modal-dialog shadow-lg-dark modal-lg">
+
+<!-- Start Modal Window to add & update new user -->
+<div class="modal fade" id="permissionModal">
+
+  <!--start modal window dialog-->
+  <div class="modal-dialog shadow-lg-dark modal-md">
+    <!--start modal window contents -->
     <div class="modal-content">
 
-      <!--start Modal Header -->
+      <!--start user Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Users List</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <!--end Modal Header -->
-
-      <!--start Modal body -->
-      <div class="modal-body">
-        <!--Start search textbox Row-->
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field>
-              <input matInput [(ngModel)]="tblSearch" placeholder="Search">
-            </mat-form-field>
-            <i class="fab fa-accessible-icon"></i>
+          <h4 class="dashboard-modal-title">ACTIVITY LOG</h4>
+          <div>
+            <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
           </div>
-        </div>
-        <!--end search textbox Row-->
+      </div>
+      <!--end user Modal Header -->
 
+      <!--start user Modal body -->
+      <div class="modal-body">
         <div class="row">
-          <div class="col-md-12">
-            <table class="table table-striped allBorder">
+          <div class="col-md-11" style="margin-left: 3%;">
+            <table class="table table-striped fullwidth">
               <thead>
-                <tr class='d-flex'>
-                  <th class='col-1 text-center'>Sr#</th>
-                  <th [class.active]="order === 'userName'" (click)="setOrder('userName')" class='col-2'>
-                    User Name
-                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                  </th>
-                  <th [class.active]="order === 'userFullName'" (click)="setOrder('userFullName')" class='col-3'>Full
-                    Name
-                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                  </th>
-                  <th [class.active]="order === 'userEmail'" (click)="setOrder('userEmail')" class='col-3'>
-                    Email
-                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                  </th>
-                  <th [class.active]="order === 'userRole'" (click)="setOrder('userRole')" class='col-2'>
-                    Role
-                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                  </th>
-                  <th class="col-1">Log</th>
+                <tr class="d-flex">
+                  <th class="col-1 text-center">S#</th>
+                  <th class="col-6 text-left">USER NAME</th>
+                  <th class="col-5 text-center">ACTIVITY</th>
                 </tr>
               </thead>
               <tbody>
-                <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                <tr class='d-flex'
-                  *ngFor="let item of userList | search: 'userName,userFullName,userEmail,userRole': tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
-                  <td class="col-1 text-center">{{i+1}}</td>
-                  <td class="col-2">{{item.userName}}</td>
-                  <td class="col-3">{{item.userFullName}}</td>
-                  <td class="col-3">{{item.userEmail}}</td>
-                  <td class="col-2">{{item.userRole}}</td>
-                  <td class="col-1 text-center"><span class="fa fa-file fontPrimary pointerCursor" data-toggle="modal"
-                      data-target="#userLogModal"></span></td>
+                <tr class='d-flex'>
+                <!-- <tr class='d-flex' *ngFor="let item of rolesData | search:'uRoleName,uNoModule,uNoPage':roleSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"> -->
+                  <td class="col-1 text-center">1</td>
+                  <td class="col-6 text-left">John.Smith</td>
+                  <td class="col-5 text-center">Updated</td>
+                </tr>
+                <tr class='d-flex'>
+                  <td class="col-1 text-center">2</td>
+                  <td class="col-6 text-left">John.Smith</td>
+                  <td class="col-5 text-center">Updated</td>
+                </tr>
+                <tr class='d-flex'>
+                    <td class="col-1 text-center">3</td>
+                    <td class="col-6 text-left">John.Smith</td>
+                    <td class="col-5 text-center">Updated</td>
+                </tr>
+                <tr class='d-flex'>
+                    <td class="col-1 text-center">4</td>
+                    <td class="col-6 text-left">John.Smith</td>
+                    <td class="col-5 text-center">Deleted</td>
+                </tr>
+                <tr class='d-flex'>
+                    <td class="col-1 text-center">5</td>
+                    <td class="col-6 text-left">John.Smith</td>
+                    <td class="col-5 text-center">Updated</td>
                 </tr>
               </tbody>
             </table>
-            <!-- Pagination Starts -->
-            <div class="row">
-              <div class="col-md-8">
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-              </div>
-              <div class="col-md-3 text-right">
-                <mat-form-field class="fullwidth pagenateList">
-                  <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
-                    <mat-option value="10">10</mat-option>
-                    <mat-option value="15">15</mat-option>
-                    <mat-option value="20">20</mat-option>
-                    <mat-option value="25">25</mat-option>
-                    <mat-option value="30">30</mat-option>
-                    <mat-option value="35">35</mat-option>
-                    <mat-option value="40">40</mat-option>
-                    <mat-option value="45">45</mat-option>
-                    <mat-option value="50">50</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- Pagination Ends -->
           </div>
         </div>
       </div>
-      <!--end Modal body -->
-
-      <!--start Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-      <!--end Modal footer -->
+      <!--end user Modal body -->
     </div>
+    <!--end modal window contents -->
   </div>
+  <!--end modal window dialog-->
 </div>
-<!-- End Modal Window for Users to view users data -->
-
+<!-- End Modal Window to add & update new user -->

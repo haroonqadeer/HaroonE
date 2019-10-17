@@ -3,7 +3,9 @@ import { Chart } from 'angular-highcharts';
 import { AppComponent } from 'src/app/app.component';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { ActivatedRoute} from '@angular/router';
 
+declare var $: any;
 
 //*----------------------------------------------------------------------------//
 //*-------------------Working of this typescript file are as follows-----------//
@@ -28,131 +30,31 @@ declare var $: any;
 })
 export class DashboardComponent implements OnInit {
 
-  serverUrl = "http://localhost:55536/";
+  serverUrl = "http://localhost:5000/";
   tokenKey = "token";
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
+  /*** Variable Declaration ***/
+  
+  //* Variables Declaration for chart
   Line_chart: Chart;
   Pie_Chart: Chart;
-
-  // page ngModel
-  txtPassword = '';
-  txtPin = '';
-  txtMessage = '';
-  txtdPin = '';
-  txtSubject = '';
-  tblSearch = '';
-
-  //* variables for pagination and orderby pipe
+    
+  //* Variable Declaration for display values on page
+  countAddition = 0;
+  countActive = 0;
+  countDeactive = 0;
+  countTotal = 0;
+  
+  //* Variable Declaration for pagination and orderby pipe
   p = 1;
   order = 'info.name';
   reverse = false;
   sortedCollection: any[];
   itemPerPage = '10';
-
-  // Data for users modal window table
-  userList = [
-    {
-      userId: 1,
-      userName: "Arham",
-      userFullName: "Arham Khan",
-      userEmail: "arham@gmail.com",
-      userRole: "Admin"
-    },
-    {
-      userId: 2,
-      userName: "Behram",
-      userFullName: "Behram Khan",
-      userEmail: "behram@gmail.com",
-      userRole: "Visitor"
-    },
-    {
-      userId: 3,
-      userName: "Arsal",
-      userFullName: "Arsal Khan",
-      userEmail: "arsal@gmail.com",
-      userRole: "Admin"
-    }
-  ]
-
-  // Data for event log modal window table
-  eventLog = [
-    {
-      eId: 1,
-      eAction: "Addition",
-      eActionDateTime: "15-Jan-2019 2:15pm"
-    },
-    {
-      eId: 2,
-      eAction: "Edition",
-      eActionDateTime: "25-Jan-2019 3:15pm"
-    },
-    {
-      eId: 3,
-      eAction: "Deletion",
-      eActionDateTime: "15-Feb-2019 4:15pm"
-    }
-  ]
-
-  // Data for user roles modal window table
-  userRoles = [
-    {
-      roleId: 1,
-      roleTitle: "Financial User",
-      rolePermission: "Financial (10), HR (2)"
-    },
-    {
-      roleId: 2,
-      roleTitle: "Admin HR",
-      rolePermission: "User (10), HR (2)"
-    },
-    {
-      roleId: 3,
-      roleTitle: "Manager Procurement",
-      rolePermission: "Procurement (10), HR (2)"
-    }
-  ]
-
-  // Data for user request modal window table
-  userRequest = [
-    {
-      rId: 1,
-      rSender: "Arham",
-      rUserName: "Behram"
-    },
-    {
-      rId: 2,
-      rSender: "Behram",
-      rUserName: "Arham"
-    },
-    {
-      rId: 3,
-      rSender: "Arsal",
-      rUserName: "Sarang"
-    }
-  ]
-
-  // Data for role request modal window table
-  roleRequest = [
-    {
-      rId: 1,
-      rSender: "Behram",
-      rRoleName: "Financial Role"
-    },
-    {
-      rId: 2,
-      rSender: "Arsal",
-      rRoleName: "HR Role"
-    },
-    {
-      rId: 3,
-      rSender: "Sarang",
-      rRoleName: "Payroll"
-    }
-  ]
 
   pieData = [
     {
@@ -198,15 +100,18 @@ export class DashboardComponent implements OnInit {
       Qty: [4, 17, 20]
     }];
 
-  constructor(public toastr: ToastrManager,
-    private appComponent: AppComponent,
-    private http: HttpClient) { }
+  /*** Construction Function ***/
+  constructor(private http: HttpClient,
+    private app: AppComponent,
+    public toastr: ToastrManager,
+    private actRoute: ActivatedRoute) { }
 
   ngOnInit() {
 
-    this.appComponent.showDiv();
+    // this.appComponent.showDiv();
     this.LineChart_init();
     this.PieChart_init();
+    this.getUserTrend();
 
     // this.userService.getLocation().subscribe(data =>{
     //   this.cityDetail = data['m_Item1'];
@@ -216,77 +121,6 @@ export class DashboardComponent implements OnInit {
     //   this.countryDetail = data['m_Item2'];
     // });
   }
-
-
-  //Get the list of all users.
-  getUserList() {
-    return false;
-
-    var Token = localStorage.getItem(this.tokenKey);
-
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-
-    this.http.get(this.serverUrl + 'api/usersDetail', { headers: reqHeader }).subscribe((data: any) => {
-      this.userList = data
-    });
-  }
-
-
-  //Get the data of all event logs.
-  getEventLog() {
-    return false;
-
-    var Token = localStorage.getItem(this.tokenKey);
-
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-
-    this.http.get(this.serverUrl + 'api/usersDetail', { headers: reqHeader }).subscribe((data: any) => {
-      this.eventLog = data
-    });
-  }
-
-
-  //Get the List of user roles.
-  getUserRoles() {
-    return false;
-
-    var Token = localStorage.getItem(this.tokenKey);
-
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-
-    this.http.get(this.serverUrl + 'api/usersDetail', { headers: reqHeader }).subscribe((data: any) => {
-      this.userRoles = data
-    });
-  }
-
-
-  //Get the List of all user's request.
-  getUserRequest() {
-    return false;
-
-    var Token = localStorage.getItem(this.tokenKey);
-
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-
-    this.http.get(this.serverUrl + 'api/usersDetail', { headers: reqHeader }).subscribe((data: any) => {
-      this.userRequest = data
-    });
-  }
-
-
-  //Get the List of all role's request.
-  getRoleRequest() {
-    return false;
-
-    var Token = localStorage.getItem(this.tokenKey);
-
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-
-    this.http.get(this.serverUrl + 'api/usersDetail', { headers: reqHeader }).subscribe((data: any) => {
-      this.roleRequest = data
-    });
-  }
-
 
   //Get the daily user trend 
   PieChart_init() {
@@ -416,93 +250,30 @@ export class DashboardComponent implements OnInit {
     //this.Line_chart = chart;
   }
 
+    /*** Get How many Users are Added, Modified and Blocked ***/
+    getUserTrend() {
 
-  // accepting the role request 
-  acceptData() {
+      this.app.showSpinner();
+      var itemBackup = localStorage.getItem(this.tokenKey);
 
-    //checking if password is empty
-    if (this.txtPassword.trim().length == 0) {
+      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+      // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + itemBackup });
 
-      this.toastr.errorToastr('Please Enter Password', 'Oops!', { toastTimeout: (2500) });
-      return;
-    }
-    else if (this.txtPin.trim().length == 0) {
+      this.http.get(this.serverUrl + 'api/getUserTrends', { headers: reqHeader }).subscribe((data: any) => {
+          //alert(data.addition)
+          this.countAddition = data[0].addition;
+          this.countActive = data[0].active;
+          this.countDeactive = data[0].deactivated;
+          this.countTotal = data[0].total;
 
-      this.toastr.errorToastr('Please Enter Pin', 'Oops!', { toastTimeout: (2500) });
-      return;
-    }
-
-    this.appComponent.showSpinner();
-    this.appComponent.hideSpinner();
-
-    this.toastr.successToastr('Message Send Successfully!', 'Success', { toastTimeout: (2500) });
-
-    $('#reqAcceptModal').modal('hide');
-
-    this.clear();
-    return;
-
-    // var Token = localStorage.getItem(this.tokenKey);
-
-    // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-
-    // var reqData = { pasword: this.txtPassword, pin: this.txtPin };
-
-    // this.http.get(this.serverUrl + 'api/acceptReq', reqData, { headers: reqHeader }).subscribe((data: any) => {
-    //   this.roleRequest = data
-    // });
-
+          this.app.hideSpinner();
+      });
   }
-
-
-  // query send by user to the administrator
-  send() {
-
-    //checking if password is empty
-    if (this.txtSubject.trim().length == 0) {
-
-      this.toastr.errorToastr('Please Enter Subject', 'Oops!', { toastTimeout: (2500) });
-      return;
-    }
-    else if (this.txtMessage.trim().length == 0) {
-
-      this.toastr.errorToastr('Please Enter Message', 'Oops!', { toastTimeout: (2500) });
-      return;
-    }
-    else if (this.txtdPin.trim().length == 0) {
-
-      this.toastr.errorToastr('Please Enter Pin', 'Oops!', { toastTimeout: (2500) });
-      return;
-    }
-
-    this.appComponent.showSpinner();
-    this.appComponent.hideSpinner();
-
-    this.toastr.successToastr('Message Send Successfully!', 'Success', { toastTimeout: (2500) });
-
-    $('#msgModal').modal('hide');
-
-    this.clear();
-
-  }
-
-
+  
   //
   pie_data() {
 
   }
-
-
-  // clear the fields
-  clear() {
-
-    this.txtPassword = "";
-    this.txtPin = "";
-    this.txtMessage = "";
-    this.txtdPin = "";
-    this.txtSubject = "";
-  }
-
 
   //*function for sort table data 
   setOrder(value: string) {
