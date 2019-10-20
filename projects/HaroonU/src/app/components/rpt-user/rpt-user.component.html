@@ -85,7 +85,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let emp of userData | search:'indvdlERPUsrID,indvdlFullName,emailAddrss,erpRoleName,deptName':userSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
+                <tr *ngFor="let emp of userData | search:'indvdlERPUsrID,indvdlFullName,emailAddrss,erpRoleName,deptName':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
                 <td >{{i+1}}</td>
                 <td >{{emp.indvdlFullName}}</td>
                 <td >{{emp.indvdlERPUsrID}}</td>
