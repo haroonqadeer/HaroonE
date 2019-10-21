@@ -66,7 +66,8 @@
 export class UserprofileComponent implements OnInit {
 
     /*** Api link published in server ***/
-	serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9037/";
+    //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9037/";
+    serverUrl = "http://localhost:9037/";
     tokenKey = "token";
 
     /*** http header ***/
@@ -105,6 +106,11 @@ export class UserprofileComponent implements OnInit {
     lblJobDesigID = 0;
     lblJobPostDeptCd = 0;
     lblJobPostLocationCd = 0;
+
+    cAdditions = [0, 0, 0, 0, 0, 0, 0];
+    cUpdations = [0, 0, 0, 0, 0, 0, 0];
+    cDeactivated = [0, 0, 0, 0, 0, 0, 0];
+
     
     //*Variable Declaration for NgModels
     tblSearch;
@@ -141,9 +147,10 @@ export class UserprofileComponent implements OnInit {
 
     /*** Page Initialization ***/
     ngOnInit() {
-        
         //* Functions Call
-        this.init();
+        this.getUserTrendChart();
+        
+        //this.init();
 
         this.getUserDetail();
         this.getUserTrend();
@@ -175,13 +182,13 @@ export class UserprofileComponent implements OnInit {
             },
             series: [{
                 name: 'UPDATIONS',
-                data: [300, 500, 250, 200, 800, 1000, 2000]
+                data: this.cUpdations
             }, {
                 name: 'DEACTIVATED',
-                data: [250, 100, 300, 650, 450, 800, 600]
+                data: this.cDeactivated
             }, {
                 name: 'ADDITIONS',
-                data: [1, 1, 1, 100, 500, 800, 450]
+                data: this.cAdditions
             }]
         });
 
@@ -316,6 +323,48 @@ export class UserprofileComponent implements OnInit {
 
     }
 
+    // Get data for user trend chart
+    getUserTrendChart() {
+
+        var toDate = new Date();
+
+        var endDate = toDate.getFullYear() + "-" + toDate.getMonth() + "-" + toDate.getDate();
+
+        toDate.setDate (toDate.getDate() - 6);
+
+        var startDate = toDate.getFullYear() + "-" + toDate.getMonth() + "-" + toDate.getDate();
+
+        this.app.showSpinner();
+
+        this.http.get(this.serverUrl + 'api/getUserTrendsChart?StartDate=' + startDate + '&EndDate=' + endDate  ).subscribe((data: any) => {
+
+            //this.tempRoleList = data;
+            this.cAdditions = [];
+            this.cUpdations = [];
+            this.cDeactivated = [];
+
+            for (var i = 0; i < data.length; i++) {
+
+                this.cAdditions.push(
+                    data[i].addition
+                );
+
+                this.cUpdations.push(
+                    data[i].updation
+                );
+
+                this.cDeactivated.push(
+                    data[i].deactivated
+                );
+            }
+
+            this.app.hideSpinner();
+            this.init();
+
+        });
+
+    }
+
     /*** Application Roles List ***/
     getRole() {
 
@@ -381,6 +430,7 @@ export class UserprofileComponent implements OnInit {
                 this.getUserDetail();
                 this.getUserTrend();
                 this.getParty();
+                this.getUserTrendChart();
                 $('#activeUserModal').modal('hide');
                 this.txtPin = '';
                 return false;
