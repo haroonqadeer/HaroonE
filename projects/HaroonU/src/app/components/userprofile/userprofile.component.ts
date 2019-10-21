@@ -66,8 +66,8 @@
 export class UserprofileComponent implements OnInit {
 
     /*** Api link published in server ***/
-    //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9037/";
-    serverUrl = "http://localhost:9037/";
+    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9037/";
+    // serverUrl = "http://localhost:5000/";
     tokenKey = "token";
 
     /*** http header ***/
@@ -325,17 +325,9 @@ export class UserprofileComponent implements OnInit {
     // Get data for user trend chart
     getUserTrendChart() {
 
-        var toDate = new Date();
-
-        var endDate = toDate.getFullYear() + "-" + toDate.getMonth() + "-" + toDate.getDate();
-
-        toDate.setDate (toDate.getDate() - 6);
-
-        var startDate = toDate.getFullYear() + "-" + toDate.getMonth() + "-" + toDate.getDate();
-
         this.app.showSpinner();
 
-        this.http.get(this.serverUrl + 'api/getUserTrendsChart?StartDate=' + startDate + '&EndDate=' + endDate  ).subscribe((data: any) => {
+        this.http.get(this.serverUrl + 'api/getUserTrendsChart' ).subscribe((data: any) => {
 
             //this.tempRoleList = data;
             this.cAdditions = [];

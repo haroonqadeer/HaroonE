@@ -30,7 +30,9 @@ declare var $: any;
 })
 export class DashboardComponent implements OnInit {
 
-  serverUrl = "http://localhost:5000/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9038/";
+
+  // serverUrl = "http://localhost:5000/";
   tokenKey = "token";
 
   httpOptions = {
@@ -41,7 +43,7 @@ export class DashboardComponent implements OnInit {
   
   //* Variables Declaration for chart
   Line_chart: Chart;
-  Pie_Chart: Chart;
+  // Pie_Chart: Chart;
     
   //* Variable Declaration for display values on page
   countAddition = 0;
@@ -55,6 +57,11 @@ export class DashboardComponent implements OnInit {
   reverse = false;
   sortedCollection: any[];
   itemPerPage = '10';
+
+  
+  cAdditions = [];
+  cUpdations = [];
+  cDeactivated = [];
 
   pieData = [
     {
@@ -109,10 +116,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
 
     // this.appComponent.showDiv();
-    this.LineChart_init();
     this.PieChart_init();
     this.getUserTrend();
-
+    this.getUserTrendChart();
     // this.userService.getLocation().subscribe(data =>{
     //   this.cityDetail = data['m_Item1'];
     // });
@@ -208,7 +214,7 @@ export class DashboardComponent implements OnInit {
         data: [7, 4, 8, 9]
       }]
     });
-    this.Pie_Chart = chart;
+    // this.Pie_Chart = chart;
   }
 
 
@@ -225,7 +231,7 @@ export class DashboardComponent implements OnInit {
     // alert(mySeries)
     //let chart;
 
-    for (var i = 0; i < this.lineData.length; i++) {
+    // for (var i = 0; i < this.lineData.length; i++) {
       //alert(this.lineData[i].chartName)
       let chart = new Chart({
         chart: {
@@ -239,15 +245,55 @@ export class DashboardComponent implements OnInit {
         },
         series:
           [{
-            name: this.lineData[i].chartName,
-            data: this.lineData[i].Qty
+            name: 'UPDATIONS',
+            data: this.cUpdations
+          }, {
+            name: 'DEACTIVATED',
+            data: this.cDeactivated
+          }, {
+            name: 'ADDITIONS',
+            data: this.cAdditions
           }]
       });
 
       this.Line_chart = chart;
-    }
+    // }
 
     //this.Line_chart = chart;
+  }
+
+    // Get data for user trend chart
+    getUserTrendChart() {
+
+      this.app.showSpinner();
+
+      this.http.get(this.serverUrl + 'api/getUserTrendsChart' ).subscribe((data: any) => {
+
+          //this.tempRoleList = data;
+          this.cAdditions = [];
+          this.cUpdations = [];
+          this.cDeactivated = [];
+
+          for (var i = 0; i < data.length; i++) {
+
+              this.cAdditions.push(
+                  data[i].addition
+              );
+
+              this.cUpdations.push(
+                  data[i].updation
+              );
+
+              this.cDeactivated.push(
+                  data[i].deactivated
+              );
+          }
+
+          this.app.hideSpinner();
+          this.LineChart_init();
+
+      });
+
   }
 
     /*** Get How many Users are Added, Modified and Blocked ***/
