@@ -201,7 +201,6 @@ export class UserprofileComponent implements OnInit {
         return this.users.filter(x => x.type == type);
     }
 
-
     /*** Getting User List who didn't have Application Access ***/
     getParty() {
 
@@ -230,7 +229,7 @@ export class UserprofileComponent implements OnInit {
             this.app.hideSpinner();
         });
     }
-    
+
     /*** Get How many Users are Added, Modified and Blocked ***/
     getUserTrend() {
 
@@ -249,7 +248,7 @@ export class UserprofileComponent implements OnInit {
             this.app.hideSpinner();
         });
     }
-    
+
     // Get specific role data and assign it to role tree list variable
     getRoleTree() {
 
@@ -390,7 +389,7 @@ export class UserprofileComponent implements OnInit {
 
         $('#resetModal').modal('show');
     }
-    
+
     /*** Empty and Assign data to fields. Also show modal window ***/
     activeUser(item){
 
