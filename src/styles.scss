@@ -61,8 +61,8 @@
 
     .BtnIntro {
     font-family: 'Roboto-Light' !important;
-    font-size: 1.2em;
-    height: 2.2em;
+    font-size: 1em;
+    height: 3em;
     }
 
     //////////////////////////////////////////
@@ -105,7 +105,7 @@
 
     .h5Para {
     font-family: Roboto-Light !important;
-    font-size: 1em;
+    font-size: 1.2em;
     }
 
     .h1 {
@@ -1746,7 +1746,9 @@
 
     .modalPopup .modal-body .inputContainer{
         border: 0px solid red;
-        background: #fff;
+        background: #5F84D5;
+        color: white;
+        // text-colo: white;
         padding: 15px 0 7px 0;
         margin-bottom: 5px;
     }
@@ -1779,6 +1781,31 @@
         height: 24px;
         background: url('./assets/images/close.svg') no-repeat;
     }
+
+
+    /** Overrides underline color **/
+    .my-form-field.mat-form-field-appearance-legacy .mat-form-field-underline,
+    .my-form-field.mat-form-field-appearance-legacy .mat-form-field-ripple,
+    .my-form-field.mat-form-field-appearance-legacy.mat-focused
+        .mat-form-field-underline,
+    .my-form-field.mat-form-field-appearance-legacy.mat-focused
+        .mat-form-field-ripple {
+        background-color: white;
+    }
+
+    /** Overrides label color **/
+    .my-form-field.mat-form-field-appearance-legacy .mat-form-field-label,
+    .my-form-field.mat-form-field-appearance-legacy.mat-focused
+        .mat-form-field-label {
+        color: white;
+    }
+
+    /** Overrides caret & text color **/
+    .my-form-field.mat-form-field-appearance-legacy .mat-input-element {
+        caret-color: white;
+        color: white;
+    }
+    
     //----------------------------------Modal window css end ----------------------------------------
 
     //----------------------------------tabs css start ----------------------------------------

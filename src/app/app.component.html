@@ -364,7 +364,7 @@
     
     
       <!--Menu Top Bar -->
-      <div class="example-sidenav-content" style="z-index: 100;">
+      <div class="example-sidenav-content" style="z-index: 100; overflow-x: hidden;">
         <div *ngIf="hideDiv" class="row bgBlue boxShadow" >
     
           <!--Ambit Logo Button column -->
@@ -479,29 +479,47 @@
             <div class="offset-md-1 col-md-6">
               <p class="fontWhite">Change Password<br/></p>
   
-              <div class="inputContainer">
-                <span class="ui-float-label">
-                  <input id="float-input" type="password" size="32" [(ngModel)]="txtCrntPassword" pInputText class="fullwidth noneOutLine"> 
+              <!-- <div> -->
+                <mat-form-field class='fullwidth my-form-field' appearance="legacy">
+                  <mat-label class="inputLabel">
+                      Enter Current Password
+                  </mat-label>
+                  <input matInput id="float-input" type="password" size="32" [(ngModel)]="txtCrntPassword" autofocus>
+                </mat-form-field>
+                <!-- <span class="ui-float-label">
+                  <input id="float-input" type="password" size="32" [(ngModel)]="txtCrntPassword" pInputText class="fullwidth"> 
                   <label for="float-input">Enter Current Password</label>
-                </span>
-              </div>
+                </span> -->
+              <!-- </div> -->
   
               <!--start password row -->
-              <div class="inputContainer">
+              <mat-form-field class='fullwidth my-form-field' appearance="legacy">
+                <mat-label class="inputLabel">
+                  Enter New Password
+                </mat-label>
+                <input matInput id="float-input" type="password" size="32" [(ngModel)]="txtNewPassword">
+              </mat-form-field>
+              <!-- <div class="inputContainer">
                 <span class="ui-float-label">
                   <input id="float-input" type="password" size="32" [(ngModel)]="txtNewPassword" pInputText class="fullwidth noneOutLine" #password> 
                   <label for="float-input">Enter New Password</label>
                 </span>
-              </div>
+              </div> -->
               <!-- <mat-password-strength [password]="password.value" ></mat-password-strength> -->
               <!--end password row-->
               
               <!--start conform password row -->
               <div class="inputContainer" style="margin-top: 5px;">
-                <span class="ui-float-label">
+                <mat-form-field class='fullwidth my-form-field' appearance="legacy">
+                  <mat-label class="inputLabel">
+                    Confirm New Password
+                  </mat-label>
+                  <input matInput id="float-input" type="password" size="32" [(ngModel)]="txtCnfrmPassword">
+                </mat-form-field>
+                <!-- <span class="ui-float-label">
                   <input id="float-input" type="password" size="32" [(ngModel)]="txtCnfrmPassword" pInputText class="fullwidth noneOutLine"> 
                   <label for="float-input">Confirm New Password</label>
-                </span>
+                </span> -->
               </div>
               <!--end conform password row -->
               
@@ -559,12 +577,18 @@
   
               <div class="row">
                 <div class="col-md-10">
-                  <div class="inputContainer">
+                  <mat-form-field class='fullwidth my-form-field' appearance="legacy">
+                    <mat-label class="inputLabel">
+                      Enter PIN
+                    </mat-label>
+                    <input matInput id="float-input" type="password" size="32" [(ngModel)]="txtPin">
+                  </mat-form-field>
+                  <!-- <div class="inputContainer">
                     <span class="ui-float-label">
                       <input id="float-input" [(ngModel)]="txtPin" type="password" size="32" pInputText class="fullwidth noneOutLine"> 
                       <label for="float-input">Enter PIN</label>
                     </span>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               
