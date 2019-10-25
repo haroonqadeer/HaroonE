@@ -352,10 +352,10 @@
             <br/>
             <!--start password row -->
             <mat-form-field class="fullwidth" id="userPassEnable">
-              <input matInput #password placeholder="Password" type="password" [(ngModel)]="txtPassword"
-                required>
+              <input matInput #passwords placeholder="Password" type="password" [(ngModel)]="txtPassword"
+              (ngModelChange)="showPasswordStrenght($event)" required>
             </mat-form-field>
-            <mat-password-strength [password]="password.value">
+            <mat-password-strength [password]="passwords.value" *ngIf="!isEmpty">
             </mat-password-strength>
             <!--end password row-->
 
@@ -403,7 +403,7 @@
 
             <br/>
             <!--start buttons row -->
-            <button mat-raised-button color="primary" (click)="saveEmployee()" style="border-radius: 0;">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
+            <button mat-raised-button class="btn" (click)="saveEmployee()" style="border-radius: 0;">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
             <!-- <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? false : true" (click)="saveEmployee()" style="border-radius: 0;">Save</button>
             <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? true : false" style="border-radius: 0;">Send</button> -->
             <!--end buttons row -->
@@ -530,7 +530,8 @@
               <mat-label class="inputLabel">
                 Enter New Password
               </mat-label>
-              <input matInput id="float-input" type="password" size="32" [(ngModel)]="txtNewPassword" #password>
+              <input matInput id="float-input" type="password" size="32" [(ngModel)]="txtNewPassword" #password
+              (ngModelChange)="showPasswordStrenght($event)">
             </mat-form-field>
             <!-- <div class="inputContainer">
               <span class="ui-float-label">
@@ -538,7 +539,7 @@
                 <label for="float-input">Enter New Password</label>
               </span>
             </div> -->
-            <mat-password-strength  [password]="password.value" ></mat-password-strength>
+            <mat-password-strength  [password]="password.value" *ngIf="!isEmpty"></mat-password-strength>
             <!--end password row-->
             
             <div class="marginSingleTop"></div>
@@ -559,7 +560,7 @@
 
             <div class="marginSingleTop"></div>
             <!--buttons -->
-            <button mat-raised-button color="primary" class="buttonSquare" (click)="savePassword()">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
+            <button mat-raised-button class="buttonSquare btnBlueModal" (click)="savePassword()">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
           </div>
           <!--end labels and textboxes column-->
           <!--start reset password logo column-->
@@ -634,7 +635,7 @@
             
             <br>
             <!--buttons -->
-            <button mat-raised-button color="primary" class="buttonSquare" (click)="saveActiveUser()">&nbsp; ACTIVATE &nbsp;</button>
+            <button mat-raised-button color="primary" class="buttonSquare btnBlueModal" (click)="saveActiveUser()">&nbsp; ACTIVATE &nbsp;</button>
             &nbsp; <a class="fontWhite" style="text-decoration: underline; cursor: pointer;"  (click)="genPin()">Generate PIN</a> &nbsp;
           </div>
           <!--end paragraph column-->

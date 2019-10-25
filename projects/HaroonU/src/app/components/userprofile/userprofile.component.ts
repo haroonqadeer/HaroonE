@@ -106,6 +106,7 @@ export class UserprofileComponent implements OnInit {
     lblJobDesigID = 0;
     lblJobPostDeptCd = 0;
     lblJobPostLocationCd = 0;
+    isEmpty = true;
 
     cAdditions = [0, 0, 0, 0, 0, 0, 0];
     cUpdations = [0, 0, 0, 0, 0, 0, 0];
@@ -372,6 +373,7 @@ export class UserprofileComponent implements OnInit {
     /*** Empty and Assign data to fields. Also show modal window ***/
     resetPassword(item){
 
+        this.isEmpty = true;
         this.txtNewPassword = '';
         this.txtNewCnfrmPassword = '';
 
@@ -593,7 +595,7 @@ export class UserprofileComponent implements OnInit {
         this.lblJobPostDeptCd = 0;
         this.lblJobPostLocationCd = 0;
         this.chkPin = false;
-
+        this.isEmpty = true;
     }
 
     /*** Assign values to variables for Updation ***/ 
@@ -791,4 +793,11 @@ export class UserprofileComponent implements OnInit {
         this.order = value;
     }
 
+    showPasswordStrenght(item){
+        if(item != ""){
+            this.isEmpty = false;
+        }else{
+            this.isEmpty = true;
+        }
+    }
 }

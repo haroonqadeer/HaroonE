@@ -1739,6 +1739,25 @@
         background-color: #5F84D5;
     }
 
+    .modal .btn{
+        background-color: #5f84d5;
+        color: white;
+    }
+
+    .modal .btn:hover{
+        background-color: #22388e;
+        color: white;
+    }
+
+    .modal .btnBlueModal{
+        background-color: #334a9f;
+        color: white;
+    }
+
+    .modal .btnBlueModal:hover{
+        background-color: #16267d;
+        color: white;
+    }
     .modalPopup .modal-body {
         border: 0px solid red;
         background-color: #5F84D5;
@@ -1852,7 +1871,7 @@
         border:1px solid green;
         width: 28px;
         height:28px;
-        mask: url(./assets/images/search.svg) no-repeat center ;
+        mask: url(./assets/images/search.gif) no-repeat center ;
         background-color: #999;
     }
 
