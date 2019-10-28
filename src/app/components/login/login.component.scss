@@ -191,14 +191,6 @@
     }
 
 
-
-
-    ::ng-deep .mat-form-field {
-        .mat-form-field-underline {
-            background-color: slategray;
-        }
-    }
-
     .copyRight {
         width: 100%;
         text-align: center;
@@ -206,4 +198,16 @@
         font-size: 0.96em !important;
         color: #373737 !important;
         margin-top: -1.8em !important;
+    }
+    
+    /****************************Mat form fields setting *************************/
+    ::ng-deep .mat-form-field {
+        .mat-form-field-underline{
+            background-color: #c2c2c2;
+        }
+    }
+
+    ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+        // color: #3F51B5!important;
+        //text-transform: uppercase;
     }
