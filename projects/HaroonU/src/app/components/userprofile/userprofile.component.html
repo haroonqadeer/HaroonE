@@ -475,8 +475,8 @@
 
         <!--start permissionModal 3rd row-->
         <div class="row">
-          <div class="col-md-12">
-            <p-tree class="fullwidth" [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
+          <div class="col-md-12" >
+            <p-tree [style]="{'width': '100%'}" [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
           </div>
         </div>
         <!--end permissionModal 3rd row-->
@@ -485,7 +485,7 @@
         <!--start permissionModal 4th row-->
         <div class="row">
           <div class="col-md-12 text-center">
-            <button mat-raised-button color="primary" style="width: 97%;" class="buttonSquare" data-dismiss="modal">Close</button>
+            <button mat-raised-button color="primary" style="width: 100%;" class="buttonSquare" data-dismiss="modal">Close</button>
           </div>
         </div>
         <!--end permissionModal 4th row-->
@@ -575,6 +575,7 @@
         </div>
         <!--end resetModal 1st row-->
 
+        <br/>
       </div>
       <!--end Modal body -->
 
@@ -649,7 +650,7 @@
 
         </div>
         <!--end activeUserModal 1st row-->
-
+        <br/>
       </div>
       <!--end Modal body -->
 

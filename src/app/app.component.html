@@ -360,99 +360,98 @@
     </div>
     
     
-      <!--Menu Top Bar -->
-      <div class="example-sidenav-content" style="z-index: 100; overflow-x: hidden;">
-        <div *ngIf="hideDiv" class="row bgBlue boxShadow" >
-    
-          <!--Ambit Logo Button column -->
-          <div class="col-md-1" style="border:0px solid red; background-color: #E6E6E6;">
-    
-            <button type="button" class="noneOutLine menuButton" mat-flat-button>
-              <a routerLink="home">
-                <img src="../assets/images/Ambit-Logo.svg" height="25px">
-              </a>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <span class="fa fa-bars text-center" style="color:#4F6EB1;" (click)="openNav()"></span>
-            </button>
-          </div>
-    
-          <!--empty column -->
-          <div class=" offset-md-5 col-md-1 text-right">
-          </div>
-          
-          <!--welcome column -->
-          <div class="col-md-3 text-right" style="border:0px solid red; padding: 0;">
-    
-            <img src="../assets/images/Default-Image.jpg" alt="" style="border-radius: 50%" height="40px">
-    
-            <div class="dropdown">
-              <button class="dropbtn pointerCursor">
-                WELCOME! {{logedInUserName}} &nbsp;
-                <span class="fa fa-caret-down"></span>
-              </button>
-    
-              <div class="dropdown-content">
-    
-                <div class="btn" (click)=showBottom()>
-                  <span class="fa fa-sitemap"></span>&nbsp;
-                  <span> Modules</span>
-                </div>
-                <div class="btn" (click)=showAttendance()>
-                    <span class="fa fa-calendar-check-o"></span>&nbsp;
-                    <span>Attendance</span>
-                </div>
-                <div class="btn" data-toggle="modal" data-target="#changePasWrdModal">
-                    <span class="fa fa-key"></span>&nbsp;
-                    <span>Change Password</span>
-                </div>
-                <!-- <div class="btn" (click)=genPin()>
-                  <span class="fa fa-key"></span>&nbsp;
-                  <span>gen pin</span>
-                </div> -->
-                <div class="btn" (click)="Logout()">
-                  <span class="fa fa-sign-out"></span>&nbsp;
-                  <span>Log out</span>
-                </div>
-              </div>
-            </div>
-    
-            <div class="row" style="border:0px solid red; padding: 0;">
-              <div class="col-md-2" style="border: 0px solid yellow; padding-right: 0;">
-    
-              </div>
-            </div>
-    
-          </div>
-          
-          <!--reports column -->
-          <div class="col-md-1 text-right border-left" style="border:0px solid yellow; padding: 0;">
-
-              <div class="btnReport">
-                <img src="../assets/images/Reports.svg" alt="" height="30px">
-                &nbsp;<span style="font-size: 15px; font-family: Roboto-Light;">REPORTS</span>
-              </div>
-    
-          </div>
-
-          <!--slider column -->
-          <div class="col-md-1 text-right">
-
-            <div class="btnSlider border-left">
-              <!-- <span class="fa fa-sliders"></span> -->
-              <img src="../assets/images/settings1.svg" alt="" height="30px">
-            </div>
-
-          </div>
+    <!--Menu Top Bar -->
+    <div class="example-sidenav-content" style="z-index: 100; overflow-x: hidden;">
+      <div *ngIf="hideDiv" class="row bgBlue boxShadow" >
+  
+        <!--Ambit Logo Button column -->
+        <div class="col-md-1" style="border:0px solid red; background-color: #E6E6E6;">
+  
+          <button type="button" class="noneOutLine menuButton" mat-flat-button>
+            <a routerLink="home">
+              <img src="../assets/images/Ambit-Logo.svg" height="25px">
+            </a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="fa fa-bars text-center" style="color:#4F6EB1;" (click)="openNav()"></span>
+          </button>
         </div>
   
-        <ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.91)" size="medium" color="#ff871c" type="ball-clip-rotate-multiple"
-          fullScreen="true" >
-          <p style="color: white;"> Loading... </p>
-        </ngx-spinner>
+        <!--empty column -->
+        <div class=" offset-md-5 col-md-1 text-right">
+        </div>
+        
+        <!--welcome column -->
+        <div class="col-md-3 text-right" style="border:0px solid red; padding: 0;">
   
-        <router-outlet></router-outlet>
+          <img src="../assets/images/Default-Image.jpg" alt="" style="border-radius: 50%; margin-bottom: 3px;" height="37px">
+  
+          <div class="dropdown">
+            <button class="dropbtn pointerCursor">
+              WELCOME! {{logedInUserName}} &nbsp;
+              <span class="fa fa-caret-down"></span>
+            </button>
+  
+            <div class="dropdown-content">
+  
+              <div class="btn" (click)=showBottom()>
+                <span class="fa fa-sitemap"></span>&nbsp;
+                <span> Modules</span>
+              </div>
+              <div class="btn" (click)=showAttendance()>
+                  <span class="fa fa-calendar-check-o"></span>&nbsp;
+                  <span>Attendance</span>
+              </div>
+              <div class="btn" data-toggle="modal" data-target="#changePasWrdModal">
+                  <span class="fa fa-key"></span>&nbsp;
+                  <span>Change Password</span>
+              </div>
+              <!-- <div class="btn" (click)=genPin()>
+                <span class="fa fa-key"></span>&nbsp;
+                <span>gen pin</span>
+              </div> -->
+              <div class="btn" (click)="Logout()">
+                <span class="fa fa-sign-out"></span>&nbsp;
+                <span>Log out</span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row" style="border:0px solid red; padding: 0;">
+            <div class="col-md-2" style="border: 0px solid yellow; padding-right: 0;">
+  
+            </div>
+          </div>
+  
+        </div>
+        
+        <!--reports column -->
+        <div class="col-md-1 text-right border-left" style="border:0px solid yellow; padding: 0;">
+
+            <div class="btnReport">
+              <img src="../assets/images/Reports.svg" alt="" height="30px">
+              &nbsp;<span style="font-size: 15px; font-family: Roboto-Light;">REPORTS</span>
+            </div>
+  
+        </div>
+
+        <!--slider column -->
+        <div class="col-md-1 text-right">
+
+          <div class="btnSlider border-left">
+            <!-- <span class="fa fa-sliders"></span> -->
+            <img src="../assets/images/settings1.svg" alt="" height="30px">
+          </div>
+
+        </div>
       </div>
 
+      <ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.91)" size="medium" color="#ff871c" type="ball-clip-rotate-multiple"
+        fullScreen="true" >
+        <p style="color: white;"> Loading... </p>
+      </ngx-spinner>
+
+      <router-outlet></router-outlet>
+    </div>
 
 
 
@@ -525,7 +524,8 @@
   
           </div>
           <!--end 1st row-->
-  
+          
+          <br/>
         </div>
         <!--end Modal body -->
   
@@ -554,7 +554,7 @@
         <!--start Modal body -->
         <div class="modal-body">
           <!--start 1st row-->
-          <div class="row">
+          <div class="row" >
             <div class="offset-md-1 col-md-6">
               <p class="fontWhite">Hi {{logedInUserName}}!<br/>
                 It seems you need to activate this user profile, please enter your PIN to proceed, if your PIN is already expired click Generate PIN to receive new PIN via email.<br/>
@@ -595,10 +595,10 @@
   
           </div>
           <!--end 1st row-->
-  
+          <br/>
         </div>
         <!--end Modal body -->
-  
+        
       </div>
     </div>
   </div>
