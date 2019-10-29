@@ -1676,7 +1676,10 @@
 
 
     //----------------------------------Modal window css start ----------------------------------------
-    
+
+    .modal {
+        background-color: rgba(0,0,0,0.8);
+    }
     .modal .modal-content{
         border:0px solid red; 
         border-radius: 0;    
