@@ -33,6 +33,7 @@ import { ConfigSharedModule } from 'projects/HaroonConfig/src/app/app.module';
 import { UMSharedModule } from 'projects/HaroonU/src/app/app.module';
 import { CompSharedModule } from 'projects/HaroonC/src/app/app.module';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { ConfigAddressComponent } from './components/config-address/config-address.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassw
     SearchPipe,
     LoginComponent,
     AttendanceComponent,
-    ForgotpasswordComponent
+    ForgotpasswordComponent,
+    ConfigAddressComponent
   ],
   imports: [
     BrowserModule,

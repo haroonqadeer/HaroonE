@@ -1,3 +1,5 @@
+<app-currency></app-currency>
+
 <br />
 <!-- heading row -->
 <div class="row">
@@ -133,59 +135,6 @@
 <igx-grid #excelDataContent [data]="excelDataList" [autoGenerate]="false" height="null" width="null" [hidden]="true">
 </igx-grid>
 <!-- Hidden Table Ends  for Excel and CSV files -->
-
-<!-- Hidden Table for Print and PDF files starts-->
-<div class="container  printArea" id="printArea" #exportPDF>
-  <div class="printDiv">
-
-    <!--Start heading table -->
-    <table>
-      <tr>
-        <td width="15%" style="border:none;">
-          <img src="../../../assets/images/logo.png" width="135px">
-        </td>
-
-        <td style="border:none;">
-          <div class="commonCss cssHeading">Logix Solutions</div>
-          <div class="commonCss cssAddress">Office #209, 2nd Floor Ahmed Plaza, Rawalpindi Road Fateh Jang.</div>
-          <div class="commonCss cssContact">Mobile: 0313-5300471, Ph. 057-2212704</div>
-        </td>
-      </tr>
-    </table>
-    <!--End heading table -->
-
-    <br /><br />
-
-    <!--Start table Row-->
-    <div class="row">
-      <table>
-        <thead>
-          <tr class="d-flex">
-            <th class="col-1 text-center">Sr. #</th>
-            <th> Business Type </th>
-            <th> Title </th>
-            <th> Nature </th>
-            <th> NTN </th>
-            <th> Website </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of userDetail | search:'businessType,title,nature,ntn,website': tblSearch let i=index"
-            class='d-flex'>
-            <td class="col-1 text-center">{{i+1}}</td>
-            <td class="col-2">{{item.businessType}}</td>
-            <td class="col-2">{{item.title}}</td>
-            <td class="col-2">{{item.nature}}</td>
-            <td class="col-2 text-left">{{item.ntn}}</td>
-            <td class="col-3">{{item.website}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div><!-- end table row -->
-  </div>
-</div>
-
-<!-- Hidden Table for Print and PDF files ends-->
 
 
 

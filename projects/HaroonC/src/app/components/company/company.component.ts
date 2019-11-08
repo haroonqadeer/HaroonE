@@ -5,6 +5,9 @@ import { catchError, filter } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { AppComponent } from '../../../../../../src/app/app.component';
+import { CurrencyComponent } from '../currency/currency.component';
+
+
 // import * as jsPDF from 'jspdf';
 import {
     IgxExcelExporterOptions,

@@ -36,7 +36,9 @@ import { DepartmentComponent } from './components/department/department.componen
 import { HeadquarterComponent } from './components/headquarter/headquarter.component';
 import { SectionComponent } from './components/section/section.component';
 import { SubsidiarieComponent } from './components/subsidiarie/subsidiarie.component';
-// import { AddressComponent } from './shared/address/address.component'
+
+
+
 @NgModule({
     declarations: [
       AppComponent,
