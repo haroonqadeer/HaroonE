@@ -7,6 +7,8 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { AppComponent } from '../../../../../../src/app/app.component';
 import { CurrencyComponent } from '../currency/currency.component';
 
+import { ConfigAddressComponent } from 'src/app/components/config-address/config-address.component';
+
 
 // import * as jsPDF from 'jspdf';
 import {
@@ -94,6 +96,8 @@ export class CompanyComponent implements OnInit {
     // soleBox = true;
     // partnerBox = true;
     // ppComBox = true;
+
+    @ViewChild(ConfigAddressComponent) child: ConfigAddressComponent;
 
     companyBox = true;
 

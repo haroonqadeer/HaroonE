@@ -44,7 +44,7 @@ import { ConfigAddressComponent } from './components/config-address/config-addre
     LoginComponent,
     AttendanceComponent,
     ForgotpasswordComponent,
-    ConfigAddressComponent
+    //ConfigAddressComponent
   ],
   imports: [
     BrowserModule,

@@ -24,8 +24,6 @@ import { MatStepperModule } from '@angular/material/stepper';
 //import { SearchPipe } from '../../../../src/app/shared/pipe-filters/pipe-search';
 
 
-
-//components 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BranchComponent } from './components/branch/branch.component';
@@ -37,6 +35,8 @@ import { HeadquarterComponent } from './components/headquarter/headquarter.compo
 import { SectionComponent } from './components/section/section.component';
 import { SubsidiarieComponent } from './components/subsidiarie/subsidiarie.component';
 
+import { SharedmodModule } from 'src/app/components/sharedmod.module';
+import { ConfigAddressComponent } from 'src/app/components/config-address/config-address.component';
 
 
 @NgModule({
@@ -72,9 +72,14 @@ import { SubsidiarieComponent } from './components/subsidiarie/subsidiarie.compo
         NgxSpinnerModule,
         ExportAsModule,
         DropdownModule,
-        MatStepperModule
+        MatStepperModule,
+        SharedmodModule
     ],
-    providers: [IgxExcelExporterService, IgxCsvExporterService],
+    providers: [
+      IgxExcelExporterService, 
+      IgxCsvExporterService,
+      ConfigAddressComponent
+    ],
     bootstrap: [AppComponent]
     })
 export class AppModule { }
