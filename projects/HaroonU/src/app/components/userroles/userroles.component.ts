@@ -67,6 +67,7 @@ export interface erpObject {
   templateUrl: './userroles.component.html',
   styleUrls: ['./userroles.component.scss']
 })
+
 export class UserrolesComponent implements OnInit {
 
     /*** Api link published in server ***/
@@ -268,9 +269,7 @@ export class UserrolesComponent implements OnInit {
 
             this.app.hideSpinner();
 
-        });
-
-        
+        });        
     }
 
 

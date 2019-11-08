@@ -1,265 +1,251 @@
-<!--start container-->
-<div class="myContainer bottomBorder bgWhite">
+<!---------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------->
+<!---------------- This is the User Role screen in which admin or  ----------------->
+<!---------------- super admin can make any role. Admin can also   ----------------->
+<!----------------            update & delete the role.            ----------------->
+<!---------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------->
 
-  <!-- start menubar buttons -->
+
+
+<br/>
+<!-- start menubar buttons -->
+<div class="myContainer mat-elevation-z8 bgWhite">
+  <!--start top nav box shadow div-->
   <div class="topnav boxShadow">
+    <!-- start heading & logo div-->
     <div>
-      <!--class="container" -->
-      <span class="fa iconContainer">
-        <span class="fa icon-hr-leaveRule"> </span>
-      </span>
-      <h1> Currency</h1>
 
-      <!-- (click)="downloadExcel()" -->
-      <a class="pointerCursor">
+      <span class="fa iconContainer">
+        <span class="fa icon-c-currency" ></span>
+      </span>
+      <h1> Add Currency</h1>
+
+      <!-- <a class="pointerCursor" (click)="downloadExcel()">
         <i class="fa fa-file-excel-o"></i>
         Excel
       </a>
 
-      <!-- (click)="downloadCSV()" -->
-      <a class="pointerCursor">
+      <a class="pointerCursor" (click)="downloadCSV()">
         <i class="fa fa-file-text-o"></i>
         CSV
       </a>
 
-      <!-- (click)="downPDF()" -->
-      <a class="pointerCursor">
+      <a class="pointerCursor" (click)="downloadPDF()">
         <i class="fa fa-file-pdf-o"></i>
         PDF
       </a>
 
-      <!-- (click)="printDiv()" -->
       <a class="pointerCursor" (click)="printDiv()">
         <i class="fa fa-print"></i>
         Print
-      </a>
+      </a> -->
 
-      <a class="pointerCursor" data-toggle="modal" data-target="#currencyModal" (click)="clear()">
-        <i class="fa fa-plus-square"></i>
-        Add New
-      </a>
-
+      <!--start add role permission button-->
+      <!-- <a class="pointerCursor" data-toggle="modal" data-target="#userRoleModal" (click)="clear()">
+        <i class="fa fa-plus-circle"></i>
+        ADD ROLE PERMISSIONS
+      </a> -->
+      <!--end add role permission button-->
     </div>
+    <!-- end heading & logo div-->
   </div>
-  <!-- end menubar buttons -->
+  <!--end top nav box shadow div-->
+</div>
+<!-- end menubar buttons -->
+<!---------- Try Template Code Starts ---------->
 
-  <!--Start search textbox Row-->
-  <div class="row">
-    <div class="col-md-12">
-      <div class="searchBar">
-        <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
-      </div>
-    </div>
-  </div>
-  <!--end search textbox Row-->
-
-  <!--start table row-->
-  <div class="example-container">
-    <div class="example-table-container">
-      <table class="table table-striped bottomBorder">
-        <thead>
-          <tr class="d-flex">
-  
-            <th class="col-2 text-center">
-              Sr No.
-            </th>
-            <th [class.active]="order === 'currencyName'" (click)="setOrder('currencyName')" class="col-4">
-              Currency Name
-              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-            </th>
-            <th [class.active]="order === 'countryName'" (click)="setOrder('countryName')" class="col-4">
-              Country Name
-              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-            </th>
-            <th class="col-2 text-center">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            *ngFor="let item of currencies | search:'currencyName,countryName' :tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"
-            class='d-flex'>
-  
-            <td class="col-2 text-center">{{i + 1}}</td>
-            <td class="col-4">{{item.currencyName}}</td>
-            <td class="col-4">{{item.cntryName}}</td>
-            <td class="col-2 text-center">
-              <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#currencyModal"
-                (click)="edit(item)"></span>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <span class="fa fa-trash pointerCursor text-danger" data-toggle="modal" data-target="#deleteModal"
-                (click)="deleteTemp(item)"></span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
+<!--start myContainer div-->
+<div class="myContainer bgWhite">
+  <br/>
+  <div class="myContainer">
     <div class="row">
-      <div class="col-md-11">
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-      </div>
-      <div class="col-md-1">
-        <mat-form-field class="fullwidth pagenateList">
-          <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
-            <mat-option value="10">10</mat-option>
-            <mat-option value="15">15</mat-option>
-            <mat-option value="20">20</mat-option>
-            <mat-option value="25">25</mat-option>
-            <mat-option value="30">30</mat-option>
-            <mat-option value="35">35</mat-option>
-            <mat-option value="40">40</mat-option>
-            <mat-option value="45">45</mat-option>
-            <mat-option value="50">50</mat-option>
+      <div class="col-sm-4">
+        <mat-form-field class="fullwidth">
+          <mat-select placeholder="Select Currency" [(ngModel)]="cmbCurrency" required>
+            <input type="text" class="form-control" [(ngModel)]="searchCurrency">
+            <mat-option
+              *ngFor="let item of currency | search:'currencyName,currencyCode':searchCurrency"
+              [value]="item">
+              <table>
+                <tr class='d-flex'>
+                  <td class="col-6">{{ item.currencyName }}</td>
+                  <td class="col-6">{{ item.currencyCode }}</td>
+                </tr>
+              </table>
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
+      <div class="offset-md-6 col-sm-1">
+        <button mat-raised-button class="btnClass" style="border-radius: 0;">
+          &nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;
+        </button>
+      </div>
+      <div class="col-sm-1">
+        <button mat-raised-button class="btnClass" style="border-radius: 0;">
+          &nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;
+        </button>
+      </div>
     </div>
   </div>
-  <!--end table row-->
-
-  </div>
-<!--end container -->
-
-
-<!-- <table id="mytable" style="background-color: chartreuse;">
-  <thead>
-    <tr>
-      <th>Country</th>
-      <th>Population</th>
-      <th>Date</th>
-      <th>Age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Chinna</td>
-      <td>1363480000</td>
-      <td>March 24 2014</td>
-      <td>19.1</td>
-    </tr>
-    <tr>
-      <td>India</td>
-      <td>1241900000</td>
-      <td>March 24 2014</td>
-      <td>17.4</td>
-    </tr>
-    <tr>
-      <td>United States</td>
-      <td>317746000</td>
-      <td>March 24 2014</td>
-      <td>4.44</td>
-    </tr>
-    <tr>
-      <td>Indonesia</td>
-      <td>249866000</td>
-      <td>July 1 2013</td>
-      <td>3.49</td>
-    </tr>
-    <tr>
-      <td>Brazil</td>
-      <td>201032714</td>
-      <td>July 1 2013</td>
-      <td>2.81</td>
-    </tr>
-  </tbody>
-</table> -->
-
-<!-- Start Add Currency Modal Window -->
-<div class="modal fade" id="currencyModal">
-  <div class="modal-dialog shadow-lg-dark modal-lg">
-    <div class="modal-content">
-
-      <!--start Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">New Currency</h4>
-        <div>
-          <button *ngIf="!updateFlag" type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Save</button>
-          <button *ngIf="updateFlag" type="button" class="btn-ia cursorPointer text-right" (click)="save()"><span class="fa fa-save"></span> &nbsp;Update</button>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-save"></span> &nbsp;Reset</button>
-
-          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+  <!--Start 1st Row-->
+  <!--end 1st Row-->
+  <div class="row" style="background-color: #efefef;">
+  <!--Start table Row-->
+    <div class="myContainer">
+      <br/>
+      <div class="myContainer boxShadow bgWhite">
+        <div class="myContainer">
+          <br/>
+          <!-- <div class="col-md-12"> -->
+            <h5 style="color: #5f84d5;">Currency List</h5>
+          <!-- </div> -->
         </div>
-      </div>
-      <!--end Modal Header -->
-
-      <!--start Modal body -->
-      <div class="modal-body">
-        <!-- start 1nd row -->
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field class="fullwidth">
-              <input matInput placeholder="Currency Name" [(ngModel)]="currencyName" required>
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field class="fullwidth">
-              <input matInput placeholder="Country Name" [(ngModel)]="countryName" required>
-            </mat-form-field>
-          </div>
-        </div><!-- end 1nd row -->
-      </div>
-      <!--end Modal body -->
-
-      <!--start Modal footer -->
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div> -->
-      <!--end Modal footer -->
-
-    </div>
-  </div>
-</div>
-<!-- End Currency Modal Window  -->
-
-
-
-<!-- Start Modal Window to delete Payemnt voucher data -->
-<div class="modal fade" id="deleteModal">
-  <div class="modal-dialog shadow-lg-dark">
-    <div class="modal-content">
-      <!--start delete user Modal body -->
-      <div class="modal-body">
-        <br>
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <h2>Delete Currency</h2>
-            <!-- <h2 [(ngModel)]="userName">{{userName}}</h2> -->
-          </div>
-        </div><br />
+        <br/>
         <div class="row">
           <div class="col-md-12">
-            <mat-form-field class="fullwidth">
-              <input matInput placeholder="Enter Password" type="password" [(ngModel)]="txtdPassword">
-            </mat-form-field>
+            <table class="table table-striped fullwidth">
+              <thead>
+                <tr class="d-flex">
+                  <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
+                    class="col-4 pointerCursor text-left ">
+                    Currency
+                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                  </th>
+                  <th [class.active]="order === 'noOfModules'" (click)="setOrder('noOfModules')"
+                    class="col-8 pointerCursor text-left">
+                    Currency Code
+                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                <tr class='d-flex'
+                  *ngFor="let item of roles | search:'erpRoleName,noOfModules,uNoPage':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index">
+                  <!-- <td class="col-1 text-center" hidden>{{item.erpRoleCd}}</td> -->
+                  <td class="col-1 text-center">{{i+1}}</td>
+                  <td class="col-4 pointerCursor text-left">{{item.erpRoleName}}</td>
+                  <td class="col-3 pointerCursor text-center">{{item.noOfModules}}</td>
+                  <td class="col-2 text-center">
+        
+                      <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal" (click)="edit(item)">
+                        <span class="fa icon-u-edit" ></span>
+                      </span> 
+        
+                  </td>
+                  <td class="col-2 text-center">
+        
+                    <!-- <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#dUserRoleModal" (click)="delete(item)">
+                      <span class="fa icon-u-delete" ></span>
+                    </span>  -->
+        
+                    <span class="fa tableIcon pointerCursor" (click)="delete(item)">
+                      <span class="fa icon-u-delete" ></span>
+                    </span> 
+        
+                  </td>
+        
+                  
+                </tr>
+              </tbody>
+            </table>
+            
           </div>
-        </div><br>
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class="fullwidth">
-              <input matInput placeholder="Enter PIN" type="password" [(ngModel)]="txtdPin">
-            </mat-form-field>
+          
+          <!-- Pagination Starts -->
+          <div class="col-md-12 text-right">
+            <div class="paginationBox">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+            <div class="paginationBox">
+              <mat-form-field class="pagenateList">
+                <mat-select [(ngModel)]="itemPerPage">
+                  <mat-option value="1">1</mat-option>
+                  <mat-option value="2">2</mat-option>
+                  <mat-option value="10">10</mat-option>
+                  <mat-option value="15">15</mat-option>
+                  <mat-option value="20">20</mat-option>
+                  <mat-option value="25">25</mat-option>
+                  <mat-option value="30">30</mat-option>
+                  <mat-option value="35">35</mat-option>
+                  <mat-option value="40">40</mat-option>
+                  <mat-option value="45">45</mat-option>
+                  <mat-option value="50">50</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="paginationBox">
+              Item per page: &nbsp;&nbsp;
+            </div>
           </div>
+          <!-- Pagination Ends -->
+      
         </div>
-        <br>
-        <div class="row">
-          <div class="col-md-6">
-            <button mat-raised-button color="warn" (click)="delete()">Delete</button>
-          </div>
-        </div>
-        <br />
       </div>
-      <!--end delete user Modal body -->
-
-      <!--start delete user Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" id="closeDeleteModel">Close</button>
-      </div>
-      <!--end delete user Modal footer -->
-
+      <br/>
     </div>
+    <!-- end table row -->
   </div>
 </div>
-<!-- End Modal Window to delete Payemnt voucher data -->
+<!--end myContainer div-->
+
+<!---------- Try Template Code Ends ------------>
+<br />
+
+
+<!-- Hidden Table Starts for Excel and CSV files -->
+<igx-grid #excelDataContent [data]="excelDataList" [autoGenerate]="false" height="null" width="null" [hidden]="true">
+</igx-grid>
+<!-- Hidden Table Ends  for Excel and CSV files -->
+
+<!-- Hidden Table for Print and PDF files starts-->
+<div class="container mat-elevation-z8 printArea" id="printArea" #exportPDF [hidden]="true">
+  <div class="printDiv">
+
+    <!--Start heading table -->
+    <table>
+      <tr>
+        <td width="15%" style="border:none;">
+          <img src="../../../assets/images/logo.png" width="135px">
+        </td>
+
+        <td style="border:none;">
+          <div class="commonCss cssHeading">Logix Solutions</div>
+          <div class="commonCss cssAddress">Office #209, 2nd Floor Ahmed Plaza, Rawalpindi Road Fateh Jang.</div>
+          <div class="commonCss cssContact">Mobile: 0313-5300471, Ph. 057-2212704</div>
+        </td>
+      </tr>
+    </table>
+    <!--End heading table -->
+
+    <br /><br />
+
+    <!--Start table Row-->
+    <!-- <div class="row">
+      <table>
+        <thead>
+          <tr class="d-flex">
+            <th class="col-1 text-center">Sr. #</th>
+            <th class="col-4 text-left"> Role Name </th>
+            <th class="col-4 text-left"> No. of Modules </th>
+            <th class="col-3 text-left"> No. of Pages </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="d-flex" *ngFor="let user of rolesData | search:'uRoleName,uNoModule,uNoPage':roleSearch let
+            i=index">
+            <td class="col-1 text-center">{{i+1}}</td>
+            <td class="col-4 text-left">{{user.uRoleName}}</td>
+            <td class="col-4 text-left">{{user.uNoModule}}</td>
+            <td class="col-3 text-left">{{user.uNoPage}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>end table row -->
+  </div>
+</div>
+<!-- Hidden Table for Print and PDF files ends-->
