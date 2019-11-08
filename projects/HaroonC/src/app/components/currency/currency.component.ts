@@ -52,6 +52,10 @@ export class CurrencyComponent implements OnInit {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
 
+    cmbCurrency = '';
+    searchCurrency = '';
+    
+    currency = [];
     // list for excel data
     excelDataList = [];
 
