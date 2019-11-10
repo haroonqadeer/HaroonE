@@ -3,6 +3,9 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { AppComponent } from '../../../../../../src/app/app.component';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
+import { ConfigAddressComponent } from 'src/app/components/config-address/config-address.component';
+import { ConfigContactComponent } from 'src/app/components/config-contact/config-contact.component';
+
 //import { SelectItem } from 'primeng/api';
 
 // import * as jsPDF from 'jspdf';
@@ -403,13 +406,13 @@ export class BranchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAddressTypes();
-    this.getCountry();
-    this.getProvince();
-    this.getDistrict();
-    this.getCity();
-    this.getContactType();
-    this.getEmailType();
+    // this.getAddressTypes();
+    // this.getCountry();
+    // this.getProvince();
+    // this.getDistrict();
+    // this.getCity();
+    // this.getContactType();
+    // this.getEmailType();
   }
 
 

@@ -94,7 +94,8 @@ export class LoginComponent implements OnInit {
                     
                     //* setting multiple items to local storage
                     localStorage.setItem('userName', this.txtUserName);
-                    localStorage.setItem('myActModNam', 'UM');
+                    //localStorage.setItem('myActModNam', 'UM');
+                    localStorage.setItem('myActModNam', 'Comp');
                     localStorage.setItem('token', data.token);
                     this.app.checkLogin('Yes');
                     this.app.branchList = data.userDetail;

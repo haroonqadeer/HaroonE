@@ -37,6 +37,7 @@ import { SubsidiarieComponent } from './components/subsidiarie/subsidiarie.compo
 
 import { SharedmodModule } from 'src/app/components/sharedmod.module';
 import { ConfigAddressComponent } from 'src/app/components/config-address/config-address.component';
+import { ConfigContactComponent } from 'src/app/components/config-contact/config-contact.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { ConfigAddressComponent } from 'src/app/components/config-address/config
     providers: [
       IgxExcelExporterService, 
       IgxCsvExporterService,
-      ConfigAddressComponent
+      ConfigAddressComponent,
+      ConfigContactComponent
     ],
     bootstrap: [AppComponent]
     })

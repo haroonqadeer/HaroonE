@@ -1,5 +1,86 @@
-<p>
-  config-address works!<br/>
-  Adnan Ali <br/>
-  Fateh Jang...
-</p>
+<div>
+
+     <!--Address type cmbo bx row-->
+     <div class="row">
+          <div class="col-md-11">
+               <mat-form-field class="fullwidth">
+                    <mat-select placeholder="Address Type" required>
+                         <!-- <input type="text" class="form-control">
+                         <mat-option
+                         *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
+                         <table>
+                         <tr class='d-flex'>
+                              <td class="col-6">{{ item.currencyName }}</td>
+                              <td class="col-6">{{ item.currencyCode }}</td>
+                         </tr>
+                         </table>
+                         </mat-option> -->
+                    </mat-select>
+               </mat-form-field>
+          </div>
+
+          <div class="col-md-1 text-right nopadding" style="margin: 20px 0 0 -10px;" >
+               <span class="pointerCursor fa fa-plus iconAdd" ></span>
+          </div>
+     
+     </div>
+
+
+     <!--Address  row-->
+     <div class="row">
+          <div class="col-md-11">
+               <mat-form-field class="fullwidth">
+                    <textarea matInput placeholder="Address"></textarea>
+               </mat-form-field>
+          </div>
+     </div>
+
+
+     <!--Country cmbo bx row-->
+     <div class="row">
+          <div class="col-md-11">
+               <mat-form-field class="fullwidth">
+               <mat-select placeholder="Country" required>
+                    <!-- <input type="text" class="form-control">
+                    <mat-option
+                    *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
+                    <table>
+                    <tr class='d-flex'>
+                         <td class="col-6">{{ item.currencyName }}</td>
+                         <td class="col-6">{{ item.currencyCode }}</td>
+                    </tr>
+                    </table>
+                    </mat-option> -->
+               </mat-select>
+               </mat-form-field>
+          </div>
+     </div>
+
+
+     <!--City cmbo bx row-->
+     <div class="row">
+          <div class="col-md-8">
+               <mat-form-field class="fullwidth">
+               <mat-select placeholder="City" required>
+                    <!-- <input type="text" class="form-control">
+                    <mat-option
+                    *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
+                    <table>
+                    <tr class='d-flex'>
+                         <td class="col-6">{{ item.currencyName }}</td>
+                         <td class="col-6">{{ item.currencyCode }}</td>
+                    </tr>
+                    </table>
+                    </mat-option> -->
+               </mat-select>
+               </mat-form-field>
+          </div>
+
+          <div class="col-md-3">
+               <mat-form-field class="fullwidth">
+                    <input matInput placeholder="Zip Code">
+               </mat-form-field>
+          </div>
+
+     </div>
+</div>

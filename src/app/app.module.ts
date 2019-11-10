@@ -27,24 +27,23 @@ import { SearchPipe } from './shared/pipe-filters/pipe-search';
 import { LoginComponent } from './components/login/login.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
 
-
 import { HRSharedModule } from 'projects/HaroonH/src/app/app.module';
 import { ConfigSharedModule } from 'projects/HaroonConfig/src/app/app.module';
 import { UMSharedModule } from 'projects/HaroonU/src/app/app.module';
 import { CompSharedModule } from 'projects/HaroonC/src/app/app.module';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
-import { ConfigAddressComponent } from './components/config-address/config-address.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    SearchPipe,
+    //SearchPipe,
     LoginComponent,
     AttendanceComponent,
     ForgotpasswordComponent,
-    //ConfigAddressComponent
+    
   ],
   imports: [
     BrowserModule,

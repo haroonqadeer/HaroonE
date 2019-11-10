@@ -8,6 +8,8 @@ import { AppComponent } from '../../../../../../src/app/app.component';
 import { CurrencyComponent } from '../currency/currency.component';
 
 import { ConfigAddressComponent } from 'src/app/components/config-address/config-address.component';
+//import { ConfigSocialMediaComponent } from 'src/app/components/config-social-media/config-social-media.component';
+
 
 
 // import * as jsPDF from 'jspdf';
@@ -219,7 +221,7 @@ export class CompanyComponent implements OnInit {
 
 
     //*Boolean ng models and variables
-    solePro = false;
+    solePro = true;
     partner = false;
     ppCom = false;
 
