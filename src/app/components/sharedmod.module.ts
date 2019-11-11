@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PNPrimeModule } from 'src/app/shared/pnprime/pnprime.module'
 import { MaterialModule } from 'src/app/shared/material.module';
-//import { SearchPipe } from 'src/app/shared/pipe-filters/pipe-search';
+import { SearchPipe } from 'src/app/shared/pipe-filters/pipe-search';
 
 import { ConfigAddressComponent } from './config-address/config-address.component';
 import { ConfigContactComponent } from './config-contact/config-contact.component';
@@ -15,7 +15,8 @@ import { ConfigSocialMediaComponent } from './config-social-media/config-social-
     declarations: [
         ConfigAddressComponent,
         ConfigContactComponent,
-        ConfigSocialMediaComponent
+        ConfigSocialMediaComponent,
+        SearchPipe
     ],
     imports: [
         CommonModule,

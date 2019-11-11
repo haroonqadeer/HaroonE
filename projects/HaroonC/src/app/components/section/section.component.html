@@ -64,9 +64,9 @@
         <div class="row text-center">
           <div class="offset-md-1 col-sm-10">
             <mat-form-field class="fullwidth">
-              <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" required>
-                <input type="text" class="form-control" [(ngModel)]="searchCompany">
-                <mat-option
+              <mat-select placeholder="Select Company" required>
+                <input type="text" class="form-control" >
+                <!-- <mat-option
                   *ngFor="let item of currency | search:'currencyName,currencyCode':searchCompany"
                   [value]="item">
                   <table>
@@ -75,7 +75,7 @@
                       <td class="col-6">{{ item.currencyCode }}</td>
                     </tr>
                   </table>
-                </mat-option>
+                </mat-option> -->
               </mat-select>
             </mat-form-field>
           </div>
@@ -182,14 +182,14 @@
                     </thead>
                     <tbody>
                       <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                      <tr class='d-flex'
-                        *ngFor="let item of roles | search:'erpRoleName,noOfModules,uNoPage':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index">
+                      <tr class='d-flex'>
+                        <!-- *ngFor="let item of roles | search:'erpRoleName,noOfModules,uNoPage':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"> -->
                         <!-- <td class="col-1 text-center" hidden>{{item.erpRoleCd}}</td> -->
-                        <td class="col-1 text-center">{{i+1}}</td>
-                        <td class="col-4 pointerCursor text-left">{{item.erpRoleName}}</td>
-                        <td class="col-3 pointerCursor text-center">{{item.noOfModules}}</td>
+                        <td class="col-1 text-center"></td>
+                        <td class="col-4 pointerCursor text-left"></td>
+                        <td class="col-3 pointerCursor text-center"></td>
                         <td class="col-2 text-center">
-                            <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal" (click)="edit(item)">
+                            <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal">
                               <span class="fa icon-u-edit" ></span>
                             </span> 
                         </td>
@@ -199,7 +199,7 @@
                             <span class="fa icon-u-delete" ></span>
                           </span>  -->
               
-                          <span class="fa tableIcon pointerCursor" (click)="delete(item)">
+                          <span class="fa tableIcon pointerCursor" >
                             <span class="fa icon-u-delete" ></span>
                           </span> 
               
