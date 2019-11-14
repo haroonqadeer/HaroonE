@@ -18,7 +18,7 @@ declare var $: any;
 export class EmpolyeeprofileComponent implements OnInit {
 
     //serverUrl = "http://localhost:9026/";
-    serverUrl = "http://52.163.189.189:9026/";
+    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
 
     tokenKey = "token";
 
