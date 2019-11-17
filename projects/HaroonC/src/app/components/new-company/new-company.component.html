@@ -1,5 +1,5 @@
 <br/>
-<div class="row myContainer">
+<div class="row mainContainer">
     <div class="col-md-12 npl npr">
         <!--start top nav box shadow div-->
         <div class="topnav boxShadow" style="border: 0;">
@@ -23,11 +23,11 @@
 
 
 
-<div class="row myContainer">
+<div class="mainContainer">
 
     
     <!--Left Panel -->
-    <div class="col-md-4 commonPenalCls">
+    <div class="commonPenalCls">
         
         <!--heading row-->
         <div class="row">
@@ -113,10 +113,11 @@
         </div>
     </div>
 
-    
+
+
 
     <!--Middle panel-->
-    <div class="offset-md-1 col-md-3 commonPenalCls">
+    <div class="commonPenalCls middalPanel">
 
         <!--heading row-->
         <div class="row">
@@ -135,6 +136,13 @@
                 </div>
             </div>
 
+            <!-- contact row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <app-config-contact></app-config-contact>
+                </div>                       
+            </div>
+
         </div>
     </div>
 
@@ -142,7 +150,7 @@
 
 
     <!--Right Panel-->
-    <div class="offset-md-1 col-md-3 commonPenalCls">
+    <div class="commonPenalCls rightPanel">
 
         <!-- Solo proprietorship portion start -->
         <div *ngIf="solePro">
@@ -226,7 +234,14 @@
                                     <input matInput placeholder="Zip Code">
                             </mat-form-field>
                         </div>
-                </div>                
+                </div>
+
+                <!-- contact row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-config-contact></app-config-contact>
+                    </div>                       
+                </div>
 
             </div>
         </div> <!-- Solo proprietorship portion End -->
@@ -442,66 +457,6 @@
     
     </div>
 
-
-
-
-
-    <!-- second row -->
-
-    <!--web and social media -->
-    <div class="col-md-4 commonPenalCls">
-        <!--heading row-->
-        <div class="row">
-            <div class="col-md-12">
-                <h5>WEB AND SOCIAL MEDIA</h5>
-                <hr/>
-            </div>
-        </div>
-
-        <!-- web and social media row-->
-        <div class="row">
-            <div class="col-md-12">
-                <app-config-social-media></app-config-social-media>
-            </div>
-        </div>
-    </div>
-
-
-
-    <!--company phone numbers-->
-    <div class="offset-md-1 col-md-3 commonPenalCls">
-        <div class="row">
-            <div class="col-md-12">
-                <app-config-contact></app-config-contact>
-            </div>
-        </div>
-    </div>
-
-
-
-    <!--Solo proprietorship contact portion -->
-    <div class="offset-md-1 col-md-3 commonPenalCls" *ngIf="solePro">
-        <div class="row">
-            <div class="col-md-12">
-                <app-config-contact></app-config-contact>
-            </div>                       
-        </div>
-    </div>
-
-
-    <!--buttons row-->
-    <div class="col-md-12 text-right npr">
-        <button mat-raised-button class="btnClass" style="border-radius: 0;">
-            &nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;
-        </button>
-
-        &nbsp;&nbsp;&nbsp;
-
-        <button mat-raised-button class="btnClass" style="border-radius: 0;">
-            &nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;
-        </button>
-    </div>
-    <br/><br/>
 </div>
 
 

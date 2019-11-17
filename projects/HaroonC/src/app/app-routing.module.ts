@@ -8,6 +8,7 @@ import { DepartmentComponent } from './components/department/department.componen
 import { SectionComponent } from './components/section/section.component';
 import { SubsidiarieComponent } from './components/subsidiarie/subsidiarie.component';
 import { CurrencyComponent } from './components/currency/currency.component';
+import { NewCompanyComponent } from './components/new-company/new-company.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'Comp/currency',
     component: CurrencyComponent
+  },
+  {
+    path: 'Comp/cmpany',
+    component: NewCompanyComponent
   },
   { path: 'Comp', redirectTo: 'Comp/dashboard' }
 ];
