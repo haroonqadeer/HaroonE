@@ -104,8 +104,11 @@
                         <div class="col-md-12">
                             <mat-form-field class="fullwidth">
                                 <mat-select placeholder="Business Type" [(ngModel)]="cBusinessType" required>
-                                    <mat-option [value]="1"> Test </mat-option>
+                                    <mat-option *ngFor="let item of businessTypeList" [value]="item.businessTypeCd">
+                                        {{item.businessTypeName}}
+                                    </mat-option>
                                 </mat-select>
+                                
                             </mat-form-field>
                         </div>
                     </div>
@@ -123,6 +126,14 @@
                         <div class="col-md-6">
                             <mat-form-field class="fullwidth">
                                 <mat-select placeholder="Currency" [(ngModel)]="cCurrency">
+                                    <input type="text" [(ngModel)]="srchCrncy" class="form-control">
+                                    <mat-option *ngFor="let item of crncyList | search:'currencyName': srchCrncy" [value]="item.currencyId">
+                                        <table>
+                                            <tr class='d-flex'>
+                                                <td class="col-12">{{ item.currencyName }}</td>
+                                            </tr>
+                                        </table>
+                                    </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -169,36 +180,10 @@
                 </div>
                 
                 <div class="innerContainer">
-        
-                    <!--Address type cmbo bx row-->
-                    <div class="row">
-                        <div class="col-md-11">
-                            <mat-form-field class="fullwidth">
-                                <mat-select placeholder="Address Type" [(ngModel)]="cAddressType"  required>
-                                    <!-- <input type="text" class="form-control">
-                                    <mat-option
-                                    *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
-                                    <table>
-                                    <tr class='d-flex'>
-                                            <td class="col-6">{{ item.currencyName }}</td>
-                                            <td class="col-6">{{ item.currencyCode }}</td>
-                                    </tr>
-                                    </table>
-                                    </mat-option> -->
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-            
-                        <div class="col-md-1 text-right nopadding" style="margin: 20px 0 0 -10px;" >
-                            <span class="pointerCursor fa fa-plus iconAdd" ></span>
-                        </div>
-                
-                    </div>
-        
-        
+
                     <!--Address  row-->
                     <div class="row">
-                        <div class="col-md-11">
+                        <div class="col-md-12">
                             <mat-form-field class="fullwidth">
                                 <textarea matInput placeholder="Address" [(ngModel)]="cAddress"></textarea>
                             </mat-form-field>
@@ -208,19 +193,17 @@
         
                     <!--Country cmbo bx row-->
                     <div class="row">
-                        <div class="col-md-11">
+                        <div class="col-md-12">
                             <mat-form-field class="fullwidth">
                             <mat-select placeholder="Country" [(ngModel)]="cCountry" required>
-                                <!-- <input type="text" class="form-control">
-                                <mat-option
-                                *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
-                                <table>
-                                <tr class='d-flex'>
-                                    <td class="col-6">{{ item.currencyName }}</td>
-                                    <td class="col-6">{{ item.currencyCode }}</td>
-                                </tr>
-                                </table>
-                                </mat-option> -->
+                                <input type="text" [(ngModel)]="srchCntry" class="form-control">
+                                <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
+                                    <table>
+                                        <tr class='d-flex'>
+                                            <td class="col-12">{{ item.cntryName }} - {{ item.cntryCd }}</td>
+                                        </tr>
+                                    </table>
+                                </mat-option>
                             </mat-select>
                             </mat-form-field>
                         </div>
@@ -231,22 +214,20 @@
                     <div class="row">
                         <div class="col-md-8">
                             <mat-form-field class="fullwidth">
-                            <mat-select placeholder="City" [(ngModel)]="cCity" required>
-                                <!-- <input type="text" class="form-control">
-                                <mat-option
-                                *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
-                                <table>
-                                <tr class='d-flex'>
-                                    <td class="col-6">{{ item.currencyName }}</td>
-                                    <td class="col-6">{{ item.currencyCode }}</td>
-                                </tr>
-                                </table>
-                                </mat-option> -->
-                            </mat-select>
+                                <mat-select placeholder="City" [(ngModel)]="cCity" required>
+                                    <input type="text" [(ngModel)]="srchCity" class="form-control">
+                                    <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
+                                        <table>
+                                            <tr class='d-flex'>
+                                                <td class="col-12">{{ item.districtName }} - {{ item.districtCd }}</td>
+                                            </tr>
+                                        </table>
+                                    </mat-option>
+                                </mat-select>
                             </mat-form-field>
                         </div>
             
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <mat-form-field class="fullwidth">
                                 <input matInput [(ngModel)]="cZipCode" placeholder="Zip Code">
                             </mat-form-field>
@@ -263,11 +244,77 @@
         <!--company phone numbers-->
         <div class="row">
             <div class="offset-md-1 col-md-11 commonPenalCls">
+                <!--Contact number cmbo bx row-->
                 <div class="row">
-                    <div class="col-md-12">
-                        <app-config-contact></app-config-contact>
+                    <div class="col-md-5">
+                        <mat-form-field class="fullwidth">
+                            <mat-select placeholder="Contact Type" [(ngModel)]="cContactType">
+                                <mat-option *ngFor=" let item of cntctTypeList" [value]="item.cntctTypeCd">
+                                    {{item.cntctTypeName}}
+                                </mat-option>
+                            </mat-select>
+                            <span matPrefix class="pointerCursor fa fa-phone fa-lg iconPhone"></span>
+                        </mat-form-field>
                     </div>
+            
+                    <div class="col-md-6 npl">
+                        <mat-form-field class="fullwidth">
+                            <input matInput [(ngModel)]="cContactNumber" placeholder="Number" mask="0{15}">
+                        </mat-form-field>
+                    </div>
+            
+                    <div class="col-md-1 text-right nopadding" style="margin: 20px 0 0 -10px;">
+                        <span class="pointerCursor fa fa-plus iconAdd" (click)="addCompanyContact()"></span>
+                    </div>
+                
                 </div>
+                
+                <!-- *ngIf="item.status == 2" -->
+                <div class="row" *ngFor=" let item of contactList; let i=index" > 
+                    <div class="col-md-11">
+                        <p>
+                            <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+                            {{item.contactNumber}}
+                        </p>
+                    </div>
+            
+                    <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;">
+                        <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeContact(i)"></span>
+                    </div>
+                
+                </div>
+                
+
+
+                <!--Email row -->
+                <div class="row">
+                    <div class="col-md-11">
+                        <mat-form-field class="fullwidth">
+                            <input matInput [(ngModel)]="cEmailAdrs" placeholder="Email">
+                            <span matPrefix class="pointerCursor fa fa-envelope fa-lg iconEmail"></span>
+                        </mat-form-field>
+                    </div>
+            
+                    <div class="col-md-1 nopadding text-right" style="margin: 20px 0 0 -10px;">
+                        <span class="pointerCursor fa fa-plus iconAdd" (click)="addCompanyEmail()"></span>
+                    </div>
+                
+                </div>
+
+                <div class="row" *ngFor=" let item of emailList; let i=index" > 
+                    <div class="col-md-11">
+                        <p>
+                            <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+                            {{item.email}}
+                        </p>
+                    </div>
+            
+                    <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;">
+                        <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeEmail(i)"></span>
+                    </div>
+                
+                </div>
+
             </div>
         </div>
 
@@ -616,7 +663,6 @@
         </div>
     </div>
 
-    <div class="clearfix"></div>
 
 
     <!--buttons row-->
