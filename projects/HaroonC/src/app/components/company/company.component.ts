@@ -126,6 +126,9 @@ export class CompanyComponent implements OnInit {
     network;
     addressType = [];
     emailType;
+
+
+
     //*--For Partner--// 
     pContactType;
     pCountry;
@@ -149,9 +152,25 @@ export class CompanyComponent implements OnInit {
     oEmailType;
 
     //*Variables for NgModels
-    companyId = '';
     tblSearch;
+    companyId = '';
     cmbCType = '';
+    companyName = '';
+    cNtn = '';
+    cStrn = '';
+    cBusinessType = '';
+    cEmployeQty = '';
+    cCurrency = '';
+    cLogo = '';
+
+    cAddressType = '';
+    cAddress = '';
+    cCountry = '';
+    cCity = '';
+    cZipCode = '';
+
+
+
 
     sCnic = '';
     sNtn = '';
@@ -794,10 +813,40 @@ export class CompanyComponent implements OnInit {
     //* Function for save and update company 
     save() {
 
-        if (this.cmbCType == '') {
+        if (this.companyId == '') {
+            this.toastr.errorToastr('Please select company', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.cmbCType == '') {
+            this.toastr.errorToastr('Please select ownership type', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.companyName == '') {
+            this.toastr.errorToastr('Please enter company name', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.cNtn == '') {
+            this.toastr.errorToastr('Please enter registration number or NTN', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.cStrn == '') {
+            this.toastr.errorToastr('Please enter STRN', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.cBusinessType == '') {
             this.toastr.errorToastr('Please select business type', 'Error', { toastTimeout: (2500) });
             return false;
         }
+        else if (this.cEmployeQty == '') {
+            this.toastr.errorToastr('Please enter number of employees', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.cCurrency == '') {
+            this.toastr.errorToastr('Please select currency', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+
+
 
         //*----- For Business ------//
         else if (this.bNtn == '' || this.bNtn.length < 8) {
