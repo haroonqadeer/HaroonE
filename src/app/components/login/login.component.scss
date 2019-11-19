@@ -143,10 +143,21 @@
     //     background-color: #222222;
     // }
     .loginButton {
+        background-color: #5f84d5;
         font-family: 'Roboto-Regular' !important;
         font-size: 1.2em;
         height: 2.5em;
         border-radius: 0;
+        color: white;
+    }
+    
+    .loginButton:hover {
+        background-color: #22388e;
+        font-family: 'Roboto-Regular' !important;
+        font-size: 1.2em;
+        height: 2.5em;
+        border-radius: 0;
+        color: white;
     }
 
     .hLogin {

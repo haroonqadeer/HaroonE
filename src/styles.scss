@@ -1751,6 +1751,18 @@
         color: white;
     }
 
+    .modal .link{
+        color: #22388e !important;
+        cursor: pointer;
+        font-weight: bold;
+
+    }
+
+    .modal .link:hover{
+        color: black !important;
+        cursor: pointer;
+        font-weight: bold;
+    }
     .modal .btnBlueModal{
         background-color: #334a9f;
         color: white;

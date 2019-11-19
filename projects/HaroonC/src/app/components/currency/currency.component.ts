@@ -119,12 +119,8 @@ export class CurrencyComponent implements OnInit {
 
     //Function for  and update currency 
     save() {
-        if (this.currencyName.trim() == '') {
+        if (this.cmbCurrency == '') {
             this.toastr.errorToastr('Please enter currency name', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else if (this.countryName.trim() == '') {
-            this.toastr.errorToastr('Please enter country name', 'Error', { toastTimeout: (2500) });
             return false;
         }
         else {

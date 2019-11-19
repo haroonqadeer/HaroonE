@@ -1,7 +1,7 @@
 <mat-drawer-container class="example-container" autosize>
     <!--Menu Side Bar For Hr -->
   
-    <div class="sidenavContainer" (click)="closeNav()"></div>
+    <div class="sidenavContainer"></div>
   
     <div *ngIf="moduleHR" id="mySidenav" class="sidenav">
   
@@ -361,11 +361,11 @@
     
     
     <!--Menu Top Bar  -->               <!--overflow-x: hidden;-->
-    <div class="example-sidenav-content" style="z-index: 100;">
+    <div class="example-sidenav-content" style="z-index: 100; overflow-x: hidden;">
       <div *ngIf="hideDiv" class="row bgBlue boxShadow" >
   
         <!--Ambit Logo Button column -->
-        <div class="col-md-1" style="border:0px solid red; background-color: #E6E6E6;">
+        <div class="col-md-1" style="border:0px solid red; background-color: #E6E6E6;" (click)="openNav()">
   
           <button type="button" class="noneOutLine menuButton" mat-flat-button>
             <a routerLink="home">
@@ -391,7 +391,7 @@
               <span class="fa fa-caret-down"></span>
             </button>
   
-            <div class="dropdown-content">
+            <div class="dropdown-content pointerCursor">
   
               <div class="btn" (click)=showBottom()>
                 <span class="fa fa-sitemap"></span>&nbsp;
