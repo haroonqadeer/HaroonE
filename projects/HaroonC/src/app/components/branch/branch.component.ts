@@ -58,6 +58,10 @@ declare var $: any;
 
 export class BranchComponent implements OnInit {
 
+
+  @ViewChild(ConfigAddressComponent) shrd_adrs: ConfigAddressComponent;
+  @ViewChild(ConfigContactComponent) shrd_cntct: ConfigContactComponent;
+
   @Output() myEvent = new EventEmitter();
 
   // public contactForm: FormGroup;
@@ -73,7 +77,7 @@ export class BranchComponent implements OnInit {
   //postal = false;
 
 
-  serverUrl = "https://localhost:7005/";
+  serverUrl = "https://localhost:7007/";
   tokenKey = "token";
 
   httpOptions = {
@@ -413,6 +417,8 @@ export class BranchComponent implements OnInit {
     // this.getCity();
     // this.getContactType();
     // this.getEmailType();
+
+    //this.shrd_adrs.getCountry();
   }
 
 

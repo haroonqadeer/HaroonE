@@ -4,23 +4,21 @@
      <div class="row">
           <div class="col-md-11">
                <mat-form-field class="fullwidth">
-                    <mat-select placeholder="Address Type" required>
-                         <!-- <input type="text" class="form-control">
-                         <mat-option
-                         *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
-                         <table>
-                         <tr class='d-flex'>
-                              <td class="col-6">{{ item.currencyName }}</td>
-                              <td class="col-6">{{ item.currencyCode }}</td>
-                         </tr>
-                         </table>
-                         </mat-option> -->
+                    <mat-select placeholder="Address Type" [(ngModel)]="addressType" required>
+                         <input type="text" [(ngModel)]="srchAdrs" class="form-control">
+                         <mat-option *ngFor="let item of adrsTypeList | search:'addressTypeName': srchAdrs" [value]="item.addressTypeCd">
+                              <table>
+                              <tr class='d-flex'>
+                                   <td class="col-12">{{ item.addressTypeName }}</td>
+                              </tr>
+                              </table>
+                         </mat-option>
                     </mat-select>
                </mat-form-field>
           </div>
 
           <div class="col-md-1 text-right nopadding" style="margin: 20px 0 0 -10px;" >
-               <span class="pointerCursor fa fa-plus iconAdd" ></span>
+               <span class="pointerCursor fa fa-plus iconAdd" (click)="addAddress()" ></span>
           </div>
      
      </div>
@@ -30,7 +28,7 @@
      <div class="row">
           <div class="col-md-11">
                <mat-form-field class="fullwidth">
-                    <textarea matInput placeholder="Address"></textarea>
+                    <textarea matInput [(ngModel)]="address" placeholder="Address"></textarea>
                </mat-form-field>
           </div>
      </div>
@@ -40,17 +38,15 @@
      <div class="row">
           <div class="col-md-11">
                <mat-form-field class="fullwidth">
-               <mat-select placeholder="Country" required>
-                    <!-- <input type="text" class="form-control">
-                    <mat-option
-                    *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
-                    <table>
-                    <tr class='d-flex'>
-                         <td class="col-6">{{ item.currencyName }}</td>
-                         <td class="col-6">{{ item.currencyCode }}</td>
-                    </tr>
-                    </table>
-                    </mat-option> -->
+               <mat-select [(ngModel)]="country" placeholder="Country" required>
+                    <input type="text" [(ngModel)]="srchCntry" class="form-control">
+                    <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
+                         <table>
+                         <tr class='d-flex'>
+                              <td class="col-12">{{ item.cntryName }}</td>
+                         </tr>
+                         </table>
+                    </mat-option>
                </mat-select>
                </mat-form-field>
           </div>
@@ -61,26 +57,52 @@
      <div class="row">
           <div class="col-md-8">
                <mat-form-field class="fullwidth">
-               <mat-select placeholder="City" required>
-                    <!-- <input type="text" class="form-control">
-                    <mat-option
-                    *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
-                    <table>
-                    <tr class='d-flex'>
-                         <td class="col-6">{{ item.currencyName }}</td>
-                         <td class="col-6">{{ item.currencyCode }}</td>
-                    </tr>
-                    </table>
-                    </mat-option> -->
+               <mat-select [(ngModel)]="city" placeholder="City" required>
+                    <input type="text" [(ngModel)]="srchCity" class="form-control">
+                    <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
+                         <table>
+                              <tr class='d-flex'>
+                                   <td class="col-12">{{ item.districtName }}</td>
+                              </tr>
+                         </table>
+                    </mat-option>
                </mat-select>
                </mat-form-field>
           </div>
 
           <div class="col-md-3">
                <mat-form-field class="fullwidth">
-                    <input matInput placeholder="Zip Code">
+                    <input matInput [(ngModel)]="zipCode" placeholder="Zip Code">
                </mat-form-field>
           </div>
+     </div>
 
+     <div class="row" *ngFor=" let item of addressList; let i=index" > 
+          <div class="col-md-11">
+               <p>
+                    {{item.addressType}}
+               </p>
+          </div>
+
+          <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;">
+               <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeAddress(i)"></span>
+          </div>
+          
+          <div class="col-md-11">
+               <p>
+                    {{item.address}}
+               </p>
+          </div>
+          <div class="col-md-11">
+               <p>
+                    {{item.address}}
+               </p>
+          </div>
+          <div class="col-md-11">
+               <p>
+                    {{item.countryCode}} - {{item.cityCode}}  - {{item.zipCode}}
+               </p>
+          </div>
+     
      </div>
 </div>
