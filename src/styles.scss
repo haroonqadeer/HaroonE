@@ -1933,6 +1933,12 @@
         color: #fff;
         border: 5px solid #809DDF;
     }
+
+    .iconRemove {
+        //background-color: #809DDF;
+        color: #000;
+        //border: 5px solid #809DDF;
+    }
     
     .shadowShared{
         -webkit-box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.25) !important;
@@ -1945,42 +1951,16 @@
         margin-right: 8px;
     }
 
+    .iconCheck{
+        color: #2BC77E;
+        margin-right: 8px;
+    }
+
     .iconEmail {
         color: #C3AB65;
         margin-right: 8px;
     }
 
-
-    /***************************Start Company page css ***********************************/
-    .myContainer .commonPenalCls{
-        border: 0px solid green !important;
-        width: 30%;
-        position: relative;
-        background-color: #fff;
-        padding: 15px 30px 15px 30px;
-        box-shadow: 0px 0px 11px 6px rgba(0,0,0,0.25);
-        border-radius: 2px;
-        margin-bottom: 15px;
-    }
-
-    .myContainer .leftPanel{
-        left: 0;
-    }
-    
-    .myContainer .centerPanel{
-        left: 35%;
-        top: 0;
-        position:absolute;
-
-    }
-    
-    .myContainer .rightPanel{
-        right: 0;
-        top: 0;
-        position: absolute;
-    }
-
-    /***************************End Company page css ***********************************/
 
     .nopadding {
         padding: 0 !important;

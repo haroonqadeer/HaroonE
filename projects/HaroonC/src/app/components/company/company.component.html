@@ -1,484 +1,698 @@
 <br/>
-<!-- start menubar buttons -->
-<div class="myContainer mat-elevation-z8 bgWhite">
-  <!--start top nav box shadow div-->
-  <div class="topnav boxShadow" style="border: 0;">
-    <!-- start heading & logo div-->
-    <div>
+<div class="row myContainer">
+    <div class="col-md-12 npl npr">
+        <!--start top nav box shadow div-->
+        <div class="topnav boxShadow" style="border: 0;">
+            <!-- start heading & logo div-->
+            <div>
 
-      <span class="fa iconContainer">
-        <span class="fa icon-c-currency" ></span>
-      </span>
-      <h1> Add Company</h1>
+            <span class="fa iconContainer">
+                <span class="fa icon-c-currency" ></span>
+            </span>
+            <h1> Add Company</h1>
 
-      
-      <!--end add role permission button-->
-    </div> <!-- end heading & logo div-->
-  </div> <!--end top nav box shadow div-->
+            
+            <!--end add role permission button-->
+            </div> <!-- end heading & logo div-->
+        </div> <!--end top nav box shadow div-->
+    </div>
 </div>
-<!-- end menubar buttons -->
-<!---------- Try Template Code Starts ---------->
 
 
-<!--start myContainer div-->
 <br/>
-<div class="myContainer">
-
-    <!--Left panel-->
-    <div class="commonPenalCls leftPanel">
-
-        <!--heading row-->
-        <div class="row">
-            <div class="col-md-12">
-                <h5>COMPANY TYPE</h5>
-                <hr/>
-            </div>
-        </div>
-
-        <!-- Ownership row -->
-        <div class="row">
-            <div class="col-md-12">
-                <mat-form-field class="fullwidth">
-                    <mat-select placeholder="Ownership Type" [(ngModel)]="cmbCType" (ngModelChange)="allowDiv()" required>
-                        <mat-option *ngFor=" let item of types" [value]="item.BusinessTypeCd">
-                            {{item.BusinessTypeName}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
 
 
-        <!-- Company Name row -->
-        <div class="row">
-            <div class="col-md-12">
-                <mat-form-field class="fullwidth">
-                    <input matInput placeholder="Company's Legal Name" required>
-                </mat-form-field>
-            </div>
-        </div>
 
+<div class="row myContainer" >
 
-        <!-- Reg no or ntn row -->
-        <div class="row">
-            <div class="col-md-12">
-                <mat-form-field class="fullwidth">
-                    <input matInput placeholder="Registration No or NTN" >
-                </mat-form-field>
-            </div>
-        </div>
-        
-
-        <!-- STRN no row -->
-        <div class="row">
-            <div class="col-md-12">
-                <mat-form-field class="fullwidth">
-                    <input matInput placeholder="STRN" [(ngModel)]="bStrn" mask="000-000-000-0" [showMaskTyped]="true">
-                </mat-form-field>
-            </div>
-        </div>
-        
-
-        <!-- Business Type row -->
-        <div class="row">
-            <div class="col-md-12">
-                <mat-form-field class="fullwidth">
-                    <mat-select placeholder="Business Type"  required>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
-
-
-        <!-- Currenty row -->
-        <div class="row">
-
-            <div class="col-md-6">
-                <mat-form-field class="fullwidth">
-                    <input matInput placeholder="Number of Employees">
-                </mat-form-field>
-            </div>
-
-            <div class="col-md-6">
-                <mat-form-field class="fullwidth">
-                    <mat-select placeholder="Currency">
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-        </div>
-
+    
+    <!--Left Panel -->
+    <div class="col-md-4">
         
         <!--heading row-->
-        <div class="row">
+        <div class="row commonPenalCls">
             <div class="col-md-12">
-                <br/>
-                <h5>WEB AND SOCIAL MEDIA</h5>
-                <hr/>
-            </div>
-        </div>
 
-        <!-- web and social media row-->
-        <div class="row">
-            <div class="col-md-12">
-                <app-config-social-media></app-config-social-media>
+                <!--heading -->
+                <div class="row" >
+                    <div class="col-md-12">
+                        <h5>COMPANY TYPE</h5>
+                        <hr/>
+                    </div>
+                </div>
+
+
+                <div class="innerContainer">
+
+                    <!-- Company id -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field class="fullwidth">
+                                <mat-select placeholder="Company Id" [(ngModel)]="companyId" required>
+                                    <mat-option [value]="1"> Test </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+        
+                    <!-- Ownership row -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field class="fullwidth">
+                                <mat-select placeholder="Ownership Type" [(ngModel)]="cmbCType" (ngModelChange)="allowDiv()" required>
+                                    <mat-option *ngFor=" let item of types" [value]="item.BusinessTypeCd">
+                                        {{item.BusinessTypeName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <!-- Company Name row -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field class="fullwidth">
+                                <input matInput placeholder="Company's Legal Name" [(ngModel)]="companyName" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <!-- Reg no or ntn row -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field class="fullwidth">
+                                <input matInput placeholder="Registration No or NTN" [(ngModel)]="cNtn" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <!-- STRN no row -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field class="fullwidth">
+                                <input matInput placeholder="STRN" [(ngModel)]="cStrn" mask="000-000-000-0">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <!-- Business Type row -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field class="fullwidth">
+                                <mat-select placeholder="Business Type" [(ngModel)]="cBusinessType" required>
+                                    <mat-option *ngFor="let item of businessTypeList" [value]="item.businessTypeCd">
+                                        {{item.businessTypeName}}
+                                    </mat-option>
+                                </mat-select>
+                                
+                            </mat-form-field>
+                        </div>
+                    </div>
+        
+        
+                    <!-- Currenty row -->
+                    <div class="row">
+        
+                        <div class="col-md-6">
+                            <mat-form-field class="fullwidth">
+                                <input matInput placeholder="Number of Employees" [(ngModel)]="cEmployeQty">
+                            </mat-form-field>
+                        </div>
+        
+                        <div class="col-md-6">
+                            <mat-form-field class="fullwidth">
+                                <mat-select placeholder="Currency" [(ngModel)]="cCurrency">
+                                    <input type="text" [(ngModel)]="srchCrncy" class="form-control">
+                                    <mat-option *ngFor="let item of crncyList | search:'currencyName': srchCrncy" [value]="item.currencyId">
+                                        <table>
+                                            <tr class='d-flex'>
+                                                <td class="col-12">{{ item.currencyName }}</td>
+                                            </tr>
+                                        </table>
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+        
+                    </div>
+
+
+                    <!-- Logo row -->
+                    <div class="row">
+        
+                        <div class="col-md-4">
+                            <img src="../../../assets/images/DropHere.jpg" height="100" width="100">
+                        </div>
+        
+                        <div class="col-md-8">
+                            <br/><br/>
+                            <mat-form-field class="fullwidth">
+                                <input matInput placeholder="Upload Logo" [(ngModel)]="cLogo">
+                            </mat-form-field>
+                        </div>
+        
+                    </div>
+                </div>
+
+
             </div>
         </div>
-        
     </div>
 
-    <!--center panel-->
-    <div class="commonPenalCls centerPanel">
+    
 
-        <!-- Solo proprietorship portion start -->
-        <div *ngIf="solePro">
-            <!-- heading row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <h5>OWNERSHIP DETAIL</h5>
-                    <hr/>
-                </div>
-            </div>
-            
-            <!-- Owner Name row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field class="fullwidth">
-                        <input matInput placeholder="Onwer Name" required>
-                    </mat-form-field>
-                </div>
-            </div>
+    <!--Middle panel-->
+    <div class="col-md-4">
 
-            <!-- cnic number row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field class="fullwidth">
-                        <input matInput placeholder="CNIC Number" >
-                    </mat-form-field>
-                </div>
-            </div>
+        <div class="row">
+            <div class="offset-md-1 col-md-11 commonPenalCls">
 
-            <!--Address row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field class="fullwidth">
-                        <textarea matInput placeholder="Address"></textarea>
-                    </mat-form-field>
+                <!--heading row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>COMPANY ADDRESS</h5>
+                        <hr>
+                    </div>
                 </div>
-            </div>
+                
+                <div class="innerContainer">
 
-            <!--Country row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field class="fullwidth">
-                        <mat-select placeholder="Country" required>
-                                <!-- <input type="text" class="form-control">
-                                <mat-option
-                                *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
-                                <table>
-                                <tr class='d-flex'>
-                                    <td class="col-6">{{ item.currencyName }}</td>
-                                    <td class="col-6">{{ item.currencyCode }}</td>
-                                </tr>
-                                </table>
-                                </mat-option> -->
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <!--City Zip row -->
-            <div class="row">
-                    <div class="col-md-8">
-                        <mat-form-field class="fullwidth">
-                            <mat-select placeholder="City" required>
-                                <!-- <input type="text" class="form-control">
-                                <mat-option
-                                *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
-                                <table>
-                                <tr class='d-flex'>
-                                    <td class="col-6">{{ item.currencyName }}</td>
-                                    <td class="col-6">{{ item.currencyCode }}</td>
-                                </tr>
-                                </table>
-                                </mat-option> -->
+                    <!--Address  row-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field class="fullwidth">
+                                <textarea matInput placeholder="Address" [(ngModel)]="cAddress"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+        
+        
+                    <!--Country cmbo bx row-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field class="fullwidth">
+                            <mat-select placeholder="Country" [(ngModel)]="cCountry" required>
+                                <input type="text" [(ngModel)]="srchCntry" class="form-control">
+                                <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
+                                    <table>
+                                        <tr class='d-flex'>
+                                            <td class="col-12">{{ item.cntryName }} - {{ item.cntryCd }}</td>
+                                        </tr>
+                                    </table>
+                                </mat-option>
                             </mat-select>
-                        </mat-form-field>
+                            </mat-form-field>
+                        </div>
                     </div>
+        
+        
+                    <!--City cmbo bx row-->
+                    <div class="row">
+                        <div class="col-md-8">
+                            <mat-form-field class="fullwidth">
+                                <mat-select placeholder="City" [(ngModel)]="cCity" required>
+                                    <input type="text" [(ngModel)]="srchCity" class="form-control">
+                                    <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
+                                        <table>
+                                            <tr class='d-flex'>
+                                                <td class="col-12">{{ item.districtName }} - {{ item.districtCd }}</td>
+                                            </tr>
+                                        </table>
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
             
-                    <div class="col-md-4">
+                        <div class="col-md-4">
+                            <mat-form-field class="fullwidth">
+                                <input matInput [(ngModel)]="cZipCode" placeholder="Zip Code">
+                            </mat-form-field>
+                        </div>
+                
+                    </div>
+        
+                </div>
+
+            </div>
+        </div>
+
+
+        <!--company phone numbers-->
+        <div class="row">
+            <div class="offset-md-1 col-md-11 commonPenalCls">
+                <!--Contact number cmbo bx row-->
+                <div class="row">
+                    <div class="col-md-5">
                         <mat-form-field class="fullwidth">
-                                <input matInput placeholder="Zip Code">
+                            <mat-select placeholder="Contact Type" [(ngModel)]="cContactType">
+                                <mat-option *ngFor=" let item of cntctTypeList" [value]="item.cntctTypeCd">
+                                    {{item.cntctTypeName}}
+                                </mat-option>
+                            </mat-select>
+                            <span matPrefix class="pointerCursor fa fa-phone fa-lg iconPhone"></span>
                         </mat-form-field>
                     </div>
-            </div>
+            
+                    <div class="col-md-6 npl">
+                        <mat-form-field class="fullwidth">
+                            <input matInput [(ngModel)]="cContactNumber" placeholder="Number" mask="0{15}">
+                        </mat-form-field>
+                    </div>
+            
+                    <div class="col-md-1 text-right nopadding" style="margin: 20px 0 0 -10px;">
+                        <span class="pointerCursor fa fa-plus iconAdd" (click)="addCompanyContact()"></span>
+                    </div>
+                
+                </div>
+                
+                <!-- *ngIf="item.status == 2" -->
+                <div class="row" *ngFor=" let item of contactList; let i=index" > 
+                    <div class="col-md-11">
+                        <p>
+                            <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+                            {{item.contactNumber}}
+                        </p>
+                    </div>
+            
+                    <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;">
+                        <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeContact(i)"></span>
+                    </div>
+                
+                </div>
+                
 
-            <!-- contact row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <app-config-contact></app-config-contact>
-                </div>                       
-            </div>
-        </div> <!-- Solo proprietorship portion End -->
 
-
-
-        <!-- Partnership portion start -->
-        <div *ngIf="partner">
-            <!-- heading row -->
-            <div class="row">
-
-                <div class="col-md-6 npr">
-                    <h5>PARTNERS LIST </h5>
-                    <hr/>
+                <!--Email row -->
+                <div class="row">
+                    <div class="col-md-11">
+                        <mat-form-field class="fullwidth">
+                            <input matInput [(ngModel)]="cEmailAdrs" placeholder="Email">
+                            <span matPrefix class="pointerCursor fa fa-envelope fa-lg iconEmail"></span>
+                        </mat-form-field>
+                    </div>
+            
+                    <div class="col-md-1 nopadding text-right" style="margin: 20px 0 0 -10px;">
+                        <span class="pointerCursor fa fa-plus iconAdd" (click)="addCompanyEmail()"></span>
+                    </div>
+                
                 </div>
 
-                <div class="col-md-6 text-right npl" >
-                    <span class="btn-raised-ambit" data-toggle="modal" data-target="#partnerModal"> <i class="fa fa-plus-circle" style="color: #455FA9;"></i> add Partner</span>
-                    <hr style="margin-top: 2px;">
+                <div class="row" *ngFor=" let item of emailList; let i=index" > 
+                    <div class="col-md-11">
+                        <p>
+                            <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+                            {{item.email}}
+                        </p>
+                    </div>
+            
+                    <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;">
+                        <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeEmail(i)"></span>
+                    </div>
+                
                 </div>
 
             </div>
+        </div>
 
 
-            <div class="row">
-                <div class="col-md-12">
-                <table class="table table-striped fullwidth">
-                    <!-- <thead>
-                    <tr class="d-flex">
-                        <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
-                        class="col-4 pointerCursor text-left ">
-                        Company Name
-                        <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                        <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                        </th>
-                        <th [class.active]="order === 'noOfModules'" (click)="setOrder('noOfModules')"
-                        class="col-8 pointerCursor text-left">
-                        Branch Title
-                        <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                        <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                        </th>
-                    </tr>
-                    </thead> -->
-                    <tbody>
-                    <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                    <tr class='d-flex'>
-                        <!-- *ngFor="let item of roles | search:'erpRoleName,noOfModules,uNoPage':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"> -->
-                        <!-- <td class="col-1 text-center" hidden>{{item.erpRoleCd}}</td> -->
-                        <td class="col-1 text-center"></td>
-                        <td class="col-4 pointerCursor text-left"></td>
-                        <td class="col-3 pointerCursor text-center"></td>
-                        <td class="col-2 text-center">
-            
-                            <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal">
-                            <span class="fa icon-u-edit" ></span>
-                            </span> 
-            
-                        </td>
-                        <td class="col-2 text-center">
-            
-                        <!-- <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#dUserRoleModal" (click)="delete(item)">
-                            <span class="fa icon-u-delete" ></span>
-                        </span>  -->
-            
-                        <span class="fa tableIcon pointerCursor">
-                            <span class="fa icon-u-delete" ></span>
-                        </span> 
-            
-                        </td>
-            
+        <!--web and social media -->
+        <div class="row">
+            <div class="offset-md-1 col-md-11 commonPenalCls">
+                <!--heading row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>WEB AND SOCIAL MEDIA</h5>
+                        <hr/>
+                    </div>
+                </div>
+
+                <!-- web and social media row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-config-social-media></app-config-social-media>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <!--Right Panel-->
+    <div class="col-md-4">
+
+        <div class="row">
+            <div class="offset-md-1 col-md-11 commonPenalCls" >
+
+
+                <!-- Solo proprietorship portion start -->
+                <div *ngIf="solePro">
+                    <!-- heading row -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>OWNERSHIP DETAIL</h5>
+                            <hr/>
+                        </div>
+                    </div>
+                    
+                    <div class="innerContainer">
+                        <!-- Owner Name row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field class="fullwidth">
+                                    <input matInput placeholder="Onwer Name" required>
+                                </mat-form-field>
+                            </div>
+                        </div>
+        
+                        <!-- cnic number row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field class="fullwidth">
+                                    <input matInput placeholder="CNIC Number" >
+                                </mat-form-field>
+                            </div>
+                        </div>
+        
+                        <!--Address row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field class="fullwidth">
+                                    <textarea matInput placeholder="Address"></textarea>
+                                </mat-form-field>
+                            </div>
+                        </div>
+        
+                        <!--Country row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field class="fullwidth">
+                                    <mat-select placeholder="Country" required>
+                                            <!-- <input type="text" class="form-control">
+                                            <mat-option
+                                            *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
+                                            <table>
+                                            <tr class='d-flex'>
+                                                <td class="col-6">{{ item.currencyName }}</td>
+                                                <td class="col-6">{{ item.currencyCode }}</td>
+                                            </tr>
+                                            </table>
+                                            </mat-option> -->
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+        
+                        <!--City Zip row -->
+                        <div class="row">
+                                <div class="col-md-8">
+                                    <mat-form-field class="fullwidth">
+                                        <mat-select placeholder="City" required>
+                                            <!-- <input type="text" class="form-control">
+                                            <mat-option
+                                            *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
+                                            <table>
+                                            <tr class='d-flex'>
+                                                <td class="col-6">{{ item.currencyName }}</td>
+                                                <td class="col-6">{{ item.currencyCode }}</td>
+                                            </tr>
+                                            </table>
+                                            </mat-option> -->
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
                         
-                    </tr>
-                    </tbody>
-                </table>
-                
-                </div>
-                
-                <!-- Pagination Starts -->
-                <div class="col-md-12 text-right">
-                <div class="paginationBox">
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                </div>
-                <div class="paginationBox">
-                    <mat-form-field class="pagenateList">
-                    <mat-select [(ngModel)]="itemPerPage">
-                        <mat-option value="1">1</mat-option>
-                        <mat-option value="2">2</mat-option>
-                        <mat-option value="10">10</mat-option>
-                        <mat-option value="15">15</mat-option>
-                        <mat-option value="20">20</mat-option>
-                        <mat-option value="25">25</mat-option>
-                        <mat-option value="30">30</mat-option>
-                        <mat-option value="35">35</mat-option>
-                        <mat-option value="40">40</mat-option>
-                        <mat-option value="45">45</mat-option>
-                        <mat-option value="50">50</mat-option>
-                    </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="paginationBox">
-                    Item per page: &nbsp;&nbsp;
-                </div>
-                </div>
-                <!-- Pagination Ends -->
+                                <div class="col-md-4">
+                                    <mat-form-field class="fullwidth">
+                                            <input matInput placeholder="Zip Code">
+                                    </mat-form-field>
+                                </div>
+                        </div>                
+        
+                    </div>
+                </div> <!-- Solo proprietorship portion End -->
             
-            </div>
-        </div> <!-- Partnership portion End -->
-
-
-
-        <!-- Public Company portion start -->
-        <div *ngIf="ppCom">
-            <div class="row">
-                <div class="col-md-6" style="padding-right: 0;">
-                    <h5>DIRECTORS LIST </h5>
-                    <hr/>
-                </div>
-
-                <div class="col-md-6 text-right" style="padding-left: 0;">
-                    <span class="btn-raised-ambit" data-toggle="modal" data-target="#directorModal"> <i class="fa fa-plus-circle" style="color: #455FA9;"></i> add director</span>
-                    <hr style="margin-top: 2px;">
-                </div>
-            </div>
-
             
-            <div class="row">
-                <div class="col-md-12">
-                <table class="table table-striped fullwidth">
-                    <!-- <thead>
-                    <tr class="d-flex">
-                        <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
-                        class="col-4 pointerCursor text-left ">
-                        Company Name
-                        <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                        <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                        </th>
-                        <th [class.active]="order === 'noOfModules'" (click)="setOrder('noOfModules')"
-                        class="col-8 pointerCursor text-left">
-                        Branch Title
-                        <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                        <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                        </th>
-                    </tr>
-                    </thead> -->
-                    <tbody>
-                    <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                    <tr class='d-flex'>
-                        <!-- *ngFor="let item of roles | search:'erpRoleName,noOfModules,uNoPage':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"> -->
-                        <!-- <td class="col-1 text-center" hidden>{{item.erpRoleCd}}</td> -->
-                        <td class="col-1 text-center"></td>
-                        <td class="col-4 pointerCursor text-left"></td>
-                        <td class="col-3 pointerCursor text-center"></td>
-                        <td class="col-2 text-center">
             
-                            <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal">
-                            <span class="fa icon-u-edit" ></span>
-                            </span> 
-            
-                        </td>
-                        <td class="col-2 text-center">
-            
-                        <!-- <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#dUserRoleModal" (click)="delete(item)">
-                            <span class="fa icon-u-delete" ></span>
-                        </span>  -->
-            
-                        <span class="fa tableIcon pointerCursor">
-                            <span class="fa icon-u-delete" ></span>
-                        </span> 
-            
-                        </td>
-            
+                <!-- Partnership portion start -->
+                <div *ngIf="partner">
+                    <!-- heading row -->
+                    <div class="row">
+        
+                        <div class="col-md-6 npr">
+                            <h5>PARTNERS LIST </h5>
+                            <hr/>
+                        </div>
+        
+                        <div class="col-md-6 text-right npl" >
+                            <span class="btn-raised-ambit" data-toggle="modal" data-target="#partnerModal"> <i class="fa fa-plus-circle" style="color: #455FA9;"></i> add Partner</span>
+                            <hr style="margin-top: 2px;">
+                        </div>
+                        <hr/>
+        
+                    </div>
+        
+                    <div class="innerContainer">
+                        <div class="row">
+                            <div class="col-md-12">
+                            <table class="table table-striped fullwidth">
+                                <!-- <thead>
+                                <tr class="d-flex">
+                                    <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
+                                    class="col-4 pointerCursor text-left ">
+                                    Company Name
+                                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                                    </th>
+                                    <th [class.active]="order === 'noOfModules'" (click)="setOrder('noOfModules')"
+                                    class="col-8 pointerCursor text-left">
+                                    Branch Title
+                                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                                    </th>
+                                </tr>
+                                </thead> -->
+                                <tbody>
+                                <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                                <tr class='d-flex'>
+                                    <!-- *ngFor="let item of roles | search:'erpRoleName,noOfModules,uNoPage':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"> -->
+                                    <!-- <td class="col-1 text-center" hidden>{{item.erpRoleCd}}</td> -->
+                                    <td class="col-1 text-center"></td>
+                                    <td class="col-4 pointerCursor text-left"></td>
+                                    <td class="col-3 pointerCursor text-center"></td>
+                                    <td class="col-2 text-center">
                         
-                    </tr>
-                    </tbody>
-                </table>
-                
-                </div>
-                
-                <!-- Pagination Starts -->
-                <div class="col-md-12 text-right">
-                <div class="paginationBox">
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                </div>
-                <div class="paginationBox">
-                    <mat-form-field class="pagenateList">
-                    <mat-select [(ngModel)]="itemPerPage">
-                        <mat-option value="1">1</mat-option>
-                        <mat-option value="2">2</mat-option>
-                        <mat-option value="10">10</mat-option>
-                        <mat-option value="15">15</mat-option>
-                        <mat-option value="20">20</mat-option>
-                        <mat-option value="25">25</mat-option>
-                        <mat-option value="30">30</mat-option>
-                        <mat-option value="35">35</mat-option>
-                        <mat-option value="40">40</mat-option>
-                        <mat-option value="45">45</mat-option>
-                        <mat-option value="50">50</mat-option>
-                    </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="paginationBox">
-                    Item per page: &nbsp;&nbsp;
-                </div>
-                </div>
-                <!-- Pagination Ends -->
+                                        <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal">
+                                        <span class="fa icon-u-edit" ></span>
+                                        </span> 
+                        
+                                    </td>
+                                    <td class="col-2 text-center">
+                        
+                                    <!-- <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#dUserRoleModal" (click)="delete(item)">
+                                        <span class="fa icon-u-delete" ></span>
+                                    </span>  -->
+                        
+                                    <span class="fa tableIcon pointerCursor">
+                                        <span class="fa icon-u-delete" ></span>
+                                    </span> 
+                        
+                                    </td>
+                        
+                                    
+                                </tr>
+                                </tbody>
+                            </table>
+                            
+                            </div>
+                            
+                            <!-- Pagination Starts -->
+                            <div class="col-md-12 text-right">
+                            <div class="paginationBox">
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
+                            <div class="paginationBox">
+                                <mat-form-field class="pagenateList">
+                                <mat-select [(ngModel)]="itemPerPage">
+                                    <mat-option value="1">1</mat-option>
+                                    <mat-option value="2">2</mat-option>
+                                    <mat-option value="10">10</mat-option>
+                                    <mat-option value="15">15</mat-option>
+                                    <mat-option value="20">20</mat-option>
+                                    <mat-option value="25">25</mat-option>
+                                    <mat-option value="30">30</mat-option>
+                                    <mat-option value="35">35</mat-option>
+                                    <mat-option value="40">40</mat-option>
+                                    <mat-option value="45">45</mat-option>
+                                    <mat-option value="50">50</mat-option>
+                                </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="paginationBox">
+                                Item per page: &nbsp;&nbsp;
+                            </div>
+                            </div>
+                            <!-- Pagination Ends -->
+                        
+                        </div>
+                    </div>
+                </div> <!-- Partnership portion End -->
             
-            </div>
-        </div> <!-- Public Company portion End -->
-
-    </div>
-
-    <!--right panel-->
-    <div class="commonPenalCls rightPanel">
-
-        <!--heading row-->
-        <div class="row">
-            <div class="col-md-12">
-                <h5>COMPANY ADDRESS</h5>
-                <hr>
-            </div>
-        </div>
-
-        <!-- address row -->
-        <div class="row">
-            <div class="col-md-12">
-                <app-config-address></app-config-address>
-            </div>
-        </div>
-
-        <!-- contact row -->
-        <div class="row">
-            <div class="col-md-12">
-                <app-config-contact></app-config-contact>
-            </div>                       
-        </div>
-
-    </div>
-
-    <!-- buttons row -->
-    <div>
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <button mat-raised-button class="btnClass" style="border-radius: 0;">
-                    &nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;
-                </button>
-
-                &nbsp;&nbsp;&nbsp;
-
-                <button mat-raised-button class="btnClass" style="border-radius: 0;">
-                    &nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;
-                </button>
-            </div>
             
-        </div>
+            
+                <!-- Public Company portion start -->
+                <div *ngIf="ppCom">
+                    
+                    <div class="row">
+                        <div class="col-md-6" style="padding-right: 0;">
+                            <h5>DIRECTORS LIST </h5>
+                            <hr/>
+                        </div>
+        
+                        <div class="col-md-6 text-right" style="padding-left: 0;">
+                            <span class="btn-raised-ambit" data-toggle="modal" data-target="#directorModal"> <i class="fa fa-plus-circle" style="color: #455FA9;"></i> add director</span>
+                            <hr style="margin-top: 2px;">
+                        </div>
+                    </div>
+        
+                    <div class="innerContainer">
+                        <div class="row">
+                            <div class="col-md-12">
+                            <table class="table table-striped fullwidth">
+                                <!-- <thead>
+                                <tr class="d-flex">
+                                    <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
+                                    class="col-4 pointerCursor text-left ">
+                                    Company Name
+                                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                                    </th>
+                                    <th [class.active]="order === 'noOfModules'" (click)="setOrder('noOfModules')"
+                                    class="col-8 pointerCursor text-left">
+                                    Branch Title
+                                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                                    </th>
+                                </tr>
+                                </thead> -->
+                                <tbody>
+                                <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                                <tr class='d-flex'>
+                                    <!-- *ngFor="let item of roles | search:'erpRoleName,noOfModules,uNoPage':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"> -->
+                                    <!-- <td class="col-1 text-center" hidden>{{item.erpRoleCd}}</td> -->
+                                    <td class="col-1 text-center"></td>
+                                    <td class="col-4 pointerCursor text-left"></td>
+                                    <td class="col-3 pointerCursor text-center"></td>
+                                    <td class="col-2 text-center">
+                        
+                                        <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal">
+                                        <span class="fa icon-u-edit" ></span>
+                                        </span> 
+                        
+                                    </td>
+                                    <td class="col-2 text-center">
+                        
+                                    <!-- <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#dUserRoleModal" (click)="delete(item)">
+                                        <span class="fa icon-u-delete" ></span>
+                                    </span>  -->
+                        
+                                    <span class="fa tableIcon pointerCursor">
+                                        <span class="fa icon-u-delete" ></span>
+                                    </span> 
+                        
+                                    </td>
+                        
+                                    
+                                </tr>
+                                </tbody>
+                            </table>
+                            
+                            </div>
+                            
+                            <!-- Pagination Starts -->
+                            <div class="col-md-12 text-right">
+                            <div class="paginationBox">
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
+                            <div class="paginationBox">
+                                <mat-form-field class="pagenateList">
+                                <mat-select [(ngModel)]="itemPerPage">
+                                    <mat-option value="1">1</mat-option>
+                                    <mat-option value="2">2</mat-option>
+                                    <mat-option value="10">10</mat-option>
+                                    <mat-option value="15">15</mat-option>
+                                    <mat-option value="20">20</mat-option>
+                                    <mat-option value="25">25</mat-option>
+                                    <mat-option value="30">30</mat-option>
+                                    <mat-option value="35">35</mat-option>
+                                    <mat-option value="40">40</mat-option>
+                                    <mat-option value="45">45</mat-option>
+                                    <mat-option value="50">50</mat-option>
+                                </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="paginationBox">
+                                Item per page: &nbsp;&nbsp;
+                            </div>
+                            </div>
+                            <!-- Pagination Ends -->
+                        
+                        </div>
+                    </div>
+                </div> <!-- Public Company portion End -->
 
-        <br/>
+
+            </div>
+        </div>
+        
+        
+        <div class="row" *ngIf="solePro">
+            <div class="offset-md-1 col-md-11 commonPenalCls">
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-config-contact></app-config-contact>
+                    </div>                       
+                </div>
+            </div>
+        </div>
     </div>
 
+
+
+    <!--buttons row-->
+    <div class="col-md-12 text-right npr">
+        <button mat-raised-button class="btnClass" style="border-radius: 0;">
+            &nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;
+        </button>
+
+        &nbsp;&nbsp;&nbsp;
+
+        <button mat-raised-button class="btnClass" style="border-radius: 0;" (click)="save()">
+            &nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;
+        </button>
+    </div>
+    <br/><br/>
 </div>
-<!--end myContainer div-->
 
-<!---------- Try Template Code Ends ------------>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

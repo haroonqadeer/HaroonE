@@ -10,8 +10,8 @@ declare var $: any;
 })
 export class NavComponent implements OnInit {
 
-    //appLocation = "http://localhost:4200";
-    appLocation = "http://ambit.southeastasia.cloudapp.azure.com:9000";
+    appLocation = "http://localhost:4200";
+    //appLocation = "http://ambit.southeastasia.cloudapp.azure.com:9000";
     
 
     public moduleHR = false;
