@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
 import {
   MatIconModule,
@@ -19,8 +19,9 @@ import {
   MatExpansionModule,
   MatFormFieldModule,
   MatDatepickerModule,
-  MatNativeDateModule
-} from '@angular/material';
+  MatNativeDateModule,
+  MatSlideToggleModule
+} from "@angular/material";
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import {
     MatRadioModule,
     MatIconModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatInputModule,
@@ -62,7 +64,8 @@ import {
     MatRadioModule,
     MatIconModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSlideToggleModule
   ]
 })
-export class MaterialModule { }
+export class MaterialModule {}

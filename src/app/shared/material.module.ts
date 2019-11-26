@@ -1,13 +1,34 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatRadioModule, MatNativeDateModule, MatDatepickerModule, MatFormFieldModule, MatStepperModule, MatIconModule, MatTabsModule, MatPaginatorModule, MatDialogModule,  MatInputModule, MatTableModule, MatCheckboxModule, MatSelectModule, MatButtonModule, MatSidenavModule, MatCardModule, MatMenuModule, MatExpansionModule, MatButtonToggleModule, MatBottomSheetModule } from '@angular/material';
-
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import {
+  MatSlideToggleModule,
+  MatRadioModule,
+  MatNativeDateModule,
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatStepperModule,
+  MatIconModule,
+  MatTabsModule,
+  MatPaginatorModule,
+  MatDialogModule,
+  MatInputModule,
+  MatTableModule,
+  MatCheckboxModule,
+  MatSelectModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatCardModule,
+  MatMenuModule,
+  MatExpansionModule,
+  MatButtonToggleModule,
+  MatBottomSheetModule
+} from "@angular/material";
 
 @NgModule({
   imports: [
     CommonModule,
-    MatInputModule, 
-    MatButtonModule, 
+    MatInputModule,
+    MatButtonModule,
     MatCheckboxModule,
     MatSelectModule,
     MatTableModule,
@@ -25,11 +46,12 @@ import { MatRadioModule, MatNativeDateModule, MatDatepickerModule, MatFormFieldM
     MatNativeDateModule,
     MatButtonToggleModule,
     MatRadioModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatSlideToggleModule
   ],
-  exports:[    
-    MatInputModule, 
-    MatButtonModule, 
+  exports: [
+    MatInputModule,
+    MatButtonModule,
     MatCheckboxModule,
     MatSelectModule,
     MatTableModule,
@@ -40,15 +62,16 @@ import { MatRadioModule, MatNativeDateModule, MatDatepickerModule, MatFormFieldM
     MatExpansionModule,
     MatSidenavModule,
     MatCardModule,
-    MatIconModule ,
+    MatIconModule,
     MatStepperModule,
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonToggleModule,
     MatRadioModule,
-    MatBottomSheetModule
-],
+    MatBottomSheetModule,
+    MatSlideToggleModule
+  ],
   declarations: []
 })
-export class MaterialModule { }
+export class MaterialModule {}

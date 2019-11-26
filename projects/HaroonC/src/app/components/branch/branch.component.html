@@ -8,7 +8,7 @@
 
 
 
-<br/>
+<br />
 <!-- start menubar buttons -->
 <div class="myContainer mat-elevation-z8 bgWhite">
   <!--start top nav box shadow div-->
@@ -17,7 +17,7 @@
     <div>
 
       <span class="fa iconContainer">
-        <span class="fa icon-c-currency" ></span>
+        <span class="fa icon-c-currency"></span>
       </span>
       <h1> Add Branch</h1>
 
@@ -56,83 +56,77 @@
 <!---------- Try Template Code Starts ---------->
 
 <!--start myContainer div-->
-<div class="myContainer bgWhite" style="box-shadow: 0px 12px 18px 2px rgba(0,0,0,0.25);" >
+<div class="myContainer bgWhite" style="box-shadow: 0px 12px 18px 2px rgba(0,0,0,0.25);">
   <!-- <div class="myContainer"> -->
-    <div class="row">
-      <br/>
-      <div class="col-md-4">
-        
-        <div class="row text-center">
-          <div class="offset-md-1 col-sm-10">
-            <mat-form-field class="fullwidth">
-              <mat-select placeholder="Select Company" required>
-                <input type="text" class="form-control">
-                <!-- <mat-option
-                  *ngFor="let item of currency | search:'currencyName,currencyCode':searchCurrency"
-                  [value]="item">
-                  <table>
-                    <tr class='d-flex'>
-                      <td class="col-6">{{ item.currencyName }}</td>
-                      <td class="col-6">{{ item.currencyCode }}</td>
-                    </tr>
-                  </table>
-                </mat-option> -->
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
+  <div class="row">
+    <br />
+    <div class="col-md-4">
 
-        <div class="row text-center">
-          <div class="offset-md-1 col-sm-10">
-            <mat-form-field class="fullwidth">
-              <input matInput [(ngModel)]="tblSearch" placeholder="Add Branch Location/Title">
-            </mat-form-field>
-          </div>
+      <div class="row text-center">
+        <div class="offset-md-1 col-sm-10">
+          <mat-form-field class="fullwidth">
+            <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" required>
+              <!-- <input type="text" class="form-control"> -->
+              <mat-option *ngFor=" let item of companies" [value]="item.orgId">
+                {{item.orgName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-
-        <!--address protion -->
-        <div class="row">
-          <div class="offset-md-1 col-sm-10">
-            <div style="box-shadow: 0px 0px 11px 2px rgba(0,0,0,0.25); padding: 0 25px 0 25px;">
-              <app-config-address></app-config-address>
-            </div>
-          </div>
-        </div>
-
-        <!--Contact protion -->
-        <br/>
-        <div class="row">
-          <div class="offset-md-1 col-sm-10">
-            <div style="box-shadow: 0px 0px 11px 2px rgba(0,0,0,0.25); padding: 0 25px 0 25px;">
-              <app-config-contact></app-config-contact>
-            </div>
-          </div>
-        </div>
-        
-
-        <br/>
-        <div class="row">
-          <div class="col-md-11 text-right">
-            <button mat-raised-button class="btnClass" style="border-radius: 0;">
-              &nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;
-            </button>
-            &nbsp;&nbsp;&nbsp;
-            <button mat-raised-button class="btnClass" style="border-radius: 0;">
-              &nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;
-            </button>
-          </div>
-          
-        </div>
-        <br/>
       </div>
 
-      <div class="col-md-8">
-        <div style="background-color: #efefef;">
-          <br/>
-          <div class="row">
-            <div class="offset-md-1 col-md-10 boxShadow bgWhite" style="height: 600px;">
+      <div class="row text-center">
+        <div class="offset-md-1 col-sm-10">
+          <mat-form-field class="fullwidth">
+            <input matInput [(ngModel)]="txtBranch" placeholder="Add Branch Location/Title">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!--address protion -->
+      <div class="row">
+        <div class="offset-md-1 col-sm-10">
+          <div style="box-shadow: 0px 0px 11px 2px rgba(0,0,0,0.25); padding: 0 25px 0 25px;">
+            <app-config-address></app-config-address>
+          </div>
+        </div>
+      </div>
+
+      <!--Contact protion -->
+      <br />
+      <div class="row">
+        <div class="offset-md-1 col-sm-10">
+          <div style="box-shadow: 0px 0px 11px 2px rgba(0,0,0,0.25); padding: 0 25px 0 25px;">
+            <app-config-contact></app-config-contact>
+          </div>
+        </div>
+      </div>
+
+
+      <br />
+      <div class="row">
+        <div class="col-md-11 text-right">
+          <button mat-raised-button class="btnClass" style="border-radius: 0;">
+            &nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;
+          </button>
+          &nbsp;&nbsp;&nbsp;
+          <button mat-raised-button class="btnClass" style="border-radius: 0;" (click)="saveBranch()">
+            &nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;
+          </button>
+        </div>
+
+      </div>
+      <br />
+    </div>
+
+    <div class="col-md-8">
+      <div style="background-color: #efefef;">
+        <br />
+        <div class="row">
+          <div class="col-md-12" style="height: 600px;">
+            <div class="myContainer boxShadow bgWhite">
               <div class="myContainer">
-                <br/>
+                <br />
                 <div class="row">
                   <div class="col-md-12">
                     <h5>BRANCH LIST</h5>
@@ -143,54 +137,44 @@
                     <table class="table table-striped fullwidth">
                       <thead>
                         <tr class="d-flex">
-                          <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
-                            class="col-4 pointerCursor text-left ">
-                            Company Name
-                            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                          </th>
-                          <th [class.active]="order === 'noOfModules'" (click)="setOrder('noOfModules')"
-                            class="col-8 pointerCursor text-left">
+                          <th [class.active]="order === 'locationName'" (click)="setOrder('locationName')"
+                            class="col-6 pointerCursor text-left">
                             Branch Title
                             <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
                             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                          </th>
+                          <th class="col-3 text-center">
+                            Edit
+                          </th>
+                          <th class="col-3 text-center">
+                            Close
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                        <tr class='d-flex'>
-                          <!-- *ngFor="let item of roles | search:'erpRoleName,noOfModules,uNoPage':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"> -->
-                          <!-- <td class="col-1 text-center" hidden>{{item.erpRoleCd}}</td> -->
-                          <td class="col-1 text-center"></td>
-                          <td class="col-4 pointerCursor text-left"></td>
-                          <td class="col-3 pointerCursor text-center"></td>
-                          <td class="col-2 text-center">
-                
-                              <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal">
-                                <span class="fa icon-u-edit" ></span>
-                              </span> 
-                
+                        <!-- <tr class='d-flex'> -->
+                        <tr class='d-flex'
+                          *ngFor="let item of branches | search:'locationName':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index">
+                          <td class="col-6 text-left">{{item.locationName}}</td>
+                          <td class="col-3 text-center">
+                            <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal">
+                              <span class="fa icon-u-edit"></span>
+                            </span>
                           </td>
-                          <td class="col-2 text-center">
-                
-                            <!-- <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#dUserRoleModal" (click)="delete(item)">
-                              <span class="fa icon-u-delete" ></span>
-                            </span>  -->
-                
-                            <span class="fa tableIcon pointerCursor">
-                              <span class="fa icon-u-delete" ></span>
-                            </span> 
-                
+                          <td class="col-3 text-center">
+                            <mat-slide-toggle (click)="deleteTemp(item, i)" (change)="change($event, item)"
+                              [checked]="item.delFlag">{{item.delFlag}}
+                            </mat-slide-toggle>
                           </td>
-                
-                          
+
+
                         </tr>
                       </tbody>
                     </table>
-                    
+
                   </div>
-                  
+
                   <!-- Pagination Starts -->
                   <div class="col-md-12 text-right">
                     <div class="paginationBox">
@@ -218,22 +202,23 @@
                     </div>
                   </div>
                   <!-- Pagination Ends -->
-              
+
                 </div>
               </div>
             </div>
-            <!--Start table Row-->
-            
-            <!-- end table row -->
           </div>
-          <br/>
+          <!--Start table Row-->
+
+          <!-- end table row -->
         </div>
+        <br />
       </div>
     </div>
+  </div>
   <!-- </div> -->
   <!--Start 1st Row-->
   <!--end 1st Row-->
-  
+
 </div>
 <!--end myContainer div-->
 
