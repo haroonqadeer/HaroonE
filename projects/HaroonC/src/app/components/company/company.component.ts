@@ -1007,8 +1007,6 @@ export class CompanyComponent implements OnInit {
 
     addAddress() {
 
-        
-
     }
 
     addCompanyEmail() {
