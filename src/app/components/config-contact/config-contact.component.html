@@ -1,70 +1,70 @@
 <!--Contact number cmbo bx row-->
 <div class="row">
-        <div class="col-md-5">
-            <mat-form-field class="fullwidth">
-                <mat-select placeholder="Contact Type" [(ngModel)]="contactType">
-                    <mat-option *ngFor=" let item of cntctTypeList" [value]="item.cntctTypeCd">
-                        {{item.cntctTypeName}}
-                    </mat-option>
-                </mat-select>
-                <span matPrefix class="pointerCursor fa fa-phone fa-lg iconPhone"></span>
-            </mat-form-field>
-        </div>
+  <div class="col-md-5">
+    <mat-form-field class="fullwidth">
+      <mat-select placeholder="Contact Type" [(ngModel)]="contactType">
+        <mat-option *ngFor=" let item of cntctTypeList" [value]="item.teleTypeCd">
+          {{item.teleTypeName}}
+        </mat-option>
+      </mat-select>
+      <span matPrefix class="pointerCursor fa fa-phone fa-lg iconPhone"></span>
+    </mat-form-field>
+  </div>
 
-        <div class="col-md-6 npl">
-            <mat-form-field class="fullwidth">
-                <input matInput [(ngModel)]="contactNumber" placeholder="Number" mask="0{15}">
-            </mat-form-field>
-        </div>
+  <div class="col-md-6 npl">
+    <mat-form-field class="fullwidth">
+      <input matInput [(ngModel)]="contactNumber" placeholder="Number" mask="0{15}">
+    </mat-form-field>
+  </div>
 
-        <div class="col-md-1 text-right nopadding" style="margin: 20px 0 0 -10px;">
-            <span class="pointerCursor fa fa-plus iconAdd" (click)="addContact()"></span>
-        </div>
-    
-    </div>
-    
-    <!-- *ngIf="item.status == 2" -->
-    <div class="row" *ngFor=" let item of contactList; let i=index" > 
-        <div class="col-md-11">
-            <p>
-                <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
-                {{item.contactNumber}}
-            </p>
-        </div>
+  <div class="col-md-1 text-right nopadding" style="margin: 20px 0 0 -10px;">
+    <span class="pointerCursor fa fa-plus iconAdd" (click)="addContact()"></span>
+  </div>
 
-        <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;">
-            <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeContact(i)"></span>
-        </div>
-    
-    </div>
-    
+</div>
+
+<!-- *ngIf="item.status == 2" -->
+<div class="row" *ngFor=" let item of contactList; let i=index">
+  <div class="col-md-11">
+    <p>
+      <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+      {{item.contactNumber}}
+    </p>
+  </div>
+
+  <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;">
+    <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeContact(i)"></span>
+  </div>
+
+</div>
 
 
-    <!--Email row -->
-    <div class="row">
-        <div class="col-md-11">
-            <mat-form-field class="fullwidth">
-                <input matInput [(ngModel)]="emailAdrs" placeholder="Email">
-                <span matPrefix class="pointerCursor fa fa-envelope fa-lg iconEmail"></span>
-            </mat-form-field>
-        </div>
 
-        <div class="col-md-1 nopadding text-right" style="margin: 20px 0 0 -10px;">
-            <span class="pointerCursor fa fa-plus iconAdd" (click)="addEmail()"></span>
-        </div>
-    
-    </div>
+<!--Email row -->
+<div class="row">
+  <div class="col-md-11">
+    <mat-form-field class="fullwidth">
+      <input matInput [(ngModel)]="emailAdrs" placeholder="Email">
+      <span matPrefix class="pointerCursor fa fa-envelope fa-lg iconEmail"></span>
+    </mat-form-field>
+  </div>
 
-    <div class="row" *ngFor=" let item of emailList; let i=index" > 
-        <div class="col-md-11">
-            <p>
-                <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
-                {{item.email}}
-            </p>
-        </div>
+  <div class="col-md-1 nopadding text-right" style="margin: 20px 0 0 -10px;">
+    <span class="pointerCursor fa fa-plus iconAdd" (click)="addEmail()"></span>
+  </div>
 
-        <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;">
-            <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeEmail(i)"></span>
-        </div>
-    
-    </div>
+</div>
+
+<div class="row" *ngFor=" let item of emailList; let i=index">
+  <div class="col-md-11">
+    <p>
+      <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+      {{item.email}}
+    </p>
+  </div>
+
+  <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;">
+    <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeEmail(i)"></span>
+  </div>
+
+</div>
