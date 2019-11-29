@@ -124,7 +124,7 @@
         <br />
         <div class="row">
           <div class="col-md-12" style="height: 600px;">
-            <div class="myContainer boxShadow bgWhite">
+            <div class="myContainer bgWhite" style="box-shadow: 0px 1px 12px 5px rgba(199,199,199,1);">
               <div class="myContainer">
                 <br />
                 <div class="row">
@@ -158,17 +158,15 @@
                           *ngFor="let item of branches | search:'locationName':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index">
                           <td class="col-6 text-left">{{item.locationName}}</td>
                           <td class="col-3 text-center">
-                            <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal">
+                            <span class="fa tableIcon pointerCursor" (click)="edit(item)">
                               <span class="fa icon-u-edit"></span>
                             </span>
                           </td>
                           <td class="col-3 text-center">
-                            <mat-slide-toggle (click)="deleteTemp(item, i)" (change)="change($event, item)"
-                              [checked]="item.delFlag">{{item.delFlag}}
+                            <mat-slide-toggle (click)="deleteTemp(item)" (change)="change($event, item)"
+                              [checked]="item.delFlag">
                             </mat-slide-toggle>
                           </td>
-
-
                         </tr>
                       </tbody>
                     </table>
