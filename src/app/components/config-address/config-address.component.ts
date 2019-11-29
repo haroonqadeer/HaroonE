@@ -125,29 +125,54 @@ export class ConfigAddressComponent implements OnInit {
       });
       return false;
     } else {
-      this.addressList.push({
-        contactDetailCode: 0,
-        addressId: 0,
-        addressType: this.addressType,
-        address: this.address,
-        cityCode: this.city,
-        districtCode: 0,
-        provinceCode: 0,
-        countryCode: this.country,
-        zipCode: this.zipCode,
-        status: 0
-      });
+      var flag = false;
 
-      this.addressType = "";
-      this.address = "";
-      this.country = "";
-      this.city = "";
-      this.zipCode = "";
+      for (var i = 0; i < this.addressList.length; i++) {
+        if (
+          this.addressList[i].addressType == this.addressType &&
+          this.addressList[i].address == this.address &&
+          this.addressList[i].cityCode == this.city &&
+          this.addressList[i].countryCode == this.country
+        ) {
+          flag = true;
+          this.addressList[i].status = 1;
+        }
+      }
+
+      if (flag == false) {
+        this.addressList.push({
+          contactDetailCode: 0,
+          addressId: 0,
+          addressType: this.addressType,
+          address: this.address,
+          cityCode: this.city,
+          districtCode: 0,
+          provinceCode: 0,
+          countryCode: this.country,
+          zipCode: this.zipCode,
+          status: 0
+        });
+
+        this.addressType = "";
+        this.address = "";
+        this.country = "";
+        this.city = "";
+        this.zipCode = "";
+      } else {
+        this.toastr.errorToastr("Address Already Exists", "Sorry!", {
+          toastTimeout: 5000
+        });
+      }
     }
   }
 
   //Deleting address row
   removeAddress(item) {
-    this.addressList.splice(item, 1);
+    // this.addressList.splice(item, 1);
+    if (this.addressList[item].contactDetailCode == 0) {
+      this.addressList.splice(item, 1);
+    } else {
+      this.addressList[item].status = 2;
+    }
   }
 }

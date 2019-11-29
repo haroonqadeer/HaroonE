@@ -149,6 +149,7 @@ export class BranchComponent implements OnInit {
   itemPerPage = "10";
 
   branches = [];
+  branchDetail = [];
 
   companies = [];
 
@@ -211,6 +212,7 @@ export class BranchComponent implements OnInit {
   ngOnInit() {
     this.getCompany();
     this.getBranches();
+    this.getBranchDetail();
   }
 
   @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
@@ -254,6 +256,29 @@ export class BranchComponent implements OnInit {
       .get(this.serverUrl + "api/getBranch", { headers: reqHeader })
       .subscribe((data: any) => {
         this.branches = data;
+        this.app.hideSpinner();
+      });
+  }
+
+  //* get all branch data
+  getBranchDetail() {
+    // var Token = localStorage.getItem(this.tokenKey);
+
+    // var reqHeader = new HttpHeaders({
+    //   "Content-Type": "application/json",
+    //   Authorization: "Bearer " + Token
+    // });
+
+    this.app.showSpinner();
+
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+
+    this.http
+      .get(this.serverUrl + "api/getBranchDetail", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.branchDetail = data;
         this.app.hideSpinner();
       });
   }
@@ -303,47 +328,47 @@ export class BranchComponent implements OnInit {
       alert(this.cmbCompany);
 
       if (this.branchId != "") {
-        // this.app.showSpinner();
-        // this.app.hideSpinner();
-        this.toastr.successToastr("Updated Successfully", "Success", {
-          toastTimeout: 2500
-        });
-        this.clear();
-        //this.contactDetail=[];
-        $("#branchModal").modal("hide");
-
-        return false;
+        this.app.showSpinner();
 
         var updateData = {
-          ID: this.branchId,
-          Password: this.userPassword,
-          PIN: this.userPINCode
+          branchId: this.branchId,
+          companyId: this.cmbCompany,
+          branchName: this.txtBranch,
+          address: JSON.stringify(this.shrd_adrs.addressList),
+          telephone: JSON.stringify(this.shrd_cntct.contactList),
+          email: JSON.stringify(this.shrd_cntct.emailList)
         };
 
-        var token = localStorage.getItem(this.tokenKey);
-
         var reqHeader = new HttpHeaders({
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          "Content-Type": "application/json"
         });
 
+        // var token = localStorage.getItem(this.tokenKey);
+
+        // var reqHeader = new HttpHeaders({
+        //   "Content-Type": "application/json",
+        //   Authorization: "Bearer " + token
+        // });
+
         this.http
-          .put(this.serverUrl + "api/pwCreate", updateData, {
+          .put(this.serverUrl + "api/updateBranch", updateData, {
             headers: reqHeader
           })
           .subscribe((data: any) => {
-            if (data.msg != undefined) {
+            if (data.msg != "Record Updated Successfully!") {
               this.toastr.errorToastr(data.msg, "Error!", {
                 toastTimeout: 2500
               });
+              this.app.hideSpinner();
               return false;
             } else {
-              this.toastr.successToastr(
-                "Record updated Successfully",
-                "Success!",
-                { toastTimeout: 2500 }
-              );
-              $("#actionModal").modal("hide");
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              this.getBranchDetail();
+              this.getBranches();
+              this.app.hideSpinner();
               return false;
             }
           });
@@ -385,6 +410,8 @@ export class BranchComponent implements OnInit {
                 toastTimeout: 2500
               });
               this.clear();
+              this.getBranchDetail();
+              this.getBranches();
               this.app.hideSpinner();
               return false;
             }
@@ -395,89 +422,73 @@ export class BranchComponent implements OnInit {
 
   //*Clear the input fields
   clear() {
-    //return false;
-
-    this.dropSearchBranch = "";
-
+    this.cmbCompany = "";
+    this.txtBranch = "";
     this.branchId = "";
-    this.branchType = "";
-    this.branchTitle = "";
-    //this.branchAddress = '';
-    this.branchCity = "";
-    // this.branchEmail = '';
-    // this.branchPhone = '';
-    // this.branchMobile = '';
-    // this.branchFax = '';
-    this.branchWebsite = "";
 
-    // this.addressDetail = [];
-    // this.contactDetail = [];
-    // this.emailDetail = [];
-
-    this.addressDetail = [
-      {
-        addressType: "",
-        address: "",
-        countryName: "",
-        countryCode: "",
-        provinceList: "",
-        provinceCode: "",
-        districtList: "",
-        districtCode: "",
-        cityList: "",
-        cityCode: ""
-      }
-    ];
-
-    this.contactDetail = [
-      {
-        contactId: 0,
-        contactType: "",
-        countryCode: "",
-        contactCode: "",
-        areaCode: true,
-        mobileCode: false,
-        contactNumber: "",
-        mobileNumber: ""
-      }
-    ];
-
-    this.emailDetail = [
-      {
-        type: "",
-        email: ""
-      }
-    ];
-
-    this.cityName = "";
-
-    this.userPassword = "";
-    this.userPINCode = "";
-
-    this.dbranchId = "";
-    this.cmpnyId = "";
-
-    this.dropProvinceList = [];
-    this.dropDistrictList = [];
-    this.dropCityList = [];
+    this.shrd_adrs.addressList = [];
+    this.shrd_cntct.contactList = [];
+    this.shrd_cntct.emailList = [];
   }
 
   //*Edit Function
   edit(item) {
-    this.branchId = item.branId;
-    this.branchType = item.branType;
-    this.branchTitle = item.branTitle;
-    //this.branchAddress = item.branAddress;
-    this.branchCity = item.ctyId.toString();
-    // this.branchEmail = item.branEmail;
-    // this.branchPhone = item.branPhone;
-    // this.branchMobile = item.branMobile;
-    // this.branchFax = item.branFax;
-    this.branchWebsite = item.branWebsite;
+    this.clear();
+
+    var addressList = [];
+    var emailList = [];
+    var telephoneList = [];
+
+    for (var i = 0; i < this.branchDetail.length; i++) {
+      if (item.locationCd == this.branchDetail[i].locationCd) {
+        if (this.cmbCompany == "") {
+          this.cmbCompany = this.branchDetail[i].cmpnyID;
+          this.txtBranch = this.branchDetail[i].locationName;
+          this.branchId = this.branchDetail[i].locationCd;
+        }
+
+        if (this.branchDetail[i].addressTypeCd != 0) {
+          addressList.push({
+            contactDetailCode: this.branchDetail[i].cntctDetailCd,
+            addressId: 0,
+            addressType: this.branchDetail[i].addressTypeCd,
+            address: this.branchDetail[i].addressLine1,
+            cityCode: this.branchDetail[i].districtCd,
+            districtCode: 0,
+            provinceCode: 0,
+            countryCode: this.branchDetail[i].addCntryCd,
+            zipCode: 0,
+            status: 1
+          });
+        } else if (this.branchDetail[i].teleTypeCd != 0) {
+          telephoneList.push({
+            contactDetailCode: this.branchDetail[i].cntctDetailCd,
+            telId: 0,
+            contactType: this.branchDetail[i].teleTypeCd,
+            status: 1,
+            contactNumber: this.branchDetail[i].teleNo,
+            mobileNumber: "",
+            countryCode: 0
+          });
+        } else if (this.branchDetail[i].emailTypeCd != 0) {
+          emailList.push({
+            contactDetailCode: this.branchDetail[i].cntctDetailCd,
+            emailId: 0,
+            type: this.branchDetail[i].emailTypeCd,
+            status: 1,
+            email: this.branchDetail[i].emailAddrss
+          });
+        }
+      }
+    }
+
+    this.shrd_adrs.addressList = addressList;
+    this.shrd_cntct.contactList = telephoneList;
+    this.shrd_cntct.emailList = emailList;
   }
 
   //*get the "id" of the delete entry
-  deleteTemp(item, i) {
+  deleteTemp(item) {
     this.clear();
 
     this.dbranchId = item.locationCd;
@@ -526,6 +537,8 @@ export class BranchComponent implements OnInit {
           ) {
             this.app.hideSpinner();
             this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 5000 });
+            this.getBranches();
+            this.getBranchDetail();
             return false;
           } else {
             this.app.hideSpinner();
@@ -534,55 +547,12 @@ export class BranchComponent implements OnInit {
               toastTimeout: 2500
             });
             this.getBranches();
+            this.getBranchDetail();
             return false;
           }
         });
     } else {
       this.app.genPin();
-    }
-  }
-
-  //* Delete Function
-  delete() {
-    if (this.userPassword.trim() == "") {
-      this.toastr.errorToastr("Please Enter Password", "Error", {
-        toastTimeout: 2500
-      });
-      return false;
-    } else if (this.userPINCode.trim() == "") {
-      this.toastr.errorToastr("Please Enter PIN Code", "Error", {
-        toastTimeout: 2500
-      });
-      return false;
-    } else {
-      this.app.showSpinner();
-      this.app.hideSpinner();
-      this.toastr.successToastr("Record Deleted Successfully", "Success", {
-        toastTimeout: 2500
-      });
-      this.clear();
-      $("#deleteModal").modal("hide");
-
-      return false;
-
-      // var data = { "ID": this.dbranchId, Password: this.userPassword, PIN: this.userPINCode };
-
-      // var token = localStorage.getItem(this.tokenKey);
-
-      // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-      // this.http.put(this.serverUrl + 'api/pwCreate', data, { headers: reqHeader }).subscribe((data: any) => {
-
-      //   if (data.msg != undefined) {
-      //     this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-      //     return false;
-      //   } else {
-      //     this.toastr.successToastr('Record Deleted Successfully', 'Success!', { toastTimeout: (2500) });
-      //     $('#actionModal').modal('hide');
-      //     return false;
-      //   }
-
-      // });
     }
   }
 

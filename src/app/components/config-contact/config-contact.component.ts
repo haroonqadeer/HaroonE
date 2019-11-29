@@ -81,6 +81,7 @@ export class ConfigContactComponent implements OnInit {
           this.contactList[i].contactNumber == this.contactNumber
         ) {
           flag = true;
+          this.contactList[i].status = 1;
         }
       }
 
@@ -97,14 +98,22 @@ export class ConfigContactComponent implements OnInit {
 
         this.contactType = "";
         this.contactNumber = "";
+      } else {
+        this.toastr.errorToastr("Contact Already Exists", "Sorry!", {
+          toastTimeout: 5000
+        });
       }
     }
   }
 
   //Deleting contact row
   removeContact(index) {
-    //this.contactList[index].status = 2;
-    this.contactList.splice(index, 1);
+    // alert(this.contactList[index].contactDetailCode);
+    if (this.contactList[index].contactDetailCode == 0) {
+      this.contactList.splice(index, 1);
+    } else {
+      this.contactList[index].status = 2;
+    }
   }
 
   addEmail() {
@@ -124,6 +133,7 @@ export class ConfigContactComponent implements OnInit {
       for (var i = 0; i < this.emailList.length; i++) {
         if (this.emailList[i].email == this.emailAdrs) {
           flag = true;
+          this.emailList[i].status = 1;
         }
       }
 
@@ -137,13 +147,22 @@ export class ConfigContactComponent implements OnInit {
         });
 
         this.emailAdrs = "";
+      } else {
+        this.toastr.errorToastr("Email Already Exists", "Sorry!", {
+          toastTimeout: 5000
+        });
       }
     }
   }
 
   //Deleting address row
   removeEmail(item) {
-    this.emailList.splice(item, 1);
+    // this.emailList.splice(item, 1);
+    if (this.emailList[item].contactDetailCode == 0) {
+      this.emailList.splice(item, 1);
+    } else {
+      this.emailList[item].status = 2;
+    }
   }
 
   public validateEmail(Email) {
