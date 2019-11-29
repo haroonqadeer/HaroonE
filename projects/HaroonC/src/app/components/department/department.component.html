@@ -47,18 +47,20 @@
         
             <!--company row -->
             <div class="row myContainer">
+                
                 <div class="col-sm-12">
+                    <br/>
                     <mat-form-field class="fullwidth">
-                    <mat-select placeholder="Select Company" [(ngModel)]="ddlCompany" (ngModelChange)="resetList();" required>
-                        <input type="text" class="form-control" [(ngModel)]="ddlSearchCompany">
-                        <mat-option *ngFor="let item of companyList | search:'orgName':ddlSearchCompany" [value]="item.orgId">
-                            <table>
-                                <tr class='d-flex'>
-                                    <td class="col-12">{{ item.orgName }}</td>
-                                </tr>
-                            </table>
-                        </mat-option>
-                    </mat-select>
+                        <mat-select placeholder="Select Company" [(ngModel)]="ddlCompany" (ngModelChange)="resetList();" required>
+                            <input type="text" class="form-control" [(ngModel)]="ddlSearchCompany">
+                            <mat-option *ngFor="let item of companyList | search:'orgName':ddlSearchCompany" [value]="item.orgId">
+                                <table>
+                                    <tr class='d-flex'>
+                                        <td class="col-12">{{ item.orgName }}</td>
+                                    </tr>
+                                </table>
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
             </div>
@@ -74,8 +76,8 @@
 
             <!--branch heading row -->
             <div class="row myContainer">
-                <div class="col-sm-12">
-                    <div class="bottomBorder">
+                <div class="col-sm-12" >
+                    <div class="bottomBorder" style="padding: 18px 0 5px 0;">
                         Select Branch
                     </div>
                 </div>
@@ -86,7 +88,7 @@
                 <div class="col-sm-12">
                     <ul>
                         <li *ngFor="let item of locationList | search:'cmpnyID':ddlCompany" >
-                            <mat-checkbox [value]="item.locationCd" (click)="selectBranch(item);" >{{item.locationName}}</mat-checkbox>
+                            <mat-checkbox (change)="selectBranch(item);" [checked]="item.status" >{{item.locationName}}</mat-checkbox>
                         </li>
                     </ul>
                 </div>
@@ -132,14 +134,14 @@
                                 <table class="table fullwidth">
                                 <thead>
                                     <tr class="d-flex">
-                                    <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
-                                        class="col-8 pointerCursor text-left ">
-                                        Department Title
-                                        <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                                        <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                                    </th>
-                                    <th class="col-2 text-center">Edit</th>
-                                    <th class="col-2 text-center">Deactivate</th>
+                                        <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
+                                            class="col-8 pointerCursor text-left ">
+                                            Department Title
+                                            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                                            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                                        </th>
+                                        <th class="col-2 text-center">Edit</th>
+                                        <th class="col-2 text-center">Deactivate</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -152,15 +154,7 @@
                                             </span> 
                                         </td>
                                         <td class="col-2 text-center">
-                                
-                                            <!-- <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#dUserRoleModal" (click)="delete(item)">
-                                            <span class="fa icon-u-delete" ></span>
-                                            </span>  -->
-                                
-                                            <md-switch class="md-warn">
-                                                Switch 2 (md-warn): {{ data.cb2 }}
-                                            </md-switch>
-                                
+                                            <mat-slide-toggle (click)="generatePin(item)" (change)="change($event, item)" [checked]="item.delFlag"></mat-slide-toggle>
                                         </td>
 
                                     </tr>

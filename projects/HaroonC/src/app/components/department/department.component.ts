@@ -140,20 +140,74 @@ export class DepartmentComponent implements OnInit {
         var Token = localStorage.getItem(this.tokenKey);
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
 
-        this.http.get(this.serverUrl + 'api/getDepartmentDetail', { headers: reqHeader }).subscribe((data: any) => {
-            alert(this.departmentDetailsList.length);
+        this.http.get(this.serverUrl + 'api/getDepartmentDetail', { headers: reqHeader }).subscribe((data: any) => {            
             this.departmentDetailsList = data;
         });
 
     }
 
 
+    //******************** generating pin 
+    generatePin(item) {
+
+        if (this.app.pin != "") {
+            if (item.delFlag == false) {
+                item.delFlag = true;
+            } else if (item.delFlag == true) {
+                item.delFlag = false;
+            }
+        }
+
+        //* check if global variable is empty
+        if (this.app.pin != "") {
+            //* Initialize List and Assign data to list. Sending list to api
+            this.app.showSpinner();
     
+            var deptData = {
+                "deptCd": item.deptCd,
+                "companyId": item.companyId,
+                "deptName": item.deptName,
+                "branch": JSON.stringify(this.selectedBranchList),
+                "DelFlag": item.delFlag,
+                "connectedUser": 12000
+            };
+    
+            this.http.put(this.serverUrl + "api/deleteDepartment", deptData) .subscribe((data: any) => {
+                if ( data.msg != "Department Successfully Activated!" && data.msg != "Department Successfully Deactivated!" ) 
+                {
+                    this.app.hideSpinner();
+                    this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 5000 });
+                    return false;
+                } else {
+                    this.app.hideSpinner();
+                    this.app.pin = "";
+                    this.toastr.successToastr(data.msg, "Success!", { toastTimeout: 2500 });
+                    this.getDepartment();
+                    return false;
+                }
+            });
+
+        } else {
+
+            this.app.genPin();
+
+        }
+    }
+
+
+    //******************** Department change status 
+    change(e, i) {
+
+        if (this.app.pin == "") {
+            if (i.delFlag == false) {
+                e.source.checked = false;
+            } else if (i.delFlag == true) {
+                e.source.checked = true;
+            }
+        }
+    }
 
     
-
-
-
     //******************** function for saving and updating the data 
     save() {
         if (this.ddlCompany == "" || this.ddlCompany == "0") {
@@ -171,6 +225,7 @@ export class DepartmentComponent implements OnInit {
         else {
 
             if (this.departmentId == "") {
+
                 var saveData = {
                     "deptCd": 0,
                     "companyId": this.ddlCompany,
@@ -191,15 +246,11 @@ export class DepartmentComponent implements OnInit {
                     if (data.msg == "Record Saved Successfully!") {
                         this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                         this.clear();
-                        //('#departmentModal').modal('hide');
-                        //this.getDepartmentDetails();
+                        this.getDepartmentDetails();
                         return false;
                     }
                     else {
                         this.toastr.errorToastr(data.msg, 'Error !', { toastTimeout: (5000) });
-                        //this.clear();
-                        //$('#departmentModal').modal('hide');
-                        //this.getDepartmentDetails();
                         return false;
                     }
                 });
@@ -207,35 +258,34 @@ export class DepartmentComponent implements OnInit {
             }
             else {
 
-                
-
-
-                return false;
                 var updateData = {
-                "locationCd": this.ddlCompany,
-                "deptCd": this.departmentName,
-                "connectedUser": 12000
+                    "deptCd": this.departmentId,
+                    "companyId": this.ddlCompany,
+                    "deptName": this.departmentName,
+                    "branch": JSON.stringify(this.selectedBranchList),
+                    "DelFlag": false,
+                    "connectedUser": 12000
                 };
 
-                var token = localStorage.getItem(this.tokenKey);
+                //var token = localStorage.getItem(this.tokenKey);
+                //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+                this.http.put(this.serverUrl + 'api/updateDepartment', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                this.http.put(this.serverUrl + 'api/updateDepartmentDetails', updateData, { headers: reqHeader }).subscribe((data: any) => {
+                    if (data.msg == undefined) {
+                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                        return false;
+                    }
+                    else {
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
 
-                if (data.msg == undefined) {
-                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                    return false;
-                }
-                else {
-                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                        this.clear();
+                        this.getDepartmentDetails();
+                        this.getDepartment();
 
-                    this.clear();
-                    $('#departmentModal').modal('hide');
-                    this.getDepartmentDetails();
-
-                    return false;
-                }
+                        return false;
+                    }
 
                 });
                 
@@ -254,7 +304,7 @@ export class DepartmentComponent implements OnInit {
         this.departmentName = "";
 
         this.resetList();
-        
+
     }
 
 
@@ -262,7 +312,7 @@ export class DepartmentComponent implements OnInit {
     resetList(){
         
         for (var i = 0; i < this.locationList.length; i++) {
-        this.locationList[i].status = 0;
+            this.locationList[i].status = 0;
         } 
 
     }
@@ -270,13 +320,15 @@ export class DepartmentComponent implements OnInit {
     //******************** change branch status (checked or not)
     selectBranch(item) {
 
+        
+        
         if(item.status == 0)
         {
-        item.status = 1;
+            item.status = 1;
         }
         else
         {
-        item.status = 0;
+            item.status = 0;
         }
 
     }
@@ -313,21 +365,32 @@ export class DepartmentComponent implements OnInit {
         
         this.clear();
         
+        this.departmentId = item.deptCd;
         this.ddlCompany = item.cmpnyID;
         this.departmentName = item.deptName;
 
+        this.editSelectedBranchsList();
     }
 
 
+    //******************** extracting selected branches
+    editSelectedBranchsList(){
+        
+        var tempList = this.departmentDetailsList.filter(x => x.deptCd == this.departmentId);
+        
+        for (var i = 0; i < tempList.length; i++) {
 
+            for (var j = 0; j < this.locationList.length; j++){
 
+                if(this.locationList[j].locationCd == tempList[i].locationCd){
+                    this.locationList[j].status = 1;
+                }
 
-    // small Department modal window
-    deleteDept(item) {
-        this.clear();
-        //this.dDepartmentId = item.deptCd;
+            }
+            
+        }
+        
     }
-
 
 
     //function for sorting table data 
