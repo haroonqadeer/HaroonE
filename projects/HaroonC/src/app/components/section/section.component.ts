@@ -82,13 +82,13 @@ export class SectionComponent implements OnInit {
 		private csvExportService: IgxCsvExporterService) { }
 
 	ngOnInit() {
-		
+
 		this.getCompany();
         this.getLocation();
 		this.getDepartment();
 		this.getSection();
 		this.getSectionDetails();
-		
+
 	}
 
 	@ViewChild("excelDataContent") public excelDataContent: IgxGridComponent;//For excel
@@ -110,6 +110,7 @@ export class SectionComponent implements OnInit {
 
         });
     }
+
 
     //******************** To get departments
     getLocation() {
@@ -222,7 +223,7 @@ export class SectionComponent implements OnInit {
         }
     }
 
-    
+
     //******************** function for saving and updating the data 
     save() {
 
