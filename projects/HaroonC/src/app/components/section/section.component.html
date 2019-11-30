@@ -106,7 +106,7 @@
             <div class="row myContainer">
                 <div class="col-sm-12">
                     
-                    <mat-radio-group [(ngModel)]="departmentId">
+                    <mat-radio-group [(ngModel)]="departmentId" (ngModelChange)="resetList();">
                         <ul>
                             <li *ngFor="let item of departmentList | search:'cmpnyID':ddlCompany" >
                                 <mat-radio-button [value]="item.deptCd">{{item.deptName}}</mat-radio-button>
@@ -131,7 +131,7 @@
             <div class="row myContainer">
                 <div class="col-sm-12">
                     <ul>
-                        <li *ngFor="let item of locationList | search:'cmpnyID':ddlCompany" >
+                        <li *ngFor="let item of locationList | search:'deptCd':departmentId" >
                             <mat-checkbox (change)="selectBranch(item);" [checked]="item.status" >{{item.locationName}}</mat-checkbox>
                         </li>
                     </ul>
@@ -195,7 +195,7 @@
                                 <tbody>
                                     <tr class='d-flex' *ngFor="let item of sectionList | search:'deptName':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index">
                                         
-                                        <td class="col-4">{{item.sectionName}}</td>
+                                        <td class="col-4">{{item.sectName}}</td>
                                         <td class="col-4">{{item.deptName}}</td>
                                         <td class="col-2 text-center">
                                             <span class="fa tableIcon pointerCursor" (click)="edit(item)">
