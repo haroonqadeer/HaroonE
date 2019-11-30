@@ -67,7 +67,7 @@ export class CompanyComponent implements OnInit {
     companyBox = true;
 
 
-    serverUrl = "http://localhost:7007/";
+    serverUrl = "http://localhost:5000/";
     tokenKey = "token";
 
     httpOptions = {
@@ -518,7 +518,7 @@ export class CompanyComponent implements OnInit {
 
                     this.http.put(this.serverUrl + 'api/updateCompany', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                        if (data.msg != undefined) {
+                        if (data.msg == "Record Saved Successfully") {
                             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                             this.app.hideSpinner();
                             return false;
