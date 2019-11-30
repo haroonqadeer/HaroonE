@@ -78,7 +78,8 @@ export class BranchComponent implements OnInit {
   //shipping = false;
   //postal = false;
 
-  serverUrl = "http://localhost:5000/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9040/";
+  // serverUrl = "http://localhost:5000/";
   tokenKey = "token";
 
   httpOptions = {

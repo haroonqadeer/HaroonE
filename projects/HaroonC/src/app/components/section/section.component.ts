@@ -37,7 +37,8 @@ declare var $: any;
   styleUrls: ["./section.component.scss"]
 })
 export class SectionComponent implements OnInit {
-  serverUrl = "http://localhost:7003/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9042/";
+  // serverUrl = "http://localhost:7003/";
   tokenKey = "token";
 
   httpOptions = {
@@ -146,10 +147,13 @@ export class SectionComponent implements OnInit {
       Authorization: "Bearer " + Token
     });
 
+    this.app.showSpinner();
+
     this.http
       .get(this.serverUrl + "api/getSection", { headers: reqHeader })
       .subscribe((data: any) => {
         this.sectionList = data;
+        this.app.hideSpinner();
       });
   }
 
@@ -161,10 +165,13 @@ export class SectionComponent implements OnInit {
       Authorization: "Bearer " + Token
     });
 
+    this.app.showSpinner();
+
     this.http
       .get(this.serverUrl + "api/getSectionDetail", { headers: reqHeader })
       .subscribe((data: any) => {
         this.departmentDetailsList = data;
+        this.app.hideSpinner();
       });
   }
 

@@ -1,463 +1,465 @@
 <mat-drawer-container class="example-container" autosize>
-    <!--Menu Side Bar For Hr -->
-  
-    <div class="sidenavContainer"></div>
-  
-    <div *ngIf="moduleHR" id="mySidenav" class="sidenav">
-  
-      <div class="row">
-        <!--Ambit Logo -->
-        <div class="col-md-12">
-          <button type="button" class="noneOutLine closeBtn" mat-flat-button (click)="closeNav()">
-            <a routerLink="home">
-              <img src="../assets/images/Ambit-Logo.svg" height="25px">
-            </a>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="fa fa-times text-center" style="color:#4F6EB1;"></span>
-          </button>
-        </div>
-  
-  
-        <!--Menu btns -->
-        <div class="col-md-12">
-          <ul class="nav">
-            <li>
-              <a>
-                <span class="fa logo"><img src="../assets/images/search.svg"></span>
-                <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink='HR/attendancedashboard'>
-                <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                <span class="text">Attendance Dashboard</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink='HR/hrdashboard'>
-                <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                <span class="text">HR Dashboard</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/post">
-                <span class="fa logo"><img src="../assets/images/Post.svg"></span>
-                <span class="text">Post</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/job">
-                <span class="fa logo"><img src="../assets/images/JobProfile.svg"></span>
-                <span class="text">Job Profile</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/recruitmentApproval">
-                <span class="fa logo"><img src="../assets/images/Recruitment-Approval.svg"></span>
-                <span class="text">Recruitment Approval</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/recruitment">
-                <span class="fa logo"><img src="../assets/images/Recruitment-Process.svg"></span>
-                <span class="text">Recruitment Process</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink='HR/employeeShift'>
-                <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span>
-                <span class="text">Employee Shift</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink='HR/employee'>
-                <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span>
-                <span class="text">Employee Profile</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink='HR/promotion'>
-                <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span>
-                <span class="text">Promotion</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink='HR/transfer'>
-                <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span>
-                <span class="text">Transfer</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/performanceStandard">
-                <span class="fa logo"><img src="../assets/images/PerformanceStandards.svg"></span>
-                <span class="text">Performance Standard</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/performanceEvaluation">
-                <span class="fa logo"><img src="../assets/images/PerformanceEvaluation.svg"></span>
-                <span class="text">Performance Evaluation</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/leaveType">
-                <span class="fa logo"><img src="../assets/images/vacations.svg"></span>
-                <span class="text">Leave Type</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/leaveRules">
-                <span class="fa logo"><img src="../assets/images/vacations-Rules.svg"></span>
-                <span class="text">Leave Rules</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/skillstandard">
-                <span class="fa logo"><img src="../assets/images/skills.svg"></span>
-                <span class="text">Skill Standard</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/shift">
-                <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                <span class="text">Shift</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/test">
-                <span class="fa logo"><img src="../assets/images/exam.svg"></span>
-                <span class="text">Test</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/training">
-                <span class="fa logo"><img src="../assets/images/Training.svg"></span>
-                <span class="text">Trainings</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/trainingreq">
-                <span class="fa logo"><img src="../assets/images/Training.svg"></span>
-                <span class="text">Training Request</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/trainingemp">
-                <span class="fa logo"><img src="../assets/images/Training.svg"></span>
-                <span class="text">Employee Trainings</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/attendance">
-                <span class="fa logo"><img src="../assets/images/Year-Calendar.svg"></span>
-                <span class="text">Attendance</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="HR/yearcalendar">
-                <span class="fa logo"><img src="../assets/images/Year-Calendar.svg"></span>
-                <span class="text">Year Calendar</span>
-              </a>
-            </li>
-          </ul>
-          <br/>
-        </div>
+  <!--Menu Side Bar For Hr -->
+
+  <div class="sidenavContainer"></div>
+
+  <div *ngIf="moduleHR" id="mySidenav" class="sidenav">
+
+    <div class="row">
+      <!--Ambit Logo -->
+      <div class="col-md-12">
+        <button type="button" class="noneOutLine closeBtn" mat-flat-button (click)="closeNav()">
+          <a routerLink="home">
+            <img src="../assets/images/Ambit-Logo.svg" height="25px">
+          </a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="fa fa-times text-center" style="color:#4F6EB1;"></span>
+        </button>
       </div>
-  
-    </div>
-    
-    
-    
-    
-    <!--Menu Side Bar For Config -->
-    <div *ngIf="moduleConfig" id="mySidenav" class="sidenav">
-  
-      <div class="row">
-        <!--Ambit Logo -->
-        <div class="col-md-12">
-          <button type="button" class="noneOutLine closeBtn" mat-flat-button (click)="closeNav()">
-            <a routerLink="home">
-              <img src="../assets/images/Ambit-Logo.svg" height="25px">
+
+
+      <!--Menu btns -->
+      <div class="col-md-12">
+        <ul class="nav">
+          <li>
+            <a>
+              <span class="fa logo"><img src="../assets/images/search.svg"></span>
+              <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
             </a>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="fa fa-times text-center" style="color:#4F6EB1;"></span>
-          </button>
-        </div>
-  
-  
-        <!--Menu btns -->
-        <div class="col-md-12">
-          <ul class="nav">
-            <li>
-              <a>
-                <span class="fa logo"><img src="../assets/images/search.svg"></span>
-                <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="Config/certificate">
-                <span class="fa logo"><img src="../assets/images/certificate.svg"></span>
-                <span class="text">Certificate</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="Config/degree">
-                <span class="fa logo"><img src="../assets/images/degree.svg"></span>
-                <span class="text">Degree</span>
-              </a>
-            </li>
-            <li routerLinkActive='active'>
-              <a routerLink="Config/skill">
-                <span class="fa logo"><img src="../assets/images/skills.svg"></span>
-                <span class="text">Skill</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink='HR/attendancedashboard'>
+              <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+              <span class="text">Attendance Dashboard</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink='HR/hrdashboard'>
+              <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+              <span class="text">HR Dashboard</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/post">
+              <span class="fa logo"><img src="../assets/images/Post.svg"></span>
+              <span class="text">Post</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/job">
+              <span class="fa logo"><img src="../assets/images/JobProfile.svg"></span>
+              <span class="text">Job Profile</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/recruitmentApproval">
+              <span class="fa logo"><img src="../assets/images/Recruitment-Approval.svg"></span>
+              <span class="text">Recruitment Approval</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/recruitment">
+              <span class="fa logo"><img src="../assets/images/Recruitment-Process.svg"></span>
+              <span class="text">Recruitment Process</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink='HR/employeeShift'>
+              <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span>
+              <span class="text">Employee Shift</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink='HR/employee'>
+              <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span>
+              <span class="text">Employee Profile</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink='HR/promotion'>
+              <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span>
+              <span class="text">Promotion</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink='HR/transfer'>
+              <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span>
+              <span class="text">Transfer</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/performanceStandard">
+              <span class="fa logo"><img src="../assets/images/PerformanceStandards.svg"></span>
+              <span class="text">Performance Standard</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/performanceEvaluation">
+              <span class="fa logo"><img src="../assets/images/PerformanceEvaluation.svg"></span>
+              <span class="text">Performance Evaluation</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/leaveType">
+              <span class="fa logo"><img src="../assets/images/vacations.svg"></span>
+              <span class="text">Leave Type</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/leaveRules">
+              <span class="fa logo"><img src="../assets/images/vacations-Rules.svg"></span>
+              <span class="text">Leave Rules</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/skillstandard">
+              <span class="fa logo"><img src="../assets/images/skills.svg"></span>
+              <span class="text">Skill Standard</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/shift">
+              <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+              <span class="text">Shift</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/test">
+              <span class="fa logo"><img src="../assets/images/exam.svg"></span>
+              <span class="text">Test</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/training">
+              <span class="fa logo"><img src="../assets/images/Training.svg"></span>
+              <span class="text">Trainings</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/trainingreq">
+              <span class="fa logo"><img src="../assets/images/Training.svg"></span>
+              <span class="text">Training Request</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/trainingemp">
+              <span class="fa logo"><img src="../assets/images/Training.svg"></span>
+              <span class="text">Employee Trainings</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/attendance">
+              <span class="fa logo"><img src="../assets/images/Year-Calendar.svg"></span>
+              <span class="text">Attendance</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="HR/yearcalendar">
+              <span class="fa logo"><img src="../assets/images/Year-Calendar.svg"></span>
+              <span class="text">Year Calendar</span>
+            </a>
+          </li>
+        </ul>
+        <br />
       </div>
-  
     </div>
-    
-    
-    
-    
 
-    <!--Menu Side Bar For User module -->
-    <div *ngIf="moduleUM" id="mySidenav" class="sidenav">
-  
-      <div class="row">
-        <!--Ambit Logo -->
-        <div class="col-md-12">
-          <button type="button" class="noneOutLine closeBtn" mat-flat-button (click)="closeNav()">
-            <a routerLink="home">
-              <img src="../assets/images/Ambit-Logo.svg" height="25px">
-            </a>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="fa fa-times text-center" style="color:#4F6EB1;"></span>
-          </button>
-        </div>
-  
-  
-        <!--Menu btns -->
-        <div class="col-md-12">
-          <ul class="nav">
-            <li>
-              <a>
-                <span class="fa logo"><img src="../assets/images/search.svg"></span>
-                <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
-              </a>
-            </li>
-            <li routerLinkActive='active' (click)="closeNav()">
-              <a routerLink='UM/userDashboard'>
-                <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                <span class="text">User Dashboard</span>
-              </a>
-            </li>
-            <li routerLinkActive='active' (click)="closeNav()">
-              <a routerLink='UM/userProfile'>
-                <span class="fa logo"><img src="../assets/images/UserProfile.svg"></span>
-                <span class="text">User Profile</span>
-              </a>
-            </li>
-            <li routerLinkActive='active' (click)="closeNav()">
-              <a routerLink="UM/userRole">
-                <span class="fa logo"><img src="../assets/images/UserRole-24px.svg"></span>
-                <span class="text">User Role</span>
-              </a>
-            </li> 
-            <li routerLinkActive='active' (click)="closeNav()">
-              <a routerLink="UM/userReport">
-                <span class="fa logo"><img src="../assets/images/UserRole-24px.svg"></span>
-                <span class="text">User Report</span>
-              </a>
-            </li> 
-          </ul>
-        </div>
+  </div>
+
+
+
+
+  <!--Menu Side Bar For Config -->
+  <div *ngIf="moduleConfig" id="mySidenav" class="sidenav">
+
+    <div class="row">
+      <!--Ambit Logo -->
+      <div class="col-md-12">
+        <button type="button" class="noneOutLine closeBtn" mat-flat-button (click)="closeNav()">
+          <a routerLink="home">
+            <img src="../assets/images/Ambit-Logo.svg" height="25px">
+          </a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="fa fa-times text-center" style="color:#4F6EB1;"></span>
+        </button>
       </div>
-  
-    </div>
-    
 
 
-
-    <!--Menu Side Bar For Company Module -->
-    <div *ngIf="moduleComp" id="mySidenav" class="sidenav">
-  
-      <div class="row">
-        <!--Ambit Logo -->
-        <div class="col-md-12">
-          <button type="button" class="noneOutLine closeBtn" mat-flat-button (click)="closeNav()">
-            <a routerLink="home">
-              <img src="../assets/images/Ambit-Logo.svg" height="25px">
+      <!--Menu btns -->
+      <div class="col-md-12">
+        <ul class="nav">
+          <li>
+            <a>
+              <span class="fa logo"><img src="../assets/images/search.svg"></span>
+              <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
             </a>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="fa fa-times text-center" style="color:#4F6EB1;"></span>
-          </button>
-        </div>
-  
-  
-        <!--Menu btns -->
-        <div class="col-md-12">
-          <ul class="nav">
-            <li>
-              <a>
-                <span class="fa logo"><img src="../assets/images/search.svg"></span>
-                <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
-              </a>
-            </li>
-            <li routerLinkActive='active' (click)="closeNav()">
-              <a routerLink='Comp/dashboard'>
-                <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                <span class="text">Dashboard</span>
-              </a>
-            </li>
-            <li routerLinkActive='active' (click)="closeNav()">
-              <a routerLink='Comp/company'>
-                <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                <span class="text">New Company</span>
-              </a>
-            </li>
-            <li routerLinkActive='active' (click)="closeNav()">
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="Config/certificate">
+              <span class="fa logo"><img src="../assets/images/certificate.svg"></span>
+              <span class="text">Certificate</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="Config/degree">
+              <span class="fa logo"><img src="../assets/images/degree.svg"></span>
+              <span class="text">Degree</span>
+            </a>
+          </li>
+          <li routerLinkActive='active'>
+            <a routerLink="Config/skill">
+              <span class="fa logo"><img src="../assets/images/skills.svg"></span>
+              <span class="text">Skill</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+  <!--Menu Side Bar For User module -->
+  <div *ngIf="moduleUM" id="mySidenav" class="sidenav">
+
+    <div class="row">
+      <!--Ambit Logo -->
+      <div class="col-md-12">
+        <button type="button" class="noneOutLine closeBtn" mat-flat-button (click)="closeNav()">
+          <a routerLink="home">
+            <img src="../assets/images/Ambit-Logo.svg" height="25px">
+          </a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="fa fa-times text-center" style="color:#4F6EB1;"></span>
+        </button>
+      </div>
+
+
+      <!--Menu btns -->
+      <div class="col-md-12">
+        <ul class="nav">
+          <li>
+            <a>
+              <span class="fa logo"><img src="../assets/images/search.svg"></span>
+              <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
+            </a>
+          </li>
+          <li routerLinkActive='active' (click)="closeNav()">
+            <a routerLink='UM/userDashboard'>
+              <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+              <span class="text">User Dashboard</span>
+            </a>
+          </li>
+          <li routerLinkActive='active' (click)="closeNav()">
+            <a routerLink='UM/userProfile'>
+              <span class="fa logo"><img src="../assets/images/UserProfile.svg"></span>
+              <span class="text">User Profile</span>
+            </a>
+          </li>
+          <li routerLinkActive='active' (click)="closeNav()">
+            <a routerLink="UM/userRole">
+              <span class="fa logo"><img src="../assets/images/UserRole-24px.svg"></span>
+              <span class="text">User Role</span>
+            </a>
+          </li>
+          <li routerLinkActive='active' (click)="closeNav()">
+            <a routerLink="UM/userReport">
+              <span class="fa logo"><img src="../assets/images/UserRole-24px.svg"></span>
+              <span class="text">User Report</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <!--Menu Side Bar For Company Module -->
+  <div *ngIf="moduleComp" id="mySidenav" class="sidenav">
+
+    <div class="row">
+      <!--Ambit Logo -->
+      <div class="col-md-12">
+        <button type="button" class="noneOutLine closeBtn" mat-flat-button (click)="closeNav()">
+          <a routerLink="home">
+            <img src="../assets/images/Ambit-Logo.svg" height="25px">
+          </a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="fa fa-times text-center" style="color:#4F6EB1;"></span>
+        </button>
+      </div>
+
+
+      <!--Menu btns -->
+      <div class="col-md-12">
+        <ul class="nav">
+          <li>
+            <a>
+              <span class="fa logo"><img src="../assets/images/search.svg"></span>
+              <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
+            </a>
+          </li>
+          <li routerLinkActive='active' (click)="closeNav()">
+            <a routerLink='Comp/dashboard'>
+              <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+              <span class="text">Dashboard</span>
+            </a>
+          </li>
+          <li routerLinkActive='active' (click)="closeNav()">
+            <a routerLink='Comp/company'>
+              <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+              <span class="text">New Company</span>
+            </a>
+          </li>
+          <!-- <li routerLinkActive='active' (click)="closeNav()">
               <a routerLink='Comp/cmpany'>
                 <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
                 <span class="text">New Company 1</span>
               </a>
-            </li>
-            <li routerLinkActive='active'>
+            </li> -->
+          <!-- <li routerLinkActive='active'>
               <a routerLink="Comp/headquarter" (click)="closeNav()">
                 <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
                 <span class="text">Head Quarter</span>
               </a>
-            </li>
-            <li routerLinkActive='active' (click)="closeNav()">
-              <a routerLink="Comp/branch">
-                <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                <span class="text">New Branch</span>
-              </a>
-            </li> 
-            <li routerLinkActive='active' (click)="closeNav()">
-              <a routerLink="Comp/department">
-                <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                <span class="text">Add Department</span>
-              </a>
-            </li> 
-            <li routerLinkActive='active' (click)="closeNav()">
-              <a routerLink="Comp/section">
-                <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                <span class="text">Add Section</span>
-              </a>
-            </li> 
-            <li routerLinkActive='active' (click)="closeNav()">
+            </li> -->
+          <li routerLinkActive='active' (click)="closeNav()">
+            <a routerLink="Comp/branch">
+              <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+              <span class="text">New Branch</span>
+            </a>
+          </li>
+          <li routerLinkActive='active' (click)="closeNav()">
+            <a routerLink="Comp/department">
+              <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+              <span class="text">Add Department</span>
+            </a>
+          </li>
+          <li routerLinkActive='active' (click)="closeNav()">
+            <a routerLink="Comp/section">
+              <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+              <span class="text">Add Section</span>
+            </a>
+          </li>
+          <!-- <li routerLinkActive='active' (click)="closeNav()">
               <a routerLink="Comp/subsidiaries">
                 <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
                 <span class="text">New Subsidiaries</span>
               </a>
-            </li> 
-            <li routerLinkActive='active' (click)="closeNav()">
-              <a routerLink="Comp/currency">
-                <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                <span class="text">New Currency</span>
-              </a>
-            </li> 
-          </ul>
-        </div>
-      </div>
-  
-    </div>
-    
-    
-    <!--Menu Top Bar  -->               <!--overflow-x: hidden;-->
-    <div class="example-sidenav-content" style="z-index: 100; overflow-x: hidden;">
-      <div *ngIf="hideDiv" class="row bgBlue boxShadow" >
-  
-        <!--Ambit Logo Button column -->
-        <div class="col-md-1" style="border:0px solid red; background-color: #E6E6E6;" (click)="openNav()">
-  
-          <button type="button" class="noneOutLine menuButton" mat-flat-button>
-            <a routerLink="home">
-              <img src="../assets/images/Ambit-Logo.svg" height="25px">
+            </li>  -->
+          <li routerLinkActive='active' (click)="closeNav()">
+            <a routerLink="Comp/currency">
+              <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+              <span class="text">New Currency</span>
             </a>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="fa fa-bars text-center" style="color:#4F6EB1;" (click)="openNav()"></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!--Menu Top Bar  -->
+  <!--overflow-x: hidden;-->
+  <div class="example-sidenav-content" style="z-index: 100; overflow-x: hidden;">
+    <div *ngIf="hideDiv" class="row bgBlue boxShadow">
+
+      <!--Ambit Logo Button column -->
+      <div class="col-md-1" style="border:0px solid red; background-color: #E6E6E6;" (click)="openNav()">
+
+        <button type="button" class="noneOutLine menuButton" mat-flat-button>
+          <a routerLink="home">
+            <img src="../assets/images/Ambit-Logo.svg" height="25px">
+          </a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="fa fa-bars text-center" style="color:#4F6EB1;" (click)="openNav()"></span>
+        </button>
+      </div>
+
+      <!--empty column -->
+      <div class=" offset-md-5 col-md-1 text-right">
+      </div>
+
+      <!--welcome column -->
+      <div class="col-md-3 text-right" style="border:0px solid red; padding: 0;">
+
+        <img src="../assets/images/Default-Image.jpg" alt="" style="border-radius: 50%; margin-bottom: 3px;"
+          height="37px">
+
+        <div class="dropdown">
+          <button class="dropbtn pointerCursor">
+            WELCOME! {{logedInUserName}} &nbsp;
+            <span class="fa fa-caret-down"></span>
           </button>
-        </div>
-  
-        <!--empty column -->
-        <div class=" offset-md-5 col-md-1 text-right">
-        </div>
-        
-        <!--welcome column -->
-        <div class="col-md-3 text-right" style="border:0px solid red; padding: 0;">
-  
-          <img src="../assets/images/Default-Image.jpg" alt="" style="border-radius: 50%; margin-bottom: 3px;" height="37px">
-  
-          <div class="dropdown">
-            <button class="dropbtn pointerCursor">
-              WELCOME! {{logedInUserName}} &nbsp;
-              <span class="fa fa-caret-down"></span>
-            </button>
-  
-            <div class="dropdown-content pointerCursor">
-  
-              <div class="btn" (click)=showBottom()>
-                <span class="fa fa-sitemap"></span>&nbsp;
-                <span> Modules</span>
-              </div>
-              <div class="btn" (click)=showAttendance()>
-                  <span class="fa fa-calendar-check-o"></span>&nbsp;
-                  <span>Attendance</span>
-              </div>
-              <div class="btn" data-toggle="modal" data-target="#changePasWrdModal">
-                  <span class="fa fa-key"></span>&nbsp;
-                  <span>Change Password</span>
-              </div>
-              <!-- <div class="btn" (click)=genPin()>
+
+          <div class="dropdown-content pointerCursor">
+
+            <div class="btn" (click)=showBottom()>
+              <span class="fa fa-sitemap"></span>&nbsp;
+              <span> Modules</span>
+            </div>
+            <div class="btn" (click)=showAttendance()>
+              <span class="fa fa-calendar-check-o"></span>&nbsp;
+              <span>Attendance</span>
+            </div>
+            <div class="btn" data-toggle="modal" data-target="#changePasWrdModal">
+              <span class="fa fa-key"></span>&nbsp;
+              <span>Change Password</span>
+            </div>
+            <!-- <div class="btn" (click)=genPin()>
                 <span class="fa fa-key"></span>&nbsp;
                 <span>gen pin</span>
               </div> -->
-              <div class="btn" (click)="Logout()">
-                <span class="fa fa-sign-out"></span>&nbsp;
-                <span>Log out</span>
-              </div>
+            <div class="btn" (click)="Logout()">
+              <span class="fa fa-sign-out"></span>&nbsp;
+              <span>Log out</span>
             </div>
           </div>
-  
-          <div class="row" style="border:0px solid red; padding: 0;">
-            <div class="col-md-2" style="border: 0px solid yellow; padding-right: 0;">
-  
-            </div>
+        </div>
+
+        <div class="row" style="border:0px solid red; padding: 0;">
+          <div class="col-md-2" style="border: 0px solid yellow; padding-right: 0;">
+
           </div>
-  
-        </div>
-        
-        <!--reports column -->
-        <div class="col-md-1 text-right border-left" style="border:0px solid yellow; padding: 0;">
-
-            <div class="btnReport">
-              <img src="../assets/images/Reports.svg" alt="" height="30px">
-              &nbsp;<span style="font-size: 15px; font-family: Roboto-Light;">REPORTS</span>
-            </div>
-  
         </div>
 
-        <!--slider column -->
-        <div class="col-md-1 text-right">
-
-          <div class="btnSlider border-left">
-            <!-- <span class="fa fa-sliders"></span> -->
-            <img src="../assets/images/settings1.svg" alt="" height="30px">
-          </div>
-
-        </div>
       </div>
 
-      <ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.91)" size="medium" color="#ff871c" type="ball-clip-rotate-multiple"
-        fullScreen="true" >
-        <p style="color: white;"> Loading... </p>
-      </ngx-spinner>
+      <!--reports column -->
+      <div class="col-md-1 text-right border-left" style="border:0px solid yellow; padding: 0;">
 
-      <router-outlet></router-outlet>
+        <div class="btnReport">
+          <img src="../assets/images/Reports.svg" alt="" height="30px">
+          &nbsp;<span style="font-size: 15px; font-family: Roboto-Light;">REPORTS</span>
+        </div>
+
+      </div>
+
+      <!--slider column -->
+      <div class="col-md-1 text-right">
+
+        <div class="btnSlider border-left">
+          <!-- <span class="fa fa-sliders"></span> -->
+          <img src="../assets/images/settings1.svg" alt="" height="30px">
+        </div>
+
+      </div>
     </div>
+
+    <ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.91)" size="medium" color="#ff871c"
+      type="ball-clip-rotate-multiple" fullScreen="true">
+      <p style="color: white;"> Loading... </p>
+    </ngx-spinner>
+
+    <router-outlet></router-outlet>
+  </div>
 
 
 
@@ -467,7 +469,7 @@
   <div class="modal fade modal-forgot" id="changePasWrdModal">
     <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
       <div class="modal-content">
-  
+
         <!--Start Action Modal Header -->
         <div class="modal-header">
           <h4></h4>
@@ -476,21 +478,21 @@
           </div>
         </div>
         <!--End Action Modal Header -->
-        
+
         <!--start Modal body -->
         <div class="modal-body">
           <!--start 1st row-->
           <div class="row">
             <div class="offset-md-1 col-md-6">
-              <p class="fontWhite">Change Password<br/></p>
-  
-                <mat-form-field class='fullwidth my-form-field' appearance="legacy">
-                  <mat-label class="inputLabel">
-                      Enter Current Password
-                  </mat-label>
-                  <input matInput id="float-input" type="password" size="32" [(ngModel)]="txtCrntPassword" autofocus>
-                </mat-form-field>
-  
+              <p class="fontWhite">Change Password<br /></p>
+
+              <mat-form-field class='fullwidth my-form-field' appearance="legacy">
+                <mat-label class="inputLabel">
+                  Enter Current Password
+                </mat-label>
+                <input matInput id="float-input" type="password" size="32" [(ngModel)]="txtCrntPassword" autofocus>
+              </mat-form-field>
+
               <!--start password row -->
               <mat-form-field class='fullwidth my-form-field' appearance="legacy">
                 <mat-label class="inputLabel">
@@ -500,41 +502,42 @@
               </mat-form-field>
               <!-- <mat-password-strength [password]="password.value" ></mat-password-strength> -->
               <!--end password row-->
-              
+
               <!--start conform password row  style="margin-top: 5px;" -->
-                <mat-form-field class='fullwidth my-form-field' appearance="legacy">
-                  <mat-label class="inputLabel">
-                    Confirm New Password
-                  </mat-label>
-                  <input matInput id="float-input" type="password" size="32" [(ngModel)]="txtCnfrmPassword">
-                </mat-form-field>
-                <!-- <span class="ui-float-label">
+              <mat-form-field class='fullwidth my-form-field' appearance="legacy">
+                <mat-label class="inputLabel">
+                  Confirm New Password
+                </mat-label>
+                <input matInput id="float-input" type="password" size="32" [(ngModel)]="txtCnfrmPassword">
+              </mat-form-field>
+              <!-- <span class="ui-float-label">
                   <input id="float-input" type="password" size="32" [(ngModel)]="txtCnfrmPassword" pInputText class="fullwidth noneOutLine"> 
                   <label for="float-input">Confirm New Password</label>
                 </span> -->
               <!--end conform password row -->
-              
+
               <!--buttons -->
-              <button mat-raised-button color="primary" class="buttonSquare btnBlueModal" (click)="changePassword()">&nbsp;SAVE&nbsp;</button>
+              <button mat-raised-button color="primary" class="buttonSquare btnBlueModal"
+                (click)="changePassword()">&nbsp;SAVE&nbsp;</button>
             </div>
-  
-  
-  
+
+
+
             <div class="col-md-4 text-center" style="padding: 0 !important;">
               <img src="../../../assets/images/ResetPassword-Large.svg" alt="" width="100%" height="75%">
-              <br/><br/>
+              <br /><br />
               <h5 class="fontWhite"><b>CHANGE PASSWORD</b></h5>
             </div>
-  
-  
-  
+
+
+
           </div>
           <!--end 1st row-->
-          
-          <br/>
+
+          <br />
         </div>
         <!--end Modal body -->
-  
+
       </div>
     </div>
   </div>
@@ -547,7 +550,7 @@
   <div class="modal fade modal-forgot" id="generatePinModal">
     <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
       <div class="modal-content">
-  
+
         <!--Start Action Modal Header -->
         <div class="modal-header">
           <h4></h4>
@@ -556,16 +559,17 @@
           </div>
         </div>
         <!--End Action Modal Header -->
-        
+
         <!--start Modal body -->
         <div class="modal-body">
           <!--start 1st row-->
-          <div class="row" >
+          <div class="row">
             <div class="offset-md-1 col-md-6">
-              <p class="fontWhite">Hi {{logedInUserName}}!<br/>
-                It seems you need to activate this user profile, please enter your PIN to proceed, if your PIN is already expired click Generate PIN to receive new PIN via email.<br/>
+              <p class="fontWhite">Hi {{logedInUserName}}!<br />
+                It seems you need to activate this user profile, please enter your PIN to proceed, if your PIN is
+                already expired click Generate PIN to receive new PIN via email.<br />
               </p>
-  
+
               <div class="row">
                 <div class="col-md-10">
                   <mat-form-field class='fullwidth my-form-field' appearance="legacy">
@@ -582,43 +586,45 @@
                   </div> -->
                 </div>
               </div>
-              
+
               <br>
               <!--buttons -->
-              <button mat-raised-button color="primary" class="buttonSquare btnBlueModal" (click)="activePin()">&nbsp; ACTIVATE &nbsp;</button>
-              &nbsp; <a class="fontWhite" style="text-decoration: underline; cursor: pointer;" (click)="sendPin()">Generate PIN</a> &nbsp;
+              <button mat-raised-button color="primary" class="buttonSquare btnBlueModal" (click)="activePin()">&nbsp;
+                ACTIVATE &nbsp;</button>
+              &nbsp; <a class="fontWhite" style="text-decoration: underline; cursor: pointer;"
+                (click)="sendPin()">Generate PIN</a> &nbsp;
             </div>
-  
-  
-  
+
+
+
             <div class="col-md-4 text-center" style="padding: 0;">
               <img src="../../../assets/images/ActivateUser-Large.svg" alt="" height="70%">
-              <br/><br/>
+              <br /><br />
               <h5 class="fontWhite"><b>DEACTIVATE USER</b></h5>
             </div>
-  
-  
-  
+
+
+
           </div>
           <!--end 1st row-->
-          <br/>
+          <br />
         </div>
         <!--end Modal body -->
-        
+
       </div>
     </div>
   </div>
-  <!-- End active user Modal Window -->  
+  <!-- End active user Modal Window -->
 
 
 
 
 
-    <!-- copyright Starts -->
-    <div class="col-md-12">
-      <div class="copyRight" style="position: fixed; bottom:5px;">
-        Copyright &copy; InfoVative Solutions. All rights reserved.
-      </div>
+  <!-- copyright Starts -->
+  <div class="col-md-12">
+    <div class="copyRight" style="position: fixed; bottom:5px;">
+      Copyright &copy; InfoVative Solutions. All rights reserved.
     </div>
-    <!-- copyright Ends -->
+  </div>
+  <!-- copyright Ends -->
 </mat-drawer-container>

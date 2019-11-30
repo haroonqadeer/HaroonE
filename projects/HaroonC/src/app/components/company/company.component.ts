@@ -66,8 +66,8 @@ export class CompanyComponent implements OnInit {
 
     companyBox = true;
 
-
-    serverUrl = "http://localhost:7007/";
+    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
+    // serverUrl = "http://localhost:5000/";
     tokenKey = "token";
 
     httpOptions = {
@@ -279,8 +279,11 @@ export class CompanyComponent implements OnInit {
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
+        this.app.showSpinner();
+
         this.http.get(this.serverUrl + 'api/getCountry', { headers: reqHeader }).subscribe((data: any) => {
             this.cntryList = data
+            this.app.hideSpinner();
         });
     }
 
@@ -456,7 +459,7 @@ export class CompanyComponent implements OnInit {
 
                         contactDetailCode: 0,
                         addressId: 0,
-                        addressType: 0,
+                        addressType: 2,
                         address: this.cAddress,
                         cityCode: this.cCity,
                         districtCode: 0,
@@ -633,7 +636,7 @@ export class CompanyComponent implements OnInit {
 
                     contactDetailCode: 0,
                     addressId: 0,
-                    addressType: 0,
+                    addressType: 1,
                     address: this.indvdAddress,
                     cityCode: this.indvdCity,
                     districtCode: 0,
@@ -716,7 +719,7 @@ export class CompanyComponent implements OnInit {
 
                         contactDetailCode: 0,
                         addressId: 0,
-                        addressType: 0,
+                        addressType: 1,
                         address: this.indvdAddress,
                         cityCode: this.indvdCity,
                         districtCode: 0,
@@ -836,7 +839,7 @@ export class CompanyComponent implements OnInit {
 
                         contactDetailCode: 0,
                         addressId: 0,
-                        addressType: 0,
+                        addressType: 1,
                         address: this.indvdAddress,
                         cityCode: this.indvdCity,
                         districtCode: 0,
