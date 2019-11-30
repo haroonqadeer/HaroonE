@@ -67,7 +67,7 @@ export class CompanyComponent implements OnInit {
     companyBox = true;
 
 
-    serverUrl = "http://localhost:5000/";
+    serverUrl = "http://localhost:7007/";
     tokenKey = "token";
 
     httpOptions = {
@@ -84,6 +84,7 @@ export class CompanyComponent implements OnInit {
     cntctTypeList = [];
     crncyList = [];
     businessTypeList = [];
+
 
 
     //*--For Business--// 
@@ -936,13 +937,7 @@ export class CompanyComponent implements OnInit {
 
 
     //*function for empty all fields
-    clear(cId) {
-
-        if (cId > 0) {
-
-            this.ppCom = false;
-            this.partner = false;
-            this.solePro = false;
+    clear() {
 
             this.companyId = '';
             this.cmbCType = '';
@@ -966,17 +961,12 @@ export class CompanyComponent implements OnInit {
             this.contactList = [];
             this.emailList = [];
 
-            
-
             this.clearIndividual();
 
             this.txtdPassword = '';
             this.txtdPin = '';
             this.dCompanyId = '';
 
-            
-
-        }
     }
 
 

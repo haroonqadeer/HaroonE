@@ -37,7 +37,7 @@ declare var $: any;
   styleUrls: ["./section.component.scss"]
 })
 export class SectionComponent implements OnInit {
-  serverUrl = "http://localhost:5000/";
+  serverUrl = "http://localhost:7003/";
   tokenKey = "token";
 
   httpOptions = {
@@ -334,7 +334,7 @@ export class SectionComponent implements OnInit {
   //******************** clear the input fields
   clear() {
     this.sectionId = "";
-    this.departmentId = "";
+    this.departmentId = "0";
     this.ddlCompany = "0";
     this.sectionName = "";
 
