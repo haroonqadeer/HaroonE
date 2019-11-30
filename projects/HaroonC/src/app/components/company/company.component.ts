@@ -198,6 +198,7 @@ export class CompanyComponent implements OnInit {
     addressList = [];
     contactList = [];
     emailList = [];
+    socialMedialList = [];
 
     indvdDetailList = [];
     indvdAddressList = [];
@@ -437,9 +438,17 @@ export class CompanyComponent implements OnInit {
         else {
 
             if (this.solePro == true && this.addIndividual() == false) {
-                //this.toastr.errorToastr('Please enter complete indvidual information', 'Error', { toastTimeout: (2500) });
                 return false;
-            }else {
+            }
+            else if (this.partner == true && this.indvdDetailList.length == 0) {
+                this.toastr.errorToastr('Please enter partners information', 'Error', { toastTimeout: (2500) });
+                return false;
+            }
+            else if (this.ppCom == true && this.indvdDetailList.length == 0) {
+                this.toastr.errorToastr('Please enter directors information', 'Error', { toastTimeout: (2500) });
+                return false;
+            }
+            else {
 
                 if (this.addressList.length == 0){
                     this.addressList.push({
@@ -467,37 +476,57 @@ export class CompanyComponent implements OnInit {
 
 
 
+                var indvdDetailList = this.indvdDetailList;
+
+                this.indvdDetailList = [];
+
+                for(var i=0; i < indvdDetailList.length; i++){
+                    if(indvdDetailList[i].status == 0){
+                        this.indvdDetailList.push(indvdDetailList[i]);
+                    }
+                }
+
+
                 if (this.companyId != '') {
-                    alert('record updating successfully!');
-                    return false;
+                    
                     this.app.showSpinner();
-                    this.toastr.successToastr('update successfully', 'Success', { toastTimeout: (2500) });
-                    //this.clear(this.companyId);
-                    this.clear(1);
-                    // this.clearPartner();
-                    // this.clearBoardDirectors();
-                    // this.clearOwner();
-                    $('#companyModal').modal('hide');
-                    this.app.hideSpinner();
-                    return false;
 
-                    var updateData = { "Password": this.txtdPassword, "PIN": this.txtdPin };
 
-                    var token = localStorage.getItem(this.tokenKey);
+                    var updateData = {
+                        comanyId: this.companyId,
+                        businessType: Number(this.cmbCType),
+                        companyTitle: this.companyName,
+                        companyNature: this.cBusinessType,
+                        companyDesc: '',
+                        companyNtn: this.cNtn,
+                        companyStrn: this.cStrn,
+                        address: JSON.stringify(this.addressList),
+                        email: JSON.stringify(this.emailList),
+                        telephone: JSON.stringify(this.contactList),
+                        indvdl: JSON.stringify(this.indvdDetailList),
+                        iAddress: JSON.stringify(this.indvdAddressList),
+                        iEmail: JSON.stringify(this.indvdEmailList),
+                        iTelephone: JSON.stringify(this.indvdContactList),
+                        employessQty: this.cEmployeQty, 
+                        currency: this.cCurrency,
+                        website: null,
+                        fbId: null,
+                    };
 
-                    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+                    //var token = localStorage.getItem(this.tokenKey);
+                    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
 
-                    this.http.put(this.serverUrl + 'api/pwCreate', updateData, { headers: reqHeader }).subscribe((data: any) => {
+                    this.http.put(this.serverUrl + 'api/updateCompany', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                         if (data.msg != undefined) {
-                            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                            this.app.hideSpinner();
                             return false;
                         } else {
-                            this.toastr.successToastr('Record Deleted Successfully', 'Success!', { toastTimeout: (2500) });
-                            $('#actionModal').modal('hide');
+                            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
+                            this.app.hideSpinner();
                             return false;
                         }
-
                     });
 
                     // this.toastr.successToastr('validation complete information', 'Success!', { toastTimeout: (2500) });
@@ -506,10 +535,6 @@ export class CompanyComponent implements OnInit {
                 else { 
 
                     this.app.showSpinner();
-
-                    //$('#companyModal').modal('hide');
-                    //this.app.hideSpinner();
-                    //return false;
 
                     var saveData = {
                         comanyId: 0,
@@ -532,10 +557,8 @@ export class CompanyComponent implements OnInit {
                         fbId: null,
                     };
 
-                    //alert(saveData.companyStrn);
 
                     // var token = localStorage.getItem(this.tokenKey);
-
                     // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
 
                     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -756,8 +779,8 @@ export class CompanyComponent implements OnInit {
             }
         }
 
-
-
+        
+        
 
 
         //if type is public 
@@ -782,19 +805,19 @@ export class CompanyComponent implements OnInit {
             else if (this.indvdAddress.trim() == '') {
                 this.toastr.errorToastr('Please enter owner address', 'Error', { toastTimeout: (2500) });
                 return false;
-            }  
+            }
             else if (this.indvdCountry == '') {
                 this.toastr.errorToastr('Please enter owner country', 'Error', { toastTimeout: (2500) });
                 return false;
-            }  
+            }
             else if (this.indvdCity == '') {
                 this.toastr.errorToastr('Please enter owner city', 'Error', { toastTimeout: (2500) });
                 return false;
-            }  
+            }
             else if (this.indvdZipCode == '') {
                 this.toastr.errorToastr('Please enter owner zipcode', 'Error', { toastTimeout: (2500) });
                 return false;
-            }  
+            }
             else if (this.indvdContactList.length == 0) {
                 this.toastr.errorToastr('Please enter owner contact detail', 'Error', { toastTimeout: (2500) });
                 return false;
@@ -802,50 +825,77 @@ export class CompanyComponent implements OnInit {
             else if (this.indvdEmailList.length == 0) {
                 this.toastr.errorToastr('Please enter owner email', 'Error', { toastTimeout: (2500) });
                 return false;
-            } 
+            }
             else {
 
-                this.indvdAddressList.push({
+                //condition for addition or updation indvd address 
+                if(this.indvdEditIndex == 0){
 
-                    contactDetailCode: 0,
-                    addressId: 0,
-                    addressType: 0,
-                    address: this.indvdAddress,
-                    cityCode: this.indvdCity,
-                    districtCode: 0,
-                    provinceCode: 0,
-                    countryCode: this.indvdCountry,
-                    zipCode: this.indvdZipCode,
-                    status: 0,
-                    index: this.indvdDetailList.length + 1,
+                    this.indvdAddressList.push({
 
-                });
+                        contactDetailCode: 0,
+                        addressId: 0,
+                        addressType: 0,
+                        address: this.indvdAddress,
+                        cityCode: this.indvdCity,
+                        districtCode: 0,
+                        provinceCode: 0,
+                        countryCode: this.indvdCountry,
+                        zipCode: this.indvdZipCode,
+                        status: 0,
+                        index: this.indvdDetailList.length + 1
+    
+                    });
 
+                }else{
 
-
-                let data = this.indvdDetailList.find(x => x.cnic == this.pCNIC);
-
-                if (data != undefined) {
-
-                    this.toastr.errorToastr('Director already exist', 'Error', { toastTimeout: (2500) });
-                    return false;
+                    this.indvdAddressList[0].address = this.indvdAddress;
+                    this.indvdAddressList[0].cityCode = this.indvdCity;
+                    this.indvdAddressList[0].countryCode = this.indvdCountry;
+                    this.indvdAddressList[0].zipCode = this.indvdZipCode;
 
                 }
-                else {
 
-                    this.indvdDetailList.push({
-                        indvdlId: 0,
-                        index: this.indvdDetailList.length + 1,
-                        typeCd: this.cmbCType,
-                        name: this.pName,
-                        cnic: this.pCNIC,
-                        share: this.pShare,
-                        type: this.pType
-                    });
+                if(this.indvdEditIndex == 0){
+
+                    let data = this.indvdDetailList.find(x => x.cnic == this.dCNIC);
+
+                    if (data != undefined) {
+
+                        this.toastr.errorToastr('Director already exist', 'Error', { toastTimeout: (2500) });
+                        return false;
+
+                    }
+                    else 
+                    {
+
+                        this.indvdDetailList.push({
+                            indvdlId: 0,
+                            index: this.indvdDetailList.length + 1,
+                            typeCd: this.cmbCType,
+                            name: this.dName,
+                            cnic: this.dCNIC,
+                            share: this.dShare,
+                            type: this.dTitle,
+                            status: 0
+                        });
+
+                        this.clearIndividual();
+
+                    }
+                    
+                }
+                else{
+
+                    this.indvdDetailList[this.indvdEditIndex -1].name = this.dName;
+                    this.indvdDetailList[this.indvdEditIndex -1].cnic = this.dCNIC;
+                    this.indvdDetailList[this.indvdEditIndex -1].share = this.dShare;
+                    this.indvdDetailList[this.indvdEditIndex -1].type = this.dTitle;
 
                     this.clearIndividual();
 
                 }
+                
             }
         }
     }
@@ -930,17 +980,27 @@ export class CompanyComponent implements OnInit {
     }
 
 
-
     //* function for edit existing currency 
-    editPartner(item) {
+    editIndividual(item) {
 
         this.indvdListIndex = item.index;
         this.indvdEditIndex = item.index;
 
-        this.pType = item.type;
-        this.pShare = item.share;
-        this.pName = item.name;
-        this.pCNIC = item.cnic;
+        if(this.partner == true){
+            this.pType = item.type;
+            this.pShare = item.share;
+            this.pName = item.name;
+            this.pCNIC = item.cnic;
+        }
+        
+
+        if(this.ppCom == true){
+            this.dTitle = item.type;
+            this.dShare = item.share;
+            this.dName = item.name;
+            this.dCNIC = item.cnic;
+        }
+
 
         this.indvdAddress = this.indvdAddressList[this.indvdListIndex - 1].address;
         this.indvdCountry = this.indvdAddressList[this.indvdListIndex - 1].countryCode;
@@ -950,63 +1010,33 @@ export class CompanyComponent implements OnInit {
     }
 
 
-    deletePartner(index) {
-        this.indvdDetailList[index].status = 2;
+    deleteIndividual(ind) {
+
+        this.indvdDetailList[ind].status = 2;
+        var myIndex = this.indvdDetailList[ind].index;
+        
+        var contactData = this.indvdContactList;
+        var emailData = this.indvdEmailList;
+
+        this.indvdContactList = [];
+        this.indvdEmailList = [];
+
+        for(var i=0; i < contactData.length; i++){
+            if(contactData[i].index != myIndex){
+                this.indvdContactList.push(contactData[i]);
+            }
+        }
+
+        for(var j=0; j < emailData.length; j++){
+            if(emailData[j].index != myIndex){
+                this.indvdEmailList.push(emailData[j]);
+            }
+        }
+        
+
+        this.indvdListIndex = 0;
+        this.indvdEditIndex = 0;
         //this.contactList.splice(index, 1);
-    }
-
-    //* functions for delete company
-    deleteTemp(item) {
-        //this.clear(item.companyId);
-        this.dCompanyId = item.cmpnyCd;
-        //alert(this.dCompanyId)
-    }
-
-
-    delete() {
-        if (this.txtdPassword == '') {
-            this.toastr.errorToastr('Please enter password', 'Error', { toastTimeout: (2500) });
-            return false
-        }
-        else if (this.txtdPin == '') {
-            this.toastr.errorToastr('Please enter PIN', 'Error', { toastTimeout: (2500) });
-            return false
-        }
-        else if (this.dCompanyId == '') {
-            this.toastr.errorToastr('Invalid delete request', 'Error', { toastTimeout: (2500) });
-            return false
-        }
-        else {
-
-            this.app.showSpinner();
-
-            //this.toastr.successToastr('Deleted successfully', 'Error', { toastTimeout: (2500) });
-
-            //return false;
-
-            //var token = localStorage.getItem(this.tokenKey);
-
-            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-            this.http.delete(this.serverUrl + 'api/deleteCompany?companyId=' + this.dCompanyId + '&password=' + this.txtdPassword + '&pin=' + this.txtdPin).subscribe((data: any) => {
-
-                if (data.msg != undefined) {
-                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                    this.getCompany();
-                    $('#closeDeleteModel').modal('hide');
-                    this.clear(1);
-                    this.app.hideSpinner();
-                    return false;
-                } else {
-                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                    //$('#companyModal').modal('hide');
-                    this.app.hideSpinner();
-                    return false;
-                }
-
-            });
-        }
     }
 
 

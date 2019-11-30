@@ -464,14 +464,14 @@
                                             <td *ngIf="item.status != 2" class="col-8">{{item.name}}</td>
                                             <td *ngIf="item.status != 2" class="col-2 text-center">
 
-                                                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#partnerModal" (click)="editPartner(item)">
+                                                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#partnerModal" (click)="editIndividual(item)">
                                                     <span class="fa icon-u-edit" ></span>
                                                 </span>
 
                                             </td>
                                             <td *ngIf="item.status != 2" class="col-2 text-center">
 
-                                                <span class="fa tableIcon pointerCursor" (click)="deletePartner(i)" >
+                                                <span class="fa tableIcon pointerCursor" (click)="deleteIndividual(i)" >
                                                     <span class="fa icon-u-delete" ></span>
                                                 </span>
 
@@ -493,7 +493,7 @@
 
                     <div class="row">
                         <div class="col-md-6" style="padding-right: 0;">
-                            <h5>DIRECTORS LIST </h5>
+                            <h5>DIRECTORS LIST</h5>
                             <hr/>
                         </div>
 
@@ -506,84 +506,30 @@
                     <div class="innerContainer">
                         <div class="row">
                             <div class="col-md-12">
-                            <table class="table table-striped fullwidth">
-                                <!-- <thead>
-                                <tr class="d-flex">
-                                    <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
-                                    class="col-4 pointerCursor text-left ">
-                                    Company Name
-                                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                                    </th>
-                                    <th [class.active]="order === 'noOfModules'" (click)="setOrder('noOfModules')"
-                                    class="col-8 pointerCursor text-left">
-                                    Branch Title
-                                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                                    </th>
-                                </tr>
-                                </thead> -->
-                                <tbody>
-                                <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                                <tr class='d-flex'>
-                                    <!-- *ngFor="let item of roles | search:'erpRoleName,noOfModules,uNoPage':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"> -->
-                                    <!-- <td class="col-1 text-center" hidden>{{item.erpRoleCd}}</td> -->
-                                    <td class="col-1 text-center"></td>
-                                    <td class="col-4 pointerCursor text-left"></td>
-                                    <td class="col-3 pointerCursor text-center"></td>
-                                    <td class="col-2 text-center">
 
-                                        <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal">
-                                        <span class="fa icon-u-edit" ></span>
-                                        </span>
+                                <table class="table table-striped fullwidth">
+                                    <tbody>
+                                        <tr *ngFor="let item of indvdDetailList; let i=index" class='d-flex'>
+                                            <td *ngIf="item.status != 2" class="col-8">{{item.name}}</td>
+                                            <td *ngIf="item.status != 2" class="col-2 text-center">
 
-                                    </td>
-                                    <td class="col-2 text-center">
+                                                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#directorModal" (click)="editIndividual(item)">
+                                                    <span class="fa icon-u-edit" ></span>
+                                                </span>
 
-                                    <!-- <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#dUserRoleModal" (click)="delete(item)">
-                                        <span class="fa icon-u-delete" ></span>
-                                    </span>  -->
-
-                                    <span class="fa tableIcon pointerCursor">
-                                        <span class="fa icon-u-delete" ></span>
-                                    </span>
-
-                                    </td>
-
-
-                                </tr>
-                                </tbody>
-                            </table>
+                                            </td>
+                                            <td *ngIf="item.status != 2" class="col-2 text-center">
+                                                <span class="fa tableIcon pointerCursor" (click)="deleteIndividual(i)" >
+                                                    <span class="fa icon-u-delete" ></span>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
                             </div>
 
-                            <!-- Pagination Starts -->
-                            <div class="col-md-12 text-right">
-                            <div class="paginationBox">
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                            </div>
-                            <div class="paginationBox">
-                                <mat-form-field class="pagenateList">
-                                <mat-select [(ngModel)]="itemPerPage">
-                                    <mat-option value="1">1</mat-option>
-                                    <mat-option value="2">2</mat-option>
-                                    <mat-option value="10">10</mat-option>
-                                    <mat-option value="15">15</mat-option>
-                                    <mat-option value="20">20</mat-option>
-                                    <mat-option value="25">25</mat-option>
-                                    <mat-option value="30">30</mat-option>
-                                    <mat-option value="35">35</mat-option>
-                                    <mat-option value="40">40</mat-option>
-                                    <mat-option value="45">45</mat-option>
-                                    <mat-option value="50">50</mat-option>
-                                </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="paginationBox">
-                                Item per page: &nbsp;&nbsp;
-                            </div>
-                            </div>
-                            <!-- Pagination Ends -->
+                            
 
                         </div>
                     </div>
@@ -592,6 +538,8 @@
 
             </div>
         </div>
+
+
 
 
         <div class="row" *ngIf="solePro">
@@ -707,109 +655,130 @@
     <div class="modal-dialog shadow-lg-dark modal-lg modalCmpnyPro">
         <div class="modal-content">
 
-        <!--start Modal Header -->
-        <div class="modal-header">
-            <h4 class="modal-title">Add Director</h4>
-            <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
-        </div>
-        <!--end Modal Header -->
-
-
-
-        <!--start Modal body -->
-        <div class="modal-body">
-
-            <!-- Title row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field class="fullwidth">
-                        <input matInput placeholder="Title" required>
-                    </mat-form-field>
-                </div>
+            <!--start Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add Director</h4>
+                <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
             </div>
+            <!--end Modal Header -->
 
-            <!-- Share Percentage row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field class="fullwidth">
-                        <input matInput placeholder="Share Percentage" >
-                    </mat-form-field>
-                </div>
-            </div>
 
-            <!-- Director name row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field class="fullwidth">
-                        <input matInput placeholder="Director's Name" >
-                    </mat-form-field>
-                </div>
-            </div>
 
-            <!-- CNIC row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field class="fullwidth">
-                        <input matInput placeholder="CNIC Number" >
-                    </mat-form-field>
-                </div>
-            </div>
+            <!--start Modal body -->
+            <div class="modal-body">
 
-            <!--Address row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field class="fullwidth">
-                        <textarea matInput placeholder="Address" [(ngModel)]="indvdAddress"></textarea>
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <!--Country row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field class="fullwidth">
-                        <mat-select placeholder="Country" [(ngModel)]="indvdCountry" required>
-                            <input type="text" [(ngModel)]="srchCntry" class="form-control">
-                            <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
-                                <table>
-                                    <tr class='d-flex'>
-                                        <td class="col-12">{{ item.cntryName }}</td>
-                                    </tr>
-                                </table>
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <!--City Zip row -->
-            <div class="row">
-                    <div class="col-md-8">
+                <!-- Title row -->
+                <div class="row">
+                    <div class="col-md-12">
                         <mat-form-field class="fullwidth">
-                            <mat-select placeholder="City" [(ngModel)]="indvdCity" required>
-                                <input type="text" [(ngModel)]="srchCity" class="form-control">
-                                <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
+                            <input matInput placeholder="Title" [(ngModel)]="dTitle" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Share Percentage row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field class="fullwidth">
+                            <input matInput placeholder="Share Percentage" [(ngModel)]="dShare" >
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Director name row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field class="fullwidth">
+                            <input matInput placeholder="Director's Name" [(ngModel)]="dName" >
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- CNIC row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field class="fullwidth">
+                            <input matInput placeholder="CNIC Number" [(ngModel)]="dCNIC" >
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!--Address row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field class="fullwidth">
+                            <textarea matInput placeholder="Address" [(ngModel)]="indvdAddress"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!--Country row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field class="fullwidth">
+                            <mat-select placeholder="Country" [(ngModel)]="indvdCountry" required>
+                                <input type="text" [(ngModel)]="srchCntry" class="form-control">
+                                <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
                                     <table>
                                         <tr class='d-flex'>
-                                            <td class="col-12">{{ item.districtName }}</td>
+                                            <td class="col-12">{{ item.cntryName }}</td>
                                         </tr>
                                     </table>
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
+                </div>
 
-                    <div class="col-md-4">
-                        <mat-form-field class="fullwidth">
-                                <input matInput placeholder="Zip Code" [(ngModel)]="indvdZipCode">
-                        </mat-form-field>
+                <!--City Zip row -->
+                <div class="row">
+                        <div class="col-md-8">
+                            <mat-form-field class="fullwidth">
+                                <mat-select placeholder="City" [(ngModel)]="indvdCity" required>
+                                    <input type="text" [(ngModel)]="srchCity" class="form-control">
+                                    <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
+                                        <table>
+                                            <tr class='d-flex'>
+                                                <td class="col-12">{{ item.districtName }}</td>
+                                            </tr>
+                                        </table>
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-4">
+                            <mat-form-field class="fullwidth">
+                                    <input matInput placeholder="Zip Code" [(ngModel)]="indvdZipCode">
+                            </mat-form-field>
+                        </div>
+                </div>
+
+
+                <div class="row" *ngFor=" let item of indvdContactList; let i=index" >
+                    <div class="col-md-12">
+                        <p>
+                            <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+                            index: {{item.index}} => {{item.contactNumber}}
+                        </p>
                     </div>
-            </div>
 
-            <!-- contact row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
+                </div>
+                
+                <div class="row" *ngFor=" let item of indvdEmailList; let i=index" >
+                    <div class="col-md-12">
+                        <p>
+                            <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+                            index: {{item.index}} => {{item.email}}
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- contact row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
                             <div class="col-md-5">
                                 <mat-form-field class="fullwidth">
                                     <mat-select placeholder="Contact Type" [(ngModel)]="indvdContactType">
@@ -820,35 +789,35 @@
                                     <span matPrefix class="pointerCursor fa fa-phone fa-lg iconPhone"></span>
                                 </mat-form-field>
                             </div>
-
+    
                             <div class="col-md-6 npl">
                                 <mat-form-field class="fullwidth">
                                     <input matInput [(ngModel)]="indvdContactNumber" placeholder="Number" mask="0{15}">
                                 </mat-form-field>
                             </div>
-
+    
                             <div class="col-md-1 text-right nopadding" style="margin: 20px 0 0 -10px;">
                                 <span class="pointerCursor fa fa-plus iconAdd" (click)="addIndvdContact()"></span>
                             </div>
-
+    
                         </div>
-
+    
                         <div class="row" *ngFor=" let item of indvdContactList; let i=index" >
-                            <div class="col-md-11">
+                            <div class="col-md-11" *ngIf="item.index == indvdListIndex">
                                 <p>
                                     <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
                                     {{item.contactNumber}}
                                 </p>
                             </div>
-
-                            <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;">
+    
+                            <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;" *ngIf="item.index == indvdListIndex">
                                 <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeIndvdContact(i)"></span>
                             </div>
-
+    
                         </div>
-
-
-
+    
+    
+    
                         <!--Email row -->
                         <div class="row">
                             <div class="col-md-11">
@@ -857,36 +826,54 @@
                                     <span matPrefix class="pointerCursor fa fa-envelope fa-lg iconEmail"></span>
                                 </mat-form-field>
                             </div>
-
+    
                             <div class="col-md-1 nopadding text-right" style="margin: 20px 0 0 -10px;">
                                 <span class="pointerCursor fa fa-plus iconAdd" (click)="addIndvdEmail()"></span>
                             </div>
-
+    
                         </div>
-
+    
                         <div class="row" *ngFor=" let item of indvdEmailList; let i=index" >
-                            <div class="col-md-11">
+                            <div class="col-md-11" *ngIf="item.index == indvdListIndex">
                                 <p>
                                     <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
                                     {{item.email}}
                                 </p>
                             </div>
-
-                            <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;">
+    
+                            <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;" *ngIf="item.index == indvdListIndex">
                                 <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeIndvdEmail(i)"></span>
                             </div>
-
+    
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button mat-raised-button class="btnClass" style="border-radius: 0;" (click)="clearIndividual()">
+                            &nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;
+                        </button>
+
+                        &nbsp;&nbsp;&nbsp;
+
+                        <button mat-raised-button class="btnClass" style="border-radius: 0;" (click)="addIndividual()">
+                            &nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;
+                        </button>
+                    </div>
                 </div>
             </div>
-
-        </div>
-        <!--end Modal body -->
+            <!--end Modal body -->
 
         </div>
     </div>
 </div>
 <!-- End Add Director Modal Window  -->
+
+
+
+
+
 
 
 <!-- Start Add Partner Modal Window -->
@@ -1120,7 +1107,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-6">
-                    <button mat-raised-button color="warn" (click)="delete()">Delete</button>
+                    <button mat-raised-button color="warn" >Delete</button>
                     </div>
                 </div>
                 <br />
