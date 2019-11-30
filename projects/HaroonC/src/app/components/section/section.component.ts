@@ -37,7 +37,7 @@ declare var $: any;
 
 export class SectionComponent implements OnInit {
 
-	serverUrl = "http://localhost:5000/";
+	serverUrl = "http://localhost:7003/";
 	tokenKey = "token";
 
 	httpOptions = {
@@ -59,7 +59,7 @@ export class SectionComponent implements OnInit {
 
 	// Add Department Details NgModels
 	sectionId = "";
-    departmentId = "";
+    departmentId = "0";
     ddlCompany= "0";
     sectionName = "";
 
@@ -235,7 +235,7 @@ export class SectionComponent implements OnInit {
             this.toastr.errorToastr('Please Enter Section Name', 'Error', { toastTimeout: (2500) });
             return false;
 		}
-		else if (this.departmentId == "") {
+		else if (this.departmentId == "0") {
             this.toastr.errorToastr('Please Select Department', 'Error', { toastTimeout: (2500) });
             return false;
         }
@@ -389,10 +389,10 @@ export class SectionComponent implements OnInit {
     edit(item) {
         
         this.clear();
-		
-		this.sectionId = item.sectionCd;
+		alert(item.sectCd);
+		this.sectionId = item.sectCd;
         this.ddlCompany = item.cmpnyID;
-        this.sectionName = item.sectionName;
+        this.sectionName = item.sectName;
 		this.departmentId = item.deptCd;
 
         this.editSelectedBranchsList();
@@ -413,9 +413,7 @@ export class SectionComponent implements OnInit {
                 }
 
             }
-            
         }
-        
     }
 
 
