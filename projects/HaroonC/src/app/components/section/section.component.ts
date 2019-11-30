@@ -37,7 +37,7 @@ declare var $: any;
 
 export class SectionComponent implements OnInit {
 
-	serverUrl = "http://localhost:7003/";
+	serverUrl = "http://localhost:5000/";
 	tokenKey = "token";
 
 	httpOptions = {
