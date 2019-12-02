@@ -67,7 +67,7 @@ export class CompanyComponent implements OnInit {
     companyBox = true;
 
     //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
-    serverUrl = "http://localhost:7007/";
+    serverUrl = "http://localhost:5000/";
     tokenKey = "token";
 
     httpOptions = {
