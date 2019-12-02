@@ -67,7 +67,7 @@ export class CompanyComponent implements OnInit {
     companyBox = true;
 
     //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
-    serverUrl = "http://localhost:5000/";
+    serverUrl = "http://localhost:7007/";
     tokenKey = "token";
 
     httpOptions = {
@@ -96,10 +96,6 @@ export class CompanyComponent implements OnInit {
     emailType;
 
 
-
-    
-    
-    
 
     //Variables for NgModels
     srchCntry;
@@ -524,6 +520,7 @@ export class CompanyComponent implements OnInit {
 
                         if (data.msg == "Record Saved Successfully") {
                             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                            this.clear();
                             this.app.hideSpinner();
                             return false;
                         } else {
@@ -574,6 +571,7 @@ export class CompanyComponent implements OnInit {
                             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                             //this.getCompany();
                             //$('#companyModal').modal('hide');
+                            this.clear();
                             this.app.hideSpinner();
                             return false;
                         } else {
@@ -943,33 +941,38 @@ export class CompanyComponent implements OnInit {
     //*function for empty all fields
     clear() {
 
-            this.companyId = '';
-            this.cmbCType = '';
+        this.companyId = '';
+        this.cmbCType = '';
 
-            this.companyName = '';
-            this.cNtn = '';
-            this.cStrn = '';
-            this.cBusinessType= '';
-            this.cEmployeQty = '';
-            this.cCurrency = '';
-            this.cAddressType = '';
-            this.cAddress = '';
-            this.cCountry = '';
-            this.cCity = '';
-            this.cZipCode = '';
-            this.cContactType = '';
-            this.cContactNumber = '';
-            this.cEmailAdrs = '';
+        this.companyName = '';
+        this.cNtn = '';
+        this.cStrn = '';
+        this.cBusinessType= '';
+        this.cEmployeQty = '';
+        this.cCurrency = '';
+        this.cAddressType = '';
+        this.cAddress = '';
+        this.cCountry = '';
+        this.cCity = '';
+        this.cZipCode = '';
+        this.cContactType = '';
+        this.cContactNumber = '';
+        this.cEmailAdrs = '';
 
-            this.addressList = [];
-            this.contactList = [];
-            this.emailList = [];
+        this.addressList = [];
+        this.contactList = [];
+        this.emailList = [];
 
-            this.clearIndividual();
+        this.clearIndividual();
 
-            this.txtdPassword = '';
-            this.txtdPin = '';
-            this.dCompanyId = '';
+        this.txtdPassword = '';
+        this.txtdPin = '';
+        this.dCompanyId = '';
+        
+        this.indvdDetailList = [];
+        this.indvdAddressList = [];
+        this.indvdContactList = [];
+        this.indvdEmailList = [];
 
     }
 
