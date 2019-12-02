@@ -331,15 +331,15 @@ export class SectionComponent implements OnInit {
     }
   }
 
-  //******************** clear the input fields
-  clear() {
-    this.sectionId = "";
-    this.departmentId = "0";
-    this.ddlCompany = "0";
-    this.sectionName = "";
+	//******************** clear the input fields
+	clear() {
+		this.sectionId = "";
+		this.departmentId = "0";
+		this.ddlCompany = "0";
+		this.sectionName = "";
 
-    this.resetList();
-  }
+		this.resetList();
+	}
 
   //******************** reset branchs list
   resetList() {
