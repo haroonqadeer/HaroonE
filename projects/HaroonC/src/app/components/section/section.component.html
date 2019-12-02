@@ -91,7 +91,6 @@
                     </mat-form-field>
                 </div>
             </div>
-            
 
             <!--Department heading row -->
             <div class="row myContainer">
@@ -106,17 +105,16 @@
             <div class="row myContainer">
                 <div class="col-sm-12">
                     
-                    <mat-radio-group [(ngModel)]="departmentId" (ngModelChange)="resetList();">
+                    <mat-radio-group [(ngModel)]="departmentId" (ngModelChange)="resetList(departmentId);">
                         <ul>
                             <li *ngFor="let item of departmentList | search:'cmpnyID':ddlCompany" >
-                                <mat-radio-button [value]="item.deptCd">{{item.deptName}}</mat-radio-button>
+                                <mat-radio-button [value]="item.deptCd">{{item.deptName}} -- {{item.deptCd}} -- {{departmentId}}</mat-radio-button>
                             </li>
                         </ul>
                     </mat-radio-group>
                     
                 </div>
             </div>
-
 
             <!--branch heading row -->
             <div class="row myContainer">
@@ -131,8 +129,8 @@
             <div class="row myContainer">
                 <div class="col-sm-12">
                     <ul>
-                        <li *ngFor="let item of locationList | search:'deptCd':departmentId" >
-                            <mat-checkbox (change)="selectBranch(item);" [checked]="item.status" >{{item.locationName}}</mat-checkbox>
+                        <li *ngFor="let item of locationList" >
+                            <mat-checkbox (change)="selectBranch(item);" [checked]="item.status" >{{item.locationName}} ==> {{item.deptCd}}</mat-checkbox>
                         </li>
                     </ul>
                 </div>
@@ -148,6 +146,7 @@
                     <button mat-raised-button class="btnClass" style="border-radius: 0;" (click)="save();" >
                         &nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;
                     </button>
+                    <br/><br/>
                 </div>
             </div>
         </div>
@@ -207,6 +206,7 @@
                                         </td>
 
                                     </tr>
+
                                 </tbody>
                                 </table>
                                 

@@ -37,8 +37,8 @@ declare var $: any;
   styleUrls: ["./section.component.scss"]
 })
 export class SectionComponent implements OnInit {
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9042/";
-  // serverUrl = "http://localhost:7003/";
+  //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9042/";
+  serverUrl = "http://localhost:7003/";
   tokenKey = "token";
 
   httpOptions = {
@@ -47,6 +47,7 @@ export class SectionComponent implements OnInit {
 
   //list variables
   companyList = [];
+  branchList = [];
   locationList = [];
   departmentList = [];
   sectionList = [];
@@ -59,7 +60,7 @@ export class SectionComponent implements OnInit {
 
   // Add Department Details NgModels
   sectionId = "";
-  departmentId = "0";
+  departmentId = 0;
   ddlCompany = "0";
   sectionName = "";
 
@@ -120,7 +121,7 @@ export class SectionComponent implements OnInit {
     this.http
       .get(this.serverUrl + "api/getBranch", { headers: reqHeader })
       .subscribe((data: any) => {
-        this.locationList = data;
+        this.branchList = data;
       });
   }
 
@@ -249,7 +250,7 @@ export class SectionComponent implements OnInit {
         toastTimeout: 2500
       });
       return false;
-    } else if (this.departmentId == "0") {
+    } else if (this.departmentId == 0) {
       this.toastr.errorToastr("Please Select Department", "Error", {
         toastTimeout: 2500
       });
@@ -340,19 +341,30 @@ export class SectionComponent implements OnInit {
 
 	//******************** clear the input fields
 	clear() {
+    
 		this.sectionId = "";
-		this.departmentId = "0";
+		this.departmentId = 0;
 		this.ddlCompany = "0";
 		this.sectionName = "";
 
-		this.resetList();
+    this.resetList(0);
+    
 	}
 
   //******************** reset branchs list
-  resetList() {
-    for (var i = 0; i < this.locationList.length; i++) {
-      this.locationList[i].status = 0;
+  resetList(department) {
+    
+    for (var i = 0; i < this.branchList.length; i++) {
+      this.branchList[i].status = 0;
     }
+
+    this.locationList = [];
+    var tempList = this.branchList.filter(x => x.deptCd == department);
+
+    for (var i = 0; i < tempList.length; i++) {
+      this.locationList.push(tempList[i]);
+    }
+
   }
 
   //******************** change branch status (checked or not)
@@ -386,20 +398,27 @@ export class SectionComponent implements OnInit {
   //******************** edit function
   edit(item) {
     this.clear();
-    // alert(item.sectCd);
+
     this.sectionId = item.sectCd;
     this.ddlCompany = item.cmpnyID;
     this.sectionName = item.sectName;
     this.departmentId = item.deptCd;
 
-    this.editSelectedBranchsList();
+    this.locationList = [];
+    var tempList = this.branchList.filter(x => x.deptCd == item.deptCd);
+
+    for (var i = 0; i < tempList.length; i++) {
+      this.locationList.push(tempList[i]);
+    }
+
+    this.editSelectedBranchsList(item.sectCd, item.deptCd);
+
   }
 
   //******************** extracting selected branches
-  editSelectedBranchsList() {
-    var tempList = this.departmentDetailsList.filter(
-      x => x.deptCd == this.departmentId
-    );
+  editSelectedBranchsList(section, department) {
+
+    var tempList = this.departmentDetailsList.filter(x => x.sectCd == section && x.deptCd == department);
 
     for (var i = 0; i < tempList.length; i++) {
       for (var j = 0; j < this.locationList.length; j++) {
