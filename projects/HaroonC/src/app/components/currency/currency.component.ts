@@ -45,7 +45,8 @@ declare var $: any;
   styleUrls: ["./currency.component.scss"]
 })
 export class CurrencyComponent implements OnInit {
-  serverUrl = "http://localhost:5000/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9039/";
+  // serverUrl = "http://localhost:5000/";
   tokenKey = "token";
 
   httpOptions = {
