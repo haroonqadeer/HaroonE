@@ -995,7 +995,7 @@ export class CompanyComponent implements OnInit {
                     contactDetailCode: tempCmpnyData[i].cntctDetailCd,
                     emailId: 0,
                     type: tempCmpnyData[i].emailTypeCd,
-                    status: 0,
+                    status: 1,
                     email: tempCmpnyData[i].emailAddrss
                 });
             }
@@ -1007,7 +1007,7 @@ export class CompanyComponent implements OnInit {
                     contactDetailCode: tempCmpnyData[i].cntctDetailCd,
                     telId: 0,
                     contactType: tempCmpnyData[i].cntctTypeCd,
-                    status: 0,
+                    status: 1,
                     contactNumber: tempCmpnyData[i].teleNo,
                     mobileNumber: "",
                     countryCode: 0
@@ -1027,7 +1027,7 @@ export class CompanyComponent implements OnInit {
                     provinceCode: 0,
                     countryCode: tempCmpnyData[i].addCntryCd,
                     zipCode: tempCmpnyData[i].zipCode,
-                    status: 0
+                    status: 1
                 });
 
                 this.cAddress = tempCmpnyData[i].addressLine1;
@@ -1591,8 +1591,8 @@ export class CompanyComponent implements OnInit {
     }
     
     removeContact(index) {
-        //this.contactList[index].status = 2;
-        this.contactList.splice(index, 1);
+        this.contactList[index].status = 2;
+        //this.contactList.splice(index, 1);
     }
 
 
@@ -1637,7 +1637,9 @@ export class CompanyComponent implements OnInit {
     }
     
     removeEmail(item) {
-        this.emailList.splice(item, 1);
+
+        this.emailList[item].status = 2;
+        //this.emailList.splice(item, 1);
     }
 
     //------------------------------------------------------------------------ company address portion code end
