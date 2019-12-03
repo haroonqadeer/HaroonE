@@ -1,3 +1,40 @@
-<p>
-  companydashboard works!
-</p>
+<br />
+<div class="myContainer">
+  <div class="row">
+    <div class="col-md-12">
+      <h5>ORGANIZATION HIERARCHY</h5>
+    </div>
+  </div>
+  <!-- Company row -->
+  <div class="row">
+    <div class="col-md-3">
+      <mat-form-field class="fullwidth my-form-field" style="margin-bottom: -1.25em; background-color: #495ebb;">
+        <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" (ngModelChange)="showOrganoGram()" required>
+          <mat-option *ngFor=" let item of company" [value]="item.cmpnyId">
+            {{item.cmpnyName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row topBorder">
+    <div class="col-md-12">
+      <div style="background-color: #0b133a;">
+        <br /><br />
+        <!--ngprime organizational chart-->
+        <p-organizationChart [value]="data1" selectionMode="single" styleClass="company">
+          <ng-template let-node pTemplate="person">
+            <div class="node-header ui-corner-top">{{node.label}}</div>
+            <div class="node-content">
+              <div>{{node.data.name}}</div>
+            </div>
+          </ng-template>
+          <ng-template let-node pTemplate="department">
+            {{node.label}}
+          </ng-template>
+        </p-organizationChart>
+        <!--ngprime organizational chart-->
+      </div>
+    </div>
+  </div>
+</div>
