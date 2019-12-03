@@ -495,9 +495,8 @@ export class CompanyComponent implements OnInit {
                     
                     this.app.showSpinner();
 
-
                     var updateData = {
-                        comanyId: this.companyId,
+                        companyId: this.companyId,
                         businessType: Number(this.cmbCType),
                         companyTitle: this.companyName,
                         companyNature: this.cBusinessType,
