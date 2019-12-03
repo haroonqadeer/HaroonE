@@ -1,15 +1,5 @@
-import {
-  Component,
-  OnInit,
-  ViewEncapsulation,
-  ViewChild,
-  ElementRef
-} from "@angular/core";
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse
-} from "@angular/common/http";
+import {Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from "@angular/core";
+import {HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
 import { throwError } from "rxjs";
 import { catchError, filter } from "rxjs/operators";
 import { FormGroup, FormBuilder, Validators, FormArray } from "@angular/forms";
@@ -38,8 +28,7 @@ export class ConfigContactComponent implements OnInit {
 
   constructor(
     private toastr: ToastrManager,
-    private http: HttpClient,
-    private fb: FormBuilder
+    private http: HttpClient
   ) {}
 
   ngOnInit() {

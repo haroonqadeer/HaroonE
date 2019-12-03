@@ -22,6 +22,7 @@ import {
     CsvFileTypes
 } from "igniteui-angular";
 import { jsonpCallbackContext } from '@angular/common/http/src/module';
+import { parse } from 'querystring';
 
 
 //----------------------------------------------------------------------------//
@@ -67,7 +68,7 @@ export class CompanyComponent implements OnInit {
     companyBox = true;
 
     //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
-    serverUrl = "http://localhost:5000/";
+    serverUrl = "http://localhost:7007/";
     tokenKey = "token";
 
     httpOptions = {
@@ -78,6 +79,10 @@ export class CompanyComponent implements OnInit {
     excelDataList = [];
 
     countryListForAddress = [];
+
+    cmpnyList = [];
+    cmpnyDetailList = [];
+    stakeHolderList = [];
 
     cntryList = [];
     cityList = [];
@@ -214,15 +219,13 @@ export class CompanyComponent implements OnInit {
         private excelExportService: IgxExcelExporterService,
         private csvExportService: IgxCsvExporterService,
         private fb: FormBuilder) {
-
-
-
     }
 
     ngOnInit() {        
 
-        //this.getCompany();
-        //this.getAddressType();
+        this.getCompany();
+        this.getCompanyDetail();
+        this.getStakeHolder();
         this.getCountry();
         this.getContactType();
         this.getCity();
@@ -291,38 +294,39 @@ export class CompanyComponent implements OnInit {
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-        this.http.get(this.serverUrl + 'api/getCompanySummary', { headers: reqHeader }).subscribe((data: any) => {
-            //this.addressType = data
-            //alert(data.length);
-            this.compSumDetail = data;
-            for (var i = 0; i < data.length; i++) {
-                if (this.companyDetail.length == 0) {
-                    this.companyDetail.push({
-                        cmpnyCd: data[i].cmpnyID,
-                        businessTypeCd: data[i].businessTypeCd,
-                        businessType: data[i].businessTypeName,
-                        title: data[i].orgName,
-                        //nature: data[i].n,
-                        ntn: data[i].orgNTN,
-                        website: data[i].orgWebsite
-                    })
-                } else {
-                    for (var j = 0; j < this.companyDetail.length; j++) {
-                        if (this.companyDetail[j].cmpnyCd != data[i].cmpnyID) {
-                            this.companyDetail.push({
-                                cmpnyCd: data[i].cmpnyID,
-                                businessType: data[i].businessTypeName,
-                                title: data[i].orgName,
-                                //nature: data[i].n,
-                                ntn: data[i].orgNTN,
-                                website: data[i].orgWebsite
-                            })
-                        }
-                    }
-                }
+        this.http.get(this.serverUrl + 'api/getCompany', { headers: reqHeader }).subscribe((data: any) => {
 
-            }
-            //alert(this.addressType)
+            this.cmpnyList = data;
+
+        });
+    }
+
+    getCompanyDetail() {
+        //return false;
+
+        //var Token = localStorage.getItem(this.tokenKey);
+
+        //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+        this.http.get(this.serverUrl + 'api/getCompanyDetail', { headers: reqHeader }).subscribe((data: any) => {
+
+            this.cmpnyDetailList = data;
+
+        });
+    }
+
+    getStakeHolder() {
+        //return false;
+
+        //var Token = localStorage.getItem(this.tokenKey);
+
+        //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+        this.http.get(this.serverUrl + 'api/getStakeHolder', { headers: reqHeader }).subscribe((data: any) => {
+            this.stakeHolderList = data;
+
         });
     }
 
@@ -516,11 +520,14 @@ export class CompanyComponent implements OnInit {
                     //var token = localStorage.getItem(this.tokenKey);
                     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
 
-                    this.http.put(this.serverUrl + 'api/updateCompany', updateData, { headers: reqHeader }).subscribe((data: any) => {
+                    this.http.post(this.serverUrl + 'api/updateCompany', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
                         if (data.msg == "Record Saved Successfully") {
                             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                             this.clear();
+                            this.getCompany();
+                            this.getCompanyDetail();
+                            this.getStakeHolder();
                             this.app.hideSpinner();
                             return false;
                         } else {
@@ -572,6 +579,9 @@ export class CompanyComponent implements OnInit {
                             //this.getCompany();
                             //$('#companyModal').modal('hide');
                             this.clear();
+                            this.getCompany();
+                            this.getCompanyDetail();
+                            this.getStakeHolder();
                             this.app.hideSpinner();
                             return false;
                         } else {
@@ -600,7 +610,7 @@ export class CompanyComponent implements OnInit {
                 this.toastr.errorToastr('Please enter owner name', 'Error', { toastTimeout: (2500) });
                 return false;
             }
-            else if (this.oCNIC == '' || this.oCNIC.length < 13) {
+            else if (this.oCNIC == null || this.oCNIC == '' || this.oCNIC.length < 13) {
                 this.toastr.errorToastr('Please enter owner cnic', 'Error', { toastTimeout: (2500) });
                 return false;
             }
@@ -629,34 +639,53 @@ export class CompanyComponent implements OnInit {
                 return false;
             } 
             else {
+                
+                if(this.indvdDetailList.length == 0){
+                    this.indvdAddressList.push({
+
+                        contactDetailCode: 0,
+                        addressId: 0,
+                        addressType: 1,
+                        address: this.indvdAddress,
+                        cityCode: this.indvdCity,
+                        districtCode: 0,
+                        provinceCode: 0,
+                        countryCode: this.indvdCountry,
+                        zipCode: this.indvdZipCode,
+                        status: 0,
+                        index: 1        //index: this.indvdDetailList.length + 1,
     
-                this.indvdAddressList.push({
+                    });
+    
+    
+                    this.indvdDetailList.push({
+                        indvdlId: 0,
+                        index: this.indvdDetailList.length + 1,
+                        typeCd: this.cmbCType,
+                        name: this.oName,
+                        cnic: this.oCNIC,
+                        share: 0,
+                        type: 'owner',
+                        status: 0
+                    });
+                }
+                else 
+                {
 
-                    contactDetailCode: 0,
-                    addressId: 0,
-                    addressType: 1,
-                    address: this.indvdAddress,
-                    cityCode: this.indvdCity,
-                    districtCode: 0,
-                    provinceCode: 0,
-                    countryCode: this.indvdCountry,
-                    zipCode: this.indvdZipCode,
-                    status: 0,
-                    index: 1        //index: this.indvdDetailList.length + 1,
 
-                });
+                    this.indvdDetailList[0].index = 1;
+                    this.indvdDetailList[0].typeCd = this.cmbCType;
+                    this.indvdDetailList[0].name = this.oName;
+                    this.indvdDetailList[0].cnic = this.oCNIC;
 
 
-                this.indvdDetailList.push({
-                    indvdlId: 0,
-                    index: this.indvdDetailList.length + 1,
-                    typeCd: this.cmbCType,
-                    name: this.oName,
-                    cnic: this.oCNIC,
-                    share: 0,
-                    type: 'owner',
-                    status: 0
-                });
+                    this.indvdAddressList[0].address = this.indvdAddress;
+                    this.indvdAddressList[0].cityCode = this.indvdCity;
+                    this.indvdAddressList[0].countryCode = this.indvdCountry;
+                    this.indvdAddressList[0].zipCode = this.indvdZipCode;
+
+                }
+                
 
                 this.clearIndividual();
     
@@ -681,7 +710,7 @@ export class CompanyComponent implements OnInit {
                 this.toastr.errorToastr('Please enter partner name', 'Error', { toastTimeout: (2500) });
                 return false;
             }
-            else if (this.pCNIC == '' || this.pCNIC.length < 13) {
+            else if (this.pCNIC == null || this.pCNIC == '' || this.pCNIC.length < 13) {
                 this.toastr.errorToastr('Please enter partner cnic', 'Error', { toastTimeout: (2500) });
                 return false;
             }
@@ -801,7 +830,7 @@ export class CompanyComponent implements OnInit {
                 this.toastr.errorToastr('Please enter director name', 'Error', { toastTimeout: (2500) });
                 return false;
             }
-            else if (this.dCNIC == '' || this.dCNIC.length < 13) {
+            else if (this.dCNIC == null || this.dCNIC == '' || this.dCNIC.length < 13) {
                 this.toastr.errorToastr('Please enter director cnic', 'Error', { toastTimeout: (2500) });
                 return false;
             }
@@ -938,6 +967,288 @@ export class CompanyComponent implements OnInit {
     }
 
 
+    //*Edit function 
+    edit(){
+
+        var cmpnyId = this.companyId;
+        this.clear();
+        this.companyId = cmpnyId;
+        var tempCmpnyData = [];
+        tempCmpnyData = this.cmpnyDetailList.filter(x => x.companyId == cmpnyId); 
+
+        //geting Company DATA
+        if(tempCmpnyData.length > 0){
+
+            //this.cmbCType = tempCmpnyData[0].businessType;
+            this.companyName = tempCmpnyData[0].companyTitle;
+            this.cNtn = tempCmpnyData[0].companyNtn;
+            this.cStrn = tempCmpnyData[0].companyStrn;
+            this.cBusinessType = tempCmpnyData[0].businessType;
+            this.cEmployeQty = tempCmpnyData[0].employees;
+            this.cCurrency = tempCmpnyData[0].currency;
+        }
+
+        for (var i = 0; i < tempCmpnyData.length; i++){
+
+            //gnrtng email lst
+            if(tempCmpnyData[i].emailTypeCd != 0){
+                this.emailList.push({
+                    contactDetailCode: tempCmpnyData[i].cntctDetailCd,
+                    emailId: 0,
+                    type: tempCmpnyData[i].emailTypeCd,
+                    status: 0,
+                    email: tempCmpnyData[i].emailAddrss
+                });
+            }
+
+
+            //gnrtng cntct lst
+            if(tempCmpnyData[i].teleNo != null){
+                this.contactList.push({
+                    contactDetailCode: tempCmpnyData[i].cntctDetailCd,
+                    telId: 0,
+                    contactType: tempCmpnyData[i].cntctTypeCd,
+                    status: 0,
+                    contactNumber: tempCmpnyData[i].teleNo,
+                    mobileNumber: "",
+                    countryCode: 0
+                });
+            }
+
+
+            //gnrtng adrs lst
+            if(tempCmpnyData[i].addressTypeCd != 0){
+                this.addressList.push({
+                    contactDetailCode: tempCmpnyData[i].cntctDetailCd,
+                    addressId: 0,
+                    addressType: tempCmpnyData[i].addressTypeCd,
+                    address: tempCmpnyData[i].addressLine1,
+                    cityCode: tempCmpnyData[i].thslCd,
+                    districtCode: 0,
+                    provinceCode: 0,
+                    countryCode: tempCmpnyData[i].addCntryCd,
+                    zipCode: tempCmpnyData[i].zipCode,
+                    status: 0
+                });
+
+                this.cAddress = tempCmpnyData[i].addressLine1;
+                this.cCountry = tempCmpnyData[i].addCntryCd;
+                this.cCity = tempCmpnyData[i].thslCd;
+                this.cZipCode = tempCmpnyData[i].zipCode;
+            }
+
+        }   
+
+
+        //geting Stack Holder Data
+        var tempIndvdData = [];
+        tempIndvdData = this.stakeHolderList.filter(x => x.cmpnyID == cmpnyId); 
+
+        if(tempIndvdData.length > 0){
+
+            this.cmbCType = tempIndvdData[0].stakeHolderTypeCd;
+            this.allowDiv();
+
+        }
+
+
+        //geting owner data
+        if(this.solePro == true){
+
+            for (var i = 0; i < tempIndvdData.length; i++){
+
+
+                //geting indvd detail code 
+                this.indvdDetailList.push({
+                    indvdlId: tempIndvdData[0].indvdlID,
+                    index: 1,
+                    typeCd: tempIndvdData[0].stakeHolderTypeCd,
+                    name: tempIndvdData[0].indvdlFullName,
+                    cnic: tempIndvdData[0].cnic,
+                    share: 0,
+                    type: 'owner',
+                    status: 0
+                });
+
+                this.oName = tempIndvdData[0].indvdlFullName;
+                this.oCNIC = tempIndvdData[0].cnic;
+
+                //gnrtng email lst
+                if(tempIndvdData[i].emailTypeCd != 0){
+                    this.indvdEmailList.push({
+                        contactDetailCode: tempIndvdData[i].cntctDetailCd,
+                        emailId: 0,
+                        type: tempIndvdData[i].emailTypeCd,
+                        status: 0,
+                        email: tempIndvdData[i].emailAddrss,
+                        index: 1
+                    });
+                }
+    
+    
+                //gnrtng cntct lst
+                if(tempIndvdData[i].teleNo != null){
+                    this.indvdContactList.push({
+                        contactDetailCode: tempIndvdData[i].cntctDetailCd,
+                        telId: 0,
+                        contactType: tempIndvdData[i].cntctTypeCd,
+                        status: 0,
+                        contactNumber: tempIndvdData[i].teleNo,
+                        mobileNumber: "",
+                        countryCode: 0,
+                        index: 1
+                    });
+                }
+    
+    
+                //gnrtng adrs lst
+                if(tempIndvdData[i].addressTypeCd != 0){
+
+                    this.indvdAddressList.push({
+                        contactDetailCode: tempIndvdData[i].cntctDetailCd,
+                        addressId: 0,
+                        addressType: tempIndvdData[i].addressTypeCd,
+                        address: tempIndvdData[i].addressLine1,
+                        cityCode: tempIndvdData[i].thslCd,
+                        districtCode: 0,
+                        provinceCode: 0,
+                        countryCode: tempIndvdData[i].addCntryCd,
+                        zipCode: tempIndvdData[i].zipCode,
+                        status: 0,
+                        index: 1
+                    });
+    
+                    this.indvdAddress = tempIndvdData[i].addressLine1;
+                    this.indvdCountry = tempIndvdData[i].addCntryCd;
+                    this.indvdCity = tempIndvdData[i].thslCd;
+                    this.indvdZipCode = tempIndvdData[i].zipCode;
+                }
+    
+            }
+
+        }
+
+
+        //geting partner or director data 
+        if(this.solePro == false){
+
+            var totalIndvdList = [];
+            var tmpId = 0;
+            for (var i = 0; i < tempIndvdData.length; i++){
+
+                if(i == 0)
+                {
+                    totalIndvdList.push({
+                        indvdId: tempIndvdData[i].indvdlID
+                    });
+                    tmpId = tempIndvdData[i].indvdlID;
+
+                }else
+                {
+
+                    if(tempIndvdData[i].indvdlID != tmpId){
+                        totalIndvdList.push({
+                            indvdId: tempIndvdData[i].indvdlID
+                        });
+                        tmpId = tempIndvdData[i].indvdlID;
+                    }
+
+                }
+
+
+            }
+
+            if(tempIndvdData.length > 0){
+
+                this.cmbCType = tempIndvdData[0].stakeHolderTypeCd;
+                this.allowDiv();
+    
+            }
+
+
+            for (var j = 0; j < totalIndvdList.length; j ++){
+
+                tempIndvdData = [];
+                tempIndvdData = this.stakeHolderList.filter(x => x.cmpnyID == cmpnyId && x.indvdlID == totalIndvdList[j].indvdId);
+
+                //geting indvd detail code 
+                this.indvdDetailList.push({
+                    indvdlId: tempIndvdData[j].indvdlID,
+                    typeCd: tempIndvdData[j].stakeHolderTypeCd,
+                    name: tempIndvdData[j].indvdlFullName,
+                    cnic: tempIndvdData[j].cnic,
+                    share: tempIndvdData[j].prcntgofShrsOwn,
+                    type: tempIndvdData[j].type,
+                    status: 0,
+                    index: j + 1,
+                });
+
+                for (var i = 0; i < tempIndvdData.length; i++){
+
+
+                    //gnrtng email lst
+                    if(tempIndvdData[i].emailTypeCd != 0){
+                        this.indvdEmailList.push({
+                            contactDetailCode: tempIndvdData[i].cntctDetailCd,
+                            emailId: 0,
+                            type: tempIndvdData[i].emailTypeCd,
+                            status: 0,
+                            email: tempIndvdData[i].emailAddrss,
+                            index: j + 1
+                        });
+                    }
+        
+        
+                    //gnrtng cntct lst
+                    if(tempIndvdData[i].teleNo != null){
+                        this.indvdContactList.push({
+                            contactDetailCode: tempIndvdData[i].cntctDetailCd,
+                            telId: 0,
+                            contactType: tempIndvdData[i].cntctTypeCd,
+                            status: 0,
+                            contactNumber: tempIndvdData[i].teleNo,
+                            mobileNumber: "",
+                            countryCode: 0,
+                            index: j + 1
+                        });
+                    }
+        
+        
+                    //gnrtng adrs lst
+                    if(tempIndvdData[i].addressTypeCd != 0){
+
+                        this.indvdAddressList.push({
+                            contactDetailCode: tempIndvdData[i].cntctDetailCd,
+                            addressId: 0,
+                            addressType: tempIndvdData[i].addressTypeCd,
+                            address: tempIndvdData[i].addressLine1,
+                            cityCode: tempIndvdData[i].thslCd,
+                            districtCode: 0,
+                            provinceCode: 0,
+                            countryCode: tempIndvdData[i].addCntryCd,
+                            zipCode: tempIndvdData[i].zipCode,
+                            status: 0,
+                            index: j + 1
+                        });
+        
+                        this.indvdAddress = tempIndvdData[i].addressLine1;
+                        this.indvdCountry = tempIndvdData[i].addCntryCd;
+                        this.indvdCity = tempIndvdData[i].thslCd;
+                        this.indvdZipCode = tempIndvdData[i].zipCode;
+                    }
+        
+                }
+
+
+
+            }
+
+        }
+
+
+    }
+
+
     //*function for empty all fields
     clear() {
 
@@ -999,10 +1310,10 @@ export class CompanyComponent implements OnInit {
         }
 
 
-        this.indvdAddress = this.indvdAddressList[this.indvdListIndex - 1].address;
-        this.indvdCountry = this.indvdAddressList[this.indvdListIndex - 1].countryCode;
-        this.indvdCity = this.indvdAddressList[this.indvdListIndex - 1].cityCode;
-        this.indvdZipCode = this.indvdAddressList[this.indvdListIndex - 1].zipCode;
+        this.indvdAddress = this.indvdAddressList[this.indvdListIndex].address;
+        this.indvdCountry = this.indvdAddressList[this.indvdListIndex].countryCode;
+        this.indvdCity = this.indvdAddressList[this.indvdListIndex].cityCode;
+        this.indvdZipCode = this.indvdAddressList[this.indvdListIndex].zipCode;
 
     }
 
