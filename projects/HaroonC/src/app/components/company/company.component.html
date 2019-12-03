@@ -271,16 +271,16 @@
 
                 </div>
 
-                <!-- *ngIf="item.status == 2" -->
+                
                 <div class="row" *ngFor=" let item of contactList; let i=index" >
-                    <div class="col-md-11">
+                    <div class="col-md-11" *ngIf="item.status != 2">
                         <p>
                             <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
                             {{item.contactNumber}}
                         </p>
                     </div>
 
-                    <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;">
+                    <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;" *ngIf="item.status != 2">
                         <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeContact(i)"></span>
                     </div>
 
@@ -304,14 +304,14 @@
                 </div>
 
                 <div class="row" *ngFor=" let item of emailList; let i=index" >
-                    <div class="col-md-11">
+                    <div class="col-md-11" *ngIf="item.status != 2">
                         <p>
                             <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
                             {{item.email}}
                         </p>
                     </div>
 
-                    <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;">
+                    <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;" *ngIf="item.status != 2">
                         <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeEmail(i)"></span>
                     </div>
 
