@@ -1,30 +1,37 @@
-    <!--Contact number cmbo bx row-->
-    <div class="row">
-        <div class="col-md-5">
-            <mat-form-field class="fullwidth">
-                <mat-select placeholder="Facebook" required>
-                    <!-- <input type="text" class="form-control">
-                    <mat-option
-                    *ngFor="let item of currency | search:'currencyName, currencyCode': searchCurrency" [value]="item"></mat-option>
-                    <table>
-                    <tr class='d-flex'>
-                            <td class="col-6">{{ item.currencyName }}</td>
-                            <td class="col-6">{{ item.currencyCode }}</td>
-                    </tr>
-                    </table>
-                    </mat-option> -->
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-        <div class="col-md-6 npl">
-            <mat-form-field class="fullwidth">
-                <input matInput placeholder="Link">
-            </mat-form-field>
-        </div>
-
-        <div class="col-md-1 text-right nopadding" style="margin: 20px 0 0 -10px;">
-            <span class="pointerCursor fa fa-plus iconAdd" ></span>
-        </div>
-    
+<div class="row">
+    <div class="col-md-5">
+        <mat-form-field class="fullwidth">
+            <mat-select placeholder="Type" [(ngModel)]="sMediaType">
+                <mat-option *ngFor="let item of typeList" [value]="item.id">
+                    {{item.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
+
+    <div class="col-md-6 npl">
+        <mat-form-field class="fullwidth">
+            <input matInput [(ngModel)]="sMediaLink" placeholder="Link">
+        </mat-form-field>
+    </div>
+
+    <div class="col-md-1 text-right nopadding" style="margin: 20px 0 0 -10px;">
+        <span class="pointerCursor fa fa-plus iconAdd" (click)="add()"></span>
+    </div>
+
+</div>
+
+<!-- *ngIf="item.status == 2" -->
+<div class="row" *ngFor=" let item of socialMediaList; let i=index">
+    <div class="col-md-11" *ngIf="item.status != 2">
+        <p>
+            <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+            {{item.link}}
+        </p>
+    </div>
+
+    <div class="col-md-1 text-right nopadding" *ngIf="item.status != 2" style="margin: 0 0 0 -10px;">
+        <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="remove(i)"></span>
+    </div>
+
+</div>
