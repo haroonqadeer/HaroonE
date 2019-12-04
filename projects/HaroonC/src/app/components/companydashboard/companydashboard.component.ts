@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { TreeNode } from "primeng/api";
 import { AppComponent } from "../../../../../../src/app/app.component";
 import {
@@ -7,11 +7,67 @@ import {
   HttpErrorResponse
 } from "@angular/common/http";
 
+// @Component({
+//   selector: "app-companydashboard",
+//   templateUrl: "./companydashboard.component.html",
+//   styleUrls: ["./companydashboard.component.scss"]
+// })
+
 @Component({
-  selector: "app-companydashboard",
-  templateUrl: "./companydashboard.component.html",
-  styleUrls: ["./companydashboard.component.scss"]
+  selector: 'app-companydashboard',
+  templateUrl: './companydashboard.component.html',
+  // styleUrls: ['./app.component.css'],
+  styles: [`
+  .company.ui-organizationchart .ui-organizationchart-node-content.ui-person {
+      padding: 0;
+      border: 0 none;
+  }
+
+  .node-header,.node-content {
+      padding: .5em .7em;
+  }
+
+  .node-header {
+      background-color: #0B133A;
+      color: #ffffff;
+  }
+
+  .node-content {
+      text-align: center;
+      background-color: #0B133A;
+  }
+
+  .node-content img {
+      border-radius: 50%;
+  }
+
+  .department-cfo {
+      background-color: #7247bc;
+      color: #ffffff;
+  }
+
+  .department-coo {
+      background-color: #a534b6;
+      color: #ffffff;
+  }
+
+  .department-cto {
+      background-color: #019040;
+      color: #ffffff;
+  }
+
+  .ui-person .ui-node-toggler {
+      color: #495ebb !important;
+  }
+
+  .department-cto .ui-node-toggler {
+      color: #8a0a39 !important;
+  }
+`],
+encapsulation: ViewEncapsulation.None
 })
+
+
 export class CompanydashboardComponent implements OnInit {
   serverUrl = "http://localhost:5000/";
 
