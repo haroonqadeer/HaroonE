@@ -161,14 +161,6 @@ export class CompanyComponent implements OnInit {
     indvdEditIndex = 0;
 
 
-
-
-
-
-
-
-    
-
     txtdPassword = '';
     txtdPin = '';
     dCompanyId = '';
@@ -760,10 +752,18 @@ export class CompanyComponent implements OnInit {
 
                 }else{
 
-                    this.indvdAddressList[0].address = this.indvdAddress;
-                    this.indvdAddressList[0].cityCode = this.indvdCity;
-                    this.indvdAddressList[0].countryCode = this.indvdCountry;
-                    this.indvdAddressList[0].zipCode = this.indvdZipCode;
+                    for(var i = 0; i < this.indvdAddressList.length; i++){
+
+                        if(this.indvdAddressList[i].index == this.indvdEditIndex){
+
+                            this.indvdAddressList[i].address = this.indvdAddress;
+                            this.indvdAddressList[i].cityCode = this.indvdCity;
+                            this.indvdAddressList[i].countryCode = this.indvdCountry;
+                            this.indvdAddressList[i].zipCode = this.indvdZipCode;
+
+                        }
+
+                    }
 
                 }
 
@@ -798,10 +798,19 @@ export class CompanyComponent implements OnInit {
                 }
                 else{
 
-                    this.indvdDetailList[this.indvdEditIndex -1].name = this.pName;
-                    this.indvdDetailList[this.indvdEditIndex -1].cnic = this.pCNIC;
-                    this.indvdDetailList[this.indvdEditIndex -1].share = this.pShare;
-                    this.indvdDetailList[this.indvdEditIndex -1].type = this.pType;
+                    for(var i = 0; i < this.indvdDetailList.length; i++){
+
+                        if(this.indvdDetailList[i].index == this.indvdEditIndex){
+
+                            this.indvdDetailList[i].name = this.pName;
+                            this.indvdDetailList[i].cnic = this.pCNIC;
+                            this.indvdDetailList[i].share = this.pShare;
+                            this.indvdDetailList[i].type = this.pType;
+
+
+                        }
+
+                    }
 
                     this.clearIndividual();
 
@@ -880,10 +889,19 @@ export class CompanyComponent implements OnInit {
 
                 }else{
 
-                    this.indvdAddressList[0].address = this.indvdAddress;
-                    this.indvdAddressList[0].cityCode = this.indvdCity;
-                    this.indvdAddressList[0].countryCode = this.indvdCountry;
-                    this.indvdAddressList[0].zipCode = this.indvdZipCode;
+
+                    for(var i = 0; i < this.indvdAddressList.length; i++){
+
+                        if(this.indvdAddressList[i].index == this.indvdEditIndex){
+
+                            this.indvdAddressList[i].address = this.indvdAddress;
+                            this.indvdAddressList[i].cityCode = this.indvdCity;
+                            this.indvdAddressList[i].countryCode = this.indvdCountry;
+                            this.indvdAddressList[i].zipCode = this.indvdZipCode;
+
+                        }
+
+                    }
 
                 }
 
@@ -918,10 +936,18 @@ export class CompanyComponent implements OnInit {
                 }
                 else{
 
-                    this.indvdDetailList[this.indvdEditIndex -1].name = this.dName;
-                    this.indvdDetailList[this.indvdEditIndex -1].cnic = this.dCNIC;
-                    this.indvdDetailList[this.indvdEditIndex -1].share = this.dShare;
-                    this.indvdDetailList[this.indvdEditIndex -1].type = this.dTitle;
+                    for(var i = 0; i < this.indvdDetailList.length; i++){
+
+                        if(this.indvdDetailList[i].index == this.indvdEditIndex){
+
+                            this.indvdDetailList[i].name = this.dName;
+                            this.indvdDetailList[i].cnic = this.dCNIC;
+                            this.indvdDetailList[i].share = this.dShare;
+                            this.indvdDetailList[i].type = this.dTitle;
+
+                        }
+
+                    }
 
                     this.clearIndividual();
 
@@ -1308,11 +1334,13 @@ export class CompanyComponent implements OnInit {
             this.dCNIC = item.cnic;
         }
 
+        var tempData = [];
+        tempData = this.indvdAddressList.filter(x => x.index == item.index); 
 
-        this.indvdAddress = this.indvdAddressList[this.indvdListIndex].address;
-        this.indvdCountry = this.indvdAddressList[this.indvdListIndex].countryCode;
-        this.indvdCity = this.indvdAddressList[this.indvdListIndex].cityCode;
-        this.indvdZipCode = this.indvdAddressList[this.indvdListIndex].zipCode;
+        this.indvdAddress = tempData[0].address;
+        this.indvdCountry = tempData[0].countryCode;
+        this.indvdCity = tempData[0].cityCode;
+        this.indvdZipCode = tempData[0].zipCode;
 
     }
 
@@ -1324,9 +1352,12 @@ export class CompanyComponent implements OnInit {
         
         var contactData = this.indvdContactList;
         var emailData = this.indvdEmailList;
+        var addressData = this.indvdAddressList;
+
 
         this.indvdContactList = [];
         this.indvdEmailList = [];
+        this.indvdAddressList = [];
 
         for(var i=0; i < contactData.length; i++){
             if(contactData[i].index != myIndex){
@@ -1339,7 +1370,12 @@ export class CompanyComponent implements OnInit {
                 this.indvdEmailList.push(emailData[j]);
             }
         }
-        
+
+        for(var k=0; k < addressData.length; k++){
+            if(addressData[k].index != myIndex){
+                this.indvdAddressList.push(addressData[k]);
+            }
+        }
 
         this.indvdListIndex = 0;
         this.indvdEditIndex = 0;
@@ -1347,7 +1383,7 @@ export class CompanyComponent implements OnInit {
     }
 
 
-    //* Function for remote partner from list
+    //* Function for remove partner from list
     remove(item) {
         var index = this.indvdDetailList.indexOf(item);
         this.indvdDetailList.splice(index, 1);
@@ -1589,7 +1625,7 @@ export class CompanyComponent implements OnInit {
         
 
     }
-    
+
     removeContact(index) {
         this.contactList[index].status = 2;
         //this.contactList.splice(index, 1);
@@ -1635,7 +1671,7 @@ export class CompanyComponent implements OnInit {
         }
 
     }
-    
+
     removeEmail(item) {
 
         this.emailList[item].status = 2;
@@ -1717,7 +1753,7 @@ export class CompanyComponent implements OnInit {
         
 
     }
-    
+
     removeIndvdContact(index) {
         //this.contactList[index].status = 2;
         this.indvdContactList.splice(index, 1);
@@ -1777,7 +1813,7 @@ export class CompanyComponent implements OnInit {
         }
 
     }
-    
+
     removeIndvdEmail(item) {
         this.indvdEmailList.splice(item, 1);
     }
