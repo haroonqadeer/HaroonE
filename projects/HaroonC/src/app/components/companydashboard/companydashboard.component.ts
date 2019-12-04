@@ -14,62 +14,65 @@ import {
 // })
 
 @Component({
-  selector: 'app-companydashboard',
-  templateUrl: './companydashboard.component.html',
+  selector: "app-companydashboard",
+  templateUrl: "./companydashboard.component.html",
   // styleUrls: ['./app.component.css'],
-  styles: [`
-  .company.ui-organizationchart .ui-organizationchart-node-content.ui-person {
-      padding: 0;
-      border: 0 none;
-  }
+  styles: [
+    `
+      .company.ui-organizationchart
+        .ui-organizationchart-node-content.ui-person {
+        padding: 0;
+        border: 0 none;
+      }
 
-  .node-header,.node-content {
-      padding: .5em .7em;
-  }
+      .node-header,
+      .node-content {
+        padding: 0.5em 0.7em;
+      }
 
-  .node-header {
-      background-color: #0B133A;
-      color: #ffffff;
-  }
+      .node-header {
+        background-color: #0b133a;
+        color: #ffffff;
+      }
 
-  .node-content {
-      text-align: center;
-      background-color: #0B133A;
-  }
+      .node-content {
+        text-align: center;
+        background-color: #0b133a;
+      }
 
-  .node-content img {
-      border-radius: 50%;
-  }
+      .node-content img {
+        border-radius: 50%;
+      }
 
-  .department-cfo {
-      background-color: #7247bc;
-      color: #ffffff;
-  }
+      .department-cfo {
+        background-color: #7247bc;
+        color: #ffffff;
+      }
 
-  .department-coo {
-      background-color: #a534b6;
-      color: #ffffff;
-  }
+      .department-coo {
+        background-color: #a534b6;
+        color: #ffffff;
+      }
 
-  .department-cto {
-      background-color: #019040;
-      color: #ffffff;
-  }
+      .department-cto {
+        background-color: #019040;
+        color: #ffffff;
+      }
 
-  .ui-person .ui-node-toggler {
-      color: #495ebb !important;
-  }
+      .ui-person .ui-node-toggler {
+        color: #495ebb !important;
+      }
 
-  .department-cto .ui-node-toggler {
-      color: #8a0a39 !important;
-  }
-`],
-encapsulation: ViewEncapsulation.None
+      .department-cto .ui-node-toggler {
+        color: #8a0a39 !important;
+      }
+    `
+  ],
+  encapsulation: ViewEncapsulation.None
 })
-
-
 export class CompanydashboardComponent implements OnInit {
-  serverUrl = "http://localhost:5000/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9044/";
+  // serverUrl = "http://localhost:5000/";
 
   cmbCompany = "";
   company = [];
