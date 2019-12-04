@@ -521,7 +521,7 @@ export class CompanyComponent implements OnInit {
 
                     this.http.post(this.serverUrl + 'api/updateCompany', updateData, { headers: reqHeader }).subscribe((data: any) => {
 
-                        if (data.msg == "Record Saved Successfully") {
+                        if (data.msg == "Record Updated Successfully!") {
                             this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
                             this.clear();
                             this.getCompany();
