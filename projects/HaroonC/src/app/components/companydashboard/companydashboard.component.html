@@ -9,9 +9,10 @@
   <div class="row">
     <div class="col-md-3">
       <mat-form-field class="fullwidth my-form-field" style="margin-bottom: -1.25em; background-color: #495ebb;">
-        <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" (ngModelChange)="showOrganoGram()" required>
-          <mat-option *ngFor=" let item of company" [value]="item.cmpnyId">
-            {{item.cmpnyName}}
+        <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" (ngModelChange)="getChartData($event)"
+          required>
+          <mat-option *ngFor=" let item of company" [value]="item.companyId">
+            {{item.companyName}}
           </mat-option>
         </mat-select>
       </mat-form-field>

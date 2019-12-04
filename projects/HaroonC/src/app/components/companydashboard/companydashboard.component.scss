@@ -1,0 +1,58 @@
+//////////////////////////////////////
+////ngprime organizational chart//////
+/////////////////////////////////////
+.company.ui-organizationchart .ui-organizationchart-node-content.ui-person {
+  padding: 0;
+  border: 0 none;
+  overflow: visible !important;
+
+}
+
+.ui-widget-content {
+  background-color: #0b133a !important;
+}
+
+.node-header,
+.node-content {
+  padding: .5em .7em;
+  background-color: #0b133a;
+}
+
+.node-header {
+  background-color: #0b133a;
+  color: #ffffff;
+}
+
+.node-content {
+  background-color: #0b133a;
+  text-align: center;
+}
+
+.node-content img {
+  border-radius: 50%;
+}
+
+.department-cfo {
+  background-color: #7247bc;
+  color: #ffffff;
+}
+
+.department-coo {
+  background-color: #a534b6;
+  color: #ffffff;
+}
+
+.department-cto {
+  background-color: #e9286f;
+  color: #ffffff;
+}
+
+.ui-person .ui-node-toggler {
+  color: #0b133a !important;
+  outline: 0 !important;
+}
+
+.department-cto .ui-node-toggler {
+  color: #8a0a39 !important;
+  outline: 0 !important;
+}
