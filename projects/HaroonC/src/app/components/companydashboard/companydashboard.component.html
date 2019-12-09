@@ -5,18 +5,18 @@
       <h5>ORGANIZATION HIERARCHY</h5>
     </div>
   </div>
-  <!-- Company row -->
-  <div class="row" style="border-bottom: 1px solid#FAFAFA;;">
-    <div class="col-md-3">
-      <mat-form-field class="fullwidth my-form-field" style="margin-bottom: -1.25em; background-color: #495ebb;">
-        <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" (ngModelChange)="getChartData($event)" style="color: #fff;" required>
-          <mat-option *ngFor=" let item of company" [value]="item.companyId">
-            {{item.companyName}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <!-- Company row -->
+    <div class="row" style="border-bottom: 1px solid#FAFAFA;;">
+        <div class="col-md-3 my-form">
+            <mat-form-field class="fullwidth my-form" style="margin-bottom: -1.25em;">
+                <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" (ngModelChange)="getChartData($event)" required>
+                    <mat-option *ngFor=" let item of company" [value]="item.companyId">
+                        {{item.companyName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
-  </div>
 
   <div class="row">
     <div class="col-md-12">

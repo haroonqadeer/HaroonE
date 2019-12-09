@@ -1591,6 +1591,7 @@
     width: 6px;
     height: 10px;
     background: transparent;
+    background-color: transparent;
     }
 
     /* Track */
@@ -1823,17 +1824,14 @@
     /** Overrides underline color **/
     .my-form-field.mat-form-field-appearance-legacy .mat-form-field-underline,
     .my-form-field.mat-form-field-appearance-legacy .mat-form-field-ripple,
-    .my-form-field.mat-form-field-appearance-legacy.mat-focused
-        .mat-form-field-underline,
-    .my-form-field.mat-form-field-appearance-legacy.mat-focused
-        .mat-form-field-ripple {
+    .my-form-field.mat-form-field-appearance-legacy.mat-focused.mat-form-field-underline,
+    .my-form-field.mat-form-field-appearance-legacy.mat-focused.mat-form-field-ripple {
         background-color: white;
     }
 
     /** Overrides label color **/
     .my-form-field.mat-form-field-appearance-legacy .mat-form-field-label,
-    .my-form-field.mat-form-field-appearance-legacy.mat-focused
-        .mat-form-field-label {
+    .my-form-field.mat-form-field-appearance-legacy.mat-focused.mat-form-field-label {
         color: white;
     }
 
