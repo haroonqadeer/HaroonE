@@ -81,7 +81,9 @@
         </a> -->
   
         <!--start add user profile button-->
-        <a class="pointerCursor" data-toggle="modal" data-target="#userModal" (click)="clear()">
+        <!-- <a class="pointerCursor" data-toggle="modal" data-target="#userModal" (click)="clear()"> -->
+        <a class="pointerCursor" data-toggle="modal" data-target="#resetModal" (click)="clear()">
+            
           <i class="fa fa-plus-circle"></i>
           ADD USER PROFILE
         </a>
@@ -95,7 +97,7 @@
   <!-- Start User Profile Container -->
   <div class="myContainer bgWhite">
     <!--Start 2nd Row-->
-    <div class="row">
+    <div class="row" >
       <!--Start search textbox column-->
       <div class="col-md-12">
         <div class="searchBar">
@@ -145,7 +147,7 @@
         </thead>
         <tbody>
           <tr class='d-flex'
-            *ngFor="let emp of userData | search:'indvdlERPUsrID,indvdlFullName,emailAddrss,erpRoleName,deptName':userSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
+            *ngFor="let emp of userData | search:'indvdlERPUsrID,indvdlFullName,emailAddrss,erpRoleName,deptName':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
             <td class="col-1 text-center">{{i+1}}</td>
             <td class="col-1 text-center">{{emp.indvdlERPUsrID}}</td>
             <td class="col-2 text-center">{{emp.indvdlFullName}}</td>
@@ -519,7 +521,7 @@
         <!--start resetModal 1st row-->
         <div class="row">
           <!--start labels and textboxes column-->
-          <div class="offset-md-1 col-md-6" style="border: 0px solid yellow;">
+          <div class="offset-md-1 col-md-5 nopadding">
             <p class="fontWhite">Reset password for username:</p>
             <div class="marginSingleTop"></div>
             <p style='color:skyblue'><b>{{lblFullName}}</b></p>
@@ -530,8 +532,7 @@
               <mat-label class="inputLabel">
                 Enter New Password
               </mat-label>
-              <input matInput id="float-input" type="password" size="32" [(ngModel)]="txtNewPassword" #password
-              (ngModelChange)="showPasswordStrenght($event)">
+              <input matInput id="float-input" maxlength="32" type="password" size="32" [(ngModel)]="txtNewPassword" #password (ngModelChange)="showPasswordStrenght($event)">
             </mat-form-field>
             <!-- <div class="inputContainer">
               <span class="ui-float-label">
@@ -548,7 +549,7 @@
               <mat-label class="inputLabel">
                 Confirm New Password
               </mat-label>
-              <input matInput id="float-input" type="password" size="32" [(ngModel)]="txtNewCnfrmPassword">
+              <input matInput id="float-input" maxlength="32" type="password" size="32" [(ngModel)]="txtNewCnfrmPassword">
             </mat-form-field>
             <!-- <div class="inputContainer">
               <span class="ui-float-label">
@@ -564,7 +565,7 @@
           </div>
           <!--end labels and textboxes column-->
           <!--start reset password logo column-->
-          <div class="col-md-4 text-center" style="border: 0px solid yellow; padding: 0;">
+          <div class="offset-md-1 col-md-4 text-center nopadding">
             <img src="../../../assets/images/ResetPassword-Large.svg" alt="" height="70%" style="border: 0px solid red;">
             <br/><br/>
             <h5 class="fontWhite"><b>RESET PASSWORD</b></h5>

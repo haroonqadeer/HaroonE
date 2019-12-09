@@ -115,17 +115,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 
-    // this.appComponent.showDiv();
     this.PieChart_init();
     this.getUserTrend();
     this.getUserTrendChart();
-    // this.userService.getLocation().subscribe(data =>{
-    //   this.cityDetail = data['m_Item1'];
-    // });
-
-    // this.userService.getLocation().subscribe(data =>{
-    //   this.countryDetail = data['m_Item2'];
-    // });
+    
   }
 
   //Get the daily user trend 

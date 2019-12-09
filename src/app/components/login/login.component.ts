@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
 
     /*** Api link published in server ***/
     serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
+    //serverUrl = "http://localhost:9010/";
     tokenKey = "token";
 
     /*** http header ***/

@@ -254,19 +254,18 @@
           <!--end userRoleModal Role Name column-->
         </div>
         <!--end userRoleModal 1st row-->
-        <br />
+
         <!--start userRoleModal 2nd row-->
         <div class="row">
           <!--start userRoleModal menu tree column-->
           <div class="col-md-5">
             <h5>Select Module List</h5>
             <p-tree class="fullwidth" [value]="menuTree" selectionMode="checkbox" [(selection)]="selectedMenu"></p-tree>
-            <!-- <div><span *ngFor="let file of selectedMenu">{{file.label}}<br/> </span></div> -->
           </div>
           <!--end userRoleModal menu tree column-->
 
           <!--start userRoleModal add or remove role buttons column-->
-          <div class="col-md-2">
+          <div class="col-md-2 text-center" style="padding-left: 2%;">
             <br /><br />
             
             <div class="btn-Square" (click)="addRoles()"><span class="fa fa-caret-right"></span></div>
@@ -287,6 +286,7 @@
         </div>
         <!--end userRoleModal 2nd row-->
         <br />
+
         <!--start userRoleModal 3rd row-->
         <div class="row">
           <!--start userRoleModal save tree column-->
