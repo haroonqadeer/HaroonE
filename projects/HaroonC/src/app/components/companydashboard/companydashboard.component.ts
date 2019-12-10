@@ -95,6 +95,7 @@ export class CompanydashboardComponent implements OnInit {
   getCompany() {
     //return false;
 
+    this.app.showSpinner();
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
@@ -104,6 +105,7 @@ export class CompanydashboardComponent implements OnInit {
       .get(this.serverUrl + "api/getCompany", { headers: reqHeader })
       .subscribe((data: any) => {
         this.company = data;
+        this.app.hideSpinner();
       });
   }
 
@@ -111,6 +113,7 @@ export class CompanydashboardComponent implements OnInit {
   getChartData(item) {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
+    this.app.showSpinner();
     this.http
       .get(this.serverUrl + "api/getOrgData?cmpnyID=" + item, {
         headers: reqHeader
@@ -180,6 +183,8 @@ export class CompanydashboardComponent implements OnInit {
           i = this.orgData.length + 1;
         }
         this.data1 = this.orgList;
+
+        this.app.hideSpinner();
       });
   }
 }
