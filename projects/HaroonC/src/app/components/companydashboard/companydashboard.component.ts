@@ -14,65 +14,61 @@ import {
 // })
 
 @Component({
-    selector: "app-companydashboard",
-    templateUrl: "./companydashboard.component.html",
-    styleUrls: ["./companydashboard.component.scss"],
-    styles: [
+  selector: "app-companydashboard",
+  templateUrl: "./companydashboard.component.html",
+  styleUrls: ["./companydashboard.component.scss"],
+  styles: [
     `
-        .company.ui-organizationchart
-            .ui-organizationchart-node-content.ui-person {
-            padding: 0;
-            border: 0 none;
-        }
+      .company.ui-organizationchart
+        .ui-organizationchart-node-content.ui-person {
+        padding: 0;
+        border: 0 none;
+      }
 
-        .node-header,
-        .node-content {
-            padding: 0.5em 0.7em;
-        }
+      .node-header,
+      .node-content {
+        padding: 0.5em 0.7em;
+      }
 
-        .node-header {
-            background-color: #0b133a;
-            color: #ffffff;
-        }
+      .node-header {
+        background-color: #0b133a;
+        color: #ffffff;
+      }
 
-        .node-content {
-            text-align: center;
-            background-color: #0b133a;
-        }
+      .node-content {
+        text-align: center;
+        background-color: #0b133a;
+      }
 
-        .node-content img {
-            border-radius: 50%;
-        }
+      .node-content img {
+        border-radius: 50%;
+      }
 
-        .department-cfo {
-            background-color: #7247bc;
-            color: #ffffff;
-        }
+      .department-cfo {
+        background-color: #7247bc;
+        color: #ffffff;
+      }
 
-        .department-coo {
-            background-color: #a534b6;
-            color: #ffffff;
-        }
+      .department-coo {
+        background-color: #a534b6;
+        color: #ffffff;
+      }
 
-        .department-cto {
-            background-color: #019040;
-            color: #ffffff;
-        }
+      .department-cto {
+        background-color: #019040;
+        color: #ffffff;
+      }
 
-        .ui-person .ui-node-toggler {
-            color: #495ebb !important;
-        }
+      .ui-person .ui-node-toggler {
+        color: #495ebb !important;
+      }
 
-        .department-cto .ui-node-toggler {
-            color: #8a0a39 !important;
-        }
-
-
-        
-
+      .department-cto .ui-node-toggler {
+        color: #8a0a39 !important;
+      }
     `
-    ],
-    encapsulation: ViewEncapsulation.None
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class CompanydashboardComponent implements OnInit {
   serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9044/";
@@ -114,72 +110,76 @@ export class CompanydashboardComponent implements OnInit {
   //getting organizational chart Data
   getChartData(item) {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
-    
-    this.orgList = [];
-    this.orgData = [];
-    this.branchChild = [];
-    this.deptChild = [];
 
-        this.http.get(this.serverUrl + "api/getOrgData?cmpnyID=" + item, {headers: reqHeader}).subscribe((data: any) => {
-            this.orgData = data;
+    this.http
+      .get(this.serverUrl + "api/getOrgData?cmpnyID=" + item, {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
+        this.orgData = data;
 
-            for (var i = 0; i < this.orgData.length; i++) {
-            if (this.orgData[i].companyName != null) {
-                for (var j = 0; j < this.orgData.length; j++) {
-                if (
-                    this.orgData[j].branchName != null &&
-                    this.orgData[j].deptName == null
-                ) {
-                    this.branchChild = [];
+        this.orgList = [];
+        this.compChild = [];
+        this.branchChild = [];
+        this.deptChild = [];
 
-                    for (var k = 0; k < this.orgData.length; k++) {
-                    if (
-                        this.orgData[k].deptLevelNo == 1 &&
-                        this.orgData[j].branchId == this.orgData[k].branchId
-                    ) {
-                        this.deptChild = [];
+        for (var i = 0; i < this.orgData.length; i++) {
+          if (this.orgData[i].companyName != null) {
+            for (var j = 0; j < this.orgData.length; j++) {
+              if (
+                this.orgData[j].branchName != null &&
+                this.orgData[j].deptName == null
+              ) {
+                this.branchChild = [];
 
-                        for (var l = 0; l < this.orgData.length; l++) {
-                        if (
-                            this.orgData[l].deptLevelNo == 2 &&
-                            this.orgData[l].parentDeptId == this.orgData[k].deptId
-                        ) {
-                            this.deptChild.push({
-                            label: this.orgData[l].deptName,
-                            styleClass: "department-cfo"
-                            });
-                        }
-                        }
-                        this.branchChild.push({
-                        label: this.orgData[k].deptName,
-                        styleClass: "department-cto",
-                        children: this.deptChild
+                for (var k = 0; k < this.orgData.length; k++) {
+                  if (
+                    this.orgData[k].deptLevelNo == 1 &&
+                    this.orgData[j].branchId == this.orgData[k].branchId
+                  ) {
+                    this.deptChild = [];
+
+                    for (var l = 0; l < this.orgData.length; l++) {
+                      if (
+                        this.orgData[l].deptLevelNo == 2 &&
+                        this.orgData[l].parentDeptId == this.orgData[k].deptId
+                      ) {
+                        this.deptChild.push({
+                          label: this.orgData[l].deptName,
+                          styleClass: "department-cfo"
                         });
+                      }
                     }
-                    }
-                    this.compChild.push({
-                    label: this.orgData[j].branchName,
-                    styleClass: "ui-person",
-                    type: "person",
-                    expanded: true,
-                    data: { name: "" },
-                    children: this.branchChild
+                    this.branchChild.push({
+                      label: this.orgData[k].deptName,
+                      styleClass: "department-cto",
+                      children: this.deptChild
                     });
+                  }
                 }
-                }
+                this.compChild.push({
+                  label: this.orgData[j].branchName,
+                  styleClass: "ui-person",
+                  type: "person",
+                  expanded: true,
+                  data: { name: "" },
+                  children: this.branchChild
+                });
+              }
             }
+          }
 
-            this.orgList.push({
-                label: this.orgData[i].companyName,
-                styleClass: "ui-person",
-                type: "person",
-                expanded: true,
-                data: { name: "" },
-                children: this.compChild
-            });
-            i = this.orgData.length + 1;
-            }
-            this.data1 = this.orgList;
-        });
-    }
+          this.orgList.push({
+            label: this.orgData[i].companyName,
+            styleClass: "ui-person",
+            type: "person",
+            expanded: true,
+            data: { name: "" },
+            children: this.compChild
+          });
+          i = this.orgData.length + 1;
+        }
+        this.data1 = this.orgList;
+      });
+  }
 }

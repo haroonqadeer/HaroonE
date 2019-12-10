@@ -24,18 +24,19 @@
 </div>
 
 <!-- *ngIf="item.status == 2" -->
-<div class="row" *ngFor=" let item of contactList; let i=index">
-  <div class="col-md-11" *ngIf="item.status != 2">
-    <p>
-      <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
-      {{item.contactNumber}}
-    </p>
-  </div>
+<div class="innerContainer">
+  <div class="row" *ngFor=" let item of contactList; let i=index">
+    <div class="col-md-11" *ngIf="item.status != 2">
+      <p>
+        <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+        {{item.contactNumber}}
+      </p>
+    </div>
 
-  <div class="col-md-1 text-right nopadding" *ngIf="item.status != 2" style="margin: 0 0 0 -10px;">
-    <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeContact(i)"></span>
+    <div class="col-md-1 text-right nopadding" *ngIf="item.status != 2" style="margin: 0 0 0 -15px;">
+      <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeContact(i)"></span>
+    </div>
   </div>
-
 </div>
 
 
@@ -54,17 +55,18 @@
   </div>
 
 </div>
+<div class="innerContainer">
+  <div class="row" *ngFor=" let item of emailList; let i=index">
+    <div class="col-md-11" *ngIf="item.status != 2">
+      <p>
+        <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+        {{item.email}}
+      </p>
+    </div>
 
-<div class="row" *ngFor=" let item of emailList; let i=index">
-  <div class="col-md-11" *ngIf="item.status != 2">
-    <p>
-      <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
-      {{item.email}}
-    </p>
+    <div class="col-md-1 text-right nopadding" *ngIf="item.status != 2" style="margin: 0 0 0 -15px;">
+      <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeEmail(i)"></span>
+    </div>
+
   </div>
-
-  <div class="col-md-1 text-right nopadding" *ngIf="item.status != 2" style="margin: 0 0 0 -10px;">
-    <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeEmail(i)"></span>
-  </div>
-
 </div>

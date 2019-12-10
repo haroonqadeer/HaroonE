@@ -21,7 +21,9 @@ import { ToastrManager } from "ng6-toastr-notifications";
   styleUrls: ["./config-address.component.scss"]
 })
 export class ConfigAddressComponent implements OnInit {
-  serverUrl = "http://localhost:5000/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
+
+  // serverUrl = "http://localhost:5000/";
   tokenKey = "token";
 
   httpOptions = {

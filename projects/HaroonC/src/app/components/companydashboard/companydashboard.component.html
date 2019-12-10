@@ -5,26 +5,27 @@
       <h5>ORGANIZATION HIERARCHY</h5>
     </div>
   </div>
-    <!-- Company row -->
-    <div class="row" style="border-bottom: 1px solid#FAFAFA;;">
-        <div class="col-md-3 my-form">
-            <mat-form-field class="fullwidth my-form" style="margin-bottom: -1.25em;">
-                <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" (ngModelChange)="getChartData($event)" required>
-                    <mat-option *ngFor=" let item of company" [value]="item.companyId">
-                        {{item.companyName}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+  <!-- Company row -->
+  <div class="row" style="border-bottom: 1px solid#FAFAFA;">
+    <div class="col-md-3 my-form">
+      <mat-form-field class="fullwidth my-form" style="margin-bottom: -1.25em;">
+        <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" (ngModelChange)="getChartData($event)"
+          required>
+          <mat-option *ngFor=" let item of company" [value]="item.companyId">
+            {{item.companyName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
+  </div>
 
   <div class="row">
     <div class="col-md-12">
-      <div style="background-color: #0b133a;">
+      <div style="background-color: #0b133a;height: 480px;width: 1325px;overflow-x: scroll;overflow-y: scroll;">
         <br /><br />
         <!--ngprime organizational chart-->
         <p-organizationChart [value]="data1" selectionMode="single" styleClass="company">
-          <ng-template let-node pTemplate="person" >
+          <ng-template let-node pTemplate="person">
             <div class="node-header ui-corner-top">{{node.label}}</div>
             <div class="node-content">
               <div>{{node.data.name}}</div>

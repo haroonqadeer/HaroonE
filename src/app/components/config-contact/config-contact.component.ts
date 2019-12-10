@@ -1,5 +1,15 @@
-import {Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from "@angular/core";
-import {HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  ViewChild,
+  ElementRef
+} from "@angular/core";
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse
+} from "@angular/common/http";
 import { throwError } from "rxjs";
 import { catchError, filter } from "rxjs/operators";
 import { FormGroup, FormBuilder, Validators, FormArray } from "@angular/forms";
@@ -11,7 +21,8 @@ import { ToastrManager } from "ng6-toastr-notifications";
   styleUrls: ["./config-contact.component.scss"]
 })
 export class ConfigContactComponent implements OnInit {
-  serverUrl = "http://localhost:5000/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
+  // serverUrl = "http://localhost:5000/";
   tokenKey = "token";
 
   httpOptions = {
@@ -26,10 +37,7 @@ export class ConfigContactComponent implements OnInit {
   contactNumber = "";
   emailAdrs = "";
 
-  constructor(
-    private toastr: ToastrManager,
-    private http: HttpClient
-  ) {}
+  constructor(private toastr: ToastrManager, private http: HttpClient) {}
 
   ngOnInit() {
     this.getContactType();

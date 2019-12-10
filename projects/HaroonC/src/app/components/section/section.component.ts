@@ -37,8 +37,8 @@ declare var $: any;
   styleUrls: ["./section.component.scss"]
 })
 export class SectionComponent implements OnInit {
-  //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9042/";
-  serverUrl = "http://localhost:7003/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9042/";
+  // serverUrl = "http://localhost:7003/";
   tokenKey = "token";
 
   httpOptions = {
@@ -339,21 +339,18 @@ export class SectionComponent implements OnInit {
     }
   }
 
-	//******************** clear the input fields
-	clear() {
-    
-		this.sectionId = "";
-		this.departmentId = 0;
-		this.ddlCompany = "0";
-		this.sectionName = "";
+  //******************** clear the input fields
+  clear() {
+    this.sectionId = "";
+    this.departmentId = 0;
+    this.ddlCompany = "0";
+    this.sectionName = "";
 
     this.resetList(0);
-    
-	}
+  }
 
   //******************** reset branchs list
   resetList(department) {
-    
     for (var i = 0; i < this.branchList.length; i++) {
       this.branchList[i].status = 0;
     }
@@ -364,7 +361,6 @@ export class SectionComponent implements OnInit {
     for (var i = 0; i < tempList.length; i++) {
       this.locationList.push(tempList[i]);
     }
-
   }
 
   //******************** change branch status (checked or not)
@@ -412,13 +408,13 @@ export class SectionComponent implements OnInit {
     }
 
     this.editSelectedBranchsList(item.sectCd, item.deptCd);
-
   }
 
   //******************** extracting selected branches
   editSelectedBranchsList(section, department) {
-
-    var tempList = this.departmentDetailsList.filter(x => x.sectCd == section && x.deptCd == department);
+    var tempList = this.departmentDetailsList.filter(
+      x => x.sectCd == section && x.deptCd == department
+    );
 
     for (var i = 0; i < tempList.length; i++) {
       for (var j = 0; j < this.locationList.length; j++) {
