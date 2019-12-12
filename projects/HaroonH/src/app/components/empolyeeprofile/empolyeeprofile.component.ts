@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { 
+    Component, 
+    ViewChild, 
+    OnInit, 
+    ViewEncapsulation,
+    EventEmitter,
+    Output } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { ToastrManager } from 'ng6-toastr-notifications';
@@ -8,6 +14,9 @@ import { AppComponent } from 'src/app/app.component';
 import { jsonpCallbackContext } from '@angular/common/http/src/module';
 import { TTBody } from 'primeng/treetable';
 
+import { ConfigAddressComponent } from "src/app/components/config-address/config-address.component";
+import { ConfigContactComponent } from "src/app/components/config-contact/config-contact.component";
+
 declare var $: any;
 
 @Component({
@@ -16,7 +25,10 @@ declare var $: any;
     styleUrls: ['./empolyeeprofile.component.scss']
 })
 export class EmpolyeeprofileComponent implements OnInit {
-
+    @ViewChild(ConfigAddressComponent) shrd_adrs: ConfigAddressComponent;
+    @ViewChild(ConfigContactComponent) shrd_cntct: ConfigContactComponent;
+    
+    @Output() myEvent = new EventEmitter();  
     //serverUrl = "http://localhost:9026/";
     serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
 
@@ -147,6 +159,17 @@ export class EmpolyeeprofileComponent implements OnInit {
     religion;
 
 
+    branch = '';
+    department = '';
+    section = '';
+    jobPost = '';
+    jobType = '';
+    
+    branchList =[];
+    deptList =[];
+    sectList =[];
+    postList =[];
+    jobTypeList =[];
     //* tab 2 ngModels
     lblJobTitle;
     lblBPS;
@@ -186,8 +209,10 @@ export class EmpolyeeprofileComponent implements OnInit {
     orgStartDate;
     orgEndDate;
     ddlExperience;
-
-
+    appliedDate = '';
+    joiningDate = '';
+    renewalFrom = '';
+    contractEnd = '';
 
     
     txtdPassword = '';
@@ -196,24 +221,25 @@ export class EmpolyeeprofileComponent implements OnInit {
     constructor(
         private toastr: ToastrManager,
         private http: HttpClient,
+        private fb: FormBuilder,
         private app: AppComponent
     ) { }
 
     ngOnInit() {
 
-        this.getEmployee();
-        this.getJobProfile();
-        this.getOrganitzion();
-        this.getQualificationCriteria();
-        this.getEmpApprovedFacility();
+        // this.getEmployee();
+        // this.getJobProfile();
+        // this.getOrganitzion();
+        // this.getQualificationCriteria();
+        // this.getEmpApprovedFacility();
 
-        this.getAddressTypes();
-        this.getCountry();
-        this.getProvince();
-        this.getDistrict();
-        this.getCity();
-        this.getContactTypes();
-        this.getEmailTypes();
+        // this.getAddressTypes();
+        // this.getCountry();
+        // this.getProvince();
+        // this.getDistrict();
+        // this.getCity();
+        // this.getContactTypes();
+        // this.getEmailTypes();
         
         this.midName = "";
     }

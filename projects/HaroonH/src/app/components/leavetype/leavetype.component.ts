@@ -23,7 +23,7 @@ declare var $: any;
 export class LeavetypeComponent implements OnInit {
 
     //serverUrl = "http://localhost:9012/";
-    serverUrl = "http://52.163.189.189:9012/";
+    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9012/";
 
     tokenKey = "token";
 
@@ -39,6 +39,7 @@ export class LeavetypeComponent implements OnInit {
     excelDataListNature = [];
 
     leaveTypeList = [];
+    typeList = [];
     leaveNatureList = [];
 
 
@@ -59,6 +60,8 @@ export class LeavetypeComponent implements OnInit {
     leaveTypeId = '';
     leaveType = '';
     leaveDescription = '';
+    noOfLeave = '';
+    appliedFrom = '';
 
     leaveNatureId = '';
     leaveNature = '';
@@ -121,7 +124,7 @@ export class LeavetypeComponent implements OnInit {
 
 
     //Function for save and update leave Type 
-    saveLeaveType() {
+    save() {
         if (this.leaveType.trim() == '') {
             this.toastr.errorToastr('Please enter leave type', 'Error', { toastTimeout: (2500) });
             return false;

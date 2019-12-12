@@ -1,657 +1,463 @@
+<br />
+<!-- start menubar buttons -->
 <div class="myContainer mat-elevation-z8 bgWhite">
+  <!--start top nav box shadow div-->
+  <div class="topnav boxShadow">
+    <!-- start heading & logo div-->
+    <div>
 
-    <!-- start menubar buttons -->
-    <div class="topnav boxShadow">
-      <div>
-        <!--class="container" -->
-        <span class="fa iconContainer">
-          <span class="fa icon-hr-employeeprofile" > </span>
-        </span>
-        <h1> Employee Profile</h1>
-  
-        <!-- (click)="downloadExcel()" -->
-        <a class="pointerCursor">
-          <i class="fa fa-file-excel-o"></i>
-          Excel
-        </a>
-  
-        <!-- (click)="downloadCSV()" -->
-        <a class="pointerCursor">
-          <i class="fa fa-file-text-o"></i>
-          CSV
-        </a>
-  
-        <!-- (click)="downPDF()" -->
-        <a class="pointerCursor">
-          <i class="fa fa-file-pdf-o"></i>
-          PDF
-        </a>
-  
-        <!-- (click)="printDiv()" -->
-        <a class="pointerCursor">
-          <i class="fa fa-print"></i>
-          Print
-        </a>
-  
-        <!-- <a class="pointerCursor" data-toggle="modal" data-target="#profileModal" (click)="clear()">
-          <i class="fa fa-plus-square"></i>
-          Add New
-        </a> -->
-  
-      </div>
+      <span class="fa iconContainer">
+        <span class="fa icon-u-userprole"></span>
+      </span>
+      <h1> Employee Information</h1>
+
+      <!--start add role permission button-->
+      <a class="pointerCursor" data-toggle="modal" data-target="#employeeModal">
+        <i class="fa fa-plus-circle"></i>
+        ADD EMPLOYEE
+      </a>
+      <!--end add role permission button-->
     </div>
-    <!-- end menubar buttons -->
+    <!-- end heading & logo div-->
+  </div>
+  <!--end top nav box shadow div-->
 </div>
+<!-- end menubar buttons -->
 
-<div class='container-fluid bottomBorder bgWhite'>
-  <!--Start search textbox Row-->
+<!--start myContainer div-->
+<div class="myContainer">
+  <!--Start 1st Row-->
   <div class="row">
+    <!--start search textbox column-->
     <div class="col-md-12">
-      <div class="searchBar">
+      <div class="searchBar border-bottom">
         <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search"
+          [(ngModel)]="tblSearch">
       </div>
     </div>
+    <!--end search textbox column-->
   </div>
-  <!--end search textbox Row-->
-
-  <!--start table row-->
-  <div class="example-container">
-    <div class="example-table-container">
-      <table class="table table-striped bottomBorder">
-        <thead>
-          <tr class='d-flex'>
-            <th class='col-1 text-center'>Sr #</th>
-            <th class='col-3' [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')">
-              Employee Name
-              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-            </th>
-
-            <th class='col-3' [class.active]="order === 'jobDesigName'" (click)="setOrder('jobDesigName')">
-              Job Profile
-              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-            </th>
-
-            <th class='col-2' [class.active]="order === 'locationName'" (click)="setOrder('locationName')">
-              Office
-              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-            </th>
-
-            <th class='col-2' [class.active]="order === 'deptName'" (click)="setOrder('deptName')">
-              Department
-              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-            </th>
-
-            <th class='col-1 text-center'>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of employeeListMain | search:'indvdlFullName,jobDesigName,locationName,deptName': tblSearch | paginate: {
-            itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index" class='d-flex'>
-            <td class='col-1 text-center'>{{i + 1}}</td>
-            <td class='col-3'>{{item.indvdlFullName}}</td>
-            <td class='col-3'>{{item.jobDesigName}}</td>
-            <td class='col-2'>{{item.locationName}}</td>
-            <td class='col-2'>{{item.deptName}}</td>
-            <td class='col-1 text-center'>
-              <span class="fa fa-edit pointerCursor text-primary" data-toggle="modal" data-target="#employeeModal" (click)="edit(item)"></span>
-              <!-- &nbsp;&nbsp;&nbsp;
-              <span class="fa fa-trash pointerCursor text-danger"></span> -->
-            </td>
-          </tr>
-
-
-        </tbody>
-      </table>
-    </div>
-
-    <div class="row">
-      <div class="col-md-11">
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-      </div>
-      <div class="col-md-1">
-        <mat-form-field class="fullwidth pagenateList">
-          <mat-select placeholder="Items Per Page" [(ngModel)]="itemPerPage">
-            <mat-option value="10">10</mat-option>
-            <mat-option value="15">15</mat-option>
-            <mat-option value="20">20</mat-option>
-            <mat-option value="25">25</mat-option>
-            <mat-option value="30">30</mat-option>
-            <mat-option value="35">35</mat-option>
-            <mat-option value="40">40</mat-option>
-            <mat-option value="45">45</mat-option>
-            <mat-option value="50">50</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-
-  </div>
-  <!--end table row-->
-</div>
-<!--end container -->
-  
-  
-  <br/>
-  
-  
-  
-  <!-- Start Modal Window -->
-  <div class="modal fade" id="employeeModal">
-    <div class="modal-dialog shadow-lg-dark modal-xl">
-      <div class="modal-content">
-  
-        <!--start Modal Header -->
-        <div class="modal-header">
-            <h4 class="modal-title">Employee Information</h4>
-            <div>
-                <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+  <!--end 1st Row-->
+  <br />
+  <div class="row">
+    <div class="col-md-3">
+      <mat-card class="allBorder" style="border-radius: 0;">
+        <div class="row">
+          <div class="col-md-7">
+            <label style="font-weight: bold;">Alia Khan</label>
+            Accountant
+            <div class="row">
+              <div class="col-md-4">
+                <label>Finance</label>
+              </div>
+              <div class="col-md-8">
+                <label class="border-left">G-10 Branch</label>
+              </div>
             </div>
+            <div class="row" style="margin-top: -10px;">
+              <div class="col-md-12">
+                <label>Joining:Jan 20, 2010</label>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-md-6">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
+                  <span class="fa icon-u-edit"></span>
+                </span>
+              </div>
+              <div class="col-md-6">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
+                  <span class="fa icon-u-delete"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <br />
+            <img src="../assets/images/Profile-Female.jpg" alt="" height="130px">
+          </div>
         </div>
-        <!--end Modal Header -->
-  
-        <!--start Modal body -->
-        <div class="modal-body" style="overflow-y: hidden; overflow-x: hidden;">
-  
-  
-          <!--Start Tabs  -->
+      </mat-card>
+    </div>
+    <div class="col-md-3">
+      <mat-card class="allBorder" style="border-radius: 0;">
+        <div class="row">
+          <div class="col-md-7">
+            <label style="font-weight: bold;">Alia Khan</label>
+            Accountant
+            <div class="row">
+              <div class="col-md-4">
+                <label>Finance</label>
+              </div>
+              <div class="col-md-8">
+                <label class="border-left">G-10 Branch</label>
+              </div>
+            </div>
+            <div class="row" style="margin-top: -10px;">
+              <div class="col-md-12">
+                <label>Joining:Jan 20, 2010</label>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-md-6">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
+                  <span class="fa icon-u-edit"></span>
+                </span>
+              </div>
+              <div class="col-md-6">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
+                  <span class="fa icon-u-delete"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <br />
+            <img src="../assets/images/Profile-Male.jpg" alt="" height="130px">
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-md-3">
+      <mat-card class="allBorder" style="border-radius: 0;">
+        <div class="row">
+          <div class="col-md-7">
+            <label style="font-weight: bold;">Alia Khan</label>
+            Accountant
+            <div class="row">
+              <div class="col-md-4">
+                <label>Finance</label>
+              </div>
+              <div class="col-md-8">
+                <label class="border-left">G-10 Branch</label>
+              </div>
+            </div>
+            <div class="row" style="margin-top: -10px;">
+              <div class="col-md-12">
+                <label>Joining:Jan 20, 2010</label>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-md-6">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
+                  <span class="fa icon-u-edit"></span>
+                </span>
+              </div>
+              <div class="col-md-6">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
+                  <span class="fa icon-u-delete"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <br />
+            <img src="../assets/images/Profile-Female.jpg" alt="" height="130px"></div>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-md-3">
+      <mat-card class="allBorder" style="border-radius: 0;">
+        <div class="row">
+          <div class="col-md-7">
+            <label style="font-weight: bold;">Alia Khan</label>
+            Accountant
+            <div class="row">
+              <div class="col-md-4">
+                <label>Finance</label>
+              </div>
+              <div class="col-md-8">
+                <label class="border-left">G-10 Branch</label>
+              </div>
+            </div>
+            <div class="row" style="margin-top: -10px;">
+              <div class="col-md-12">
+                <label>Joining:Jan 20, 2010</label>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-md-6">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
+                  <span class="fa icon-u-edit"></span>
+                </span>
+              </div>
+              <div class="col-md-6">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
+                  <span class="fa icon-u-delete"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <br />
+            <img src="../assets/images/Profile-Male.jpg" alt="" height="130px"></div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<!--end myContainer div-->
+
+<br />
+
+
+
+<!-- Start Modal Window -->
+<div class="modal fade" id="employeeModal">
+  <div class="modal-dialog shadow-lg-dark modal-xl">
+    <div class="modal-content">
+
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Employee</h4>
+        <div>
+          <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
+        </div>
+      </div>
+      <!--end Modal Header -->
+
+      <!--start Modal body -->
+      <div class="modal-body" style="overflow-y: hidden; overflow-x: hidden;">
+        <!-- <div class="allBorder">
           <mat-tab-group>
-            <!--start tab 1-->
-            <mat-tab label="Personal Detail" style="overflow-x: hidden; overflow-y: scroll; ">
-  
-              <br/>
-              <!--start heading-->
-              <!-- <h5>Personal Detail</h5>
-              <hr> -->
-              <!--end heading-->
-  
+            <mat-tab label="PERSSONAL DETAILS"></mat-tab>
+            <mat-tab label="JOB PROFILE"></mat-tab>
+            <mat-tab label="FACILITIES"></mat-tab>
+            <mat-tab label="QUALIFICAITON"></mat-tab>
+            <mat-tab label="SKILLS"></mat-tab>
+            <mat-tab label="EXPERIENCE"></mat-tab>
+          </mat-tab-group>
+        </div> -->
+
+        <!--Start Tabs  -->
+        <mat-tab-group>
+          <!--start tab 1-->
+          <mat-tab label="PERSONAL DETAILS">
+            <div style="background-color: #11193d; overflow: hidden !important;">
+              <br />
+              <div class="row">
+                <div class="offset-md-1 col-md-6">
+                  <label style="font-size: 15px; color: #5f84d4;">
+                    Tip: Save Personal Details before moving to next tab
+                  </label>
+                </div>
+                <div class="col-md-2">
+                  <button mat-raised-button class="btn fullwidth" (click)="clear()"
+                    style="border-radius: 0;">&nbsp;&nbsp;RESET&nbsp;&nbsp;</button>
+                </div>
+                <div class="col-md-2">
+                  <button mat-raised-button class="btn fullwidth" (click)="updateEmpPersonalInfo()"
+                    style="border-radius: 0;">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
+                </div>
+              </div>
+            </div>
+            <div class="bgWhite">
               <!-- start row 1-->
               <div class="row tab-margin">
-                <div class="col-md-6">
+                <div class="col-md-5">
                   <mat-form-field class="fullwidth">
-                    <input matInput placeholder="First Name" [(ngModel)]="firstName" (keydown)="generateFullName()" (keyup)="generateFullName()" >
+                    <input matInput placeholder="First Name*" [(ngModel)]="firstName" (keydown)="generateFullName()"
+                      (keyup)="generateFullName()">
                   </mat-form-field>
                 </div>
-  
-                <div class="col-md-6">
+
+                <div class="offset-md-2 col-md-5">
                   <mat-form-field class="fullwidth">
-                    <input matInput placeholder="Mid Name" [(ngModel)]="midName" (keydown)="generateFullName()" (keyup)="generateFullName()">
+                    <input matInput placeholder="Middle Name" [(ngModel)]="midName" (keydown)="generateFullName()"
+                      (keyup)="generateFullName()">
                   </mat-form-field>
                 </div>
               </div>
               <!-- end row 1-->
-  
-  
-  
+
               <!-- start row 2-->
               <div class="row tab-margin">
-                <div class="col-md-6">
+                <div class="col-md-5">
                   <mat-form-field class="fullwidth">
-                    <input matInput placeholder="Last Name" [(ngModel)]="lastName" (keydown)="generateFullName()" (keyup)="generateFullName()">
+                    <input matInput placeholder="Last Name*" [(ngModel)]="lastName" (keydown)="generateFullName()"
+                      (keyup)="generateFullName()">
                   </mat-form-field>
                 </div>
-  
-                <div class="col-md-6">
-                  <mat-form-field class="fullwidth">
-                    <input matInput placeholder="Full Name" [(ngModel)]="fullName" disabled>
-                  </mat-form-field>
-                </div>
-              </div>
-              <!-- end row 2-->
-  
-  
-  
-              <!-- start row 3-->
-              <div class="row tab-margin">
-                <div class="col-md-6">
-                  <mat-form-field class="fullwidth">
-                    <input matInput placeholder="Father/Husband Name" [(ngModel)]="fhName">
-                  </mat-form-field>
-                </div>
-  
-                <div class="col-md-6">
+
+                <div class="offset-md-2 col-md-5">
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="CNIC" [(ngModel)]="CNIC" mask="00000-0000000-0">
                   </mat-form-field>
                 </div>
               </div>
-              <!-- end row 3-->
-  
-  
-  
-              <!-- start row 4-->
+              <!-- end row 2-->
+
               <div class="row tab-margin">
-                <!-- <div class="col-md-6">
-                  <mat-form-field>
-                    <mat-select placeholder="Domicile">
-                      <mat-option value="1">Yes</mat-option>
-                      <mat-option value="2">No</mat-option>
+                <div class="col-md-5">
+                  <!-- <app-config-contact></app-config-contact> -->
+                  <!-- <app-config-address></app-config-address> -->
+                </div>
+                <div class="offset-md-2 col-md-5"></div>
+              </div>
+            </div>
+            <!--start heading-->
+
+          </mat-tab>
+          <!--end tab 1-->
+
+          <!--start tab 2 ---------------------------------------------------------- -->
+          <mat-tab label="JOB PROFILE">
+            <div style="background-color: #11193d; overflow: hidden !important;">
+              <br />
+              <div class="row">
+                <div class="offset-md-1 col-md-6">
+                  <label style="font-size: 15px; color: #5f84d4;">
+                    Tip: Save before moving to next tab
+                  </label>
+                </div>
+                <div class="col-md-2">
+                  <button mat-raised-button class="btn fullwidth" (click)="clear()"
+                    style="border-radius: 0;">&nbsp;&nbsp;RESET&nbsp;&nbsp;</button>
+                </div>
+                <div class="col-md-2">
+                  <button mat-raised-button class="btn fullwidth" (click)="updateEmpPersonalInfo()"
+                    style="border-radius: 0;">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
+                </div>
+              </div>
+            </div>
+            <div class="bgWhite">
+              <div class="row tab-margin">
+                <div class="col-md-5">
+                  <mat-form-field class="fullwidth">
+                    <mat-select placeholder="Branch" [(ngModel)]="branch">
+                      <mat-option *ngFor="let item of branchList" [value]="item.locationCd">
+                        {{item.locationName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
-                </div> -->
-  
-                <!-- <div class="col-md-6">
-                  <mat-form-field>
-                    <input matInput placeholder="Religion" [(ngModel)]="religion">
+                </div>
+                <div class="offset-md-2 col-md-5">
+                  <mat-form-field class="fullwidth">
+                    <mat-select placeholder="Department" [(ngModel)]="department">
+                      <mat-option *ngFor="let item of deptList" [value]="item.deptCd">
+                        {{item.deptName}}
+                      </mat-option>
+                    </mat-select>
                   </mat-form-field>
-                </div> -->
-              </div>
-              <!-- end row 4-->
-  
-  
-  
-              <!-- *________________Start Add Address Detail_____________________ -->
-              <div class="tab-margin">              
-                
-                <hr>
-                <div class="row">
-                  <div class="col-md-12">
-                    <h6><b>Address Info</b></h6>
-                  </div>
                 </div>
-                
-                <div *ngFor="let item of addressDetail; let i=index" >
-                  <!-- <div class="row" style="border: 1px solid blue;"> -->
-                    <table class="fullwidth" *ngIf="item.IDelFlag == 0">
-                      <tr>
-  
-                        <!--address type combo box-->
-                        <td style="padding:0 15px 0 15px; width: 300px">
-                          <p-dropdown appendTo="body" [options]="addressType" filter="true" [(ngModel)]="item.addressType" placeholder="Address Type" [style]="{'width':'100%'}">
-                            <ng-template let-itm pTemplate="item">
-                              <div style="position: relative;height: 25px;">
-                                <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                              </div>
-                            </ng-template>
-                          </p-dropdown>
-  
-                        </td>
-  
-                        <!--address text box-->
-                        <td colspan="3">
-                          <input class="fullwidth" type="text" pInputText [(ngModel)]="item.address" placeholder="Address">
-                        </td>
-  
-                        <td rowspan="2" style="padding:0 0 5px 15px; width: 55px;">
-                          <button mat-fab color="warn" (click)="removeAddress(i)">
-                            <span class="fa fa-minus"></span>
-                          </button>
-                        </td>
-  
-                      </tr>
-  
-                      <!-- Country Province City District -->
-                      <tr>
-                        <!-- Country -->
-                        <td style="padding:8px 15px 8px 15px;">
-                          <p-dropdown appendTo="body" [options]="countryListForAddress" filter="true" [(ngModel)]="item.countryCode" placeholder="Select Country" [style]="{'width':'100%'}">
-                            <ng-template let-itm pTemplate="item">
-                              <div style="position: relative;height: 25px;">
-                                <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                              </div>
-                            </ng-template>
-                          </p-dropdown>
-                        </td>
-  
-                        <!-- Province -->
-                        <td>
-                          <p-dropdown appendTo="body" [options]="provinceList" filter="true" [(ngModel)]="item.provinceCode" placeholder="Select Province" [style]="{'width':'100%'}">
-                            <ng-template let-itm pTemplate="item">
-                              <div style="position: relative;height: 25px;">
-                                <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                              </div>
-                            </ng-template>
-                          </p-dropdown>
-                        </td>
-  
-                        <!-- District -->
-                        <td>
-                          <p-dropdown appendTo="body" [options]="districtList" filter="true" [(ngModel)]="item.districtCode" placeholder="Select District" [style]="{'width':'100%'}">
-                            <ng-template let-itm pTemplate="item">
-                              <div style="position: relative;height: 25px;">
-                                <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                              </div>
-                            </ng-template>
-                          </p-dropdown>
-                        </td>
-  
-                        <!-- City -->
-                        <td>
-                          <p-dropdown appendTo="body" [options]="cityList" filter="true" [(ngModel)]="item.cityCode" placeholder="Select City" [style]="{'width':'100%'}">
-                            <ng-template let-itm pTemplate="item">
-                              <div style="position: relative;height: 25px;">
-                                <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                              </div>
-                            </ng-template>
-                          </p-dropdown>
-                        </td>
-                      </tr>
-  
-                    </table>
-  
-                  <!-- </div> -->
-                </div>
-  
-  
-                <!--Add more Contact button-->
-                <!-- <div class="row" style="border: 1px solid blue;">
-                  <div class="col-md-3" style="border: 1px solid blue;"> -->
-                    <button mat-fab color="primary" (click)="addAddress()">
-                      <span class="fa fa-plus"></span>
-                    </button>
-                  <!-- </div>
-                </div> -->
-                <br />
               </div>
-              <!-- *________________End Add Address Detail_____________________ -->
-  
-  
-  
-              <!-- *________________Start Add Contacts Detail_____________________ -->
-              <div class="tab-margin">
-                
-                <hr>
-
+              <div class="row tab-margin">
+                <div class="col-md-5">
+                  <mat-form-field class="fullwidth">
+                    <mat-select placeholder="Section" [(ngModel)]="section">
+                      <mat-option *ngFor="let item of sectList" [value]="item.deptCd">
+                        {{item.deptName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="offset-md-2 col-md-5">
+                  <mat-form-field class="fullwidth">
+                    <mat-select placeholder="Job Post" [(ngModel)]="jobPost">
+                      <mat-option *ngFor="let item of postList" [value]="item.jobPostCd">
+                        {{item.jobPostName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row tab-margin">
+                <div class="col-md-5">
                   <div class="row">
-                    <div class="col-md-12">
-                      <h6><b>Contact Info</b></h6>
+                    <div class="col-md-8">
+                      <label style="font-weight: bold;">Designation</label>
+                    </div>
+                    <div class="col-md-4">
+                      <label style="font-weight: bold;">Pay Scale</label>
                     </div>
                   </div>
-  
-                  <div *ngFor="let item of contactDetail; let i=index">
-                    <!-- <div class="row"> -->
-                      <table class="fullwidth">
-                        <tr>
-  
-                          <!--contact type text box-->
-                          <td style="padding:0 15px 0 15px; width: 300px">
-                            <p-dropdown appendTo="body" [options]="contactType" filter="true" [(ngModel)]="item.contactType" placeholder="Contact Type" [style]="{'width':'100%'}">
-                              <ng-template let-itm pTemplate="item">
-                                <div style="position: relative;height: 25px;">
-                                  <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                                </div>
-                              </ng-template>
-                            </p-dropdown>
-  
-                          </td>
-  
-                          <!-- Country code combo box-->
-                          <td style="border: 0px solid red;">
-  
-                            <p-dropdown appendTo="body" [options]="countryList" filter="true" [(ngModel)]="item.countryCode" placeholder="Country Code" [style]="{'width':'100%'}">
-                              <ng-template let-code pTemplate="item">
-                                <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
-                                  <div style="font-size:14px;float:left;margin-top:4px">{{code.label}}</div>
-                                </div>
-                              </ng-template>
-                            </p-dropdown>
-  
-                          </td>
-  
-                          <!--Contact code combobox -->
-                          <td colspan="2" style="border: 0px solid red;">
-                            <input type="text" pInputText [(ngModel)]="item.contactNumber" placeholder="Number" mask="0000000000" class="fullwidth">
-                          </td>
-                          <!-- <td colspan="2" style="border: 0px solid red; width: 150px;" *ngIf="item.areaCode">
-                            <input type="text" pInputText [(ngModel)]="item.contactNumber" placeholder="Number"
-                              mask="00-0000000" style="width: 100%">
-                          </td>
-  
-                          <td colspan="2" style="border: 0px solid red; width: 150px;" *ngIf="item.mobileCode">
-                            <input type="text" pInputText [(ngModel)]="item.mobileNumber" placeholder="Number"
-                              mask="000-0000000" style="width: 100%">
-                          </td> -->
-  
-                          <!--Remove button -->
-                          <td style="border: 0px solid red; padding:0 0 5px 15px; width: 55px;">
-                            <button mat-fab color="warn" (click)="removeContact(i)">
-                              <span class="fa fa-minus"></span>
-                            </button>
-                          </td>
-  
-  
-                        </tr>
-                      </table>
-  
-                    <!-- </div> -->
-                  </div>
-  
-                  <!--Add more Contact button-->
-                  <!-- <div class="row">
-                    <div class="col-md-3"> -->
-                      <button mat-fab color="primary" (click)="addContact()">
-                        <span class="fa fa-plus"></span>
-                      </button>
-                    <!-- </div>
-                  </div> -->
-                  <br />
+                </div>
+                <div class="offset-md-2 col-md-5">
+                  <mat-form-field class="fullwidth">
+                    <mat-select placeholder="Job Type" [(ngModel)]="jobType">
+                      <mat-option *ngFor="let item of jobTypeList" [value]="item.jobTypeCd">
+                        {{item.jobTypeName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
-              <!-- *________________End Add Contacts Detail_____________________ -->
-  
-  
-  
-              <!-- *________________Start Add Email Detail_____________________ -->
-              <div class="tab-margin">
-                
-                <hr>
-
-                <div class="row">
-                  <div class="col-md-12">
-                    <h6><b>Email Info</b></h6>
+              <div class="row tab-margin">
+                <div class="col-md-5">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput [matDatepicker]="picker" placeholder="Applied Date" [(ngModel)]="appliedDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput [matDatepicker]="picker1" placeholder="Joining Date*" [(ngModel)]="joiningDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                    </div>
                   </div>
                 </div>
-  
-  
-                <div *ngFor="let item of emailDetail; let i=index">
-                  <!-- <div class="row"> -->
-                    <table class="fullwidth">
-                      <tr>
-  
-                        <!--address type combo box-->
-                        <td style="padding:0 15px 0 15px; width: 300px;">
-                          <p-dropdown appendTo="body" [options]="emailType" filter="true" [(ngModel)]="item.type" placeholder="Email Type" [style]="{'width':'100%'}">
-                            <ng-template let-itm pTemplate="item">
-                              <div style="position: relative;height: 25px;">
-                                <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                              </div>
-                            </ng-template>
-                          </p-dropdown>
-  
-                        </td>
-  
-                        <!--address text box-->
-                        <td>
-                          <!-- [showMaskTyped]="true" required -->
-                          <input class="fullwidth" type="text" pInputText [(ngModel)]="item.email" placeholder="Email">
-                        </td>
-  
-                        <td style="border: 0px solid red; padding:0 0 5px 15px; width: 55px;">
-                          <button mat-fab color="warn" (click)="removeEmail(i)">
-                            <span class="fa fa-minus"></span>
-                          </button>
-                        </td>
-  
-                      </tr>
-                    </table>
-  
-                  <!-- </div> -->
-                  <!-- Contact Table Ends -->
-  
-                  <!-- Contact Number Section Ends -->
-  
-                </div>
-  
-                <!--Add more email button-->
-                <div class="row">
-                  <div class="col-md-3">
-                    <button mat-fab color="primary" (click)="addEmail()">
-                      <span class="fa fa-plus"></span>
-                    </button>
+                <div class="offset-md-2 col-md-5">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput [matDatepicker]="picker2" placeholder="Renewal From" [(ngModel)]="renewalFrom">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="fullwidth">
+                        <input matInput [matDatepicker]="picker3" placeholder="Contract Ending On"
+                          [(ngModel)]="contractEnd">
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
+                      </mat-form-field>
+                    </div>
                   </div>
                 </div>
               </div>
-              <!-- *________________End Add Email Detail_____________________ -->
-  
-              <br>
-              <hr>
-              
-              <!-- start row 9-->
-              <div class="row">
-                <div class="offset-md-10 col-md-2">
-                  <button class='fullwidth' mat-raised-button color="primary" (click)="updateEmpPersonalInfo()" > Save </button>
-                </div>
-              </div>
-              <!-- end row 9-->
-  
-  
-            </mat-tab>
-            <!--end tab 1-->
-  
-  
-            <!--start tab 2 ---------------------------------------------------------- -->
-            <mat-tab label="Job Profile">
-  
-              <br/>
-              <!--start heading-->
-              <!-- <h5>Job Profile</h5>
+            </div>
+            <!--start heading-->
+            <!-- <h5>Job Profile</h5>
               <hr> -->
-              <!--end heading-->
-  
-              <!--start row 1-->
-              <div class="row" style="display: none;">
-                <div class="col-md-6">
-                  <p-dropdown appendTo="body" [options]="jobProfileList" [(ngModel)]="ddlJobProfile" (onChange)="getFilterItem('jobs')" placeholder="Job Title" filter="true" [style]="{'width':'100%'}">
-                      <ng-template let-itm pTemplate="item">
-                        <div style="position: relative;height: 25px; z-index: 100;">
-                          <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                        </div>
-                      </ng-template>
-                    </p-dropdown>
-                </div>
-  
-              </div>
-              <!-- end row 1-->
-  
-              <br/>
-  
-              <!--start row 2-->
-              <div class="row">
-                <div class="col-md-3">
-                  Job Title
-                </div>
-  
-                <div class="col-md-3 bgWhiteGrey allBorder">
-                  {{lblJobTitle}}
-                </div>
-  
-                <div class="col-md-3 text-right">
-                  Scale
-                </div>
-  
-                <div class="col-md-3 bgWhiteGrey allBorder">
-                  {{lblBPS}}
-                </div>
-              </div>
-              <!-- end row 2-->
-  
-              <br/>
-  
-              <!--start row 3-->
-              <div class="row">
-                <div class="col-md-3">
-                  <b>Office</b>
-                </div>
-  
-                <div class="col-md-3 bgWhiteGrey allBorder">
-                  {{lblOffice}}
-                </div>
-  
-                <div class="col-md-3 text-right">
-                  Department
-                </div>
-  
-                <div class="col-md-3 bgWhiteGrey allBorder">
-                  {{lblDepartment}}
-                </div>
-              </div>
-              <!-- end row 3-->
-  
-              <br>
-              <!--start row 4-->
-              <div class="row">
-                <div class="col-md-3">
-                  
-                  Appointment Date
-                </div>
-  
-                <div class="col-md-3 bgWhiteGrey allBorder">                    
-                  {{lblAppointmentDate | date}}
-                </div>
-                
-                <div class="col-md-3 text-right">                  
-                  Joining Date
-                </div>
-                
-                <div class="col-md-3">                  
-                  <p-calendar [(ngModel)]="startDate" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
-                </div>
-              </div>
-              <!--end row 4-->
-              
-              <!--start row 5-->
-              <br/>
-              <div class="row">
-                <div class="col-md-3">
-                  <b>Job Type</b>
-                </div>
-  
-                <div class="col-md-3 bgWhiteGrey allBorder">
-                  {{lblJobType}}
-                </div>
-                
-                <div class="col-md-3 text-right" *ngIf="chkJobType">
-                  Retirement Date
-                </div>
+            <!--end heading-->
+          </mat-tab>
+          <!--start tab 2-->
 
-                <div class="col-md-3 bgWhiteGrey allBorder"  *ngIf="chkJobType">
-                  {{lblRetirementDate | date}}
-                </div>
-  
-                <!-- <div class="col-md-3">
-                  {{lblContract}}
-                </div> -->
-              </div>
-              <!--end row 5-->
-  
-              <br/>
-              <hr>
-              <!--start row 6-->
+          <!--start tab 3 ---------------------------------------------------------- -->
+          <mat-tab label="QUALIFICATION">
+            <div style="background-color: #11193d; overflow: hidden !important;">
+              <br />
               <div class="row">
-                <div class="offset-md-10 col-md-2">
-                  <button class='fullwidth' mat-raised-button color="primary" (click)="updateProfile()"> Update </button>
+                <div class="offset-md-1 col-md-6">
+                  <label style="font-size: 15px; color: #5f84d4;">
+                    Tip: Save before moving to next tab
+                  </label>
+                </div>
+                <div class="col-md-2">
+                  <button mat-raised-button class="btn fullwidth" (click)="clear()"
+                    style="border-radius: 0;">&nbsp;&nbsp;RESET&nbsp;&nbsp;</button>
+                </div>
+                <div class="col-md-2">
+                  <button mat-raised-button class="btn fullwidth" (click)="updateEmpPersonalInfo()"
+                    style="border-radius: 0;">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
                 </div>
               </div>
-              <!--end row 6-->
-            </mat-tab>
-            <!--start tab 2-->
-  
-  
-  
-            <!--start tab 3 ---------------------------------------------------------- -->
-            <mat-tab label="Qualification Detail">
-  
-              <br/>
-              <!--start heading-->
-              <!-- <h5>Qualification Detail</h5>
-              <hr> -->
-              <!--end heading-->
-  
+            </div>
+            <div class="bgWhite">
+
               <!--Start row 1-->
-              <div class="row">
+              <div class="row tab-margin">
                 <div class="col-md-12">
                   <!--start table row-->
                   <div class="example-container">
@@ -661,9 +467,8 @@
                           <tr class='d-flex'>
                             <th class='col-1 text-center'>Sr #</th>
                             <th class='col-2'>Degree Title</th>
-                            <th class='col-2'>Institute</th>
+                            <th class='col-4'>Institute</th>
                             <th class='col-2'>Passing Year</th>
-                            <th class='col-2'>Grade</th>
                             <th class='col-2'>Division</th>
                             <th class='col-1 text-center'>Action</th>
                           </tr>
@@ -672,18 +477,19 @@
                           <tr *ngFor="let item of empDegreeList; let i=index" class='d-flex'>
                             <td class='col-1 text-center'>{{i+1}}</td>
                             <td class='col-2'>{{item.qlfctnCriteriaName}}</td>
-                            <td class='col-2'>{{item.campusName}}</td>
+                            <td class='col-4'>{{item.campusName}}</td>
                             <td class='col-2'>{{item.pssngDt | date:'yyyy'}}</td>
-                            <td class='col-2'>{{item.grade}}</td>
                             <td class='col-2'>{{item.divIsion}}</td>
                             <td class='col-1 text-center'>
-                              <span class="fa fa-minus pointerCursor text-danger" (click)="removeQualification(i)"></span>
+                              <span class="fa fa-minus pointerCursor text-danger"
+                                (click)="removeQualification(i)"></span>
                             </td>
                           </tr>
-  
+
                           <tr class='d-flex'>
                             <td class='col-3'>
-                              <p-dropdown appendTo="body" [options]="degreeList" filter="true" [(ngModel)]="ddlDegree" (onChange)="getFilterItem('skill')" placeholder="Degree" [style]="{'width':'100%'}">
+                              <p-dropdown appendTo="body" [options]="degreeList" filter="true" [(ngModel)]="ddlDegree"
+                                (onChange)="getFilterItem('skill')" placeholder="Degree" [style]="{'width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -692,13 +498,16 @@
                               </p-dropdown>
                             </td>
                             <td class='col-2'>
-                              <input type="text" pInputText [(ngModel)]="empInstitute" class="fullwidth" placeholder="Institute">
+                              <input type="text" pInputText [(ngModel)]="empInstitute" class="fullwidth"
+                                placeholder="Institute">
                             </td>
                             <td class='col-2'>
-                              <p-calendar [(ngModel)]="empDegreeYear" placeholder="Passing Year" view="month" dateFormat="mm/yy" [inputStyle]="{'width':'100%'}"></p-calendar>
+                              <p-calendar [(ngModel)]="empDegreeYear" placeholder="Passing Year" view="month"
+                                dateFormat="mm/yy" [inputStyle]="{'width':'100%'}"></p-calendar>
                             </td>
                             <td class='col-2'>
-                              <p-dropdown appendTo="body" [options]="gradeList" filter="true" [(ngModel)]="ddlGrade" placeholder="Grade" [style]="{'min-width':'100%'}">
+                              <p-dropdown appendTo="body" [options]="gradeList" filter="true" [(ngModel)]="ddlGrade"
+                                placeholder="Grade" [style]="{'min-width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -707,7 +516,8 @@
                               </p-dropdown>
                             </td>
                             <td class='col-2'>
-                              <p-dropdown appendTo="body" [options]="divisionList" filter="true" [(ngModel)]="ddlDivision" placeholder="Division" [style]="{'min-width':'100%'}">
+                              <p-dropdown appendTo="body" [options]="divisionList" filter="true"
+                                [(ngModel)]="ddlDivision" placeholder="Division" [style]="{'min-width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -719,7 +529,7 @@
                               <span class="fa fa-plus pointerCursor text-primary" (click)="addQualification()"></span>
                             </td>
                           </tr>
-  
+
                         </tbody>
                       </table>
                     </div>
@@ -728,29 +538,34 @@
                 </div>
               </div>
               <!--end row 1-->
-  
-              <br>
-              <hr>
-              <!--start row 2-->
+              <br /><br />
+            </div>
+          </mat-tab>
+          <!--End tab 3-->
+
+
+          <!--start tab 4 ---------------------------------------------------------- -->
+          <mat-tab label="SKILLS">
+            <div style="background-color: #11193d; overflow: hidden !important;">
+              <br />
               <div class="row">
-                <div class="offset-md-10 col-md-2">                    
-                  <button class='fullwidth' mat-raised-button color="primary" (click)="updateQualification()"> Update </button>
+                <div class="offset-md-1 col-md-6">
+                  <label style="font-size: 15px; color: #5f84d4;">
+                    Tip: Save before moving to next tab
+                  </label>
+                </div>
+                <div class="col-md-2">
+                  <button mat-raised-button class="btn fullwidth" (click)="clear()"
+                    style="border-radius: 0;">&nbsp;&nbsp;RESET&nbsp;&nbsp;</button>
+                </div>
+                <div class="col-md-2">
+                  <button mat-raised-button class="btn fullwidth" (click)="updateEmpPersonalInfo()"
+                    style="border-radius: 0;">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
                 </div>
               </div>
-              <!--end row 2-->
-            </mat-tab>
-            <!--End tab 3-->
-  
-  
-            <!--start tab 4 ---------------------------------------------------------- -->
-            <mat-tab label="Skill Detial">
-  
-  
-              <!--start heading-->
-              <!-- <h5>Skills Detail</h5>
-              <hr> -->
-              <!--end heading-->
-  
+            </div>
+            <div class="bgWhite">
+
               <!--Start row 1-->
               <div class="row tab-margin">
                 <div class="col-md-12">
@@ -773,16 +588,21 @@
                             <td class='col-1 text-center'>{{i + 1}}</td>
                             <td class='col-2'>{{item.qlfctnName}}</td>
                             <td class='col-3'>{{item.qlfctnCriteriaName}}</td>
-                            <td class='col-2'><p-rating class="rating-size" [(ngModel)]="item.skillLvl" [cancel]="false" [disabled]="true"></p-rating></td>
+                            <td class='col-2'>
+                              <p-rating class="rating-size" [(ngModel)]="item.skillLvl" [cancel]="false"
+                                [disabled]="true"></p-rating>
+                            </td>
                             <td class='col-3'>{{item.skillRmrks}}</td>
                             <td class='col-1 text-center'>
                               <span class="fa fa-minus pointerCursor text-danger" (click)="removeSkill(i)"></span>
                             </td>
                           </tr>
-  
-                          <!-- <tr class='d-flex'>
+
+                          <tr class='d-flex'>
                             <td class='col-3'>
-                              <p-dropdown appendTo="body" [options]="skillGroupList" filter="true" [(ngModel)]="ddlSkillGroup" (onChange)="getFilterItem('skill')" placeholder="Group" [style]="{'width':'100%'}">
+                              <p-dropdown appendTo="body" [options]="skillGroupList" filter="true"
+                                [(ngModel)]="ddlSkillGroup" (onChange)="getFilterItem('skill')"
+                                placeholder="Skill Group" [style]="{'width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -791,7 +611,8 @@
                               </p-dropdown>
                             </td>
                             <td class='col-3'>
-                              <p-dropdown appendTo="body" [options]="skillList" filter="true" [(ngModel)]="ddlSkill" placeholder="Skill" [style]="{'width':'100%'}">
+                              <p-dropdown appendTo="body" [options]="skillList" filter="true" [(ngModel)]="ddlSkill"
+                                placeholder="Skill" [style]="{'width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -799,17 +620,18 @@
                                 </ng-template>
                               </p-dropdown>
                             </td>
-                            <td class='col-2'>                              
+                            <td class='col-2'>
                               <p-rating class="rating-size" [(ngModel)]="empSkillLevel" [cancel]="false"></p-rating>
                             </td>
                             <td class='col-3'>
-                                <input type="text" pInputText [(ngModel)]="empSkillRemarks" class="fullwidth" placeholder="Remarks">
+                              <input type="text" pInputText [(ngModel)]="empSkillRemarks" class="fullwidth"
+                                placeholder="Remarks">
                             </td>
                             <td class='col-1 text-center'>
                               <span class="fa fa-plus pointerCursor text-primary" (click)="addSkill()"></span>
                             </td>
-                          </tr> -->
-  
+                          </tr>
+
                         </tbody>
                       </table>
                     </div>
@@ -818,33 +640,38 @@
                 </div>
               </div>
               <!--end row 1-->
-              
-              <br>
-              <hr>
-              <!--start row 2-->
+              <br /><br />
+            </div>
+            <!--end row 2-->
+
+          </mat-tab>
+          <!--end tab 4-->
+
+
+          <!--start tab 5 ---------------------------------------------------------- -->
+          <mat-tab label="EXPERIENCE">
+            <div style="background-color: #11193d; overflow: hidden !important;">
+              <br />
               <div class="row">
-                <div class="offset-md-10 col-md-2">                    
-                    <button class='full-width' mat-raised-button color="primary" (click)="updateSkills()"> Update </button>
+                <div class="offset-md-1 col-md-6">
+                  <label style="font-size: 15px; color: #5f84d4;">
+                    Tip: Save before moving to next tab
+                  </label>
+                </div>
+                <div class="col-md-2">
+                  <button mat-raised-button class="btn fullwidth" (click)="clear()"
+                    style="border-radius: 0;">&nbsp;&nbsp;RESET&nbsp;&nbsp;</button>
+                </div>
+                <div class="col-md-2">
+                  <button mat-raised-button class="btn fullwidth" (click)="updateEmpPersonalInfo()"
+                    style="border-radius: 0;">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
                 </div>
               </div>
-              <!--end row 2-->
-  
-            </mat-tab>
-            <!--end tab 4-->
-  
-  
-  
-            <!--start tab 5 ---------------------------------------------------------- -->
-            <mat-tab label="Previous Service Detail">
-  
-              <br/>
-              <!--start heading-->
-              <!-- <h5>Previous Service Detail</h5>
-              <hr> -->
-              <!--end heading-->
-  
+            </div>
+            <div class="bgWhite">
+
               <!--Start row 1-->
-              <div class="row">
+              <div class="row tab-margin">
                 <div class="col-md-12">
                   <!--start table row-->
                   <div class="example-container">
@@ -853,11 +680,11 @@
                         <thead>
                           <tr class='d-flex'>
                             <th class='col-1 text-center'>Sr #</th>
-                            <th class='col-3'>Post</th>
-                            <th class='col-3'>Experience of</th>
-                            <th class='col-2'>From</th>
-                            <th class='col-2'>To</th>
-                            <th class='col-1 text-center'>Action</th>
+                            <th class='col-3'>Designation</th>
+                            <th class='col-2'>Experience</th>
+                            <th class='col-2'>Starting Date</th>
+                            <th class='col-2'>End Date</th>
+                            <th class='col-2 text-center'>Add / Delete</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -871,10 +698,11 @@
                               <span class="fa fa-minus pointerCursor text-danger" (click)="removePSD(i)"></span>
                             </td>
                           </tr>
-  
+
                           <tr class='d-flex'>
                             <td class='col-4'>
-                              <input type="text" pInputText [(ngModel)]="empPost" class="fullwidth" placeholder="Post">
+                              <input type="text" pInputText [(ngModel)]="empPost" class="fullwidth"
+                                placeholder="Designation">
                             </td>
                             <td class='col-3'>
                               <!-- <p-dropdown appendTo="body" [options]="orgList" filter="true" [(ngModel)]="ddlOrg" placeholder="Organization" [style]="{'width':'100%'}">
@@ -884,7 +712,8 @@
                                   </div>
                                 </ng-template>                                    (onChange)="getFilterItem('skill')"
                               </p-dropdown> -->
-                              <p-dropdown appendTo="body" [options]="experienceList" filter="true" [(ngModel)]="ddlExperience"  placeholder="Experience" [style]="{'width':'100%'}">
+                              <p-dropdown appendTo="body" [options]="experienceList" filter="true"
+                                [(ngModel)]="ddlExperience" placeholder="Experience" [style]="{'width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -893,16 +722,18 @@
                               </p-dropdown>
                             </td>
                             <td class='col-2'>
-                              <p-calendar [(ngModel)]="orgStartDate" placeholder="Job Start Date" [inputStyle]="{'width':'100%'}"></p-calendar>
+                              <p-calendar [(ngModel)]="orgStartDate" placeholder="Job Start Date"
+                                [inputStyle]="{'width':'100%'}"></p-calendar>
                             </td>
                             <td class='col-2'>
-                              <p-calendar [(ngModel)]="orgEndDate" placeholder="Job End Date" [inputStyle]="{'width':'100%'}"></p-calendar>
+                              <p-calendar [(ngModel)]="orgEndDate" placeholder="Job End Date"
+                                [inputStyle]="{'width':'100%'}"></p-calendar>
                             </td>
                             <td class='col-1 text-center'>
                               <span class="fa fa-plus pointerCursor text-primary" (click)="addPSD()"></span>
                             </td>
                           </tr>
-  
+
                         </tbody>
                       </table>
                     </div>
@@ -910,353 +741,75 @@
                   <!--end table row-->
                 </div>
               </div>
-              <!--end row 1-->
-              <br>
-              <hr>
-              <!--start row 2-->
-              <div class="row">
-                <div class="offset-md-10 col-md-2">                    
-                  <button class='fullwidth' mat-raised-button color="primary" (click)="updatePSD()"> Update </button>
-                </div>
-              </div>
-              <!--end row 2-->
-  
-            </mat-tab>
-            <!--end tab 5-->
-  
-  
-  
-            <!--start tab 6 ---------------------------------------------------------- -->
-            <!-- <mat-tab label="Asset Declaration">
-  
-              <br/>
-              
-              <h5>Asset Declaration</h5>
-              <hr>
-              
-  
-              
-              <div class="row tab-margin">
-                <div class="col-md-12">
-                  
-                  <div class="example-container mat-elevation-z8">
-                    <div class="example-table-container">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr class='d-flex'>
-                            <th class='col-1'>Sr #</th>
-                            <th class='col-7'>Year</th>
-                            <th class='col-2'>Submited</th>
-                            <th class='col-2 text-center'>Details</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'>
-                          
-                            <td class='col-1'>1</td>
-                            <td class='col-7'>2017</td>
-                            <td class='col-2'>
-                                <span class="fa fa-check"></span>
-                            </td>
-                            <td class='col-2 text-center'>
-                              <span class="fa fa-file-text pointerCursor"></span>
-                            </td>
-                          </tr>
-  
-                          <tr class='d-flex'>
-                            <td class='col-1'>2</td>
-                            <td class='col-7'>2016</td>
-                            <td class='col-2'>
-                                <span class="fa fa-remove"></span>
-                            </td>
-                            <td class='col-2 text-center'>
-                              <span class="fa fa-file-text pointerCursor"></span>
-                            </td>
-                          </tr>
-  
-                          <tr class='d-flex'>
-                            <td class='col-1'>3</td>
-                            <td class='col-7'>2015</td>
-                            <td class='col-2'>
-                                <span class="fa fa-check"></span>
-                            </td>
-                            <td class='col-2 text-center'>
-                              <span class="fa fa-file-text pointerCursor"></span>
-                            </td>
-                          </tr>
-  
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  
-                </div>
-              </div>
-              
-              <br/>
-            </mat-tab> -->
-            <!--end tab 6-->
-  
-  
-  
-            <!--start tab 7 ---------------------------------------------------------- -->
-            <!-- <mat-tab label="ACR">
-  
-              <br/>
-              
-              <h5>ACR</h5>
-              <hr>
-              
-  
-              
-              <div class="row tab-margin">
-                <div class="col-md-12">
-                  
-                  <div class="example-container mat-elevation-z8">
-                    <div class="example-table-container">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr class='d-flex'>
-                            <th class='col-1'>Sr #</th>
-                            <th class='col-3'>Year</th>
-                            <th class='col-2'>Submited</th>
-                            <th class='col-4'>Progress</th>
-                            <th class='col-2 text-center'>Details</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'>
-                          
-                            <td class='col-1'>1</td>
-                            <td class='col-3'>2017</td>
-                            <td class='col-2'>
-                                <span class="fa fa-check"></span>
-                            </td>
-                            <td class='col-4'>Good</td>
-                            <td class='col-2 text-center'>
-                              <span class="fa fa-file-text pointerCursor"></span>
-                            </td>
-                          </tr>
-  
-                          <tr class='d-flex'>
-                            <td class='col-1'>2</td>
-                            <td class='col-3'>2016</td>
-                            <td class='col-2'>
-                                <span class="fa fa-remove"></span>
-                            </td>
-                            <td class='col-4'>-</td>
-                            <td class='col-2 text-center'>
-                              <span class="fa fa-file-text pointerCursor"></span>
-                            </td>
-                          </tr>
-  
-                          <tr class='d-flex'>
-                            <td class='col-1'>3</td>
-                            <td class='col-3'>2015</td>
-                            <td class='col-2'>
-                                <span class="fa fa-check"></span>
-                            </td>
-                            <td class='col-4'>Avg.</td>
-                            <td class='col-2 text-center'>
-                              <span class="fa fa-file-text pointerCursor"></span>
-                            </td>
-                          </tr>
-  
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  
-                </div>
-              </div>
-              
-              <br/>
-            </mat-tab> -->
-            <!--end tab 7-->
-  
-  
-  
-            <!--start tab 8 ---------------------------------------------------------- -->
-            <!-- <mat-tab label="Leave Info">
-  
-              <br/>
-              
-              <h5>Leave Info</h5>
-              <hr>
-              
-  
-              
-              <div class="row tab-margin">
-                <div class="col-md-12">
-                  
-                  <div class="example-container mat-elevation-z8">
-                    <div class="example-table-container">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr class='d-flex'>
-                            <th class='col-1'>Sr #</th>
-                            <th class='col-6'>Leave Type</th>
-                            <th class='col-2'>Allowed</th>
-                            <th class='col-2'>Used</th>
-                            <th class='col-1 text-center'>Delete</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'>
-                          
-                            <td class='col-1'>1</td>
-                            <td class='col-6'>Medical Leave</td>
-                            <td class='col-2'>10</td>
-                            <td class='col-2'>3</td>
-                            <td class='col-1 text-center'>
-                              <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
-                            </td>
-                          </tr>
-  
-                          <tr class='d-flex'>
-                            <td class='col-1'>2</td>
-                            <td class='col-6'>Casual Leave</td>
-                            <td class='col-2'>10</td>
-                            <td class='col-2'>2</td>
-                            <td class='col-1 text-center'>
-                              <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span>
-                            </td>
-                          </tr>
-  
-                          <tr class='d-flex'>
-                            <td class='col-11'></td>
-                            <td class='col-1 text-center'>
-                              <span class="fa fa-plus pointerCursor"></span>
-                            </td>
-                          </tr>
-  
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  
-                </div>
-              </div>
-              
-              <br/>
-            </mat-tab> -->
-            <!--end tab 8-->
-  
-  
-            <!--start tab 9 ---------------------------------------------------------- -->
-            <mat-tab label="Facilities">
-  
-              <br/>
-              <!--start heading-->
-              <!-- <h5>Facilities</h5>
-              <hr> -->
-              <!--end heading-->
-  
-              <!--Start row 1-->
-              <div class="row">
-                <div class="col-md-12">
-                  <!--start table row-->
-                  <div class="example-container">
-                    <div class="example-table-container">
-                      <table class="table table-striped bottomBorder">
-                        <thead>
-                          <tr class='d-flex'>
-                            <th class='col-1 text-center'>Sr #</th>
-                            <th class='col-10'>Description</th>
-                            <th class='col-1 text-center'></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of empFacilityList; let i=index" class='d-flex'>
-                            <td class='col-1 text-center'>{{i + 1}}</td>
-                            <td class='col-10'>{{item.facilityName}}</td>
-                            <td class='col-1 text-center'>
-                              <!-- <span class="fa fa-trash pointerCursor" data-toggle="modal" data-target="#deleteModal"></span> -->
-                            </td>
-                          </tr>
-  
-                          <!-- <tr class='d-flex'>
-                            <td class='col-11'></td>
-                            <td class='col-1 text-center'>
-                              <span class="fa fa-plus pointerCursor"></span>
-                            </td>
-                          </tr> -->
-  
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <!--end table row-->
-                </div>
-              </div>
-              <!--end row 1-->
-              <br/>
-            </mat-tab>
-            <!--Emd tab 9-->
-  
-  
-          </mat-tab-group>
-          <!-- End tabs -->
-  
-        </div>
-        <!--end Modal body -->
-  
-        <!--start Modal footer -->
-        <!-- <div class="modal-footer">
+              <br /><br />
+            </div>
+            <!--end row 2-->
+
+          </mat-tab>
+          <!--end tab 5-->
+
+        </mat-tab-group>
+        <!-- End tabs -->
+
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <!-- <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div> -->
-        <!--end Modal footer -->
-  
-      </div>
+      <!--end Modal footer -->
+
     </div>
   </div>
-  <!-- End Modal Window  -->
-  
-  <!-- Start Modal Window to delete leave rule -->
-  <div class="modal fade" id="deleteModal">
-    <div class="modal-dialog shadow-lg-dark">
-      <div class="modal-content">
-          <!--start Modal body -->
-          <div class="modal-body">
-            <br>
-            <div class="hidden" ngDefaultControl></div>
-            <div class="row">
-              <div class="col-md-2"></div>
-              <div class="col-md-10">
-                <h2>Delete Entry</h2>
-              </div>
-            </div><br/>
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Enter Password" type="password" [(ngModel)]="txtdPassword">
-                </mat-form-field>
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class="fullwidth">
-                  <input matInput placeholder="Enter PIN" type="password" [(ngModel)]="txtdPin">
-                </mat-form-field>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-md-6">
-                <button mat-raised-button color="warn" data-dismiss="modal">Delete</button>
-              </div>
-            </div>
-            <br/>
+</div>
+<!-- End Modal Window  -->
+
+<!-- Start Modal Window to delete leave rule -->
+<div class="modal fade" id="deleteModal">
+  <div class="modal-dialog shadow-lg-dark">
+    <div class="modal-content">
+      <!--start Modal body -->
+      <div class="modal-body">
+        <br>
+        <div class="hidden" ngDefaultControl></div>
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-10">
+            <h2>Delete Entry</h2>
           </div>
-          <!--end Modal body -->
-  
-          <!--start Modal footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div><br />
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="fullwidth">
+              <input matInput placeholder="Enter Password" type="password" [(ngModel)]="txtdPassword">
+            </mat-form-field>
           </div>
-          <!--end Modal footer -->
-  
+        </div><br>
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="fullwidth">
+              <input matInput placeholder="Enter PIN" type="password" [(ngModel)]="txtdPin">
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-6">
+            <button mat-raised-button color="warn" data-dismiss="modal">Delete</button>
+          </div>
+        </div>
+        <br />
       </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      <!--end Modal footer -->
+
     </div>
   </div>
-    <!-- End Modal Window to delete leave rule -->
+</div>
+<!-- End Modal Window to delete leave rule -->
