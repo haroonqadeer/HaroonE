@@ -46,6 +46,39 @@
     }
 
     //////////////////////////////////////////
+    /////// background, border & text color schemes //////
+    //////////////////////////////////////////
+    .bg-skyBlue {
+      background-color: #5F84D5 !important;
+    }
+
+    .bg-darkBlue {
+      padding-top: 10px;
+      background-color: #11193d !important;
+      overflow: hidden !important;
+    }
+
+    .borderBlue5px {
+      border: 5px solid #5F84D5 !important;
+    }
+
+    .borderWhite5px {
+      border: 5px solid #ffffff !important;
+    }
+
+    .text-darkblue {
+      color: #22388e !important;
+    }
+
+    .text-skyblue {
+      color: #5f84d4 !important;
+    }
+
+    .font15 {
+      font-size: 15px;
+    }
+
+    //////////////////////////////////////////
     /////// intro page background image //////
     //////////////////////////////////////////
     .BgIntro {
@@ -1696,8 +1729,8 @@
     }
 
     .modal .modal-header {
-      border: 5px solid #5F84D5;
-      background-color: #5F84D5;
+      // border: 5px solid #5F84D5;
+      // background-color: #5F84D5;
       padding: 5px 5px 5px 8px;
       border-radius: 0;
     }
@@ -1867,6 +1900,11 @@
     .mat-tab-group.mat-primary .mat-ink-bar,
     .mat-tab-nav-bar.mat-primary .mat-ink-bar {
       background: #1d2b68;
+    }
+
+    .mat-tab-label:focus {
+      border-bottom: 2px solid white !important;
+      // background: #ddd;
     }
 
     //----------------------------------tabs css end ----------------------------------------

@@ -5,6 +5,7 @@ import { RecruitmentComponent } from './components/recruitment/recruitment.compo
 import { JobprofileComponent } from './components/jobprofile/jobprofile.component';
 import { PostComponent } from './components/post/post.component';
 import { RecruitmentappComponent } from './components/recruitmentapp/recruitmentapp.component';
+import { CommunicationComponent } from "./components/communication/communication.component";
 
 import { TestComponent } from './components/test/test.component';
 import { EmpolyeeprofileComponent } from './components/empolyeeprofile/empolyeeprofile.component';
@@ -49,6 +50,10 @@ const routes: Routes = [
   {
     path: 'HR/recruitmentApproval',
     component: RecruitmentappComponent
+  },
+  {
+    path: 'HR/communication',
+    component: CommunicationComponent
   },
   {
     path: 'HR/job',

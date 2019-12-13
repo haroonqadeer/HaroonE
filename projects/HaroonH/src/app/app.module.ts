@@ -49,6 +49,7 @@ import {
 import { TrainingComponent } from "./components/training/training.component";
 import { TrainingemployeeComponent } from "./components/trainingemployee/trainingemployee.component";
 import { ShiftComponent } from "./components/shift/shift.component";
+import { CommunicationComponent } from "./components/communication/communication.component";
 import { AttendanceComponent } from "./components/attendance/attendance.component";
 import { EmployeeShiftComponent } from "./components/employee-shift/employee-shift.component";
 import { AttendanceDashboardComponent } from "./components/attendance-dashboard/attendance-dashboard.component";
@@ -83,7 +84,8 @@ import { TransferpostingComponent } from "./components/transferposting/transferp
     EmployeeShiftComponent,
     AttendanceDashboardComponent,
     PromotionComponent,
-    TransferpostingComponent
+    TransferpostingComponent,
+    CommunicationComponent
   ],
   imports: [
     BrowserModule,

@@ -209,12 +209,12 @@
 
 <!-- Start Modal Window -->
 <div class="modal fade" id="employeeModal">
-  <div class="modal-dialog shadow-lg-dark modal-xl">
+  <div class="modal-dialog paddingZero marginZero shadow-lg-dark modal-xl">
     <div class="modal-content">
 
       <!--start Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Add Employee</h4>
+      <div class="modal-header bg-white borderWhite5px">
+        <h4 class="modal-title text-darkblue">Add Employee</h4>
         <div>
           <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
         </div>
@@ -222,27 +222,16 @@
       <!--end Modal Header -->
 
       <!--start Modal body -->
-      <div class="modal-body" style="overflow-y: hidden; overflow-x: hidden;">
-        <!-- <div class="allBorder">
-          <mat-tab-group>
-            <mat-tab label="PERSSONAL DETAILS"></mat-tab>
-            <mat-tab label="JOB PROFILE"></mat-tab>
-            <mat-tab label="FACILITIES"></mat-tab>
-            <mat-tab label="QUALIFICAITON"></mat-tab>
-            <mat-tab label="SKILLS"></mat-tab>
-            <mat-tab label="EXPERIENCE"></mat-tab>
-          </mat-tab-group>
-        </div> -->
+      <div class="modal-body nopadding" style="overflow-y: hidden; overflow-x: hidden;">
 
         <!--Start Tabs  -->
         <mat-tab-group>
           <!--start tab 1-->
           <mat-tab label="PERSONAL DETAILS">
-            <div style="background-color: #11193d; overflow: hidden !important;">
-              <br />
+            <div class="bg-darkBlue">
               <div class="row">
                 <div class="offset-md-1 col-md-6">
-                  <label style="font-size: 15px; color: #5f84d4;">
+                  <label class="text-skyblue font15">
                     Tip: Save Personal Details before moving to next tab
                   </label>
                 </div>
@@ -307,11 +296,10 @@
 
           <!--start tab 2 ---------------------------------------------------------- -->
           <mat-tab label="JOB PROFILE">
-            <div style="background-color: #11193d; overflow: hidden !important;">
-              <br />
+            <div class="bg-darkBlue">
               <div class="row">
                 <div class="offset-md-1 col-md-6">
-                  <label style="font-size: 15px; color: #5f84d4;">
+                  <label class="text-skyblue font15">
                     Tip: Save before moving to next tab
                   </label>
                 </div>
@@ -436,11 +424,10 @@
 
           <!--start tab 3 ---------------------------------------------------------- -->
           <mat-tab label="QUALIFICATION">
-            <div style="background-color: #11193d; overflow: hidden !important;">
-              <br />
+            <div class="bg-darkBlue">
               <div class="row">
                 <div class="offset-md-1 col-md-6">
-                  <label style="font-size: 15px; color: #5f84d4;">
+                  <label class="text-skyblue font15">
                     Tip: Save before moving to next tab
                   </label>
                 </div>
@@ -497,23 +484,13 @@
                                 </ng-template>
                               </p-dropdown>
                             </td>
-                            <td class='col-2'>
+                            <td class='col-4'>
                               <input type="text" pInputText [(ngModel)]="empInstitute" class="fullwidth"
                                 placeholder="Institute">
                             </td>
                             <td class='col-2'>
                               <p-calendar [(ngModel)]="empDegreeYear" placeholder="Passing Year" view="month"
                                 dateFormat="mm/yy" [inputStyle]="{'width':'100%'}"></p-calendar>
-                            </td>
-                            <td class='col-2'>
-                              <p-dropdown appendTo="body" [options]="gradeList" filter="true" [(ngModel)]="ddlGrade"
-                                placeholder="Grade" [style]="{'min-width':'100%'}">
-                                <ng-template let-itm pTemplate="item">
-                                  <div style="position: relative;height: 25px;">
-                                    <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                                  </div>
-                                </ng-template>
-                              </p-dropdown>
                             </td>
                             <td class='col-2'>
                               <p-dropdown appendTo="body" [options]="divisionList" filter="true"
@@ -546,11 +523,10 @@
 
           <!--start tab 4 ---------------------------------------------------------- -->
           <mat-tab label="SKILLS">
-            <div style="background-color: #11193d; overflow: hidden !important;">
-              <br />
+            <div class="bg-darkBlue">
               <div class="row">
                 <div class="offset-md-1 col-md-6">
-                  <label style="font-size: 15px; color: #5f84d4;">
+                  <label class="text-skyblue font15">
                     Tip: Save before moving to next tab
                   </label>
                 </div>
@@ -650,11 +626,10 @@
 
           <!--start tab 5 ---------------------------------------------------------- -->
           <mat-tab label="EXPERIENCE">
-            <div style="background-color: #11193d; overflow: hidden !important;">
-              <br />
+            <div class="bg-darkBlue">
               <div class="row">
                 <div class="offset-md-1 col-md-6">
-                  <label style="font-size: 15px; color: #5f84d4;">
+                  <label class="text-skyblue font15">
                     Tip: Save before moving to next tab
                   </label>
                 </div>
@@ -680,11 +655,11 @@
                         <thead>
                           <tr class='d-flex'>
                             <th class='col-1 text-center'>Sr #</th>
-                            <th class='col-3'>Designation</th>
-                            <th class='col-2'>Experience</th>
-                            <th class='col-2'>Starting Date</th>
-                            <th class='col-2'>End Date</th>
-                            <th class='col-2 text-center'>Add / Delete</th>
+                            <th class='col-3 text-left'>Designation</th>
+                            <th class='col-3 text-left'>Experience</th>
+                            <th class='col-2 text-center'>Starting Date</th>
+                            <th class='col-2 text-center'>End Date</th>
+                            <th class='col-1 text-center'>Add / Delete</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -705,15 +680,8 @@
                                 placeholder="Designation">
                             </td>
                             <td class='col-3'>
-                              <!-- <p-dropdown appendTo="body" [options]="orgList" filter="true" [(ngModel)]="ddlOrg" placeholder="Organization" [style]="{'width':'100%'}">
-                                <ng-template let-itm pTemplate="item">
-                                  <div style="position: relative;height: 25px;">
-                                    <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                                  </div>
-                                </ng-template>                                    (onChange)="getFilterItem('skill')"
-                              </p-dropdown> -->
                               <p-dropdown appendTo="body" [options]="experienceList" filter="true"
-                                [(ngModel)]="ddlExperience" placeholder="Experience" [style]="{'width':'100%'}">
+                                [(ngModel)]="ddlExperience" placeholder="Experience" [style]="{'width':'50%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -729,7 +697,7 @@
                               <p-calendar [(ngModel)]="orgEndDate" placeholder="Job End Date"
                                 [inputStyle]="{'width':'100%'}"></p-calendar>
                             </td>
-                            <td class='col-1 text-center'>
+                            <td class='col-1 text-left'>
                               <span class="fa fa-plus pointerCursor text-primary" (click)="addPSD()"></span>
                             </td>
                           </tr>

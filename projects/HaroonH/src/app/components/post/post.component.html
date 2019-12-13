@@ -87,9 +87,8 @@
             <td class='col-2 text-center'>{{post.department}}</td>
             <td class='col-2 text-center'>{{post.section}}</td>
             <td class='col-1 text-center'>
-              <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#editPostModal"
-                (click)="editPost(post)">
-                <span class="fa icon-u-edit"></span>
+              <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#organoGramModal">
+                <span class="fa icon-h-organo"></span>
               </span>
             </td>
             <td class='col-1 text-center'>
@@ -163,7 +162,7 @@
     <div class="modal-content">
 
       <!--start user Modal Header -->
-      <div class="modal-header">
+      <div class="modal-header bg-skyBlue borderBlue5px">
         <h4 class="modal-title">Add Post Profile</h4>
         <div>
           <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
@@ -257,6 +256,33 @@
 </div>
 <!-- End Modal Window to add & update new user -->
 
+
+<!-- Start Modal Window to add & update new user -->
+<div class="modal fade" id="organoGramModal">
+
+  <!--start modal window dialog-->
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <!--start modal window contents -->
+    <div class="modal-content">
+
+      <!--start user Modal body -->
+      <div class="modal-body bg-darkBlue">
+        <div class="row">
+          <div class="col-md-6 text-left">
+            <h4 class="modal-title text-white">Post Hierarchy</h4>
+          </div>
+          <div class="col-md-6 text-right">
+            <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
+          </div>
+        </div>
+      </div>
+      <!--end user Modal body -->
+    </div>
+    <!--end modal window contents -->
+  </div>
+  <!--end modal window dialog-->
+</div>
+<!-- End Modal Window to add & update new user -->
 
 <!-- Start chart of account Modal Window -->
 <div class="modal fade" id="editPostModal">
