@@ -188,6 +188,9 @@ export class CompanyComponent implements OnInit {
         { BusinessTypeCd: 3, BusinessTypeName: 'Public Company' },
     ];
 
+    public imagePath;
+    imgURL: any;
+
     //List Variables
     addressList = [];
     contactList = [];
@@ -227,6 +230,22 @@ export class CompanyComponent implements OnInit {
 
     @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent;//For excel
     @ViewChild("exportPDF") public exportPDF: ElementRef;//for pdf
+
+
+    showFile(){
+        // alert('ok')
+    //     $('#input-file-id').click();
+    //     var reader = new FileReader();
+    // this.imagePath = files;
+    // reader.readAsDataURL(files[0]); 
+    // reader.onload = (_event) => { 
+    //   this.imgURL = reader.result; 
+    // }
+    }
+
+    preview(files){
+        
+    }
 
     getAddressType() {
         //return false;
