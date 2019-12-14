@@ -432,6 +432,12 @@
     ///////////////////////////////////////////
     //////////// Shadows //////////////////////
     ///////////////////////////////////////////
+
+    .thinShadow {
+      box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.25);
+      padding: 0 25px 0 25px;
+    }
+
     .boxShadowMain {
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 8px 8px 0 rgba(0, 0, 0, 0.06) !important;
     }
@@ -986,6 +992,10 @@
       background-color: #6766cc !important;
       color: #fff;
 
+    }
+
+    .bg-light-grey {
+      background-color: #efefef;
     }
 
     .bg-blue .content .text,
@@ -1590,7 +1600,7 @@
       color: #4E6FB5 !important;
       background-color: #fff;
       text-align: center;
-      margin: 9px 10px 0 0;
+      margin: 11px 10px 0 0;
       padding: 6px 15px;
       text-decoration: none !important;
       font-size: 12px;
@@ -2028,4 +2038,17 @@
 
     .npb {
       padding-bottom: 0 !important;
+    }
+
+
+
+    .ui-tree {
+      width: 100% !important;
+    }
+
+    ///////////////////////////////////////
+    ///////// Minimum Height///////////////
+    ///////////////////////////////////////
+    .minHeight {
+      min-height: 30em !important;
     }
