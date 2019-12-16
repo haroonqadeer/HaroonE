@@ -466,6 +466,11 @@
         0 5px 15px 0 rgba(0, 0, 0, 0.08) !important;
     }
 
+    .shadow-lg-light {
+      box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.28),
+        0 5px 5px 0 rgba(0, 0, 0, 0.08) !important;
+    }
+
     // .box h3 {
     // text-align: center;
     // position: relative;
@@ -1569,9 +1574,9 @@
       border: 0px solid red;
       color: #fff !important;
       display: inline;
-      font-size: 20px;
+      font-size: 13pt;
       position: absolute;
-      margin: 9px 0 0 0 !important;
+      margin: 12px 0 0 0 !important;
       font-family: 'Roboto-Light' !important;
     }
 
