@@ -11,8 +11,8 @@ export class IntroPageComponent implements OnInit {
   constructor(private app : AppComponent) { }
 
   ngOnInit() {
-    //this.app.openNav();
-    this.app.activeModule('Yes');
+    this.app.openNav();
+    //this.app.activeModule('Yes');
   }
 
 }

@@ -32,7 +32,6 @@ export class AppComponent implements OnInit{
 	serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
 
 	// serverUrl = "http://localhost:9010/";
-	//serverUrl = "http://52.163.189.189:9010/";
 
 	tokenKey = "token";
 
@@ -41,7 +40,7 @@ export class AppComponent implements OnInit{
 	}
 
   //modules variable declaration
-	moduleHR = false;
+	moduleHR = true;
 	moduleConfig = false;
 	moduleUM = true;
 	moduleComp = false;
@@ -90,7 +89,7 @@ export class AppComponent implements OnInit{
 
 		this.checkLogin("No");
 
-		this.activeModule("No");
+		//this.activeModule("No");
 
 		this.items = [
 		{
@@ -200,7 +199,7 @@ export class AppComponent implements OnInit{
 
   //function for get active module 
 	activeModule(showMenu) {
-
+		
 		this.moduleHR = false;
 		this.moduleConfig = false;
 		this.moduleUM = false;
@@ -332,23 +331,26 @@ export class AppComponent implements OnInit{
 	//*function for checking login already logedin or not 
 	checkLogin(loginChk) {
 
+		//alert(this.moduleHR);
+
 		if (localStorage.getItem('userName') != null) {
 
 			this.logedInUserName = localStorage.getItem('userName');
 			this.showDiv();
+
 			if (loginChk == "Yes") {
 				this.router.navigate(['home']);
 			}
-
+			
 
 			if (this.cmpnyId == undefined) {
-
 				var UserName = localStorage.getItem('userName');
 				this.getUserDetail(UserName);
-
 			}
 
-		} else {
+		} 
+		else 
+		{
 			this.router.navigate(['']);
 		}
 

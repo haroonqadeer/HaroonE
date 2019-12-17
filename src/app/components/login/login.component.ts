@@ -47,18 +47,18 @@ export class LoginComponent implements OnInit {
 
     /*** Construction Function ***/
     constructor(
-                private http: HttpClient, 
-                private formBuilder: FormBuilder, 
-                public toastr: ToastrManager, 
-                private router: Router, 
-                private app: AppComponent) { }
+        private http: HttpClient, 
+        private formBuilder: FormBuilder, 
+        public toastr: ToastrManager, 
+        private router: Router, 
+        private app: AppComponent
+    ) { }
 
     /*** Page Initialization ***/
     ngOnInit() {
 
         //* Functions Call
         this.app.checkLogin('Yes');
-
     }
 
     /*** checking if login exist then create token ***/
@@ -95,8 +95,7 @@ export class LoginComponent implements OnInit {
                     
                     //* setting multiple items to local storage
                     localStorage.setItem('userName', this.txtUserName);
-                    //localStorage.setItem('myActModNam', 'UM');
-                    localStorage.setItem('myActModNam', 'Comp');
+                    localStorage.setItem('myActModNam', 'HR');
                     localStorage.setItem('token', data.token);
                     this.app.checkLogin('Yes');
                     this.app.branchList = data.userDetail;
