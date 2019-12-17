@@ -7,7 +7,7 @@
     <div>
 
       <span class="fa iconContainer">
-        <span class="fa icon-u-userprole"></span>
+        <span class="fa icon-hr-employee"></span>
       </span>
       <h1> Employee Information</h1>
 
@@ -230,18 +230,17 @@
           <mat-tab label="PERSONAL DETAILS">
             <div class="bg-darkBlue">
               <div class="row">
-                <div class="offset-md-1 col-md-6">
+                <div class="offset-md-1 col-md-9">
                   <label class="text-skyblue font15">
                     Tip: Save Personal Details before moving to next tab
                   </label>
                 </div>
-                <div class="col-md-2">
-                  <button mat-raised-button class="btn fullwidth" (click)="clear()"
-                    style="border-radius: 0;">&nbsp;&nbsp;RESET&nbsp;&nbsp;</button>
+                <div class="col-md-1">
+                  <button mat-raised-button class="btn" (click)="clear()" style="border-radius: 0;">RESET</button>
                 </div>
-                <div class="col-md-2">
-                  <button mat-raised-button class="btn fullwidth" (click)="updateEmpPersonalInfo()"
-                    style="border-radius: 0;">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
+                <div class="col-md-1">
+                  <button mat-raised-button class="btn" (click)="updateEmpPersonalInfo()"
+                    style="border-radius: 0;">SAVE</button>
                 </div>
               </div>
             </div>

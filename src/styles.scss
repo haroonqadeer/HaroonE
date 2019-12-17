@@ -1915,11 +1915,11 @@
     .mat-tab-group.mat-primary .mat-ink-bar,
     .mat-tab-nav-bar.mat-primary .mat-ink-bar {
       background: #1d2b68;
+      border-bottom: 2px solid white !important;
     }
 
     .mat-tab-label:focus {
       border-bottom: 2px solid white !important;
-      // background: #ddd;
     }
 
     //----------------------------------tabs css end ----------------------------------------
