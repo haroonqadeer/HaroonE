@@ -119,85 +119,83 @@
 
     <div class="col-md-8">
       <div class="h-100 bg-light-grey" style="border: 1px solid #efefef;">
-        <div class="row mt-4 ml-2 mr-2">
+        <div class="row mt-4 ml-4 mr-4 bgWhite shadow-lg-light" style="min-height: 37em !important;">
           <div class="col-md-12">
-            <div class="myContainer bgWhite shadow-lg-dark" style="min-height: 37em !important;">
-              <div class="myContainer">
-                <div class="row">
-                  <div class="col-md-12">
-                    <h5 class="mt-3">BRANCH LIST</h5>
-                  </div>
+            <div class="myContainer">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="mt-3">BRANCH LIST</h5>
                 </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <table class="table table-striped fullwidth">
-                      <thead>
-                        <tr class="d-flex">
-                          <th [class.active]="order === 'locationName'" (click)="setOrder('locationName')"
-                            class="col-6 pointerCursor text-left">
-                            Branch Title
-                            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-                          </th>
-                          <th class="col-3 text-center">
-                            Edit
-                          </th>
-                          <th class="col-3 text-center">
-                            Close
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-                        <!-- <tr class='d-flex'> -->
-                        <tr class='d-flex'
-                          *ngFor="let item of branches | search:'locationName':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index">
-                          <td class="col-6 text-left">{{item.locationName}}</td>
-                          <td class="col-3 text-center">
-                            <span class="fa tableIcon pointerCursor" (click)="edit(item)">
-                              <span class="fa icon-u-edit"></span>
-                            </span>
-                          </td>
-                          <td class="col-3 text-center">
-                            <mat-slide-toggle (click)="deleteTemp(item)" (change)="change($event, item)"
-                              [checked]="item.delFlag">
-                            </mat-slide-toggle>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-
-                  </div>
-
-                  <!-- Pagination Starts -->
-                  <div class="col-md-12 text-right">
-                    <div class="paginationBox">
-                      <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                    </div>
-                    <div class="paginationBox">
-                      <mat-form-field class="pagenateList">
-                        <mat-select [(ngModel)]="itemPerPage">
-                          <mat-option value="1">1</mat-option>
-                          <mat-option value="2">2</mat-option>
-                          <mat-option value="10">10</mat-option>
-                          <mat-option value="15">15</mat-option>
-                          <mat-option value="20">20</mat-option>
-                          <mat-option value="25">25</mat-option>
-                          <mat-option value="30">30</mat-option>
-                          <mat-option value="35">35</mat-option>
-                          <mat-option value="40">40</mat-option>
-                          <mat-option value="45">45</mat-option>
-                          <mat-option value="50">50</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-                    <div class="paginationBox">
-                      Item per page: &nbsp;&nbsp;
-                    </div>
-                  </div>
-                  <!-- Pagination Ends -->
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <table class="table table-striped fullwidth">
+                    <thead>
+                      <tr class="d-flex">
+                        <th [class.active]="order === 'locationName'" (click)="setOrder('locationName')"
+                          class="col-6 pointerCursor text-left">
+                          Branch Title
+                          <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                          <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                        </th>
+                        <th class="col-3 text-center">
+                          Edit
+                        </th>
+                        <th class="col-3 text-center">
+                          Close
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
+                      <!-- <tr class='d-flex'> -->
+                      <tr class='d-flex'
+                        *ngFor="let item of branches | search:'locationName':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index">
+                        <td class="col-6 text-left">{{item.locationName}}</td>
+                        <td class="col-3 text-center">
+                          <span class="fa tableIcon pointerCursor" (click)="edit(item)">
+                            <span class="fa icon-u-edit"></span>
+                          </span>
+                        </td>
+                        <td class="col-3 text-center">
+                          <mat-slide-toggle (click)="deleteTemp(item)" (change)="change($event, item)"
+                            [checked]="item.delFlag">
+                          </mat-slide-toggle>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
 
                 </div>
+
+                <!-- Pagination Starts -->
+                <div class="col-md-12 text-right">
+                  <div class="paginationBox">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </div>
+                  <div class="paginationBox">
+                    <mat-form-field class="pagenateList">
+                      <mat-select [(ngModel)]="itemPerPage">
+                        <mat-option value="1">1</mat-option>
+                        <mat-option value="2">2</mat-option>
+                        <mat-option value="10">10</mat-option>
+                        <mat-option value="15">15</mat-option>
+                        <mat-option value="20">20</mat-option>
+                        <mat-option value="25">25</mat-option>
+                        <mat-option value="30">30</mat-option>
+                        <mat-option value="35">35</mat-option>
+                        <mat-option value="40">40</mat-option>
+                        <mat-option value="45">45</mat-option>
+                        <mat-option value="50">50</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="paginationBox">
+                    Item per page: &nbsp;&nbsp;
+                  </div>
+                </div>
+                <!-- Pagination Ends -->
+
               </div>
             </div>
           </div>

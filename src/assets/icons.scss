@@ -2,7 +2,7 @@
   border: 0px solid red;
   width: 24px;
   height: 24px;
-  margin: 7px 5px 0 1%;
+  margin: 9px 10px 0 10px;
 }
 
 .tableIcon {
@@ -171,6 +171,13 @@
   width: 100%;
   height: 100%;
   mask: url(./assets/images/HR-letters.svg) no-repeat center;
+  background-color: #B0C9FF;
+}
+
+.iconContainer .icon-hr-posting {
+  width: 100%;
+  height: 100%;
+  mask: url(./assets/images/posting.svg) no-repeat center;
   background-color: #B0C9FF;
 }
 

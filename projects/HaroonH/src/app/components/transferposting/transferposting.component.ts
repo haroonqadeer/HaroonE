@@ -36,6 +36,10 @@ export class TransferpostingComponent implements OnInit {
   //* list for excel data
   excelDataList = [];
 
+  transferType = "";
+
+  transferTypeList = [];
+
   availablePostsList = [];
   employeeList = [];
   emp1List = [];
