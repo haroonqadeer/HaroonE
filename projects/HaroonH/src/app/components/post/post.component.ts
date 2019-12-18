@@ -1,7 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { ToastrManager } from 'ng6-toastr-notifications';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from "@angular/core";
+import { TreeNode } from "primeng/api";
+import { ToastrManager } from "ng6-toastr-notifications";
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse
+} from "@angular/common/http";
 
 import {
   IgxExcelExporterOptions,
@@ -12,24 +16,22 @@ import {
   CsvFileTypes
 } from "igniteui-angular";
 
-import { AppComponent } from 'src/app/app.component';
-
+import { AppComponent } from "src/app/app.component";
 
 declare var $: any;
 
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss'],
+  selector: "app-post",
+  templateUrl: "./post.component.html",
+  styleUrls: ["./post.component.scss"],
 
   encapsulation: ViewEncapsulation.None
 })
 export class PostComponent implements OnInit {
-
-  //serverUrl = "http://localhost:9013/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9013/";
+  serverUrl = "http://localhost:3001/";
+  // serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9013/";
   // serverUrl = "http://52.163.189.189:9013/";
-  
+
   //ngprime organization chart
   data1: TreeNode[];
 
@@ -44,6 +46,7 @@ export class PostComponent implements OnInit {
   btnAddPost = true;
 
   //Modal Window Add New Models
+  txtPostTitle = "";
   officeName = "";
   departmentName = "";
   sectionName = "";
@@ -69,23 +72,27 @@ export class PostComponent implements OnInit {
   // orgChartDesigName = "";
 
   //lists
-  offices = []
-  departments = []
-  sections = []
-  jobTypes = []
-  jobNatures = []
-  bpsList = []
-  designations = []
-  posts = []
+  offices = [];
+  departments = [];
+  departmentList = [];
+  sections = [];
+  sectionList = [];
+  jobTypes = [];
+  jobNatures = [];
+  bpsList = [];
+  designations = [];
+  designationList = [];
+  posts = [];
   jobPost = [];
+  jobPostList = [];
   jobDesignation = [];
   jobBpsList = [];
+  ruleList = [];
 
   public orgList = [];
   public orgChild = [];
 
-
-  public chartData = []
+  public chartData = [];
 
   //* Excel Data List
   excelDataList = [];
@@ -93,23 +100,27 @@ export class PostComponent implements OnInit {
   //* variables for pagination and orderby pipe
   p = 1;
   //pGroup = 1;
-  order = 'info.name';
+  order = "info.name";
   reverse = false;
   // orderGroup = 'info.name';
   // reverseGroup = false;
   sortedCollection: any[];
-  itemPerPage = '10';
+  itemPerPage = "10";
   //itemPerPageGroup = '5';
 
-
-  constructor(public toastr: ToastrManager,
+  constructor(
+    public toastr: ToastrManager,
     private app: AppComponent,
     private excelExportService: IgxExcelExporterService,
     private csvExportService: IgxCsvExporterService,
-    private http: HttpClient) { }
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.getOffices();
+    this.getDepartment();
+    this.getSection();
+    this.getLeaveRule();
     this.getPost();
     this.getJobType();
     this.getBPS();
@@ -119,154 +130,219 @@ export class PostComponent implements OnInit {
   //<<<<<<< HEAD
   @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
+  getDepartment() {
+    //return false;
+
+    this.app.showSpinner();
+
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    this.http
+      .get(this.serverUrl + "api/getDepartments?cmpnyID=59", {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
+        this.departmentList = data;
+
+        this.app.hideSpinner();
+      });
+  }
+
+  getSection() {
+    //return false;
+
+    this.app.showSpinner();
+
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    this.http
+      .get(this.serverUrl + "api/getSection?cmpnyID=59", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.sectionList = data;
+
+        this.app.hideSpinner();
+      });
+  }
+
+  getLeaveRule() {
+    //return false;
+
+    this.app.showSpinner();
+
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    this.http
+      .get(this.serverUrl + "api/getLeaveRule", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.ruleList = data;
+
+        this.app.hideSpinner();
+      });
+  }
+
   onDeptChange(item) {
-
     this.clearJob();
-    
-    this.app.showSpinner();
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.sections = [];
+    for (var i = 0; i < this.sectionList.length; i++) {
+      if (this.sectionList[i].parentDeptCd == item) {
+        this.sections.push({
+          deptCd: this.sectionList[i].deptCd,
+          deptName: this.sectionList[i].deptName
+        });
+      }
+    }
 
-    this.http.get(this.serverUrl + 'api/getSection?DeptCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.sections = data;
-      
-      this.app.hideSpinner();
-
-      this.getBPS();
-    });
-    
-    this.app.showSpinner();
-
-    this.http.get(this.serverUrl + 'api/getDeptJobDesignation?cmpnyID=' + 59 + '&&deptCd=' + item + '&&branch=' + this.officeName + '&&level=' + 1, { headers: reqHeader }).subscribe((data: any) => {
-
-      this.jobPost = data;
-      
-      this.app.hideSpinner();
-
-    });
-
-    this.app.showSpinner();
-
-    this.http.get(this.serverUrl + 'api/getSectionPostQty?DeptCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
-
-      if (data != "")
-        this.sectionQty = data[0].qty;
-      else
-        this.sectionQty = 0;
-        
-      this.app.hideSpinner();
-
-    });
+    this.http
+      .get(
+        this.serverUrl +
+          "api/getDeptJobDesignation?cmpnyID=" +
+          59 +
+          "&&deptCd=" +
+          item +
+          "&&branch=" +
+          this.officeName +
+          "&&level=" +
+          1,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.jobPost = data;
+      });
   }
 
   onSectionChange(item) {
-
     this.clearJob();
     this.sectionName = item;
 
-    // alert(item);
-    this.app.showSpinner();
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-      this.http.get(this.serverUrl + 'api/getDeptJobDesignation?cmpnyID=' + 59 + '&&deptCd=' + item + '&&branch=' + this.officeName + '&&level=' + 2, { headers: reqHeader }).subscribe((data: any) => {
-
+    this.http
+      .get(
+        this.serverUrl +
+          "api/getDeptJobDesignation?cmpnyID=" +
+          59 +
+          "&&deptCd=" +
+          item +
+          "&&branch=" +
+          this.officeName +
+          "&&level=" +
+          2,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
         this.jobPost = data;
-        
-        this.app.hideSpinner();
-
       });
   }
 
   onBranchChange(item) {
+    this.departments = [];
 
-    this.app.showSpinner();
-
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    this.http.get(this.serverUrl + 'api/getDepartments?LocationCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
-
-      this.departments = data;
-      
-      this.app.hideSpinner();
-
-    });
-  }
-
-  onBPSChange(item) {
-    
-    this.app.showSpinner();
-
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    this.http.get(this.serverUrl + 'api/getDesignation?BPS=' + item, { headers: reqHeader }).subscribe((data: any) => {
-
-      this.designations = data;
-      
-      this.app.hideSpinner();
-
-    });
+    for (var i = 0; i < this.departmentList.length; i++) {
+      if (this.departmentList[i].locationCd == item) {
+        this.departments.push({
+          deptCd: this.departmentList[i].deptCd,
+          deptName: this.departmentList[i].deptName
+        });
+      }
+    }
   }
 
   getOrganoGram() {
+    if (this.officeName == "") {
+      this.toastr.errorToastr("Please select Office", "Error", {
+        toastTimeout: 2500
+      });
+      return;
+    } else if (this.departmentName == "") {
+      this.toastr.errorToastr("Please select Department", "Error", {
+        toastTimeout: 2500
+      });
+      return;
+    } else if (this.sectionName == "") {
+      this.app.showSpinner();
 
-    if (this.officeName == '') {
-      this.toastr.errorToastr('Please select Office', 'Error', { toastTimeout: (2500) });
-      return;
-    } else if (this.departmentName == '') {
-      this.toastr.errorToastr('Please select Department', 'Error', { toastTimeout: (2500) });
-      return;
-    } else if (this.sectionName == '') {
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .get(
+          this.serverUrl +
+            "api/getOrgChartDept?deptCd=" +
+            this.departmentName +
+            "&locCd=" +
+            this.officeName,
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          this.data1 = data;
+
+          this.app.hideSpinner();
+        });
 
       this.app.showSpinner();
 
-      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+      this.http
+        .get(
+          this.serverUrl +
+            "api/getOrgChart?deptCd=" +
+            this.departmentName +
+            "&locCd=" +
+            this.officeName,
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          this.chartData = data;
 
-      this.http.get(this.serverUrl + 'api/getOrgChartDept?deptCd=' + this.departmentName + '&locCd=' + this.officeName, { headers: reqHeader }).subscribe((data: any) => {
-
-        this.data1 = data;
-        
-        this.app.hideSpinner();
-
-      });
-
-      this.app.showSpinner();
-
-      this.http.get(this.serverUrl + 'api/getOrgChart?deptCd=' + this.departmentName + '&locCd=' + this.officeName, { headers: reqHeader }).subscribe((data: any) => {
-
-        this.chartData = data;
-        
-        this.app.hideSpinner();
-
-      });
-
+          this.app.hideSpinner();
+        });
     } else {
+      this.app.showSpinner();
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .get(
+          this.serverUrl +
+            "api/getOrgChartSection?sectCd=" +
+            this.sectionName +
+            "&locCd=" +
+            this.officeName,
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          this.data1 = data;
+
+          this.app.hideSpinner();
+        });
 
       this.app.showSpinner();
 
-      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+      this.http
+        .get(
+          this.serverUrl +
+            "api/getSecOrgChart?sectCd=" +
+            this.sectionName +
+            "&locCd=" +
+            this.officeName,
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          this.chartData = data;
 
-      this.http.get(this.serverUrl + 'api/getOrgChartSection?sectCd=' + this.sectionName + '&locCd=' + this.officeName, { headers: reqHeader }).subscribe((data: any) => {
-
-        this.data1 = data;
-        
-        this.app.hideSpinner();
-
-      });
-
-      this.app.showSpinner();
-
-      this.http.get(this.serverUrl + 'api/getSecOrgChart?sectCd=' + this.sectionName + '&locCd=' + this.officeName, { headers: reqHeader }).subscribe((data: any) => {
-
-        this.chartData = data;
-        
-        this.app.hideSpinner();
-
-      });
-
+          this.app.hideSpinner();
+        });
     }
-
   }
 
   getPost() {
@@ -277,15 +353,15 @@ export class PostComponent implements OnInit {
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + 'api/getPost', { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getPost", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.posts = data;
 
-      this.posts = data;
-      
-      this.app.hideSpinner();
-
-    });
+        this.app.hideSpinner();
+      });
   }
 
   getJobType() {
@@ -296,15 +372,15 @@ export class PostComponent implements OnInit {
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + 'api/getJobType', { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getJobType", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.jobTypes = data;
 
-      this.jobTypes = data;
-      
-      this.app.hideSpinner();
-
-    });
+        this.app.hideSpinner();
+      });
   }
 
   getJobNature() {
@@ -315,15 +391,15 @@ export class PostComponent implements OnInit {
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + 'api/getJobNature', { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getJobNature", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.jobNatures = data;
 
-      this.jobNatures = data;
-      
-      this.app.hideSpinner();
-
-    });
+        this.app.hideSpinner();
+      });
   }
 
   getBPS() {
@@ -334,15 +410,15 @@ export class PostComponent implements OnInit {
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + 'api/getBPS', { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getBPS", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.bpsList = data;
 
-      this.bpsList = data;
-      
-      this.app.hideSpinner();
-
-    });
+        this.app.hideSpinner();
+      });
   }
 
   getOffices() {
@@ -353,56 +429,57 @@ export class PostComponent implements OnInit {
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + 'api/getBranches?cmpnyID=59', { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getBranches?cmpnyID=59", {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
+        this.offices = data;
 
-      this.offices = data;
-      
-      this.app.hideSpinner();
-
-    });
+        this.app.hideSpinner();
+      });
   }
 
-  onJobChange(item){
-    
+  onJobChange(item) {
     // this.jobBpsList = [];
 
-    for(var i = 0; i < this.jobPost.length; i++){
-      if(item == this.jobPost[i].jobDesigID){
+    for (var i = 0; i < this.jobPost.length; i++) {
+      if (item == this.jobPost[i].jobDesigID) {
         this.lblJobDeptCd = this.jobPost[i].jobPostDeptCd;
         i = this.jobPost.length + 1;
       }
     }
-    
-    for(var i = 0; i < this.jobPost.length; i++){
-      if(item == this.jobPost[i].jobDesigID){
+
+    for (var i = 0; i < this.jobPost.length; i++) {
+      if (item == this.jobPost[i].jobDesigID) {
         this.getPostBPS(this.jobPost[i].payGradeCd);
         i = this.jobPost.length + 1;
       }
     }
   }
 
-  getPostBPS(item){
-
+  getPostBPS(item) {
     this.app.showSpinner();
 
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + 'api/getJobBPS?payGradeCd=' + item , { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getJobBPS?payGradeCd=" + item, {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
+        this.bpsList = data;
 
-      this.bpsList = data;
-      
-      this.app.hideSpinner();
-
-    });
+        this.app.hideSpinner();
+      });
   }
 
   editPost(item) {
-
     this.lblDeptCd = "";
     this.lblLocCd = "";
 
@@ -414,51 +491,61 @@ export class PostComponent implements OnInit {
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + 'api/getJobDesignations?desigCd=' + item.desigCode + '&locCd=' + item.locCd + '&deptCd=' + item.deptCd, { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(
+        this.serverUrl +
+          "api/getJobDesignations?desigCd=" +
+          item.desigCode +
+          "&locCd=" +
+          item.locCd +
+          "&deptCd=" +
+          item.deptCd,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.jobDesignation = data;
 
-      this.jobDesignation = data;
-      
-      this.app.hideSpinner();
-
-    });
-
+        this.app.hideSpinner();
+      });
   }
 
-  updatePost(item){
-    
+  updatePost(item) {
     this.app.showSpinner();
-    
+
     var saveData = {
       jobDesigName: item.jobDesigName,
       jobDesigID: item.jobDesigID
     };
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.post(this.serverUrl + 'api/updateJobPost', saveData, { headers: reqHeader }).subscribe((data: any) => {
-
-      if (data.msg == "Record Updated Successfully!") {
-        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-        this.getPost();
-        $('#editPostModal').modal('hide');
-        this.app.hideSpinner();
-        this.clearJob();
-        this.clear();
-        return false;
-      } else {
-        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-        //$('#companyModal').modal('hide');
-        this.app.hideSpinner();
-        return false;
-      }
-    });
-
+    this.http
+      .post(this.serverUrl + "api/updateJobPost", saveData, {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
+        if (data.msg == "Record Updated Successfully!") {
+          this.toastr.successToastr(data.msg, "Success!", {
+            toastTimeout: 2500
+          });
+          this.getPost();
+          $("#editPostModal").modal("hide");
+          this.app.hideSpinner();
+          this.clearJob();
+          this.clear();
+          return false;
+        } else {
+          this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+          //$('#companyModal').modal('hide');
+          this.app.hideSpinner();
+          return false;
+        }
+      });
   }
 
   deletePost(item) {
-
     this.app.showSpinner();
 
     var saveData = {
@@ -467,59 +554,73 @@ export class PostComponent implements OnInit {
       jobDesigID: item.jobDesigID
     };
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.post(this.serverUrl + 'api/deleteJobPost', saveData, { headers: reqHeader }).subscribe((data: any) => {
-
-      if (data.msg == "Record Deleted Successfully!") {
-        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-        this.getPost();
-        $('#editPostModal').modal('hide');
-        this.app.hideSpinner();
-        this.clearJob();
-        this.clear();
-        return false;
-      } else {
-        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-        //$('#companyModal').modal('hide');
-        this.app.hideSpinner();
-        return false;
-      }
-    });
-
+    this.http
+      .post(this.serverUrl + "api/deleteJobPost", saveData, {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
+        if (data.msg == "Record Deleted Successfully!") {
+          this.toastr.successToastr(data.msg, "Success!", {
+            toastTimeout: 2500
+          });
+          this.getPost();
+          $("#editPostModal").modal("hide");
+          this.app.hideSpinner();
+          this.clearJob();
+          this.clear();
+          return false;
+        } else {
+          this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+          //$('#companyModal').modal('hide');
+          this.app.hideSpinner();
+          return false;
+        }
+      });
   }
 
   save() {
-
     var bpsJobPost = 0;
 
-    if (this.officeName == '') {
-      this.toastr.errorToastr('Please select Office', 'Error', { toastTimeout: (2500) });
+    if (this.officeName == "") {
+      this.toastr.errorToastr("Please select Office", "Error", {
+        toastTimeout: 2500
+      });
       return;
-    } else if (this.departmentName == '') {
-      this.toastr.errorToastr('Please select Department', 'Error', { toastTimeout: (2500) });
+    } else if (this.departmentName == "") {
+      this.toastr.errorToastr("Please select Department", "Error", {
+        toastTimeout: 2500
+      });
       return;
-    } else if (this.jobType == '') {
-      this.toastr.errorToastr('Please select Job Type', 'Error', { toastTimeout: (2500) });
+    } else if (this.jobType == "") {
+      this.toastr.errorToastr("Please select Job Type", "Error", {
+        toastTimeout: 2500
+      });
       return;
-    } else if (this.jobNature == '') {
-      this.toastr.errorToastr('Please select Job Nature', 'Error', { toastTimeout: (2500) });
+    } else if (this.jobNature == "") {
+      this.toastr.errorToastr("Please select Job Nature", "Error", {
+        toastTimeout: 2500
+      });
       return;
-    } else if (this.jobTitle == '') {
-      this.toastr.errorToastr('Please select Job Title', 'Error', { toastTimeout: (2500) });
+    } else if (this.jobTitle == "") {
+      this.toastr.errorToastr("Please select Job Title", "Error", {
+        toastTimeout: 2500
+      });
       return;
-    } else if (this.BPS == '') {
-      this.toastr.errorToastr('Please select Pay Grade', 'Error', { toastTimeout: (2500) });
+    } else if (this.BPS == "") {
+      this.toastr.errorToastr("Please select Pay Grade", "Error", {
+        toastTimeout: 2500
+      });
       return;
-    } else if (this.designation == '') {
-      this.toastr.errorToastr('Please select Designation', 'Error', { toastTimeout: (2500) });
+    } else if (this.designation == "") {
+      this.toastr.errorToastr("Please select Designation", "Error", {
+        toastTimeout: 2500
+      });
       return;
     } else {
-
-      if (this.sectionName == '') {
-
-        if (this.jobPostName == '') {
-
+      if (this.sectionName == "") {
+        if (this.jobPostName == "") {
           this.app.showSpinner();
 
           var saveData = {
@@ -532,25 +633,33 @@ export class PostComponent implements OnInit {
             jobDesigName: this.jobTitle
           };
 
-          var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-          this.http.post(this.serverUrl + 'api/saveDeptJobPost', saveData, { headers: reqHeader }).subscribe((data: any) => {
-
-            if (data.msg == "Record Saved Successfully!") {
-              this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-              this.getPost();
-              this.app.hideSpinner();
-              this.clearJob();
-              this.clear();
-              return false;
-            } else {
-              this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-              //$('#companyModal').modal('hide');
-              this.app.hideSpinner();
-              return false;
-            }
+          var reqHeader = new HttpHeaders({
+            "Content-Type": "application/json"
           });
 
+          this.http
+            .post(this.serverUrl + "api/saveDeptJobPost", saveData, {
+              headers: reqHeader
+            })
+            .subscribe((data: any) => {
+              if (data.msg == "Record Saved Successfully!") {
+                this.toastr.successToastr(data.msg, "Success!", {
+                  toastTimeout: 2500
+                });
+                this.getPost();
+                this.app.hideSpinner();
+                this.clearJob();
+                this.clear();
+                return false;
+              } else {
+                this.toastr.errorToastr(data.msg, "Error!", {
+                  toastTimeout: 2500
+                });
+                //$('#companyModal').modal('hide');
+                this.app.hideSpinner();
+                return false;
+              }
+            });
         } else {
           for (var i = 0; i < this.jobPost.length; i++) {
             if (this.jobPostName == this.jobPost[i].jobDesigID) {
@@ -559,12 +668,16 @@ export class PostComponent implements OnInit {
           }
 
           if (bpsJobPost <= parseInt(this.BPS)) {
-            this.toastr.errorToastr('BPS is Greater than Old Post BPS', 'Error', { toastTimeout: (2500) });
+            this.toastr.errorToastr(
+              "BPS is Greater than Old Post BPS",
+              "Error",
+              { toastTimeout: 2500 }
+            );
             return;
           }
 
           this.app.showSpinner();
-        
+
           var savedata = {
             jobTypeCd: this.jobType,
             jobNatureCd: this.jobNature,
@@ -577,30 +690,39 @@ export class PostComponent implements OnInit {
             ManagerJobPostDeptCd: this.departmentName
           };
 
-          var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-          this.http.post(this.serverUrl + 'api/saveJobPost', savedata, { headers: reqHeader }).subscribe((data: any) => {
-
-            if (data.msg != undefined) {
-              this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-              this.getPost();
-              this.app.hideSpinner();
-              this.clearJob();
-              this.clear();
-              return false;
-            } else {
-              this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-              //$('#companyModal').modal('hide');
-              this.app.hideSpinner();
-              return false;
-            }
+          var reqHeader = new HttpHeaders({
+            "Content-Type": "application/json"
           });
+
+          this.http
+            .post(this.serverUrl + "api/saveJobPost", savedata, {
+              headers: reqHeader
+            })
+            .subscribe((data: any) => {
+              if (data.msg != undefined) {
+                this.toastr.successToastr(data.msg, "Success!", {
+                  toastTimeout: 2500
+                });
+                this.getPost();
+                this.app.hideSpinner();
+                this.clearJob();
+                this.clear();
+                return false;
+              } else {
+                this.toastr.errorToastr(data.msg, "Error!", {
+                  toastTimeout: 2500
+                });
+                //$('#companyModal').modal('hide');
+                this.app.hideSpinner();
+                return false;
+              }
+            });
         }
-
       } else {
-
-        if (this.jobPostName == '') {
-          this.toastr.errorToastr('Please select Job Designation', 'Error', { toastTimeout: (2500) });
+        if (this.jobPostName == "") {
+          this.toastr.errorToastr("Please select Job Designation", "Error", {
+            toastTimeout: 2500
+          });
           return;
         } else {
           for (var i = 0; i < this.jobPost.length; i++) {
@@ -610,10 +732,13 @@ export class PostComponent implements OnInit {
           }
 
           if (bpsJobPost <= parseInt(this.BPS)) {
-            this.toastr.errorToastr('BPS is Greater than Old Post BPS', 'Error', { toastTimeout: (2500) });
+            this.toastr.errorToastr(
+              "BPS is Greater than Old Post BPS",
+              "Error",
+              { toastTimeout: 2500 }
+            );
             return;
           } else {
-
             this.app.showSpinner();
 
             var savedata = {
@@ -628,62 +753,66 @@ export class PostComponent implements OnInit {
               ManagerJobPostDeptCd: this.lblJobDeptCd
             };
 
-            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-            this.http.post(this.serverUrl + 'api/saveJobPost', savedata, { headers: reqHeader }).subscribe((data: any) => {
-
-              if (data.msg == "Record Saved Successfully!") {
-                this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                this.getPost();
-                //this.getOrganoGram();
-                //$('#jobModal').modal('hide');
-                this.app.hideSpinner();
-                this.clearJob();
-                this.clear();
-                return false;
-              } else {
-                this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-                //$('#companyModal').modal('hide');
-                this.app.hideSpinner();
-                return false;
-              }
+            var reqHeader = new HttpHeaders({
+              "Content-Type": "application/json"
             });
-          }
 
+            this.http
+              .post(this.serverUrl + "api/saveJobPost", savedata, {
+                headers: reqHeader
+              })
+              .subscribe((data: any) => {
+                if (data.msg == "Record Saved Successfully!") {
+                  this.toastr.successToastr(data.msg, "Success!", {
+                    toastTimeout: 2500
+                  });
+                  this.getPost();
+                  //this.getOrganoGram();
+                  //$('#jobModal').modal('hide');
+                  this.app.hideSpinner();
+                  this.clearJob();
+                  this.clear();
+                  return false;
+                } else {
+                  this.toastr.errorToastr(data.msg, "Error!", {
+                    toastTimeout: 2500
+                  });
+                  //$('#companyModal').modal('hide');
+                  this.app.hideSpinner();
+                  return false;
+                }
+              });
+          }
         }
       }
-
     }
   }
   //if you want to clear input
   clear() {
-
-    this.officeName = '';
-    this.departmentName = '';
-    this.jobPostName = '';
-    this.sectionName = '';
-    this.jobNature = '';
-    this.jobType = '';
-    this.jobTitle = '';
-    this.BPS = '';
-    this.designation = '';
+    this.officeName = "";
+    this.departmentName = "";
+    this.jobPostName = "";
+    this.sectionName = "";
+    this.jobNature = "";
+    this.jobType = "";
+    this.jobTitle = "";
+    this.BPS = "";
+    this.designation = "";
     this.data1 = [];
     // this.userId = 0;
     // this.txtUsername = '';
-
   }
 
   clearJob() {
-
     //this.officeName = '';
     //this.departmentName = '';
-    this.sectionName = '';
+    this.sectionName = "";
     //this.sections = [];
-    this.jobNature = '';
-    this.jobType = '';
-    this.jobTitle = '';
-    this.BPS = '';
-    this.designation = '';
+    this.jobNature = "";
+    this.jobType = "";
+    this.jobTitle = "";
+    this.BPS = "";
+    this.designation = "";
     this.data1 = [];
     this.cmbPost = false;
     this.btnAddPost = true;
@@ -691,17 +820,14 @@ export class PostComponent implements OnInit {
   }
 
   clearPost() {
-
-    this.jobNature = '';
-    this.jobType = '';
-    this.jobTitle = '';
-    this.BPS = '';
-    this.designation = '';
-
+    this.jobNature = "";
+    this.jobType = "";
+    this.jobTitle = "";
+    this.BPS = "";
+    this.designation = "";
   }
 
   printDiv() {
-
     // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
 
     // var cssHeading = ".cssHeading {font-size: 25px; font-weight: bold;}";
@@ -714,38 +840,46 @@ export class PostComponent implements OnInit {
 
     var printCss = this.app.printCSS();
 
-
     //printCss = printCss + "";
 
     var contents = $("#printArea").html();
 
-    var frame1 = $('<iframe />');
+    var frame1 = $("<iframe />");
     frame1[0].name = "frame1";
-    frame1.css({ "position": "absolute", "top": "-1000000px" });
+    frame1.css({ position: "absolute", top: "-1000000px" });
     $("body").append(frame1);
-    var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+    var frameDoc = frame1[0].contentWindow
+      ? frame1[0].contentWindow
+      : frame1[0].contentDocument.document
+      ? frame1[0].contentDocument.document
+      : frame1[0].contentDocument;
     frameDoc.document.open();
 
     //Create a new HTML document.
-    frameDoc.document.write('<html><head><title>DIV Contents</title>' + "<style>" + printCss + "</style>");
-
+    frameDoc.document.write(
+      "<html><head><title>DIV Contents</title>" +
+        "<style>" +
+        printCss +
+        "</style>"
+    );
 
     //Append the external CSS file.  <link rel="stylesheet" href="../../../styles.scss" />  <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
-    frameDoc.document.write('<style type="text/css" media="print">/*@page { size: landscape; }*/</style>');
+    frameDoc.document.write(
+      '<style type="text/css" media="print">/*@page { size: landscape; }*/</style>'
+    );
 
-    frameDoc.document.write('</head><body>');
+    frameDoc.document.write("</head><body>");
 
     //Append the DIV contents.
     frameDoc.document.write(contents);
-    frameDoc.document.write('</body></html>');
+    frameDoc.document.write("</body></html>");
 
     frameDoc.document.close();
-
 
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function () {
+    setTimeout(function() {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();
@@ -767,7 +901,6 @@ export class PostComponent implements OnInit {
     // doc.save('testabc.pdf');
   }
 
-
   //For CSV
   downloadCSV() {
     //alert('CSV works');
@@ -785,18 +918,31 @@ export class PostComponent implements OnInit {
           Quantity: this.posts[i].desigCount
         });
       }
-      this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("postCompleteCSV", CsvFileTypes.CSV));
+      this.csvExportService.exportData(
+        completeDataList,
+        new IgxCsvExporterOptions("postCompleteCSV", CsvFileTypes.CSV)
+      );
     }
 
     // case 2: When postSearch is not empty then assign new data list
     else if (this.postSearch != "") {
       var filteredDataList = [];
       for (var i = 0; i < this.posts.length; i++) {
-        if (this.posts[i].office.toUpperCase().includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].department.toUpperCase().includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].section.toUpperCase().includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].designation.toUpperCase().includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].desigCount == this.postSearch) {
+        if (
+          this.posts[i].office
+            .toUpperCase()
+            .includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].department
+            .toUpperCase()
+            .includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].section
+            .toUpperCase()
+            .includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].designation
+            .toUpperCase()
+            .includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].desigCount == this.postSearch
+        ) {
           filteredDataList.push({
             Office: this.posts[i].office,
             Department: this.posts[i].department,
@@ -808,13 +954,17 @@ export class PostComponent implements OnInit {
       }
 
       if (filteredDataList.length > 0) {
-        this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("postFilterCSV", CsvFileTypes.CSV));
+        this.csvExportService.exportData(
+          filteredDataList,
+          new IgxCsvExporterOptions("postFilterCSV", CsvFileTypes.CSV)
+        );
       } else {
-        this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+        this.toastr.errorToastr("Oops! No data found", "Error", {
+          toastTimeout: 2500
+        });
       }
     }
   }
-
 
   downloadExcel() {
     //alert('Excel works');
@@ -830,17 +980,30 @@ export class PostComponent implements OnInit {
           Quantity: this.posts[i].desigCount
         });
       }
-      this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("postCompleteExcel"));
+      this.excelExportService.export(
+        this.excelDataContent,
+        new IgxExcelExporterOptions("postCompleteExcel")
+      );
       this.excelDataList = [];
     }
     // case 2: When postSearch is not empty then assign new data list
     else if (this.postSearch != "") {
       for (var i = 0; i < this.posts.length; i++) {
-        if (this.posts[i].office.toUpperCase().includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].department.toUpperCase().includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].section.toUpperCase().includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].designation.toUpperCase().includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].desigCount == this.postSearch) {
+        if (
+          this.posts[i].office
+            .toUpperCase()
+            .includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].department
+            .toUpperCase()
+            .includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].section
+            .toUpperCase()
+            .includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].designation
+            .toUpperCase()
+            .includes(this.postSearch.toUpperCase()) ||
+          this.posts[i].desigCount == this.postSearch
+        ) {
           this.excelDataList.push({
             Office: this.posts[i].office,
             Department: this.posts[i].department,
@@ -854,11 +1017,15 @@ export class PostComponent implements OnInit {
       if (this.excelDataList.length > 0) {
         //alert("Filter List " + this.excelDataList.length);
 
-        this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("postFilterExcel"));
+        this.excelExportService.export(
+          this.excelDataContent,
+          new IgxExcelExporterOptions("postFilterExcel")
+        );
         this.excelDataList = [];
-      }
-      else {
-        this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+      } else {
+        this.toastr.errorToastr("Oops! No data found", "Error", {
+          toastTimeout: 2500
+        });
       }
     }
   }
@@ -870,5 +1037,4 @@ export class PostComponent implements OnInit {
     }
     this.order = value;
   }
-
 }
