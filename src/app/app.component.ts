@@ -40,7 +40,7 @@ export class AppComponent implements OnInit{
 	}
 
   //modules variable declaration
-	moduleHR = true;
+	moduleHR = false;
 	moduleConfig = false;
 	moduleUM = true;
 	moduleComp = false;
