@@ -1,4 +1,4 @@
-import { Component, ModuleWithProviders, ViewChild, ElementRef } from '@angular/core';
+import { Component, ModuleWithProviders, ViewChild, ElementRef, HostListener  } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MatBottomSheet } from '@angular/material';
 import { Event, Router, NavigationStart, NavigationEnd } from "@angular/router";
@@ -27,7 +27,7 @@ declare var $: any;
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit{	
 
 	serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
 
@@ -196,7 +196,7 @@ export class AppComponent implements OnInit{
 		});
 
 	}
-
+	
   //function for get active module 
 	activeModule(showMenu) {
 		
