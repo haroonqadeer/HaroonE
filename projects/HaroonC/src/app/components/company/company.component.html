@@ -128,7 +128,7 @@
                         <div class="col-md-6">
                             <mat-form-field class="fullwidth">
                                 <mat-select placeholder="Currency" [(ngModel)]="cCurrency">
-                                    <input type="text" [(ngModel)]="srchCrncy" class="form-control">
+                                    <input type="text" placeholder="Search" [(ngModel)]="srchCrncy" class="form-control">
                                     <mat-option *ngFor="let item of crncyList | search:'currencyName': srchCrncy" [value]="item.currencyCd">
                                         <table>
                                             <tr class='d-flex'>
@@ -209,7 +209,7 @@
                         <div class="col-md-12">
                             <mat-form-field class="fullwidth">
                                 <mat-select placeholder="Country" [(ngModel)]="cCountry" required>
-                                    <input type="text" [(ngModel)]="srchCntry" class="form-control">
+                                    <input type="text" placeholder="Search" [(ngModel)]="srchCntry" class="form-control">
                                     <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
                                         <table>
                                             <tr class='d-flex'>
@@ -228,7 +228,7 @@
                         <div class="col-md-8">
                             <mat-form-field class="fullwidth">
                                 <mat-select placeholder="City" [(ngModel)]="cCity" required>
-                                    <input type="text" [(ngModel)]="srchCity" class="form-control">
+                                    <input type="text" placeholder="Search" [(ngModel)]="srchCity" class="form-control">
                                     <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
                                         <table>
                                             <tr class='d-flex'>
@@ -409,7 +409,7 @@
                             <div class="col-md-12">
                                 <mat-form-field class="fullwidth">
                                     <mat-select placeholder="Country" [(ngModel)]="indvdCountry" required>
-                                        <input type="text" [(ngModel)]="srchCntry" class="form-control">
+                                        <input type="text" placeholder="Search" [(ngModel)]="srchCntry" class="form-control">
                                         <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
                                             <table>
                                                 <tr class='d-flex'>
@@ -427,7 +427,7 @@
                                 <div class="col-md-8">
                                     <mat-form-field class="fullwidth">
                                         <mat-select placeholder="City" [(ngModel)]="indvdCity" required>
-                                            <input type="text" [(ngModel)]="srchCity" class="form-control">
+                                            <input type="text" placeholder="Search" [(ngModel)]="srchCity" class="form-control">
                                             <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
                                                 <table>
                                                     <tr class='d-flex'>
@@ -736,7 +736,7 @@
                     <div class="col-md-12">
                         <mat-form-field class="fullwidth">
                             <mat-select placeholder="Country" [(ngModel)]="indvdCountry" required>
-                                <input type="text" [(ngModel)]="srchCntry" class="form-control">
+                                <input type="text" placeholder="Search" [(ngModel)]="srchCntry" class="form-control">
                                 <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
                                     <table>
                                         <tr class='d-flex'>
@@ -754,7 +754,7 @@
                         <div class="col-md-8">
                             <mat-form-field class="fullwidth">
                                 <mat-select placeholder="City" [(ngModel)]="indvdCity" required>
-                                    <input type="text" [(ngModel)]="srchCity" class="form-control">
+                                    <input type="text" placeholder="Search" [(ngModel)]="srchCity" class="form-control">
                                     <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
                                         <table>
                                             <tr class='d-flex'>
@@ -941,7 +941,7 @@
                 <div class="col-md-12">
                     <mat-form-field class="fullwidth">
                         <mat-select placeholder="Country" [(ngModel)]="indvdCountry" required>
-                            <input type="text" [(ngModel)]="srchCntry" class="form-control">
+                            <input type="text" placeholder="Search" [(ngModel)]="srchCntry" class="form-control">
                             <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
                                 <table>
                                     <tr class='d-flex'>
@@ -959,7 +959,7 @@
                     <div class="col-md-8">
                         <mat-form-field class="fullwidth">
                             <mat-select placeholder="City" [(ngModel)]="indvdCity" required>
-                                <input type="text" [(ngModel)]="srchCity" class="form-control">
+                                <input type="text" placeholder="Search" [(ngModel)]="srchCity" class="form-control">
                                 <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
                                     <table>
                                         <tr class='d-flex'>

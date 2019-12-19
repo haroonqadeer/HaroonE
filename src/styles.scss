@@ -45,6 +45,11 @@
       overflow: hidden;
     }
 
+
+    .dashboardHeadingFont {
+      font-size: 1.2em;
+    }
+
     //////////////////////////////////////////
     /////// background, border & text color schemes //////
     //////////////////////////////////////////
@@ -90,7 +95,7 @@
       background-repeat: no-repeat !important;
       background-size: 30em 25em !important;
       background-position: bottom right !important;
-      background: rgba(255, 255, 255, 0.8);      
+      background: rgba(255, 255, 255, 0.8);
       position: relative;
       margin-left: 10%;
     }
@@ -751,7 +756,7 @@
       height: 20px;
       position: relative;
       font-size: 11px;
-      background-color: #FAFAFA;
+      background-color: transparent;
     }
 
     /* Common CSS End   */
@@ -1000,6 +1005,14 @@
 
     .bg-light-grey {
       background-color: #efefef;
+    }
+
+    .bg-lighter-grey {
+      background-color: #f1f1f1;
+    }
+
+    .bg-lighterer-grey {
+      background-color: #f6f6f6;
     }
 
     .bg-blue .content .text,
@@ -2058,4 +2071,31 @@
     ///////////////////////////////////////
     .minHeight {
       min-height: 30em !important;
+    }
+
+
+
+
+
+    /////////////////////////////////////
+    //////Slide toggle change color//////
+    /////////////////////////////////////
+    ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+      background-color: #FF6347;
+      /*replace with your color*/
+    }
+
+    ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+      background-color: #FFCCCB;
+      /*replace with your color*/
+    }
+
+    ::ng-deep .mat-slide-toggle:not(.mat-checked):not(.mat-disabled) .mat-slide-toggle-thumb {
+      background-color: green;
+      /*replace with your color*/
+    }
+
+    ::ng-deep .mat-slide-toggle:not(.mat-checked):not(.mat-disabled) .mat-slide-toggle-bar {
+      background-color: lightgreen;
+      /*replace with your color*/
     }

@@ -225,14 +225,21 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field>
-              <mat-select placeholder="Post Type*" [(ngModel)]="jobNature" multiple>
+            <div class="row mt-4">
+              <mat-radio-group *ngFor="let item of jobNatures" [(ngModel)]="jobNature">
+                <div class="col-md-6 text-center">
+                  <mat-radio-button value="item.jobNatureCd">{{item.jobNatureName}}</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+            <mat-form-field class="mt-2">
+              <mat-select placeholder="Nature of Appointment*" [(ngModel)]="jobNature">
                 <mat-option *ngFor="let item of jobNatures" [value]="item.jobNatureCd">{{item.jobNatureName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <!--start buttons row -->
-            <div class="row mt-2">
+            <div class="row">
               <div class="col-md-6">
                 <button mat-raised-button class="btn fullwidth" (click)="clear()"
                   style="border-radius: 0;">&nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;</button>

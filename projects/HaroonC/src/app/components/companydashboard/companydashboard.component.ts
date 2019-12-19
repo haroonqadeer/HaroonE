@@ -31,13 +31,13 @@ import {
       }
 
       .node-header {
-        background-color: #0b133a;
-        color: #ffffff;
+        background-color: #f6f6f6;
+        color: #000;
       }
 
       .node-content {
         text-align: center;
-        background-color: #0b133a;
+        background-color: #f6f6f6;
       }
 
       .node-content img {

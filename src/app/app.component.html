@@ -396,38 +396,39 @@
       <!--welcome column -->
       <div class="col-md-3 text-right" style="border:0px solid red; padding: 0;">
 
-        <img src="../assets/images/Default-Image.jpg" alt="" style="border-radius: 50%; margin-bottom: 3px;" height="37px">
+        <img src="../assets/images/Default-Image.jpg" alt="" style="border-radius: 50%; margin-bottom: 3px;"
+          height="37px">
 
-          <div class="dropdown">
-            <button class="dropbtn pointerCursor">
-              WELCOME! {{logedInUserName}} &nbsp;
-              <span class="fa fa-caret-down"></span>
-            </button>
+        <div class="dropdown">
+          <button class="dropbtn pointerCursor">
+            WELCOME! {{logedInUserName}} &nbsp;
+            <span class="fa fa-caret-down"></span>
+          </button>
 
-            <div class="dropdown-content pointerCursor">
+          <div class="dropdown-content pointerCursor">
 
-              <div class="btn" (click)=showBottom()>
-                <span class="fa fa-sitemap"></span>&nbsp;
-                <span> Modules</span>
-              </div>
-              <div class="btn" (click)=showAttendance()>
-                <span class="fa fa-calendar-check-o"></span>&nbsp;
-                <span>Attendance</span>
-              </div>
-              <div class="btn" data-toggle="modal" data-target="#changePasWrdModal">
-                <span class="fa fa-key"></span>&nbsp;
-                <span>Change Password</span>
-              </div>
-              <!-- <div class="btn" (click)=genPin()>
+            <div class="btn" (click)=showBottom()>
+              <span class="fa fa-sitemap"></span>&nbsp;
+              <span> Modules</span>
+            </div>
+            <div class="btn" (click)=showAttendance()>
+              <span class="fa fa-calendar-check-o"></span>&nbsp;
+              <span>Attendance</span>
+            </div>
+            <div class="btn" data-toggle="modal" data-target="#changePasWrdModal">
+              <span class="fa fa-key"></span>&nbsp;
+              <span>Change Password</span>
+            </div>
+            <!-- <div class="btn" (click)=genPin()>
                   <span class="fa fa-key"></span>&nbsp;
                   <span>gen pin</span>
                 </div> -->
-              <div class="btn" (click)="Logout()">
-                <span class="fa fa-sign-out"></span>&nbsp;
-                <span>Log out</span>
-              </div>
+            <div class="btn" (click)="Logout()">
+              <span class="fa fa-sign-out"></span>&nbsp;
+              <span>Log out</span>
             </div>
           </div>
+        </div>
 
         <div class="row" style="border:0px solid red; padding: 0;">
           <div class="col-md-2" style="border: 0px solid yellow; padding-right: 0;">
@@ -628,7 +629,7 @@
 
   <!-- copyright Starts -->
   <div class="col-md-12">
-    <div class="copyRight" style="position: fixed; bottom:5px;">
+    <div class="copyRight" style="bottom:0px;">
       Copyright &copy; InfoVative Solutions. All rights reserved.
     </div>
   </div>

@@ -56,82 +56,83 @@
 <!---------- Try Template Code Starts ---------->
 
 <!--start myContainer div-->
-<div class="myContainer bgWhite">
-  <br />
-  <div class="myContainer">
-    <div class="row">
-      <div class="col-sm-3">
-        <mat-form-field class="fullwidth">
-          <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" required>
-            <mat-option *ngFor="let item of company" [value]="item.orgId">
-              <table>
-                <tr class='d-flex'>
-                  <td class="col-6">{{ item.orgName }}</td>
-                </tr>
-              </table>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="offset-sm-1 col-sm-3">
-        <mat-form-field class="fullwidth">
-          <mat-select placeholder="Select Currency Type" [(ngModel)]="cmbCurrencyType" required>
-            <mat-option *ngFor="let item of currencyType" [value]="item.currencyTypeCd">
-              <table>
-                <tr class='d-flex'>
-                  <td class="col-6">{{ item.currencyTypeName }}</td>
-                </tr>
-              </table>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="offset-sm-1 col-sm-3">
-        <mat-form-field class="fullwidth">
-          <mat-select placeholder="Select Currency" [(ngModel)]="cmbCurrency" required>
-            <input type="text" class="form-control" [(ngModel)]="searchCurrency">
-            <mat-option *ngFor="let item of currency | search:'currencyName,currencyISOAlphaCd':searchCurrency"
-              [value]="item.currencyCd">
-              <table>
-                <tr class='d-flex'>
-                  <td class="col-8 text-left">{{ item.currencyName }}</td>
-                  <td class="col-4 text-right">{{ item.currencyISOAlphaCd }}</td>
-                </tr>
-              </table>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div><br />
-    <div class="row">
-      <div class="offset-sm-9 col-sm-1">
-        <button mat-raised-button class="btnClass" style="border-radius: 0;" (click)="clear()">
-          &nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;
-        </button>
-      </div>
-      <div class="col-sm-1">
-        <button mat-raised-button class="btnClass" style="border-radius: 0;" (click)="save()">
-          &nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;
-        </button>
+<div class="myContainer">
+  <div class="row">
+    <div class="myContainer bgWhite">
+      <div class="m-4">
+        <div class="row">
+          <div class="col-md-3">
+            <mat-form-field class="fullwidth">
+              <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" required>
+                <mat-option *ngFor="let item of company" [value]="item.orgId">
+                  <table>
+                    <tr class='d-flex'>
+                      <td class="col-6">{{ item.orgName }}</td>
+                    </tr>
+                  </table>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="fullwidth">
+              <mat-select placeholder="Select Currency Type" [(ngModel)]="cmbCurrencyType" required>
+                <mat-option *ngFor="let item of currencyType" [value]="item.currencyTypeCd">
+                  <table>
+                    <tr class='d-flex'>
+                      <td class="col-6">{{ item.currencyTypeName }}</td>
+                    </tr>
+                  </table>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="fullwidth">
+              <mat-select placeholder="Select Currency" [(ngModel)]="cmbCurrency" required>
+                <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchCurrency">
+                <mat-option *ngFor="let item of currency | search:'currencyName,currencyISOAlphaCd':searchCurrency"
+                  [value]="item.currencyCd">
+                  <table>
+                    <tr class='d-flex'>
+                      <td class="col-8 text-center">{{ item.currencyName }}</td>
+                      <td class="col-4 text-center">{{ item.currencyISOAlphaCd }}</td>
+                    </tr>
+                  </table>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <div class="row mt-2">
+              <div class="col-sm-6 text-right">
+                <button mat-raised-button class="btnClass fullwidth" style="border-radius: 0;" (click)="clear()">
+                  &nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;
+                </button>
+              </div>
+              <div class="col-sm-6">
+                <button mat-raised-button class="btnClass fullwidth" style="border-radius: 0;" (click)="save()">
+                  &nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <br />
   </div>
   <!--Start 1st Row-->
   <!--end 1st Row-->
   <div class="row">
     <!--Start table Row-->
     <div class="myContainer" style="background-color: #efefef;">
-      <br />
-      <div class="myContainer bgWhite" style="box-shadow: 0px 1px 12px 5px rgba(199,199,199,1);">
-        <div class="myContainer">
-          <br />
-          <!-- <div class="col-md-12"> -->
-          <h5>CURRENCY LIST</h5>
-          <!-- </div> -->
+      <div class="bgWhite m-4" style="box-shadow: 0px 1px 12px 5px rgba(199,199,199,1);">
+        <div class="row ml-2">
+          <div class="col-md-12 mt-4">
+            <h5>CURRENCY LIST</h5>
+          </div>
         </div>
-        <br />
-        <div class="row">
+        <div class="row m-2">
           <div class="col-md-12">
             <table class="table table-striped fullwidth">
               <thead>
@@ -149,7 +150,7 @@
                     <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
                   </th>
                   <th class="col-4 text-center">
-                    Close
+                    Active
                   </th>
                 </tr>
               </thead>
@@ -201,7 +202,6 @@
 
         </div>
       </div>
-      <br />
     </div>
     <!-- end table row -->
   </div>

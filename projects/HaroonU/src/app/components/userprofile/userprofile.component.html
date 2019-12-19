@@ -113,104 +113,107 @@
   <!--Start table Row-->
 
   <div class="row">
-    <table class="table table-striped fullwidth" id="myTable">
-      <thead>
-        <tr class="d-flex">
-          <th class="col-1 text-center">Sr No.</th>
-          <th [class.active]="order === 'indvdlERPUsrID'" (click)="setOrder('indvdlERPUsrID')"
-            class="col-1 text-center pointerCursor">
-            User Name
-            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-          </th>
-          <th [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')"
-            class="col-2 text-center pointerCursor">
-            Full Name
-            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-          </th>
-          <th [class.active]="order === 'emailAddrss'" (click)="setOrder('emailAddrss')"
-            class="col-2 text-left pointerCursor">
-            Email
-            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-          </th>
-          <th [class.active]="order === 'deptName'" (click)="setOrder('deptName')"
-            class="col-1 text-center pointerCursor">
-            Department
-            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-          </th>
-          <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
-            class="col-1 text-center pointerCursor">
-            User Role
-            <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-          </th>
-          <th class="col-2 text-center">Action</th>
-          <th class="col-2 text-center">Reset Password</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class='d-flex'
-          *ngFor="let emp of userData | search:'indvdlERPUsrID,indvdlFullName,emailAddrss,erpRoleName,deptName':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
-          <td class="col-1 text-center">{{i+1}}</td>
-          <td class="col-1 text-center">{{emp.indvdlERPUsrID}}</td>
-          <td class="col-2 text-center">{{emp.indvdlFullName}}</td>
-          <td class="col-2 text-left">{{emp.emailAddrss}}</td>
-          <td class="col-1 text-center">{{emp.deptName}}</td>
-          <td class="col-1 text-center">{{emp.erpRoleName}}</td>
-          <td class="col-2 text-center">
+    <div class="col-md-12">
 
-            <span class="fa tableIcon">
-              <span *ngIf="emp.usrStatus == null" class="fa icon-u-deactiveUser"></span>
-              <span *ngIf="emp.usrStatus != null" class="fa icon-u-activeUser"></span>
-            </span>
-            <span *ngIf="emp.usrStatus == null" class="tableLink" (click)="activeUser(emp)">Deactivate</span>
-            <span *ngIf="emp.usrStatus != null" class="tableLink" (click)="activeUser(emp)">Active</span>
-          </td>
+      <table class="table table-striped fullwidth" id="myTable">
+        <thead>
+          <tr class="d-flex">
+            <th class="col-1 text-center">Sr No.</th>
+            <th [class.active]="order === 'indvdlERPUsrID'" (click)="setOrder('indvdlERPUsrID')"
+              class="col-1 text-center pointerCursor">
+              User Name
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+            <th [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')"
+              class="col-2 text-center pointerCursor">
+              Full Name
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+            <th [class.active]="order === 'emailAddrss'" (click)="setOrder('emailAddrss')"
+              class="col-2 text-left pointerCursor">
+              Email
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+            <th [class.active]="order === 'deptName'" (click)="setOrder('deptName')"
+              class="col-1 text-center pointerCursor">
+              Department
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+            <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
+              class="col-1 text-center pointerCursor">
+              User Role
+              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+            <th class="col-2 text-center">Action</th>
+            <th class="col-2 text-center">Reset Password</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class='d-flex'
+            *ngFor="let emp of userData | search:'indvdlERPUsrID,indvdlFullName,emailAddrss,erpRoleName,deptName':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
+            <td class="col-1 text-center">{{i+1}}</td>
+            <td class="col-1 text-center">{{emp.indvdlERPUsrID}}</td>
+            <td class="col-2 text-center">{{emp.indvdlFullName}}</td>
+            <td class="col-2 text-left">{{emp.emailAddrss}}</td>
+            <td class="col-1 text-center">{{emp.deptName}}</td>
+            <td class="col-1 text-center">{{emp.erpRoleName}}</td>
+            <td class="col-2 text-center">
 
-          <td class="col-2 text-center">
+              <span class="fa tableIcon">
+                <span *ngIf="emp.usrStatus == null" class="fa icon-u-deactiveUser"></span>
+                <span *ngIf="emp.usrStatus != null" class="fa icon-u-activeUser"></span>
+              </span>
+              <span *ngIf="emp.usrStatus == null" class="tableLink" (click)="activeUser(emp)">Deactivate</span>
+              <span *ngIf="emp.usrStatus != null" class="tableLink" (click)="activeUser(emp)">Active</span>
+            </td>
 
-            <span class="fa tableIcon">
-              <span class="fa icon-u-reset"></span>
-            </span>
-            <span class="tableLink" (click)="resetPassword(emp)">Reset</span>
+            <td class="col-2 text-center">
 
-            <!-- <span class="fa fa-exclamation-circle pointerCursor fontPrimary" data-toggle="modal" data-target="#actionModal">Reset</span> -->
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              <span class="fa tableIcon">
+                <span class="fa icon-u-reset"></span>
+              </span>
+              <span class="tableLink" (click)="resetPassword(emp)">Reset</span>
 
-    <!-- Pagination Starts -->
-    <div class="col-md-12 text-right">
-      <div class="paginationBox">
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              <!-- <span class="fa fa-exclamation-circle pointerCursor fontPrimary" data-toggle="modal" data-target="#actionModal">Reset</span> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Pagination Starts -->
+      <div class="col-md-12 text-right">
+        <div class="paginationBox">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+        <div class="paginationBox">
+          <mat-form-field class="pagenateList">
+            <mat-select [(ngModel)]="itemPerPage">
+              <mat-option value="1">1</mat-option>
+              <mat-option value="2">2</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="15">15</mat-option>
+              <mat-option value="20">20</mat-option>
+              <mat-option value="25">25</mat-option>
+              <mat-option value="30">30</mat-option>
+              <mat-option value="35">35</mat-option>
+              <mat-option value="40">40</mat-option>
+              <mat-option value="45">45</mat-option>
+              <mat-option value="50">50</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="paginationBox">
+          Item per page: &nbsp;&nbsp;
+        </div>
       </div>
-      <div class="paginationBox">
-        <mat-form-field class="pagenateList">
-          <mat-select [(ngModel)]="itemPerPage">
-            <mat-option value="1">1</mat-option>
-            <mat-option value="2">2</mat-option>
-            <mat-option value="10">10</mat-option>
-            <mat-option value="15">15</mat-option>
-            <mat-option value="20">20</mat-option>
-            <mat-option value="25">25</mat-option>
-            <mat-option value="30">30</mat-option>
-            <mat-option value="35">35</mat-option>
-            <mat-option value="40">40</mat-option>
-            <mat-option value="45">45</mat-option>
-            <mat-option value="50">50</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="paginationBox">
-        Item per page: &nbsp;&nbsp;
-      </div>
+      <!-- Pagination Ends -->
+
     </div>
-    <!-- Pagination Ends -->
-
   </div>
   <!-- end table row -->
 </div>
@@ -320,7 +323,7 @@
             <mat-form-field class="fullwidth">
               <mat-select placeholder="Select User" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
                 required>
-                <input type="text" class="form-control" [(ngModel)]="searchEmployee">
+                <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchEmployee">
                 <mat-option
                   *ngFor="let item of getFilterItem(rdbType) | search:'indvdlFirstName,emailAddrss':searchEmployee"
                   [value]="item">
@@ -377,7 +380,7 @@
             <!--start user role row -->
             <mat-form-field class="fullwidth">
               <mat-select placeholder="Assign User Role" [(ngModel)]="cmbRole" required>
-                <input type="text" class="form-control" [(ngModel)]="searchRole">
+                <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchRole">
                 <mat-option *ngFor="let item of roles | search:'erpRoleName':searchRole" [value]="item.erpRoleCd">
                   <table>
                     <tr class='d-flex'>

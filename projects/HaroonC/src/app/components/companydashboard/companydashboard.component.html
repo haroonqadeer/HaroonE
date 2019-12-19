@@ -1,41 +1,37 @@
-<br />
 <div class="myContainer">
-  <div class="row">
-    <div class="col-md-12">
-      <h5>ORGANIZATION HIERARCHY</h5>
+  <div class="m-5">
+    <div class="row bg-lighter-grey border-left border-right border-top">
+      <div class="col-md-3 m-auto">
+        <h5 class="center-block font-weight-bold mt-3">Organization Hierarchy</h5>
+      </div>
+      <div class="offset-md-5 col-md-4 text-center">
+        <mat-form-field class="fullwidth mt-3 my-form">
+          <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" (ngModelChange)="getChartData($event)"
+            required>
+            <mat-option *ngFor=" let item of company" [value]="item.companyId">
+              {{item.companyName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
-  </div>
-  <!-- Company row -->
-  <div class="row" style="border-bottom: 1px solid#FAFAFA;">
-    <div class="col-md-3 my-form">
-      <mat-form-field class="fullwidth my-form" style="margin-bottom: -1.25em;">
-        <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" (ngModelChange)="getChartData($event)"
-          required>
-          <mat-option *ngFor=" let item of company" [value]="item.companyId">
-            {{item.companyName}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <div style="background-color: #0b133a;height: 480px;width: 1325px;overflow-x: scroll;overflow-y: scroll;">
-        <br /><br />
-        <!--ngprime organizational chart-->
-        <p-organizationChart [value]="data1" selectionMode="single" styleClass="company">
-          <ng-template let-node pTemplate="person">
-            <div class="node-header ui-corner-top">{{node.label}}</div>
-            <div class="node-content">
-              <div>{{node.data.name}}</div>
-            </div>
-          </ng-template>
-          <ng-template let-node pTemplate="department">
-            {{node.label}}
-          </ng-template>
-        </p-organizationChart>
-        <!--ngprime organizational chart-->
+    <div class="row bg-lighterer-grey border-left border-right border-bottom">
+      <div class="col-md-12 w-100">
+        <div style="height: 480px; overflow-x: scroll;overflow-y: scroll;">
+          <!--ngprime organizational chart-->
+          <p-organizationChart [value]="data1" selectionMode="single" styleClass="company">
+            <ng-template let-node pTemplate="person">
+              <div class="node-header ui-corner-top">{{node.label}}</div>
+              <div class="node-content">
+                <div>{{node.data.name}}</div>
+              </div>
+            </ng-template>
+            <ng-template let-node pTemplate="department">
+              {{node.label}}
+            </ng-template>
+          </p-organizationChart>
+          <!--ngprime organizational chart-->
+        </div>
       </div>
     </div>
   </div>

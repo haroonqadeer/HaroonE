@@ -440,52 +440,54 @@ export class BranchComponent implements OnInit {
     var emailList = [];
     var telephoneList = [];
 
-    for (var i = 0; i < this.branchDetail.length; i++) {
-      if (item.locationCd == this.branchDetail[i].locationCd) {
-        if (this.cmbCompany == "") {
-          this.cmbCompany = this.branchDetail[i].cmpnyID;
-          this.txtBranch = this.branchDetail[i].locationName;
-          this.branchId = this.branchDetail[i].locationCd;
-        }
+    if (item.delFlag == 0) {
+      for (var i = 0; i < this.branchDetail.length; i++) {
+        if (item.locationCd == this.branchDetail[i].locationCd) {
+          if (this.cmbCompany == "") {
+            this.cmbCompany = this.branchDetail[i].cmpnyID;
+            this.txtBranch = this.branchDetail[i].locationName;
+            this.branchId = this.branchDetail[i].locationCd;
+          }
 
-        if (this.branchDetail[i].addressTypeCd != 0) {
-          addressList.push({
-            contactDetailCode: this.branchDetail[i].cntctDetailCd,
-            addressId: 0,
-            addressType: this.branchDetail[i].addressTypeCd,
-            address: this.branchDetail[i].addressLine1,
-            cityCode: this.branchDetail[i].districtCd,
-            districtCode: 0,
-            provinceCode: 0,
-            countryCode: this.branchDetail[i].addCntryCd,
-            zipCode: 0,
-            status: 1
-          });
-        } else if (this.branchDetail[i].teleTypeCd != 0) {
-          telephoneList.push({
-            contactDetailCode: this.branchDetail[i].cntctDetailCd,
-            telId: 0,
-            contactType: this.branchDetail[i].teleTypeCd,
-            status: 1,
-            contactNumber: this.branchDetail[i].teleNo,
-            mobileNumber: "",
-            countryCode: 0
-          });
-        } else if (this.branchDetail[i].emailTypeCd != 0) {
-          emailList.push({
-            contactDetailCode: this.branchDetail[i].cntctDetailCd,
-            emailId: 0,
-            type: this.branchDetail[i].emailTypeCd,
-            status: 1,
-            email: this.branchDetail[i].emailAddrss
-          });
+          if (this.branchDetail[i].addressTypeCd != 0) {
+            addressList.push({
+              contactDetailCode: this.branchDetail[i].cntctDetailCd,
+              addressId: 0,
+              addressType: this.branchDetail[i].addressTypeCd,
+              address: this.branchDetail[i].addressLine1,
+              cityCode: this.branchDetail[i].districtCd,
+              districtCode: 0,
+              provinceCode: 0,
+              countryCode: this.branchDetail[i].addCntryCd,
+              zipCode: 0,
+              status: 1
+            });
+          } else if (this.branchDetail[i].teleTypeCd != 0) {
+            telephoneList.push({
+              contactDetailCode: this.branchDetail[i].cntctDetailCd,
+              telId: 0,
+              contactType: this.branchDetail[i].teleTypeCd,
+              status: 1,
+              contactNumber: this.branchDetail[i].teleNo,
+              mobileNumber: "",
+              countryCode: 0
+            });
+          } else if (this.branchDetail[i].emailTypeCd != 0) {
+            emailList.push({
+              contactDetailCode: this.branchDetail[i].cntctDetailCd,
+              emailId: 0,
+              type: this.branchDetail[i].emailTypeCd,
+              status: 1,
+              email: this.branchDetail[i].emailAddrss
+            });
+          }
         }
       }
-    }
 
-    this.shrd_adrs.addressList = addressList;
-    this.shrd_cntct.contactList = telephoneList;
-    this.shrd_cntct.emailList = emailList;
+      this.shrd_adrs.addressList = addressList;
+      this.shrd_cntct.contactList = telephoneList;
+      this.shrd_cntct.emailList = emailList;
+    }
   }
 
   //*get the "id" of the delete entry

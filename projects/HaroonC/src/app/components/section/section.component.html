@@ -104,7 +104,7 @@
           <mat-radio-group [(ngModel)]="departmentId" (ngModelChange)="resetList(departmentId);">
             <ul>
               <li *ngFor="let item of departmentList | search:'cmpnyID':ddlCompany">
-                <mat-radio-button [value]="item.deptCd">{{item.deptName}} -- {{item.deptCd}} -- {{departmentId}}
+                <mat-radio-button [value]="item.deptCd">{{item.deptName}}
                 </mat-radio-button>
               </li>
             </ul>
@@ -127,8 +127,8 @@
         <div class="offset-md-1 col-sm-10">
           <ul>
             <li *ngFor="let item of locationList">
-              <mat-checkbox (change)="selectBranch(item);" [checked]="item.status">{{item.locationName}} ==>
-                {{item.deptCd}}</mat-checkbox>
+              <mat-checkbox color="primary" (change)="selectBranch(item);" [checked]="item.status">{{item.locationName}}
+              </mat-checkbox>
             </li>
           </ul>
         </div>

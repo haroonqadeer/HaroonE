@@ -395,19 +395,21 @@ export class SectionComponent implements OnInit {
   edit(item) {
     this.clear();
 
-    this.sectionId = item.sectCd;
-    this.ddlCompany = item.cmpnyID;
-    this.sectionName = item.sectName;
-    this.departmentId = item.deptCd;
+    if (item.delFlag == 0) {
+      this.sectionId = item.sectCd;
+      this.ddlCompany = item.cmpnyID;
+      this.sectionName = item.sectName;
+      this.departmentId = item.deptCd;
 
-    this.locationList = [];
-    var tempList = this.branchList.filter(x => x.deptCd == item.deptCd);
+      this.locationList = [];
+      var tempList = this.branchList.filter(x => x.deptCd == item.deptCd);
 
-    for (var i = 0; i < tempList.length; i++) {
-      this.locationList.push(tempList[i]);
+      for (var i = 0; i < tempList.length; i++) {
+        this.locationList.push(tempList[i]);
+      }
+
+      this.editSelectedBranchsList(item.sectCd, item.deptCd);
     }
-
-    this.editSelectedBranchsList(item.sectCd, item.deptCd);
   }
 
   //******************** extracting selected branches

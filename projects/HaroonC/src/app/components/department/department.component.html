@@ -50,7 +50,7 @@
         <div class="offset-md-1 col-sm-10">
           <mat-form-field class="fullwidth">
             <mat-select placeholder="Select Company" [(ngModel)]="ddlCompany" (ngModelChange)="resetList();" required>
-              <input type="text" class="form-control" [(ngModel)]="ddlSearchCompany">
+              <input type="text" class="form-control" placeholder="Search" [(ngModel)]="ddlSearchCompany">
               <mat-option *ngFor="let item of companyList | search:'orgName':ddlSearchCompany" [value]="item.orgId">
                 <table>
                   <tr class='d-flex'>
@@ -86,7 +86,8 @@
         <div class="offset-md-1 col-sm-10">
           <ul>
             <li *ngFor="let item of locationList | search:'cmpnyID':ddlCompany">
-              <mat-checkbox (change)="selectBranch(item);" [checked]="item.status">{{item.locationName}}</mat-checkbox>
+              <mat-checkbox color="primary" (change)="selectBranch(item);" [checked]="item.status">{{item.locationName}}
+              </mat-checkbox>
             </li>
           </ul>
         </div>
@@ -144,9 +145,8 @@
 
                         <td class="col-8">{{item.deptName}}</td>
                         <td class="col-2 text-center">
-                          <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal"
-                            (click)="edit(item)">
-                            <span class="fa icon-u-edit"></span>
+                          <span class="fa tableIcon pointerCursor">
+                            <span class="fa icon-u-edit" disabled="item.delFlag" (click)="edit(item)"></span>
                           </span>
                         </td>
                         <td class="col-2 text-center">
