@@ -16,7 +16,11 @@ const routes: Routes = [
     component: CompanydashboardComponent
   },
   {
-    path: 'Comp/company',
+    path: 'Comp/newcmpany',
+    component: CompanyComponent
+  },
+  {
+    path: 'Comp/editcmpany',
     component: CompanyComponent
   },
   {
@@ -42,10 +46,6 @@ const routes: Routes = [
   {
     path: 'Comp/currency',
     component: CurrencyComponent
-  },
-  {
-    path: 'Comp/cmpany',
-    component: NewCompanyComponent
   },
   { path: 'Comp', redirectTo: 'Comp/dashboard' }
 ];

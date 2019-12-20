@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { AppComponent } from '../../../../../../src/app/app.component';
 import { CurrencyComponent } from '../currency/currency.component';
+import { Router } from '@angular/router'; 
 
 import { ConfigAddressComponent } from 'src/app/components/config-address/config-address.component';
 //import { ConfigSocialMediaComponent } from 'src/app/components/config-social-media/config-social-media.component';
@@ -90,7 +91,7 @@ export class CompanyComponent implements OnInit {
     crncyList = [];
     businessTypeList = [];
 
-
+    companyEditMode = false;
 
     //*--For Business--// 
     contactType;
@@ -213,7 +214,9 @@ export class CompanyComponent implements OnInit {
         private http: HttpClient,
         private excelExportService: IgxExcelExporterService,
         private csvExportService: IgxCsvExporterService,
-        private fb: FormBuilder) {
+        private fb: FormBuilder,
+        private router: Router
+        ) {
     }
 
     ngOnInit() {        
@@ -226,6 +229,14 @@ export class CompanyComponent implements OnInit {
         this.getCity();
         this.getCurrency();
         this.getBusinessType();
+
+
+        if(this.router.url == '/Comp/newcmpany'){
+            this.companyEditMode = false;
+        }else{
+            this.companyEditMode = true;
+        }
+
     }
 
     @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent;//For excel

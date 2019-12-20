@@ -39,14 +39,17 @@ export class AppComponent implements OnInit{
 		headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 	}
 
-  //modules variable declaration
-	
 
+	panelOpenState = false;
+
+	//modules variable declaration
 	public branchList = [];
 	public locationId;
 	public cmpnyId;
 	public empId;
 	public cmpnyName;
+
+	companyProfileEditStatus = false;
 
 	logedInUserName = '';
 
@@ -257,7 +260,7 @@ export class AppComponent implements OnInit{
 	}
 
 
-  //mehtod for logout user
+  	//mehtod for logout user
 	Logout() {
 		this.stopWatching();
 		localStorage.removeItem('token');
@@ -267,7 +270,7 @@ export class AppComponent implements OnInit{
 		this.hideDiv = false;
 		this.closeNav();
 	}
-
+	
 
 	public printCSS() {
 
