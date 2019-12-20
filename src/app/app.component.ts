@@ -40,10 +40,7 @@ export class AppComponent implements OnInit{
 	}
 
   //modules variable declaration
-	moduleHR = false;
-	moduleConfig = false;
-	moduleUM = true;
-	moduleComp = false;
+	
 
 	public branchList = [];
 	public locationId;
@@ -199,31 +196,6 @@ export class AppComponent implements OnInit{
 	
   //function for get active module 
 	activeModule(showMenu) {
-		
-		this.moduleHR = false;
-		this.moduleConfig = false;
-		this.moduleUM = false;
-		this.moduleComp = false;
-
-
-		var myModuleName = localStorage.getItem('myActModNam');
-
-		if (myModuleName == null){
-			myModuleName = "UM";
-		}
-
-		if (myModuleName == "HR") {
-			this.moduleHR = true;
-		}
-		else if (myModuleName == "Config") {
-			this.moduleConfig = true;
-		}
-		else if (myModuleName == "UM") {
-			this.moduleUM = true;
-		}
-		else if (myModuleName == "Comp") {
-			this.moduleComp = true;
-		}
 
 
     	//show menu setting
