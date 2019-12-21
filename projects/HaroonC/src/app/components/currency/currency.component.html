@@ -56,14 +56,14 @@
 <!---------- Try Template Code Starts ---------->
 
 <!--start myContainer div-->
-<div class="myContainer">
+<div class="myContainer minHeight84">
   <div class="row">
     <div class="myContainer bgWhite">
       <div class="m-4">
         <div class="row">
           <div class="col-md-3">
             <mat-form-field class="fullwidth">
-              <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" required>
+              <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" disableOptionCentering required>
                 <mat-option *ngFor="let item of company" [value]="item.orgId">
                   <table>
                     <tr class='d-flex'>
@@ -76,7 +76,8 @@
           </div>
           <div class="col-md-3">
             <mat-form-field class="fullwidth">
-              <mat-select placeholder="Select Currency Type" [(ngModel)]="cmbCurrencyType" required>
+              <mat-select placeholder="Select Currency Type" [(ngModel)]="cmbCurrencyType" disableOptionCentering
+                required>
                 <mat-option *ngFor="let item of currencyType" [value]="item.currencyTypeCd">
                   <table>
                     <tr class='d-flex'>
@@ -89,15 +90,17 @@
           </div>
           <div class="col-md-3">
             <mat-form-field class="fullwidth">
-              <mat-select placeholder="Select Currency" [(ngModel)]="cmbCurrency" required>
-                <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchCurrency">
+              <mat-select placeholder="Select Currency" [(ngModel)]="cmbCurrency" disableOptionCentering required>
+                <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchCurrency">
                 <mat-option *ngFor="let item of currency | search:'currencyName,currencyISOAlphaCd':searchCurrency"
                   [value]="item.currencyCd">
-                  <table>
-                    <tr class='d-flex'>
-                      <td class="col-8 text-center">{{ item.currencyName }}</td>
-                      <td class="col-4 text-center">{{ item.currencyISOAlphaCd }}</td>
-                    </tr>
+                  <table class="table">
+                    <tbody>
+                      <tr class='d-flex'>
+                        <td class="col-8 text-left">{{ item.currencyName }}</td>
+                        <td class="col-4 text-left">{{ item.currencyISOAlphaCd }}</td>
+                      </tr>
+                    </tbody>
                   </table>
                 </mat-option>
               </mat-select>

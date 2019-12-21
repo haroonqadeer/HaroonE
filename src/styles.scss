@@ -45,6 +45,11 @@
       overflow: hidden;
     }
 
+    .innerContainer {
+      width: 95% !important;
+      overflow: hidden;
+    }
+
 
     .dashboardHeadingFont {
       font-size: 1.2em;
@@ -1799,8 +1804,11 @@
     }
 
     .modal .modal-content {
-      border: 0px solid red;
       border-radius: 0;
+    }
+
+    .modal-bottom-border-blue {
+      border-bottom: 5px solid #5F84D5 !important;
     }
 
     .modal .modal-header {
@@ -1808,11 +1816,6 @@
       // background-color: #5F84D5;
       padding: 5px 5px 5px 8px;
       border-radius: 0;
-    }
-
-    .modal .modal-body {
-      border-bottom: 5px solid #5F84D5;
-      z-index: 9999 !important;
     }
 
     .modal-header .modal-title {
@@ -2111,16 +2114,6 @@
       width: 100% !important;
     }
 
-    ///////////////////////////////////////
-    ///////// Minimum Height///////////////
-    ///////////////////////////////////////
-    .minHeight {
-      min-height: 30em !important;
-    }
-
-
-
-
 
     /////////////////////////////////////
     //////Slide toggle change color//////
@@ -2184,4 +2177,25 @@
       font-family: Roboto-Light;
       float: left;
       background: url('../src/assets/images/Job-Openings.gif') no-repeat;
+    }
+
+
+
+
+
+
+    ///////////////////////////////////////
+    ///////// Minimum Height///////////////
+    ///////////////////////////////////////
+    .minHeight {
+      min-height: 30em !important;
+    }
+
+
+    .minHeight65 {
+      min-height: 65%;
+    }
+
+    .minHeight84 {
+      min-height: 84% !important;
     }

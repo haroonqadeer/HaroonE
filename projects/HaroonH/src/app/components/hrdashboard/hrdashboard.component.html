@@ -1,5 +1,5 @@
-<div class="dashboardContainer allBorder mt-5">
-  <div class="dashboardContainer mt-4 mb-4">
+<div class="bg-lighter-grey innerContainer allBorder mt-5 center-block">
+  <div class="p-4">
     <div class="row">
       <div class="col-md-9 text-left">
         <label class="font-weight-normal dashboardHeadingFont"> HR Dashboard </label>
@@ -116,36 +116,21 @@
         </div>
       </div>
     </div>
+
     <div class="row mt-4">
       <div class="col-md-6">
-        <div class="row p-2 bgWhite boxShadow mr-2">
-          <div class="col-md-12">
-            <div class="w-100" style="height: 350px;" [chart]="Variablepie_Chart"></div>
-          </div>
-        </div>
+        <div class="bgWhite pt-2" style="height: 350px;" [chart]="Variablepie_Chart"></div>
       </div>
       <div class="col-md-6">
-        <div class="row p-2 bgWhite boxShadow">
-          <div class="col-md-12">
-            <div class="w-100" style="height: 350px;" [chart]="Variablepie_Chart"></div>
-          </div>
-        </div>
+        <div class="bgWhite pt-2" style="height: 350px;" [chart]="Variablepie_Chart"></div>
       </div>
     </div>
     <div class="row mt-4">
       <div class="col-md-6">
-        <div class="row p-2 bgWhite boxShadow mr-2">
-          <div class="col-md-12">
-            <div class="w-100" style="height: 350px;" [chart]="Column_Chart"></div>
-          </div>
-        </div>
+        <div class="bgWhite" style="height: 350px;" [chart]="Column_Chart"></div>
       </div>
       <div class="col-md-6">
-        <div class="row p-2 bgWhite boxShadow">
-          <div class="col-md-12">
-            <div class="w-100" style="height: 350px;" [chart]="StackColumn_Chart"></div>
-          </div>
-        </div>
+        <div class="bgWhite" style="height: 350px;" [chart]="StackColumn_Chart"></div>
       </div>
     </div>
   </div>

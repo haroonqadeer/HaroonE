@@ -95,14 +95,14 @@
 <!--end mycontainer block-->
 
 <!-- Start User Profile Container -->
-<div class="myContainer bgWhite">
+<div class="myContainer bgWhite minHeight65 allBorder">
   <!--Start 2nd Row-->
   <div class="row">
     <!--Start search textbox column-->
     <div class="col-md-12">
       <div class="searchBar mt-2">
         <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search"
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search..."
           [(ngModel)]="tblSearch">
       </div>
     </div>
@@ -139,7 +139,7 @@
             </th>
             <th [class.active]="order === 'deptName'" (click)="setOrder('deptName')"
               class="col-1 text-center pointerCursor">
-              Department
+              Dept
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
@@ -302,7 +302,7 @@
   <!--start modal window dialog-->
   <div class="modal-dialog shadow-lg-dark modal-lg">
     <!--start modal window contents -->
-    <div class="modal-content">
+    <div class="modal-content modal-bottom-border-blue">
 
       <!--start user Modal Header -->
       <div class="modal-header bg-skyBlue borderBlue5px">
@@ -314,16 +314,16 @@
       <!--end user Modal Header -->
 
       <!--start user Modal body -->
-      <div class="modal-body">
+      <div class="modal-body m-3">
 
         <!--start userModal 1st row -->
         <div class="row">
           <!--start fields column-->
           <div class="col-md-6">
             <mat-form-field class="fullwidth">
-              <mat-select placeholder="Select User" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
-                required>
-                <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchEmployee">
+              <mat-select disableOptionCentering placeholder="Select User" [(ngModel)]="cmbEmployee"
+                (ngModelChange)="edit($event, 'link')" required>
+                <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchEmployee">
                 <mat-option
                   *ngFor="let item of getFilterItem(rdbType) | search:'indvdlFirstName,emailAddrss':searchEmployee"
                   [value]="item">
@@ -379,8 +379,8 @@
             <br />
             <!--start user role row -->
             <mat-form-field class="fullwidth">
-              <mat-select placeholder="Assign User Role" [(ngModel)]="cmbRole" required>
-                <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchRole">
+              <mat-select disableOptionCentering placeholder="Assign User Role" [(ngModel)]="cmbRole" required>
+                <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchRole">
                 <mat-option *ngFor="let item of roles | search:'erpRoleName':searchRole" [value]="item.erpRoleCd">
                   <table>
                     <tr class='d-flex'>
@@ -410,8 +410,17 @@
 
             <br />
             <!--start buttons row -->
-            <button mat-raised-button class="btn" (click)="saveEmployee()"
-              style="border-radius: 0;">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
+            <div class="row">
+              <div class="col-md-6">
+                <button mat-raised-button class="btn fullwidth pt-1 pb-1 text-uppercase" (click)="clear()"
+                  style="border-radius: 0;">&nbsp;&nbsp;&nbsp;Reset&nbsp;&nbsp;&nbsp;</button>
+              </div>
+              <div class="col-md-6">
+                <button mat-raised-button class="btn fullwidth pt-1 pb-1 text-uppercase" (click)="saveEmployee()"
+                  style="border-radius: 0;">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
+              </div>
+            </div>
+
             <!-- <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? false : true" (click)="saveEmployee()" style="border-radius: 0;">Save</button>
             <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? true : false" style="border-radius: 0;">Send</button> -->
             <!--end buttons row -->
@@ -462,14 +471,14 @@
   <!--start modal window dialog-->
   <div class="modal-dialog shadow-lg-dark modal-lg modalPopup" style="width: 24%;">
     <!--start modal window contents-->
-    <div class="modal-content">
+    <div class="modal-content bg-skyBlue">
 
       <!--start Modal body -->
-      <div class="modal-body">
+      <div class="modal-body m-2">
         <!--start permissionModal 1st row-->
         <div class="row">
           <div class="col-md-12">
-            <p class="fontWhite">Selected Permissions for:</p>
+            <p class="fontWhite pb-0">Selected Permissions for:</p>
           </div>
         </div>
         <!--end permissionModal 1st row-->
@@ -494,7 +503,7 @@
         <!--start permissionModal 4th row-->
         <div class="row">
           <div class="col-md-12 text-center">
-            <button mat-raised-button color="primary" style="width: 100%;" class="buttonSquare"
+            <button mat-raised-button color="primary" class="buttonSquare fullwidth pt-1 pb-1 text-uppercase"
               data-dismiss="modal">Close</button>
           </div>
         </div>

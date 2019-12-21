@@ -38,7 +38,7 @@
 <!---------- Try Template Code Starts ---------->
 
 <!--start myContainer div-->
-<div class="myContainer bgWhite shadow-lg-dark">
+<div class="myContainer bgWhite allBorder">
   <!-- <div class="myContainer"> -->
   <div class="row" style="min-height: 32em !important;">
     <!--left side panel-->
@@ -49,8 +49,9 @@
 
         <div class="offset-md-1 col-sm-10">
           <mat-form-field class="fullwidth">
-            <mat-select placeholder="Select Company" [(ngModel)]="ddlCompany" (ngModelChange)="resetList();" required>
-              <input type="text" class="form-control" placeholder="Search" [(ngModel)]="ddlSearchCompany">
+            <mat-select disableOptionCentering placeholder="Select Company" [(ngModel)]="ddlCompany"
+              (ngModelChange)="resetList();" required>
+              <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="ddlSearchCompany">
               <mat-option *ngFor="let item of companyList | search:'orgName':ddlSearchCompany" [value]="item.orgId">
                 <table>
                   <tr class='d-flex'>

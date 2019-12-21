@@ -25,14 +25,14 @@
 <!-- end menubar buttons -->
 
 <!--start myContainer div-->
-<div class="myContainer bgWhite">
+<div class="myContainer bgWhite minHeight84 allBorder">
   <!--Start 1st Row-->
   <div class="row">
     <!--start search textbox column-->
     <div class="col-md-12">
       <div class="searchBar">
         <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search"
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search..."
           [(ngModel)]="tblSearchType">
       </div>
     </div>
@@ -329,7 +329,7 @@
   <!--start modal window dialog-->
   <div class="modal-dialog shadow-lg-dark modal-lg">
     <!--start modal window contents -->
-    <div class="modal-content">
+    <div class="modal-content modal-bottom-border-blue">
 
       <!--start user Modal Header -->
       <div class="modal-header bg-skyBlue borderBlue5px">
@@ -341,14 +341,14 @@
       <!--end user Modal Header -->
 
       <!--start user Modal body -->
-      <div class="modal-body">
+      <div class="modal-body m-3">
 
         <!--start userModal 1st row -->
         <div class="row">
           <!--start fields column-->
           <div class="col-md-6">
             <mat-form-field class="fullwidth">
-              <mat-select placeholder="Leave Type" [(ngModel)]="leaveType">
+              <mat-select disableOptionCentering placeholder="Leave Type" [(ngModel)]="leaveType">
                 <mat-option *ngFor="let item of typeList" [value]="item.leaveTypeId">
                   {{item.leaveTypeName}}
                 </mat-option>
@@ -379,7 +379,7 @@
           </div>
           <div class="col-md-6">
             <mat-form-field class="fullwidth">
-              <mat-select placeholder="Leave Nature" [(ngModel)]="leaveNature">
+              <mat-select disableOptionCentering placeholder="Leave Nature" [(ngModel)]="leaveNature">
                 <mat-option *ngFor="let item of leaveNatureList" [value]="item.leaveNatureId">
                   {{item.leaveNatureName}}
                 </mat-option>
@@ -407,11 +407,11 @@
             <!--start buttons row -->
             <div class="row">
               <div class="col-md-6">
-                <button mat-raised-button class="btn fullwidth" (click)="clear()"
+                <button mat-raised-button class="btn fullwidth pt-1 pb-1" (click)="clear()"
                   style="border-radius: 0;">&nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;</button>
               </div>
               <div class="col-md-6">
-                <button mat-raised-button class="btn fullwidth" (click)="save()"
+                <button mat-raised-button class="btn fullwidth pt-1 pb-1" (click)="save()"
                   style="border-radius: 0;">&nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;</button>
               </div>
             </div>

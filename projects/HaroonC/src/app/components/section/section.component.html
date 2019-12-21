@@ -56,17 +56,18 @@
 <!---------- Try Template Code Starts ---------->
 
 <!--start myContainer div-->
-<div class="bgWhite myContainer shadow-lg-dark">
+<div class="bgWhite myContainer allBorder">
   <!-- <div class="myContainer"> -->
-  <div class="row" style="min-height: 35em !important;">
+  <div class="row" style="min-height: 40em !important;">
     <!--left side panel-->
     <div class="col-md-4">
       <!--company row -->
       <div class="row mt-3">
         <div class="offset-md-1 col-sm-10">
           <mat-form-field class="fullwidth">
-            <mat-select placeholder="Select Company" [(ngModel)]="ddlCompany" (ngModelChange)="resetList(0);" required>
-              <input type="text" class="form-control" [(ngModel)]="ddlSearchCompany">
+            <mat-select disableOptionCentering placeholder="Select Company" [(ngModel)]="ddlCompany"
+              (ngModelChange)="resetList(0);" required>
+              <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="ddlSearchCompany">
               <mat-option *ngFor="let item of companyList | search:'orgName':ddlSearchCompany" [value]="item.orgId">
                 <table>
                   <tr class='d-flex'>

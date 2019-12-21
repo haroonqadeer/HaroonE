@@ -55,7 +55,7 @@
 <!-- end menubar buttons -->
 
 <!--start myContainer div-->
-<div class="myContainer bgWhite">
+<div class="myContainer bgWhite minHeight84 allBorder">
   <!--Start 1st Row-->
   <div class="row">
     <!--start search textbox column-->
@@ -232,7 +232,7 @@
   <!--start modal window dialog-->
   <div class="modal-dialog shadow-lg-dark modal-lg">
     <!--start modal window contents-->
-    <div class="modal-content">
+    <div class="modal-content modal-bottom-border-blue">
 
       <!--start userRoleModal Header -->
       <div class="modal-header bg-skyBlue borderBlue5px">
@@ -242,7 +242,7 @@
       <!--end userRoleModal Header -->
 
       <!--start userRoleModal body -->
-      <div class="modal-body">
+      <div class="modal-body m-3">
         <label [hidden]="true" [(ngModel)]="erpRoleCd" ngDefaultControl></label>
 
         <!--start userRoleModal 1st row-->
@@ -295,8 +295,8 @@
         <!--start userRoleModal 3rd row-->
         <div class="row">
           <!--start userRoleModal save tree column-->
-          <div class="col-md-12 text-right">
-            <button mat-raised-button class="btn" (click)="save()"
+          <div class="offset-md-9 col-md-3">
+            <button mat-raised-button class="btn fullwidth text-uppercase pt-1 pb-1" (click)="save()"
               style="border-radius: 0">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
           </div>
           <!--end userRoleModal save tree column-->
