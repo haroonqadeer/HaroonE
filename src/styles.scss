@@ -2144,3 +2144,44 @@
       background-color: lightgreen;
       /*replace with your color*/
     }
+
+
+
+    ///////////////////////////////////////
+    ///////////Dashboard Images////////////
+    ///////////////////////////////////////
+    .imgAppReceive {
+      width: 100%;
+      height: 100%;
+      padding-top: 40%;
+      font-family: Roboto-Light;
+      float: left;
+      background: url('../src/assets/images/Application-Received.gif') no-repeat;
+    }
+
+    .imgOnLeave {
+      width: 100%;
+      height: 100%;
+      padding-top: 44%;
+      font-family: Roboto-Light;
+      float: left;
+      background: url('../src/assets/images/On-Leave.gif') no-repeat;
+    }
+
+    .imgContract {
+      width: 100%;
+      height: 100%;
+      padding-top: 51%;
+      font-family: Roboto-Light;
+      float: left;
+      background: url('../src/assets/images/Contract-Permanent.gif') no-repeat;
+    }
+
+    .imgJobOpen {
+      width: 100%;
+      height: 100%;
+      padding-top: 44%;
+      font-family: Roboto-Light;
+      float: left;
+      background: url('../src/assets/images/Job-Openings.gif') no-repeat;
+    }
