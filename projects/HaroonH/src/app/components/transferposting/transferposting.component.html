@@ -12,10 +12,10 @@
       <h1> Tranfer/Promotion</h1>
 
       <!--start add role permission button-->
-      <a class="pointerCursor" data-toggle="modal" data-target="#promotionModal" (click)="clear()">
+      <!-- <a class="pointerCursor" data-toggle="modal" data-target="#promotionModal" (click)="clear()">
         <i class="fa fa-plus-circle"></i>
         TRANSFER
-      </a>
+      </a> -->
       <!--end add role permission button-->
     </div>
     <!-- end heading & logo div-->
@@ -25,7 +25,7 @@
 <!-- end menubar buttons -->
 
 <!--start myContainer div-->
-<div class="myContainer bgWhite">
+<div class="myContainer bgWhite allBorder minHeight84">
   <!--Start 1st Row-->
   <div class="row">
     <!--start search textbox column-->
@@ -43,42 +43,98 @@
   <!--Start table Row-->
   <div class="row">
     <div class="col-md-12">
-      <table class="table table-striped fullwidth">
+      <table class="table table-striped">
         <thead>
           <tr class="d-flex">
             <th class="col-1 text-center ">Sr No.</th>
             <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
-              class="col-4 pointerCursor text-left ">
-              Employee Name
+              class="col-3 pointerCursor text-left ">
+              Date
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
             <th [class.active]="order === 'noOfModules'" (click)="setOrder('noOfModules')"
-              class="col-7 pointerCursor text-left">
-              Postings
+              class="col-6 pointerCursor text-left">
+              Description
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+            </th>
+            <th class="col-2 pointerCursor text-center">
+              Detail
             </th>
           </tr>
         </thead>
         <tbody>
-          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-          <tr *ngFor="let item of employeeList |
+          <tr class='d-flex'>
+            <!-- <tr *ngFor="let item of employeeList |
                 search:'indvdlFullName,jobDesigName,payGradeName,empJobStartDt':tblSearch | paginate: {
                   itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"
-            class='d-flex'>
-            <td class='col-1 text-center'>{{i + 1}}</td>
-            <td class='col-4 text-left'>{{item.indvdlFullName}}</td>
-            <td class='col-4 text-left'>{{item.jobDesigName}}</td>
-            <td class='col-2'>{{item.payGradeName}}</td>
+            class='d-flex'> -->
+            <td class='col-1 text-center'>1</td>
+            <td class='col-3 text-left'>June 29, 2019</td>
+            <td class='col-6 text-left'>Transfer</td>
             <!-- <td class='col-2'>{{item.empJobStartDt | date}}</td> -->
-            <td class='col-1 text-center'>
-              <!-- <span class="fa fa-signal pointerCursor text-primary" data-toggle="modal" data-target="#promotionModal" (click)="edit(item)"></span> -->
+            <td class='col-2 text-center'>
+              <span class="fa fa-list-alt pointerCursor text-primary" data-toggle="modal"
+                data-target="#promotionModal"></span>
+            </td>
+            <td class='col-1 text-center'>2</td>
+            <td class='col-3 text-left'>July 18, 2019</td>
+            <td class='col-6 text-left'>Transfer/Posting</td>
+            <!-- <td class='col-2'>{{item.empJobStartDt | date}}</td> -->
+            <td class='col-2 text-center'>
+              <span class="fa fa-list-alt pointerCursor text-primary" data-toggle="modal"
+                data-target="#promotionModal"></span>
+            </td>
+            <td class='col-1 text-center'>3</td>
+            <td class='col-3 text-left'>Sept 18, 2019</td>
+            <td class='col-6 text-left'>Transfer/Posting</td>
+            <!-- <td class='col-2'>{{item.empJobStartDt | date}}</td> -->
+            <td class='col-2 text-center'>
+              <span class="fa fa-list-alt pointerCursor text-primary" data-toggle="modal"
+                data-target="#promotionModal"></span>
+            </td>
+            <td class='col-1 text-center'>2</td>
+            <td class='col-3 text-left'>November 18, 2019</td>
+            <td class='col-6 text-left'>Transfer</td>
+            <!-- <td class='col-2'>{{item.empJobStartDt | date}}</td> -->
+            <td class='col-2 text-center'>
+              <span class="fa fa-list-alt pointerCursor text-primary" data-toggle="modal"
+                data-target="#promotionModal"></span>
+            </td>
+          </tr>
+          <tr class='d-flex'>
+            <td class='col-1 text-center'>2</td>
+            <td class='col-3 text-left'>July 18, 2019</td>
+            <td class='col-6 text-left'>Transfer/Posting</td>
+            <!-- <td class='col-2'>{{item.empJobStartDt | date}}</td> -->
+            <td class='col-2 text-center'>
+              <span class="fa fa-list-alt pointerCursor text-primary" data-toggle="modal"
+                data-target="#promotionModal"></span>
+            </td>
+          </tr>
+          <tr class='d-flex'>
+            <td class='col-1 text-center'>3</td>
+            <td class='col-3 text-left'>Sept 18, 2019</td>
+            <td class='col-6 text-left'>Transfer/Posting</td>
+            <!-- <td class='col-2'>{{item.empJobStartDt | date}}</td> -->
+            <td class='col-2 text-center'>
+              <span class="fa fa-list-alt pointerCursor text-primary" data-toggle="modal"
+                data-target="#promotionModal"></span>
+            </td>
+          </tr>
+          <tr class='d-flex'>
+            <td class='col-1 text-center'>4</td>
+            <td class='col-3 text-left'>November 18, 2019</td>
+            <td class='col-6 text-left'>Transfer</td>
+            <!-- <td class='col-2'>{{item.empJobStartDt | date}}</td> -->
+            <td class='col-2 text-center'>
+              <span class="fa fa-list-alt pointerCursor text-primary" data-toggle="modal"
+                data-target="#promotionModal"></span>
             </td>
           </tr>
         </tbody>
       </table>
-
 
       <!-- Pagination Starts -->
       <div class="col-md-12 text-right">
@@ -222,7 +278,7 @@
   <!--start modal window dialog-->
   <div class="modal-dialog shadow-lg-dark modal-lg">
     <!--start modal window contents -->
-    <div class="modal-content">
+    <div class="modal-content modal-bottom-border-blue">
 
       <!--start user Modal Header -->
       <div class="modal-header bg-skyBlue borderBlue5px">
@@ -234,22 +290,48 @@
       <!--end user Modal Header -->
 
       <!--start user Modal body -->
-      <div class="modal-body">
+      <div class="modal-body m-3">
 
-        <div class="row mt-4">
+        <div class="row">
           <div class="col-md-6">
-            <div class="border-bottom border-left border-right">
-              <div class="row">
-                <div class="offset-md-1 col-md-11">
-                  <h5 class="border-bottom text-left">
-                    <span class="pr-1">Transfering From</span>
-                  </h5>
-                </div>
-              </div>
+            <mat-form-field class="fullwidth">
+              <input matInput [matDatepicker]="picker" placeholder="Date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="fullwidth">
+              <mat-select placeholder="Transfer Type" [(ngModel)]="transferType">
+                <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                  -
+                  {{item.payGradeCd}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <fieldset class="scheduler-border">
+              <legend class="scheduler-border text-skyblue">Transfering From</legend>
               <div class="row">
                 <div class="col-md-12 mt-2 mb-2">
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Transfer Type" [(ngModel)]="transferType">
+                    <mat-select placeholder="Branch" [(ngModel)]="transferType">
+                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                        -
+                        {{item.payGradeCd}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <mat-select placeholder="Department" [(ngModel)]="transferType">
+                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                        -
+                        {{item.payGradeCd}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <mat-select placeholder="Section" [(ngModel)]="transferType">
                       <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
                         -
                         {{item.payGradeCd}}</mat-option>
@@ -263,8 +345,29 @@
                     </mat-select>
                   </mat-form-field>
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <input matInput placeholder="Employee Name" [(ngModel)]="transferType">
+                    <mat-select placeholder="Employee Name" [(ngModel)]="transferType">
+                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                        -
+                        {{item.payGradeCd}}</mat-option>
+                    </mat-select>
                   </mat-form-field>
+                  <div class="row">
+                    <div class="col-md-6 text-right">
+                      <label>Designation</label>
+                    </div>
+                    <div class="col-md-6 text-left">
+                      <label>Pay Scale</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset class="scheduler-border">
+              <legend class="scheduler-border text-skyblue">Transfering To</legend>
+              <div class="row">
+                <div class="col-md-12 mt-2 mb-2">
                   <mat-form-field class="fullwidth pl-3 pr-3">
                     <mat-select placeholder="Branch" [(ngModel)]="transferType">
                       <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
@@ -280,30 +383,11 @@
                     </mat-select>
                   </mat-form-field>
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Pay Scale" [(ngModel)]="transferType">
+                    <mat-select placeholder="Section" [(ngModel)]="transferType">
                       <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
                         -
                         {{item.payGradeCd}}</mat-option>
                     </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-md-6">
-            <div class="border-bottom border-left border-right">
-              <div class="row">
-                <div class="offset-md-1 col-md-11">
-                  <h5 class="border-bottom text-left">
-                    <span class="pl-2 pr-1">Transfering To</span>
-                  </h5>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12 mt-2 mb-2">
-                  <mat-form-field class="fullwidth pl-3 pr-3">
-                    <input matInput placeholder="Employee Name" [(ngModel)]="transferType">
                   </mat-form-field>
                   <mat-form-field class="fullwidth pl-3 pr-3">
                     <mat-select placeholder="Post To" [(ngModel)]="transferType">
@@ -313,48 +397,36 @@
                     </mat-select>
                   </mat-form-field>
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <input matInput [matDatepicker]="picker" placeholder="Effective From" [(ngModel)]="transferType">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-                  <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Branch" [(ngModel)]="transferType">
+                    <mat-select placeholder="Employee Name" [(ngModel)]="transferType">
                       <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
                         -
                         {{item.payGradeCd}}</mat-option>
                     </mat-select>
                   </mat-form-field>
-                  <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Department" [(ngModel)]="transferType">
-                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
-                        -
-                        {{item.payGradeCd}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Pay Scale" [(ngModel)]="transferType">
-                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
-                        -
-                        {{item.payGradeCd}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                  <div class="row">
+                    <div class="col-md-6 text-right">
+                      <label>Designation</label>
+                    </div>
+                    <div class="col-md-6 text-left">
+                      <label>Pay Scale</label>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </fieldset>
           </div>
         </div>
-        <!--2nd row-->
 
         <div class="row mt-4 mb-4">
           <div class="offset-md-7 col-md-5">
             <!--start buttons row -->
             <div class="row">
               <div class="col-md-6">
-                <button mat-raised-button class="btn fullwidth" (click)="clear()"
+                <button mat-raised-button class="btn fullwidth pb-1 pt-1" (click)="clear()"
                   style="border-radius: 0;">&nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;</button>
               </div>
               <div class="col-md-6">
-                <button mat-raised-button class="btn fullwidth" (click)="save()"
+                <button mat-raised-button class="btn fullwidth pb-1 pt-1" (click)="save()"
                   style="border-radius: 0;">&nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;</button>
               </div>
             </div>
