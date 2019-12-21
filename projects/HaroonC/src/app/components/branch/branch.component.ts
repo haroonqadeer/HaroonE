@@ -98,7 +98,7 @@ export class BranchComponent implements OnInit {
   countryListForAddress = [];
   provinceList = [];
   districtList = [];
-  cityList = [];
+  
 
   //** Dropdown (temporary lists) for filters */
   //dropCountryList = [];
@@ -123,6 +123,18 @@ export class BranchComponent implements OnInit {
   dbranchId = "";
   cmpnyId = "";
   delFlag: boolean;
+
+    addressType = '';
+    address = '';
+    country = '';
+    city = '';
+    zipCode = '';
+
+    srchCntry = '';
+    srchCity = '';
+    cntryList = [];
+    cityList = [];
+    addressList = [];
 
   //*NgModel For Searching textboxes
   tblSearch = "";
@@ -214,6 +226,10 @@ export class BranchComponent implements OnInit {
     this.getCompany();
     this.getBranches();
     this.getBranchDetail();
+
+    this.getCountry();
+    this.getCity();
+
   }
 
   @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
@@ -236,6 +252,35 @@ export class BranchComponent implements OnInit {
       .get(this.serverUrl + "api/getCompany", { headers: reqHeader })
       .subscribe((data: any) => {
         this.companies = data;
+      });
+  }
+
+  getCity() {
+    //return false;
+
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    this.http.get(this.serverUrl + 'api/getCity', { headers: reqHeader }).subscribe((data: any) => {
+        this.cityList = data
+    });
+  }
+
+  getCountry() {
+      //return false;
+
+      //var Token = localStorage.getItem(this.tokenKey);
+
+      //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+      this.app.showSpinner();
+
+      this.http.get(this.serverUrl + 'api/getCountry', { headers: reqHeader }).subscribe((data: any) => {
+          this.cntryList = data
+          this.app.hideSpinner();
       });
   }
 
@@ -305,9 +350,26 @@ export class BranchComponent implements OnInit {
       });
       return false;
     }
-    // address type conditions
-    else if (this.shrd_adrs.addressList.length == 0) {
-      this.toastr.errorToastr("Please Add Address Info Type", "Error", {
+    else if (this.address.trim() == '') {
+      this.toastr.errorToastr("Please Enter Address", "Error", {
+        toastTimeout: 2500
+      });
+      return false;
+    }
+    else if (this.country == '') {
+      this.toastr.errorToastr("Please Enter Country", "Error", {
+        toastTimeout: 2500
+      });
+      return false;
+    }
+    else if (this.city == '') {
+      this.toastr.errorToastr("Please Enter City", "Error", {
+        toastTimeout: 2500
+      });
+      return false;
+    }
+    else if (this.zipCode == '') {
+      this.toastr.errorToastr("Please Enter Zip Code", "Error", {
         toastTimeout: 2500
       });
       return false;
@@ -326,7 +388,30 @@ export class BranchComponent implements OnInit {
       });
       return false;
     } else {
-      alert(this.cmbCompany);
+      
+      if (this.addressList.length == 0){
+          this.addressList.push({
+
+              contactDetailCode: 0,
+              addressId: 0,
+              addressType: 2,
+              address: this.address,
+              cityCode: this.city,
+              districtCode: 0,
+              provinceCode: 0,
+              countryCode: this.country,
+              zipCode: this.zipCode,
+              status: 0
+
+          });
+      }else{
+
+          this.addressList[0].address = this.address;
+          this.addressList[0].cityCode = this.city;
+          this.addressList[0].countryCode = this.country;
+          this.addressList[0].zipCode = this.zipCode;
+
+      }
 
       if (this.branchId != "") {
         this.app.showSpinner();
@@ -335,7 +420,7 @@ export class BranchComponent implements OnInit {
           branchId: this.branchId,
           companyId: this.cmbCompany,
           branchName: this.txtBranch,
-          address: JSON.stringify(this.shrd_adrs.addressList),
+          address: JSON.stringify(this.addressList),
           telephone: JSON.stringify(this.shrd_cntct.contactList),
           email: JSON.stringify(this.shrd_cntct.emailList)
         };
@@ -427,7 +512,14 @@ export class BranchComponent implements OnInit {
     this.txtBranch = "";
     this.branchId = "";
 
-    this.shrd_adrs.addressList = [];
+    this.address = '';
+    this.country = '';
+    this.city = '';
+    this.zipCode = '';
+    this.srchCity = '';
+    this.srchCntry = '';
+    
+    this.addressList = [];
     this.shrd_cntct.contactList = [];
     this.shrd_cntct.emailList = [];
   }
@@ -484,7 +576,12 @@ export class BranchComponent implements OnInit {
         }
       }
 
-      this.shrd_adrs.addressList = addressList;
+      this.address = addressList[0].address;
+      this.country = addressList[0].countryCode;
+      this.city = addressList[0].cityCode;
+      this.zipCode = addressList[0].zipCode;
+
+      this.addressList = addressList;
       this.shrd_cntct.contactList = telephoneList;
       this.shrd_cntct.emailList = emailList;
     }

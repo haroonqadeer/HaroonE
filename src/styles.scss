@@ -304,6 +304,77 @@
       border: 1px solid red;
     }
 
+    .navH {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navH li {
+      height: 45px;
+      width: 100%;
+      position: relative;
+      text-decoration: none !important;
+      //background: linear-gradient(#E6E6E6, #E6E6E6);
+      background-color: #E6E6E6;
+      border: 0px solid red;
+    }
+
+    .navH li:first-child {
+      background-color: #A3A7B2;
+    }
+
+    .navH a {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid #DBDBDB;
+      text-decoration: none !important;
+      display: block;
+      height: 100%;
+      width: 100%;
+      line-height: 2em;
+      color: #4A4A4D;
+      font-family: Roboto-Light;
+      font-size: 15px;
+      font-weight: 500;
+      padding-left: 10px;
+      border-left: 5px solid transparent;
+      transition: all 0.3s linear;
+      display: block;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-left: 5px solid #A3A7B2;
+      background-color: #A3A7B2;
+    }
+
+    .navH .menuSearchBox {
+      border: 0px solid #fff;
+      color: #fff;
+      background-color: #A3A7B2;
+      box-shadow: none;
+      margin-left: 15px;
+      top: 3px;
+      padding: 0;
+      position: relative;
+    }
+
+    .navH .menuSearchBox::placeholder {
+      color: #fff;
+    }
+
+    .navH .logo {
+      border: 0px solid orange;
+      //margin-left: 15px;
+      width: 32px;
+      height: 32px;
+    }
+
+    .navH span[class ^="fa"] {
+      //position: absolute;
+      //top:0.2em; 
+      //font-size: 1.5em;
+      transition: all 0.3s linear;
+    }
+
     .nav {
       list-style-type: none;
       margin: 0;
@@ -318,25 +389,6 @@
       //background: linear-gradient(#E6E6E6, #E6E6E6);
       background-color: #E6E6E6;
       border: 0px solid red;
-    }
-
-    .nav li:first-child {
-      background-color: #A3A7B2;
-    }
-
-    .nav .menuSearchBox {
-      border: 0px solid #fff;
-      color: #fff;
-      background-color: #A3A7B2;
-      box-shadow: none;
-      margin-left: 15px;
-      top: 3px;
-      padding: 0;
-      position: relative;
-    }
-
-    .nav .menuSearchBox::placeholder {
-      color: #fff;
     }
 
     .nav a {
@@ -357,13 +409,6 @@
       display: block;
       padding-top: 5px;
       padding-bottom: 5px;
-
-
-
-      //padding-left: 15px;
-      //border: 1px solid red;
-      //letter-spacing:1px;
-      // text-transform: uppercase;
     }
 
     .nav .logo {
