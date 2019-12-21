@@ -2011,7 +2011,7 @@
       border: 0px solid green;
       width: 24px;
       height: 24px;
-      mask: url(./assets/images/search.gif) no-repeat center;
+      mask: url(./assets/images/search.svg) no-repeat center;
       background-color: #ACB2E8;
     }
 
@@ -2142,7 +2142,35 @@
 
     ///////////////////////////////////////
     ///////////Dashboard Images////////////
-    ///////////////////////////////////////
+    ///////////////////////////////////////'
+
+    .imgAddUser {
+      width: 100%;
+      height: 100%;
+      padding-top: 20%;
+      font-family: Roboto-Light;
+      // float: left;
+      background: url('../src/assets/images/add-profile.gif') no-repeat;
+    }
+
+    .imgActiveUser {
+      width: 100%;
+      height: 100%;
+      padding-top: 40%;
+      font-family: Roboto-Light;
+      float: left;
+      background: url('../src/assets/images/active-profile.gif') no-repeat;
+    }
+
+    .imgDeactiveUser {
+      width: 100%;
+      height: 100%;
+      padding-top: 40%;
+      font-family: Roboto-Light;
+      float: left;
+      background: url('../src/assets/images/deActivate-profile.gif') no-repeat;
+    }
+
     .imgAppReceive {
       width: 100%;
       height: 100%;
@@ -2180,7 +2208,18 @@
     }
 
 
+    ////////////////////////////////////////
+    ////////////FOnt Classes////////////////
+    ////////////////////////////////////////
 
+    .font2-5em {
+      font-size: 2.5em !important;
+    }
+
+    .font0-9em {
+      font-size: 0.9em !important;
+      font-weight: 400 !important;
+    }
 
 
 

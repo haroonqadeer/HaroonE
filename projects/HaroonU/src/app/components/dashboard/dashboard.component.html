@@ -7,231 +7,162 @@
         <label class="font-weight-light font-italic dashboardHeadingFont">&nbsp; for last 30 days</label>
       </div>
     </div>
-    <div class="row border-danger">
-      <div class="col-md-4 allBorder">
-        <div class="row bgWhite boxShadow mr-2">
-          <div class="col-md-12">
-            <div class="row mt-4 mb-2 ml-2 mr-2">
-              <div class="col-md-7 text-left">
-                <div class="border-right">
-                  <div class="row pl-0">
-                    <div class="col-md-12">
-                      <div class="imgAddUser"></div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label style="font-size: 0.9em;">User Profiles Added</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-5 text-right pr-0">
-                <div class="row">
-                  <div class="col-md-12">
-                    <label style="font-size: 3em;">{{countAddition}}</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <label style="font-size: 0.9em;">OUT OF {{countTotal}}</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+    <div class="row">
       <div class="col-md-4">
-        <div class="row bgWhite boxShadow mr-2">
-          <div class="col-md-12">
-            <div class="row mt-4 mb-2 ml-2 mr-2">
-              <div class="col-md-7 text-left">
-                <div class="border-right">
-                  <div class="row pl-0">
-                    <div class="col-md-12">
-                      <div class="imgActiveUser"></div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label style="font-size: 0.9em;">Active User Profiles</label>
-                    </div>
-                  </div>
+        <div class="bgWhite boxShadow">
+          <div class="row">
+            <div class="col-md-7 text-left">
+              <div class="imgAddUser"></div>
+              <div class="font0-9em">User Profile Added</div>
+            </div>
+            <div class="col-md-5 text-right">
+              <div class="font2-5em">{{countAddition}}</div>
+              <div class="font0-9em">OUT OF {{countTotal}}</div>
+            </div>
+            <!-- <div class="col-md-7 text-left border-right">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="imgAddUser"></div>
                 </div>
               </div>
-              <div class="col-md-5 text-right pr-0">
-                <div class="row">
-                  <div class="col-md-12 pb-0">
-                    <label style="font-size: 3em;">{{countActive}}</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <label style="font-size: 0.9em;">OUT OF {{countTotal}}</label>
-                  </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="m-0 p-0 font0-9em">User Profiles Added</label>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="row bgWhite boxShadow mr-2">
-          <div class="col-md-12">
-            <div class="row mt-4 mb-2 ml-2 mr-2">
-              <div class="col-md-7 text-left">
-                <div class="border-right">
-                  <div class="row pl-0">
-                    <div class="col-md-12">
-                      <div class="imgDeactiveUser"></div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label style="font-size: 0.9em;">Deactivated User Profiles</label>
-                    </div>
-                  </div>
+            <div class="col-md-5 text-right">
+              <div class="row pb-0">
+                <div class="col-md-12">
+                  <label class="font2-5em mb-0">{{countAddition}}</label>
                 </div>
               </div>
-              <div class="col-md-5 text-right pr-0">
-                <div class="row">
-                  <div class="col-md-12 pb-0">
-                    <label style="font-size: 3em;">{{countDeactive}}</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <label style="font-size: 0.9em;">OUT OF {{countTotal}}</label>
-                  </div>
+              <div class="row border border-info">
+                <div class="col-md-12 pb-0 mb-0">
+                  <label class="font0-9em">OUT OF {{countTotal}}</label>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
     </div>
-    <br />
-    <div class="row">
+
+    <div class="row mt-4">
       <div class="col-md-4">
-        <div class="row bgWhite boxShadow mr-2">
-          <div class="col-md-12 m-3">
-            <div class="row">
-              <div class="col-md-10">
-                <label style="font-size: 1em; font-weight: bold;">ABNORMAL ACTIVITIES</label>
-              </div>
+        <div class="bgWhite boxShadow mr-2 p-4">
+          <div class="row">
+            <div class="col-md-10">
+              <label style="font-size: 1em; font-weight: bold;">ABNORMAL ACTIVITIES</label>
             </div>
-            <div class="row mr-1">
-              <div class="col-md-12 pb-0">
-                <table class="table table-striped fullwidth">
-                  <thead>
-                    <tr class="d-flex">
-                      <th class="col-7 text-left">USERLOGIN</th>
-                      <th class="col-5 text-center">ACTIVITY</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class='d-flex'>
-                      <!-- <tr class='d-flex' *ngFor="let item of rolesData | search:'uRoleName,uNoModule,uNoPage':roleSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"> -->
-                      <td class="col-7 text-left">John.Smith</td>
-                      <td class="col-5 text-center pointerCursor">
-                        <button type="button" class="btn btn-link" data-toggle="modal"
-                          data-target="#permissionModal">50</button>
-                      </td>
-                    </tr>
-                    <tr class='d-flex'>
-                      <td class="col-7 text-left">Khan.Ahmed</td>
-                      <td class="col-5 text-center pointerCursor">
-                        <button type="button" class="btn btn-link" data-toggle="modal"
-                          data-target="#permissionModal">30</button>
-                      </td>
-                    </tr>
-                    <tr class='d-flex'>
-                      <td class="col-7 text-left">Aliraza</td>
-                      <td class="col-5 text-center pointerCursor">
-                        <button type="button" class="btn btn-link" data-toggle="modal"
-                          data-target="#permissionModal">25</button>
-                      </td>
-                    </tr>
-                    <tr class='d-flex'>
-                      <td class="col-7 text-left">Ahmed</td>
-                      <td class="col-5 text-center pointerCursor">
-                        <button type="button" class="btn btn-link" data-toggle="modal"
-                          data-target="#permissionModal">10</button>
-                      </td>
-                    </tr>
-                    <tr class='d-flex'>
-                      <td class="col-7 text-left">Nawaz</td>
-                      <td class="col-5 text-center pointerCursor">
-                        <button type="button" class="btn btn-link" data-toggle="modal"
-                          data-target="#permissionModal">10</button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-striped fullwidth">
+                <thead>
+                  <tr class="d-flex">
+                    <th class="col-7 text-left">USERLOGIN</th>
+                    <th class="col-5 text-center">ACTIVITY</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class='d-flex'>
+                    <!-- <tr class='d-flex' *ngFor="let item of rolesData | search:'uRoleName,uNoModule,uNoPage':roleSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"> -->
+                    <td class="col-7 text-left">John.Smith</td>
+                    <td class="col-5 text-center pointerCursor">
+                      <button type="button" class="btn btn-link p-0" data-toggle="modal"
+                        data-target="#permissionModal">50</button>
+                    </td>
+                  </tr>
+                  <tr class='d-flex'>
+                    <td class="col-7 text-left">Khan.Ahmed</td>
+                    <td class="col-5 text-center pointerCursor">
+                      <button type="button" class="btn btn-link p-0" data-toggle="modal"
+                        data-target="#permissionModal">30</button>
+                    </td>
+                  </tr>
+                  <tr class='d-flex'>
+                    <td class="col-7 text-left">Aliraza</td>
+                    <td class="col-5 text-center pointerCursor">
+                      <button type="button" class="btn btn-link p-0" data-toggle="modal"
+                        data-target="#permissionModal">25</button>
+                    </td>
+                  </tr>
+                  <tr class='d-flex'>
+                    <td class="col-7 text-left">Ahmed</td>
+                    <td class="col-5 text-center pointerCursor">
+                      <button type="button" class="btn btn-link p-0" data-toggle="modal"
+                        data-target="#permissionModal">10</button>
+                    </td>
+                  </tr>
+                  <tr class='d-flex'>
+                    <td class="col-7 text-left">Nawaz</td>
+                    <td class="col-5 text-center pointerCursor">
+                      <button type="button" class="btn btn-link p-0" data-toggle="modal"
+                        data-target="#permissionModal">10</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="row bgWhite boxShadow mr-2">
-          <div class="col-md-12 m-3">
-            <div class="row">
-              <div class="col-md-12">
-                <label style="font-size: 1em; font-weight: bold;">Monthly User Management Trend</label>
-              </div>
+        <div class="bgWhite boxShadow mr-2 p-4">
+          <div class="row">
+            <div class="col-md-12">
+              <label style="font-size: 1em; font-weight: bold;">Monthly User Management Trend</label>
             </div>
-            <div class="row mr-1">
-              <div class="col-md-12 pb-0">
-                <div [chart]="Line_chart" (click)="pie_data()" style="height:310px; width: auto;"></div>
-              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 pb-0">
+              <div [chart]="Line_chart" (click)="pie_data()" style="height:335px;"></div>
             </div>
           </div>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="row bgWhite boxShadow mr-2">
-          <div class="col-md-12 m-3">
-            <div class="row">
-              <div class="col-md-10">
-                <label style="font-size: 1em; font-weight: bold;"> TOP USER</label>
-              </div>
+        <div class="bgWhite boxShadow mr-2 p-4">
+          <div class="row">
+            <div class="col-md-10">
+              <label style="font-size: 1em; font-weight: bold;"> TOP USER</label>
             </div>
-            <div class="row mr-1">
-              <div class="col-md-12 pb-0">
-                <table class="table table-striped fullwidth">
-                  <thead>
-                    <tr class="d-flex">
-                      <th class="col-7 text-left">USERLOGIN</th>
-                      <th class="col-5 text-center">LOG DURATION</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class='d-flex'>
-                      <!-- <tr class='d-flex' *ngFor="let item of rolesData | search:'uRoleName,uNoModule,uNoPage':roleSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"> -->
-                      <td class="col-7 text-left">John.Smith</td>
-                      <td class="col-5 text-center">75%</td>
-                    </tr>
-                    <tr class='d-flex'>
-                      <td class="col-7 text-left">Khan.Ahmed</td>
-                      <td class="col-5 text-center">40%</td>
-                    </tr>
-                    <tr class='d-flex'>
-                      <td class="col-7 text-left">Aliraza</td>
-                      <td class="col-5 text-center">25%</td>
-                    </tr>
-                    <tr class='d-flex'>
-                      <td class="col-7 text-left">Ahmed</td>
-                      <td class="col-5 text-center">20%</td>
-                    </tr>
-                    <tr class='d-flex'>
-                      <td class="col-7 text-left">Nawaz</td>
-                      <td class="col-5 text-center">20%</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 pb-0">
+              <table class="table table-striped fullwidth">
+                <thead>
+                  <tr class="d-flex">
+                    <th class="col-7 text-left">USERLOGIN</th>
+                    <th class="col-5 text-center">LOG DURATION</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class='d-flex'>
+                    <!-- <tr class='d-flex' *ngFor="let item of rolesData | search:'uRoleName,uNoModule,uNoPage':roleSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"> -->
+                    <td class="col-7 text-left">John.Smith</td>
+                    <td class="col-5 text-center">75%</td>
+                  </tr>
+                  <tr class='d-flex'>
+                    <td class="col-7 text-left">Khan.Ahmed</td>
+                    <td class="col-5 text-center">40%</td>
+                  </tr>
+                  <tr class='d-flex'>
+                    <td class="col-7 text-left">Aliraza</td>
+                    <td class="col-5 text-center">25%</td>
+                  </tr>
+                  <tr class='d-flex'>
+                    <td class="col-7 text-left">Ahmed</td>
+                    <td class="col-5 text-center">20%</td>
+                  </tr>
+                  <tr class='d-flex'>
+                    <td class="col-7 text-left">Nawaz</td>
+                    <td class="col-5 text-center">20%</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
