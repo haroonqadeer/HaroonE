@@ -146,8 +146,9 @@
 
                         <td class="col-8">{{item.deptName}}</td>
                         <td class="col-2 text-center">
-                          <span class="fa tableIcon pointerCursor">
-                            <span class="fa icon-u-edit" disabled="item.delFlag" (click)="edit(item)"></span>
+                          <span class="fa tableIcon pointerCursor" (click)="edit(item)">
+                            <span class="fa icon-u-edit" *ngIf="item.delFlag==0"></span>
+                            <span class="fa icon-u-edit-disable" *ngIf="item.delFlag==1"></span>
                           </span>
                         </td>
                         <td class="col-2 text-center">

@@ -130,6 +130,13 @@
   background-color: #4181C3;
 }
 
+.tableIcon .icon-u-edit-disable {
+  width: 100%;
+  height: 100%;
+  mask: url(./assets/images/Edit.svg) no-repeat center;
+  background-color: #ddd;
+}
+
 .tableIcon .icon-u-delete {
   width: 100%;
   height: 100%;
