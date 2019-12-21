@@ -44,7 +44,7 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <ul class="nav border border-danger">
+            <ul class="nav">
 
               <li class="m-0" routerLinkActive='active' (click)="closeNav()">
                 <a routerLink='HR/hrdashboard'>
@@ -95,7 +95,7 @@
 
           <!--Configuration Menu Panel-->
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class='mat-header-hover'>
               <mat-panel-title>
                 Configuration Menu
               </mat-panel-title>
@@ -126,7 +126,7 @@
 
           <!--User Menu Panel-->
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class='mat-header-hover'>
               <mat-panel-title>
                 User Menu
               </mat-panel-title>
@@ -163,7 +163,7 @@
 
           <!--Company Menu Panel-->
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class='mat-header-hover'>
               <mat-panel-title>
                 Company Menu
               </mat-panel-title>
