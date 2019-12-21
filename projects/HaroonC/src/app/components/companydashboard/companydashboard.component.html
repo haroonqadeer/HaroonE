@@ -6,8 +6,8 @@
       </div>
       <div class="offset-md-5 col-md-4 text-center">
         <mat-form-field class="fullwidth mt-3 my-form">
-          <mat-select placeholder="Select Company" [(ngModel)]="cmbCompany" (ngModelChange)="getChartData($event)"
-            required>
+          <mat-select class="my-form" placeholder="Select Company" [(ngModel)]="cmbCompany"
+            (ngModelChange)="getChartData($event)" required>
             <mat-option *ngFor=" let item of company" [value]="item.companyId">
               {{item.companyName}}
             </mat-option>

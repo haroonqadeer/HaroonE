@@ -46,16 +46,10 @@
       <table class="table table-striped fullwidth">
         <thead>
           <tr class="d-flex">
-            <th class="col-1 text-center ">Sr No.</th>
+            <th class="col-2 text-center ">Sr No.</th>
             <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
-              class="col-3 pointerCursor text-left ">
-              Leave Type
-              <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-            </th>
-            <th [class.active]="order === 'noOfModules'" (click)="setOrder('noOfModules')"
-              class="col-4 pointerCursor text-left">
-              Leave Nature
+              class="col-6 pointerCursor text-left ">
+              Leave Rule
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
@@ -68,9 +62,8 @@
           <tr *ngFor="let item of leaveTypeList | search:'leaveTypeName,leaveTypeDesc':tblSearchType | paginate: {
               itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"
             class='d-flex'>
-            <td class='col-1 text-center'>{{i + 1}}</td>
-            <td class='col-3 text-left'>{{item.leaveTypeName}}</td>
-            <td class='col-4 text-left'>{{item.leaveTypeDesc}}</td>
+            <td class='col-2 text-center'>{{i + 1}}</td>
+            <td class='col-6 text-left'>{{item.leaveTypeName}} - Without Pay</td>
             <td class='col-2 text-center'>
               <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#typeModal"
                 (click)="editLeaveType(item)">

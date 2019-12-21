@@ -1,106 +1,153 @@
-<!-- start menubar buttons -->
-<div class="topnav boxShadow">
-  <div>
-    <!--class="container" -->
-    <span class="fa iconContainer">
-      <span class="fa icon-hr-dashboard" > </span>
-    </span>
-    <h1> HR Dashboard</h1>
+<div class="dashboardContainer allBorder mt-5">
+  <div class="dashboardContainer mt-4 mb-4">
+    <div class="row">
+      <div class="col-md-9 text-left">
+        <label class="font-weight-normal dashboardHeadingFont"> HR Dashboard </label>
+      </div>
+      <div class="col-md-3 text-right">
+        <mat-form-field class="fullwidth my-form">
+          <mat-select class="my-form" placeholder="Select Branch" required>
+            <mat-option *ngFor=" let item" [value]="item.companyId">
+              {{item.companyName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="bgWhite boxShadow">
+          <div class="row p-4">
+            <div class="col-md-8 text-left">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="imgOnLeave"></div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-12">
+                  <label class="mb-0" style="font-size: 0.9em;">ON LEAVE - TODAY</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 text-right">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="pt-1" style="font-size: 2.5em;">4</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="bgWhite boxShadow">
+          <div class="row p-4">
+            <div class="col-md-7 text-left">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="imgContract"></div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-12">
+                  <label class="mb-0" style="font-size: 0.9em;">CONTRACT/PERMANENT</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 text-right">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="pt-1" style="font-size: 2.5em;">5/25</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="bgWhite boxShadow">
+          <div class="row p-4">
+            <div class="col-md-8 text-left">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="imgJobOpen"></div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-12">
+                  <label class="mb-0" style="font-size: 0.9em;">JOB OPENINGS</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 text-right">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="pt-1" style="font-size: 2.5em;">4</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="bgWhite boxShadow">
+          <div class="row p-4">
+            <div class="col-md-9 text-left">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="imgAppReceive"></div>
+                </div>
+              </div>
+              <div class="row mt-1">
+                <div class="col-md-12">
+                  <label class="mb-0" style="font-size: 0.9em;">APPLICATION RECEIVED</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 text-right">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="pt-1" style="font-size: 2.5em;">2</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="row p-2 bgWhite boxShadow mr-2">
+          <div class="col-md-12">
+            <div class="w-100" style="height: 350px;" [chart]="Variablepie_Chart"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row p-2 bgWhite boxShadow">
+          <div class="col-md-12">
+            <div class="w-100" style="height: 350px;" [chart]="Variablepie_Chart"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="row p-2 bgWhite boxShadow mr-2">
+          <div class="col-md-12">
+            <div class="w-100" style="height: 350px;" [chart]="Column_Chart"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row p-2 bgWhite boxShadow">
+          <div class="col-md-12">
+            <div class="w-100" style="height: 350px;" [chart]="StackColumn_Chart"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<!-- end menubar buttons -->
 
-<!--container row-->
-<div class="container-fluid bottomBorder">
-  <br>
-  <!--box row-->
-  <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box bg-indigo hover-expand-effect">
-        <div class="icon">
-          <i class="fa fa-users"></i>
-        </div>
-        <div class="content">
-          <div class="text">Employees</div>
-          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblEmployees}}</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box bg-orange hover-expand-effect">
-        <div class="icon">
-          <i class="fa fa-line-chart"></i>
-        </div>
-        <div class="content">
-          <div class="text">Permanent</div>
-          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblPermanent}}</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box bg-cyan hover-expand-effect">
-        <div class="icon">
-          <i class="fa fa-sign-out"></i>
-        </div>
-        <div class="content">
-          <div class="text">Contractual</div>
-          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblContractual}}</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box bg-light-green hover-expand-effect">
-        <div class="icon">
-          <i class="fa fa-gears"></i>
-        </div>
-        <div class="content">
-          <div class="text">Job Profile</div>
-          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblJobProfile}}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--end box row-->
-  <br />
-  <!--chart row-->
-  <div class="row">
-    <div class="col-md-12">
-      <div class=" shadow-md" [chart]="Type_Bar_Chart" style=" height: 200px;width:100%;"></div>
-    </div>
-  </div>
-  <!--end chart row-->
-  <br />
-  <!--chart and bar row-->
-  <div class="row">
-    <div class="col-md-6">
-      <div class=" shadow-md" [chart]="Column_Chart" style=" height: 100%;width:100%;"></div>
-    </div>
-    <div class="col-md-6">
-      <div class="row">
-        <div class="col-md-12">
-          <div class=" shadow-md" [chart]="Gender_Bar_Chart" style=" height: 200px;width:100%;"></div>
-        </div>
-      </div>
-      <br />
-      <div class="row">
-        <div class="col-md-12">
-          <div class=" shadow-md" [chart]="Vacancy_Bar_Chart" style=" height: 200px;width:100%;"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--end chart and bar row-->
-  <br />
-  <!--3rd chart row-->
-  <div class="row">
-    <div class="col-md-6">
-      <div class=" shadow-md" [chart]="Off_Column_Chart" style=" height: 250px;width:100%;"></div>
-    </div>
-    <div class="col-md-6">
-      <div class=" shadow-md" [chart]="Dept_Column_Chart" style=" height: 250px;width:100%;"></div>
-    </div>
-  </div>
-  <!--end 3rd chart row-->
 </div>
-<!--end container row-->
-<br />
