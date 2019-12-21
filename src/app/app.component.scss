@@ -10,13 +10,37 @@
   min-width: 25px !important;
 }
 
+.mat-accordion {
+  background-color: green;
+}
+
 .mat-expansion-panel {
-  background-color: transparent;
+  //background-color: transparent;
   color: #34353A !important;
-  margin: 0 !important;
-  padding: 0 !important;
 
 }
+
+.mat-expansion-panel-header {
+  background-color: #efefef !important;
+  border-left: 5px solid #fff;
+}
+
+.mat-expansion-panel-header.mat-expanded {
+  background: #ffffff !important;
+  border-bottom: 1px solid #efefef;
+  border-left: 5px solid #273E94;
+}
+
+.mat-expansion-panel-body {
+  padding: 0;
+}
+
+.mat-header-hover:hover {
+  background-color: #fff !important;
+  border-left: 5px solid #273E94;
+}
+
+
 
 .mat-panel-title .label {
   background: #34353A;
