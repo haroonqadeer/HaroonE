@@ -2,12 +2,11 @@
 
   <!--Address type cmbo bx row-->
   <div class="row">
-    <div class="col-md-11">
+     <div class="col-md-11">
       <mat-form-field class="fullwidth">
         <mat-select placeholder="Address Type" [(ngModel)]="addressType" required>
           <input type="text" [(ngModel)]="srchAdrs" class="form-control">
-          <mat-option *ngFor="let item of adrsTypeList | search:'addressTypeName': srchAdrs"
-            [value]="item.addressTypeCd">
+          <mat-option *ngFor="let item of adrsTypeList | search:'addressTypeName': srchAdrs" [value]="item.addressTypeCd">
             <table>
               <tr class='d-flex'>
                 <td class="col-12">{{ item.addressTypeName }}</td>
@@ -16,7 +15,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
+    </div> 
 
     <div class="col-md-1 text-right nopadding" style="margin: 20px 0 0 -10px;">
       <span class="pointerCursor fa fa-plus iconAdd" (click)="addAddress()"></span>
@@ -78,7 +77,7 @@
     </div>
   </div>
 
-  <div class="innerContainer">
+  <!-- <div class="innerContainer">
     <div class="row" *ngFor=" let item of addressList; let i=index">
       <div class="col-md-11" *ngIf="item.status != 2">
         <p>
@@ -102,5 +101,5 @@
       </div>
 
     </div>
-  </div>
+  </div> -->
 </div>

@@ -21,31 +21,26 @@
 //     } 
 
 .my-form .mat-form-field-infix {
-  background-color: #495ebb;
-  //   border: 1px solid brown;
-  padding: 4px 8px 4px 6px;
+  background-color: transparent;
 }
 
 .my-form .mat-select {
-  background-color: #495ebb;
-  color: #fff;
-  padding: 4px 8px 4px 6px;
+  background-color: transparent;
+  color: #8b8b8b;
 }
 
 .my-form .mat-select-value {
-  color: white;
+  color: #8b8b8b;
 }
 
 .my-form .mat-select-arrow {
-  color: white;
+  color: #8b8b8b;
 }
 
 .my-form .mat-form-field span.mat-form-field-label-wrapper label {
-  color: white !important;
-  //   border: 1px solid brown;
-  padding-left: 8px;
+  color: #8b8b8b !important;
 }
 
 .my-form .mat-form-field.mat-focused span.mat-form-field-label-wrapper label {
-  color: white !important;
+  color: #8b8b8b !important;
 }

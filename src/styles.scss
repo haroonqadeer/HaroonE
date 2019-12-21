@@ -45,6 +45,11 @@
       overflow: hidden;
     }
 
+
+    .dashboardHeadingFont {
+      font-size: 1.2em;
+    }
+
     //////////////////////////////////////////
     /////// background, border & text color schemes //////
     //////////////////////////////////////////
@@ -83,17 +88,16 @@
     //////////////////////////////////////////
     .BgIntro {
       border: 0px solid red;
+      height: 86%;
+      width: 78%;
       margin-top: 3%;
-      //background-image: url("../src/assets/images/main-bg.svg") !important;
       background-image: url("../src/assets/images/main-bg.svg") !important;
       background-repeat: no-repeat !important;
       background-size: 30em 25em !important;
       background-position: bottom right !important;
-      //min-width: 80em;
       background: rgba(255, 255, 255, 0.8);
-      height: 86% !important;
-      position: absolute;
-      left: 8%;
+      position: relative;
+      margin-left: 10%;
     }
 
     .BtnIntro {
@@ -300,6 +304,77 @@
       border: 1px solid red;
     }
 
+    .navH {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navH li {
+      height: 45px;
+      width: 100%;
+      position: relative;
+      text-decoration: none !important;
+      //background: linear-gradient(#E6E6E6, #E6E6E6);
+      background-color: #E6E6E6;
+      border: 0px solid red;
+    }
+
+    .navH li:first-child {
+      background-color: #A3A7B2;
+    }
+
+    .navH a {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid #DBDBDB;
+      text-decoration: none !important;
+      display: block;
+      height: 100%;
+      width: 100%;
+      line-height: 2em;
+      color: #4A4A4D;
+      font-family: Roboto-Light;
+      font-size: 15px;
+      font-weight: 500;
+      padding-left: 10px;
+      border-left: 5px solid transparent;
+      transition: all 0.3s linear;
+      display: block;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-left: 5px solid #A3A7B2;
+      background-color: #A3A7B2;
+    }
+
+    .navH .menuSearchBox {
+      border: 0px solid #fff;
+      color: #fff;
+      background-color: #A3A7B2;
+      box-shadow: none;
+      margin-left: 15px;
+      top: 3px;
+      padding: 0;
+      position: relative;
+    }
+
+    .navH .menuSearchBox::placeholder {
+      color: #fff;
+    }
+
+    .navH .logo {
+      border: 0px solid orange;
+      //margin-left: 15px;
+      width: 32px;
+      height: 32px;
+    }
+
+    .navH span[class ^="fa"] {
+      //position: absolute;
+      //top:0.2em; 
+      //font-size: 1.5em;
+      transition: all 0.3s linear;
+    }
+
     .nav {
       list-style-type: none;
       margin: 0;
@@ -314,25 +389,6 @@
       //background: linear-gradient(#E6E6E6, #E6E6E6);
       background-color: #E6E6E6;
       border: 0px solid red;
-    }
-
-    .nav li:first-child {
-      background-color: #A3A7B2;
-    }
-
-    .nav .menuSearchBox {
-      border: 0px solid #fff;
-      color: #fff;
-      background-color: #A3A7B2;
-      box-shadow: none;
-      margin-left: 15px;
-      top: 3px;
-      padding: 0;
-      position: relative;
-    }
-
-    .nav .menuSearchBox::placeholder {
-      color: #fff;
     }
 
     .nav a {
@@ -353,13 +409,6 @@
       display: block;
       padding-top: 5px;
       padding-bottom: 5px;
-
-
-
-      //padding-left: 15px;
-      //border: 1px solid red;
-      //letter-spacing:1px;
-      // text-transform: uppercase;
     }
 
     .nav .logo {
@@ -432,6 +481,12 @@
     ///////////////////////////////////////////
     //////////// Shadows //////////////////////
     ///////////////////////////////////////////
+
+    .thinShadow {
+      box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.25);
+      padding: 0 25px 0 25px;
+    }
+
     .boxShadowMain {
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 8px 8px 0 rgba(0, 0, 0, 0.06) !important;
     }
@@ -458,6 +513,11 @@
     .shadow-lg-dark {
       box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.40),
         0 5px 15px 0 rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .shadow-lg-light {
+      box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.28),
+        0 5px 5px 0 rgba(0, 0, 0, 0.08) !important;
     }
 
     // .box h3 {
@@ -741,7 +801,7 @@
       height: 20px;
       position: relative;
       font-size: 11px;
-      background-color: #FAFAFA;
+      background-color: transparent;
     }
 
     /* Common CSS End   */
@@ -986,6 +1046,18 @@
       background-color: #6766cc !important;
       color: #fff;
 
+    }
+
+    .bg-light-grey {
+      background-color: #efefef;
+    }
+
+    .bg-lighter-grey {
+      background-color: #f1f1f1;
+    }
+
+    .bg-lighterer-grey {
+      background-color: #f6f6f6;
     }
 
     .bg-blue .content .text,
@@ -1559,9 +1631,9 @@
       border: 0px solid red;
       color: #fff !important;
       display: inline;
-      font-size: 20px;
+      font-size: 13pt;
       position: absolute;
-      margin: 9px 0 0 0 !important;
+      margin: 12px 0 0 0 !important;
       font-family: 'Roboto-Light' !important;
     }
 
@@ -1590,7 +1662,7 @@
       color: #4E6FB5 !important;
       background-color: #fff;
       text-align: center;
-      margin: 9px 10px 0 0;
+      margin: 11px 10px 0 0;
       padding: 6px 15px;
       text-decoration: none !important;
       font-size: 12px;
@@ -1686,6 +1758,9 @@
       margin-left: 1% !important;
     }
 
+    .tab-row-width {
+      width: 98% !important;
+    }
 
     //********************** Css for order by pipe ***********
     thead th {
@@ -1900,11 +1975,11 @@
     .mat-tab-group.mat-primary .mat-ink-bar,
     .mat-tab-nav-bar.mat-primary .mat-ink-bar {
       background: #1d2b68;
+      border-bottom: 2px solid white !important;
     }
 
     .mat-tab-label:focus {
       border-bottom: 2px solid white !important;
-      // background: #ddd;
     }
 
     //----------------------------------tabs css end ----------------------------------------
@@ -2028,4 +2103,44 @@
 
     .npb {
       padding-bottom: 0 !important;
+    }
+
+
+
+    .ui-tree {
+      width: 100% !important;
+    }
+
+    ///////////////////////////////////////
+    ///////// Minimum Height///////////////
+    ///////////////////////////////////////
+    .minHeight {
+      min-height: 30em !important;
+    }
+
+
+
+
+
+    /////////////////////////////////////
+    //////Slide toggle change color//////
+    /////////////////////////////////////
+    ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+      background-color: #FF6347;
+      /*replace with your color*/
+    }
+
+    ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+      background-color: #FFCCCB;
+      /*replace with your color*/
+    }
+
+    ::ng-deep .mat-slide-toggle:not(.mat-checked):not(.mat-disabled) .mat-slide-toggle-thumb {
+      background-color: green;
+      /*replace with your color*/
+    }
+
+    ::ng-deep .mat-slide-toggle:not(.mat-checked):not(.mat-disabled) .mat-slide-toggle-bar {
+      background-color: lightgreen;
+      /*replace with your color*/
     }

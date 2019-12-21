@@ -7,9 +7,9 @@
     <div>
 
       <span class="fa iconContainer">
-        <span class="fa icon-u-userprole"></span>
+        <span class="fa icon-hr-posting"></span>
       </span>
-      <h1> Posting</h1>
+      <h1> Tranfer/Promotion</h1>
 
       <!--start add role permission button-->
       <a class="pointerCursor" data-toggle="modal" data-target="#promotionModal" (click)="clear()">
@@ -236,138 +236,117 @@
       <!--start user Modal body -->
       <div class="modal-body">
 
-        <div class="row">
+        <div class="row mt-4">
           <div class="col-md-6">
-            <h5><span>Transfering From</span></h5>
+            <div class="border-bottom border-left border-right">
+              <div class="row">
+                <div class="offset-md-1 col-md-11">
+                  <h5 class="border-bottom text-left">
+                    <span class="pr-1">Transfering From</span>
+                  </h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mt-2 mb-2">
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <mat-select placeholder="Transfer Type" [(ngModel)]="transferType">
+                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                        -
+                        {{item.payGradeCd}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <mat-select placeholder="Post From" [(ngModel)]="transferType">
+                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                        -
+                        {{item.payGradeCd}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <input matInput placeholder="Employee Name" [(ngModel)]="transferType">
+                  </mat-form-field>
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <mat-select placeholder="Branch" [(ngModel)]="transferType">
+                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                        -
+                        {{item.payGradeCd}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <mat-select placeholder="Department" [(ngModel)]="transferType">
+                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                        -
+                        {{item.payGradeCd}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <mat-select placeholder="Pay Scale" [(ngModel)]="transferType">
+                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                        -
+                        {{item.payGradeCd}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
           </div>
           <div class="col-md-6">
-            <h5><span>Transfering To</span></h5>
+            <div class="border-bottom border-left border-right">
+              <div class="row">
+                <div class="offset-md-1 col-md-11">
+                  <h5 class="border-bottom text-left">
+                    <span class="pl-2 pr-1">Transfering To</span>
+                  </h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mt-2 mb-2">
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <input matInput placeholder="Employee Name" [(ngModel)]="transferType">
+                  </mat-form-field>
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <mat-select placeholder="Post To" [(ngModel)]="transferType">
+                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                        -
+                        {{item.payGradeCd}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <input matInput [matDatepicker]="picker" placeholder="Effective From" [(ngModel)]="transferType">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <mat-select placeholder="Branch" [(ngModel)]="transferType">
+                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                        -
+                        {{item.payGradeCd}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <mat-select placeholder="Department" [(ngModel)]="transferType">
+                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                        -
+                        {{item.payGradeCd}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="fullwidth pl-3 pr-3">
+                    <mat-select placeholder="Pay Scale" [(ngModel)]="transferType">
+                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                        -
+                        {{item.payGradeCd}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <!--2nd row-->
-        <br />
-        <div class="row bottomBorder">
 
-          <!-- Left portion -->
-          <div class="col-md-5 rightBorder">
-
-            <table class="table test">
-              <tbody>
-                <tr class="d-flex">
-                  <td class="col-12 text-right">
-                    <h4>Employee No. 01</h4>
-                    <hr>
-                  </td>
-                </tr>
-                <tr class='d-flex'>
-                  <td class='col-12'>
-                    <span class="ui-float-label">
-                      <p-dropdown id="leave-limit" [options]="emp1List" (onChange)="getFilterItem('filteremp1')"
-                        [(ngModel)]="ddlEmployee1" placeholder="." [style]="{'width':'100%'}">
-                        <ng-template let-itm pTemplate="item">
-                          <div style="position: relative;height: 25px;">
-                            <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                          </div>
-                        </ng-template>
-                      </p-dropdown>
-                      <label for="leave-limit">Employee 1 Name</label>
-                    </span>
-
-                  </td>
-                </tr>
-
-                <tr class='d-flex'>
-                  <td class='col-5'>Branch</td>
-                  <td class='col-7 bgWhiteGrey allBorder'>{{lblBranch1}}</td>
-                </tr>
-
-                <tr class='d-flex'>
-                  <td class='col-5'>Department</td>
-                  <td class='col-7 bgWhiteGrey allBorder'>{{lblDepartment1}}</td>
-                </tr>
-
-                <tr class='d-flex'>
-                  <td class='col-5'>Pay Grade</td>
-                  <td class='col-7 bgWhiteGrey allBorder'>{{lblPayGrade1}}</td>
-                </tr>
-              </tbody>
-            </table>
-
-          </div>
-
-          <!-- swap icon columns -->
-          <div class="col-md-2 text-center align-self-center">
-            <h1><span class='fa fa-exchange text-danger'></span></h1>
-          </div>
-
-          <!-- Right Portion -->
-          <div class="col-md-5 leftBorder">
-
-            <table class="table test">
-              <tbody>
-                <tr class="d-flex">
-                  <td class="col-12">
-                    <h4>Employee No. 02</h4>
-                    <hr>
-                  </td>
-                </tr>
-                <tr class='d-flex'>
-                  <td class='col-12'>
-
-                    <span class="ui-float-label">
-                      <p-dropdown id="leave-limit" [options]="emp2List" (onChange)="getFilterItem('filteremp2')"
-                        [(ngModel)]="ddlEmployee2" placeholder="." [style]="{'width':'100%'}">
-                        <ng-template let-itm pTemplate="item">
-                          <div style="position: relative;height: 25px;">
-                            <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
-                          </div>
-                        </ng-template>
-                      </p-dropdown>
-                      <label for="leave-limit">Employee 2 Name</label>
-                    </span>
-
-                  </td>
-                </tr>
-
-                <tr class='d-flex'>
-                  <td class='col-5'>Branch</td>
-                  <td class='col-7 bgWhiteGrey allBorder'>{{lblBranch2}}</td>
-                </tr>
-
-                <tr class='d-flex'>
-                  <td class='col-5'>Department</td>
-                  <td class='col-7 bgWhiteGrey allBorder'>{{lblDepartment2}}</td>
-                </tr>
-
-                <tr class='d-flex'>
-                  <td class='col-5'>Pay Grade</td>
-                  <td class='col-7 bgWhiteGrey allBorder'>{{lblPayGrade2}}</td>
-                </tr>
-
-                <tr class='d-flex'>
-                  <td class='col-12'>
-
-                    <span class="ui-float-label">
-                      <p-calendar id="efctDate" [(ngModel)]="efectDate" [inputStyle]="{'width':'100%'}"
-                        [style]="{'width':'100%'}"> </p-calendar>
-                      <label for="efctDate">Effect Date</label>
-                    </span>
-
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-          </div>
-
-        </div>
-        <!--end 2nd row-->
-        <br />
-
-        <br /><br />
-        <div class="row">
-          <div class="col-md-6"></div>
-          <div class="col-md-6">
+        <div class="row mt-4 mb-4">
+          <div class="offset-md-7 col-md-5">
             <!--start buttons row -->
             <div class="row">
               <div class="col-md-6">

@@ -33,6 +33,7 @@ import { UMSharedModule } from 'projects/HaroonU/src/app/app.module';
 import { CompSharedModule } from 'projects/HaroonC/src/app/app.module';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -77,7 +78,7 @@ import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassw
 
     //SearchPipe
   ],
-  providers: [AttendanceComponent, NavComponent, IgxExcelExporterService, IgxCsvExporterService],
+  providers: [AttendanceComponent, NavComponent, IgxExcelExporterService, IgxCsvExporterService, CookieService],
   bootstrap: [AppComponent],
   entryComponents: [NavComponent, AttendanceComponent],
 })

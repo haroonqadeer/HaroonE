@@ -178,46 +178,36 @@
           <!--start fields column-->
           <div class="col-md-6">
             <mat-form-field>
-              <mat-select placeholder="Job Designation" (ngModelChange)="onJobChange($event)" [(ngModel)]="jobPostName">
-                <mat-option *ngFor="let item of jobPost" [value]="item.jobDesigID">{{item.jobDesigName}} -
-                  {{item.payGradeCd}}</mat-option>
-                <mat-option>
-                  <button mat-raised-button class="btnClass fullwidth" style="border-radius: 0;">ADD
-                    DESIGNATION</button>
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-select placeholder="Pay Scale*" [(ngModel)]="BPS" (ngModelChange)="onBPSChange($event)">
-                <mat-option *ngFor="let item of bpsList" [value]="item.payGradeCd">{{item.payGradeName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-select placeholder="Leave Type*" [(ngModel)]="BPS" (ngModelChange)="onBPSChange($event)">
-                <mat-option *ngFor="let item of bpsList" [value]="item.payGradeCd">{{item.payGradeName}}
-                </mat-option>
-              </mat-select>
+              <input matInput placeholder="Post Title" [(ngModel)]="txtPostTitle">
             </mat-form-field>
             <mat-form-field>
               <mat-select placeholder="Department*" [(ngModel)]="departmentName" (ngModelChange)="onDeptChange($event)">
                 <mat-option *ngFor="let item of departments" [value]="item.deptCd">{{item.deptName}}</mat-option>
               </mat-select>
             </mat-form-field>
-          </div>
-          <div class="col-md-6">
             <mat-form-field>
-              <mat-select placeholder="Post Type*" [(ngModel)]="jobNature" multiple>
-                <mat-option *ngFor="let item of jobNatures" [value]="item.jobNatureCd">{{item.jobNatureName}}
+              <mat-select placeholder="Job Designation*" (ngModelChange)="onJobChange($event)"
+                [(ngModel)]="jobPostName">
+                <mat-option *ngFor="let item of jobPost" [value]="item.jobDesigID">
+                  {{item.jobDesigName}} - {{item.payGradeCd}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field>
-              <mat-select placeholder="Reporting Officer*" [(ngModel)]="BPS" (ngModelChange)="onBPSChange($event)">
+              <mat-select placeholder="Reporting Officer*" [(ngModel)]="BPS">
                 <mat-option *ngFor="let item of bpsList" [value]="item.payGradeCd">{{item.payGradeName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="Leave Rule*" [(ngModel)]="BPS" multiple>
+                <mat-option *ngFor="let item of ruleList" [value]="item.leaveRuleID">
+                  {{item.leaveNatureName}} - {{item.leaveTypeName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
             <mat-form-field>
               <mat-select placeholder="Branch*" [(ngModel)]="officeName" (ngModelChange)="onBranchChange($event)">
                 <mat-option *ngFor="let item of offices" [value]="item.locationCd">{{item.locationName}}
@@ -227,6 +217,25 @@
             <mat-form-field>
               <mat-select placeholder="Section" [(ngModel)]="sectionName" (ngModelChange)="onSectionChange($event)">
                 <mat-option *ngFor="let item of sections" [value]="item.deptCd">{{item.deptName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="Pay Scale*" [(ngModel)]="BPS">
+                <mat-option *ngFor="let item of bpsList" [value]="item.payGradeCd">{{item.payGradeName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="row mt-4">
+              <mat-radio-group *ngFor="let item of jobNatures" [(ngModel)]="jobNature">
+                <div class="col-md-6 text-center">
+                  <mat-radio-button value="item.jobNatureCd">{{item.jobNatureName}}</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+            <mat-form-field class="mt-2">
+              <mat-select placeholder="Nature of Appointment*" [(ngModel)]="jobNature">
+                <mat-option *ngFor="let item of jobNatures" [value]="item.jobNatureCd">{{item.jobNatureName}}
+                </mat-option>
               </mat-select>
             </mat-form-field>
             <!--start buttons row -->

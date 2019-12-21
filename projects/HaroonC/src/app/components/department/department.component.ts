@@ -367,11 +367,13 @@ export class DepartmentComponent implements OnInit {
   edit(item) {
     this.clear();
 
-    this.departmentId = item.deptCd;
-    this.ddlCompany = item.cmpnyID;
-    this.departmentName = item.deptName;
+    if (item.delFlag == 0) {
+      this.departmentId = item.deptCd;
+      this.ddlCompany = item.cmpnyID;
+      this.departmentName = item.deptName;
 
-    this.editSelectedBranchsList();
+      this.editSelectedBranchsList();
+    }
   }
 
   //******************** extracting selected branches

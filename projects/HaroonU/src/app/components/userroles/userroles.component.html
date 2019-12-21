@@ -8,7 +8,7 @@
 
 
 
-<br/>
+<br />
 <!-- start menubar buttons -->
 <div class="myContainer mat-elevation-z8 bgWhite">
   <!--start top nav box shadow div-->
@@ -17,7 +17,7 @@
     <div>
 
       <span class="fa iconContainer">
-        <span class="fa icon-u-userprole" ></span>
+        <span class="fa icon-u-userprole"></span>
       </span>
       <h1> User Role Permissions</h1>
 
@@ -60,9 +60,10 @@
   <div class="row">
     <!--start search textbox column-->
     <div class="col-md-12">
-      <div class="searchBar">
+      <div class="searchBar mt-2">
         <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search"
+          [(ngModel)]="tblSearch">
       </div>
     </div>
     <!--end search textbox column-->
@@ -102,29 +103,30 @@
             <td class="col-3 pointerCursor text-center">{{item.noOfModules}}</td>
             <td class="col-2 text-center">
 
-              <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal" (click)="edit(item)">
-                <span class="fa icon-u-edit" ></span>
-              </span> 
+              <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#userRoleModal"
+                (click)="edit(item)">
+                <span class="fa icon-u-edit"></span>
+              </span>
 
             </td>
             <td class="col-2 text-center">
-  
+
               <!-- <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#dUserRoleModal" (click)="delete(item)">
                 <span class="fa icon-u-delete" ></span>
               </span>  -->
-  
+
               <span class="fa tableIcon pointerCursor" (click)="delete(item)">
-                <span class="fa icon-u-delete" ></span>
-              </span> 
-  
+                <span class="fa icon-u-delete"></span>
+              </span>
+
             </td>
-  
-            
+
+
           </tr>
         </tbody>
       </table>
-        
-        
+
+
       <!-- Pagination Starts -->
       <div class="col-md-12 text-right">
         <div class="paginationBox">
@@ -152,9 +154,9 @@
         </div>
       </div>
       <!-- Pagination Ends -->
-    
+
     </div>
-    
+
   </div>
   <!-- end table row -->
 </div>
@@ -233,8 +235,8 @@
     <div class="modal-content">
 
       <!--start userRoleModal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Add Role Permission</h4>
+      <div class="modal-header bg-skyBlue borderBlue5px">
+        <h4 class="modal-title">{{roleHeading}} Role Permission</h4>
         <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
       </div>
       <!--end userRoleModal Header -->
@@ -260,25 +262,28 @@
           <!--start userRoleModal menu tree column-->
           <div class="col-md-5">
             <h5>Select Module List</h5>
-            <p-tree class="fullwidth" [value]="menuTree" selectionMode="checkbox" [(selection)]="selectedMenu"></p-tree>
+            <p-tree class="fullwidth" [style]="{'min-height':'20em','max-height':'20em','overflow':'auto'}"
+              [value]="menuTree" selectionMode="checkbox" [(selection)]="selectedMenu"></p-tree>
           </div>
           <!--end userRoleModal menu tree column-->
 
           <!--start userRoleModal add or remove role buttons column-->
-          <div class="col-md-2 text-center" style="padding-left: 2%;">
-            <br /><br />
-            
-            <div class="btn-Square" (click)="addRoles()"><span class="fa fa-caret-right"></span></div>
-            <br/>
-            <div class="btn-Square" (click)="removeRoles()"><span class="fa fa-caret-left"></span></div>
-            
+          <div class="col-md-2 text-center m-auto">
+            <div class="btn-Square center-block" (click)="addRoles()">
+              <span class="fa fa-caret-right"></span>
+            </div>
+            <div class="btn-Square center-block mt-3" (click)="removeRoles()">
+              <span class="fa fa-caret-left"></span>
+            </div>
           </div>
           <!--end userRoleModal add or remove role buttons column-->
-          
+
           <!--start userRoleModal role tree column-->
           <div class="col-md-5">
             <h5>Selected Permissions</h5>
-            <p-tree class="fullwidth" [value]="roleTree" selectionMode="checkbox" [(selection)]="selectedRole"></p-tree>
+            <p-tree class="fullwidth" [value]="roleTree"
+              [style]="{'min-height':'20em','max-height':'20em','overflow':'auto'}" selectionMode="checkbox"
+              [(selection)]="selectedRole"></p-tree>
             <!-- <div><span *ngFor="let file of selectedRole">{{file.label}}<br/> </span></div> -->
           </div>
           <!--end userRoleModal role tree column-->
@@ -291,7 +296,8 @@
         <div class="row">
           <!--start userRoleModal save tree column-->
           <div class="col-md-12 text-right">
-            <button mat-raised-button class="btn" (click)="save()" style="border-radius: 0">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
+            <button mat-raised-button class="btn" (click)="save()"
+              style="border-radius: 0">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
           </div>
           <!--end userRoleModal save tree column-->
         </div>

@@ -7,7 +7,7 @@
     <div>
 
       <span class="fa iconContainer">
-        <span class="fa icon-u-userprole"></span>
+        <span class="fa icon-hr-employee"></span>
       </span>
       <h1> Employee Information</h1>
 
@@ -229,33 +229,32 @@
           <!--start tab 1-->
           <mat-tab label="PERSONAL DETAILS">
             <div class="bg-darkBlue">
-              <div class="row">
-                <div class="offset-md-1 col-md-6">
+              <div class="row mr-4">
+                <div class="offset-md-1 col-md-9">
                   <label class="text-skyblue font15">
                     Tip: Save Personal Details before moving to next tab
                   </label>
                 </div>
-                <div class="col-md-2">
-                  <button mat-raised-button class="btn fullwidth" (click)="clear()"
-                    style="border-radius: 0;">&nbsp;&nbsp;RESET&nbsp;&nbsp;</button>
+                <div class="col-md-1">
+                  <button mat-raised-button class="btn" (click)="clear()" style="border-radius: 0;">RESET</button>
                 </div>
-                <div class="col-md-2">
-                  <button mat-raised-button class="btn fullwidth" (click)="updateEmpPersonalInfo()"
-                    style="border-radius: 0;">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
+                <div class="col-md-1">
+                  <button mat-raised-button class="btn" (click)="updateEmpPersonalInfo()"
+                    style="border-radius: 0;">&nbsp; SAVE &nbsp;</button>
                 </div>
               </div>
             </div>
             <div class="bgWhite">
               <!-- start row 1-->
-              <div class="row tab-margin">
-                <div class="col-md-5">
+              <div class="row m-auto">
+                <div class="offset-md-1 col-md-4 pl-0">
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="First Name*" [(ngModel)]="firstName" (keydown)="generateFullName()"
                       (keyup)="generateFullName()">
                   </mat-form-field>
                 </div>
 
-                <div class="offset-md-2 col-md-5">
+                <div class="offset-md-2 col-md-4 pr-0">
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="Middle Name" [(ngModel)]="midName" (keydown)="generateFullName()"
                       (keyup)="generateFullName()">
@@ -265,15 +264,15 @@
               <!-- end row 1-->
 
               <!-- start row 2-->
-              <div class="row tab-margin">
-                <div class="col-md-5">
+              <div class="row m-auto">
+                <div class="offset-md-1 col-md-4 pl-0">
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="Last Name*" [(ngModel)]="lastName" (keydown)="generateFullName()"
                       (keyup)="generateFullName()">
                   </mat-form-field>
                 </div>
 
-                <div class="offset-md-2 col-md-5">
+                <div class="offset-md-2 col-md-4 pr-0">
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="CNIC" [(ngModel)]="CNIC" mask="00000-0000000-0">
                   </mat-form-field>
@@ -281,12 +280,12 @@
               </div>
               <!-- end row 2-->
 
-              <div class="row tab-margin">
-                <div class="col-md-5">
+              <div class="row m-auto">
+                <div class="offset-md-1 col-md-4 pl-0">
                   <!-- <app-config-contact></app-config-contact> -->
                   <!-- <app-config-address></app-config-address> -->
                 </div>
-                <div class="offset-md-2 col-md-5"></div>
+                <div class="offset-md-2 col-md-4 pr-0"></div>
               </div>
             </div>
             <!--start heading-->
@@ -297,25 +296,24 @@
           <!--start tab 2 ---------------------------------------------------------- -->
           <mat-tab label="JOB PROFILE">
             <div class="bg-darkBlue">
-              <div class="row">
-                <div class="offset-md-1 col-md-6">
+              <div class="row mr-4">
+                <div class="offset-md-1 col-md-9">
                   <label class="text-skyblue font15">
                     Tip: Save before moving to next tab
                   </label>
                 </div>
-                <div class="col-md-2">
-                  <button mat-raised-button class="btn fullwidth" (click)="clear()"
-                    style="border-radius: 0;">&nbsp;&nbsp;RESET&nbsp;&nbsp;</button>
+                <div class="col-md-1">
+                  <button mat-raised-button class="btn" (click)="clear()" style="border-radius: 0;">RESET</button>
                 </div>
-                <div class="col-md-2">
-                  <button mat-raised-button class="btn fullwidth" (click)="updateEmpPersonalInfo()"
-                    style="border-radius: 0;">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
+                <div class="col-md-1">
+                  <button mat-raised-button class="btn" (click)="updateEmpPersonalInfo()"
+                    style="border-radius: 0;">&nbsp; SAVE &nbsp;</button>
                 </div>
               </div>
             </div>
             <div class="bgWhite">
-              <div class="row tab-margin">
-                <div class="col-md-5">
+              <div class="row m-auto">
+                <div class="offset-md-1 col-md-4 pl-0">
                   <mat-form-field class="fullwidth">
                     <mat-select placeholder="Branch" [(ngModel)]="branch">
                       <mat-option *ngFor="let item of branchList" [value]="item.locationCd">
@@ -324,7 +322,7 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="offset-md-2 col-md-5">
+                <div class="offset-md-2 col-md-4 pr-0">
                   <mat-form-field class="fullwidth">
                     <mat-select placeholder="Department" [(ngModel)]="department">
                       <mat-option *ngFor="let item of deptList" [value]="item.deptCd">
@@ -334,8 +332,8 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="row tab-margin">
-                <div class="col-md-5">
+              <div class="row m-auto">
+                <div class="offset-md-1 col-md-4 pl-0">
                   <mat-form-field class="fullwidth">
                     <mat-select placeholder="Section" [(ngModel)]="section">
                       <mat-option *ngFor="let item of sectList" [value]="item.deptCd">
@@ -344,7 +342,7 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="offset-md-2 col-md-5">
+                <div class="offset-md-2 col-md-4 pr-0">
                   <mat-form-field class="fullwidth">
                     <mat-select placeholder="Job Post" [(ngModel)]="jobPost">
                       <mat-option *ngFor="let item of postList" [value]="item.jobPostCd">
@@ -354,8 +352,8 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="row tab-margin">
-                <div class="col-md-5">
+              <div class="row m-auto">
+                <div class="offset-md-1 col-md-4 pl-0">
                   <div class="row">
                     <div class="col-md-8">
                       <label style="font-weight: bold;">Designation</label>
@@ -365,7 +363,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="offset-md-2 col-md-5">
+                <div class="offset-md-2 col-md-4 pr-0">
                   <mat-form-field class="fullwidth">
                     <mat-select placeholder="Job Type" [(ngModel)]="jobType">
                       <mat-option *ngFor="let item of jobTypeList" [value]="item.jobTypeCd">
@@ -375,8 +373,8 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="row tab-margin">
-                <div class="col-md-5">
+              <div class="row m-auto">
+                <div class="offset-md-1 col-md-4 pl-0">
                   <div class="row">
                     <div class="col-md-6">
                       <mat-form-field class="fullwidth">
@@ -394,7 +392,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="offset-md-2 col-md-5">
+                <div class="offset-md-2 col-md-4 pr-0">
                   <div class="row">
                     <div class="col-md-6">
                       <mat-form-field class="fullwidth">
@@ -425,26 +423,25 @@
           <!--start tab 3 ---------------------------------------------------------- -->
           <mat-tab label="QUALIFICATION">
             <div class="bg-darkBlue">
-              <div class="row">
-                <div class="offset-md-1 col-md-6">
+              <div class="row mr-4">
+                <div class="offset-md-1 col-md-9">
                   <label class="text-skyblue font15">
                     Tip: Save before moving to next tab
                   </label>
                 </div>
-                <div class="col-md-2">
-                  <button mat-raised-button class="btn fullwidth" (click)="clear()"
-                    style="border-radius: 0;">&nbsp;&nbsp;RESET&nbsp;&nbsp;</button>
+                <div class="col-md-1">
+                  <button mat-raised-button class="btn" (click)="clear()" style="border-radius: 0;">RESET</button>
                 </div>
-                <div class="col-md-2">
-                  <button mat-raised-button class="btn fullwidth" (click)="updateEmpPersonalInfo()"
-                    style="border-radius: 0;">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
+                <div class="col-md-1">
+                  <button mat-raised-button class="btn" (click)="updateEmpPersonalInfo()"
+                    style="border-radius: 0;">&nbsp; SAVE &nbsp;</button>
                 </div>
               </div>
             </div>
             <div class="bgWhite">
 
               <!--Start row 1-->
-              <div class="row tab-margin">
+              <div class="row m-auto">
                 <div class="col-md-12">
                   <!--start table row-->
                   <div class="example-container">
@@ -524,26 +521,25 @@
           <!--start tab 4 ---------------------------------------------------------- -->
           <mat-tab label="SKILLS">
             <div class="bg-darkBlue">
-              <div class="row">
-                <div class="offset-md-1 col-md-6">
+              <div class="row mr-4">
+                <div class="offset-md-1 col-md-9">
                   <label class="text-skyblue font15">
                     Tip: Save before moving to next tab
                   </label>
                 </div>
-                <div class="col-md-2">
-                  <button mat-raised-button class="btn fullwidth" (click)="clear()"
-                    style="border-radius: 0;">&nbsp;&nbsp;RESET&nbsp;&nbsp;</button>
+                <div class="col-md-1">
+                  <button mat-raised-button class="btn" (click)="clear()" style="border-radius: 0;">RESET</button>
                 </div>
-                <div class="col-md-2">
-                  <button mat-raised-button class="btn fullwidth" (click)="updateEmpPersonalInfo()"
-                    style="border-radius: 0;">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
+                <div class="col-md-1">
+                  <button mat-raised-button class="btn" (click)="updateEmpPersonalInfo()"
+                    style="border-radius: 0;">&nbsp; SAVE &nbsp;</button>
                 </div>
               </div>
             </div>
             <div class="bgWhite">
 
               <!--Start row 1-->
-              <div class="row tab-margin">
+              <div class="row m-auto">
                 <div class="col-md-12">
                   <!--start table row-->
                   <div class="example-container">
@@ -627,26 +623,25 @@
           <!--start tab 5 ---------------------------------------------------------- -->
           <mat-tab label="EXPERIENCE">
             <div class="bg-darkBlue">
-              <div class="row">
-                <div class="offset-md-1 col-md-6">
+              <div class="row mr-4">
+                <div class="offset-md-1 col-md-9">
                   <label class="text-skyblue font15">
                     Tip: Save before moving to next tab
                   </label>
                 </div>
-                <div class="col-md-2">
-                  <button mat-raised-button class="btn fullwidth" (click)="clear()"
-                    style="border-radius: 0;">&nbsp;&nbsp;RESET&nbsp;&nbsp;</button>
+                <div class="col-md-1">
+                  <button mat-raised-button class="btn" (click)="clear()" style="border-radius: 0;">RESET</button>
                 </div>
-                <div class="col-md-2">
-                  <button mat-raised-button class="btn fullwidth" (click)="updateEmpPersonalInfo()"
-                    style="border-radius: 0;">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
+                <div class="col-md-1">
+                  <button mat-raised-button class="btn" (click)="updateEmpPersonalInfo()"
+                    style="border-radius: 0;">&nbsp; SAVE &nbsp;</button>
                 </div>
               </div>
             </div>
             <div class="bgWhite">
 
               <!--Start row 1-->
-              <div class="row tab-margin">
+              <div class="row m-auto">
                 <div class="col-md-12">
                   <!--start table row-->
                   <div class="example-container">
@@ -659,7 +654,7 @@
                             <th class='col-3 text-left'>Experience</th>
                             <th class='col-2 text-center'>Starting Date</th>
                             <th class='col-2 text-center'>End Date</th>
-                            <th class='col-1 text-center'>Add / Delete</th>
+                            <th class='col-1 text-center'>Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -697,7 +692,7 @@
                               <p-calendar [(ngModel)]="orgEndDate" placeholder="Job End Date"
                                 [inputStyle]="{'width':'100%'}"></p-calendar>
                             </td>
-                            <td class='col-1 text-left'>
+                            <td class='col-1 text-center'>
                               <span class="fa fa-plus pointerCursor text-primary" (click)="addPSD()"></span>
                             </td>
                           </tr>

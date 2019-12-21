@@ -2,7 +2,8 @@ import {
   Component,
   ModuleWithProviders,
   ViewChild,
-  ElementRef
+  ElementRef,
+  HostListener
 } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { MatBottomSheet } from "@angular/material";
@@ -36,7 +37,6 @@ export class AppComponent implements OnInit {
   serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
 
   // serverUrl = "http://localhost:9010/";
-  //serverUrl = "http://52.163.189.189:9010/";
 
   tokenKey = "token";
 
@@ -44,17 +44,16 @@ export class AppComponent implements OnInit {
     headers: new HttpHeaders({ "Content-Type": "application/json" })
   };
 
-  //modules variable declaration
-  moduleHR = false;
-  moduleConfig = false;
-  moduleUM = true;
-  moduleComp = false;
+  panelOpenState = false;
 
+  //modules variable declaration
   public branchList = [];
   public locationId;
   public cmpnyId;
   public empId;
   public cmpnyName;
+
+  companyProfileEditStatus = false;
 
   logedInUserName = "";
 
@@ -92,7 +91,7 @@ export class AppComponent implements OnInit {
 
     this.checkLogin("No");
 
-    this.activeModule("No");
+    //this.activeModule("No");
 
     this.items = [
       {
@@ -202,27 +201,6 @@ export class AppComponent implements OnInit {
 
   //function for get active module
   activeModule(showMenu) {
-    this.moduleHR = false;
-    this.moduleConfig = false;
-    this.moduleUM = false;
-    this.moduleComp = false;
-
-    var myModuleName = localStorage.getItem("myActModNam");
-
-    if (myModuleName == null) {
-      myModuleName = "UM";
-    }
-
-    if (myModuleName == "HR") {
-      this.moduleHR = true;
-    } else if (myModuleName == "Config") {
-      this.moduleConfig = true;
-    } else if (myModuleName == "UM") {
-      this.moduleUM = true;
-    } else if (myModuleName == "Comp") {
-      this.moduleComp = true;
-    }
-
     //show menu setting
     if (showMenu == "Yes") {
       document.getElementById("mySidenav").style.width = "248px";
@@ -314,9 +292,12 @@ export class AppComponent implements OnInit {
 
   //*function for checking login already logedin or not
   checkLogin(loginChk) {
+    //alert(this.moduleHR);
+
     if (localStorage.getItem("userName") != null) {
       this.logedInUserName = localStorage.getItem("userName");
       this.showDiv();
+
       if (loginChk == "Yes") {
         this.router.navigate(["home"]);
       }

@@ -4,41 +4,26 @@
     <!-- Report heading and logo -->
     <div class="myContainer">
 
-        <div class="row">
-            <div class="col-md-6">
-                <img src="../assets/images/Ambit-Logo.svg" height="75px">
-            </div>
-            <div class="col-md-6 text-right">
-                <div class="reportHeading">User Report</div>
-                {{toDate | date}}
-            </div>
+        <!--print button -->
+        <div class="row hideContent">
+          <div class="col-md-12 text-right">
+            <button mat-raised-button data-toggle="modal" data-target="#activeUserModal" style="border-radius: 0; background-color: #4A67AB; color: #fff; margin-right: 5px;">&nbsp;&nbsp;SEARCH&nbsp; <i class="fa fa-search"></i>&nbsp;</button>
+            <button mat-raised-button (click)="printDiv()" style="border-radius: 0; background-color: #2199E8; color: #fff;">&nbsp;&nbsp;PRINT&nbsp; <i class="fa fa-print"></i>&nbsp;</button>
+          </div>
         </div>
 
     </div><!-- end Report heading and logo -->
-    
-    <br/>
 
     <div class="myContainer bgWhite">
         
-        <!--print button -->
-        <div class="row hideContent">
-            <div class="col-md-12 text-right">
-                <button mat-raised-button (click)="printDiv()" style="border-radius: 0; background-color: #2199E8; color: #fff;">&nbsp;&nbsp;PRINT&nbsp; <i class="fa fa-print"></i>&nbsp;</button>
-            </div>
-        </div>
-        <br class="hideContent">
-        
-        <!--combo box for filter -->
-        <div class="row hideContent">
-            <div class="col-md-4">
-                <p-dropdown [options]="roles" [(ngModel)]="cmbDepartment" placeholder="All Departments" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
-            </div>
-            <div class="col-md-4">
-                <p-dropdown [options]="roles" [(ngModel)]="cmbDepartment" placeholder="All Roles" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
-            </div>
-            <div class="col-md-4">
-                <p-dropdown [options]="roles" [(ngModel)]="cmbDepartment" placeholder="All Status" [showClear]="true" [style]="{'width':'100%'}"></p-dropdown>
-            </div>
+        <div class="row">
+          <div class="col-md-6">
+              <img src="../assets/images/Ambit-Logo.svg" height="75px">
+          </div>
+          <div class="col-md-6 text-right">
+              <div class="reportHeading">User Report</div>
+              {{toDate | date}}
+          </div>
         </div>
         
         <hr class="hideContent">
@@ -204,279 +189,6 @@
 
 
 
-
-<!-- Start Modal Window to add & update new user -->
-<div class="modal fade" id="userModal">
-
-  <div class="modal-dialog shadow-lg-dark modal-lg">
-    <div class="modal-content">
-
-      <!--start user Modal Header -->
-      <div class="modal-header">
-          <h4 class="modal-title">Add User Profile</h4>
-          <div>
-            <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
-          </div>
-      </div>
-      <!--end user Modal Header -->
-
-      <!--start user Modal body -->
-      <div class="modal-body">
-
-        <!--start 1st row -->
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field class="fullwidth">
-              <mat-select placeholder="Select User" [(ngModel)]="cmbEmployee" (ngModelChange)="edit($event, 'link')"
-                required>
-                <input type="text" class="form-control" [(ngModel)]="searchEmployee">
-                <mat-option
-                  *ngFor="let item of getFilterItem(rdbType) | search:'indvdlFirstName,emailAddrss':searchEmployee"
-                  [value]="item">
-                  <table>
-                    <tr class='d-flex'>
-                      <td class="col-4">{{ item.indvdlID }}</td>
-                      <td class="col-4 border-left">{{ item.indvdlFullName }}</td>
-                      <td class="col-4 border-left">{{ item.emailAddrss }}</td>
-                    </tr>
-                  </table>
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <br/>
-            <!--start radio buttons row -->
-            <mat-radio-group [(ngModel)]="rdbType" (click)="getFilterItem($event)">
-              <div class="row">
-                <div class="col-md-8">
-                  <mat-radio-button value="Employee">Employee</mat-radio-button>
-                </div>
-                <div class="col-md-4">
-                  <mat-radio-button value="Visitor">Visitor</mat-radio-button>
-                </div>
-              </div>
-            </mat-radio-group>
-              <!--end radio buttons row -->
-
-            <br/>
-            <!--start user name row-->
-            <mat-form-field class="fullwidth" id="userNameEnable">
-              <input matInput placeholder="Username" type="text" [(ngModel)]="txtUsername"
-                required>
-            </mat-form-field>
-            <!--end user name row-->
-
-            <br/>
-            <!--start password row -->
-            <mat-form-field class="fullwidth" id="userPassEnable">
-              <input matInput #password placeholder="Password" type="password" [(ngModel)]="txtPassword"
-                required>
-            </mat-form-field>
-            <mat-password-strength [password]="password.value">
-            </mat-password-strength>
-            <!--end password row-->
-
-            <br/>
-            <!--start conform password row -->
-            <mat-form-field class="fullwidth" id="userCnfrmPassEnable">
-              <input matInput placeholder="Confirm Password" type="password" [(ngModel)]="txtCnfrmPassword"
-                required>
-            </mat-form-field>
-            <!--end conform password row -->
-
-            <br/>
-            <!--start user role row -->
-            <mat-form-field class="fullwidth">
-              <mat-select placeholder="Assign User Role" [(ngModel)]="cmbRole" required>
-                <input type="text" class="form-control" [(ngModel)]="searchRole">
-                <mat-option
-                  *ngFor="let item of roles | search:'erpRoleName':searchRole"
-                  [value]="item.erpRoleCd">
-                  <table>
-                    <tr class='d-flex'>
-                      <td class="col-12">{{ item.erpRoleName }}</td>
-                    </tr>
-                  </table>
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <!--end user role row -->
-
-            <br/>
-            <!--start view permissions row-->
-            <div class="row">
-              <div class="col-md-12 text-right">
-                  <a style="cursor: pointer; color:grey;" (click)="getRoleTree()">VIEW PERMISSIONS</a>
-              </div>
-            </div>
-
-            <!--start view permissions row-->
-
-            <!--star enable password row -->
-            <section class="example-section">
-              <mat-checkbox class="example-margin" [(ngModel)]="chkPin">Enable Pin</mat-checkbox>
-            </section>
-            <!--end enable password row -->
-
-            <br/>
-            <!--start buttons row -->
-            <button mat-raised-button color="primary" (click)="saveEmployee()" style="border-radius: 0;">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</button>
-            <!-- <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? false : true" (click)="saveEmployee()" style="border-radius: 0;">Save</button>
-            <button mat-raised-button color="primary" [disabled]="(disabledPassword) ? true : false" style="border-radius: 0;">Send</button> -->
-            <!--end buttons row -->
-
-          </div>
-
-            
-
-
-          
-          <div class="col-md-6">
-
-            <div class="captionBoxB">
-              <label>Father's Name:</label><br/>
-              {{partyFatherName}}
-              <div class="triangle"></div>
-            </div>
-            
-            <div class="captionBoxW">
-              <label>Email id:</label><br>
-              {{partyEmail}}
-            </div>
-            <div class="captionBoxB">
-              <label>Address:</label><br/>
-              {{partyAddress}}
-            </div>
-            <div class="captionBoxW">
-              <label>Branch:</label><br/>
-              {{partyBranch}}
-            </div>
-            <div class="captionBoxB">
-              <label>Department:</label><br/>
-              {{partyDepartment}} 
-            </div>
-          </div>
-        
-        </div>
-        <!--end user Modal body -->
-      </div>
-      <!--end user Modal body -->
-    </div>
-  </div>
-</div>
-<!-- End Modal Window to add & update new user -->
-
-<!-- Start reset password Modal Window -->
-<div class="modal fade modal-forgot" id="permissionModal">
-  <div class="modal-dialog shadow-lg-dark modal-lg modalPopup" style="width: 24%;">
-  <div class="modal-content">
-
-    <!--start Modal body -->
-    <div class="modal-body">
-      <!--start 1st row-->
-      <div class="row">
-        <div class="col-md-12">
-          <p class="fontWhite">Selected Permissions for:</p>
-        </div>
-      </div>
-      <!--end 1st row-->
-      <!--start 1st row-->
-      <div class="row">
-        <div class="col-md-12">
-          <p style='color:black;'><b>{{lblRoleName}}</b></p>
-        </div>
-      </div>
-      <!--end 1st row-->
-      <div class="row">
-        <div class="col-md-12">
-          <p-tree class="fullwidth" [value]="roleTree" selectionMode="multiple" [(selection)]="selectedRole"></p-tree>
-        </div>
-      </div>
-      <br/>
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <button mat-raised-button color="primary" style="width: 97%;" class="buttonSquare" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      <!--end Modal body -->
-    </div>
-    <!--end Modal body -->
-  </div>
-  </div>
-</div>
-
-<!-- Start reset password Modal Window -->
-<div class="modal fade modal-forgot" id="resetModal">
-  <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
-  <div class="modal-content">
-
-    <!--Start Action Modal Header -->
-    <div class="modal-header">
-      <h4></h4>
-      <div>
-        <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
-      </div>
-    </div>
-    <!--End Action Modal Header -->
-    
-    <!--start Modal body -->
-    <div class="modal-body">
-      <!--start 1st row-->
-      <div class="row">
-        <div class="offset-md-1 col-md-6">
-          <p class="fontWhite">Reset password for username:</p>
-          <div class="marginSingleTop"></div>
-          <p style='color:skyblue'><b>{{lblFullName}}</b></p>
-
-          <div class="marginSingleTop"></div>
-          <!--start password row -->
-          <div class="inputContainer">
-            <span class="ui-float-label">
-              <input id="float-input" type="password" size="32" [(ngModel)]="txtNewPassword" pInputText class="fullwidth noneOutLine" #password [(ngModel)]="txtPassword"> 
-              <label for="float-input">Enter New Password</label>
-            </span>
-          </div>
-          <mat-password-strength  [password]="password.value" ></mat-password-strength>
-          <!--end password row-->
-          
-          <div class="marginSingleTop"></div>
-          <!--start conform password row -->
-          <div class="inputContainer">
-            <span class="ui-float-label">
-              <input id="float-input" type="password" [(ngModel)]="txtNewCnfrmPassword" size="32" pInputText class="fullwidth noneOutLine"> 
-              <label for="float-input">Confirm New Password</label>
-            </span>
-          </div>
-          <!--end conform password row -->
-
-          <div class="marginSingleTop"></div>
-          <!--buttons -->
-          <button mat-raised-button color="primary" class="buttonSquare" (click)="savePassword()">&nbsp;&nbsp;SAVE&nbsp;&nbsp;</button>
-        </div>
-
-
-
-        <div class="col-md-5 text-center">
-          <br/>
-          <img class="mx-auto d-block" src="../../../assets/images/ResetPassword-Large.svg" alt="" height="60%">
-          <br/>
-          <h5 class="fontWhite"><b>RESET PASSWORD</b></h5>
-        </div>
-
-
-
-      </div>
-      <!--end 1st row-->
-
-    </div>
-    <!--end Modal body -->
-
-  </div>
-  </div>
-<!-- End reset password Modal Window -->
-</div>
-<!-- End reset password Modal Window -->
-
 <!-- Start active user Modal Window -->
 <div class="modal fade modal-forgot" id="activeUserModal">
   <div class="modal-dialog shadow-lg-dark modal-lg modalPopup">
@@ -490,47 +202,121 @@
         </div>
       </div>
       <!--End Action Modal Header -->
-      
+
       <!--start Modal body -->
       <div class="modal-body">
+
         <!--start 1st row-->
         <div class="row">
-          <div class="offset-md-1 col-md-6">
-            <p class="fontWhite">Hi Admin!<br/>
-              It seems you need to activate this user profile, please enter your PIN to proceed, if your PIN is already expired click Generate PIN to receive new PIN via email.<br/>
-            </p>
 
-            <div class="row">
-              <div class="col-md-10">
-                <div class="inputContainer">
-                  <span class="ui-float-label">
-                    <input id="float-input" type="password" size="32" [(ngModel)]="txtPin" pInputText class="fullwidth noneOutLine"> 
-                    <label for="float-input">Enter PIN</label>
-                  </span>
-                </div>
-              </div>
-            </div>
+          <div class="offset-md-1 col-md-5 nopadding" style="border: 0px solid red;">
+            <p class="fontWhite" style="font-size: 25px;"> <i class="fa fa-search"></i> Search<br /></p>
+          </div>
             
-            <br>
-            <!--buttons -->
-            <button mat-raised-button color="primary" class="buttonSquare" (click)="saveActiveUser()">&nbsp; ACTIVATE &nbsp;</button>
-            &nbsp; <a class="fontWhite" style="text-decoration: underline; cursor: pointer;"  (click)="genPin()">Generate PIN</a> &nbsp;
+        </div>
+        <!--end 1st row-->       
+
+
+        <!--start 2nd row-->
+        <div class="row">
+
+          <div class="offset-md-1 col-md-5 npl" style="border: 0px solid red;">
+            <mat-form-field class='fullwidth my-form-field' appearance="legacy">
+              <mat-select placeholder="Department" [(ngModel)]="cmbRole">
+                <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchRole">
+                <mat-option *ngFor="let item of roles | search:'erpRoleName':searchRole" [value]="item.erpRoleCd">
+                  <table>
+                    <tr class='d-flex'>
+                      <td class="col-12">{{ item.erpRoleName }}</td>  
+                    </tr>
+                  </table>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
 
-
-
-          <div class="col-md-5 text-center">
-            <br/>
-            <img class="mx-auto d-block" src="../../../assets/images/ActivateUser-Large.svg" alt="" height="60%">
-            <br/>
-            <h5 class="fontWhite"><b>ACTIVATE USER</b></h5>
+          <div class="col-md-5 npr" >
+            <mat-form-field class='fullwidth my-form-field' appearance="legacy">
+              <mat-select placeholder="Role" [(ngModel)]="cmbRole">
+                <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchRole">
+                <mat-option *ngFor="let item of roles | search:'erpRoleName':searchRole" [value]="item.erpRoleCd">
+                  <table>
+                    <tr class='d-flex'>
+                      <td class="col-12">{{ item.erpRoleName }}</td>  
+                    </tr>
+                  </table>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
-
-
 
         </div>
-        <!--end 1st row-->
+        <!--end 2nd row-->
 
+
+        <!--start 3rd row-->
+        <div class="row">
+
+          <div class="offset-md-1 col-md-5 npl" style="border: 0px solid red;">
+            <mat-form-field class='fullwidth my-form-field' appearance="legacy">
+              <mat-label class="inputLabel">
+                Branch
+              </mat-label>
+              <input matInput id="float-input" type="password" size="32" autofocus>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-md-5 npr" >
+            <mat-form-field class='fullwidth my-form-field' appearance="legacy">
+              <mat-label class="inputLabel">
+                Section
+              </mat-label>
+              <input matInput id="float-input" type="password" size="32" autofocus>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <!--end 3rd row-->
+
+
+        <!--start 4th row-->
+        <div class="row">
+
+          <div class="offset-md-1 col-md-5 npl" style="border: 0px solid red;">
+            <mat-form-field class='fullwidth my-form-field' appearance="legacy">
+              <mat-label class="inputLabel">
+                Name
+              </mat-label>
+              <input matInput id="float-input" type="password" size="32" autofocus>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-md-5 npr" >
+            <mat-form-field class='fullwidth my-form-field' appearance="legacy">
+              <mat-label class="inputLabel">
+                CNIC
+              </mat-label>
+              <input matInput id="float-input" type="password" size="32" autofocus>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <!--end 4th row-->
+
+
+        <!--start button row-->
+        <div class="row">
+
+          <div class="offset-md-1 col-md-10 text-right nopadding" style="border: 0px solid red;">           
+            <button mat-raised-button color="primary" class="buttonSquare btnBlueModal">&nbsp;&nbsp;&nbsp;SEARCH&nbsp;&nbsp;&nbsp;</button>
+          </div>
+
+        </div>
+        <!--end button row-->
+
+        <br />
       </div>
       <!--end Modal body -->
 

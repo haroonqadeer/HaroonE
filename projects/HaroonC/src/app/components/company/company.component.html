@@ -45,7 +45,7 @@
                 <div >
 
                     <!-- Company id -->
-                    <div class="row">
+                    <div class="row" *ngIf="companyEditMode">
                         <div class="col-md-12">
                             <mat-form-field class="fullwidth">
                                 <mat-select placeholder="Company Id" [(ngModel)]="companyId" (ngModelChange)="edit()" required>
@@ -72,7 +72,7 @@
 
 
                     <!-- Company Name row -->
-                    <div class="row">
+                    <div class="row" *ngIf="!companyEditMode">
                         <div class="col-md-12">
                             <mat-form-field class="fullwidth">
                                 <input matInput placeholder="Company's Legal Name" [(ngModel)]="companyName" required>
@@ -128,7 +128,7 @@
                         <div class="col-md-6">
                             <mat-form-field class="fullwidth">
                                 <mat-select placeholder="Currency" [(ngModel)]="cCurrency">
-                                    <input type="text" [(ngModel)]="srchCrncy" class="form-control">
+                                    <input type="text" placeholder="Search" [(ngModel)]="srchCrncy" class="form-control">
                                     <mat-option *ngFor="let item of crncyList | search:'currencyName': srchCrncy" [value]="item.currencyCd">
                                         <table>
                                             <tr class='d-flex'>
@@ -147,14 +147,25 @@
                     <div class="row">
 
                         <div class="col-md-4">
-                            <img src="../../../assets/images/DropHere.jpg" height="100" width="100">
+                            <img [src]="imgURL" *ngIf="imgURL" height="100" width="100">
                         </div>
 
+                        <!-- <input id="fileInput" type="file" class="ng-hide"> 
+                        <md-button id="uploadButton" class="md-raised md-primary" aria-label="attach_file">    
+                            Choose file 
+                        </md-button>
+                        <md-input-container  md-no-float>    
+                            <input id="textInput" ng-model="fileName" type="text" placeholder="No file chosen" ng-readonly="true">
+                        </md-input-container> -->
                         <div class="col-md-8">
                             <br/><br/>
+                            <input [hidden]="true" id="input-file-id" multiple type="file" accept='image/*' />
                             <mat-form-field class="fullwidth">
-                                <input matInput placeholder="Upload Logo" [(ngModel)]="cLogo">
+                                <input matInput placeholder="Upload Logo" [(ngModel)]="cLogo" (click)="showFile()">
                             </mat-form-field>
+                            <!-- <button mat-raised-button for="input-file-id" class="btnClass" style="border-radius: 0;">
+                                Choose Files
+                            </button> -->
                         </div>
 
                     </div>
@@ -198,7 +209,7 @@
                         <div class="col-md-12">
                             <mat-form-field class="fullwidth">
                                 <mat-select placeholder="Country" [(ngModel)]="cCountry" required>
-                                    <input type="text" [(ngModel)]="srchCntry" class="form-control">
+                                    <input type="text" placeholder="Search" [(ngModel)]="srchCntry" class="form-control">
                                     <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
                                         <table>
                                             <tr class='d-flex'>
@@ -217,7 +228,7 @@
                         <div class="col-md-8">
                             <mat-form-field class="fullwidth">
                                 <mat-select placeholder="City" [(ngModel)]="cCity" required>
-                                    <input type="text" [(ngModel)]="srchCity" class="form-control">
+                                    <input type="text" placeholder="Search" [(ngModel)]="srchCity" class="form-control">
                                     <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
                                         <table>
                                             <tr class='d-flex'>
@@ -347,7 +358,6 @@
 
 
 
-
     <!--Right Panel-->
     <div class="col-md-4">
 
@@ -398,7 +408,7 @@
                             <div class="col-md-12">
                                 <mat-form-field class="fullwidth">
                                     <mat-select placeholder="Country" [(ngModel)]="indvdCountry" required>
-                                        <input type="text" [(ngModel)]="srchCntry" class="form-control">
+                                        <input type="text" placeholder="Search" [(ngModel)]="srchCntry" class="form-control">
                                         <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
                                             <table>
                                                 <tr class='d-flex'>
@@ -416,7 +426,7 @@
                                 <div class="col-md-8">
                                     <mat-form-field class="fullwidth">
                                         <mat-select placeholder="City" [(ngModel)]="indvdCity" required>
-                                            <input type="text" [(ngModel)]="srchCity" class="form-control">
+                                            <input type="text" placeholder="Search" [(ngModel)]="srchCity" class="form-control">
                                             <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
                                                 <table>
                                                     <tr class='d-flex'>
@@ -664,7 +674,7 @@
         <div class="modal-content">
 
             <!--start Modal Header -->
-            <div class="modal-header">
+            <div class="modal-header bg-skyBlue borderBlue5px">
                 <h4 class="modal-title">Add Director</h4>
                 <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
             </div>
@@ -725,7 +735,7 @@
                     <div class="col-md-12">
                         <mat-form-field class="fullwidth">
                             <mat-select placeholder="Country" [(ngModel)]="indvdCountry" required>
-                                <input type="text" [(ngModel)]="srchCntry" class="form-control">
+                                <input type="text" placeholder="Search" [(ngModel)]="srchCntry" class="form-control">
                                 <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
                                     <table>
                                         <tr class='d-flex'>
@@ -743,7 +753,7 @@
                         <div class="col-md-8">
                             <mat-form-field class="fullwidth">
                                 <mat-select placeholder="City" [(ngModel)]="indvdCity" required>
-                                    <input type="text" [(ngModel)]="srchCity" class="form-control">
+                                    <input type="text" placeholder="Search" [(ngModel)]="srchCity" class="form-control">
                                     <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
                                         <table>
                                             <tr class='d-flex'>
@@ -858,18 +868,13 @@
 <!-- End Add Director Modal Window  -->
 
 
-
-
-
-
-
 <!-- Start Add Partner Modal Window -->
 <div class="modal fade" id="partnerModal">
     <div class="modal-dialog shadow-lg-dark modal-lg modalCmpnyPro">
         <div class="modal-content">
 
         <!--start Modal Header -->
-        <div class="modal-header">
+        <div class="modal-header bg-skyBlue borderBlue5px">
             <h4 class="modal-title">Add Partner</h4>
             <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
         </div>
@@ -930,7 +935,7 @@
                 <div class="col-md-12">
                     <mat-form-field class="fullwidth">
                         <mat-select placeholder="Country" [(ngModel)]="indvdCountry" required>
-                            <input type="text" [(ngModel)]="srchCntry" class="form-control">
+                            <input type="text" placeholder="Search" [(ngModel)]="srchCntry" class="form-control">
                             <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
                                 <table>
                                     <tr class='d-flex'>
@@ -948,7 +953,7 @@
                     <div class="col-md-8">
                         <mat-form-field class="fullwidth">
                             <mat-select placeholder="City" [(ngModel)]="indvdCity" required>
-                                <input type="text" [(ngModel)]="srchCity" class="form-control">
+                                <input type="text" placeholder="Search" [(ngModel)]="srchCity" class="form-control">
                                 <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
                                     <table>
                                         <tr class='d-flex'>
