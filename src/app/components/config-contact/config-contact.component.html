@@ -23,11 +23,11 @@
 
 </div>
 
-
+<mat-radio-group>
 <div class="row" *ngFor=" let item of contactList; let i=index">
   <div class="col-md-11" *ngIf="item.status != 2">
     <p>
-      <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+      <mat-radio-button value="{{i}}"></mat-radio-button>
       {{item.contactNumber}}
     </p>
   </div>
@@ -36,7 +36,7 @@
     <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeContact(i)"></span>
   </div>
 </div>
-
+</mat-radio-group>
 
 
 
@@ -55,10 +55,12 @@
 
 </div>
 
+<mat-radio-group>
 <div class="row" *ngFor=" let item of emailList; let i=index">
+  
   <div class="col-md-11" *ngIf="item.status != 2">
     <p>
-      <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+      <mat-radio-button value="{{item.email}}"></mat-radio-button>
       {{item.email}}
     </p>
   </div>
@@ -68,4 +70,5 @@
   </div>
 
 </div>
+</mat-radio-group>
 

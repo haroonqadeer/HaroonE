@@ -169,6 +169,7 @@
                         </div>
 
                     </div>
+                    <br/>
                 </div>
 
 
@@ -283,18 +284,20 @@
                 </div>
 
                 <div class="innerContainer">
-                    <div class="row" *ngFor=" let item of contactList; let i=index" >
-                        <div class="col-md-11" *ngIf="item.status != 2">
-                            <p>
-                                <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
-                                {{item.contactNumber}}
-                            </p>
-                        </div>
+                    <mat-radio-group>
+                        <div class="row" *ngFor=" let item of contactList; let i=index" >
+                            <div class="col-md-11" *ngIf="item.status != 2">
+                                <p>
+                                    <mat-radio-button value="{{i}}"></mat-radio-button>
+                                    {{item.contactNumber}}
+                                </p>
+                            </div>
 
-                        <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -20px;" *ngIf="item.status != 2">
-                            <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeContact(i)"></span>
+                            <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -20px;" *ngIf="item.status != 2">
+                                <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeContact(i)"></span>
+                            </div>
                         </div>
-                    </div>
+                    </mat-radio-group>
                 </div>
 
 
@@ -315,19 +318,21 @@
                 </div>
 
                 <div class="innerContainer">
-                    <div class="row" *ngFor=" let item of emailList; let i=index" >
-                        <div class="col-md-11" *ngIf="item.status != 2">
-                            <p>
-                                <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
-                                {{item.email}}
-                            </p>
-                        </div>
+                    <mat-radio-group>
+                        <div class="row" *ngFor=" let item of emailList; let i=index" >
+                            <div class="col-md-11" *ngIf="item.status != 2">
+                                <p>
+                                    <mat-radio-button value="{{item.email}}"></mat-radio-button>
+                                    {{item.email}}
+                                </p>
+                            </div>
 
-                        <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -20px;" *ngIf="item.status != 2">
-                            <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeEmail(i)"></span>
-                        </div>
+                            <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -20px;" *ngIf="item.status != 2">
+                                <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeEmail(i)"></span>
+                            </div>
 
-                    </div>
+                        </div>
+                    </mat-radio-group>
                 </div>
 
             </div>
@@ -582,20 +587,23 @@
 
                 </div>
 
+                
                 <div class="innerContainer">
-                    <div class="row" *ngFor=" let item of indvdContactList; let i=index" >
-                        <div class="col-md-11">
-                            <p>
-                                <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
-                                {{item.contactNumber}}
-                            </p>
-                        </div>
+                    <mat-radio-group>
+                        <div class="row" *ngFor=" let item of indvdContactList; let i=index" >
+                            <div class="col-md-11">
+                                <p>
+                                <mat-radio-button value="{{i}}"></mat-radio-button>
+                                    {{item.contactNumber}}
+                                </p>
+                            </div>
 
-                        <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -20px;">
-                            <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeIndvdContact(i)"></span>
-                        </div>
+                            <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -20px;">
+                                <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeIndvdContact(i)"></span>
+                            </div>
 
-                    </div>
+                        </div>
+                    </mat-radio-group>
                 </div>
 
 
@@ -616,19 +624,21 @@
                 </div>
 
                 <div class="innerContainer">
-                    <div class="row" *ngFor=" let item of indvdEmailList; let i=index" >
-                        <div class="col-md-11">
-                            <p>
-                                <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
-                                {{item.email}}
-                            </p>
-                        </div>
+                    <mat-radio-group>
+                        <div class="row" *ngFor=" let item of indvdEmailList; let i=index" >
+                            <div class="col-md-11">
+                                <p>
+                                    <mat-radio-button value="{{i}}"></mat-radio-button>
+                                    {{item.email}}
+                                </p>
+                            </div>
 
-                        <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -20px;">
-                            <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeIndvdEmail(i)"></span>
-                        </div>
+                            <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -20px;">
+                                <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeIndvdEmail(i)"></span>
+                            </div>
 
-                    </div>
+                        </div>
+                    </mat-radio-group>
                 </div>
             </div>
         </div>
@@ -799,10 +809,11 @@
     
                         </div>
     
+                        <mat-radio-group>
                         <div class="row" *ngFor=" let item of indvdContactList; let i=index" >
                             <div class="col-md-11" *ngIf="item.index == indvdListIndex">
                                 <p>
-                                    <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+                                    <mat-radio-button value="{{i}}"></mat-radio-button>
                                     {{item.contactNumber}}
                                 </p>
                             </div>
@@ -812,7 +823,7 @@
                             </div>
     
                         </div>
-    
+                        </mat-radio-group>
     
     
                         <!--Email row -->
@@ -830,10 +841,11 @@
     
                         </div>
     
+                        <mat-radio-group>
                         <div class="row" *ngFor=" let item of indvdEmailList; let i=index" >
                             <div class="col-md-11" *ngIf="item.index == indvdListIndex">
                                 <p>
-                                    <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+                                    <mat-radio-button value="{{i}}"></mat-radio-button>
                                     {{item.email}}
                                 </p>
                             </div>
@@ -843,6 +855,8 @@
                             </div>
     
                         </div>
+                        </mat-radio-group>
+
                     </div>
                 </div>
 
@@ -999,19 +1013,21 @@
 
                     </div>
 
-                    <div class="row" *ngFor=" let item of indvdContactList; let i=index" >
-                        <div class="col-md-11" *ngIf="item.index == indvdListIndex">
-                            <p>
-                                <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
-                                {{item.contactNumber}}
-                            </p>
-                        </div>
+                    <mat-radio-group>
+                        <div class="row" *ngFor=" let item of indvdContactList; let i=index" >
+                            <div class="col-md-11" *ngIf="item.index == indvdListIndex">
+                                <p>
+                                    <mat-radio-button value="{{i}}"></mat-radio-button>
+                                    {{item.contactNumber}}
+                                </p>
+                            </div>
 
-                        <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;" *ngIf="item.index == indvdListIndex">
-                            <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeIndvdContact(i)"></span>
-                        </div>
+                            <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;" *ngIf="item.index == indvdListIndex">
+                                <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeIndvdContact(i)"></span>
+                            </div>
 
-                    </div>
+                        </div>
+                    </mat-radio-group>
 
 
 
@@ -1030,19 +1046,22 @@
 
                     </div>
 
-                    <div class="row" *ngFor=" let item of indvdEmailList; let i=index" >
-                        <div class="col-md-11" *ngIf="item.index == indvdListIndex">
-                            <p>
-                                <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
-                                {{item.email}}
-                            </p>
-                        </div>
+                    <mat-radio-group>
+                        <div class="row" *ngFor=" let item of indvdEmailList; let i=index" >
+                            <div class="col-md-11" *ngIf="item.index == indvdListIndex">
+                                <p>
+                                    <mat-radio-button value="{{i}}"></mat-radio-button>
+                                    {{item.email}}
+                                </p>
+                            </div>
 
-                        <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;" *ngIf="item.index == indvdListIndex">
-                            <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeIndvdEmail(i)"></span>
-                        </div>
+                            <div class="col-md-1 text-right nopadding" style="margin: 0 0 0 -10px;" *ngIf="item.index == indvdListIndex">
+                                <span class="pointerCursor fa fa-times fa-lg iconRemove" (click)="removeIndvdEmail(i)"></span>
+                            </div>
 
-                    </div>
+                        </div>
+                    </mat-radio-group>
+
                 </div>
             </div>
 

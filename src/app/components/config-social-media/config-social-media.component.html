@@ -22,10 +22,11 @@
 </div>
 
 <!-- *ngIf="item.status == 2" -->
+<mat-radio-group>
 <div class="row" *ngFor=" let item of socialMediaList; let i=index">
     <div class="col-md-11" *ngIf="item.status != 2">
         <p>
-            <span class="pointerCursor fa fa-check-square fa-lg iconCheck"></span>
+            <mat-radio-button value="{{item.link}}"></mat-radio-button>
             {{item.link}}
         </p>
     </div>
@@ -35,3 +36,4 @@
     </div>
 
 </div>
+</mat-radio-group>

@@ -2,226 +2,229 @@
   <!--Menu Side Bar For Hr -->
 
 
+  <div class="sidenavContainer"></div>
+    
+  
 
-  <div id="mySidenav" class="sidenav">
+    <div id="mySidenav" class="sidenav">
 
-    <div class="row">
+      <div class="row">
 
-      <div class="col-md-12">
-        <button type="button" class="noneOutLine closeBtn" mat-flat-button (click)="closeNav()">
-          <a routerLink="home">
-            <img src="../assets/images/Ambit-Logo.svg" height="25px">
-          </a>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <span class="fa fa-times text-center" style="color:#4F6EB1;"></span>
-        </button>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <ul class="navH">
-          <li>
-            <a>
-              <span class="fa logo"><img src="../assets/images/search.svg"></span>
-              <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
+        <div class="col-md-12">
+          <button type="button" class="noneOutLine closeBtn" mat-flat-button (click)="closeNav()">
+            <a routerLink="home">
+              <img src="../assets/images/Ambit-Logo.svg" height="25px">
             </a>
-          </li>
-        </ul>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="fa fa-times text-center" style="color:#4F6EB1;"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="navH">
+            <li>
+              <a>
+                <span class="fa logo"><img src="../assets/images/search.svg"></span>
+                <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search">
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <mat-accordion>
+
+            <!--HR Menu Panel-->
+            <mat-expansion-panel class="rounded-0">
+              <mat-expansion-panel-header class='mat-header-hover'>
+                <mat-panel-title>
+                  HR Menu
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ul class="nav">
+
+                <li class="m-0" routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink='HR/hrdashboard'>
+                    <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+                    <span class="text">HR Dashboard</span>
+                  </a>
+                </li>
+
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink='HR/communication'>
+                    <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+                    <span class="text">Communication</span>
+                  </a>
+                </li>
+
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink="HR/post">
+                    <span class="fa logo"><img src="../assets/images/Post.svg"></span>
+                    <span class="text">Post</span>
+                  </a>
+                </li>
+
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink='HR/employee'>
+                    <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span>
+                    <span class="text">Employee Profile</span>
+                  </a>
+                </li>
+
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink='HR/transfer'>
+                    <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span>
+                    <span class="text">Transfer</span>
+                  </a>
+                </li>
+
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink="HR/leaveType">
+                    <span class="fa logo"><img src="../assets/images/vacations.svg"></span>
+                    <span class="text">Leave Type</span>
+                  </a>
+                </li>
+
+              </ul>
+
+            </mat-expansion-panel>
+
+
+            <!--Configuration Menu Panel-->
+            <mat-expansion-panel class="rounded-0" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header class='mat-header-hover'>
+                <mat-panel-title>
+                  Configuration Menu
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ul class="nav">
+                <li routerLinkActive='active'>
+                  <a routerLink="Config/certificate">
+                    <span class="fa logo"><img src="../assets/images/certificate.svg"></span>
+                    <span class="text">Certificate</span>
+                  </a>
+                </li>
+                <li routerLinkActive='active'>
+                  <a routerLink="Config/degree">
+                    <span class="fa logo"><img src="../assets/images/degree.svg"></span>
+                    <span class="text">Degree</span>
+                  </a>
+                </li>
+                <li routerLinkActive='active'>
+                  <a routerLink="Config/skill">
+                    <span class="fa logo"><img src="../assets/images/skills.svg"></span>
+                    <span class="text">Skill</span>
+                  </a>
+                </li>
+              </ul>
+            </mat-expansion-panel>
+
+
+            <!--User Menu Panel-->
+            <mat-expansion-panel class="rounded-0" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header class='mat-header-hover'>
+                <mat-panel-title>
+                  User Menu
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ul class="nav">
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink='UM/userDashboard'>
+                    <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+                    <span class="text">User Dashboard</span>
+                  </a>
+                </li>
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink='UM/userProfile'>
+                    <span class="fa logo"><img src="../assets/images/UserProfile.svg"></span>
+                    <span class="text">User Profile</span>
+                  </a>
+                </li>
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink="UM/userRole">
+                    <span class="fa logo"><img src="../assets/images/UserRole-24px.svg"></span>
+                    <span class="text">User Role</span>
+                  </a>
+                </li>
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink="UM/userReport">
+                    <span class="fa logo"><img src="../assets/images/UserRole-24px.svg"></span>
+                    <span class="text">User Report</span>
+                  </a>
+                </li>
+              </ul>
+            </mat-expansion-panel>
+
+
+            <!--Company Menu Panel-->
+            <mat-expansion-panel class="rounded-0" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header class='mat-header-hover'>
+                <mat-panel-title>
+                  Company Menu
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <ul class="nav">
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink='Comp/dashboard'>
+                    <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+                    <span class="text">Dashboard</span>
+                  </a>
+                </li>
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink='Comp/newcmpany'>
+                    <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+                    <span class="text">New Company</span>
+                  </a>
+                </li>
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink='Comp/editcmpany'>
+                    <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+                    <span class="text">Edit Company</span>
+                  </a>
+                </li>
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink="Comp/branch">
+                    <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+                    <span class="text">New Branch</span>
+                  </a>
+                </li>
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink="Comp/department">
+                    <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+                    <span class="text">Add Department</span>
+                  </a>
+                </li>
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink="Comp/section">
+                    <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+                    <span class="text">Add Section</span>
+                  </a>
+                </li>
+                <li routerLinkActive='active' (click)="closeNav()">
+                  <a routerLink="Comp/currency">
+                    <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
+                    <span class="text">New Currency</span>
+                  </a>
+                </li>
+              </ul>
+            </mat-expansion-panel>
+
+          </mat-accordion>
+
+        </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-12">
-
-        <mat-accordion>
-
-          <!--HR Menu Panel-->
-          <mat-expansion-panel>
-            <mat-expansion-panel-header class='mat-header-hover'>
-              <mat-panel-title>
-                HR Menu
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <ul class="nav">
-
-              <li class="m-0" routerLinkActive='active' (click)="closeNav()">
-                <a routerLink='HR/hrdashboard'>
-                  <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                  <span class="text">HR Dashboard</span>
-                </a>
-              </li>
-
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink='HR/communication'>
-                  <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                  <span class="text">Communication</span>
-                </a>
-              </li>
-
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink="HR/post">
-                  <span class="fa logo"><img src="../assets/images/Post.svg"></span>
-                  <span class="text">Post</span>
-                </a>
-              </li>
-
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink='HR/employee'>
-                  <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span>
-                  <span class="text">Employee Profile</span>
-                </a>
-              </li>
-
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink='HR/transfer'>
-                  <span class="fa logo"><img src="../assets/images/Employe-Profile.svg"></span>
-                  <span class="text">Transfer</span>
-                </a>
-              </li>
-
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink="HR/leaveType">
-                  <span class="fa logo"><img src="../assets/images/vacations.svg"></span>
-                  <span class="text">Leave Type</span>
-                </a>
-              </li>
-
-            </ul>
-
-          </mat-expansion-panel>
-
-
-          <!--Configuration Menu Panel-->
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header class='mat-header-hover'>
-              <mat-panel-title>
-                Configuration Menu
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <ul class="nav">
-              <li routerLinkActive='active'>
-                <a routerLink="Config/certificate">
-                  <span class="fa logo"><img src="../assets/images/certificate.svg"></span>
-                  <span class="text">Certificate</span>
-                </a>
-              </li>
-              <li routerLinkActive='active'>
-                <a routerLink="Config/degree">
-                  <span class="fa logo"><img src="../assets/images/degree.svg"></span>
-                  <span class="text">Degree</span>
-                </a>
-              </li>
-              <li routerLinkActive='active'>
-                <a routerLink="Config/skill">
-                  <span class="fa logo"><img src="../assets/images/skills.svg"></span>
-                  <span class="text">Skill</span>
-                </a>
-              </li>
-            </ul>
-          </mat-expansion-panel>
-
-
-          <!--User Menu Panel-->
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header class='mat-header-hover'>
-              <mat-panel-title>
-                User Menu
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <ul class="nav">
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink='UM/userDashboard'>
-                  <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                  <span class="text">User Dashboard</span>
-                </a>
-              </li>
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink='UM/userProfile'>
-                  <span class="fa logo"><img src="../assets/images/UserProfile.svg"></span>
-                  <span class="text">User Profile</span>
-                </a>
-              </li>
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink="UM/userRole">
-                  <span class="fa logo"><img src="../assets/images/UserRole-24px.svg"></span>
-                  <span class="text">User Role</span>
-                </a>
-              </li>
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink="UM/userReport">
-                  <span class="fa logo"><img src="../assets/images/UserRole-24px.svg"></span>
-                  <span class="text">User Report</span>
-                </a>
-              </li>
-            </ul>
-          </mat-expansion-panel>
-
-
-          <!--Company Menu Panel-->
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header class='mat-header-hover'>
-              <mat-panel-title>
-                Company Menu
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <ul class="nav">
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink='Comp/dashboard'>
-                  <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                  <span class="text">Dashboard</span>
-                </a>
-              </li>
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink='Comp/newcmpany'>
-                  <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                  <span class="text">New Company</span>
-                </a>
-              </li>
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink='Comp/editcmpany'>
-                  <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                  <span class="text">Edit Company</span>
-                </a>
-              </li>
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink="Comp/branch">
-                  <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                  <span class="text">New Branch</span>
-                </a>
-              </li>
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink="Comp/department">
-                  <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                  <span class="text">Add Department</span>
-                </a>
-              </li>
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink="Comp/section">
-                  <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                  <span class="text">Add Section</span>
-                </a>
-              </li>
-              <li routerLinkActive='active' (click)="closeNav()">
-                <a routerLink="Comp/currency">
-                  <span class="fa logo"><img src="../assets/images/Dashboard.svg"></span>
-                  <span class="text">New Currency</span>
-                </a>
-              </li>
-            </ul>
-          </mat-expansion-panel>
-
-        </mat-accordion>
-
-      </div>
-    </div>
-  </div>
-
-
+  
 
 
   <!--Menu Top Bar  -->

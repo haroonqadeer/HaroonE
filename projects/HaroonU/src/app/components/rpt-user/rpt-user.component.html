@@ -1,131 +1,144 @@
 <br />
 <!--start report-->
-<div id="sampleReport">
-  <!-- Report heading and logo -->
-  <div class="myContainer">
+<div class="row">
 
-    <!--print button -->
-    <div class="row hideContent">
-      <div class="col-md-12 text-right">
-        <button mat-raised-button data-toggle="modal" data-target="#activeUserModal"
-          style="border-radius: 0; background-color: #4A67AB; color: #fff; margin-right: 5px;">&nbsp;&nbsp;SEARCH&nbsp;
-          <i class="fa fa-search"></i>&nbsp;</button>
-        <button mat-raised-button (click)="printDiv()"
-          style="border-radius: 0; background-color: #2199E8; color: #fff;">&nbsp;&nbsp;PRINT&nbsp; <i
-            class="fa fa-print"></i>&nbsp;</button>
-      </div>
-    </div>
+  <div class="col-md-1"></div>
 
-  </div><!-- end Report heading and logo -->
+  <div class="col-md-10 nopadding">
 
-  <div class="myContainer bgWhite">
+    <div id="sampleReport">
 
-    <div class="row">
-      <div class="col-md-6">
-        <img src="../assets/images/Ambit-Logo.svg" height="75px">
-      </div>
-      <div class="col-md-6 text-right">
-        <div class="reportHeading">User Report</div>
-        {{toDate | date}}
-      </div>
-    </div>
-
-    <hr class="hideContent">
-
-    <!--search box -->
-    <div class="row hideContent">
-      <div class="col-md-12">
-        <div class="searchBar">
-          <span class="fa icon-search"></span>
-          <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Advance Search"
-            [(ngModel)]="tblSearch">
+      <!-- Report heading and logo -->
+      <div>
+    
+        <!--print button -->
+        <div class="row hideContent">
+          <div class="col-md-12 text-right">
+            <button mat-raised-button data-toggle="modal" data-target="#activeUserModal"
+              style="border-radius: 0; background-color: #4A67AB; color: #fff; margin-right: 5px;">&nbsp;&nbsp;SEARCH&nbsp;
+              <i class="fa fa-search"></i>&nbsp;</button>
+            <button mat-raised-button (click)="printDiv()"
+              style="border-radius: 0; background-color: #2199E8; color: #fff;">&nbsp;&nbsp;PRINT&nbsp; <i
+                class="fa fa-print"></i>&nbsp;</button>
+          </div>
         </div>
+    
+      </div><!-- end Report heading and logo -->
+    
+      
+      <div class="bgWhite shadow">
+    
+        <div class="row">
+          <div class="col-md-6">
+            <img src="../assets/images/Ambit-Logo.svg" height="75px">
+          </div>
+          <div class="col-md-6 text-right">
+            <div class="reportHeading">User Report</div>
+            {{toDate | date}}
+          </div>
+        </div>
+    
+        <hr class="hideContent">
+        
+        <!--search box -->
+        <div class="row hideContent">
+          <div class="col-md-12">
+            <div class="searchBar">
+              <span class="fa icon-search"></span>
+              <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Advance Search"
+                [(ngModel)]="tblSearch">
+            </div>
+          </div>
+        </div>
+        <!--end search textbox Row-->
+
+        <!--Start data table -->
+        <div class="row" style="margin-top: 5px;">
+          <div class="col-md-12">
+            <table class="table table-striped fullwidth" id="myTable">
+              <thead>
+                <tr>
+                  <th>S#</th>
+                  <th [class.active]="order === 'indvdlERPUsrID'" (click)="setOrder('indvdlERPUsrID')"
+                    class="pointerCursor">
+                    User Name
+                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                  </th>
+                  <th [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')"
+                    class="pointerCursor">
+                    User Login
+                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                  </th>
+                  <th [class.active]="order === 'deptName'" (click)="setOrder('deptName')" class="pointerCursor">
+                    Department
+                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                  </th>
+                  <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')" class="pointerCursor">
+                    User Role
+                    <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+                    <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
+                  </th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let emp of userData | search:'indvdlERPUsrID,indvdlFullName,emailAddrss,erpRoleName,deptName':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
+                  <td>{{i+1}}</td>
+                  <td>{{emp.indvdlFullName}}</td>
+                  <td>{{emp.indvdlERPUsrID}}</td>
+                  <td>{{emp.deptName}}</td>
+                  <td>{{emp.erpRoleName}}</td>
+                  <td>
+                    <span *ngIf="emp.usrStatus != null">Deactivate</span>
+                    <span *ngIf="emp.usrStatus == null">Active</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    
+          <!-- Pagination Starts -->
+          <div class="col-md-12 text-right hideContent">
+            <div class="paginationBox">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+            <div class="paginationBox">
+              <mat-form-field class="pagenateList">
+                <mat-select [(ngModel)]="itemPerPage">
+                  <mat-option value="1">1</mat-option>
+                  <mat-option value="2">2</mat-option>
+                  <mat-option value="10">10</mat-option>
+                  <mat-option value="15">15</mat-option>
+                  <mat-option value="20">20</mat-option>
+                  <mat-option value="25">25</mat-option>
+                  <mat-option value="30">30</mat-option>
+                  <mat-option value="35">35</mat-option>
+                  <mat-option value="40">40</mat-option>
+                  <mat-option value="45">45</mat-option>
+                  <mat-option value="50">50</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="paginationBox">
+              Item per page: &nbsp;&nbsp;
+            </div>
+          </div>
+          <!-- Pagination Ends -->
+    
+        </div>
+        <!--end data table -->
+    
       </div>
+
     </div>
-    <!--end search textbox Row-->
-
-    <!--Start data table -->
-    <div class="row">
-      <div class="col-md-12">
-        <table class="table table-striped fullwidth" id="myTable">
-          <thead>
-            <tr>
-              <th>S#</th>
-              <th [class.active]="order === 'indvdlERPUsrID'" (click)="setOrder('indvdlERPUsrID')"
-                class="pointerCursor">
-                User Name
-                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-              </th>
-              <th [class.active]="order === 'indvdlFullName'" (click)="setOrder('indvdlFullName')"
-                class="pointerCursor">
-                User Login
-                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-              </th>
-              <th [class.active]="order === 'deptName'" (click)="setOrder('deptName')" class="pointerCursor">
-                Department
-                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-              </th>
-              <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')" class="pointerCursor">
-                User Role
-                <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-                <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
-              </th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              *ngFor="let emp of userData | search:'indvdlERPUsrID,indvdlFullName,emailAddrss,erpRoleName,deptName':tblSearch | paginate: { itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive'; let i=index">
-              <td>{{i+1}}</td>
-              <td>{{emp.indvdlFullName}}</td>
-              <td>{{emp.indvdlERPUsrID}}</td>
-              <td>{{emp.deptName}}</td>
-              <td>{{emp.erpRoleName}}</td>
-              <td>
-                <span *ngIf="emp.usrStatus != null">Deactivate</span>
-                <span *ngIf="emp.usrStatus == null">Active</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Pagination Starts -->
-      <div class="col-md-12 text-right hideContent">
-        <div class="paginationBox">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </div>
-        <div class="paginationBox">
-          <mat-form-field class="pagenateList">
-            <mat-select [(ngModel)]="itemPerPage">
-              <mat-option value="1">1</mat-option>
-              <mat-option value="2">2</mat-option>
-              <mat-option value="10">10</mat-option>
-              <mat-option value="15">15</mat-option>
-              <mat-option value="20">20</mat-option>
-              <mat-option value="25">25</mat-option>
-              <mat-option value="30">30</mat-option>
-              <mat-option value="35">35</mat-option>
-              <mat-option value="40">40</mat-option>
-              <mat-option value="45">45</mat-option>
-              <mat-option value="50">50</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="paginationBox">
-          Item per page: &nbsp;&nbsp;
-        </div>
-      </div>
-      <!-- Pagination Ends -->
-
-    </div>
-    <!--end data table -->
 
   </div>
 </div>
+
 <!--end report -->
 
 

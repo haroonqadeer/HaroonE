@@ -199,18 +199,6 @@ export class AppComponent implements OnInit {
       });
   }
 
-  //function for get active module
-  activeModule(showMenu) {
-    //show menu setting
-    if (showMenu == "Yes") {
-      document.getElementById("mySidenav").style.width = "248px";
-      $(".sidenavContainer").fadeIn("slow", function() {});
-      this.startWatching();
-
-      // Start watching when user idle is starting.
-      this.userIdle.onTimerStart().subscribe(count => this.Logout());
-    }
-  }
 
   showAttendance() {
     this.bottomSheet.open(AttendanceComponent);
@@ -280,7 +268,19 @@ export class AppComponent implements OnInit {
 
   /* Set the width of the side navigation to 250px */
   public openNav() {
-    this.activeModule("Yes");
+    
+    if(this.router.url != '/home'){
+      $(".sidenavContainer").fadeIn("slow", function() {});
+    }
+
+      document.getElementById("mySidenav").style.width = "248px";
+      
+      this.startWatching();
+
+      // Start watching when user idle is starting.
+      this.userIdle.onTimerStart().subscribe(count => this.Logout());
+    
+
   }
 
   /* Set the width of the side navigation to 0 */
