@@ -417,6 +417,74 @@
           </div>
         </div>
 
+        <div class="row mt-2">
+          <div class="offset-md-10 col-md-2">
+            <button mat-raised-button class="btn fullwidth pb-1 pt-1" (click)="clear()"
+              style="border-radius: 0;">&nbsp;&nbsp;&nbsp;ADD&nbsp;&nbsp;&nbsp;</button>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <table class="table table-striped">
+              <thead>
+                <tr class="d-flex">
+                  <th class="col-4 text-left">Employee Name</th>
+                  <th class="col-3 text-left">Post From</th>
+                  <th class="col-3 text-left">Post To</th>
+                  <th class="col-1 text-center">Edit</th>
+                  <th class="col-1 text-center">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="d-flex">
+                  <td class="col-4 text-left">Ali Rajpoot</td>
+                  <td class="col-3 text-left">Islamabad Branch</td>
+                  <td class="col-3 text-left">Lahore Branch</td>
+                  <td class="col-1 text-center">
+                    <span class="fa tableIcon pointerCursor">
+                      <span class="fa icon-u-edit"></span>
+                    </span>
+                  </td>
+                  <td class="col-1 text-center">
+                    <span class="fa tableIcon pointerCursor">
+                      <span class="fa icon-u-delete"></span>
+                    </span>
+                  </td>
+                </tr>
+                <tr class="d-flex bg-light-red">
+                  <td class="col-4 text-left">Rizwan Malik</td>
+                  <td class="col-3 text-left">Karachi Branch</td>
+                  <td class="col-3 text-left">Islamabad HQ</td>
+                  <td class="col-1 text-center">
+                    <span class="fa tableIcon pointerCursor">
+                      <span class="fa icon-u-edit"></span>
+                    </span>
+                  </td>
+                  <td class="col-1 text-center">
+                    <span class="fa tableIcon pointerCursor">
+                      <span class="fa icon-u-delete"></span>
+                    </span>
+                  </td>
+                </tr>
+                <tr class="d-flex">
+                  <td class="col-4 text-left">Amir Qureshi</td>
+                  <td class="col-3 text-left">Lahore Branch</td>
+                  <td class="col-3 text-left">Quetta Branch</td>
+                  <td class="col-1 text-center">
+                    <span class="fa tableIcon pointerCursor">
+                      <span class="fa icon-u-edit"></span>
+                    </span>
+                  </td>
+                  <td class="col-1 text-center">
+                    <span class="fa tableIcon pointerCursor">
+                      <span class="fa icon-u-delete"></span>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="row mt-4 mb-4">
           <div class="offset-md-7 col-md-5">
             <!--start buttons row -->
