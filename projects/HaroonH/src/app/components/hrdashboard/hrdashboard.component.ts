@@ -115,7 +115,7 @@ export class HrdashboardComponent implements OnInit {
         type: "column"
       },
       title: {
-        text: ""
+        text: "Number of employees by department and branch"
       },
       xAxis: {
         categories: [
@@ -129,7 +129,7 @@ export class HrdashboardComponent implements OnInit {
       yAxis: {
         min: 0,
         title: {
-          text: "Number of employees by department and branch"
+          text: "Number of Employees"
         }
       },
       tooltip: {

@@ -98,7 +98,6 @@ export class BranchComponent implements OnInit {
   countryListForAddress = [];
   provinceList = [];
   districtList = [];
-  
 
   //** Dropdown (temporary lists) for filters */
   //dropCountryList = [];
@@ -124,17 +123,17 @@ export class BranchComponent implements OnInit {
   cmpnyId = "";
   delFlag: boolean;
 
-    addressType = '';
-    address = '';
-    country = '';
-    city = '';
-    zipCode = '';
+  addressType = "";
+  address = "";
+  country = "";
+  city = "";
+  zipCode = "";
 
-    srchCntry = '';
-    srchCity = '';
-    cntryList = [];
-    cityList = [];
-    addressList = [];
+  srchCntry = "";
+  srchCity = "";
+  cntryList = [];
+  cityList = [];
+  addressList = [];
 
   //*NgModel For Searching textboxes
   tblSearch = "";
@@ -143,6 +142,7 @@ export class BranchComponent implements OnInit {
 
   cmbCompany = "";
   txtBranch = "";
+  branchHeading = "Add";
 
   //*City Modal Window Models
   cityName = "";
@@ -229,7 +229,6 @@ export class BranchComponent implements OnInit {
 
     this.getCountry();
     this.getCity();
-
   }
 
   @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
@@ -261,26 +260,30 @@ export class BranchComponent implements OnInit {
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + 'api/getCity', { headers: reqHeader }).subscribe((data: any) => {
-        this.cityList = data
-    });
+    this.http
+      .get(this.serverUrl + "api/getCity", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.cityList = data;
+      });
   }
 
   getCountry() {
-      //return false;
+    //return false;
 
-      //var Token = localStorage.getItem(this.tokenKey);
+    //var Token = localStorage.getItem(this.tokenKey);
 
-      //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.app.showSpinner();
+    this.app.showSpinner();
 
-      this.http.get(this.serverUrl + 'api/getCountry', { headers: reqHeader }).subscribe((data: any) => {
-          this.cntryList = data
-          this.app.hideSpinner();
+    this.http
+      .get(this.serverUrl + "api/getCountry", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.cntryList = data;
+        this.app.hideSpinner();
       });
   }
 
@@ -349,26 +352,22 @@ export class BranchComponent implements OnInit {
         toastTimeout: 2500
       });
       return false;
-    }
-    else if (this.address.trim() == '') {
+    } else if (this.address.trim() == "") {
       this.toastr.errorToastr("Please Enter Address", "Error", {
         toastTimeout: 2500
       });
       return false;
-    }
-    else if (this.country == '') {
+    } else if (this.country == "") {
       this.toastr.errorToastr("Please Enter Country", "Error", {
         toastTimeout: 2500
       });
       return false;
-    }
-    else if (this.city == '') {
+    } else if (this.city == "") {
       this.toastr.errorToastr("Please Enter City", "Error", {
         toastTimeout: 2500
       });
       return false;
-    }
-    else if (this.zipCode == '') {
+    } else if (this.zipCode == "") {
       this.toastr.errorToastr("Please Enter Zip Code", "Error", {
         toastTimeout: 2500
       });
@@ -388,29 +387,24 @@ export class BranchComponent implements OnInit {
       });
       return false;
     } else {
-      
-      if (this.addressList.length == 0){
-          this.addressList.push({
-
-              contactDetailCode: 0,
-              addressId: 0,
-              addressType: 2,
-              address: this.address,
-              cityCode: this.city,
-              districtCode: 0,
-              provinceCode: 0,
-              countryCode: this.country,
-              zipCode: this.zipCode,
-              status: 0
-
-          });
-      }else{
-
-          this.addressList[0].address = this.address;
-          this.addressList[0].cityCode = this.city;
-          this.addressList[0].countryCode = this.country;
-          this.addressList[0].zipCode = this.zipCode;
-
+      if (this.addressList.length == 0) {
+        this.addressList.push({
+          contactDetailCode: 0,
+          addressId: 0,
+          addressType: 2,
+          address: this.address,
+          cityCode: this.city,
+          districtCode: 0,
+          provinceCode: 0,
+          countryCode: this.country,
+          zipCode: this.zipCode,
+          status: 0
+        });
+      } else {
+        this.addressList[0].address = this.address;
+        this.addressList[0].cityCode = this.city;
+        this.addressList[0].countryCode = this.country;
+        this.addressList[0].zipCode = this.zipCode;
       }
 
       if (this.branchId != "") {
@@ -508,17 +502,18 @@ export class BranchComponent implements OnInit {
 
   //*Clear the input fields
   clear() {
+    this.branchHeading = "Add";
     this.cmbCompany = "";
     this.txtBranch = "";
     this.branchId = "";
 
-    this.address = '';
-    this.country = '';
-    this.city = '';
-    this.zipCode = '';
-    this.srchCity = '';
-    this.srchCntry = '';
-    
+    this.address = "";
+    this.country = "";
+    this.city = "";
+    this.zipCode = "";
+    this.srchCity = "";
+    this.srchCntry = "";
+
     this.addressList = [];
     this.shrd_cntct.contactList = [];
     this.shrd_cntct.emailList = [];
@@ -533,6 +528,7 @@ export class BranchComponent implements OnInit {
     var telephoneList = [];
 
     if (item.delFlag == 0) {
+      this.branchHeading = "Edit";
       for (var i = 0; i < this.branchDetail.length; i++) {
         if (item.locationCd == this.branchDetail[i].locationCd) {
           if (this.cmbCompany == "") {

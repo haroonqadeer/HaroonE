@@ -64,7 +64,7 @@ import {
       }
 
       .department-cto .ui-node-toggler {
-        color: #8a0a39 !important;
+        color: #ffffff !important;
       }
     `
   ],

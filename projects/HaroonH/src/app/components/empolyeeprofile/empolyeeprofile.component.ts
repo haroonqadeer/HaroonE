@@ -164,7 +164,8 @@ export class EmpolyeeprofileComponent implements OnInit {
     section = '';
     jobPost = '';
     jobType = '';
-    
+    empHeading = 'Add';
+
     branchList =[];
     deptList =[];
     sectList =[];
@@ -887,7 +888,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
         this.clear();
         this.updateFlag = true;
-
+        this.empHeading = 'Edit';
         this.empId = item.empID;
         this.desigId = item.jobDesigID;
         this.deptId = item.jobPostDeptCd;
@@ -932,6 +933,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     clear(){
 
+        this.empHeading = 'Add';
         this.empId = 0;
         this.desigId = 0;
         this.deptId= 0;

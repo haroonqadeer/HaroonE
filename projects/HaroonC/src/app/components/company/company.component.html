@@ -9,7 +9,7 @@
             <span class="fa iconContainer">
                 <span class="fa icon-c-currency" ></span>
             </span>
-            <h1> Add Company</h1>
+            <h1> {{cmpnyHeadingLabel}} Company</h1>
 
 
             <!--end add role permission button-->
@@ -36,7 +36,7 @@
                 <!--heading -->
                 <div class="row" >
                     <div class="col-md-12">
-                        <h5>COMPANY TYPE</h5>
+                        <h5 class="text-light-Blue">COMPANY TYPE</h5>
                         <hr/>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <mat-form-field class="fullwidth">
-                                <input matInput placeholder="Registration No or NTN" [(ngModel)]="cNtn" mask="0{20}">
+                                <input matInput placeholder="Registration No or NTN" [(ngModel)]="cNtn" mask="000-0000000">
                             </mat-form-field>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                 <!--heading row-->
                 <div class="row">
                     <div class="col-md-12">
-                        <h5>COMPANY ADDRESS</h5>
+                        <h5 class="text-light-Blue">COMPANY ADDRESS</h5>
                         <hr>
                     </div>
                 </div>
@@ -260,7 +260,7 @@
             <div class="offset-md-1 col-md-11 commonPenalCls">
                 <!--Contact number cmbo bx row-->
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <mat-form-field class="fullwidth">
                             <mat-select placeholder="Contact Type" [(ngModel)]="cContactType" disableOptionCentering>
                                 <mat-option *ngFor=" let item of cntctTypeList" [value]="item.teleTypeCd">
@@ -271,9 +271,9 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="col-md-6 npl">
+                    <div class="col-md-5 npl">
                         <mat-form-field class="fullwidth">
-                            <input matInput [(ngModel)]="cContactNumber" placeholder="Number" mask="0{15}">
+                            <input matInput [(ngModel)]="cContactNumber" placeholder="Number" mask="000-0000000">
                         </mat-form-field>
                     </div>
 
@@ -375,7 +375,7 @@
                     <!-- heading row -->
                     <div class="row">
                         <div class="col-md-12">
-                            <h5>OWNERSHIP DETAIL</h5>
+                            <h5 class="text-light-Blue">OWNERSHIP DETAIL</h5>
                             <hr/>
                         </div>
                     </div>
@@ -564,7 +564,7 @@
         <div class="row" *ngIf="solePro">
             <div class="offset-md-1 col-md-11 commonPenalCls">
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <mat-form-field class="fullwidth">
                             <mat-select placeholder="Contact Type" [(ngModel)]="indvdContactType" disableOptionCentering>
                                 <mat-option *ngFor=" let item of cntctTypeList" [value]="item.teleTypeCd">
@@ -575,9 +575,9 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="col-md-6 npl">
+                    <div class="col-md-5 npl">
                         <mat-form-field class="fullwidth">
-                            <input matInput [(ngModel)]="indvdContactNumber" placeholder="Number" mask="0{15}">
+                            <input matInput [(ngModel)]="indvdContactNumber" placeholder="Number" mask="000-0000000">
                         </mat-form-field>
                     </div>
 
@@ -786,7 +786,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <mat-form-field class="fullwidth">
                                     <mat-select placeholder="Contact Type" [(ngModel)]="indvdContactType" disableOptionCentering>
                                         <mat-option *ngFor=" let item of cntctTypeList" [value]="item.teleTypeCd">
@@ -797,9 +797,9 @@
                                 </mat-form-field>
                             </div>
     
-                            <div class="col-md-6 npl">
+                            <div class="col-md-5 npl">
                                 <mat-form-field class="fullwidth">
-                                    <input matInput [(ngModel)]="indvdContactNumber" placeholder="Number" mask="0{15}">
+                                    <input matInput [(ngModel)]="indvdContactNumber" placeholder="Number" mask="000-0000000">
                                 </mat-form-field>
                             </div>
     
@@ -990,7 +990,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <mat-form-field class="fullwidth">
                                 <mat-select placeholder="Contact Type" [(ngModel)]="indvdContactType" disableOptionCentering>
                                     <mat-option *ngFor=" let item of cntctTypeList" [value]="item.teleTypeCd">
@@ -1001,9 +1001,9 @@
                             </mat-form-field>
                         </div>
 
-                        <div class="col-md-6 npl">
+                        <div class="col-md-5 npl">
                             <mat-form-field class="fullwidth">
-                                <input matInput [(ngModel)]="indvdContactNumber" placeholder="Number" mask="0{15}">
+                                <input matInput [(ngModel)]="indvdContactNumber" placeholder="Number" mask="000-0000000">
                             </mat-form-field>
                         </div>
 
