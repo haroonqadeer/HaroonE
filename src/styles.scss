@@ -440,6 +440,14 @@
       outline: 0;
     }
 
+    .active .text {
+      color: #e6e6e6 !important;
+      //border-left:5px solid #B93632;
+      // border-left: 5px solid #e6e6e6;
+      // background-color: #3f3f3f;
+      // outline: 0;
+    }
+
     .nav li:not(.active):hover a {
       color: #e6e6e6 !important;
       border-left: 5px solid #e6e6e6;
