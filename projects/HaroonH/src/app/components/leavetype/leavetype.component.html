@@ -9,12 +9,12 @@
       <span class="fa iconContainer">
         <span class="fa icon-hr-leaves"></span>
       </span>
-      <h1> Leave Rule</h1>
+      <h1> Leave Rules</h1>
 
       <!--start add role permission button-->
       <a class="pointerCursor" data-toggle="modal" data-target="#typeModal" (click)="clear()">
         <i class="fa fa-plus-circle"></i>
-        ADD LEAVE TYPE
+        ADD LEAVE RULE
       </a>
       <!--end add role permission button-->
     </div>
@@ -333,7 +333,7 @@
 
       <!--start user Modal Header -->
       <div class="modal-header bg-skyBlue borderBlue5px">
-        <h4 class="modal-title">Add Leave Type</h4>
+        <h4 class="modal-title">{{ leaveHeading }} Leave Rule</h4>
         <div>
           <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
         </div>

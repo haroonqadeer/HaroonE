@@ -26,7 +26,7 @@ export class LeavetypeComponent implements OnInit {
     serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9012/";
 
     tokenKey = "token";
-
+leaveHeading = 'Add';
 
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -210,6 +210,7 @@ export class LeavetypeComponent implements OnInit {
     editLeaveType(item) {
 
         this.clear();
+        this.leaveHeading = 'Edit';
         this.updateFlag = true;
 
         this.leaveTypeId = item.leaveTypeCd;
@@ -436,6 +437,7 @@ export class LeavetypeComponent implements OnInit {
 
         this.updateFlag = false;
 
+        this.leaveHeading = 'Add';
         this.leaveTypeId = '';
         this.leaveType = '';
         this.leaveDescription = '';

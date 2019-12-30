@@ -46,26 +46,26 @@
         <thead>
           <tr class="d-flex">
             <th class="col-1 text-center ">Sr No.</th>
-            <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
+            <th [class.active]="order === 'jobDesigName'" (click)="setOrder('jobDesigName')"
               class="col-2 pointerCursor text-left ">
               Post Title
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
-            <th [class.active]="order === 'noOfModules'" (click)="setOrder('noOfModules')"
-              class="col-2 pointerCursor text-center">
+            <th [class.active]="order === 'locationName'" (click)="setOrder('locationName')"
+              class="col-2 pointerCursor text-left">
               Branch
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
-            <th [class.active]="order === 'noOfModules'" (click)="setOrder('noOfModules')"
-              class="col-2 pointerCursor text-center">
+            <th [class.active]="order === 'department'" (click)="setOrder('department')"
+              class="col-2 pointerCursor text-left">
               Department
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
-            <th [class.active]="order === 'noOfModules'" (click)="setOrder('noOfModules')"
-              class="col-2 pointerCursor text-center">
+            <th [class.active]="order === 'section'" (click)="setOrder('section')"
+              class="col-2 pointerCursor text-left">
               Section
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
@@ -80,7 +80,7 @@
           <tr class="d-flex" *ngFor="
               let post of posts
                 | search
-                  : 'office,department,section,designation,desigCount'
+                  : 'jobDesigName,locationName,department,section'
                   : postSearch
                 | paginate
                   : { itemsPerPage: itemPerPage, currentPage: p, id: 'first' }
