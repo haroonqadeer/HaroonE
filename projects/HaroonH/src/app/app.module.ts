@@ -28,8 +28,6 @@ import { SkillstandardComponent } from "./components/skillstandard/skillstandard
 import { TestComponent } from "./components/test/test.component";
 import { TrainingrequirementsComponent } from "./components/trainingrequirements/trainingrequirements.component";
 import { YearcalendarComponent } from "./components/yearcalendar/yearcalendar.component";
-import { ConfigAddressComponent } from "src/app/components/config-address/config-address.component";
-import { ConfigContactComponent } from "src/app/components/config-contact/config-contact.component";
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ToastrModule } from "ng6-toastr-notifications";
@@ -41,11 +39,7 @@ import { CheckboxModule } from "primeng/checkbox";
 import { InputSwitchModule } from "primeng/inputswitch";
 import { NgxSpinnerModule } from "ngx-spinner";
 
-import {
-  IgxGridModule,
-  IgxExcelExporterService,
-  IgxCsvExporterService
-} from "igniteui-angular";
+import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
 import { TrainingComponent } from "./components/training/training.component";
 import { TrainingemployeeComponent } from "./components/trainingemployee/trainingemployee.component";
 import { ShiftComponent } from "./components/shift/shift.component";
@@ -56,6 +50,10 @@ import { AttendanceDashboardComponent } from "./components/attendance-dashboard/
 import { NgxMaskModule } from "ngx-mask";
 import { PromotionComponent } from "./components/promotion/promotion.component";
 import { TransferpostingComponent } from "./components/transferposting/transferposting.component";
+
+import { SharedmodModule } from 'src/app/components/sharedmod.module';
+import { ConfigAddressComponent } from 'src/app/components/config-address/config-address.component';
+import { ConfigContactComponent } from 'src/app/components/config-contact/config-contact.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +107,8 @@ import { TransferpostingComponent } from "./components/transferposting/transferp
     CheckboxModule,
     InputSwitchModule,
     NgxSpinnerModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    SharedmodModule
   ],
   providers: [
     IgxExcelExporterService,

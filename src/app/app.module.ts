@@ -34,7 +34,7 @@ import { CompSharedModule } from 'projects/HaroonC/src/app/app.module';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 
 import { CookieService } from 'ngx-cookie-service';
-
+import { NgxMaskModule } from "ngx-mask";
 
 @NgModule({
   declarations: [
@@ -70,7 +70,7 @@ import { CookieService } from 'ngx-cookie-service';
     DropdownModule,
     IgxGridModule,
     NgxSpinnerModule,
-
+    NgxMaskModule.forRoot(),
     // Optionally you can set time for `idle`, `timeout` and `ping` in seconds.
     // Default values: `idle` is 60 (1 minutes), `timeout` is 30 (0.5 minutes) 
     // and `ping` is 15 0.25 minutes).
