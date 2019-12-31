@@ -58,13 +58,13 @@
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
-            <th [class.active]="order === 'department'" (click)="setOrder('department')"
+            <th [class.active]="order === 'deptName'" (click)="setOrder('deptName')"
               class="col-2 pointerCursor text-left">
               Department
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span>
             </th>
-            <th [class.active]="order === 'section'" (click)="setOrder('section')"
+            <th [class.active]="order === 'secName'" (click)="setOrder('secName')"
               class="col-2 pointerCursor text-left">
               Section
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
@@ -80,7 +80,7 @@
           <tr class="d-flex" *ngFor="
               let post of posts
                 | search
-                  : 'jobDesigName,locationName,department,section'
+                  : 'jobDesigName,locationName,deptName,secName'
                   : postSearch
                 | paginate
                   : { itemsPerPage: itemPerPage, currentPage: p, id: 'first' }
@@ -90,8 +90,8 @@
             <td class="col-1 text-center">{{ i + 1 }}</td>
             <td class="col-2 text-left">{{ post.jobDesigName }}</td>
             <td class="col-2 text-left">{{ post.locationName }}</td>
-            <td class="col-2 text-left">{{ post.department }}</td>
-            <td class="col-2 text-left">{{ post.section }}</td>
+            <td class="col-2 text-left">{{ post.deptName }}</td>
+            <td class="col-2 text-left">{{ post.secName }}</td>
             <td class="col-1 text-center">
               <span class="fa tableIcon pointerCursor" (click)="getOrganoGram(post)">
                 <span class="fa icon-h-organo"></span>
@@ -294,7 +294,7 @@
             <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
           </div>
         </div>
-        <div class="row">
+        <div class="row min-vw-50 min-vh-50 overflow-auto">
           <div class="col-md-12">
             <p-organizationChart [value]="data1" selectionMode="single" styleClass="post">
               <ng-template let-node pTemplate="person">

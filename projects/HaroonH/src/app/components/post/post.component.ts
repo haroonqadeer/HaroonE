@@ -68,18 +68,20 @@ declare var $: any;
 
       .ui-person .ui-node-toggler {
         color: #495ebb !important;
+        outline: 0 !important;
       }
 
       .department-cto .ui-node-toggler {
         color: #ffffff !important;
+        outline: 0 !important;
       }
     `
   ],
   encapsulation: ViewEncapsulation.None
 })
 export class PostComponent implements OnInit {
-  serverUrl = "http://localhost:3001/";
-  // serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9013/";
+  // serverUrl = "http://localhost:3001/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9013/";
   // serverUrl = "http://52.163.189.189:9013/";
 
   //ngprime organization chart
@@ -313,9 +315,18 @@ export class PostComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .get(this.serverUrl + "api/getOrgChart?jobDesigID=" + item.jobDesigID, {
-        headers: reqHeader
-      })
+      .get(
+        this.serverUrl +
+          "api/getOrgChart?jobDesig=" +
+          item.jobDesigID +
+          "&locCd=" +
+          item.locationCd +
+          "&deptCd=" +
+          item.deptCd,
+        {
+          headers: reqHeader
+        }
+      )
       .subscribe((data: any) => {
         this.data1 = data;
 
