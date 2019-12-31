@@ -4,8 +4,8 @@
   <div class="row">
      <div class="col-md-11">
       <mat-form-field class="fullwidth">
-        <mat-select placeholder="Address Type" [(ngModel)]="addressType" required>
-          <input type="text" [(ngModel)]="srchAdrs" class="form-control">
+        <mat-select placeholder="Address Type *" [(ngModel)]="addressType">
+          <input type="text" placeholder="Search Address Type" [(ngModel)]="srchAdrs" class="form-control">
           <mat-option *ngFor="let item of adrsTypeList | search:'addressTypeName': srchAdrs" [value]="item.addressTypeCd">
             <table>
               <tr class='d-flex'>
@@ -28,7 +28,7 @@
   <div class="row">
     <div class="col-md-11">
       <mat-form-field class="fullwidth">
-        <textarea matInput [(ngModel)]="address" placeholder="Address"></textarea>
+        <textarea matInput [(ngModel)]="address" placeholder="Address *"></textarea>
       </mat-form-field>
     </div>
   </div>
@@ -38,8 +38,8 @@
   <div class="row">
     <div class="col-md-11">
       <mat-form-field class="fullwidth">
-        <mat-select [(ngModel)]="country" placeholder="Country" required>
-          <input type="text" [(ngModel)]="srchCntry" class="form-control">
+        <mat-select [(ngModel)]="country" placeholder="Country *">
+          <input type="text" placeholder="Search Country" [(ngModel)]="srchCntry" class="form-control">
           <mat-option *ngFor="let item of cntryList | search:'cntryName': srchCntry" [value]="item.cntryCd">
             <table>
               <tr class='d-flex'>
@@ -57,12 +57,12 @@
   <div class="row">
     <div class="col-md-8">
       <mat-form-field class="fullwidth">
-        <mat-select [(ngModel)]="city" placeholder="City" required>
-          <input type="text" [(ngModel)]="srchCity" class="form-control">
+        <mat-select [(ngModel)]="city" placeholder="City *">
+          <input type="text" placeholder="Search City" [(ngModel)]="srchCity" class="form-control">
           <mat-option *ngFor="let item of cityList | search:'districtName': srchCity" [value]="item.districtCd">
             <table>
               <tr class='d-flex'>
-                <td class="col-12">{{ item.districtName }}</td>
+                <td class="col-12">{{item.districtName}}</td>
               </tr>
             </table>
           </mat-option>
@@ -77,12 +77,9 @@
     </div>
   </div>
 
-  <!-- <div class="innerContainer">
     <div class="row" *ngFor=" let item of addressList; let i=index">
       <div class="col-md-11" *ngIf="item.status != 2">
-        <p>
-          {{item.addressType}}
-        </p>
+        <p>{{item.addressTypeName}}</p>
       </div>
 
       <div class="col-md-1 text-right nopadding" *ngIf="item.status != 2" style="margin: 0 0 0 -15px;">
@@ -90,16 +87,12 @@
       </div>
 
       <div class="col-md-11" *ngIf="item.status != 2">
-        <p>
-          {{item.address}}
-        </p>
+        <p>{{item.address}}</p>
       </div>
       <div class="col-md-11" *ngIf="item.status != 2">
-        <p>
-          {{item.countryCode}} - {{item.cityCode}} - {{item.zipCode}}
-        </p>
+        <p>{{item.cntryName}}, {{item.districtName}}</p>
       </div>
 
     </div>
-  </div> -->
+
 </div>

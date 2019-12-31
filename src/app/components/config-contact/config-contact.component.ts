@@ -84,13 +84,14 @@ export class ConfigContactComponent implements OnInit {
 
       if (flag == false) {
         this.contactList.push({
-          contactDetailCode: 0,
-          telId: 0,
+          id: 0,
           contactType: this.contactType,
-          status: 0,
+          countryCode: 168,
           contactNumber: this.contactNumber,
           mobileNumber: "",
-          countryCode: 0
+          contactDetailCode: 0, 
+          status: 0,
+          IDelFlag: 0
         });
 
         this.contactType = "";
@@ -138,9 +139,10 @@ export class ConfigContactComponent implements OnInit {
         this.emailList.push({
           contactDetailCode: 0,
           emailId: 0,
-          type: 0,
+          type: 2,
           status: 0,
-          email: this.emailAdrs
+          email: this.emailAdrs,
+          IDelFlag: 0
         });
 
         this.emailAdrs = "";
