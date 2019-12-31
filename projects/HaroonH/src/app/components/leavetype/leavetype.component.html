@@ -9,12 +9,12 @@
       <span class="fa iconContainer">
         <span class="fa icon-hr-leaves"></span>
       </span>
-      <h1> Leave Rule</h1>
+      <h1> Leave Rules</h1>
 
       <!--start add role permission button-->
       <a class="pointerCursor" data-toggle="modal" data-target="#typeModal" (click)="clear()">
         <i class="fa fa-plus-circle"></i>
-        ADD LEAVE TYPE
+        ADD LEAVE RULE
       </a>
       <!--end add role permission button-->
     </div>
@@ -47,7 +47,7 @@
         <thead>
           <tr class="d-flex">
             <th class="col-2 text-center ">Sr No.</th>
-            <th [class.active]="order === 'erpRoleName'" (click)="setOrder('erpRoleName')"
+            <th [class.active]="order === 'leaveTypeName'" (click)="setOrder('leaveTypeName')"
               class="col-6 pointerCursor text-left ">
               Leave Rule
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
@@ -59,20 +59,19 @@
         </thead>
         <tbody>
           <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-          <tr *ngFor="let item of leaveTypeList | search:'leaveTypeName,leaveTypeDesc':tblSearchType | paginate: {
+          <tr *ngFor="let item of leaveRuleList | search:'leaveTypeName,leaveNatureName':tblSearchType | paginate: {
               itemsPerPage: itemPerPage, currentPage: p } | orderBy: order:reverse:'case-insensitive' let i=index"
             class='d-flex'>
             <td class='col-2 text-center'>{{i + 1}}</td>
-            <td class='col-6 text-left'>{{item.leaveTypeName}} - Without Pay</td>
+            <td class='col-6 text-left'>{{item.leaveTypeName}} - {{item.leaveNatureName}}</td>
             <td class='col-2 text-center'>
               <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#typeModal"
-                (click)="editLeaveType(item)">
+                (click)="editLeaveRule(item)">
                 <span class="fa icon-u-edit"></span>
               </span>
             </td>
             <td class='col-2 text-center'>
-              <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#deleteModal"
-                (click)="deleteLeaveTypeTemp(item)">
+              <span class="fa tableIcon pointerCursor" (click)="deleteLeaveRule(item)">
                 <span class="fa icon-u-delete"></span>
               </span>
             </td>
@@ -116,209 +115,6 @@
 </div>
 <!--end myContainer div-->
 
-<!-- Hidden Table for Print and PDF files starts-->
-<div class="container printArea" id="printAreaType" [hidden]=true>
-  <div class="printDiv">
-
-    <!--Start heading table -->
-    <table>
-      <tr>
-        <td width="15%" style="border:none;">
-          <img src="../../../assets/images/Ambit-Logo.svg" width="135px">
-        </td>
-
-        <td style="border:none;">
-          <div class="commonCss cssHeading">Infovative Solutions</div>
-          <div class="commonCss cssAddress">Office #209, 3rd Floor Anayat Plaza, G11 Markaz Islamabad.</div>
-          <div class="commonCss cssContact">Mobile: 0313-1234567, Ph. 051-5544661</div>
-        </td>
-      </tr>
-    </table>
-    <!--End heading table -->
-
-    <br /><br />
-
-    <!--Start table Row-->
-    <div class="row">
-      <table>
-        <thead>
-          <tr class="d-flex">
-            <th class='col-1 text-center'>Sr #</th>
-            <th class='col-6 text-left'>Leave Type</th>
-            <th class='col-5 text-left'>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="d-flex"
-            *ngFor="let item of leaveTypeList | search:'leaveTypeName,leaveTypeDesc':tblSearchType  let i=index">
-            <td class='col-1 text-center'>{{i+1}}</td>
-            <td class='col-4 text-left'>{{item.leaveTypeName}}</td>
-            <td class='col-4 text-left'>{{item.leaveTypeDesc}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div><!-- end table row -->
-  </div>
-</div>
-<!-- Hidden Table for Print and PDF files ends-->
-
-<!-- Hidden Table Starts for Excel and CSV files -->
-<igx-grid #excelDataContentType [data]="excelDataListType" [autoGenerate]="false" height="null" width="null"
-  [hidden]="true">
-</igx-grid>
-<!-- Hidden Table Ends  for Excel and CSV files -->
-
-<!-- Hidden Table for Print and PDF files starts-->
-<div class="container printArea" id="printAreaNature" [hidden]=true>
-  <div class="printDiv">
-
-    <!--Start heading table -->
-    <table>
-      <tr>
-        <td width="15%" style="border:none;">
-          <img src="../../../assets/images/Ambit-Logo.svg" width="135px">
-        </td>
-
-        <td style="border:none;">
-          <div class="commonCss cssHeading">Infovative Solutions</div>
-          <div class="commonCss cssAddress">Office #209, 3rd Floor Anayat Plaza, G11 Markaz Islamabad.</div>
-          <div class="commonCss cssContact">Mobile: 0313-1234567, Ph. 051-5544661</div>
-        </td>
-      </tr>
-    </table>
-    <!--End heading table -->
-
-    <br /><br />
-
-    <!--Start table Row-->
-    <div class="row">
-      <table>
-        <thead>
-          <tr class="d-flex">
-            <th class='col-1 text-center'>Sr #</th>
-            <th class='col-4 text-left'>Leave Nature</th>
-            <th class='col-4 text-left'>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="d-flex"
-            *ngFor="let item of leaveNatureList | search:'leaveNatureName,leaveNatureDesc':tblSearchNature let i=index">
-            <td class='col-1 text-center'>{{i+1}}</td>
-            <td class='col-4 text-left'>{{item.leaveNatureName}}</td>
-            <td class='col-4 text-left'>{{item.leaveNatureDesc}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div><!-- end table row -->
-  </div>
-</div>
-<!-- Hidden Table for Print and PDF files ends-->
-
-<!-- Hidden Table Starts for Excel and CSV files -->
-<igx-grid #excelDataContentNature [data]="excelDataListNature" [autoGenerate]="false" height="null" width="null"
-  [hidden]="true">
-</igx-grid>
-<!-- Hidden Table Ends  for Excel and CSV files -->
-
-<!-- Start Modal Window to delete leave type -->
-<div class="modal fade" id="deleteModal">
-  <div class="modal-dialog shadow-lg-dark">
-    <div class="modal-content">
-      <!--start Modal body -->
-      <div class="modal-body">
-        <br>
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-10">
-            <h2>Delete Leave Type</h2>
-          </div>
-        </div><br />
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class="fullwidth">
-              <input matInput placeholder="Enter Password" type="password" [(ngModel)]="txtdPassword">
-            </mat-form-field>
-          </div>
-        </div><br>
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class="fullwidth">
-              <input matInput placeholder="Enter PIN" type="password" [(ngModel)]="txtdPin">
-            </mat-form-field>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-6">
-            <button mat-raised-button color="warn" (click)="deleteLeaveType()">Delete</button>
-          </div>
-        </div>
-        <br />
-      </div>
-      <!--end Modal body -->
-
-      <!--start Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-      <!--end Modal footer -->
-
-    </div>
-  </div>
-</div>
-<!-- End Modal Window to delete leave type -->
-
-
-
-<!-- Start Modal Window to delete leave type -->
-<div class="modal fade" id="deleteNatureModal">
-  <div class="modal-dialog shadow-lg-dark">
-    <div class="modal-content">
-      <!--start Modal body -->
-      <div class="modal-body">
-        <br>
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-10">
-            <h2>Delete Leave Nature</h2>
-          </div>
-        </div><br />
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class="fullwidth">
-              <input matInput placeholder="Enter Password" type="password" [(ngModel)]="txtdPassword">
-            </mat-form-field>
-          </div>
-        </div><br>
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class="fullwidth">
-              <input matInput placeholder="Enter PIN" type="password" [(ngModel)]="txtdPin">
-            </mat-form-field>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-6">
-            <button mat-raised-button color="warn" (click)="deletLeaveNature()">Delete</button>
-          </div>
-        </div>
-        <br />
-      </div>
-      <!--end Modal body -->
-
-      <!--start Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-      <!--end Modal footer -->
-
-    </div>
-  </div>
-</div>
-<!-- End Modal Window to delete leave type -->
-
-
 
 
 
@@ -333,7 +129,7 @@
 
       <!--start user Modal Header -->
       <div class="modal-header bg-skyBlue borderBlue5px">
-        <h4 class="modal-title">Add Leave Type</h4>
+        <h4 class="modal-title">{{ leaveHeading }} Leave Rule</h4>
         <div>
           <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
         </div>
@@ -349,7 +145,7 @@
           <div class="col-md-6">
             <mat-form-field class="fullwidth">
               <mat-select disableOptionCentering placeholder="Leave Type" [(ngModel)]="leaveType">
-                <mat-option *ngFor="let item of typeList" [value]="item.leaveTypeId">
+                <mat-option *ngFor="let item of leaveTypeList" [value]="item.leaveTypeCd">
                   {{item.leaveTypeName}}
                 </mat-option>
                 <mat-option>
@@ -380,7 +176,7 @@
           <div class="col-md-6">
             <mat-form-field class="fullwidth">
               <mat-select disableOptionCentering placeholder="Leave Nature" [(ngModel)]="leaveNature">
-                <mat-option *ngFor="let item of leaveNatureList" [value]="item.leaveNatureId">
+                <mat-option *ngFor="let item of leaveNatureList" [value]="item.leaveNatureCd">
                   {{item.leaveNatureName}}
                 </mat-option>
                 <mat-option>
@@ -426,75 +222,3 @@
   <!--end modal window dialog-->
 </div>
 <!-- End Modal Window to add & update new user -->
-
-
-
-<!-- Start Modal Window to add leave type -->
-<div class="modal fade" id="leaveNatureModal">
-  <div class="modal-dialog shadow-lg-dark">
-    <div class="modal-content">
-      <!--start Modal Header -->
-      <div class="modal-header bg-skyBlue borderBlue5px">
-        <h4 class="modal-title">Add Leave Nature</h4>
-        <div>
-          <button *ngIf="!updateFlag" type="button" class="btn-ia cursorPointer text-right"
-            (click)="saveLeaveNature()"><span class="fa fa-save"></span> &nbsp;Save</button>
-          <button *ngIf="updateFlag" type="button" class="btn-ia cursorPointer text-right"
-            (click)="saveLeaveNature()"><span class="fa fa-save"></span> &nbsp;Update</button>
-
-          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span
-              class="fa fa-times-circle"></span> &nbsp;Close</button>
-        </div>
-      </div>
-      <!--end Modal Header -->
-
-      <!--start Modal body -->
-      <div class="modal-body">
-
-
-        <!--1st row-->
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class="fullwidth">
-              <input matInput [(ngModel)]="leaveNature" placeholder="Leave Nature">
-            </mat-form-field>
-          </div>
-        </div>
-        <br />
-        <!--end 1st row-->
-
-
-        <!--2nd row-->
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class="fullwidth">
-              <input matInput [(ngModel)]="natureDescription" placeholder="Leave Nature Description">
-            </mat-form-field>
-          </div>
-        </div>
-        <br />
-        <!--end 2nd row-->
-
-
-
-        <!--button row-->
-        <!-- <div class="text-left">
-          <button *ngIf="!updateFlag" mat-raised-button color="primary" (click)="saveLeaveNature()">Save</button>
-          <button *ngIf="updateFlag" mat-raised-button color="primary" (click)="saveLeaveNature()">Update</button>
-        </div> -->
-        <!--end button row-->
-
-
-      </div>
-      <!--end Modal body -->
-
-      <!--start Modal footer -->
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div> -->
-      <!--end Modal footer -->
-
-    </div>
-  </div>
-</div>
-<!-- End Modal Window to add leave type -->

@@ -433,7 +433,7 @@
     }
 
     .active a {
-      color: #e6e6e6 !important;
+      color: white !important;
       //border-left:5px solid #B93632;
       border-left: 5px solid #e6e6e6;
       background-color: #3f3f3f;
@@ -441,7 +441,7 @@
     }
 
     .active .text {
-      color: #e6e6e6 !important;
+      color: white !important;
       //border-left:5px solid #B93632;
       // border-left: 5px solid #e6e6e6;
       // background-color: #3f3f3f;
@@ -449,13 +449,13 @@
     }
 
     .nav li:not(.active):hover a {
-      color: #e6e6e6 !important;
+      color: white !important;
       border-left: 5px solid #e6e6e6;
       background-color: #3f3f3f;
     }
 
     .nav li:first-child:hover a {
-      color: #e6e6e6 !important;
+      color: white !important;
       border-left: 5px solid #e6e6e6;
       background-color: #3f3f3f;
     }
@@ -2070,8 +2070,7 @@
 
     .reportHeading {
       border: 0px solid red;
-      font-size: 24px;
-      font-weight: bold;
+      font-size: 20px;
       text-transform: uppercase;
     }
 
