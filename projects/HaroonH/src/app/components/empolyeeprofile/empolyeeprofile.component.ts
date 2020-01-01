@@ -23,8 +23,8 @@ export class EmpolyeeprofileComponent implements OnInit {
     @ViewChild(ConfigContactComponent) shrd_cntct: ConfigContactComponent;
     
     @Output() myEvent = new EventEmitter();  
-    serverUrl = "http://localhost:9043/";
-    //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
+    // serverUrl = "http://localhost:9043/";
+    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
 
     tokenKey = "token";
 

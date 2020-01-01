@@ -32,7 +32,8 @@
     <div class="col-md-12 mt-3">
       <div class="searchBar border-bottom pb-2">
         <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search..." [(ngModel)]="tblSearch">
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search..."
+          [(ngModel)]="tblSearch">
       </div>
     </div>
     <!--end search textbox column-->
@@ -41,7 +42,8 @@
   <br />
   <div class="row">
 
-    <div *ngFor="let item of employeeListMain | search:'leaveTypeName,leaveTypeDesc':tblSearch let i=index" class="col-md-3 mb-4">
+    <div *ngFor="let item of employeeListMain | search:'leaveTypeName,leaveTypeDesc':tblSearch let i=index"
+      class="col-md-3 mb-4">
       <mat-card class="allBorder p-0" style="border-radius: 0;">
         <div class="row m-1 mb-3">
           <div class="col-md-7 pb-0 mt-2">
@@ -65,12 +67,13 @@
             </div>
             <div class="row mt-n2">
               <div class="col-md-12">
-              <label class="font0-8em text-secondary p-0">Joining: {{item.empJobStartDt | date}}</label>
+                <label class="font0-8em text-secondary p-0">Joining: {{item.empJobStartDt | date}}</label>
               </div>
             </div>
             <div class="row mt-3 mb-0 pb-0">
               <div class="col-md-3">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal" (click)="edit(item);">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal"
+                  (click)="edit(item);">
                   <span class="fa icon-u-edit"></span>
                 </span>
               </div>
@@ -114,7 +117,7 @@
       <div class="modal-body nopadding" style="overflow-y: hidden; overflow-x: hidden;">
 
         <!--Start Tabs  -->
-        <mat-tab-group>
+        <mat-tab-group [dynamicHeight]="true">
 
           <!--start tab 1-->
           <mat-tab label="PERSONAL DETAILS">
@@ -129,14 +132,15 @@
                   <button mat-raised-button class="btn rounded-0" (click)="clearEmp()">RESET</button>
                 </div>
                 <div class="col-md-1">
-                  <button mat-raised-button class="btn rounded-0" (click)="updateEmpPersonalInfo()">&nbsp; SAVE &nbsp;</button>
+                  <button mat-raised-button class="btn rounded-0" (click)="updateEmpPersonalInfo()">&nbsp; SAVE
+                    &nbsp;</button>
                 </div>
               </div>
             </div>
 
-            <div class="bgWhite">
-              
-              <br/>
+            <div class="bgWhite vHeight70 overflow-auto">
+
+              <br />
 
               <!-- start row 1-->
               <div class="row m-auto">
@@ -195,7 +199,7 @@
               <!-- end row 4-->
 
             </div>
-            
+
 
           </mat-tab>
           <!--end tab 1-->
@@ -218,10 +222,10 @@
               </div>
             </div>
 
-            <div class="bgWhite">
+            <div class="bgWhite vHeight70 overflow-auto">
 
-              <br/>
-              
+              <br />
+
               <!--start row 1-->
               <div class="row m-auto">
                 <div class="offset-md-1 col-md-4 pl-0">
@@ -256,8 +260,10 @@
                 </div>
                 <div class="offset-md-2 col-md-4 pr-0">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Job Post" [(ngModel)]="jobPost" (ngModelChange)="getFilterItem('jobs')">
-                      <mat-option *ngFor="let item of postList" [value]="item.jobDesigID">{{item.jobDesigName}}</mat-option>
+                    <mat-select disableOptionCentering placeholder="Job Post" [(ngModel)]="jobPost"
+                      (ngModelChange)="getFilterItem('jobs')">
+                      <mat-option *ngFor="let item of postList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -276,7 +282,7 @@
                   </mat-form-field>
                 </div>
                 <div class="offset-md-2 col-md-4 pr-0">
-                  <br/>
+                  <br />
                   <div class="row">
                     <div class="col-md-8">
                       <label style="font-weight: bold;">{{lblJobTitle}}</label>
@@ -286,7 +292,7 @@
                     </div>
                   </div>
                 </div>
-                
+
               </div>
               <!--end row 3-->
 
@@ -321,7 +327,8 @@
                     </div>
                     <div class="col-md-6">
                       <mat-form-field class="fullwidth">
-                        <input matInput [matDatepicker]="picker3" placeholder="Contract Ending On" [(ngModel)]="contractEnd">
+                        <input matInput [matDatepicker]="picker3" placeholder="Contract Ending On"
+                          [(ngModel)]="contractEnd">
                         <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                         <mat-datepicker #picker3></mat-datepicker>
                       </mat-form-field>
@@ -348,11 +355,12 @@
                   <button mat-raised-button class="btn rounded-0" (click)="clearQualification()">RESET</button>
                 </div>
                 <div class="col-md-1">
-                  <button mat-raised-button class="btn rounded-0" (click)="updateQualification()">&nbsp; SAVE &nbsp;</button>
+                  <button mat-raised-button class="btn rounded-0" (click)="updateQualification()">&nbsp; SAVE
+                    &nbsp;</button>
                 </div>
               </div>
             </div>
-            <div class="bgWhite">
+            <div class="bgWhite vHeight70 overflow-auto">
 
               <!--Start row 1-->
               <div class="row m-auto">
@@ -386,7 +394,8 @@
 
                           <tr class='d-flex'>
                             <td class='col-3'>
-                              <p-dropdown appendTo="body" [options]="degreeList" filter="true" [(ngModel)]="ddlDegree" (onChange)="getFilterItem('skill')" placeholder="Degree" [style]="{'width':'100%'}">
+                              <p-dropdown appendTo="body" [options]="degreeList" filter="true" [(ngModel)]="ddlDegree"
+                                (onChange)="getFilterItem('skill')" placeholder="Degree" [style]="{'width':'100%'}">
                                 <ng-template let-itm pTemplate="item">
                                   <div style="position: relative;height: 25px;">
                                     <div style="font-size:14px;float:left;margin-top:4px;">{{itm.label}}</div>
@@ -443,12 +452,12 @@
                   <button mat-raised-button class="btn" (click)="clearSkills()" style="border-radius: 0;">RESET</button>
                 </div>
                 <div class="col-md-1">
-                  <button mat-raised-button class="btn" (click)="updateSkills()"
-                    style="border-radius: 0;">&nbsp; SAVE &nbsp;</button>
+                  <button mat-raised-button class="btn" (click)="updateSkills()" style="border-radius: 0;">&nbsp; SAVE
+                    &nbsp;</button>
                 </div>
               </div>
             </div>
-            <div class="bgWhite">
+            <div class="bgWhite vHeight70 overflow-auto">
 
               <!--Start row 1-->
               <div class="row m-auto">
@@ -548,7 +557,7 @@
                 </div>
               </div>
             </div>
-            <div class="bgWhite">
+            <div class="bgWhite vHeight70 overflow-auto">
 
               <!--Start row 1-->
               <div class="row m-auto">
@@ -581,7 +590,8 @@
 
                           <tr class='d-flex'>
                             <td class='col-4'>
-                              <input type="text" pInputText [(ngModel)]="empPost" class="fullwidth" placeholder="Designation">
+                              <input type="text" pInputText [(ngModel)]="empPost" class="fullwidth"
+                                placeholder="Designation">
                             </td>
                             <td class='col-3'>
                               <p-dropdown appendTo="body" [options]="experienceList" filter="true"
