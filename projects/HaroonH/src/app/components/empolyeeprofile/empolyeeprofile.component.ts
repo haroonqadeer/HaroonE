@@ -23,8 +23,9 @@ export class EmpolyeeprofileComponent implements OnInit {
     @ViewChild(ConfigContactComponent) shrd_cntct: ConfigContactComponent;
     
     @Output() myEvent = new EventEmitter();  
-    // serverUrl = "http://localhost:9043/";
-    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
+    serverUrl = "http://localhost:9043/";
+    //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
+    imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
 
     tokenKey = "token";
 
@@ -174,7 +175,8 @@ export class EmpolyeeprofileComponent implements OnInit {
     txtdPin = '';
 
     selectedFile: File = null;
-    message = '';
+    image;
+    imgFile;
     progress;
 
     constructor(
@@ -206,42 +208,17 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     onFileSelected(event){
         this.selectedFile = <File>event.target.files[0];
-    }
+        let reader = new FileReader();
 
-    onUpload(){
-        alert("called");
-        const formData = new FormData();
-        formData.append('file', this.selectedFile);
-        this.http.post('link', formData);
+            reader.onloadend = (e) => {                
+                this.image = reader.result;
 
-        const uploadReq = new HttpRequest('POST', `api/UploadFile`, formData, {
-            reportProgress: true,
-        });
+                var splitImg = (this.image).split(',')[1];
+                this.image = splitImg;
 
-        //var reqHeader = new HttpHeaders({ 'Content-Type': 'multipart/form-data', 'Accept': 'application/json' });
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'multipart/form-data'});
+            }
 
-        // let reqHeader = new Headers();
-        // /** In Angular 5, including the header Content-Type can invalidate your request */
-        // reqHeader.append('Content-Type', 'multipart/form-data');
-        // reqHeader.append('Accept', 'application/json');
-
-        this.http.post(this.serverUrl + 'api/UploadFile', formData, { headers: reqHeader }).subscribe((data: any) => {
-
-            alert(data.msg);
-
-        });
-
-        
-        // this.http.request(uploadReq).subscribe(events => {
-        //     if(events.type == HttpEventType.UploadProgress) {
-
-        //         this.progress = Math.round(100 * events.loaded / events.total);
-
-        //     } else if(events.type === HttpEventType.Response) {
-        //         this.message = events.body.toString()
-        //     }
-        // })
+            reader.readAsDataURL(this.selectedFile);
 
     }
 
@@ -1127,6 +1104,9 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.midName = "";
         this.lastName = "";
         this.CNIC = "";
+        this.imgFile = undefined;
+        this.image = undefined;
+        this.selectedFile = null;
 
         this.shrd_adrs.addressList = [];
         this.shrd_cntct.contactList = [];
@@ -1224,7 +1204,10 @@ export class EmpolyeeprofileComponent implements OnInit {
                 this.midName = null;
             }
 
-
+            var imgPath = null;
+            if (this.image != undefined) {
+                imgPath = this.imgPath;
+            }
 
             if(this.empId == undefined || this.empId == ""){
 
@@ -1242,6 +1225,8 @@ export class EmpolyeeprofileComponent implements OnInit {
                     "addressList":          JSON.stringify(this.shrd_adrs.addressList),
                     "contactList":          JSON.stringify(this.shrd_cntct.contactList),
                     "emailList":            JSON.stringify(this.shrd_cntct.emailList),
+                    "file":                 this.image,
+                    "path":                 imgPath,
                     "ConnectedUser":        "12000",
                     "DelFlag":              0
                 };
@@ -1290,6 +1275,8 @@ export class EmpolyeeprofileComponent implements OnInit {
                     "addressList":          JSON.stringify(this.shrd_adrs.addressList),
                     "contactList":          JSON.stringify(this.shrd_cntct.contactList),
                     "emailList":            JSON.stringify(this.shrd_cntct.emailList),
+                    "file":                 this.image,
+                    "path":                 imgPath,
                     "ConnectedUser":        "12000",
                     "DelFlag":              0
                 };
@@ -1471,5 +1458,11 @@ export class EmpolyeeprofileComponent implements OnInit {
         return this.app.validateEmail(email);
     }
 
-
+    wait(ms){
+        var start = new Date().getTime();
+        var end = start;
+        while(end < start + ms) {
+            end = new Date().getTime();
+        }
+    }
 }
