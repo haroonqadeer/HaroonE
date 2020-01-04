@@ -38,13 +38,13 @@ declare var $: any;
       }
 
       .node-header {
-        background-color: #f6f6f6;
-        color: #000;
+        background-color: #11193d;
+        color: #f6f6f6;
       }
 
       .node-content {
         text-align: center;
-        background-color: #f6f6f6;
+        background-color: #11193d;
       }
 
       .node-content img {
@@ -175,7 +175,6 @@ export class PostComponent implements OnInit {
     this.getPostDetail();
   }
 
-  //<<<<<<< HEAD
   @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
   getDepartment() {
@@ -288,8 +287,8 @@ export class PostComponent implements OnInit {
       }
     }
 
-    alert(this.rptOffDeptCd);
-    alert(this.rptOffLocCd);
+    // alert(this.rptOffDeptCd);
+    // alert(this.rptOffLocCd);
   }
 
   onBPSChange(item) {

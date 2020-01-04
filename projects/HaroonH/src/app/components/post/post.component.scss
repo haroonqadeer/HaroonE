@@ -13,25 +13,24 @@ mat-form-field {
 //////////////////////////////////////
 ////ngprime organizational chart//////
 /////////////////////////////////////
-
-.company.ui-organizationchart .ui-organizationchart-node-content.ui-person {
+.post.ui-organizationchart .ui-organizationchart-node-content.ui-person {
   padding: 0;
   border: 0 none;
 }
 
 .node-header,
 .node-content {
-  padding: .5em .7em;
+  padding: 0.5em 0.7em;
 }
 
 .node-header {
-  background-color: #495ebb;
-  color: #ffffff;
+  background-color: #11193d;
+  color: #f6f6f6;
 }
 
 .node-content {
   text-align: center;
-  border: 1px solid #495ebb;
+  background-color: #11193d;
 }
 
 .node-content img {
@@ -49,14 +48,16 @@ mat-form-field {
 }
 
 .department-cto {
-  background-color: #e9286f;
+  background-color: #019040;
   color: #ffffff;
 }
 
 .ui-person .ui-node-toggler {
   color: #495ebb !important;
+  outline: 0 !important;
 }
 
 .department-cto .ui-node-toggler {
-  color: #8a0a39 !important;
+  color: #ffffff !important;
+  outline: 0 !important;
 }
