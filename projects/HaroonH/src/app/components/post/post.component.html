@@ -281,7 +281,7 @@
 <!-- Start Modal Window to add & update new user -->
 <div class="modal fade" id="organoGramModal">
   <!--start modal window dialog-->
-  <div class="modal-dialog shadow-lg-dark modal-lg">
+  <div class="modal-dialog shadow-lg-dark modal-xl">
     <!--start modal window contents -->
     <div class="modal-content">
       <!--start user Modal body -->
@@ -300,6 +300,7 @@
               <ng-template let-node pTemplate="person">
                 <div class="node-header ui-corner-top">{{node.label}}</div>
                 <div class="node-content">
+                  <img src="../../../assets/images/{{node.avt}}" width="32">
                   <div>{{node.data.name}}</div>
                 </div>
               </ng-template>

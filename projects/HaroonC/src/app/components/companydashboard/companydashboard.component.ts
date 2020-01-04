@@ -165,7 +165,10 @@ export class CompanydashboardComponent implements OnInit {
                   styleClass: "ui-person",
                   type: "person",
                   expanded: true,
-                  data: { name: "" },
+                  data: {
+                    name: "",
+                    avatar: "Default-Image.jpg"
+                  },
                   children: this.branchChild
                 });
               }

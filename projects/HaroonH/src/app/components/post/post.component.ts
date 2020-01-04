@@ -38,13 +38,13 @@ declare var $: any;
       }
 
       .node-header {
-        background-color: #f6f6f6;
-        color: #000;
+        background-color: #11193d;
+        color: #f6f6f6;
       }
 
       .node-content {
         text-align: center;
-        background-color: #f6f6f6;
+        background-color: #11193d;
       }
 
       .node-content img {
@@ -80,8 +80,8 @@ declare var $: any;
   encapsulation: ViewEncapsulation.None
 })
 export class PostComponent implements OnInit {
-  // serverUrl = "http://localhost:3001/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9013/";
+  serverUrl = "http://localhost:3001/";
+  // serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9013/";
   // serverUrl = "http://52.163.189.189:9013/";
 
   //ngprime organization chart
