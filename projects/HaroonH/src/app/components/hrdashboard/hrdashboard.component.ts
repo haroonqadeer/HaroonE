@@ -20,10 +20,6 @@ export class HrdashboardComponent implements OnInit {
 
   Column_Chart: Chart;
   Off_Column_Chart: Chart;
-  Dept_Column_Chart: Chart;
-  Type_Bar_Chart: Chart;
-  Gender_Bar_Chart: Chart;
-  Vacancy_Bar_Chart: Chart;
 
   StackColumn_Chart: Chart;
   Variablepie_Chart: Chart;
@@ -40,10 +36,6 @@ export class HrdashboardComponent implements OnInit {
     this.StackColumn_init();
     this.ColumnChart_init();
     // this.OffColumnChart_init();
-    // this.DeptColumnChart_init();
-    // this.TypeBarChart_init();
-    // this.GenderBarChart_init();
-    // this.VacBarChart_init();
     // this.getEmpAttendance();
   }
 
@@ -369,173 +361,5 @@ export class HrdashboardComponent implements OnInit {
         });
         this.Off_Column_Chart = chart;
       });
-  }
-
-  DeptColumnChart_init() {
-    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
-
-    this.http
-      .get(this.serverUrl + "api/getEmployeeDepartment", { headers: reqHeader })
-      .subscribe((data: any) => {
-        var mySeries = [];
-        var myCategory = [];
-        for (var i = 0; i < data.length; i++) {
-          myCategory.push([data[i].empType]);
-          mySeries.push([data[i].qty]);
-        }
-
-        let chart = new Chart({
-          chart: {
-            type: "column"
-          },
-          colors: ["#3f51b5"],
-          title: {
-            text: "Department"
-          },
-          legend: {
-            reversed: true,
-            itemStyle: {
-              fontSize: "15px",
-              fontWeight: "static"
-            }
-          },
-          yAxis: {
-            title: {
-              text: "Amount"
-            }
-          },
-          xAxis: {
-            categories: myCategory
-          },
-          credits: {
-            enabled: false
-          },
-          series: [
-            {
-              name: "Quantity",
-              data: mySeries
-            }
-          ]
-        });
-        this.Dept_Column_Chart = chart;
-      });
-  }
-
-  TypeBarChart_init() {
-    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
-
-    this.http
-      .get(this.serverUrl + "api/getEmployeeType", { headers: reqHeader })
-      .subscribe((data: any) => {
-        var mySeries = [];
-        for (var i = 0; i < data.length; i++) {
-          mySeries.push({ name: data[i].empType, data: [data[i].qty] });
-        }
-
-        let chart = new Chart({
-          chart: {
-            type: "bar"
-          },
-          colors: ["#ff9800", "#00bcd4", "#3f51b5", "#ef0000"],
-          title: {
-            text: "Type"
-          },
-          legend: {
-            reversed: true,
-            itemStyle: {
-              fontSize: "15px",
-              fontWeight: "static"
-            }
-          },
-          plotOptions: {
-            series: {
-              stacking: "normal"
-            }
-          },
-          credits: {
-            enabled: false
-          },
-          series: mySeries
-        });
-
-        this.Type_Bar_Chart = chart;
-      });
-  }
-
-  GenderBarChart_init() {
-    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
-
-    this.http
-      .get(this.serverUrl + "api/getEmployeeGender", { headers: reqHeader })
-      .subscribe((data: any) => {
-        var mySeries = [];
-        for (var i = 0; i < data.length; i++) {
-          mySeries.push({ name: data[i].empType, data: [data[i].qty] });
-        }
-
-        let chart = new Chart({
-          chart: {
-            type: "bar"
-          },
-          colors: ["#b73377", "#2da9d9"],
-          title: {
-            text: "Gender"
-          },
-          legend: {
-            reversed: true,
-            itemStyle: {
-              fontSize: "15px",
-              fontWeight: "static"
-            }
-          },
-          plotOptions: {
-            series: {
-              stacking: "normal"
-            }
-          },
-          credits: {
-            enabled: false
-          },
-          series: mySeries
-        });
-        this.Gender_Bar_Chart = chart;
-      });
-  }
-
-  VacBarChart_init() {
-    let chart = new Chart({
-      chart: {
-        type: "bar"
-      },
-      title: {
-        text: "Vacancy"
-      },
-      legend: {
-        reversed: true,
-        itemStyle: {
-          fontSize: "15px",
-          fontWeight: "static"
-        }
-      },
-      plotOptions: {
-        series: {
-          stacking: "normal"
-        }
-      },
-      credits: {
-        enabled: false
-      },
-      series: [
-        {
-          name: "Filled",
-          data: [20]
-        },
-        {
-          name: "Vacancy",
-          data: [8]
-        }
-      ]
-    });
-    this.Vacancy_Bar_Chart = chart;
   }
 }
