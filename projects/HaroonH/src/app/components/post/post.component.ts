@@ -80,8 +80,8 @@ declare var $: any;
   encapsulation: ViewEncapsulation.None
 })
 export class PostComponent implements OnInit {
-  serverUrl = "http://localhost:3001/";
-  // serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9013/";
+  // serverUrl = "http://localhost:3001/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9013/";
   // serverUrl = "http://52.163.189.189:9013/";
 
   //ngprime organization chart
@@ -175,7 +175,6 @@ export class PostComponent implements OnInit {
     this.getPostDetail();
   }
 
-  //<<<<<<< HEAD
   @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
   getDepartment() {
@@ -288,8 +287,8 @@ export class PostComponent implements OnInit {
       }
     }
 
-    alert(this.rptOffDeptCd);
-    alert(this.rptOffLocCd);
+    // alert(this.rptOffDeptCd);
+    // alert(this.rptOffLocCd);
   }
 
   onBPSChange(item) {
