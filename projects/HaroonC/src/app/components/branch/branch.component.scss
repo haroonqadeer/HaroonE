@@ -1,8 +1,9 @@
 .addressPortion {
   border: 0px solid red;
+  padding: 3px 0 3px 0;
   //overflow: hidden;
   overflow-y: scroll;
-  overflow-x: none;
+  overflow-x: hidden;
   max-height: 55%;
   min-height: 15%;
   margin-bottom: 15px;

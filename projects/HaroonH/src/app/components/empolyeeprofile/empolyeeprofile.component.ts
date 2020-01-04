@@ -1,14 +1,8 @@
-import { 
-    Component, 
-    ViewChild, 
-    OnInit, 
-    ViewEncapsulation,
-    EventEmitter,
-    Output } from '@angular/core';
+import {  Component, ViewChild, OnInit, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { ToastrManager } from 'ng6-toastr-notifications';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpEventType, HttpRequest } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
 import { jsonpCallbackContext } from '@angular/common/http/src/module';
@@ -29,7 +23,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     @ViewChild(ConfigContactComponent) shrd_cntct: ConfigContactComponent;
     
     @Output() myEvent = new EventEmitter();  
-    //serverUrl = "http://localhost:9026/";
+    // serverUrl = "http://localhost:9043/";
     serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
 
     tokenKey = "token";
@@ -82,47 +76,6 @@ export class EmpolyeeprofileComponent implements OnInit {
         {label: "Third Division", value: "Third Division"}
     ];
 
-    //contact Detail
-    contactDetail = [
-        {
-            id: 0,
-            contactType: "",
-            countryCode: "",
-            contactCode: "",
-            areaCode: true,
-            mobileCode: false,
-            contactNumber: "",
-            mobileNumber: "",
-            ContactDetailCode: 0,
-            IDelFlag: 0
-        }
-    ];
-
-    //Emails Detail
-    emailDetail = [
-        {
-            id: 0,
-            type: "",
-            email: "",
-            ContactDetailCode: 0,
-            IDelFlag: 0
-        }
-    ];
-
-    //address Detail
-    addressDetail = [
-        {
-            id: 0,
-            addressType: "",
-            address: "",
-            countryCode: "",
-            provinceCode: "",
-            districtCode: "",
-            cityCode: "",
-            ContactDetailCode: 0,
-            IDelFlag: 0
-        }
-    ];
 
     contactType = [];
     countryList = [];
@@ -145,6 +98,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     deptId;
     locationId;
     cmpnyId;
+    disabled = true;
 
     //* Variables for NgModels
     tblSearch = '';
@@ -164,7 +118,8 @@ export class EmpolyeeprofileComponent implements OnInit {
     section = '';
     jobPost = '';
     jobType = '';
-    
+    empHeading = 'Add';
+
     branchList =[];
     deptList =[];
     sectList =[];
@@ -184,7 +139,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     startDate;
     ddlJobProfile;
-    
+
 
     //* tab 3 ngModels
     ddlDegree;
@@ -198,7 +153,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     ddlSkill;
     empSkillLevel;
     empSkillRemarks;
-    
+
     sklGrpTypeId;
     sklGrpQlfId;
 
@@ -209,14 +164,18 @@ export class EmpolyeeprofileComponent implements OnInit {
     orgStartDate;
     orgEndDate;
     ddlExperience;
-    appliedDate = '';
-    joiningDate = '';
+    appliedDate;
+    joiningDate;
     renewalFrom = '';
     contractEnd = '';
 
-    
+
     txtdPassword = '';
     txtdPin = '';
+
+    selectedFile: File = null;
+    message = '';
+    progress;
 
     constructor(
         private toastr: ToastrManager,
@@ -224,27 +183,89 @@ export class EmpolyeeprofileComponent implements OnInit {
         private fb: FormBuilder,
         private app: AppComponent
     ) { }
-
+    
     ngOnInit() {
 
-        // this.getEmployee();
-        // this.getJobProfile();
+        this.getNewEmployee();
+        this.getJobProfile();
         // this.getOrganitzion();
-        // this.getQualificationCriteria();
+        this.getQualificationCriteria();
         // this.getEmpApprovedFacility();
+        this.getJobType();
 
         // this.getAddressTypes();
         // this.getCountry();
         // this.getProvince();
         // this.getDistrict();
-        // this.getCity();
-        // this.getContactTypes();
+        
+        //this.getContactTypes();
         // this.getEmailTypes();
         
         this.midName = "";
     }
 
-    //function for get all saved employee 
+    onFileSelected(event){
+        this.selectedFile = <File>event.target.files[0];
+    }
+
+    onUpload(){
+        alert("called");
+        const formData = new FormData();
+        formData.append('file', this.selectedFile);
+        this.http.post('link', formData);
+
+        const uploadReq = new HttpRequest('POST', `api/UploadFile`, formData, {
+            reportProgress: true,
+        });
+
+        //var reqHeader = new HttpHeaders({ 'Content-Type': 'multipart/form-data', 'Accept': 'application/json' });
+        var reqHeader = new HttpHeaders({ 'Content-Type': 'multipart/form-data'});
+
+        // let reqHeader = new Headers();
+        // /** In Angular 5, including the header Content-Type can invalidate your request */
+        // reqHeader.append('Content-Type', 'multipart/form-data');
+        // reqHeader.append('Accept', 'application/json');
+
+        this.http.post(this.serverUrl + 'api/UploadFile', formData, { headers: reqHeader }).subscribe((data: any) => {
+
+            alert(data.msg);
+
+        });
+
+        
+        // this.http.request(uploadReq).subscribe(events => {
+        //     if(events.type == HttpEventType.UploadProgress) {
+
+        //         this.progress = Math.round(100 * events.loaded / events.total);
+
+        //     } else if(events.type === HttpEventType.Response) {
+        //         this.message = events.body.toString()
+        //     }
+        // })
+
+    }
+
+
+
+
+    //function for get all saved employee
+    getNewEmployee() {
+
+        this.app.showSpinner();
+        //var Token = localStorage.getItem(this.tokenKey);
+        //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+        this.http.get(this.serverUrl + 'api/getNewEmployee', { headers: reqHeader }).subscribe((data: any) => {
+            
+            this.employeeListMain = [];
+            this.employeeListMain = data;
+
+            this.getEmployee() ;
+        });
+
+    }
+
     getEmployee() {
 
         this.app.showSpinner();
@@ -254,7 +275,10 @@ export class EmpolyeeprofileComponent implements OnInit {
 
         this.http.get(this.serverUrl + 'api/getEmployee', { headers: reqHeader }).subscribe((data: any) => {
             
-            this.employeeListMain = data;
+            //this.employeeListMain = data;
+            for (var i = 0; i < data.length; i++) {
+                this.employeeListMain.push(data[i]);
+            }
 
             this.app.hideSpinner();
         });
@@ -269,18 +293,18 @@ export class EmpolyeeprofileComponent implements OnInit {
 
         this.http.get(this.serverUrl + 'api/getJobProfile', { headers: reqHeader }).subscribe((data: any) => {
             
-            //this.jobProfileList = data;
+            this.postList = data;
 
-            for (var i = 0; i < data.length; i++) {
-                this.jobProfileList.push({
-                    label: data[i].jobDesigName,
-                    value: data[i].jobDesigID,
-                    jobDesigID: data[i].jobDesigID,
-                    jobPostDeptCd: data[i].jobPostDeptCd,
-                    jobPostLocationCd: data[i].jobPostLocationCd,
-                    payGradeName: data[i].payGradeName
-                });
-            }
+            // for (var i = 0; i < data.length; i++) {
+            //     this.jobProfileList.push({
+            //         label: data[i].jobDesigName,
+            //         value: data[i].jobDesigID,
+            //         jobDesigID: data[i].jobDesigID,
+            //         jobPostDeptCd: data[i].jobPostDeptCd,
+            //         jobPostLocationCd: data[i].jobPostLocationCd,
+            //         payGradeName: data[i].payGradeName
+            //     });
+            // }
 
         });
 
@@ -402,25 +426,26 @@ export class EmpolyeeprofileComponent implements OnInit {
                     return false;
                 } else {
 
-                    this.removeAddress(0);
-                    this.removeContact(0);
-                    this.removeEmail(0);
-
                     //getng emp adrs detl
                     if(data.adrsList.length >= 1){
                         for (var i = 0; i < data.adrsList.length; i++) {
-                            this.addressDetail.push({
+                            this.shrd_adrs.addressList.push({
+                                contactDetailCode: 0,
                                 id: 0,
                                 addressType: data.adrsList[i].addressTypeCd,
                                 address: data.adrsList[i].addressLine1,
+                                cityCode: data.adrsList[i].thslCd,
+                                districtCode: data.adrsList[i].districtCd,
+                                provinceCode: data.adrsList[i].prvncCd,
+                                countryCode: data.adrsList[i].cntryCd,
+                                zipCode: data.adrsList[i].zipCode,
 
-                                countryCode: data.adrsList[i].cntryCd.toString(),
-                                provinceCode: data.adrsList[i].prvncCd.toString(),
-                                districtCode: data.adrsList[i].districtCd.toString(),
-                                cityCode: data.adrsList[i].thslCd.toString(),
+                                addressTypeName: data.adrsList[i].addressTypeName,
+                                cntryName: data.adrsList[i].cntryName,
+                                districtName: data.adrsList[i].districtName,
 
-                                ContactDetailCode: 0,
-                                IDelFlag : 0
+                                status: 0,
+                                IDelFlag: 0
                             });
                         }
                     }
@@ -429,32 +454,30 @@ export class EmpolyeeprofileComponent implements OnInit {
                     if(data.cntctList.length > 0){
                         //getng emp cntct detl
                         for (var i = 0; i < data.cntctList.length; i++) {
-                            this.contactDetail.push({
+                            this.shrd_cntct.contactList.push({
                                 id: 0,
-                                contactType:data.cntctList[i].teleTypeCd.toString(),
-                                countryCode: data.cntctList[i].cntryCd.trim(),
-                                contactCode: "",
-                                areaCode: true,
-                                mobileCode: false,
+                                contactType: data.cntctList[i].teleTypeCd,
+                                countryCode: data.cntctList[i].cntryCd,
                                 contactNumber: data.cntctList[i].teleNo,
                                 mobileNumber: "",
-                                ContactDetailCode: 0,
+                                contactDetailCode: 0, 
+                                status: 0,
                                 IDelFlag: 0
                             });
                         }
                     }
 
-                    if(data.emlList.length > 0){
-                        //geting emp eml detl
-                        for (var i = 0; i < data.emlList.length; i++) {
-                            this.emailDetail.push({
-                                id: 0,
-                                type: data.emlList[i].emailTypeCd.toString(),
-                                email: data.emlList[i].emailAddrss,
-                                ContactDetailCode: 0,
-                                IDelFlag: 0
-                            });
-                        }
+                    
+                    //geting emp eml detl
+                    for (var i = 0; i < data.emlList.length; i++) {
+                        this.shrd_cntct.emailList.push({
+                            contactDetailCode: 0,
+                            id: 0,
+                            type: data.emlList[i].emailTypeCd,
+                            status: 0,
+                            email: data.emlList[i].emailAddrss,
+                            IDelFlag: 0
+                        });
                     }
 
 
@@ -472,29 +495,26 @@ export class EmpolyeeprofileComponent implements OnInit {
         }
     }
 
-
-
-
-
-    //function for get all saved city
-    getCity() {
+    //function for get all saved job types
+    getJobType() {
         //var Token = localStorage.getItem(this.tokenKey);
 
         //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-        this.http.get(this.serverUrl + 'api/getCity', { headers: reqHeader }).subscribe((data: any) => {
+        this.http.get(this.serverUrl + 'api/getJobType', { headers: reqHeader }).subscribe((data: any) => {
 
-            for (var i = 0; i < data.length; i++) {
-                this.cityList.push({
-                    label: data[i].thslName,
-                    value: data[i].thslCd
-                });
-            }
+            this.jobTypeList = data
 
         });
 
     }
+
+
+
+
+
+
 
     //function for get all saved district
     getDistrict() {
@@ -669,6 +689,10 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.toastr.errorToastr('Invalid job end date', 'Error', { toastTimeout: (2500) });
             return false;
         }
+        if (this.desigId == undefined || this.desigId == "" || this.desigId == 0) {
+            this.toastr.errorToastr('Invalid Job Designation', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
         else{
 
             var duplicateChk = false;
@@ -715,21 +739,70 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.empOrgList.splice(item, 1);
     }
 
+    //Function for update employee previous service detail
+    updatePSD() {
+
+        if (this.empOrgList.length == 0 ) {
+            this.toastr.errorToastr('Please enter employee previous service detail', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.empId == undefined || this.empId == "") {
+            this.toastr.errorToastr('Invalid Employee Information', 'Error', { toastTimeout: (2500) });
+            return false;
+        } 
+        else {
+
+            this.app.showSpinner();
+            //* ********************************************save data 
+            var updateData = {
+                "EmpID": this.empId,
+                "EmpPSDList": JSON.stringify(this.empOrgList),
+                "ConnectedUser": "12000",
+                "DelFlag": 0
+            };
+            //var token = localStorage.getItem(this.tokenKey);
+
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+            this.http.post(this.serverUrl + 'api/updatePSD', updateData, { headers: reqHeader }).subscribe((data: any) => {
+
+                if (data.msg != "Record Updated Successfully!") {
+                    this.app.hideSpinner();
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                    return false;
+                } else {
+                    this.app.hideSpinner();
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    this.clearPSD();
+                    return false;
+                }
+            });
+        }
+    }
+
+
+
+
+
     //Function for add employee skill detail
     addSkill() {
 
-        if (this.ddlSkillGroup == undefined || this.ddlSkillGroup == "" ) {
+        if (this.ddlSkillGroup == undefined || this.ddlSkillGroup == "") {
             this.toastr.errorToastr('Please select skill group', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.ddlSkill == undefined || this.ddlSkill == "" ) {
+        else if (this.ddlSkill == undefined || this.ddlSkill == "") {
             this.toastr.errorToastr('Please enter skill', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        
+        else if (this.empSkillLevel == undefined || this.empSkillLevel == "") {
+            this.toastr.errorToastr('Please enter expertise', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
         else{
 
-            alert(this.empSkillLevel);
 
             if (this.empSkillLevel == undefined || this.empSkillLevel == "" ) {
                 this.empSkillLevel = 0;
@@ -778,14 +851,64 @@ export class EmpolyeeprofileComponent implements OnInit {
             }
         }
     }
-    
+
     //Deleting previous service detail row
     removeSkill(item) {
         this.empSkillList.splice(item, 1);
     }
 
+    //Function for update employee skill detail
+    updateSkills() {
+
+        if (this.empSkillList.length == 0 ) {
+            this.toastr.errorToastr('Please enter employee skills detail', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.empId == undefined || this.empId == "") {
+            this.toastr.errorToastr('Invalid Employee Information', 'Error', { toastTimeout: (2500) });
+            return false;
+        }  
+        else {
+
+            this.app.showSpinner();
+            //* ********************************************save data 
+            var updateData = {
+                "EmpID": this.empId,
+                "EmpSkillList": JSON.stringify(this.empSkillList),
+                "ConnectedUser": "12000",
+                "DelFlag": 0
+            };
+            //var token = localStorage.getItem(this.tokenKey);
+
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+            this.http.post(this.serverUrl + 'api/updateSkill', updateData, { headers: reqHeader }).subscribe((data: any) => {
+
+                if (data.msg != "Record Updated Successfully!") {
+                    this.app.hideSpinner();
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                    
+                    return false;
+                } else {
+                    this.app.hideSpinner();
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    this.clearSkills();
+                    //$('#standardModal').modal('hide');
+                    //this.getPStandard();
+                    return false;
+                }
+            });
+        }
+    }
+
+
+
+
+
     //Function for add employee qualification detail
-    addQualification() {        
+    addQualification() {
 
         if (this.ddlDegree == undefined || this.ddlDegree == "" ) {
             this.toastr.errorToastr('Please select degree', 'Error', { toastTimeout: (2500) });
@@ -799,14 +922,18 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.toastr.errorToastr('Please enter passing year', 'Error', { toastTimeout: (2500) });
             return false;
         }
-        else if (this.ddlGrade == undefined || this.ddlGrade == "") {
-            this.toastr.errorToastr('Please enter grade', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
+        // else if (this.ddlGrade == undefined || this.ddlGrade == "") {
+        //     this.toastr.errorToastr('Please enter grade', 'Error', { toastTimeout: (2500) });
+        //     return false;
+        // }
         else if (this.ddlDivision == undefined || this.ddlDivision == "") {
             this.toastr.errorToastr('Please enter division', 'Error', { toastTimeout: (2500) });
             return false;
         }
+        // else if (this.empId == undefined || this.empId == 0) {
+        //     this.toastr.errorToastr('Invalid Employee Information', 'Error', { toastTimeout: (2500) });
+        //     return false;
+        // }
         else{
 
             var myDate = new Date();
@@ -847,7 +974,7 @@ export class EmpolyeeprofileComponent implements OnInit {
                     pssngDt: this.empDegreeYear,
                     totMrks: 0,
                     mrksObtnd: 0,
-                    grade: this.ddlGrade,
+                    grade: null, //this.ddlGrade,
                     divIsion: this.ddlDivision,
                     startDt: null,
                     campusName: this.empInstitute,
@@ -869,417 +996,10 @@ export class EmpolyeeprofileComponent implements OnInit {
             }
         }
     }
-    
+
     //Deleting qualification detail row
     removeQualification(item) {
         this.empDegreeList.splice(item, 1);
-    }
-
-
-
-
-
-
-
-
-    //function for edit existing leave type 
-    edit(item) {
-
-        this.clear();
-        this.updateFlag = true;
-
-        this.empId = item.empID;
-        this.desigId = item.jobDesigID;
-        this.deptId = item.jobPostDeptCd;
-        this.locationId = item.jobPostLocationCd;
-        this.cmpnyId = item.cmpnyID;
-
-        //tab 1 fields
-        this.firstName = item.indvdlFirstName;
-        this.midName = item.indvdlMidName;
-        this.lastName = item.indvdlLastName;
-        this.fullName = item.indvdlFullName;
-        this.fhName = item.indvdlFatherName;
-        this.CNIC = item.indvdlCNIC;
-
-        //tab 2 fields
-        this.lblJobTitle = item.jobDesigName;
-        this.lblBPS = item.payGradeName;
-        this.lblOffice = item.locationName;
-        this.lblDepartment = item.deptName;
-        this.lblAppointmentDate = new Date(item.empJobAppntmntDt);
-        this.lblJobType = item.jobTypeName;
-        this.lblContract = "contract";
-        this.ddlJobProfile = item.jobDesigID;
-        this.startDate = new Date(item.empJobStartDt);
-
-        if(this.lblJobType == 'Regular'){
-            this.chkJobType = true;
-        }else{
-            this.chkJobType = false;
-        }
-
-
-        if(this.lblJobType.toUpperCase() == 'REGULAR'){
-            this.lblRetirementDate = new Date(this.lblAppointmentDate.getFullYear() + 60, this.lblAppointmentDate.getMonth(), this.lblAppointmentDate.getDay());
-        }
-        
-        this.getFilterItem("facility");
-
-        this.getSpecificEmployeeData();
-
-    }
-
-    clear(){
-
-        this.empId = 0;
-        this.desigId = 0;
-        this.deptId= 0;
-        this.locationId = 0;
-        this.cmpnyId = 0;
-
-
-        //tab 2 fields
-        this.lblJobTitle = "";
-        this.lblBPS = "";
-        this.lblOffice = "";
-        this.lblDepartment = "";
-        this.lblAppointmentDate = "";
-        this.lblJobType = "";
-        this.lblRetirementDate = "";
-        this.lblContract = "";
-        this.startDate = "";
-        this.ddlJobProfile = undefined;
-
-
-
-        //contact Detail
-        this.contactDetail = [
-            {
-                id: 0,
-                contactType: "",
-                countryCode: "",
-                contactCode: "",
-                areaCode: true,
-                mobileCode: false,
-                contactNumber: "",
-                mobileNumber: "",
-                ContactDetailCode: 0,
-                IDelFlag: 0
-            }
-        ];
-
-        //Emails Detail
-        this.emailDetail = [
-            {
-                id: 0,
-                type: "",
-                email: "",
-                ContactDetailCode: 0,
-                IDelFlag: 0
-            }
-        ];
-
-        //address Detail
-        this.addressDetail = [
-            {
-                id: 0,
-                addressType: "",
-                address: "",
-                countryCode: "",
-                provinceCode: "",
-                districtCode: "",
-                cityCode: "",
-                ContactDetailCode: 0,
-                IDelFlag: 0
-            }
-        ];
-
-        this.empSkillList = [];
-        this.empDegreeList = [];
-        this.empOrgList = [];
-    }
-
-
-    //Function for update employee personal info 
-    updateEmpPersonalInfo() {
-
-        // this.toastr.errorToastr('Please enter complete information', 'Error', { toastTimeout: (2500) });
-        // return false;
-
-        if (this.firstName == undefined || this.firstName.trim() == "") {
-            this.toastr.errorToastr('Please enter first name', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else if (this.lastName  == undefined || this.lastName.trim() == "") {
-            this.toastr.errorToastr('Please enter last name', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else if (this.fhName == undefined || this.fhName.trim() == "") {
-            this.toastr.errorToastr('Please enter father/husband name', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else if (this.CNIC == undefined || this.CNIC == "") {
-            this.toastr.errorToastr('Please enter cnic', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        // else if (this.religion == undefined || this.religion.trim() == "") {
-        //     this.toastr.errorToastr('Please enter religion', 'Error', { toastTimeout: (2500) });
-        //     return false;
-        // }
-        else if (this.addressDetail.length == 0) {
-            this.toastr.errorToastr('Please enter employee address', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else if (this.contactDetail.length == 0) {
-            this.toastr.errorToastr('Please enter employee contact', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else if (this.emailDetail.length == 0) {
-            this.toastr.errorToastr('Please enter employee email', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else {
-
-            // address type conditions for subsidiary
-            if (this.addressDetail.length > 0) {
-                for (let i = 0; i < this.addressDetail.length; i++) {
-                    if (this.addressDetail[i].addressType == "") {
-                        this.toastr.errorToastr('Please Select Address Type', 'Error', { toastTimeout: (2500) });
-                        return false;
-                    }
-                    else if (this.addressDetail[i].address.trim() == "") {
-                        this.toastr.errorToastr('Please Enter Address', 'Error', { toastTimeout: (2500) });
-                        return false;
-                    }
-                    else if (this.addressDetail[i].countryCode == "") {
-                        this.toastr.errorToastr('Please Select Country', 'Error', { toastTimeout: (2500) });
-                        return false;
-                    }
-                    else if (this.addressDetail[i].provinceCode == "") {
-                        this.toastr.errorToastr('Please Select Province', 'Error', { toastTimeout: (2500) });
-                        return false;
-                    }
-                    else if (this.addressDetail[i].districtCode == "") {
-                        this.toastr.errorToastr('Please Select District', 'Error', { toastTimeout: (2500) });
-                        return false;
-                    }
-                    else if (this.addressDetail[i].cityCode == "") {
-                        this.toastr.errorToastr('Please Select City', 'Error', { toastTimeout: (2500) });
-                        return false;
-                    }
-                }
-            }
-
-            // contact type conditions for subsidiary
-            if (this.contactDetail.length > 0) {
-                for (let i = 0; i < this.contactDetail.length; i++) {
-                    if (this.contactDetail[i].contactType == "") {
-                        this.toastr.errorToastr('Please Select Contact Type', 'Error', { toastTimeout: (2500) });
-                        return false;
-                    }
-                    else if (this.contactDetail[i].countryCode == "countryCode") {
-                        this.toastr.errorToastr('Please Select Country Code', 'Error', { toastTimeout: (2500) });
-                        return false;
-                    }
-                    else if (this.contactDetail[i].contactNumber.trim() == "") {
-                        this.toastr.errorToastr('Please Enter Contact Number', 'Error', { toastTimeout: (2500) });
-                        return false;
-                    }
-                }
-            }
-
-            // email type conditions for subsidiary
-            if (this.emailDetail.length > 0) {
-                for (let i = 0; i < this.emailDetail.length; i++) {
-                    if (this.emailDetail[i].type == "") {
-                        this.toastr.errorToastr('Please Select Email Type', 'Error', { toastTimeout: (2500) });
-                        return false;
-                    }
-                    else if (this.emailDetail[i].email.trim() == "") {
-                        this.toastr.errorToastr('Please Enter Email', 'Error', { toastTimeout: (2500) });
-                        return false;
-                    }
-                    else if (this.isEmail(this.emailDetail[i].email) == false) {
-                        this.toastr.errorToastr('Invalid email', 'Error', { toastTimeout: (2500) });
-                        return false;
-                    }
-                }
-            }
-
-            if (this.midName == undefined || this.midName.trim() == ""){
-                this.midName = null;
-            }
-
-            this.app.showSpinner();
-            //* ********************************************save data 
-            var updateData = {
-                "EmpID":             this.empId,
-                "IndvdlFirstName":      this.firstName.trim(),
-                "IndvdlMidName":        this.midName,
-                "IndvdlLastName":       this.lastName,
-                "IndvdlFullName":       this.fullName,
-                "IndvdlCNIC":           this.CNIC,
-                "IndvdlFatherName":     this.fhName,
-                "addressList":          JSON.stringify(this.addressDetail),
-                "contactList":          JSON.stringify(this.contactDetail),
-                "emailList":            JSON.stringify(this.emailDetail),
-                "ConnectedUser":        "12000",
-                "DelFlag":              0
-            };
-
-            //var token = localStorage.getItem(this.tokenKey);
-
-            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-            this.http.post(this.serverUrl + 'api/updateEmpPersonalInfo', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-                if (data.msg != "Record Updated Successfully!") {
-                    this.app.hideSpinner();
-                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
-                    return false;
-                } else {
-                    this.app.hideSpinner();
-                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                    this.getEmployee();
-                    return false;
-                }
-            });
-        }
-    }
-
-    //Function for update employee job profile 
-    updateProfile() {
-
-        // this.toastr.errorToastr('Enter Complete Information', 'Error', { toastTimeout: (2500) });
-        // return false;
-
-        if (this.ddlJobProfile == '' || this.ddlJobProfile == null || this.ddlJobProfile == undefined) {
-            this.toastr.errorToastr('Please select job profile', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else if (this.startDate == undefined || this.startDate == "" || this.startDate == null ) {
-            this.toastr.errorToastr('Please enter joining date', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        
-        else {
-
-            this.app.showSpinner();
-        
-            //* ********************************************save data 
-            var updateData = {
-                "EmpID":                this.empId,
-                "JobDesigID":           this.desigId,
-                "JobPostDeptCd":        this.deptId,
-                "JobPostLocationCd":    this.locationId,
-                "EmpJobStartDt":        this.startDate,
-                "ConnectedUser":        "12000",
-                "DelFlag":              0
-            };
-
-            //var token = localStorage.getItem(this.tokenKey);
-
-            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-            this.http.post(this.serverUrl + 'api/updateEmpJobProfile', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-                if (data.msg != "Record Updated Successfully!") {
-                    this.app.hideSpinner();
-                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
-                    return false;
-                } else {
-                    this.app.hideSpinner();
-                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                    this.getEmployee();
-                    this.ddlJobProfile = "";
-                    this.startDate = "";
-                    return false;
-                }
-            });
-        }
-    }
-
-    //Function for update employee previous service detail
-    updatePSD() {
-
-        if (this.empOrgList.length == 0 ) {
-            this.toastr.errorToastr('Please enter employee previous service detail', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else {
-
-            this.app.showSpinner();
-            //* ********************************************save data 
-            var updateData = {
-                "EmpID": this.empId,
-                "EmpPSDList": JSON.stringify(this.empOrgList),
-                "ConnectedUser": "12000",
-                "DelFlag": 0
-            };
-            //var token = localStorage.getItem(this.tokenKey);
-
-            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-            this.http.post(this.serverUrl + 'api/updatePSD', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-                if (data.msg != "Record Updated Successfully!") {
-                    this.app.hideSpinner();
-                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
-                    return false;
-                } else {
-                    this.app.hideSpinner();
-                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                    return false;
-                }
-            });
-        }
-    }
-
-    //Function for update employee skill detail
-    updateSkills() {
-
-        if (this.empSkillList.length == 0 ) {
-            this.toastr.errorToastr('Please enter employee skills detail', 'Error', { toastTimeout: (2500) });
-            return false;
-        }
-        else {
-
-            this.app.showSpinner();
-            //* ********************************************save data 
-            var updateData = {
-                "EmpID": this.empId,
-                "EmpSkillList": JSON.stringify(this.empSkillList),
-                "ConnectedUser": "12000",
-                "DelFlag": 0
-            };
-            //var token = localStorage.getItem(this.tokenKey);
-
-            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-            this.http.post(this.serverUrl + 'api/updateSkill', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-                if (data.msg != "Record Updated Successfully!") {
-                    this.app.hideSpinner();
-                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
-                    return false;
-                } else {
-                    this.app.hideSpinner();
-                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                    //$('#standardModal').modal('hide');
-                    //this.getPStandard();
-                    return false;
-                }
-            });
-        }
     }
 
     //Function for update employee qualification detail
@@ -1289,6 +1009,10 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.toastr.errorToastr('Please enter employee qualification detail', 'Error', { toastTimeout: (2500) });
             return false;
         }
+        else if (this.empId == undefined || this.empId == "") {
+            this.toastr.errorToastr('Invalid Employee Information', 'Error', { toastTimeout: (2500) });
+            return false;
+        }        
         else {
 
             this.app.showSpinner();
@@ -1314,8 +1038,7 @@ export class EmpolyeeprofileComponent implements OnInit {
                 } else {
                     this.app.hideSpinner();
                     this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-                    //$('#standardModal').modal('hide');
-                    //this.getPStandard();
+                    this.clearQualification();
                     return false;
                 }
             });
@@ -1325,6 +1048,345 @@ export class EmpolyeeprofileComponent implements OnInit {
 
 
 
+
+    //function for edit existing leave type 
+    edit(item) {
+
+        this.clearAll();
+        this.disabled = false;
+        this.updateFlag = true;
+        this.empHeading = 'Edit';
+        this.empId = item.empID;
+        this.desigId = item.jobDesigID;
+        this.deptId = item.jobPostDeptCd;
+        this.locationId = item.jobPostLocationCd;
+        this.cmpnyId = item.cmpnyID;
+
+        //tab 1 fields
+        this.firstName = item.indvdlFirstName;
+        this.midName = item.indvdlMidName;
+        this.lastName = item.indvdlLastName;
+        this.fullName = item.indvdlFullName;
+        //this.fhName = item.indvdlFatherName;
+        this.CNIC = item.indvdlCNIC;
+
+        //tab 2 fields
+        this.lblJobTitle = item.jobDesigName;
+        this.lblBPS = item.payGradeName;
+        this.jobPost = item.jobDesigID;
+        this.jobType = item.jobTypeCd;
+        this.joiningDate = new Date(item.empJobStartDt);
+        this.appliedDate = new Date(item.empJobAppntmntDt);
+        //this.renewalFrom = "";
+        //this.contractEnd = "";
+
+        //this.lblOffice = item.locationName;
+        //this.lblDepartment = item.deptName;
+        //this.lblJobType = item.jobTypeName;
+        //this.lblContract = "contract";
+        
+
+        if(this.lblJobType == 'Regular'){
+            this.chkJobType = true;
+        }else{
+            this.chkJobType = false;
+        }
+
+
+        // if(this.lblJobType.toUpperCase() == 'REGULAR'){
+        //     this.lblRetirementDate = new Date(this.lblAppointmentDate.getFullYear() + 60, this.lblAppointmentDate.getMonth(), this.lblAppointmentDate.getDay());
+        // }
+        
+        //this.getFilterItem("facility");
+
+        this.getSpecificEmployeeData();
+
+    }
+
+    clearAll(){
+
+
+        this.empHeading = 'Add';
+        this.empId = 0;
+        this.desigId = 0;
+        this.deptId= 0;
+        this.locationId = 0;
+        this.cmpnyId = 0;
+        this.disabled = true;
+
+        this.clearEmp();
+        this.clearQualification();
+        this.clearSkills();
+        this.clearPSD();
+        this.clearJobProfile();
+
+    }
+
+    clearEmp(){
+        this.firstName = "";
+        this.midName = "";
+        this.lastName = "";
+        this.CNIC = "";
+
+        this.shrd_adrs.addressList = [];
+        this.shrd_cntct.contactList = [];
+        this.shrd_cntct.emailList = [];
+
+    }
+
+    clearQualification(){
+
+        this.empDegreeList = [];
+
+    }
+
+    clearSkills(){
+
+        this.empSkillList = [];
+    }
+
+    clearPSD(){
+
+        this.empOrgList = [];
+    }
+
+    clearJobProfile(){
+
+        this.deptId= 0;
+        this.locationId = 0;
+
+        this.lblOffice = "";
+        this.lblDepartment = "";
+        this.lblAppointmentDate = "";
+        this.lblJobType = "";
+        this.lblRetirementDate = "";
+        this.lblContract = "";
+
+        this.branch = "";
+        this.department = "";
+        this.section = "";
+        this.jobPost = "";
+        this.jobType = "";
+        this.lblJobTitle = "";
+        this.lblBPS = "";
+        this.joiningDate = "";
+        this.appliedDate = "";
+        this.renewalFrom = "";
+        this.contractEnd = "";
+
+    }
+
+
+
+
+
+    //Function for update employee personal info 
+    updateEmpPersonalInfo() {
+
+        // this.toastr.errorToastr('Please enter complete information', 'Error', { toastTimeout: (2500) });
+        // return false;
+
+        if (this.firstName == undefined || this.firstName.trim() == "") {
+            this.toastr.errorToastr('Please enter first name', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.lastName  == undefined || this.lastName.trim() == "") {
+            this.toastr.errorToastr('Please enter last name', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        // else if (this.fhName == undefined || this.fhName.trim() == "") {
+        //     this.toastr.errorToastr('Please enter father/husband name', 'Error', { toastTimeout: (2500) });
+        //     return false;
+        // }
+        else if (this.CNIC == undefined || this.CNIC == "") {
+            this.toastr.errorToastr('Please enter cnic', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        // else if (this.religion == undefined || this.religion.trim() == "") {
+        //     this.toastr.errorToastr('Please enter religion', 'Error', { toastTimeout: (2500) });
+        //     return false;
+        // }
+        else if (this.shrd_adrs.addressList.length == 0) {
+            this.toastr.errorToastr('Please enter employee address', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.shrd_cntct.contactList.length == 0) {
+            this.toastr.errorToastr('Please enter employee contact', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.shrd_cntct.emailList.length == 0) {
+            this.toastr.errorToastr('Please enter employee email', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else {
+
+            if (this.midName == undefined || this.midName.trim() == ""){
+                this.midName = null;
+            }
+
+
+
+            if(this.empId == undefined || this.empId == ""){
+
+                this.app.showSpinner();
+                //* ********************************************save data 
+                var saveData = {
+                    "EmpID":                0,
+                    "IndvdlFirstName":      this.firstName.trim(),
+                    "IndvdlMidName":        this.midName,
+                    "IndvdlLastName":       this.lastName,
+                    "IndvdlFullName":       this.fullName,
+                    "IndvdlCNIC":           this.CNIC,
+                    "CmpnyID":              59,
+                    "IndvdlFatherName":     null, //this.fhName
+                    "addressList":          JSON.stringify(this.shrd_adrs.addressList),
+                    "contactList":          JSON.stringify(this.shrd_cntct.contactList),
+                    "emailList":            JSON.stringify(this.shrd_cntct.emailList),
+                    "ConnectedUser":        "12000",
+                    "DelFlag":              0
+                };
+
+                //var token = localStorage.getItem(this.tokenKey);
+
+                //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+
+                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+                this.http.post(this.serverUrl + 'api/updateEmpPersonalInfo', saveData, { headers: reqHeader }).subscribe((data: any) => {
+
+                    
+                    if (data.msg == "Record Saved Successfully!") {
+                        this.app.hideSpinner();
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                        this.empId = parseInt(data.id);
+                        this.cmpnyId = parseInt(data.cmpId);
+                        this.disabled = false;
+                        this.clearEmp();
+                        this.getNewEmployee();
+                        return false;
+                    } else {
+                        this.app.hideSpinner();
+                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                        return false;
+                    }
+
+                });
+
+            }
+            else 
+            {
+
+                this.app.showSpinner();
+                //* ********************************************save data 
+                var updateData = {
+                    "EmpID":                this.empId,
+                    "IndvdlFirstName":      this.firstName.trim(),
+                    "IndvdlMidName":        this.midName,
+                    "IndvdlLastName":       this.lastName,
+                    "IndvdlFullName":       this.fullName,
+                    "IndvdlCNIC":           this.CNIC,
+                    "CmpnyID":              59,
+                    "IndvdlFatherName":     null, //this.fhName
+                    "addressList":          JSON.stringify(this.shrd_adrs.addressList),
+                    "contactList":          JSON.stringify(this.shrd_cntct.contactList),
+                    "emailList":            JSON.stringify(this.shrd_cntct.emailList),
+                    "ConnectedUser":        "12000",
+                    "DelFlag":              0
+                };
+
+                //var token = localStorage.getItem(this.tokenKey);
+
+                //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+
+                var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+                this.http.post(this.serverUrl + 'api/updateEmpPersonalInfo', updateData, { headers: reqHeader }).subscribe((data: any) => {
+
+                    if (data.msg != "Record Updated Successfully!") {
+                        this.app.hideSpinner();
+                        this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                        return false;
+                    } else {
+                        this.app.hideSpinner();
+                        this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                        this.clearEmp();
+                        this.getNewEmployee();
+                        return false;
+                    }
+
+                });
+
+            }
+
+        }
+    }
+
+
+    //Function for update employee job profile 
+    updateProfile() {
+
+        // this.toastr.errorToastr('Enter Complete Information', 'Error', { toastTimeout: (2500) });
+        // return false;
+
+        if (this.jobPost == '' || this.jobPost == null || this.jobPost == undefined) {
+            this.toastr.errorToastr('Please select job profile', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        if(this.jobType == '' || this.jobType == null || this.jobType == undefined){
+            this.toastr.errorToastr('Please select job type', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.appliedDate == undefined || this.appliedDate == "" || this.appliedDate == null ) {
+            this.toastr.errorToastr('Please enter applied date', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.joiningDate == undefined || this.joiningDate == "" || this.joiningDate == null ) {
+            this.toastr.errorToastr('Please enter joining date', 'Error', { toastTimeout: (2500) });
+            return false;
+        }
+        else if (this.empId == undefined || this.empId == "") {
+            this.toastr.errorToastr('Invalid Employee Information', 'Error', { toastTimeout: (2500) });
+            return false;
+        }  
+        else {
+
+            this.app.showSpinner();
+        
+            //* ********************************************save data 
+            var updateData = {
+                "EmpID":                this.empId,
+                "JobDesigID":           this.desigId,
+                "JobPostDeptCd":        this.deptId,
+                "JobPostLocationCd":    this.locationId,
+                "EmpJobAppntmntDt":     this.appliedDate,
+                "EmpJobStartDt":        this.joiningDate,
+                "JobTypeCd":            this.jobType,
+                "ConnectedUser":        "12000",
+                "DelFlag":              0
+            };
+
+            //var token = localStorage.getItem(this.tokenKey);
+
+            //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+
+            var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+            this.http.post(this.serverUrl + 'api/updateEmpJobProfile', updateData, { headers: reqHeader }).subscribe((data: any) => {
+
+                if (data.msg == "Record Updated Successfully!" || data.msg =="Record Saved Successfully!") {
+                    this.app.hideSpinner();
+                    this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
+                    this.getNewEmployee();
+                    this.clearJobProfile();
+                    return false;
+                } else {
+                    this.app.hideSpinner();
+                    this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (5000) });
+                    return false;
+                }
+            });
+        }
+    }
 
 
     //function for sort table data 
@@ -1338,21 +1400,21 @@ export class EmpolyeeprofileComponent implements OnInit {
     //function for get filtere list from job post
     getFilterItem(filterOption) {
         
-        // if(this.jobTitle != null){
-        //     alert(this.jobTitle);
-        // }
-        
+        //if(this.jobTitle != null){
+            //alert(this.jobTitle);
+        //}
+
         var dataList = [];
         
         //filter for job post
         if(filterOption == "jobs"){
 
-            dataList = this.jobProfileList.filter(x => x.jobDesigID == this.ddlJobProfile);
+            dataList = this.postList.filter(x => x.jobDesigID == this.jobPost);
         
             this.desigId = dataList[0].jobDesigID;
             this.deptId = dataList[0].jobPostDeptCd;
             this.locationId = dataList[0].jobPostLocationCd;
-            this.lblJobTitle = dataList[0].label;
+            this.lblJobTitle = dataList[0].jobDesigName;
             this.lblBPS = dataList[0].payGradeName;
 
         }
@@ -1404,82 +1466,10 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.fullName = this.firstName.trim() + " " + this.midName.trim() + " " + this.lastName.trim();
     }
 
-
-
-
-
-
-
-
-
-    //Function for add new contact row 
-    addContact() {
-
-        this.contactDetail.push({
-            id: 0,
-            contactType: "",
-            countryCode: "",
-            contactCode: "",
-            areaCode: true,
-            mobileCode: false,
-            contactNumber: "",
-            mobileNumber: "",
-            ContactDetailCode: 0,
-            IDelFlag : 0
-        });
-
-    }
-
-    //Function for add new address row 
-    addAddress() {
-
-        this.addressDetail.push({
-            id: 0,
-            addressType: "",
-            address: "",
-            countryCode: "",
-            provinceCode: "",
-            districtCode: "",
-            cityCode: "",
-            ContactDetailCode: 0,
-            IDelFlag : 0
-        });
-
-    }
-
-    //Function for add new email row 
-    addEmail() {
-
-        this.emailDetail.push({
-            id: 0,
-            type: "",
-            email: "",
-            ContactDetailCode: 0,
-            IDelFlag : 0
-        });
-
-    }
-
-
-
-    //Deleting contact row
-    removeContact(item) {
-        this.contactDetail.splice(item, 1);
-    }
-
-    //Deleting address row
-    removeAddress(item) {
-        this.addressDetail.splice(item, 1);
-        //this.addressDetail.filter(x => index  === 3)[0].isReported = true;
-    }
-
-    //Deleting address row
-    removeEmail(item) {
-        this.emailDetail.splice(item, 1);
-    }
-
     //function for email validation 
     isEmail(email) {
         return this.app.validateEmail(email);
     }
+
+
 }

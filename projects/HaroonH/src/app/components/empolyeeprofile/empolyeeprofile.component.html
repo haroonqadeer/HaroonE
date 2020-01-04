@@ -12,7 +12,7 @@
       <h1> Employee Information</h1>
 
       <!--start add role permission button-->
-      <a class="pointerCursor" data-toggle="modal" data-target="#employeeModal">
+      <a class="pointerCursor" data-toggle="modal" data-target="#employeeModal" (click)="clearAll();">
         <i class="fa fa-plus-circle"></i>
         ADD EMPLOYEE
       </a>
@@ -41,164 +41,56 @@
   <!--end 1st Row-->
   <br />
   <div class="row">
-    <div class="col-md-3">
-      <mat-card class="allBorder" style="border-radius: 0;">
-        <div class="row">
-          <div class="col-md-7">
-            <label style="font-weight: bold;">Alia Khan</label>
-            Accountant
-            <div class="row">
+
+    <div *ngFor="let item of employeeListMain | search:'leaveTypeName,leaveTypeDesc':tblSearch let i=index"
+      class="col-md-3 mb-4">
+      <mat-card class="allBorder p-0" style="border-radius: 0;">
+        <div class="row m-1 mb-3">
+          <div class="col-md-7 pb-0 mt-2">
+            <div class="row mb-n2">
+              <div class="col-md-12">
+                <label class="font1emb">{{item.indvdlFullName}}</label>
+              </div>
+            </div>
+            <div class="row mb-n2">
+              <div class="col-md-12">
+                <label class="font0-8em text-secondary">{{item.jobDesigName}}</label>
+              </div>
+            </div>
+            <div class="row mb-n3 mt-n3">
               <div class="col-md-4">
-                <label>Finance</label>
+                <label class="font0-8em text-secondary">{{item.deptName}}</label>
               </div>
               <div class="col-md-8">
-                <label class="border-left">G-10 Branch</label>
+                <label class="border-left font0-8em text-secondary">&nbsp; {{item.locationName}}</label>
               </div>
             </div>
-            <div class="row" style="margin-top: -10px;">
+            <div class="row mt-n2">
               <div class="col-md-12">
-                <label>Joining:Jan 20, 2010</label>
+                <label class="font0-8em text-secondary p-0">Joining: {{item.empJobStartDt | date}}</label>
               </div>
             </div>
-            <br />
-            <div class="row">
-              <div class="col-md-6">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
+            <div class="row mt-3 mb-0 pb-0">
+              <div class="col-md-3">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal"
+                  (click)="edit(item);">
                   <span class="fa icon-u-edit"></span>
                 </span>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-3">
                 <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
                   <span class="fa icon-u-delete"></span>
                 </span>
               </div>
             </div>
           </div>
-          <div class="col-md-5">
-            <br />
-            <img src="../assets/images/Profile-Female.jpg" alt="" height="130px">
+          <div class="col-md-5 mt-2 pb-0">
+            <img src="../assets/images/Profile-Female.jpg" alt="" height="120px">
           </div>
         </div>
       </mat-card>
     </div>
-    <div class="col-md-3">
-      <mat-card class="allBorder" style="border-radius: 0;">
-        <div class="row">
-          <div class="col-md-7">
-            <label style="font-weight: bold;">Alia Khan</label>
-            Accountant
-            <div class="row">
-              <div class="col-md-4">
-                <label>Finance</label>
-              </div>
-              <div class="col-md-8">
-                <label class="border-left">G-10 Branch</label>
-              </div>
-            </div>
-            <div class="row" style="margin-top: -10px;">
-              <div class="col-md-12">
-                <label>Joining:Jan 20, 2010</label>
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-md-6">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
-                  <span class="fa icon-u-edit"></span>
-                </span>
-              </div>
-              <div class="col-md-6">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
-                  <span class="fa icon-u-delete"></span>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-5">
-            <br />
-            <img src="../assets/images/Profile-Male.jpg" alt="" height="130px">
-          </div>
-        </div>
-      </mat-card>
-    </div>
-    <div class="col-md-3">
-      <mat-card class="allBorder" style="border-radius: 0;">
-        <div class="row">
-          <div class="col-md-7">
-            <label style="font-weight: bold;">Alia Khan</label>
-            Accountant
-            <div class="row">
-              <div class="col-md-4">
-                <label>Finance</label>
-              </div>
-              <div class="col-md-8">
-                <label class="border-left">G-10 Branch</label>
-              </div>
-            </div>
-            <div class="row" style="margin-top: -10px;">
-              <div class="col-md-12">
-                <label>Joining:Jan 20, 2010</label>
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-md-6">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
-                  <span class="fa icon-u-edit"></span>
-                </span>
-              </div>
-              <div class="col-md-6">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
-                  <span class="fa icon-u-delete"></span>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-5">
-            <br />
-            <img src="../assets/images/Profile-Female.jpg" alt="" height="130px"></div>
-        </div>
-      </mat-card>
-    </div>
-    <div class="col-md-3">
-      <mat-card class="allBorder" style="border-radius: 0;">
-        <div class="row">
-          <div class="col-md-7">
-            <label style="font-weight: bold;">Alia Khan</label>
-            Accountant
-            <div class="row">
-              <div class="col-md-4">
-                <label>Finance</label>
-              </div>
-              <div class="col-md-8">
-                <label class="border-left">G-10 Branch</label>
-              </div>
-            </div>
-            <div class="row" style="margin-top: -10px;">
-              <div class="col-md-12">
-                <label>Joining:Jan 20, 2010</label>
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-md-6">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
-                  <span class="fa icon-u-edit"></span>
-                </span>
-              </div>
-              <div class="col-md-6">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
-                  <span class="fa icon-u-delete"></span>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-5">
-            <br />
-            <img src="../assets/images/Profile-Male.jpg" alt="" height="130px"></div>
-        </div>
-      </mat-card>
-    </div>
+
   </div>
 </div>
 <!--end myContainer div-->
@@ -214,7 +106,7 @@
 
       <!--start Modal Header -->
       <div class="modal-header bg-white borderWhite5px ">
-        <h4 class="modal-title text-darkblue">Add Employee</h4>
+        <h4 class="modal-title text-darkblue">{{empHeading}} Employee</h4>
         <div>
           <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
         </div>
@@ -225,26 +117,31 @@
       <div class="modal-body nopadding" style="overflow-y: hidden; overflow-x: hidden;">
 
         <!--Start Tabs  -->
-        <mat-tab-group>
+        <mat-tab-group [dynamicHeight]="true">
+
           <!--start tab 1-->
           <mat-tab label="PERSONAL DETAILS">
             <div class="bg-darkBlue">
               <div class="row mr-4">
-                <div class="offset-md-1 col-md-9">
-                  <label class="text-skyblue font15">
+                <div class="col-md-10">
+                  <label class="ml-4 text-skyblue font15">
                     Tip: Save Personal Details before moving to next tab
                   </label>
                 </div>
                 <div class="col-md-1">
-                  <button mat-raised-button class="btn" (click)="clear()" style="border-radius: 0;">RESET</button>
+                  <button mat-raised-button class="btn rounded-0" (click)="clearEmp()">RESET</button>
                 </div>
                 <div class="col-md-1">
-                  <button mat-raised-button class="btn" (click)="updateEmpPersonalInfo()"
-                    style="border-radius: 0;">&nbsp; SAVE &nbsp;</button>
+                  <button mat-raised-button class="btn rounded-0" (click)="updateEmpPersonalInfo()">&nbsp; SAVE
+                    &nbsp;</button>
                 </div>
               </div>
             </div>
-            <div class="bgWhite">
+
+            <div class="bgWhite vHeight70 overflow-auto">
+
+              <br />
+
               <!-- start row 1-->
               <div class="row m-auto">
                 <div class="offset-md-1 col-md-4 pl-0">
@@ -280,38 +177,56 @@
               </div>
               <!-- end row 2-->
 
+              <!-- start row 3-->
               <div class="row m-auto">
                 <div class="offset-md-1 col-md-4 pl-0">
-                  <!-- <app-config-contact></app-config-contact> -->
-                  <!-- <app-config-address></app-config-address> -->
+                  <app-config-address></app-config-address>
                 </div>
-                <div class="offset-md-2 col-md-4 pr-0"></div>
+                <div class="offset-md-2 col-md-4 pr-0">
+                  <app-config-contact></app-config-contact>
+                </div>
               </div>
+              <!-- end row 3-->
+
+              <!-- start row 4-->
+              <!-- <div class="row m-auto">
+                <div class="offset-md-1 col-md-4 pl-0"></div>
+                <div class="offset-md-2 col-md-4 pr-0">
+                  <input type="file" (change)="onFileSelected($event)" />
+                  <button (click)="onUpload()">Upload</button>
+                </div>
+              </div> -->
+              <!-- end row 4-->
+
             </div>
-            <!--start heading-->
+
 
           </mat-tab>
           <!--end tab 1-->
 
           <!--start tab 2 ---------------------------------------------------------- -->
-          <mat-tab label="JOB PROFILE">
+          <mat-tab [disabled]='disabled' label="JOB PROFILE">
             <div class="bg-darkBlue">
               <div class="row mr-4">
-                <div class="offset-md-1 col-md-9">
-                  <label class="text-skyblue font15">
+                <div class="col-md-10">
+                  <label class="ml-4 text-skyblue font15">
                     Tip: Save before moving to next tab
                   </label>
                 </div>
                 <div class="col-md-1">
-                  <button mat-raised-button class="btn" (click)="clear()" style="border-radius: 0;">RESET</button>
+                  <button mat-raised-button class="btn rounded-0" (click)="clearJobProfile()">RESET</button>
                 </div>
                 <div class="col-md-1">
-                  <button mat-raised-button class="btn" (click)="updateEmpPersonalInfo()"
-                    style="border-radius: 0;">&nbsp; SAVE &nbsp;</button>
+                  <button mat-raised-button class="btn rounded-0" (click)="updateProfile()">&nbsp; SAVE &nbsp;</button>
                 </div>
               </div>
             </div>
-            <div class="bgWhite">
+
+            <div class="bgWhite vHeight70 overflow-auto">
+
+              <br />
+
+              <!--start row 1-->
               <div class="row m-auto">
                 <div class="offset-md-1 col-md-4 pl-0">
                   <mat-form-field class="fullwidth">
@@ -325,13 +240,14 @@
                 <div class="offset-md-2 col-md-4 pr-0">
                   <mat-form-field class="fullwidth">
                     <mat-select disableOptionCentering placeholder="Department" [(ngModel)]="department">
-                      <mat-option *ngFor="let item of deptList" [value]="item.deptCd">
-                        {{item.deptName}}
-                      </mat-option>
+                      <mat-option *ngFor="let item of deptList" [value]="item.deptCd">{{item.deptName}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
               </div>
+              <!--end row 1-->
+
+              <!--start row 2-->
               <div class="row m-auto">
                 <div class="offset-md-1 col-md-4 pl-0">
                   <mat-form-field class="fullwidth">
@@ -344,26 +260,19 @@
                 </div>
                 <div class="offset-md-2 col-md-4 pr-0">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Job Post" [(ngModel)]="jobPost">
-                      <mat-option *ngFor="let item of postList" [value]="item.jobPostCd">
-                        {{item.jobPostName}}
+                    <mat-select disableOptionCentering placeholder="Job Post" [(ngModel)]="jobPost"
+                      (ngModelChange)="getFilterItem('jobs')">
+                      <mat-option *ngFor="let item of postList" [value]="item.jobDesigID">{{item.jobDesigName}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
               </div>
+              <!--end row 2-->
+
+              <!--start row 3-->
               <div class="row m-auto">
                 <div class="offset-md-1 col-md-4 pl-0">
-                  <div class="row">
-                    <div class="col-md-8">
-                      <label style="font-weight: bold;">Designation</label>
-                    </div>
-                    <div class="col-md-4">
-                      <label style="font-weight: bold;">Pay Scale</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="offset-md-2 col-md-4 pr-0">
                   <mat-form-field class="fullwidth">
                     <mat-select disableOptionCentering placeholder="Job Type" [(ngModel)]="jobType">
                       <mat-option *ngFor="let item of jobTypeList" [value]="item.jobTypeCd">
@@ -372,7 +281,22 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
+                <div class="offset-md-2 col-md-4 pr-0">
+                  <br />
+                  <div class="row">
+                    <div class="col-md-8">
+                      <label style="font-weight: bold;">{{lblJobTitle}}</label>
+                    </div>
+                    <div class="col-md-4">
+                      <label style="font-weight: bold;">{{lblBPS}}</label>
+                    </div>
+                  </div>
+                </div>
+
               </div>
+              <!--end row 3-->
+
+              <!--start row 4-->
               <div class="row m-auto">
                 <div class="offset-md-1 col-md-4 pl-0">
                   <div class="row">
@@ -412,33 +336,31 @@
                   </div>
                 </div>
               </div>
+              <!--end row 4-->
             </div>
-            <!--start heading-->
-            <!-- <h5>Job Profile</h5>
-              <hr> -->
-            <!--end heading-->
+
           </mat-tab>
-          <!--start tab 2-->
+          <!--start tab 2 -->
 
           <!--start tab 3 ---------------------------------------------------------- -->
-          <mat-tab label="QUALIFICATION">
+          <mat-tab [disabled]='disabled' label="QUALIFICATION">
             <div class="bg-darkBlue">
               <div class="row mr-4">
-                <div class="offset-md-1 col-md-9">
-                  <label class="text-skyblue font15">
+                <div class="col-md-10">
+                  <label class="ml-4 text-skyblue font15">
                     Tip: Save before moving to next tab
                   </label>
                 </div>
                 <div class="col-md-1">
-                  <button mat-raised-button class="btn" (click)="clear()" style="border-radius: 0;">RESET</button>
+                  <button mat-raised-button class="btn rounded-0" (click)="clearQualification()">RESET</button>
                 </div>
                 <div class="col-md-1">
-                  <button mat-raised-button class="btn" (click)="updateEmpPersonalInfo()"
-                    style="border-radius: 0;">&nbsp; SAVE &nbsp;</button>
+                  <button mat-raised-button class="btn rounded-0" (click)="updateQualification()">&nbsp; SAVE
+                    &nbsp;</button>
                 </div>
               </div>
             </div>
-            <div class="bgWhite">
+            <div class="bgWhite vHeight70 overflow-auto">
 
               <!--Start row 1-->
               <div class="row m-auto">
@@ -517,26 +439,25 @@
           </mat-tab>
           <!--End tab 3-->
 
-
           <!--start tab 4 ---------------------------------------------------------- -->
-          <mat-tab label="SKILLS">
+          <mat-tab [disabled]='disabled' label="SKILLS">
             <div class="bg-darkBlue">
               <div class="row mr-4">
-                <div class="offset-md-1 col-md-9">
-                  <label class="text-skyblue font15">
+                <div class="col-md-10">
+                  <label class="ml-4 text-skyblue font15">
                     Tip: Save before moving to next tab
                   </label>
                 </div>
                 <div class="col-md-1">
-                  <button mat-raised-button class="btn" (click)="clear()" style="border-radius: 0;">RESET</button>
+                  <button mat-raised-button class="btn" (click)="clearSkills()" style="border-radius: 0;">RESET</button>
                 </div>
                 <div class="col-md-1">
-                  <button mat-raised-button class="btn" (click)="updateEmpPersonalInfo()"
-                    style="border-radius: 0;">&nbsp; SAVE &nbsp;</button>
+                  <button mat-raised-button class="btn" (click)="updateSkills()" style="border-radius: 0;">&nbsp; SAVE
+                    &nbsp;</button>
                 </div>
               </div>
             </div>
-            <div class="bgWhite">
+            <div class="bgWhite vHeight70 overflow-auto">
 
               <!--Start row 1-->
               <div class="row m-auto">
@@ -619,26 +540,24 @@
           </mat-tab>
           <!--end tab 4-->
 
-
           <!--start tab 5 ---------------------------------------------------------- -->
-          <mat-tab label="EXPERIENCE">
+          <mat-tab [disabled]='disabled' label="EXPERIENCE">
             <div class="bg-darkBlue">
               <div class="row mr-4">
-                <div class="offset-md-1 col-md-9">
-                  <label class="text-skyblue font15">
+                <div class="col-md-10">
+                  <label class="ml-4 text-skyblue font15">
                     Tip: Save before moving to next tab
                   </label>
                 </div>
                 <div class="col-md-1">
-                  <button mat-raised-button class="btn" (click)="clear()" style="border-radius: 0;">RESET</button>
+                  <button mat-raised-button class="btn rounded-0" (click)="clearPSD()">RESET</button>
                 </div>
                 <div class="col-md-1">
-                  <button mat-raised-button class="btn" (click)="updateEmpPersonalInfo()"
-                    style="border-radius: 0;">&nbsp; SAVE &nbsp;</button>
+                  <button mat-raised-button class="btn rounded-0" (click)="updatePSD()">&nbsp; SAVE &nbsp;</button>
                 </div>
               </div>
             </div>
-            <div class="bgWhite">
+            <div class="bgWhite vHeight70 overflow-auto">
 
               <!--Start row 1-->
               <div class="row m-auto">

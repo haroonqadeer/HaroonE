@@ -165,7 +165,7 @@ export class CompanyComponent implements OnInit {
     txtdPassword = '';
     txtdPin = '';
     dCompanyId = '';
-
+cmpnyHeadingLabel = '';
 
     //*Boolean ng models and variables
     solePro = true;
@@ -233,8 +233,10 @@ export class CompanyComponent implements OnInit {
 
         if(this.router.url == '/Comp/newcmpany'){
             this.companyEditMode = false;
+            this.cmpnyHeadingLabel = 'Add';
         }else{
             this.companyEditMode = true;
+            this.cmpnyHeadingLabel = 'Edit';
         }
 
     }

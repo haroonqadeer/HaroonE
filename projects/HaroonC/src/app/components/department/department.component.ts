@@ -63,6 +63,7 @@ export class DepartmentComponent implements OnInit {
   //dropdown search ng-models
   ddlSearchCompany = "";
   tblSearch = "";
+  deptHeading = "Add";
 
   // Add Department Details NgModels
   departmentId = "";
@@ -321,6 +322,7 @@ export class DepartmentComponent implements OnInit {
 
   //******************** clear the input fields
   clear() {
+    this.deptHeading = "Add";
     this.departmentId = "";
     this.ddlCompany = "0";
     this.departmentName = "";
@@ -368,6 +370,7 @@ export class DepartmentComponent implements OnInit {
     this.clear();
 
     if (item.delFlag == 0) {
+      this.deptHeading = "Edit";
       this.departmentId = item.deptCd;
       this.ddlCompany = item.cmpnyID;
       this.departmentName = item.deptName;

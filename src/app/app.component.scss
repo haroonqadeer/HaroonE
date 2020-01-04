@@ -23,6 +23,8 @@
 .mat-expansion-panel-header {
   background-color: #efefef !important;
   border-left: 5px solid #efefef;
+  padding-right: 20px;
+  padding-left: 10px;
 }
 
 .mat-expansion-panel-header.mat-expanded {
@@ -32,15 +34,21 @@
 }
 
 .mat-expansion-panel-body {
-  padding: 0;
+  padding: 0 0 10px !important;
+}
+
+.mat-expansion-panel-header-description,
+.mat-expansion-panel-header-title {
+  // display: flex;
+  flex-grow: 0;
+  /* margin-right: 16px; */
+  padding-right: 10px;
 }
 
 .mat-header-hover:hover {
   background-color: #fff !important;
   border-left: 5px solid #273E94;
 }
-
-
 
 .mat-panel-title .label {
   background: #34353A;
@@ -103,7 +111,6 @@
   //background: #7B8EB8;
 }
 
-
 /* The side navigation menu **************************************************************************************/
 .sidenav {
   height: 100%;
@@ -129,7 +136,7 @@
   margin-top: 0;
   font-size: 1.3em !important;
   background-color: #E6E6E6 !important;
-  text-align: right;
+  // text-align: right;
   border-radius: 0px;
   box-shadow: none;
 }
@@ -148,9 +155,9 @@
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-  .sidenav {
-    padding-top: 15px;
-  }
+  // .sidenav {
+  // padding-top: 15px;
+  // }
 
   .sidenav a {
     font-size: 18px;

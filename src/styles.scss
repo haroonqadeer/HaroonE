@@ -62,6 +62,10 @@
       background-color: #5F84D5 !important;
     }
 
+    .text-light-Blue {
+      color: #88a1d6 !important;
+    }
+
     .bg-darkBlue {
       padding-top: 10px;
       background-color: #11193d !important;
@@ -333,7 +337,7 @@
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       border-bottom: 1px solid #DBDBDB;
       text-decoration: none !important;
-      display: block;
+      // display: block;
       height: 100%;
       width: 100%;
       line-height: 2em;
@@ -342,12 +346,12 @@
       font-size: 15px;
       font-weight: 500;
       padding-left: 10px;
-      border-left: 5px solid transparent;
+      // border-left: 5px solid transparent;
       transition: all 0.3s linear;
       display: block;
       padding-top: 5px;
       padding-bottom: 5px;
-      border-left: 5px solid #A3A7B2;
+      // border-left: 5px solid #A3A7B2;
       background-color: #A3A7B2;
     }
 
@@ -384,6 +388,9 @@
       list-style-type: none;
       margin: 0;
       padding: 0;
+      border: 0px solid red;
+      width: 123%;
+      // margin-left: -12%;
     }
 
     .nav li {
@@ -393,6 +400,7 @@
       text-decoration: none !important;
       //background: linear-gradient(#E6E6E6, #E6E6E6);
       background-color: #fff;
+      border-left: 5px solid #3f3f3f;
       border: 0px solid red;
     }
 
@@ -414,6 +422,7 @@
       display: block;
       padding-top: 5px;
       padding-bottom: 5px;
+      border-left: 5px solid #3f3f3f;
     }
 
     .nav .logo {
@@ -424,23 +433,31 @@
     }
 
     .active a {
-      color: #4E6EB2;
+      color: white !important;
       //border-left:5px solid #B93632;
-      border-left: 5px solid #273E94;
-      background-color: #fff;
+      border-left: 5px solid #e6e6e6;
+      background-color: #3f3f3f;
       outline: 0;
     }
 
+    .active .text {
+      color: white !important;
+      //border-left:5px solid #B93632;
+      // border-left: 5px solid #e6e6e6;
+      // background-color: #3f3f3f;
+      // outline: 0;
+    }
+
     .nav li:not(.active):hover a {
-      color: #4E6EB2;
-      border-left: 5px solid #273E94;
-      background-color: #fff;
+      color: white !important;
+      border-left: 5px solid #e6e6e6;
+      background-color: #3f3f3f;
     }
 
     .nav li:first-child:hover a {
-
-      border-left: 5px solid #273E94;
-      background-color: #fff;
+      color: white !important;
+      border-left: 5px solid #e6e6e6;
+      background-color: #3f3f3f;
     }
 
     .nav span[class ^="fa"] {
@@ -1096,6 +1113,11 @@
     .bg-light-green {
       background-color: #66cc66 !important;
       color: #fff;
+    }
+
+    .bg-light-red {
+      background-color: #FFCCCB !important;
+      // color: #fff;
     }
 
     .bg-brown {
@@ -2048,8 +2070,7 @@
 
     .reportHeading {
       border: 0px solid red;
-      font-size: 24px;
-      font-weight: bold;
+      font-size: 20px;
       text-transform: uppercase;
     }
 
@@ -2149,27 +2170,21 @@
     .imgAddUser {
       width: 100%;
       height: 100%;
-      padding-top: 25%;
-      // font-family: Roboto-Light;
-      // float: left;
+      padding-top: 33%;
       background: url('../src/assets/images/add-profile.gif') no-repeat;
     }
 
     .imgActiveUser {
       width: 100%;
       height: 100%;
-      padding-top: 25%;
-      // font-family: Roboto-Light;
-      // float: left;
+      padding-top: 33%;
       background: url('../src/assets/images/active-profile.gif') no-repeat;
     }
 
     .imgDeactiveUser {
       width: 100%;
       height: 100%;
-      padding-top: 25%;
-      // font-family: Roboto-Light;
-      // float: left;
+      padding-top: 33%;
       background: url('../src/assets/images/deActivate-profile.gif') no-repeat;
     }
 
@@ -2222,12 +2237,19 @@
       font-size: 2em !important;
     }
 
+    .font0-8em {
+      font-size: 0.8em !important;
+    }
+
     .font0-9em {
       font-size: 0.9em !important;
       font-weight: 500 !important;
     }
 
-
+    .font1emb {
+      font-size: 1em !important;
+      font-weight: 500 !important;
+    }
 
     ///////////////////////////////////////
     ///////// Minimum Height///////////////

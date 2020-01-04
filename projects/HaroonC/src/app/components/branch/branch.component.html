@@ -19,7 +19,7 @@
       <span class="fa iconContainer">
         <span class="fa icon-c-currency"></span>
       </span>
-      <h1> Add Branch</h1>
+      <h1> {{branchHeading}} Branch</h1>
 
       <!-- <a class="pointerCursor" (click)="downloadExcel()">
         <i class="fa fa-file-excel-o"></i>
@@ -164,13 +164,11 @@
 
       <div class="row">
         <div class="col-md-11 text-right">
-          <button mat-raised-button class="btnClass" style="border-radius: 0;" (click)="clear()">
-            &nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;
-          </button>
-          &nbsp;&nbsp;&nbsp;
-          <button mat-raised-button class="btnClass" style="border-radius: 0;" (click)="saveBranch()">
-            &nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;
-          </button>
+          <button mat-raised-button class="btnClass" style="border-radius: 0;"
+            (click)="clear()">&nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;</button>
+          &nbsp;&nbsp;
+          <button mat-raised-button class="btnClass" style="border-radius: 0;"
+            (click)="saveBranch()">&nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;</button>
         </div>
 
       </div>
@@ -184,7 +182,7 @@
             <div class="myContainer">
               <div class="row">
                 <div class="col-md-12">
-                  <h5 class="mt-3">BRANCH LIST</h5>
+                  <h5 class="mt-3 text-light-Blue">BRANCH LIST</h5>
                 </div>
               </div>
               <div class="row">

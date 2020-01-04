@@ -64,7 +64,7 @@ import {
       }
 
       .department-cto .ui-node-toggler {
-        color: #8a0a39 !important;
+        color: #ffffff !important;
       }
     `
   ],
@@ -165,7 +165,10 @@ export class CompanydashboardComponent implements OnInit {
                   styleClass: "ui-person",
                   type: "person",
                   expanded: true,
-                  data: { name: "" },
+                  data: {
+                    name: "",
+                    avatar: "Default-Image.jpg"
+                  },
                   children: this.branchChild
                 });
               }
