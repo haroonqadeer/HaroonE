@@ -36,8 +36,8 @@ const routes: Routes = [
   },
   {
     path: "Comp",
-    // loadChildren: () => CompSharedModule
-    loadChildren: "../../projects/HaroonH/src/app/app.module#HRSharedModule"
+    loadChildren: () => CompSharedModule
+    // loadChildren: "../../projects/HaroonH/src/app/app.module#HRSharedModule"
   }
 ];
 
