@@ -111,6 +111,65 @@
           </mat-expansion-panel>
 
 
+          <!--HR Menu Panel-->
+          <mat-expansion-panel class="rounded-0">
+            <mat-expansion-panel-header class='mat-header-hover right-aligned-header'>
+              <mat-panel-title>
+                <div class="nav">
+                  <span class="fa logo">
+                    <img src="../assets/images/HR.svg" width="30px">
+                  </span>
+                </div>
+              </mat-panel-title>
+              <mat-panel-description>
+                <div class="pt-2 ml-n3 text-left">
+                  Attendance
+                </div>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <ul class="nav ml-n4">
+
+              <li class="m-0" routerLinkActive='active' (click)="closeNav()">
+                <a routerLink='HR/attendancedashboard'>
+                  <!-- <span class="fa logo"><img src="../assets/images/Plus.svg"></span> -->
+                  <span class="text">Attendance Dashboard</span>
+                </a>
+              </li>
+
+              <li routerLinkActive='active' (click)="closeNav()">
+                <a routerLink='HR/attendance'>
+                  <!-- <span class="fa logo"><img src="../assets/images/Plus.svg"></span> -->
+                  <span class="text">Attendance</span>
+                </a>
+              </li>
+
+              <li routerLinkActive='active' (click)="closeNav()">
+                <a routerLink="HR/shift">
+                  <!-- <span class="fa logo"><img src="../assets/images/Plus.svg"></span> -->
+                  <span class="text">Shift</span>
+                </a>
+              </li>
+
+              <li routerLinkActive='active' (click)="closeNav()">
+                <a routerLink='HR/employeeShift'>
+                  <!-- <span class="fa logo"><img src="../assets/images/Plus.svg"></span> -->
+                  <span class="text">Employee Shift</span>
+                </a>
+              </li>
+
+              <li routerLinkActive='active' (click)="closeNav()">
+                <a routerLink='HR/yearcalendar'>
+                  <!-- <span class="fa logo"><img src="../assets/images/Plus.svg"></span> -->
+                  <span class="text">Year Calendar</span>
+                </a>
+              </li>
+
+            </ul>
+
+          </mat-expansion-panel>
+
+
           <!--Configuration Menu Panel-->
           <mat-expansion-panel class="rounded-0" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header class='mat-header-hover right-aligned-header'>

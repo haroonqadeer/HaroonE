@@ -298,7 +298,7 @@
           <div class="col-md-12">
             <p-organizationChart [value]="data1" selectionMode="single" styleClass="post">
               <ng-template let-node pTemplate="person">
-                <div class="node-header ui-corner-top">{{node.label}}</div>
+                <div class="node-header ui-corner-top" style="width: auto !important;">{{node.label}}</div>
                 <div class="node-content">
                   <img src="../../../assets/images/{{node.avt}}" width="32">
                   <div>{{node.data.name}}</div>
