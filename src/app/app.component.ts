@@ -82,9 +82,8 @@ export class AppComponent implements OnInit {
     public toastr: ToastrManager,
     private excelExportService: IgxExcelExporterService,
     private csvExportService: IgxCsvExporterService,
-    private userIdle: UserIdleService
-  ) // private attendApp: AttendanceComponent
-  {}
+    private userIdle: UserIdleService // private attendApp: AttendanceComponent
+  ) {}
 
   ngOnInit() {
     //this.moduleHR = this.navApp.moduleHR;
@@ -169,6 +168,15 @@ export class AppComponent implements OnInit {
     ];
   }
 
+  convertStringToDate(stringDate) {
+    var dateParts = stringDate.split("/");
+    var day = dateParts[0];
+    var month = dateParts[1];
+    var year = dateParts[2];
+
+    return new Date(month + "/" + day + "/" + year);
+  }
+
   getUserDetail(name) {
     var Token = localStorage.getItem(this.tokenKey);
     var reqHeader = new HttpHeaders({
@@ -198,7 +206,6 @@ export class AppComponent implements OnInit {
         }
       });
   }
-
 
   showAttendance() {
     this.bottomSheet.open(AttendanceComponent);
@@ -268,19 +275,16 @@ export class AppComponent implements OnInit {
 
   /* Set the width of the side navigation to 250px */
   public openNav() {
-    
-    if(this.router.url != '/home'){
+    if (this.router.url != "/home") {
       $(".sidenavContainer").fadeIn("slow", function() {});
     }
 
-      document.getElementById("mySidenav").style.width = "248px";
-      
-      this.startWatching();
+    document.getElementById("mySidenav").style.width = "248px";
 
-      // Start watching when user idle is starting.
-      this.userIdle.onTimerStart().subscribe(count => this.Logout());
-    
+    this.startWatching();
 
+    // Start watching when user idle is starting.
+    this.userIdle.onTimerStart().subscribe(count => this.Logout());
   }
 
   /* Set the width of the side navigation to 0 */

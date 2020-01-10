@@ -21,8 +21,8 @@ declare var $: any;
   styleUrls: ["./leavetype.component.scss"]
 })
 export class LeavetypeComponent implements OnInit {
-  //   serverUrl = "http://localhost:5000/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9014/";
+  serverUrl = "http://localhost:5000/";
+  // serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9014/";
 
   tokenKey = "token";
   leaveHeading = "Add";
@@ -60,7 +60,8 @@ export class LeavetypeComponent implements OnInit {
   leaveType = "";
   leaveDescription = "";
   noOfLeave = "";
-  appliedFrom = "";
+  leaveLimit = "";
+  appliedFrom;
 
   leaveNatureId = "";
   leaveNature = "";
@@ -148,6 +149,25 @@ export class LeavetypeComponent implements OnInit {
         toastTimeout: 2500
       });
       return false;
+    } else if (this.noOfLeave == "") {
+      this.toastr.errorToastr("Please enter No of Leave", "Error", {
+        toastTimeout: 2500
+      });
+      return false;
+    } else if (this.leaveLimit == "") {
+      this.toastr.errorToastr("Please enter leave Limit", "Error", {
+        toastTimeout: 2500
+      });
+      return false;
+    } else if (
+      this.appliedFrom == undefined ||
+      this.appliedFrom == "" ||
+      this.appliedFrom == null
+    ) {
+      this.toastr.errorToastr("Please select Date", "Error", {
+        toastTimeout: 2500
+      });
+      return false;
     } else {
       if (this.leaveRuleId != "") {
         this.app.showSpinner();
@@ -156,7 +176,9 @@ export class LeavetypeComponent implements OnInit {
           LeaveRuleID: this.leaveRuleId,
           LeaveTypeCd: this.leaveType,
           LeaveNatureCd: this.leaveNature,
-          // "LeaveLmtAmoUNt": leaveLimit,
+          LeaveLmtAmount: this.leaveLimit,
+          noOfLeave: this.noOfLeave,
+          appliedDate: this.appliedFrom,
           ConnectedUser: this.app.empId,
           DelFlag: 0
         };
@@ -195,7 +217,9 @@ export class LeavetypeComponent implements OnInit {
           LeaveRuleID: 0,
           LeaveTypeCd: this.leaveType,
           LeaveNatureCd: this.leaveNature,
-          // "LeaveLmtAmoUNt": leaveLimit,
+          LeaveLmtAmount: this.leaveLimit,
+          noOfLeave: this.noOfLeave,
+          appliedDate: this.appliedFrom,
           ConnectedUser: this.app.empId,
           DelFlag: 0
         };
@@ -239,6 +263,9 @@ export class LeavetypeComponent implements OnInit {
     this.leaveRuleId = item.leaveRuleID;
     this.leaveType = item.leaveTypeCd;
     this.leaveNature = item.leaveNatureCd;
+    this.noOfLeave = item.noOfLeave;
+    this.leaveLimit = item.leaveLmtCd.toString();
+    this.appliedFrom = this.app.convertStringToDate(item.appliedDate);
   }
 
   //*get the "id" of the delete entry
@@ -261,6 +288,9 @@ export class LeavetypeComponent implements OnInit {
         LeaveRuleID: this.leaveRuleId,
         LeaveNatureCd: 0,
         LeaveTypeCd: 0,
+        LeaveLmtAmount: 0,
+        noOfLeave: 0,
+        appliedDate: this.appliedFrom,
         ConnectedUser: this.app.empId,
         DelFlag: 1
       };
@@ -297,6 +327,9 @@ export class LeavetypeComponent implements OnInit {
     this.leaveTypeId = "";
     this.leaveType = "";
     this.leaveDescription = "";
+    this.noOfLeave = "";
+    this.leaveLimit = "";
+    this.appliedFrom = "";
 
     this.leaveNatureId = "";
     this.leaveNature = "";
