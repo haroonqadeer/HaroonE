@@ -14,9 +14,9 @@ Variablepie(Highcharts);
   styleUrls: ["./hrdashboard.component.scss"]
 })
 export class HrdashboardComponent implements OnInit {
-  //serverUrl = "http://localhost:9030/";
+  serverUrl = "http://localhost:3011/";
   // serverUrl = "http://52.163.189.189:9030/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9030/";
+  // serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9030/";
 
   Column_Chart: Chart;
   Off_Column_Chart: Chart;
@@ -36,69 +36,92 @@ export class HrdashboardComponent implements OnInit {
     this.StackColumn_init();
     this.ColumnChart_init();
     // this.OffColumnChart_init();
-    // this.getEmpAttendance();
+    this.getEmpAttendance();
   }
 
   VariablePie_init() {
-    let chart = new Chart({
-      chart: {
-        type: "variablepie"
-      },
-      title: {
-        text: "Number of contractual and permanent employees by branch",
-        style: {
-          fontSize: "15px",
-          fontWeight: "bold"
+    this.app.showSpinner();
+
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    var tempList = [];
+    var count = 82.42;
+
+    this.http
+      .get(this.serverUrl + "api/getEmployeeLocation", { headers: reqHeader })
+      .subscribe((data: any) => {
+        for (var i = 0; i < data.length; i++) {
+          tempList.push({
+            name: data[i].locationName,
+            y: data[i].qty,
+            z: count
+          });
+          count = count + 23.6;
         }
-      },
-      tooltip: {
-        headerFormat: "",
-        pointFormat:
-          '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
-          "Area (square km): <b>{point.y}</b><br/>" +
-          "Population density (people per square km): <b>{point.z}</b><br/>"
-      },
-      series: [
-        {
-          innerSize: "20%",
-          name: "branches",
-          data: [
+
+        let chart = new Chart({
+          chart: {
+            type: "variablepie"
+          },
+          title: {
+            text: "Number of employees by branch",
+            style: {
+              fontSize: "15px",
+              fontWeight: "bold"
+            }
+          },
+          tooltip: {
+            headerFormat: "",
+            pointFormat:
+              '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+              "Area (square km): <b>{point.y}</b><br/>" +
+              "Population density (people per square km): <b>{point.z}</b><br/>"
+          },
+          series: [
             {
-              name: "Islamabad",
-              y: 505370,
-              z: 92.9
-            },
-            {
-              name: "Head Office",
-              y: 551500,
-              z: 118.7
-            },
-            {
-              name: "Regional",
-              y: 312685,
-              z: 124.6
-            },
-            {
-              name: "Karachi",
-              y: 78867,
-              z: 137.5
-            },
-            {
-              name: "Lahore",
-              y: 301340,
-              z: 201.8
-            },
-            {
-              name: "Customer Support",
-              y: 41277,
-              z: 214.5
+              innerSize: "20%",
+              name: "branches",
+              data: tempList
+              // data: [
+              //   {
+              //     name: "Islamabad",
+              //     y: 505370,
+              //     z: 332.9
+              //   },
+              //   {
+              //     name: "Head Office",
+              //     y: 551500,
+              //     z: 342.7
+              //   },
+              //   {
+              //     name: "Regional",
+              //     y: 312685,
+              //     z: 351.6
+              //   },
+              //   {
+              //     name: "Karachi",
+              //     y: 78867,
+              //     z: 378.5
+              //   },
+              //   {
+              //     name: "Lahore",
+              //     y: 301340,
+              //     z: 402.8
+              //   },
+              //   {
+              //     name: "Customer Support",
+              //     y: 41277,
+              //     z: 428.5
+              //   }
+              // ]
             }
           ]
-        }
-      ]
-    });
+        });
 
-    this.Variablepie_Chart = chart;
+        this.Variablepie_Chart = chart;
+
+        this.app.hideSpinner();
+      });
   }
 
   StackColumn_init() {
@@ -165,33 +188,10 @@ export class HrdashboardComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .get(this.serverUrl + "api/getEmployee", { headers: reqHeader })
-      .subscribe((data: any) => {
-        this.lblEmployees = data[0].qty;
-
-        this.app.hideSpinner();
-      });
-
-    this.http
-      .get(this.serverUrl + "api/getPermanent", { headers: reqHeader })
+      .get(this.serverUrl + "api/getCntrctPermanent", { headers: reqHeader })
       .subscribe((data: any) => {
         this.lblPermanent = data[0].qty;
-
-        this.app.hideSpinner();
-      });
-
-    this.http
-      .get(this.serverUrl + "api/getContractual", { headers: reqHeader })
-      .subscribe((data: any) => {
-        this.lblContractual = data[0].qty;
-
-        this.app.hideSpinner();
-      });
-
-    this.http
-      .get(this.serverUrl + "api/getJobProfile", { headers: reqHeader })
-      .subscribe((data: any) => {
-        this.lblJobProfile = data[0].qty;
+        this.lblContractual = data[1].qty;
 
         this.app.hideSpinner();
       });
