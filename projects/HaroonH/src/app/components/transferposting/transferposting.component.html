@@ -11,11 +11,10 @@
       </span>
       <h1> Tranfer/Posting</h1>
 
-      <!--start add role permission button-->
-      <!-- <a class="pointerCursor" data-toggle="modal" data-target="#promotionModal" (click)="clear()">
-        <i class="fa fa-plus-circle"></i>
-        TRANSFER
-      </a> -->
+      <a class="pointerCursor text-uppercase" data-toggle="modal" data-target="#promotionModal">
+        <i class="fa fa-refresh"></i>
+        Transfers
+      </a>
       <!--end add role permission button-->
     </div>
     <!-- end heading & logo div-->
@@ -99,8 +98,7 @@
             <td class='col-6 text-left'>Transfer</td>
             <!-- <td class='col-2'>{{item.empJobStartDt | date}}</td> -->
             <td class='col-2 text-center'>
-              <span class="fa fa-list-alt pointerCursor text-primary" data-toggle="modal"
-                data-target="#promotionModal"></span>
+              <span class="fa fa-list-alt pointerCursor text-primary" data-toggle="modal" data-target="#promotionModal"></span>
             </td>
           </tr>
           <tr class='d-flex'>
@@ -292,10 +290,11 @@
       <!--start user Modal body -->
       <div class="modal-body m-3">
 
+        <!--start row 1-->
         <div class="row">
           <div class="col-md-6">
             <mat-form-field class="fullwidth">
-              <input matInput [matDatepicker]="picker" placeholder="Date">
+              <input matInput [matDatepicker]="picker" placeholder="Date" [(ngModel)]="efectDate">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -303,54 +302,64 @@
           <div class="col-md-6">
             <mat-form-field class="fullwidth">
               <mat-select placeholder="Transfer Type" [(ngModel)]="transferType">
-                <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
-                  -
-                  {{item.payGradeCd}}</mat-option>
+                <mat-option *ngFor="let item of transferTypeList" [value]="item.transferType">{{item.transferType}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
+        <!--end row 1-->
+
+        <!--start row 2-->
         <div class="row">
+
           <div class="col-md-6">
             <fieldset class="scheduler-border">
               <legend class="scheduler-border text-skyblue">Transfering From</legend>
               <div class="row">
                 <div class="col-md-12 mt-2 mb-2">
+
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Branch" [(ngModel)]="transferType">
-                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
-                        -
-                        {{item.payGradeCd}}</mat-option>
+                    <mat-select placeholder="Branch" [(ngModel)]="branch1" (ngModelChange)="getDepartment(branch1, 1);getFilterItem('filterbranch1')">
+                      <mat-option *ngFor="let item of branchList" [value]="item.locationCd">
+                        {{item.locationName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
+
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Department" [(ngModel)]="transferType">
-                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
-                        -
-                        {{item.payGradeCd}}</mat-option>
+                    <mat-select placeholder="Department" [(ngModel)]="department1" (ngModelChange)="getSection(department1, 1);getFilterItem('filterdepart1')">
+                      <mat-option *ngFor="let item of departmentList1" [value]="item.deptCd">
+                        {{item.deptName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
+
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Section" [(ngModel)]="transferType">
-                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
-                        -
-                        {{item.payGradeCd}}</mat-option>
+                    <mat-select placeholder="Section" [(ngModel)]="section1" (ngModelChange)="getFilterItem('filtersection1')">
+                      <mat-option *ngFor="let item of sectionList1" [value]="item.deptCd">
+                        {{item.deptName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
+
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Post From" [(ngModel)]="transferType">
-                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
-                        -
-                        {{item.payGradeCd}}</mat-option>
+                    <mat-select placeholder="Post From" [(ngModel)]="postFrom" (ngModelChange)="getFilterItem('filterjob1')">
+                      <input class="form-control" type="text" placeholder="Search Post" [(ngModel)]="srchPostFrom">
+                      <mat-option *ngFor="let item of tempJobList1 | search:'jobDesigName': srchPostFrom" [value]="item.jobDesigID">
+                        {{item.jobDesigName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
+
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Employee Name" [(ngModel)]="transferType">
-                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
-                        -
-                        {{item.payGradeCd}}</mat-option>
+                    <mat-select placeholder="Employee Name" [(ngModel)]="ddlEmployee1" (ngModelChange)="getFilterItem('filteremp1')">
+                      <input class="form-control" type="text" placeholder="Search Employee" [(ngModel)]="srchEmp1">
+                      <mat-option *ngFor="let item of tempEmpList1 | search:'indvdlFullName': srchEmp1" [value]="item.indvdlID">
+                        {{item.indvdlFullName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
+
                   <div class="row">
                     <div class="col-md-6 text-right">
                       <label>Designation</label>
@@ -359,50 +368,69 @@
                       <label>Pay Scale</label>
                     </div>
                   </div>
+
+                  <div class="row">
+                    <div class="col-md-6 text-right">
+                      <label>{{lblDesignation1}}</label>
+                    </div>
+                    <div class="col-md-6 text-left">
+                    <label>{{lblPayGrade1}}</label>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </fieldset>
           </div>
+
           <div class="col-md-6">
             <fieldset class="scheduler-border">
               <legend class="scheduler-border text-skyblue">Transfering To</legend>
               <div class="row">
                 <div class="col-md-12 mt-2 mb-2">
+
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Branch" [(ngModel)]="transferType">
-                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
-                        -
-                        {{item.payGradeCd}}</mat-option>
+                    <mat-select placeholder="Branch" [(ngModel)]="branch2" (ngModelChange)="getDepartment(branch2, 2);getFilterItem('filterbranch1')">
+                      <mat-option *ngFor="let item of branchList" [value]="item.locationCd">
+                        {{item.locationName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
+
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Department" [(ngModel)]="transferType">
-                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
-                        -
-                        {{item.payGradeCd}}</mat-option>
+                    <mat-select placeholder="Department" [(ngModel)]="department2" (ngModelChange)="getSection(department2, 2);getFilterItem('filterdepart2')">
+                      <mat-option *ngFor="let item of departmentList2" [value]="item.deptCd">
+                        {{item.deptName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
+
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Section" [(ngModel)]="transferType">
-                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
-                        -
-                        {{item.payGradeCd}}</mat-option>
+                    <mat-select placeholder="Section" [(ngModel)]="section2" (ngModelChange)="getFilterItem('filtersection2')">
+                      <mat-option *ngFor="let item of sectionList2" [value]="item.deptCd">
+                        {{item.deptName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
+
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Post To" [(ngModel)]="transferType">
-                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
-                        -
-                        {{item.payGradeCd}}</mat-option>
+                    <mat-select placeholder="Post To" [(ngModel)]="postTo" (ngModelChange)="getFilterItem('filterjob2')">
+                      <input class="form-control" type="text" placeholder="Search Post" [(ngModel)]="srchPostTo">
+                      <mat-option *ngFor="let item of tempJobList2 | search:'jobDesigName': srchPostTo" [value]="item.jobDesigID">
+                        {{item.jobDesigName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
+                  
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Employee Name" [(ngModel)]="transferType">
-                      <mat-option *ngFor="let item of transferTypeList" [value]="item.jobDesigID">{{item.jobDesigName}}
-                        -
-                        {{item.payGradeCd}}</mat-option>
+                    <mat-select placeholder="Employee Name" [(ngModel)]="ddlEmployee2" (ngModelChange)="getFilterItem('filteremp2')" [disabled]="true">
+                      <input class="form-control" type="text" placeholder="Search Employee" [(ngModel)]="srchEmp2">
+                      <mat-option *ngFor="let item of tempEmpList2 | search:'indvdlFullName': srchEmp2" [value]="item.indvdlID">
+                        {{item.indvdlFullName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
+
                   <div class="row">
                     <div class="col-md-6 text-right">
                       <label>Designation</label>
@@ -411,86 +439,67 @@
                       <label>Pay Scale</label>
                     </div>
                   </div>
+
+                  <div class="row">
+                    <div class="col-md-6 text-right">
+                      <label>{{lblDesignation2}}</label>
+                    </div>
+                    <div class="col-md-6 text-left">
+                    <label>{{lblPayGrade2}}</label>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </fieldset>
           </div>
-        </div>
 
+        </div>
+        <!--end row 2-->
+
+        <!--start row 3-->
         <div class="row mt-2">
-          <div class="offset-md-10 col-md-2">
-            <button mat-raised-button class="btn fullwidth pb-1 pt-1" (click)="clear()"
-              style="border-radius: 0;">&nbsp;&nbsp;&nbsp;ADD&nbsp;&nbsp;&nbsp;</button>
+          <div class="offset-md-8 col-md-2">
+            <button mat-raised-button class="btn fullwidth pb-1 pt-1 rounded-0" (click)="clear()">&nbsp;&nbsp;Clear&nbsp;&nbsp;</button>
+          </div>
+          <div class="col-md-2">
+            <button mat-raised-button class="btn fullwidth pb-1 pt-1 rounded-0" (click)="add()">&nbsp;&nbsp;&nbsp;ADD&nbsp;&nbsp;&nbsp;</button>
           </div>
         </div>
+        <!--end row 3-->
+
+        <!--start row 4-->
         <div class="row mt-2">
           <div class="col-md-12">
             <table class="table table-striped">
               <thead>
                 <tr class="d-flex">
-                  <th class="col-4 text-left">Employee Name</th>
-                  <th class="col-3 text-left">Post From</th>
-                  <th class="col-3 text-left">Post To</th>
-                  <th class="col-1 text-center">Edit</th>
+                  <th class="col-3 text-left">Employee Name</th>
+                  <th class="col-4 text-left">Post From</th>
+                  <th class="col-4 text-left">Post To</th>
                   <th class="col-1 text-center">Delete</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="d-flex">
-                  <td class="col-4 text-left">Ali Rajpoot</td>
-                  <td class="col-3 text-left">Islamabad Branch</td>
-                  <td class="col-3 text-left">Lahore Branch</td>
-                  <td class="col-1 text-center">
-                    <span class="fa tableIcon pointerCursor">
-                      <span class="fa icon-u-edit"></span>
-                    </span>
-                  </td>
-                  <td class="col-1 text-center">
-                    <span class="fa tableIcon pointerCursor">
-                      <span class="fa icon-u-delete"></span>
-                    </span>
-                  </td>
-                </tr>
-                <tr class="d-flex bg-light-red">
-                  <td class="col-4 text-left">Rizwan Malik</td>
-                  <td class="col-3 text-left">Karachi Branch</td>
-                  <td class="col-3 text-left">Islamabad HQ</td>
-                  <td class="col-1 text-center">
-                    <span class="fa tableIcon pointerCursor">
-                      <span class="fa icon-u-edit"></span>
-                    </span>
-                  </td>
-                  <td class="col-1 text-center">
-                    <span class="fa tableIcon pointerCursor">
-                      <span class="fa icon-u-delete"></span>
-                    </span>
-                  </td>
-                </tr>
-                <tr class="d-flex">
-                  <td class="col-4 text-left">Amir Qureshi</td>
-                  <td class="col-3 text-left">Lahore Branch</td>
-                  <td class="col-3 text-left">Quetta Branch</td>
-                  <td class="col-1 text-center">
-                    <span class="fa tableIcon pointerCursor">
-                      <span class="fa icon-u-edit"></span>
-                    </span>
-                  </td>
-                  <td class="col-1 text-center">
-                    <span class="fa tableIcon pointerCursor">
-                      <span class="fa icon-u-delete"></span>
-                    </span>
-                  </td>
+                <tr *ngFor="let item of transfersList let i=index" class="d-flex" [ngClass]="{'bg-light-red': item.status == 1}">
+                  <td class="col-3 text-left">{{item.EmpName}}</td>
+                  <td class="col-4 text-left">{{item.PostFrom}}</td>
+                  <td class="col-4 text-left">{{item.PostTo}}</td>
+                  <td class="col-1 text-center"><span class="fa tableIcon pointerCursor" (click)="remove(i)"><span class="fa icon-u-delete"></span></span></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
+        <!--end row 4-->
+
+        <!--start row 5-->
         <div class="row mt-4 mb-4">
           <div class="offset-md-7 col-md-5">
             <!--start buttons row -->
             <div class="row">
               <div class="col-md-6">
-                <button mat-raised-button class="btn fullwidth pb-1 pt-1" (click)="clear()"
+                <button mat-raised-button class="btn fullwidth pb-1 pt-1" (click)="reset()"
                   style="border-radius: 0;">&nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;</button>
               </div>
               <div class="col-md-6">
@@ -501,6 +510,8 @@
             <!--end buttons row -->
           </div>
         </div>
+        <!--end row 5-->
+
       </div>
       <!--end user Modal body -->
     </div>

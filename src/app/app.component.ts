@@ -406,6 +406,20 @@ export class AppComponent implements OnInit {
     }
   }
 
+  public convertDate(myDate) {
+
+    var oldDate = new Date(myDate);
+    var d = oldDate.getDate();
+    var m = oldDate.getMonth();
+    m += 1;  // JavaScript months are 0-11
+    var y = oldDate.getFullYear();
+
+    var convertedDate = m + "-" + d + "-" + y;
+
+    return convertedDate;
+
+}
+
   //* -------------- CSV Export --------------
   public download_CSV(csvDataList) {
     if (csvDataList.length > 0) {

@@ -11,12 +11,11 @@
       </span>
       <h1> Employee Information</h1>
 
-      <!--start add role permission button-->
       <a class="pointerCursor" data-toggle="modal" data-target="#employeeModal" (click)="clearAll();">
         <i class="fa fa-plus-circle"></i>
         ADD EMPLOYEE
       </a>
-      <!--end add role permission button-->
+
     </div>
     <!-- end heading & logo div-->
   </div>
@@ -58,11 +57,13 @@
               </div>
             </div>
             <div class="row mb-n3 mt-n3">
-              <div class="col-md-4">
+              <div class="col-md-12">
                 <label class="font0-8em text-secondary">{{item.deptName}}</label>
               </div>
-              <div class="col-md-8">
-                <label class="border-left font0-8em text-secondary">&nbsp; {{item.locationName}}</label>
+            </div>
+            <div class="row mb-n3 mt-n3">
+              <div class="col-md-12">
+                <label class="font0-8em text-secondary">{{item.locationName}}</label>
               </div>
             </div>
             <div class="row mt-n2">
@@ -72,8 +73,7 @@
             </div>
             <div class="row mt-3 mb-0 pb-0">
               <div class="col-md-3">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal"
-                  (click)="edit(item);">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal" (click)="edit(item);">
                   <span class="fa icon-u-edit"></span>
                 </span>
               </div>
@@ -81,6 +81,7 @@
                 <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
                   <span class="fa icon-u-delete"></span>
                 </span>
+                
               </div>
             </div>
           </div>
