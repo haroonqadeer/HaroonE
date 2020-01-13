@@ -89,8 +89,10 @@ export class EmpolyeeprofileComponent implements OnInit {
     cityList = [];
 
 
-
-
+    branchList = [];
+    departmentList = [];
+    sectionList = [];
+    tempJobList = [];
 
 
 
@@ -122,9 +124,6 @@ export class EmpolyeeprofileComponent implements OnInit {
     jobType = '';
     empHeading = 'Add';
 
-    branchList =[];
-    deptList =[];
-    sectList =[];
     postList =[];
     jobTypeList =[];
     //* tab 2 ngModels
@@ -195,7 +194,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.getQualificationCriteria();
         // this.getEmpApprovedFacility();
         this.getJobType();
-
+        this.getBranch();
         // this.getAddressTypes();
         // this.getCountry();
         // this.getProvince();
@@ -224,6 +223,60 @@ export class EmpolyeeprofileComponent implements OnInit {
     }
 
 
+    //function for get brnaches
+    getBranch() {
+    
+        this.app.showSpinner();
+        //var Token = localStorage.getItem(this.tokenKey);
+
+        //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+        var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+        
+        this.http.get(this.serverUrl + "api/getBranches?cmpnyID=59", { headers: reqHeader }).subscribe((data: any) => {
+            
+            this.branchList = data;
+
+            this.app.hideSpinner();
+        });
+    }
+
+    //function for get departments 
+    getDepartment(BranchCode) {
+
+        this.app.showSpinner();
+        //var Token = localStorage.getItem(this.tokenKey);
+
+        //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+        var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+        
+        this.http.get(this.serverUrl + "api/getDepartments?cmpnyID=" + this.app.cmpnyId + "&locationCd="+ BranchCode +"", { headers: reqHeader }).subscribe((data: any) => {
+
+            this.departmentList = data;
+            this.department = '';
+            this.section = '';
+            this.sectionList = [];
+
+            this.app.hideSpinner();
+        });
+    }
+
+    //function for get section 
+    getSection(DepartmentId) {
+
+        this.app.showSpinner();
+        //var Token = localStorage.getItem(this.tokenKey);
+
+        //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+        var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+        
+        this.http.get(this.serverUrl + "api/getSection?cmpnyID=" + this.app.cmpnyId + "&deptId="+ DepartmentId +"", { headers: reqHeader }).subscribe((data: any) => {
+
+            this.section = '';
+            this.sectionList = data;
+
+            this.app.hideSpinner();
+        });
+    }
 
 
     //function for get all saved employee
@@ -272,7 +325,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.http.get(this.serverUrl + 'api/getJobProfile', { headers: reqHeader }).subscribe((data: any) => {
             
             this.postList = data;
-
+            this.tempJobList = data;
             // for (var i = 0; i < data.length; i++) {
             //     this.jobProfileList.push({
             //         label: data[i].jobDesigName,
@@ -1387,13 +1440,13 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     //function for get filtere list from job post
     getFilterItem(filterOption) {
-        
+
         //if(this.jobTitle != null){
             //alert(this.jobTitle);
         //}
 
         var dataList = [];
-        
+
         //filter for job post
         if(filterOption == "jobs"){
 
@@ -1437,6 +1490,38 @@ export class EmpolyeeprofileComponent implements OnInit {
             }
 
         }
+
+
+        if (filterOption == "filterbranch") {
+
+            dataList = this.postList.filter(x => x.jobPostLocationCd == this.branch);
+            this.tempJobList = dataList;
+
+            //this.srchPostFrom = '';
+            this.jobPost = '';
+
+        }
+
+        if (filterOption == "filterdepart") {
+
+            dataList = this.postList.filter(x => x.jobPostLocationCd == this.branch && x.jobPostDeptCd == this.department);
+            this.tempJobList = dataList;
+
+            //this.srchPostFrom = '';
+            this.jobPost = '';
+
+        }
+
+        if (filterOption == "filtersection") {
+
+            dataList = this.postList.filter(x => x.jobPostLocationCd == this.branch && x.jobPostDeptCd == this.section && x.managerJobPostLocationCd == this.branch && x.managerJobPostDeptCd == this.department);
+            this.tempJobList = dataList;
+
+            //this.srchPostFrom = '';
+            this.jobPost = '';
+
+        }
+
     }
 
     //function for generate employee full name 

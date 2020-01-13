@@ -232,7 +232,7 @@
               <div class="row m-auto">
                 <div class="offset-md-1 col-md-4 pl-0">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Branch" [(ngModel)]="branch">
+                    <mat-select disableOptionCentering placeholder="Branch" [(ngModel)]="branch" (ngModelChange)="getDepartment(branch);getFilterItem('filterbranch')">
                       <mat-option *ngFor="let item of branchList" [value]="item.locationCd">
                         {{item.locationName}}
                       </mat-option>
@@ -241,8 +241,8 @@
                 </div>
                 <div class="offset-md-2 col-md-4 pr-0">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Department" [(ngModel)]="department">
-                      <mat-option *ngFor="let item of deptList" [value]="item.deptCd">{{item.deptName}}</mat-option>
+                    <mat-select disableOptionCentering placeholder="Department" [(ngModel)]="department" (ngModelChange)="getSection(department);getFilterItem('filterdepart')">
+                      <mat-option *ngFor="let item of departmentList" [value]="item.deptCd">{{item.deptName}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -253,8 +253,8 @@
               <div class="row m-auto">
                 <div class="offset-md-1 col-md-4 pl-0">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Section" [(ngModel)]="section">
-                      <mat-option *ngFor="let item of sectList" [value]="item.deptCd">
+                    <mat-select disableOptionCentering placeholder="Section" [(ngModel)]="section" (ngModelChange)="getFilterItem('filtersection')">
+                      <mat-option *ngFor="let item of sectionList" [value]="item.deptCd">
                         {{item.deptName}}
                       </mat-option>
                     </mat-select>
@@ -262,9 +262,8 @@
                 </div>
                 <div class="offset-md-2 col-md-4 pr-0">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Job Post" [(ngModel)]="jobPost"
-                      (ngModelChange)="getFilterItem('jobs')">
-                      <mat-option *ngFor="let item of postList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                    <mat-select disableOptionCentering placeholder="Job Post" [(ngModel)]="jobPost" (ngModelChange)="getFilterItem('jobs')">
+                      <mat-option *ngFor="let item of tempJobList" [value]="item.jobDesigID">{{item.jobDesigName}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
