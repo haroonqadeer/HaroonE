@@ -23,8 +23,8 @@ export class EmpolyeeprofileComponent implements OnInit {
     @ViewChild(ConfigContactComponent) shrd_cntct: ConfigContactComponent;
     
     @Output() myEvent = new EventEmitter();  
-    // serverUrl = "http://localhost:9043/";
-    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
+    serverUrl = "http://localhost:9043/";
+    //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
     // imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
     imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
 
@@ -1207,6 +1207,10 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.appliedDate = "";
         this.renewalFrom = "";
         this.contractEnd = "";
+
+        this.tempJobList = this.postList;
+        this.departmentList = [];
+        this.sectionList = [];
 
     }
 
