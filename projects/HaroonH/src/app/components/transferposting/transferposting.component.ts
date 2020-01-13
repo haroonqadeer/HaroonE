@@ -48,8 +48,8 @@ export class TransferpostingComponent implements OnInit {
     transferTypeList = [
         {transferType: 'Transfer'},
         {transferType: 'Permotion'},
-        {transferType: 'Demotion'}
-    ];
+        {transferType: 'Demotion'}];
+        
     transfersList = [];
     branchList = [];
     departmentList1 = [];
@@ -306,13 +306,14 @@ export class TransferpostingComponent implements OnInit {
                 this.http.post(this.serverUrl + "api/transferEmpList", saveData, {headers: reqHeader}).subscribe((data: any) => {
                     if (data.msg != "Record Saved Successfully!") {
                         this.app.hideSpinner();
-                        this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+                        this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 5000 });
                         return false;
                     } else {
                         this.app.hideSpinner();
                         this.toastr.successToastr(data.msg, "Success!", { toastTimeout: 2500 });
-                        this.getAppointedEmployee();
                         this.reset();
+                        this.getEmployee();
+                        this.getJobs();
                         return false;
                     }
                 });
