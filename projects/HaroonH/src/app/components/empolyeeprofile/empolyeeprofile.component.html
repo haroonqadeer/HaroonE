@@ -73,7 +73,8 @@
             </div>
             <div class="row mt-3 mb-0 pb-0">
               <div class="col-md-3">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal" (click)="edit(item);">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal"
+                  (click)="edit(item);">
                   <span class="fa icon-u-edit"></span>
                 </span>
               </div>
@@ -81,7 +82,7 @@
                 <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
                   <span class="fa icon-u-delete"></span>
                 </span>
-                
+
               </div>
             </div>
           </div>
@@ -150,18 +151,16 @@
 
             <div class="bgWhite vHeight70 overflow-auto">
 
-              <br />
-
               <!-- start row 1-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="First Name*" [(ngModel)]="firstName" (keydown)="generateFullName()"
                       (keyup)="generateFullName()">
                   </mat-form-field>
                 </div>
 
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="Middle Name" [(ngModel)]="midName" (keydown)="generateFullName()"
                       (keyup)="generateFullName()">
@@ -171,15 +170,15 @@
               <!-- end row 1-->
 
               <!-- start row 2-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="Last Name*" [(ngModel)]="lastName" (keydown)="generateFullName()"
                       (keyup)="generateFullName()">
                   </mat-form-field>
                 </div>
 
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="CNIC" [(ngModel)]="CNIC" mask="00000-0000000-0">
                   </mat-form-field>
@@ -188,13 +187,13 @@
               <!-- end row 2-->
 
               <!-- start row 3-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <app-config-address></app-config-address>
                 </div>
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <app-config-contact></app-config-contact>
-                  <br/>
+                  <br />
                   <input type="file" (change)="onFileSelected($event)" [(ngModel)]="imgFile" />
                 </div>
               </div>
@@ -226,23 +225,24 @@
 
             <div class="bgWhite vHeight70 overflow-auto">
 
-              <br />
-
               <!--start row 1-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Branch" [(ngModel)]="branch" (ngModelChange)="getDepartment(branch);getFilterItem('filterbranch')">
+                    <mat-select disableOptionCentering placeholder="Branch" [(ngModel)]="branch"
+                      (ngModelChange)="getDepartment(branch);getFilterItem('filterbranch')">
                       <mat-option *ngFor="let item of branchList" [value]="item.locationCd">
                         {{item.locationName}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Department" [(ngModel)]="department" (ngModelChange)="getSection(department);getFilterItem('filterdepart')">
-                      <mat-option *ngFor="let item of departmentList" [value]="item.deptCd">{{item.deptName}}</mat-option>
+                    <mat-select disableOptionCentering placeholder="Department" [(ngModel)]="department"
+                      (ngModelChange)="getSection(department);getFilterItem('filterdepart')">
+                      <mat-option *ngFor="let item of departmentList" [value]="item.deptCd">{{item.deptName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -250,19 +250,21 @@
               <!--end row 1-->
 
               <!--start row 2-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Section" [(ngModel)]="section" (ngModelChange)="getFilterItem('filtersection')">
+                    <mat-select disableOptionCentering placeholder="Section" [(ngModel)]="section"
+                      (ngModelChange)="getFilterItem('filtersection')">
                       <mat-option *ngFor="let item of sectionList" [value]="item.deptCd">
                         {{item.deptName}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Job Post" [(ngModel)]="jobPost" (ngModelChange)="getFilterItem('jobs')">
+                    <mat-select disableOptionCentering placeholder="Job Post" [(ngModel)]="jobPost"
+                      (ngModelChange)="getFilterItem('jobs')">
                       <mat-option *ngFor="let item of tempJobList" [value]="item.jobDesigID">{{item.jobDesigName}}
                       </mat-option>
                     </mat-select>
@@ -272,8 +274,8 @@
               <!--end row 2-->
 
               <!--start row 3-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
                     <mat-select disableOptionCentering placeholder="Job Type" [(ngModel)]="jobType">
                       <mat-option *ngFor="let item of jobTypeList" [value]="item.jobTypeCd">
@@ -282,7 +284,7 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <br />
                   <div class="row">
                     <div class="col-md-8">
@@ -298,8 +300,8 @@
               <!--end row 3-->
 
               <!--start row 4-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <div class="row">
                     <div class="col-md-6">
                       <mat-form-field class="fullwidth">
@@ -317,7 +319,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <div class="row">
                     <div class="col-md-6">
                       <mat-form-field class="fullwidth">
