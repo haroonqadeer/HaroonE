@@ -182,9 +182,14 @@
             <mat-form-field>
               <mat-select disableOptionCentering placeholder="Job Designation*" (ngModelChange)="onJobChange($event)"
                 [(ngModel)]="jobPostName">
-                <input type="text" placeholder="Search..." [(ngModel)]="srchDesig" class="form-control" />
+                <input type="text" placeholder="Search..." [(ngModel)]="srchDesig" class="form-control pt-4 pb-4" />
                 <mat-option *ngFor="let item of jobPost | search: 'desigName':srchDesig" [value]="item.desigCd">
-                  {{ item.desigName }} - {{ item.payGradeCd }}
+                  <tbody>
+                    <tr>
+                      <td class="col-6">{{ item.desigName }}</td>
+                      <td class="col-6 text-left">{{ item.payGradeCd }}</td>
+                    </tr>
+                  </tbody>
                 </mat-option>
               </mat-select>
             </mat-form-field>

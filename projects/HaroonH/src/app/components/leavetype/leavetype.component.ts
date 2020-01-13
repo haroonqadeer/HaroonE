@@ -21,8 +21,8 @@ declare var $: any;
   styleUrls: ["./leavetype.component.scss"]
 })
 export class LeavetypeComponent implements OnInit {
-  serverUrl = "http://localhost:5000/";
-  // serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9014/";
+  // serverUrl = "http://localhost:5000/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9014/";
 
   tokenKey = "token";
   leaveHeading = "Add";

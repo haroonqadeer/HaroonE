@@ -14,9 +14,9 @@ Variablepie(Highcharts);
   styleUrls: ["./hrdashboard.component.scss"]
 })
 export class HrdashboardComponent implements OnInit {
-  serverUrl = "http://localhost:3011/";
+  // serverUrl = "http://localhost:3011/";
   // serverUrl = "http://52.163.189.189:9030/";
-  // serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9030/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9030/";
 
   Column_Chart: Chart;
   Off_Column_Chart: Chart;
@@ -125,59 +125,74 @@ export class HrdashboardComponent implements OnInit {
   }
 
   StackColumn_init() {
-    let chart = new Chart({
-      chart: {
-        type: "column"
-      },
-      title: {
-        text: "Number of employees by department and branch"
-      },
-      xAxis: {
-        categories: [
-          "BPO-Karachi",
-          "Support-Lahore",
-          "Sales-Islamabad",
-          "Head office-ISB",
-          "Regional-Karahi"
-        ]
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: "Number of Employees"
-        }
-      },
-      tooltip: {
-        pointFormat:
-          '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-        shared: true
-      },
-      plotOptions: {
-        column: {
-          stacking: "percent"
-        }
-      },
-      series: [
-        {
-          name: "Finance",
-          data: [5, 3, 4, 7, 2]
-        },
-        {
-          name: "IT",
-          data: [2, 2, 3, 2, 1]
-        },
-        {
-          name: "Customer Support",
-          data: [3, 4, 4, 2, 5]
-        },
-        {
-          name: "Admin",
-          data: [3, 4, 4, 2, 5]
-        }
-      ]
-    });
+    this.app.showSpinner();
 
-    this.StackColumn_Chart = chart;
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    var branchList = [];
+    var deptList = [];
+    var deptChildList = [];
+
+    this.http
+      .get(this.serverUrl + "api/getEmployeeDepartment", { headers: reqHeader })
+      .subscribe((data: any) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].locationName != branchList) {
+            branchList.push(data[i].locationName);
+          }
+          deptChildList = [];
+          if (deptList.length == 0) {
+            deptChildList.push(data[i].total);
+          } else {
+            for (var j = 0; j < deptList.length; j++) {
+              if (data[i].deptName == deptList[j].name) {
+                deptChildList.push(data[i].total);
+              }
+            }
+            if (deptChildList.length == 0) {
+              deptChildList.push(data[i].total);
+            }
+          }
+
+          deptList.push({
+            name: data[i].deptName,
+            data: deptChildList
+          });
+        }
+
+        let chart = new Chart({
+          chart: {
+            type: "column"
+          },
+          title: {
+            text: "Number of employees by department and branch"
+          },
+          xAxis: {
+            categories: branchList
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: "Number of Employees"
+            }
+          },
+          tooltip: {
+            pointFormat:
+              '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+            shared: true
+          },
+          plotOptions: {
+            column: {
+              stacking: "percent"
+            }
+          },
+          series: deptList
+        });
+
+        this.StackColumn_Chart = chart;
+
+        this.app.hideSpinner();
+      });
   }
 
   getEmpAttendance() {
