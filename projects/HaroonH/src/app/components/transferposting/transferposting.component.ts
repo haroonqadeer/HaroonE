@@ -24,7 +24,7 @@ declare var $: any;
 })
 export class TransferpostingComponent implements OnInit {
     // serverUrl = "http://localhost:9029/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9029/";
+    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9029/";
     tokenKey = "token";
 
     httpOptions = {

@@ -390,7 +390,7 @@
                 <div class="col-md-12 mt-2 mb-2">
 
                   <mat-form-field class="fullwidth pl-3 pr-3">
-                    <mat-select placeholder="Branch" [(ngModel)]="branch2" (ngModelChange)="getDepartment(branch2, 2);getFilterItem('filterbranch1')">
+                    <mat-select placeholder="Branch" [(ngModel)]="branch2" (ngModelChange)="getDepartment(branch2, 2);getFilterItem('filterbranch2')">
                       <mat-option *ngFor="let item of branchList" [value]="item.locationCd">
                         {{item.locationName}}
                       </mat-option>

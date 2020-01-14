@@ -37,7 +37,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     //*Bolean variable 
     updateFlag = false;
-
+    editMod = false;
     //* variables for pagination and orderby pipe
     p = 1;
     order = 'info.name';
@@ -253,9 +253,17 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.http.get(this.serverUrl + "api/getDepartments?cmpnyID=" + this.app.cmpnyId + "&locationCd="+ BranchCode +"", { headers: reqHeader }).subscribe((data: any) => {
 
             this.departmentList = data;
-            this.department = '';
-            this.section = '';
-            this.sectionList = [];
+
+            if(this.editMod == true){
+                this.editMod = false;
+            }else{
+                this.department = '';
+                this.section = '';
+            }
+            
+            if(this.sectionList.length > 0){
+                this.sectionList = [];
+            }
 
             this.app.hideSpinner();
         });
@@ -272,7 +280,11 @@ export class EmpolyeeprofileComponent implements OnInit {
         
         this.http.get(this.serverUrl + "api/getSection?cmpnyID=" + this.app.cmpnyId + "&deptId="+ DepartmentId +"", { headers: reqHeader }).subscribe((data: any) => {
 
-            this.section = '';
+            if(this.editMod == true){
+                this.editMod = false;
+            }else{
+                this.section = '';
+            }
             this.sectionList = data;
 
             this.app.hideSpinner();
@@ -1085,6 +1097,17 @@ export class EmpolyeeprofileComponent implements OnInit {
     edit(item) {
 
         this.clearAll();
+        this.editMod = true;
+        this.branch = item.jobPostLocationCd;
+        this.getDepartment(item.jobPostLocationCd);
+        this.sectionList = [];
+        if(item.managerJobPostDeptCd == 0){
+            this.getSection(item.jobPostDeptCd);
+        }
+        else 
+        {
+            this.getSection(item.managerJobPostDeptCd);
+        }
         this.disabled = false;
         this.updateFlag = true;
         this.empHeading = 'Edit';
@@ -1124,7 +1147,21 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.chkJobType = false;
         }
 
-
+        if(item.managerJobPostDeptCd == 0)
+        {
+            this.department = item.jobPostDeptCd
+        }
+        else 
+        {
+            this.department = item.managerJobPostDeptCd;
+            this.section = item.jobPostDeptCd;
+        }        
+        //alert(item.jobDesigID);
+        // 
+        // alert(item.jobPostLocationCd);
+        // 
+        // alert(item.managerJobPostLocationCd);
+        
         // if(this.lblJobType.toUpperCase() == 'REGULAR'){
         //     this.lblRetirementDate = new Date(this.lblAppointmentDate.getFullYear() + 60, this.lblAppointmentDate.getMonth(), this.lblAppointmentDate.getDay());
         // }
