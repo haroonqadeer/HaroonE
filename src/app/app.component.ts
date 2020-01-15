@@ -26,7 +26,7 @@ import {
   CsvFileTypes
 } from "igniteui-angular";
 
-declare var $: any;
+declare var $: any; 
 
 @Component({
   selector: "app-root",

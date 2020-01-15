@@ -188,7 +188,9 @@ export class CommunicationComponent implements OnInit {
         }
         else
         {
+
             this.app.genPin();
+            
         }
 
     }
