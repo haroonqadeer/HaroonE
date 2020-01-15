@@ -16,7 +16,7 @@ declare var $: any;
     encapsulation: ViewEncapsulation.None
 })
 export class CommunicationComponent implements OnInit {
-    serverUrl = "http://localhost:9043/";
+    serverUrl = "http://localhost:9050/";
     //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9013/";
     filePath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/OrgDocuments";
 
