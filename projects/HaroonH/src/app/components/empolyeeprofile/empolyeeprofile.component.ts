@@ -1093,7 +1093,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
 
 
-    //function for edit existing leave type 
+    //function for edit existing employee type 
     edit(item) {
 
         this.clearAll();
