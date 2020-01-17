@@ -11,12 +11,11 @@
       </span>
       <h1> Employee Information</h1>
 
-      <!--start add role permission button-->
       <a class="pointerCursor" data-toggle="modal" data-target="#employeeModal" (click)="clearAll();">
         <i class="fa fa-plus-circle"></i>
         ADD EMPLOYEE
       </a>
-      <!--end add role permission button-->
+
     </div>
     <!-- end heading & logo div-->
   </div>
@@ -58,11 +57,13 @@
               </div>
             </div>
             <div class="row mb-n3 mt-n3">
-              <div class="col-md-4">
+              <div class="col-md-12">
                 <label class="font0-8em text-secondary">{{item.deptName}}</label>
               </div>
-              <div class="col-md-8">
-                <label class="border-left font0-8em text-secondary">&nbsp; {{item.locationName}}</label>
+            </div>
+            <div class="row mb-n3 mt-n3">
+              <div class="col-md-12">
+                <label class="font0-8em text-secondary">{{item.locationName}}</label>
               </div>
             </div>
             <div class="row mt-n2">
@@ -81,12 +82,22 @@
                 <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
                   <span class="fa icon-u-delete"></span>
                 </span>
+
               </div>
             </div>
           </div>
-          <div class="col-md-5 mt-2 pb-0">
-            <img src="../assets/images/Profile-Female.jpg" alt="" height="120px">
+
+          <div class="col-md-5 mt-2 pb-0" *ngIf="item.path == null">
+            <img src="../assets/images/EmpImages/Profile-Female.jpg" alt="" height="120px">
           </div>
+
+
+          <div class="col-md-5 mt-2 pb-0" *ngIf="item.path != null">
+            <!-- <img src="{{item.path}}" alt="" height="120px"> -->
+            <img src="../assets/images/EmpImages/{{item.empID}}.jpg" alt="" width="95px" height="120px">
+          </div>
+
+
         </div>
       </mat-card>
     </div>
@@ -140,18 +151,16 @@
 
             <div class="bgWhite vHeight70 overflow-auto">
 
-              <br />
-
               <!-- start row 1-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="First Name*" [(ngModel)]="firstName" (keydown)="generateFullName()"
                       (keyup)="generateFullName()">
                   </mat-form-field>
                 </div>
 
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="Middle Name" [(ngModel)]="midName" (keydown)="generateFullName()"
                       (keyup)="generateFullName()">
@@ -161,15 +170,15 @@
               <!-- end row 1-->
 
               <!-- start row 2-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="Last Name*" [(ngModel)]="lastName" (keydown)="generateFullName()"
                       (keyup)="generateFullName()">
                   </mat-form-field>
                 </div>
 
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="CNIC" [(ngModel)]="CNIC" mask="00000-0000000-0">
                   </mat-form-field>
@@ -178,25 +187,17 @@
               <!-- end row 2-->
 
               <!-- start row 3-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <app-config-address></app-config-address>
                 </div>
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <app-config-contact></app-config-contact>
+                  <br />
+                  <input type="file" (change)="onFileSelected($event)" [(ngModel)]="imgFile" />
                 </div>
               </div>
               <!-- end row 3-->
-
-              <!-- start row 4-->
-              <!-- <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0"></div>
-                <div class="offset-md-2 col-md-4 pr-0">
-                  <input type="file" (change)="onFileSelected($event)" />
-                  <button (click)="onUpload()">Upload</button>
-                </div>
-              </div> -->
-              <!-- end row 4-->
 
             </div>
 
@@ -224,23 +225,24 @@
 
             <div class="bgWhite vHeight70 overflow-auto">
 
-              <br />
-
               <!--start row 1-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Branch" [(ngModel)]="branch">
+                    <mat-select disableOptionCentering placeholder="Branch" [(ngModel)]="branch"
+                      (ngModelChange)="getDepartment(branch);getFilterItem('filterbranch')">
                       <mat-option *ngFor="let item of branchList" [value]="item.locationCd">
                         {{item.locationName}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Department" [(ngModel)]="department">
-                      <mat-option *ngFor="let item of deptList" [value]="item.deptCd">{{item.deptName}}</mat-option>
+                    <mat-select disableOptionCentering placeholder="Department" [(ngModel)]="department"
+                      (ngModelChange)="getSection(department);getFilterItem('filterdepart')">
+                      <mat-option *ngFor="let item of departmentList" [value]="item.deptCd">{{item.deptName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -248,21 +250,22 @@
               <!--end row 1-->
 
               <!--start row 2-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Section" [(ngModel)]="section">
-                      <mat-option *ngFor="let item of sectList" [value]="item.deptCd">
+                    <mat-select disableOptionCentering placeholder="Section" [(ngModel)]="section"
+                      (ngModelChange)="getFilterItem('filtersection')">
+                      <mat-option *ngFor="let item of sectionList" [value]="item.deptCd">
                         {{item.deptName}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
                     <mat-select disableOptionCentering placeholder="Job Post" [(ngModel)]="jobPost"
                       (ngModelChange)="getFilterItem('jobs')">
-                      <mat-option *ngFor="let item of postList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                      <mat-option *ngFor="let item of tempJobList" [value]="item.jobDesigID">{{item.jobDesigName}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -271,8 +274,8 @@
               <!--end row 2-->
 
               <!--start row 3-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <mat-form-field class="fullwidth">
                     <mat-select disableOptionCentering placeholder="Job Type" [(ngModel)]="jobType">
                       <mat-option *ngFor="let item of jobTypeList" [value]="item.jobTypeCd">
@@ -281,7 +284,7 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <br />
                   <div class="row">
                     <div class="col-md-8">
@@ -297,8 +300,8 @@
               <!--end row 3-->
 
               <!--start row 4-->
-              <div class="row m-auto">
-                <div class="offset-md-1 col-md-4 pl-0">
+              <div class="row m-4">
+                <div class="col-md-6">
                   <div class="row">
                     <div class="col-md-6">
                       <mat-form-field class="fullwidth">
@@ -316,7 +319,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="offset-md-2 col-md-4 pr-0">
+                <div class="col-md-6">
                   <div class="row">
                     <div class="col-md-6">
                       <mat-form-field class="fullwidth">

@@ -14,16 +14,12 @@ Variablepie(Highcharts);
   styleUrls: ["./hrdashboard.component.scss"]
 })
 export class HrdashboardComponent implements OnInit {
-  //serverUrl = "http://localhost:9030/";
+  // serverUrl = "http://localhost:3011/";
   // serverUrl = "http://52.163.189.189:9030/";
   serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9030/";
 
   Column_Chart: Chart;
   Off_Column_Chart: Chart;
-  Dept_Column_Chart: Chart;
-  Type_Bar_Chart: Chart;
-  Gender_Bar_Chart: Chart;
-  Vacancy_Bar_Chart: Chart;
 
   StackColumn_Chart: Chart;
   Variablepie_Chart: Chart;
@@ -40,129 +36,163 @@ export class HrdashboardComponent implements OnInit {
     this.StackColumn_init();
     this.ColumnChart_init();
     // this.OffColumnChart_init();
-    // this.DeptColumnChart_init();
-    // this.TypeBarChart_init();
-    // this.GenderBarChart_init();
-    // this.VacBarChart_init();
-    // this.getEmpAttendance();
+    this.getEmpAttendance();
   }
 
   VariablePie_init() {
-    let chart = new Chart({
-      chart: {
-        type: "variablepie"
-      },
-      title: {
-        text: "Number of contractual and permanent employees by branch",
-        style: {
-          fontSize: "15px",
-          fontWeight: "bold"
+    this.app.showSpinner();
+
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    var tempList = [];
+    var count = 82.42;
+
+    this.http
+      .get(this.serverUrl + "api/getEmployeeLocation", { headers: reqHeader })
+      .subscribe((data: any) => {
+        for (var i = 0; i < data.length; i++) {
+          tempList.push({
+            name: data[i].locationName,
+            y: data[i].qty,
+            z: count
+          });
+          count = count + 23.6;
         }
-      },
-      tooltip: {
-        headerFormat: "",
-        pointFormat:
-          '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
-          "Area (square km): <b>{point.y}</b><br/>" +
-          "Population density (people per square km): <b>{point.z}</b><br/>"
-      },
-      series: [
-        {
-          innerSize: "20%",
-          name: "branches",
-          data: [
+
+        let chart = new Chart({
+          chart: {
+            type: "variablepie"
+          },
+          title: {
+            text: "Number of employees by branch",
+            style: {
+              fontSize: "15px",
+              fontWeight: "bold"
+            }
+          },
+          tooltip: {
+            headerFormat: "",
+            pointFormat:
+              '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+              "Area (square km): <b>{point.y}</b><br/>" +
+              "Population density (people per square km): <b>{point.z}</b><br/>"
+          },
+          series: [
             {
-              name: "Islamabad",
-              y: 505370,
-              z: 92.9
-            },
-            {
-              name: "Head Office",
-              y: 551500,
-              z: 118.7
-            },
-            {
-              name: "Regional",
-              y: 312685,
-              z: 124.6
-            },
-            {
-              name: "Karachi",
-              y: 78867,
-              z: 137.5
-            },
-            {
-              name: "Lahore",
-              y: 301340,
-              z: 201.8
-            },
-            {
-              name: "Customer Support",
-              y: 41277,
-              z: 214.5
+              innerSize: "20%",
+              name: "branches",
+              data: tempList
+              // data: [
+              //   {
+              //     name: "Islamabad",
+              //     y: 505370,
+              //     z: 332.9
+              //   },
+              //   {
+              //     name: "Head Office",
+              //     y: 551500,
+              //     z: 342.7
+              //   },
+              //   {
+              //     name: "Regional",
+              //     y: 312685,
+              //     z: 351.6
+              //   },
+              //   {
+              //     name: "Karachi",
+              //     y: 78867,
+              //     z: 378.5
+              //   },
+              //   {
+              //     name: "Lahore",
+              //     y: 301340,
+              //     z: 402.8
+              //   },
+              //   {
+              //     name: "Customer Support",
+              //     y: 41277,
+              //     z: 428.5
+              //   }
+              // ]
             }
           ]
-        }
-      ]
-    });
+        });
 
-    this.Variablepie_Chart = chart;
+        this.Variablepie_Chart = chart;
+
+        this.app.hideSpinner();
+      });
   }
 
   StackColumn_init() {
-    let chart = new Chart({
-      chart: {
-        type: "column"
-      },
-      title: {
-        text: "Number of employees by department and branch"
-      },
-      xAxis: {
-        categories: [
-          "BPO-Karachi",
-          "Support-Lahore",
-          "Sales-Islamabad",
-          "Head office-ISB",
-          "Regional-Karahi"
-        ]
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: "Number of Employees"
-        }
-      },
-      tooltip: {
-        pointFormat:
-          '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-        shared: true
-      },
-      plotOptions: {
-        column: {
-          stacking: "percent"
-        }
-      },
-      series: [
-        {
-          name: "Finance",
-          data: [5, 3, 4, 7, 2]
-        },
-        {
-          name: "IT",
-          data: [2, 2, 3, 2, 1]
-        },
-        {
-          name: "Customer Support",
-          data: [3, 4, 4, 2, 5]
-        },
-        {
-          name: "Admin",
-          data: [3, 4, 4, 2, 5]
-        }
-      ]
-    });
+    this.app.showSpinner();
 
-    this.StackColumn_Chart = chart;
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    var branchList = [];
+    var deptList = [];
+    var deptChildList = [];
+
+    this.http
+      .get(this.serverUrl + "api/getEmployeeDepartment", { headers: reqHeader })
+      .subscribe((data: any) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].locationName != branchList) {
+            branchList.push(data[i].locationName);
+          }
+          deptChildList = [];
+          if (deptList.length == 0) {
+            deptChildList.push(data[i].total);
+          } else {
+            for (var j = 0; j < deptList.length; j++) {
+              if (data[i].deptName == deptList[j].name) {
+                deptChildList.push(data[i].total);
+              }
+            }
+            if (deptChildList.length == 0) {
+              deptChildList.push(data[i].total);
+            }
+          }
+
+          deptList.push({
+            name: data[i].deptName,
+            data: deptChildList
+          });
+        }
+
+        let chart = new Chart({
+          chart: {
+            type: "column"
+          },
+          title: {
+            text: "Number of employees by department and branch"
+          },
+          xAxis: {
+            categories: branchList
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: "Number of Employees"
+            }
+          },
+          tooltip: {
+            pointFormat:
+              '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+            shared: true
+          },
+          plotOptions: {
+            column: {
+              stacking: "percent"
+            }
+          },
+          series: deptList
+        });
+
+        this.StackColumn_Chart = chart;
+
+        this.app.hideSpinner();
+      });
   }
 
   getEmpAttendance() {
@@ -173,33 +203,10 @@ export class HrdashboardComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .get(this.serverUrl + "api/getEmployee", { headers: reqHeader })
-      .subscribe((data: any) => {
-        this.lblEmployees = data[0].qty;
-
-        this.app.hideSpinner();
-      });
-
-    this.http
-      .get(this.serverUrl + "api/getPermanent", { headers: reqHeader })
+      .get(this.serverUrl + "api/getCntrctPermanent", { headers: reqHeader })
       .subscribe((data: any) => {
         this.lblPermanent = data[0].qty;
-
-        this.app.hideSpinner();
-      });
-
-    this.http
-      .get(this.serverUrl + "api/getContractual", { headers: reqHeader })
-      .subscribe((data: any) => {
-        this.lblContractual = data[0].qty;
-
-        this.app.hideSpinner();
-      });
-
-    this.http
-      .get(this.serverUrl + "api/getJobProfile", { headers: reqHeader })
-      .subscribe((data: any) => {
-        this.lblJobProfile = data[0].qty;
+        this.lblContractual = data[1].qty;
 
         this.app.hideSpinner();
       });
@@ -369,173 +376,5 @@ export class HrdashboardComponent implements OnInit {
         });
         this.Off_Column_Chart = chart;
       });
-  }
-
-  DeptColumnChart_init() {
-    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
-
-    this.http
-      .get(this.serverUrl + "api/getEmployeeDepartment", { headers: reqHeader })
-      .subscribe((data: any) => {
-        var mySeries = [];
-        var myCategory = [];
-        for (var i = 0; i < data.length; i++) {
-          myCategory.push([data[i].empType]);
-          mySeries.push([data[i].qty]);
-        }
-
-        let chart = new Chart({
-          chart: {
-            type: "column"
-          },
-          colors: ["#3f51b5"],
-          title: {
-            text: "Department"
-          },
-          legend: {
-            reversed: true,
-            itemStyle: {
-              fontSize: "15px",
-              fontWeight: "static"
-            }
-          },
-          yAxis: {
-            title: {
-              text: "Amount"
-            }
-          },
-          xAxis: {
-            categories: myCategory
-          },
-          credits: {
-            enabled: false
-          },
-          series: [
-            {
-              name: "Quantity",
-              data: mySeries
-            }
-          ]
-        });
-        this.Dept_Column_Chart = chart;
-      });
-  }
-
-  TypeBarChart_init() {
-    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
-
-    this.http
-      .get(this.serverUrl + "api/getEmployeeType", { headers: reqHeader })
-      .subscribe((data: any) => {
-        var mySeries = [];
-        for (var i = 0; i < data.length; i++) {
-          mySeries.push({ name: data[i].empType, data: [data[i].qty] });
-        }
-
-        let chart = new Chart({
-          chart: {
-            type: "bar"
-          },
-          colors: ["#ff9800", "#00bcd4", "#3f51b5", "#ef0000"],
-          title: {
-            text: "Type"
-          },
-          legend: {
-            reversed: true,
-            itemStyle: {
-              fontSize: "15px",
-              fontWeight: "static"
-            }
-          },
-          plotOptions: {
-            series: {
-              stacking: "normal"
-            }
-          },
-          credits: {
-            enabled: false
-          },
-          series: mySeries
-        });
-
-        this.Type_Bar_Chart = chart;
-      });
-  }
-
-  GenderBarChart_init() {
-    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
-
-    this.http
-      .get(this.serverUrl + "api/getEmployeeGender", { headers: reqHeader })
-      .subscribe((data: any) => {
-        var mySeries = [];
-        for (var i = 0; i < data.length; i++) {
-          mySeries.push({ name: data[i].empType, data: [data[i].qty] });
-        }
-
-        let chart = new Chart({
-          chart: {
-            type: "bar"
-          },
-          colors: ["#b73377", "#2da9d9"],
-          title: {
-            text: "Gender"
-          },
-          legend: {
-            reversed: true,
-            itemStyle: {
-              fontSize: "15px",
-              fontWeight: "static"
-            }
-          },
-          plotOptions: {
-            series: {
-              stacking: "normal"
-            }
-          },
-          credits: {
-            enabled: false
-          },
-          series: mySeries
-        });
-        this.Gender_Bar_Chart = chart;
-      });
-  }
-
-  VacBarChart_init() {
-    let chart = new Chart({
-      chart: {
-        type: "bar"
-      },
-      title: {
-        text: "Vacancy"
-      },
-      legend: {
-        reversed: true,
-        itemStyle: {
-          fontSize: "15px",
-          fontWeight: "static"
-        }
-      },
-      plotOptions: {
-        series: {
-          stacking: "normal"
-        }
-      },
-      credits: {
-        enabled: false
-      },
-      series: [
-        {
-          name: "Filled",
-          data: [20]
-        },
-        {
-          name: "Vacancy",
-          data: [8]
-        }
-      ]
-    });
-    this.Vacancy_Bar_Chart = chart;
   }
 }

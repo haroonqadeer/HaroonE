@@ -12,7 +12,7 @@
       <h1> HR Letters</h1>
 
       <!--start add role permission button-->
-      <a class="pointerCursor">
+      <a class="pointerCursor" data-toggle="modal" data-target="#docModal">
         <i class="fa fa-plus-circle"></i>
         UPLOADS
       </a>
@@ -32,8 +32,7 @@
     <div class="col-md-12">
       <div class="searchBar">
         <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search"
-          [(ngModel)]="tblSearch">
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
       </div>
     </div>
     <!--end search textbox column-->
@@ -58,13 +57,11 @@
         </thead>
         <tbody>
           <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-          <tr class='d-flex' *ngFor="let doc of document | search:'documentName':tblSearch 
-                      | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' } 
-                      | orderBy: order:reverse:'case-insensitive' let i=index">
+          <tr class='d-flex' *ngFor="let doc of documentList | search:'documentName':tblSearch  | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' }  | orderBy: order:reverse:'case-insensitive' let i=index">
             <td class='col-2 text-left'>{{i+1}}</td>
-            <td class='col-4 text-left'>{{doc.documentName}}</td>
+            <td class='col-4 text-left'><a href="../assets/images/OrgDocuments/{{doc.docName}}.{{doc.docExtension}}" download>{{doc.docName}}</a></td>
             <td class='col-6 text-left'>
-              <span class="fa tableIcon pointerCursor">
+              <span class="fa tableIcon pointerCursor" (click)="delete(doc)">
                 <span class="fa icon-u-delete"></span>
               </span>
             </td>
@@ -109,3 +106,62 @@
 <!--end myContainer div-->
 
 <br />
+
+
+<!-- Start Modal Window -->
+<div class="modal fade" id="docModal">
+  <!--start modal window dialog-->
+  <div class="modal-dialog shadow-lg-dark modal-lg">
+    <!--start modal window contents -->
+    <div class="modal-content modal-bottom-border-blue">
+      <!--start user Modal Header -->
+      <div class="modal-header bg-skyBlue borderBlue5px">
+        <h4 class="modal-title">Upload Document</h4>
+        <div>
+          <button type="button" class="btn-close cursorPointer" data-dismiss="modal"></button>
+        </div>
+      </div>
+      <!--end user Modal Header -->
+
+      <!--start user Modal body -->
+      <div class="modal-body m-3">
+        <!--start 1st row -->
+        <div class="row">
+          <!--start fields column-->
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput placeholder="Document Title" [(ngModel)]="documentTitle" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <br/>
+            <input type="file" (change)="onFileSelected($event)" [(ngModel)]="docFile" />
+            
+            <!--start buttons row -->
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <button mat-raised-button class="btn fullwidth pt-1 pb-1 noneOutLine" (click)="clear()"
+                  style="border-radius: 0;">
+                  &nbsp;&nbsp;&nbsp;RESET&nbsp;&nbsp;&nbsp;
+                </button>
+              </div>
+              <div class="col-md-6">
+                <button mat-raised-button class="btn fullwidth pt-1 pb-1 noneOutLine" (click)="save()"
+                  style="border-radius: 0;">
+                  &nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;
+                </button>
+              </div>
+            </div>
+            <!--end buttons row -->
+          </div>
+          <!--end fields column-->
+        </div>
+        <!--end 1st row -->
+      </div>
+      <!--end user Modal body -->
+    </div>
+    <!--end modal window contents -->
+  </div>
+  <!--end modal window dialog-->
+</div>
+<!-- End Modal Window -->
