@@ -291,7 +291,6 @@ export class EmpolyeeprofileComponent implements OnInit {
         });
     }
 
-
     //function for get all saved employee
     getNewEmployee() {
 
