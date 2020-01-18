@@ -104,7 +104,7 @@ export class PostComponent implements OnInit {
   sectionName = "";
   txtReptOfficer = "";
   txtLeaveRule = "";
-  formLeaveRule: FormControl;
+  formLeaveRule = new FormControl();
   BPS = "";
   jobNature = "";
   jobType = "";

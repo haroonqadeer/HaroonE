@@ -130,6 +130,13 @@
   background-color: #4181C3;
 }
 
+.tableIcon .icon-emp-edit {
+  width: 75%;
+  height: 75%;
+  mask: url(./assets/images/Edit.svg) no-repeat center;
+  background-color: #4181C3;
+}
+
 .tableIcon .icon-u-edit-disable {
   width: 100%;
   height: 100%;
@@ -140,6 +147,13 @@
 .tableIcon .icon-u-delete {
   width: 100%;
   height: 100%;
+  mask: url(./assets/images/Delete.svg) no-repeat center;
+  background-color: #CC3333;
+}
+
+.tableIcon .icon-emp-delete {
+  width: 75%;
+  height: 75%;
   mask: url(./assets/images/Delete.svg) no-repeat center;
   background-color: #CC3333;
 }
