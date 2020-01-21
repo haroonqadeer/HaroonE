@@ -2284,3 +2284,35 @@
       padding: 0 10px;
       border-bottom: none;
     }
+
+
+
+
+
+    //////////////////////////////////////////
+    //Attendance Status Class --------------//
+    //////////////////////////////////////////
+
+    .available {
+      color: #0066cb;
+    }
+
+    .onfield {
+      color: #00cdfe;
+    }
+
+    .inoffice {
+      color: #67cb33;
+    }
+
+    .absent {
+      color: #99a0a6;
+    }
+
+    .remote {
+      color: #936fd9;
+    }
+
+    .onleave {
+      color: #df7b40;
+    }

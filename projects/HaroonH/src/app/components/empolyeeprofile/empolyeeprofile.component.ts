@@ -1,4 +1,4 @@
-import {  Component, ViewChild, OnInit, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
+import {Component, ViewChild, OnInit, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { ToastrManager } from 'ng6-toastr-notifications';
