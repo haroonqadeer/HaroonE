@@ -17,7 +17,7 @@ declare var $: any;
   styleUrls: ["./employee-shift.component.scss"]
 })
 export class EmployeeShiftComponent implements OnInit {
-  //serverUrl = "http://localhost:9027/";
+  // serverUrl = "http://localhost:3010/";
   serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9027/";
 
   //* variables for pagination and orderby pipe
@@ -48,8 +48,8 @@ export class EmployeeShiftComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getShift();
-    this.getEmployeeShift();
+    // this.getShift();
+    // this.getEmployeeShift();
     this.getBranch();
   }
 
