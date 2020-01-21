@@ -1,19 +1,21 @@
-
+<br />
 <!-- start menubar buttons -->
-<div class="topnav boxShadow">
+<div class="myContainer mat-elevation-z8 bgWhite">
+  <!--start top nav box shadow div-->
+  <div class="topnav boxShadow">
     <div>
       <!--class="container" -->
       <span class="fa iconContainer">
         <span class="fa icon-hr-post"> </span>
       </span>
-      <h1> Year Calender</h1>
-      
+      <h1> Calender</h1>
+
       <!-- buttons -->
       <a class="pointerCursor" data-toggle="modal" data-target="#eventModal">
         <i class="fa fa-gift"></i>
         &nbsp;Holiday
       </a>
-  
+
       <a class="pointerCursor" data-toggle="modal" data-target="#calendarModal">
         <i class="fa fa-stack-overflow"></i>
         &nbsp;Generate Calendar
@@ -21,75 +23,95 @@
     </div>
   </div>
   <!-- end menubar buttons -->
-  
-<div class="bgWhite">
-  <br>
-  <p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
 </div>
-<br/>
+<div class="myContainer bgWhite mb-1 mt-3">
+  <div class="row mt-3">
+    <div class="col-md-3">
+      <div class="row mb-2">
+        <div class="offset-md-1 col-md-11">
+          <label>NATIONAL HOLIDAYS</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="bg-light-grey allBorder">
+            <div class="row">
+              <div class="col-md-12"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
+    </div>
+  </div>
+</div>
 
 
 <!-- Start Modal Window to view employee data -->
 <div class="modal fade" id="eventModal">
   <div class="modal-dialog shadow-lg-dark modal-lg">
-      <div class="modal-content">
+    <div class="modal-content">
 
-        <!--start Modal Header -->
-        <div class="modal-header">
-            <h4 class="modal-title">Add Holidays</h4>
-            <div>                
-                <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
-            </div>
-            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-          </div>
-          <!--end Modal Header -->
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Holidays</h4>
+        <div>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span
+              class="fa fa-times-circle"></span> &nbsp;Close</button>
+        </div>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+      <!--end Modal Header -->
 
-          <!--start Modal body -->
-          <div class="modal-body">
-            <!--table row-->
-            <div class="row">
-                <table class="table table-striped bottomBorder">
-                  <thead>
-                    <tr class="d-flex">
-                      <th class="col-2 text-center">Sr #</th>
-                      <th class="col-4 text-center">Holiday Name</th>
-                      <th class="col-4 text-center">Holiday Date</th>
-                      <th class="col-2 text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="d-flex" *ngFor="let item of holidayList let i=index">
-                        <td class="col-2 text-center">{{i + 1}}</td>
-                        <td class="col-4 text-center">{{item.eventName}}</td>
-                        <td class="col-4 text-center">{{item.eventDate|date: 'dd-MM-yyyy'}}</td>
-                        <td class="col-2 text-center">-</td>
-                    </tr>  
-                    <tr class="d-flex">
-                      <td class="col-2 text-center"></td>
-                      <td class="col-4 text-center">
-                          <p-dropdown placeholder="Select Holiday" [options]="cmbHolidayList" [(ngModel)]="cmbHoliday" [showClear]="true"></p-dropdown>
-                      </td>
-                      <td class="col-4 text-center">
-                        <p-calendar [(ngModel)]="eventDate" [showIcon]="true"></p-calendar>
-                      </td>
-                      <td class="col-2 text-center">
-                        <span class="fa fa-plus pointerCursor" (click)="saveEvent()"></span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!--end table row-->
-          </div>
-          <!--end Modal body -->
-  
-          <!--start Modal footer -->
-          <!-- <div class="modal-footer">
+      <!--start Modal body -->
+      <div class="modal-body">
+        <!--table row-->
+        <div class="row">
+          <table class="table table-striped bottomBorder">
+            <thead>
+              <tr class="d-flex">
+                <th class="col-2 text-center">Sr #</th>
+                <th class="col-4 text-center">Holiday Name</th>
+                <th class="col-4 text-center">Holiday Date</th>
+                <th class="col-2 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="d-flex" *ngFor="let item of holidayList let i=index">
+                <td class="col-2 text-center">{{i + 1}}</td>
+                <td class="col-4 text-center">{{item.eventName}}</td>
+                <td class="col-4 text-center">{{item.eventDate|date: 'dd-MM-yyyy'}}</td>
+                <td class="col-2 text-center">-</td>
+              </tr>
+              <tr class="d-flex">
+                <td class="col-2 text-center"></td>
+                <td class="col-4 text-center">
+                  <p-dropdown placeholder="Select Holiday" [options]="cmbHolidayList" [(ngModel)]="cmbHoliday"
+                    [showClear]="true"></p-dropdown>
+                </td>
+                <td class="col-4 text-center">
+                  <p-calendar [(ngModel)]="eventDate" [showIcon]="true"></p-calendar>
+                </td>
+                <td class="col-2 text-center">
+                  <span class="fa fa-plus pointerCursor" (click)="saveEvent()"></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--end table row-->
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <!-- <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
           </div> -->
-          <!--end Modal footer -->
-  
-      </div>
+      <!--end Modal footer -->
+
+    </div>
   </div>
 </div>
 <!-- End Modal Window to view employee data -->
@@ -97,64 +119,65 @@
 <!-- Start Modal Window to view employee data -->
 <div class="modal fade" id="calendarModal">
   <div class="modal-dialog shadow-lg-dark modal-lg">
-      <div class="modal-content">
+    <div class="modal-content">
 
-        <!--start Modal Header -->
-        <div class="modal-header">
-            <h4 class="modal-title">Generate Calendar</h4>
-            <div>
-                <button type="button" class="btn-ia cursorPointer text-right" (click)="saveCalender()"><span class="fa fa-save"></span> &nbsp;Save</button>                
-                <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
-            </div>
-            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-          </div>
-          <!--end Modal Header -->
+      <!--start Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Generate Calendar</h4>
+        <div>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveCalender()"><span
+              class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span
+              class="fa fa-times-circle"></span> &nbsp;Close</button>
+        </div>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+      <!--end Modal Header -->
 
-          <!--start Modal body -->
-          <div class="modal-body">
-            <br>
-            <div class="row">
-              <div class="col-md-3">
-                <label>Select Affect Date</label>
-              </div>
-              <div class="col-md-4">
-                <p-calendar [(ngModel)]="affectDate" [showIcon]="true"></p-calendar>
-              </div>
-            </div>
-            <br>  
-            <br/>
-            <div class="row">
-              <div class="col-md-12">
-                <h5><b>Weekend Selection &nbsp;</b></h5>
-              </div>
-            </div>
-            <hr>
-            <!--1st row-->
-            <div class="row">
-              <div class="col-md-12">
-                  <mat-checkbox [(ngModel)]="Monday">Monday</mat-checkbox>&nbsp;&nbsp;
-                  <mat-checkbox [(ngModel)]="Tuesday">Tuesday</mat-checkbox>&nbsp;&nbsp;
-                  <mat-checkbox [(ngModel)]="Wednesday">Wednesday</mat-checkbox>&nbsp;&nbsp;
-                  <mat-checkbox [(ngModel)]="Thursday">Thursday</mat-checkbox>&nbsp;&nbsp;
-                  <mat-checkbox [(ngModel)]="Friday">Friday</mat-checkbox>&nbsp;&nbsp;
-                  <mat-checkbox [(ngModel)]="Saturday">Saturday</mat-checkbox>&nbsp;&nbsp;
-                  <mat-checkbox [(ngModel)]="Sunday">Sunday</mat-checkbox>
-              </div>
-            </div>
-            <!--end 1st row-->
-            <hr>
-            <br/>            
+      <!--start Modal body -->
+      <div class="modal-body">
+        <br>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Select Affect Date</label>
           </div>
-          <!--end Modal body -->
-  
-          <!--start Modal footer -->
-          <!-- <div class="modal-footer">
+          <div class="col-md-4">
+            <p-calendar [(ngModel)]="affectDate" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+        <br>
+        <br />
+        <div class="row">
+          <div class="col-md-12">
+            <h5><b>Weekend Selection &nbsp;</b></h5>
+          </div>
+        </div>
+        <hr>
+        <!--1st row-->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-checkbox [(ngModel)]="Monday">Monday</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox [(ngModel)]="Tuesday">Tuesday</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox [(ngModel)]="Wednesday">Wednesday</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox [(ngModel)]="Thursday">Thursday</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox [(ngModel)]="Friday">Friday</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox [(ngModel)]="Saturday">Saturday</mat-checkbox>&nbsp;&nbsp;
+            <mat-checkbox [(ngModel)]="Sunday">Sunday</mat-checkbox>
+          </div>
+        </div>
+        <!--end 1st row-->
+        <hr>
+        <br />
+      </div>
+      <!--end Modal body -->
+
+      <!--start Modal footer -->
+      <!-- <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
           </div> -->
-          <!--end Modal footer -->
-  
-      </div>
+      <!--end Modal footer -->
+
+    </div>
   </div>
 </div>
 <!-- End Modal Window to view employee data -->
-  

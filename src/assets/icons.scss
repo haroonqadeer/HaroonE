@@ -158,6 +158,27 @@
   background-color: #7cb756;
 }
 
+.tableIcon .icon-u-save-edit {
+  width: 100%;
+  height: 100%;
+  mask: url(./assets/images/save.svg) no-repeat center;
+  background-color: #e54d25;
+}
+
+.tableIcon .icon-u-save-disable {
+  width: 100%;
+  height: 100%;
+  mask: url(./assets/images/save.svg) no-repeat center;
+  background-color: #aeaeae;
+}
+
+.tableIcon .icon-u-view {
+  width: 100%;
+  height: 100%;
+  mask: url(./assets/images/View.svg) no-repeat center;
+  background-color: #e54d25;
+}
+
 .tableIcon .icon-emp-delete {
   width: 75%;
   height: 75%;

@@ -48,7 +48,7 @@ export class EmployeeShiftComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.getShift();
+    this.getShift();
     // this.getEmployeeShift();
     this.getBranch();
   }
