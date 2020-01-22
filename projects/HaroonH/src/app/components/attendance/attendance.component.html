@@ -36,12 +36,12 @@
     </div>
 
     <div class="col-md-6 pt-2 pr-0 pb-2 border-bottom text-right">
-        <mat-checkbox>Available &nbsp; </mat-checkbox>
-        <mat-checkbox>Absent &nbsp; </mat-checkbox>
-        <mat-checkbox>In Office &nbsp; </mat-checkbox>
-        <mat-checkbox>On Field &nbsp; </mat-checkbox>
-        <mat-checkbox>On Leave &nbsp; </mat-checkbox>
-        <mat-checkbox>Work from home &nbsp; </mat-checkbox>
+        <mat-checkbox class="available">Available &nbsp; </mat-checkbox>
+        <mat-checkbox class="absent">Absent &nbsp; </mat-checkbox>
+        <mat-checkbox class="inoffice">In Office &nbsp; </mat-checkbox>
+        <mat-checkbox class="onfield">On Field &nbsp; </mat-checkbox>
+        <mat-checkbox class="onleave">On Leave &nbsp; </mat-checkbox>
+        <mat-checkbox class="remote">Work at home &nbsp; </mat-checkbox>
     </div>
 
   </div>
@@ -74,7 +74,7 @@
 
 
             <!--Available Employees -->
-            <div class="row mb-n2 mt-n3 position-absolute" style="bottom: 0;" *ngIf="i == 1 || i > 6">
+            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="i == 1 || i > 6">
               <div class="col-md-12">
                 <label class="font1emb">
                   <i class="fa fa-circle font0-8em available"></i> Available
@@ -84,7 +84,7 @@
 
 
             <!--Absent Employees -->
-            <div class="row mb-n2 mt-n3 position-absolute" style="bottom: 0;" *ngIf="i == 2">
+            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="i == 2">
               <div class="col-md-12">
                 <label class="font1emb">
                   <i class="fa fa-circle font0-8em absent"></i> Absent
@@ -94,7 +94,7 @@
 
 
             <!--In Office Employees -->
-            <div class="row mb-n2 mt-n3 position-absolute" style="bottom: 0;" *ngIf="i == 3">
+            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="i == 3">
               <div class="col-md-12">
                 <label class="font1emb">
                   <i class="fa fa-circle font0-8em inoffice"></i> In Office
@@ -104,7 +104,7 @@
 
 
             <!--On Field Employees -->
-            <div class="row mb-n2 mt-n3 position-absolute" style="bottom: 0;" *ngIf="i == 4">
+            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="i == 4">
               <div class="col-md-12">
                 <label class="font1emb">
                   <i class="fa fa-circle font0-8em onfield"></i> On Field
@@ -114,7 +114,7 @@
 
 
             <!--Onleave  Employees -->
-            <div class="row mb-n2 mt-n3 position-absolute" style="bottom: 0;" *ngIf="i == 5">
+            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="i == 5">
               <div class="col-md-12">
                 <label class="font1emb">
                   <i class="fa fa-circle font0-8em onleave"></i> On Leave
@@ -124,7 +124,7 @@
 
 
             <!--Remote Employees -->
-            <div class="row mb-n2 mt-n3 position-absolute" style="bottom: 0;" *ngIf="i == 6">
+            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="i == 6">
               <div class="col-md-12">
                 <label class="font1emb">
                   <i class="fa fa-circle font0-8em remote"></i> Remote
@@ -207,13 +207,9 @@
 
 
             <!--start buttons row -->
-            <!-- <div class="row mt-3 position-absolute text-right" style="bottom: 0;">
-              <div class="col-md-12 text-right"> -->
-                <button mat-raised-button class="btn mr-3 noneOutLine rounded-0 position-absolute" style="bottom:0; right: 0;">
-                  &nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;
-                </button>
-              <!-- </div>
-            </div> -->
+            <button mat-raised-button class="btn mr-3 noneOutLine rounded-0 position-absolute absolute-right absolute-bottom">
+              &nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;
+            </button>
             <!--end buttons row -->
 
           </div>

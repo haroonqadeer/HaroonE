@@ -2295,6 +2295,7 @@
 
     .available {
       color: #0066cb;
+      border-color: #0066cb;
     }
 
     .onfield {
@@ -2315,4 +2316,21 @@
 
     .onleave {
       color: #df7b40;
+    }
+
+
+    .absolute-top {
+      top: 0 !important;
+    }
+
+    .absolute-right {
+      right: 0 !important;
+    }
+
+    .absolute-bottom {
+      bottom: 0 !important;
+    }
+
+    .absolute-left {
+      left: 0 !important;
     }
