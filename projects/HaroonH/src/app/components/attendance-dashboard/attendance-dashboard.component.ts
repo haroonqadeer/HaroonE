@@ -12,6 +12,8 @@ export class AttendanceDashboardComponent implements OnInit {
   //serverUrl = "http://localhost:9031/";
   serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9031/";
 
+  //* Variables Declaration for chart
+  Area_chart: Chart;
   Column_Chart: Chart;
   Pie_Chart: Chart;
 
@@ -25,11 +27,56 @@ export class AttendanceDashboardComponent implements OnInit {
   constructor(private http: HttpClient, private app: AppComponent) {}
 
   ngOnInit() {
-    this.ColumnChart_init();
-    this.PieChart_init();
-    this.getShift();
-    this.getEmpAttendance();
+    // this.ColumnChart_init();
+    // this.PieChart_init();
+    // this.getShift();
+    // this.getEmpAttendance();
+    this.AreaChart_init();
   }
+
+  //Get the weekly user trend
+  AreaChart_init() {
+    let chart = new Chart({
+      chart: {
+        type: "areaspline"
+      },
+      title: {
+        text: "Employee attendance for last week"
+      },
+      xAxis: {
+        categories: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+      },
+      yAxis: {
+        title: {
+          text: "Number of Employees"
+        }
+      },
+      credits: {
+        enabled: false
+      },
+      series: [
+        {
+          name: "In Office",
+          data: [2, 5, 3, 9, 4]
+        },
+        {
+          name: "Remote",
+          data: [8, 1, 5, 3, 7]
+        },
+        {
+          name: "On Leave",
+          data: [1, 4, 5, 7, 2]
+        },
+        {
+          name: "Absent",
+          data: [6, 0, 2, 8, 3]
+        }
+      ]
+    });
+
+    this.Area_chart = chart;
+  }
+
   //Get the daily user trend
   PieChart_init() {
     this.app.showSpinner();
