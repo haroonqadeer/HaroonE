@@ -1,106 +1,248 @@
-<!-- start menubar buttons -->
-<div class="topnav boxShadow">
-  <div>
-    <!--class="container" -->
-    <span class="fa iconContainer">
-      <span class="fa icon-hr-dashboard" > </span>
-    </span>
-    <h1> Attendance Dashboard</h1>
+<div class="bg-lighter-grey innerContainer allBorder mt-5 center-block">
+  <div class="p-4">
+    <div class="row">
+      <div class="col-md-9 text-left">
+        <label class="font-weight-normal dashboardHeadingFont"> Attendance Dashboard </label>
+      </div>
+      <div class="col-md-3 text-right">
+        <mat-form-field class="fullwidth my-form">
+          <mat-select class="my-form" placeholder="Select Branch" required>
+            <mat-option *ngFor=" let item" [value]="item.companyId">
+              {{item.companyName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="bgWhite boxShadow">
+          <div class="row p-4">
+            <div class="col-md-7 text-left">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="imgContract"></div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-12">
+                  <label class="mb-0" style="font-size: 0.9em;">IN OFFICE TODAY</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 text-right">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="pt-1" style="font-size: 2.5em;">25</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="bgWhite boxShadow">
+          <div class="row p-4">
+            <div class="col-md-8 text-left">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="imgOnLeave"></div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-12">
+                  <label class="mb-0" style="font-size: 0.9em;">ON LEAVE - TODAY</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 text-right">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="pt-1" style="font-size: 2.5em;">4</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="bgWhite boxShadow">
+          <div class="row p-4">
+            <div class="col-md-10 text-left">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="imgJobOpen"></div>
+                </div>
+              </div>
+              <div class="row mt-n3">
+                <div class="col-md-12">
+                  <label class="mb-0 pt-2" style="font-size: 0.9em;">REMOTE/WORK FROM HOME</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 text-left">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="pt-1" style="font-size: 2.5em;">4</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="bgWhite boxShadow">
+          <div class="row p-4">
+            <div class="col-md-9 text-left">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="imgAppReceive"></div>
+                </div>
+              </div>
+              <div class="row mt-1">
+                <div class="col-md-12">
+                  <label class="mb-0" style="font-size: 0.9em;">ABSENT TODAY</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 text-right">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="pt-1" style="font-size: 2.5em;">1</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="bgWhite pt-2" style="height: 350px;"></div>
+      </div>
+      <div class="col-md-6">
+        <div class="bgWhite p-3" style="height: 350px;">
+          <div class="row mt-1">
+            <div class="col-md-6 text-left">
+              <label class="font0-9em">RECENT ENTRIES</label>
+            </div>
+            <div class="col-md-6 text-right">
+              <label class="font0-9em">Today is Monday, 24/1/2020</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-striped">
+                <tbody>
+                  <tr class="d-flex">
+                    <td class="col-6 text-left">John Smith</td>
+                    <td class="col-6 text-right">9:30 am, 11 mins ago</td>
+                  </tr>
+                  <tr class="d-flex">
+                    <td class="col-6 text-left">Khan Ahmed</td>
+                    <td class="col-6 text-right">9:28 am, 12 mins ago</td>
+                  </tr>
+                  <tr class="d-flex">
+                    <td class="col-6 text-left">Rizwan Khan</td>
+                    <td class="col-6 text-right">9:15 am, 25 mins ago</td>
+                  </tr>
+                  <tr class="d-flex">
+                    <td class="col-6 text-left">Ahmed Ali</td>
+                    <td class="col-6 text-right">9:05 am, 35 mins ago</td>
+                  </tr>
+                  <tr class="d-flex">
+                    <td class="col-6 text-left">Ali Raza</td>
+                    <td class="col-6 text-right">9:00 am, 40 mins ago</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="bgWhite p-4" style="height: 350px;">
+          <div class="row">
+            <div class="col-md-12">
+              <label class="font0-9em">NATIONAL HOLIDAYS</label>
+            </div>
+          </div>
+          <div class="row overflow-auto">
+            <div class="col-md-12">
+              <div class="row mt-2">
+                <div class="col-md-6 text-left">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <span class="fa fa-circle onfield" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-md-10 text-left">
+                      <label class="onfield font0-9em ml-n3">Labour Day</label>
+                    </div>
+                  </div>
+                  <div class="row mt-n2">
+                    <div class="offset-md-2 col-md-10 text-left">
+                      <label class="font0-8em remote ml-n3">Friday,May 01,2020</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 text-right">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <span class="fa fa-circle inoffice" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-md-10 text-left">
+                      <label class="inoffice font0-9em ml-n3">Independence Day</label>
+                    </div>
+                  </div>
+                  <div class="row mt-n2">
+                    <div class="offset-md-2 col-md-10 text-left">
+                      <label class="font0-8em remote ml-n3">Friday,August 14,2020</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-6 text-left">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <span class="fa fa-circle onfield" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-md-10 text-left">
+                      <label class="onfield font0-9em ml-n3">Eid ul-Fitr</label>
+                    </div>
+                  </div>
+                  <div class="row mt-n2">
+                    <div class="offset-md-2 col-md-10 text-left">
+                      <label class="font0-8em remote ml-n3">Sunday,May 24,2020</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 text-right">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <span class="fa fa-circle inoffice" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-md-10 text-left">
+                      <label class="inoffice font0-9em ml-n3">Ashura</label>
+                    </div>
+                  </div>
+                  <div class="row mt-n2">
+                    <div class="offset-md-2 col-md-10 text-left">
+                      <label class="font0-8em remote ml-n3">Saturday,August 29,2020</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="bgWhite pt-4 pl-4 pr-4" [chart]="Area_chart" style="height:350px;"></div>
+      </div>
+    </div>
   </div>
-</div>
-<!-- end menubar buttons -->
 
-<div class="container-fluid bgWhite">
-  <br>
-  <!--box row-->
-  <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box bg-indigo hover-expand-effect">
-        <div class="icon">
-          <i class="fa fa-users"></i>
-        </div>
-        <div class="content">
-          <div class="text">Employees</div>
-          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblTotalEmp}}</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box bg-orange hover-expand-effect">
-        <div class="icon">
-          <i class="fa fa-line-chart"></i>
-        </div>
-        <div class="content">
-          <div class="text">Present</div>
-          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblPresentEmp}}</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box bg-cyan hover-expand-effect">
-        <div class="icon">
-          <i class="fa fa-sign-out"></i>
-        </div>
-        <div class="content">
-          <div class="text">Absent</div>
-          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblAbsentEmp}}</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box bg-light-green hover-expand-effect">
-        <div class="icon">
-          <i class="fa fa-gears"></i>
-        </div>
-        <div class="content">
-          <div class="text">Late Comers</div>
-          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{lblLateComers}}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <br/>
-  <div class="row">
-    <div class="col-md-6">
-      <div class=" shadow-md" [chart]="Pie_Chart" style=" height: 20em;width:100%;"></div>
-      <!-- <div class=" shadow-md" [chart]="Column_Chart" style=" height: 100%;width:100%;"></div> -->
-    </div>
-    <div class="col-md-6 shadow-md mat-elevation-z8 bgWhite">
-      <div class="example-container">
-        <div class="example-table-container" style="height: 20em; overflow: auto;">                      
-          <table class="table table-striped">
-            <thead>
-              <tr class='d-flex'>
-                <th class='col-1 text-center'>Sr #</th>
-                <th class='col-5'>Shift Name</th>
-                <th class='col-3 text-center'>Start Time</th>
-                <th class='col-3 text-center'>End TIme</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- <tr class="d-flex"> -->
-              <tr *ngFor="let item of shiftList let i=index" class='d-flex'>
-                <td class='col-1 text-center'>{{i + 1}}</td> 
-                <td class='col-5'>{{item.shiftName}}</td>
-                <td class='col-3 text-center'>{{item.startTime}}</td>
-                <td class='col-3 text-center'>{{item.endTime}}</td>
-              </tr>
-    
-              
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>    
-  </div>
-
-  <br>
-  <!-- row - 03 -->
-  <div class="row">
-    <div class="col-md-12">
-      <div class=" shadow-md" [chart]="Column_Chart" style=" height: 20em;width:100%;"></div>
-    </div>
-  </div>
-  <br/>
 </div>
