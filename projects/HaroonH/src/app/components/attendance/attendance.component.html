@@ -10,7 +10,7 @@
       </span>
       <h1> Attendance</h1>
       
-      <a class="pointerCursor text-uppercase" data-toggle="modal" data-target="#attModal">
+      <a class="pointerCursor text-uppercase" data-toggle="modal" data-target="#attModal" (click)="clear()">
         <i class="fa fa-plus-circle"></i>
         Mark attendance
       </a>
@@ -36,12 +36,12 @@
     </div>
 
     <div class="col-md-6 pt-2 pr-0 pb-2 border-bottom text-right">
-        <mat-checkbox class="available">Available &nbsp; </mat-checkbox>
-        <mat-checkbox class="absent">Absent &nbsp; </mat-checkbox>
-        <mat-checkbox class="inoffice">In Office &nbsp; </mat-checkbox>
-        <mat-checkbox class="onfield">On Field &nbsp; </mat-checkbox>
-        <mat-checkbox class="onleave">On Leave &nbsp; </mat-checkbox>
-        <mat-checkbox class="remote">Work at home &nbsp; </mat-checkbox>
+        <mat-checkbox class="available" [(ngModel)]="available" (ngModelChange)="getFilterItem('fws')" >Available &nbsp; </mat-checkbox>
+        <mat-checkbox class="absent" [(ngModel)]="absent" (ngModelChange)="getFilterItem('fws')">Absent &nbsp; </mat-checkbox>
+        <mat-checkbox class="inoffice" [(ngModel)]="inOffice" (ngModelChange)="getFilterItem('fws')">In Office &nbsp; </mat-checkbox>
+        <mat-checkbox class="onfield" [(ngModel)]="onField" (ngModelChange)="getFilterItem('fws')">On Field &nbsp; </mat-checkbox>
+        <mat-checkbox class="onleave" [(ngModel)]="onLeave" (ngModelChange)="getFilterItem('fws')">On Leave &nbsp; </mat-checkbox>
+        <mat-checkbox class="remote" [(ngModel)]="remote" (ngModelChange)="getFilterItem('fws')">Work at home &nbsp; </mat-checkbox>
     </div>
 
   </div>
@@ -50,7 +50,7 @@
   <br />
 
   <div class="row">
-    <div *ngFor="let item of employeeList | search:'indvdlFullName,jobDesigName':tblSearch let i=index" class="col-md-2 mb-3">
+    <div *ngFor="let item of tempEmployeeList | search:'indvdlFullName,jobDesigName':tblSearch let i=index" class="col-md-2 mb-3">
 
       <mat-card class="allBorder p-0 rounded-0">
 
@@ -74,7 +74,7 @@
 
 
             <!--Available Employees -->
-            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="i == 1 || i > 6">
+            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="item.attendanceStatCd == 2">
               <div class="col-md-12">
                 <label class="font1emb">
                   <i class="fa fa-circle font0-8em available"></i> Available
@@ -84,7 +84,7 @@
 
 
             <!--Absent Employees -->
-            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="i == 2">
+            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="item.attendanceStatCd == 3">
               <div class="col-md-12">
                 <label class="font1emb">
                   <i class="fa fa-circle font0-8em absent"></i> Absent
@@ -94,7 +94,7 @@
 
 
             <!--In Office Employees -->
-            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="i == 3">
+            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="item.attendanceStatCd == 4">
               <div class="col-md-12">
                 <label class="font1emb">
                   <i class="fa fa-circle font0-8em inoffice"></i> In Office
@@ -104,7 +104,7 @@
 
 
             <!--On Field Employees -->
-            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="i == 4">
+            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="item.attendanceStatCd == 5">
               <div class="col-md-12">
                 <label class="font1emb">
                   <i class="fa fa-circle font0-8em onfield"></i> On Field
@@ -114,7 +114,7 @@
 
 
             <!--Onleave  Employees -->
-            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="i == 5">
+            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="item.attendanceStatCd == 6">
               <div class="col-md-12">
                 <label class="font1emb">
                   <i class="fa fa-circle font0-8em onleave"></i> On Leave
@@ -124,7 +124,7 @@
 
 
             <!--Remote Employees -->
-            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="i == 6">
+            <div class="row mb-n2 mt-n3 position-absolute absolute-bottom" *ngIf="item.attendanceStatCd == 7">
               <div class="col-md-12">
                 <label class="font1emb">
                   <i class="fa fa-circle font0-8em remote"></i> Remote
@@ -182,7 +182,7 @@
 
             <!--empoyee name -->
             <mat-form-field class="fullwidth">
-              <mat-select disableOptionCentering placeholder="Employee Name" [(ngModel)]="branch">
+              <mat-select disableOptionCentering placeholder="Employee Name" [(ngModel)]="ddlEmployee" (ngModelChange)="getFilterItem('emp')">
                 <mat-option *ngFor="let item of employeeList" [value]="item.empID">
                   {{item.indvdlFullName}}
                 </mat-option>
@@ -192,22 +192,22 @@
 
             <!--Entrance Code-->
             <mat-form-field class="fullwidth">
-              <input matInput placeholder="Entrance Code" [(ngModel)]="code">
+              <input matInput placeholder="Entrance Code" [(ngModel)]="txtPassword">
             </mat-form-field>
 
 
             <!--availibility-->
             <mat-form-field class="fullwidth">
-              <mat-select disableOptionCentering placeholder="Availibility" [(ngModel)]="branch">
-                <mat-option *ngFor="let item of employeeList" [value]="item.empID">
-                  {{item.indvdlFullName}}
+              <mat-select disableOptionCentering placeholder="Availibility" [(ngModel)]="ddlAttType" [disabled]="disableFlag">
+                <mat-option *ngFor="let item of attTypeList" [value]="item.attendanceStatCd">
+                  {{item.attendanceStatName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
 
             <!--start buttons row -->
-            <button mat-raised-button class="btn mr-3 noneOutLine rounded-0 position-absolute absolute-right absolute-bottom">
+            <button mat-raised-button class="btn mr-3 noneOutLine rounded-0 position-absolute absolute-right absolute-bottom" (click)="save()">
               &nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;
             </button>
             <!--end buttons row -->
