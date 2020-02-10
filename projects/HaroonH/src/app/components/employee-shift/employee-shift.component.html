@@ -14,6 +14,8 @@
   <!-- end menubar buttons -->
 </div>
 
+
+
 <div class="myContainer bgWhite minHeight84 allBorder mb-1">
   <!--Start search textbox Row-->
   <div class="row">
@@ -24,6 +26,7 @@
       </mat-form-field> -->
       <div class="searchBar">
         <div class="row mt-4 mb-1">
+
           <div class="col-md-3">
             <div class="row">
               <div class="col-md-1">
@@ -31,32 +34,31 @@
               </div>
               <div class="col-md-10 mt-n2">
                 <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Employee Name"
-                  [(ngModel)]="shiftSearch">
+                  [(ngModel)]="tblSearch">
               </div>
             </div>
           </div>
+
           <div class="col-md-3">
             <!-- <mat-form-field class="fullwidth"> -->
-            <mat-select class="noneOutLine" placeholder="Branch" [(ngModel)]="officeName"
-              (ngModelChange)="onBranchChange($event)">
+            <mat-select class="noneOutLine" placeholder="Branch" [(ngModel)]="officeName" (ngModelChange)="getFilterItem('branch');getDepartment(officeName)">
               <mat-option *ngFor="let item of officeList" [value]="item.locationCd">{{item.locationName}}</mat-option>
             </mat-select>
             <!-- </mat-form-field> -->
           </div>
+
           <div class="col-md-3">
             <!-- <mat-form-field class="fullwidth"> -->
-            <mat-select class="noneOutLine" placeholder="Department" [(ngModel)]="departmentName"
-              (ngModelChange)="onDepartmentChange($event)">
+            <mat-select class="noneOutLine" placeholder="Department" [(ngModel)]="departmentName" (ngModelChange)="getFilterItem('dept');getDesignation(officeName,departmentName)">
               <mat-option *ngFor="let item of departmentList" [value]="item.deptCd">{{item.deptName}}</mat-option>
             </mat-select>
             <!-- </mat-form-field> -->
           </div>
+
           <div class="col-md-3">
             <!-- <mat-form-field class="fullwidth"> -->
-            <mat-select placeholder="Designation" [(ngModel)]="designationName"
-              (ngModelChange)="onDesignationChange($event)">
-              <mat-option *ngFor="let item of designationList" [value]="item.jobDesigID">{{item.jobDesigName}}
-              </mat-option>
+            <mat-select placeholder="Designation" [(ngModel)]="designationName" (ngModelChange)="getFilterItem('desig')"> 
+              <mat-option *ngFor="let item of designationList" [value]="item.jobDesigID">{{item.jobDesigName}}</mat-option>
             </mat-select>
             <!-- </mat-form-field> -->
           </div>
@@ -67,6 +69,9 @@
   </div>
   <!--end search textbox Row-->
 </div>
+
+
+
 <div class="myContainer bgWhite minHeight84 allBorder">
 
   <!--start table row-->
@@ -111,62 +116,40 @@
           </tr>
         </thead>
         <tbody>
-          <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-          <tr class='d-flex'>
-            <td class='col-1 text-center'>1</td>
-            <td class='col-2'>Nabeel Ahmed Khan</td>
-            <td class='col-2'>Web Developer</td>
-            <td class='col-2'>
-              <p-dropdown [options]="shiftList" optionLabel="shiftName"></p-dropdown>
-            </td>
-            <td class='col-2'>
-              <p-calendar></p-calendar>
-            </td>
-            <td class='col-2 text-left'>
-              <p-calendar></p-calendar>
-            </td>
-            <td class='col-1 text-left'>
-              <span class="fa tableIcon mt-1 pointerCursor">
-                <span class="fa icon-u-save"></span>
-              </span>
-            </td>
-          </tr>
-          <tr class='d-flex'>
-            <td class='col-1 text-center'>2</td>
-            <td class='col-2'>Adnan Ali</td>
-            <td class='col-2'>Web Developer 2</td>
-            <td class='col-2'>Day Shift</td>
-            <td class='col-2'>01/15/2020</td>
-            <td class='col-2 text-left'>01/30/2020</td>
-            <td class='col-1 text-left'>
-              <span class="fa tableIcon mt-1 pointerCursor" data-toggle="modal" data-target="#editEmpShiftModal">
-                <span class="fa icon-u-edit"></span>
-              </span>
-              <span class="fa tableIcon mt-1 pointerCursor" data-toggle="modal" data-target="#empShiftDetailModal">
-                <span class="fa icon-u-view"></span>
-              </span>
-            </td>
-          </tr>
-          <!-- <tr class='d-flex' *ngFor="let item of employeeShift 
-                    | search:'indvdlFullName,jobDesigName':shiftSearch 
-                    | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' } 
-                    | orderBy: order:reverse:'case-insensitive' let i=index">
-            <td class='col-1 text-center'>{{i+1}}</td>
+
+          <tr *ngFor="let item of employeeShift | search:'indvdlFullName,jobDesigName,locationName,deptName,jobDesigName': tblSearch let i=index"  class="d-flex">
+            <td class='col-1 text-center'>{{i + 1}}</td>
             <td class='col-2'>{{item.indvdlFullName}}</td>
             <td class='col-2'>{{item.jobDesigName}}</td>
-            <td class='col-2'>
-              <p-dropdown [options]="shiftList" [(ngModel)]="item.shiftCd" optionLabel="shiftName"></p-dropdown>
+
+
+            <td class='col-2' *ngIf="item.fDate == null">
+              <select placeholder="Shift" [(ngModel)]="item.shiftCd" class="form-control noneOutLine"> 
+                <option *ngFor="let shft of shiftList" [value]="shft.shiftCd">{{shft.shiftName}}</option>
+              </select>
             </td>
-            <td class='col-2'>
+            <td class='col-2' *ngIf="item.fDate == null">
               <p-calendar [(ngModel)]="item.fromDate"></p-calendar>
             </td>
-            <td class='col-2 text-center'>
+            <td class='col-2 text-left' *ngIf="item.fDate == null">
               <p-calendar [(ngModel)]="item.toDate"></p-calendar>
             </td>
-            <td class='col-1 text-center'>
-              <span class="fa fa-plus pointerCursor" (click)="saveEmployeeShift(item)"></span>
+
+
+            <td class='col-2' *ngIf="item.fDate != null">{{item.shiftName}}</td>
+            <td class='col-2' *ngIf="item.fDate != null">{{item.fromDate | date}}</td>
+            <td class='col-2' *ngIf="item.fDate != null">{{item.toDate | date}}</td>
+
+            <td class='col-1 text-left'>
+              
+              <span *ngIf="item.fDate == null" class="fa tableIcon mt-1 pointerCursor" (click)="saveEmployeeShift(item)"><span class="fa icon-u-save"></span></span>
+
+              <span *ngIf="item.fDate != null" class="fa tableIcon mt-1 pointerCursor" (click)="getFilterItem('empdetail', item)" data-toggle="modal" data-target="#editEmpShiftModal"><span class="fa icon-u-edit"></span></span>
+              <span *ngIf="item.fDate != null" class="fa tableIcon mt-1 pointerCursor" (click)="getFilterItem('empdetail', item)" data-toggle="modal" data-target="#empShiftDetailModal"><span class="fa icon-u-view"></span></span>
+
             </td>
-          </tr> -->
+          </tr>
+          
         </tbody>
       </table>
 
@@ -238,7 +221,7 @@
             </div>
             <div class="row mt-n2">
               <div class="col-md-12">
-                <label>Adnan Ali</label>
+                <label>{{lblEmpName}}</label>
               </div>
             </div>
           </div>
@@ -250,62 +233,50 @@
             </div>
             <div class="row mt-n2">
               <div class="col-md-12">
-                <label>Web Developer 2</label>
+                <label>{{lblEmpDesig}}</label>
               </div>
             </div>
           </div>
         </div>
-        <!--1st row-->
-        <div class="row mb-5">
+        <!--table row-->
+
+        <div class="row mb-2">
           <div class="col-md-12">
             <table class="table table-striped">
               <thead>
                 <tr class="d-flex">
-                  <th class="col-4 text-left">Shift</th>
-                  <th class="col-3 text-left">From Date</th>
-                  <th class="col-5 text-left">To Date</th>
+                  <th class="col-4">Shift</th>
+                  <th class="col-4">From Date</th>
+                  <th class="col-4">To Date</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="d-flex">
-                  <td class="col-4 text-left">Day Shift</td>
-                  <td class="col-3 text-left">01/15/2020</td>
-                  <td class="col-5 text-left">01/30/2020</td>
-                </tr>
-                <tr class="d-flex">
-                  <td class="col-4 text-left">Night Shift</td>
-                  <td class="col-3 text-left">02/01/2020</td>
-                  <td class="col-5 text-left">02/27/2020</td>
-                </tr>
-                <tr class="d-flex">
-                  <td class="col-4 text-left">Evening Shift</td>
-                  <td class="col-3 text-left">03/01/2020</td>
-                  <td class="col-5 text-left">03/30/2020</td>
+                <tr *ngFor="let item of employeeShiftDetail let i=index" class="d-flex">
+                  <td class="col-4">{{item.shiftName}}</td>
+                  <td class="col-4">{{item.fromDate | date}}</td>
+                  <td class="col-4">{{item.toDate | date}}</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        <div class="row pt-5">
+
+        <div class="row">
           <div class="offset-md-9 col-md-3">
             <button mat-raised-button class="btn fullwidth pt-1 pb-1 noneOutLine" style="border-radius: 0;">
               &nbsp;&nbsp;&nbsp;OK&nbsp;&nbsp;&nbsp;
             </button>
           </div>
         </div>
+        
       </div>
       <!--end Modal body -->
-
-      <!--start Modal footer -->
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div> -->
-      <!--end Modal footer -->
 
     </div>
   </div>
 </div>
 <!-- End Modal Window to view employee data -->
+
 
 
 <!-- Start Modal Window to view employee data -->
@@ -326,6 +297,7 @@
       <div class="modal-body">
 
         <div class="row mb-2">
+
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-12">
@@ -334,10 +306,11 @@
             </div>
             <div class="row mt-n2">
               <div class="col-md-12">
-                <label>Adnan Ali</label>
+                <label>{{lblEmpName}}</label>
               </div>
             </div>
           </div>
+
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-12">
@@ -346,89 +319,71 @@
             </div>
             <div class="row mt-n2">
               <div class="col-md-12">
-                <label>Web Developer 2</label>
+                <label>{{lblEmpDesig}}</label>
               </div>
             </div>
           </div>
+
         </div>
-        <!--1st row-->
-        <div class="row mb-5">
+
+        <!--table row-->
+        <div class="row mb-2">
           <div class="col-md-12">
             <table class="table table-striped">
               <thead>
                 <tr class="d-flex">
-                  <th class="col-4 text-left">Shift</th>
-                  <th class="col-3 text-left">From Date</th>
-                  <th class="col-3 text-left">To Date</th>
-                  <th class="col-2 text-left">Action</th>
+                  <th class="col-3">Shift</th>
+                  <th class="col-4">From Date</th>
+                  <th class="col-4">To Date</th>
+                  <th class="col-1 text-left">Action</th>
                 </tr>
               </thead>
               <tbody>
+
                 <tr class="d-flex">
-                  <td class='col-4 text-left'>
-                    <p-dropdown [options]="shiftList" optionLabel="shiftName"></p-dropdown>
+                  <td class='col-3'>
+                    <select placeholder="Shift" [(ngModel)]="ddlShift" class="form-control noneOutLine"> 
+                      <option *ngFor="let shft of shiftList" [value]="shft.shiftCd">{{shft.shiftName}}</option>
+                    </select>
                   </td>
-                  <td class='col-3 text-left'>
-                    <p-calendar [inputStyle]="{'width':'75%'}"></p-calendar>
+                  <td class='col-4'>
+                    <p-calendar [(ngModel)]="dtpFromDate" ></p-calendar>
                   </td>
-                  <td class='col-3 text-left'>
-                    <p-calendar [inputStyle]="{'width':'75%'}"></p-calendar>
+                  <td class='col-4'>
+                    <p-calendar [(ngModel)]="dtpToDate" ></p-calendar>
                   </td>
-                  <td class='col-2 text-left'>
-                    <span class="fa tableIcon mt-1 pointerCursor">
+                  <td class='col-1 text-center'>
+                    <span class="fa tableIcon mt-1 pointerCursor" (click)="updateEmployeeShift()">
                       <span class="fa icon-u-save"></span>
                     </span>
                   </td>
                 </tr>
-                <tr class="d-flex">
-                  <td class='col-4 text-left'>
-                    <p-dropdown [options]="shiftList" optionLabel="shiftName"></p-dropdown>
-                  </td>
-                  <td class='col-3 text-left'>
-                    <p-calendar [inputStyle]="{'width':'75%'}"></p-calendar>
-                  </td>
-                  <td class='col-3 text-left'>
-                    <p-calendar [inputStyle]="{'width':'75%'}"></p-calendar>
-                  </td>
-                  <td class='col-2 text-left'>
-                    <span class="fa tableIcon mt-1 pointerCursor">
-                      <span class="fa icon-u-edit"></span>
-                    </span>
-                    <span class="fa tableIcon mt-1 pointerCursor">
-                      <span class="fa icon-u-save-edit"></span>
+
+                <tr *ngFor="let item of employeeShiftDetail let i=index"  class="d-flex" >
+
+                  <td class='col-3'>{{item.shiftName}}</td>
+                  <td class='col-4'>{{item.fromDate | date}}</td>
+                  <td class='col-4'>{{item.toDate | date}}</td>
+
+                  <td class='col-1 text-center'>
+                    <span class="fa tableIcon mt-1 pointerCursor" (click)="editShift(item)"> 
+                      <span class="fa icon-u-edit"></span> 
                     </span>
                   </td>
+
                 </tr>
-                <tr class="d-flex">
-                  <td class='col-4 text-left'>
-                    <p-dropdown [options]="shiftList" optionLabel="shiftName" disabled="true"></p-dropdown>
-                  </td>
-                  <td class='col-3 text-left'>
-                    <p-calendar [inputStyle]="{'width':'75%'}" disabled="true"></p-calendar>
-                  </td>
-                  <td class='col-3 text-left'>
-                    <p-calendar [inputStyle]="{'width':'75%'}" disabled="true"></p-calendar>
-                  </td>
-                  <td class='col-2 text-left'>
-                    <span class="fa tableIcon mt-1 pointerCursor">
-                      <span class="fa icon-u-edit"></span>
-                    </span>
-                    <span class="fa tableIcon mt-1 pointerCursor">
-                      <span class="fa icon-u-save-disable"></span>
-                    </span>
-                  </td>
-                </tr>
+
               </tbody>
             </table>
           </div>
         </div>
-        <div class="row pt-5">
+
+        <div class="row">
           <div class="offset-md-9 col-md-3">
-            <button mat-raised-button class="btn fullwidth pt-1 pb-1 noneOutLine" style="border-radius: 0;">
-              &nbsp;&nbsp;&nbsp;OK&nbsp;&nbsp;&nbsp;
-            </button>
+            <button type="button" mat-raised-button class="btn fullwidth pt-1 pb-1 noneOutLine rounded-0" >&nbsp;&nbsp;&nbsp;OK&nbsp;&nbsp;&nbsp;</button>
           </div>
         </div>
+
       </div>
       <!--end Modal body -->
 
