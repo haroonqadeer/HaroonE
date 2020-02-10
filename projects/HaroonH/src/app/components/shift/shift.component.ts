@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormGroup, FormControl } from "@angular/forms";
 import { ToastrManager } from "ng6-toastr-notifications";
 import {
   HttpClient,
@@ -24,8 +25,8 @@ declare var $: any;
   styleUrls: ["./shift.component.scss"]
 })
 export class ShiftComponent implements OnInit {
-  //serverUrl = "http://localhost:9022/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9022/";
+  serverUrl = "http://localhost:3006/";
+  // serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9022/";
 
   p = 1;
   //pGroup = 1;
@@ -35,16 +36,18 @@ export class ShiftComponent implements OnInit {
   itemPerPage = "10";
 
   cmbShift = "";
-  cmbDepartment = "";
+  cmbDepartment = [];
   startTime = "";
   endTime = "";
+  formGDepartment: FormGroup;
+  formCDepartment = new FormControl();
 
-  lblShiftName = "";
-  lblStartTime = "";
-  lblEndTime = "";
+  lblShiftCd = "";
 
+  childList = [];
   departmentList = [];
   departmentDetailList = [];
+  departmentShiftDetailList = [];
   deptShiftList = [];
   deptShiftDetailList = [];
   shiftList = [];
@@ -63,7 +66,7 @@ export class ShiftComponent implements OnInit {
   ngOnInit() {
     this.getShift();
     this.getDepartment();
-    this.getDepartmentShift();
+    this.getDepartmentShiftDetail();
     this.getDepartmentDetail();
   }
 
@@ -97,19 +100,78 @@ export class ShiftComponent implements OnInit {
       });
   }
 
-  getDepartmentShift() {
+  getDepartmentShiftDetail() {
     this.app.showSpinner();
+
+    this.deptShiftList = [];
+
     //var Token = localStorage.getItem(this.tokenKey);
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .get(this.serverUrl + "api/getDepartmentShift?cmpnyID=59", {
+      .get(this.serverUrl + "api/getDepartmentShiftDetail", {
         headers: reqHeader
       })
       .subscribe((data: any) => {
-        this.deptShiftList = data;
+        this.departmentShiftDetailList = data;
+
+        var tempShiftCode = "";
+        var tempList = [];
+
+        for (var i = 0; i < this.departmentShiftDetailList.length; i++) {
+          if (tempShiftCode == "") {
+            this.childList.push({
+              deptCd: this.departmentShiftDetailList[i].deptCd,
+              deptName: this.departmentShiftDetailList[i].deptName
+            });
+            tempShiftCode = this.departmentShiftDetailList[i].shiftCd;
+          } else if (
+            tempShiftCode == this.departmentShiftDetailList[i].shiftCd
+          ) {
+            this.childList.push({
+              deptCd: this.departmentShiftDetailList[i].deptCd,
+              deptName: this.departmentShiftDetailList[i].deptName
+            });
+            tempShiftCode = this.departmentShiftDetailList[i].shiftCd;
+            tempList.push({
+              sName: this.departmentShiftDetailList[i].shiftName,
+              shiftCd: this.departmentShiftDetailList[i].shiftCd,
+              startTime: this.departmentShiftDetailList[i].startTime,
+              endTime: this.departmentShiftDetailList[i].endTime
+            });
+          } else if (
+            tempShiftCode != this.departmentShiftDetailList[i].shiftCd
+          ) {
+            this.deptShiftList.push({
+              shiftName: tempList[0].sName,
+              shiftCd: tempList[0].shiftCd,
+              startTime: tempList[0].startTime,
+              endTime: tempList[0].endTime,
+              department: this.childList
+            });
+            this.childList = [];
+            tempList = [];
+
+            tempShiftCode = this.departmentShiftDetailList[i].shiftCd;
+            this.childList.push({
+              deptCd: this.departmentShiftDetailList[i].deptCd,
+              deptName: this.departmentShiftDetailList[i].deptName
+            });
+          }
+
+          if (i == this.departmentShiftDetailList.length - 1) {
+            this.deptShiftList.push({
+              shiftName: tempList[0].sName,
+              shiftCd: tempList[0].shiftCd,
+              startTime: tempList[0].startTime,
+              endTime: tempList[0].endTime,
+              department: this.childList
+            });
+            this.childList = [];
+          }
+        }
 
         this.app.hideSpinner();
       });
@@ -124,7 +186,7 @@ export class ShiftComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .get(this.serverUrl + "api/getDepartmentShiftDetail?cmpnyID=59", {
+      .get(this.serverUrl + "api/getDepartmentDetail", {
         headers: reqHeader
       })
       .subscribe((data: any) => {
@@ -134,43 +196,44 @@ export class ShiftComponent implements OnInit {
       });
   }
 
-  getDepartmentShiftDetail(shiftCd, shiftName, startTime, endTime) {
+  getShiftDeptDetail(shiftCd) {
     this.deptShiftDetailList = [];
-    this.lblShiftName = "";
-    this.lblStartTime = "";
-    this.lblEndTime = "";
 
     for (var i = 0; i < this.deptShiftList.length; i++) {
-      if (
-        this.deptShiftList[i].shiftName == shiftName &&
-        this.deptShiftList[i].startTime == startTime &&
-        this.deptShiftList[i].endTime == endTime
-      ) {
-        this.lblShiftName = shiftName;
-        this.lblStartTime = startTime;
-        this.lblEndTime = endTime;
-        for (var j = 0; j < this.departmentDetailList.length; j++) {
-          if (
-            this.departmentDetailList[j].shiftCd == shiftCd &&
-            this.departmentDetailList[j].startTime == startTime &&
-            this.departmentDetailList[j].endTime == endTime
-          ) {
-            this.deptShiftDetailList.push({
-              deptName: this.departmentDetailList[j].deptName
-            });
-          }
+      for (var j = 0; j < this.departmentDetailList.length; j++) {
+        if (this.departmentDetailList[j].shiftCd == shiftCd) {
+          this.deptShiftDetailList.push({
+            deptName: this.departmentDetailList[j].deptName
+          });
         }
         i = this.deptShiftList.length + 1;
       }
     }
   }
+
+  editShift(item) {
+    var count = 0;
+    var tempList = [];
+
+    this.clear();
+
+    for (var i = 0; i < item.department.length; i++) {
+      tempList.push(item.department[i].deptCd);
+    }
+
+    this.cmbShift = item.shiftCd;
+    this.startTime = item.startTime;
+    this.endTime = item.endTime;
+    this.cmbDepartment = tempList;
+  }
+
   saveShift() {
     if (this.cmbShift == "") {
       this.toastr.errorToastr("Please select Shift", "Error", {
         toastTimeout: 2500
       });
       return;
-    } else if (this.cmbDepartment == "") {
+    } else if (this.cmbDepartment.length == 0) {
       this.toastr.errorToastr("Please Select Department", "Error", {
         toastTimeout: 2500
       });
@@ -192,7 +255,8 @@ export class ShiftComponent implements OnInit {
         shiftCd: this.cmbShift,
         deptList: this.cmbDepartment,
         startTime: this.startTime,
-        endTime: this.endTime
+        endTime: this.endTime,
+        connectedUser: this.app.empId
       };
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
@@ -206,7 +270,8 @@ export class ShiftComponent implements OnInit {
             this.toastr.successToastr(data.msg, "Success!", {
               toastTimeout: 2500
             });
-            this.getDepartmentShift();
+            this.getDepartmentShiftDetail();
+            this.getDepartmentDetail();
             this.clear();
             this.app.hideSpinner();
             return false;
@@ -219,11 +284,58 @@ export class ShiftComponent implements OnInit {
         });
     }
   }
+
+  //*get the "id" of the delete entry
+  deleteShift(item) {
+    this.clear();
+
+    this.lblShiftCd = item.shiftCd;
+
+    this.generatePin();
+  }
+
+  /*** Pin generation or Delete Role  ***/
+  generatePin() {
+    //* check if global variable is empty
+    if (this.app.pin != "") {
+      //* Initialize List and Assign data to list. Sending list to api
+      this.app.showSpinner();
+
+      var shiftData = {
+        shiftCd: this.lblShiftCd,
+        connectedUser: this.app.empId
+      };
+
+      this.http
+        .post(this.serverUrl + "api/deleteShift", shiftData)
+        .subscribe((data: any) => {
+          if (data.msg != "Record Deleted Successfully!") {
+            this.app.hideSpinner();
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 5000 });
+            return false;
+          } else {
+            this.app.hideSpinner();
+            this.app.pin = "";
+            this.clear();
+            this.toastr.successToastr(data.msg, "Success!", {
+              toastTimeout: 2500
+            });
+            this.getDepartmentDetail();
+            this.getDepartmentShiftDetail();
+            return false;
+          }
+        });
+    } else {
+      this.app.genPin();
+    }
+  }
+
   clear() {
-    this.cmbDepartment = "";
+    this.cmbDepartment = [];
     this.cmbShift = "";
     this.startTime = "";
     this.endTime = "";
+    this.lblShiftCd = "";
   }
 
   printDiv() {

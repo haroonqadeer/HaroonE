@@ -33,7 +33,7 @@
             <div class="col-md-5 text-right">
               <div class="row">
                 <div class="col-md-12">
-                  <label class="pt-1" style="font-size: 2.5em;">25</label>
+                  <label class="pt-1" style="font-size: 2.5em;">{{lblPresentEmp}}</label>
                 </div>
               </div>
             </div>
@@ -58,7 +58,7 @@
             <div class="col-md-4 text-right">
               <div class="row">
                 <div class="col-md-12">
-                  <label class="pt-1" style="font-size: 2.5em;">4</label>
+                  <label class="pt-1" style="font-size: 2.5em;">0</label>
                 </div>
               </div>
             </div>
@@ -83,7 +83,7 @@
             <div class="col-md-2 text-left">
               <div class="row">
                 <div class="col-md-12">
-                  <label class="pt-1" style="font-size: 2.5em;">4</label>
+                  <label class="pt-1" style="font-size: 2.5em;">{{lblremoteEmp}}</label>
                 </div>
               </div>
             </div>
@@ -108,7 +108,7 @@
             <div class="col-md-3 text-right">
               <div class="row">
                 <div class="col-md-12">
-                  <label class="pt-1" style="font-size: 2.5em;">1</label>
+                  <label class="pt-1" style="font-size: 2.5em;">{{lblAbsentEmp}}</label>
                 </div>
               </div>
             </div>
@@ -127,32 +127,16 @@
               <label class="font0-9em">RECENT ENTRIES</label>
             </div>
             <div class="col-md-6 text-right">
-              <label class="font0-9em">Today is Monday, 24/1/2020</label>
+              <label class="font0-9em">Today is {{lblDayName}}, {{curDate}}</label>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
               <table class="table table-striped">
                 <tbody>
-                  <tr class="d-flex">
-                    <td class="col-6 text-left">John Smith</td>
-                    <td class="col-6 text-right">9:30 am, 11 mins ago</td>
-                  </tr>
-                  <tr class="d-flex">
-                    <td class="col-6 text-left">Khan Ahmed</td>
-                    <td class="col-6 text-right">9:28 am, 12 mins ago</td>
-                  </tr>
-                  <tr class="d-flex">
-                    <td class="col-6 text-left">Rizwan Khan</td>
-                    <td class="col-6 text-right">9:15 am, 25 mins ago</td>
-                  </tr>
-                  <tr class="d-flex">
-                    <td class="col-6 text-left">Ahmed Ali</td>
-                    <td class="col-6 text-right">9:05 am, 35 mins ago</td>
-                  </tr>
-                  <tr class="d-flex">
-                    <td class="col-6 text-left">Ali Raza</td>
-                    <td class="col-6 text-right">9:00 am, 40 mins ago</td>
+                  <tr class="d-flex" *ngFor="let item of recentEmpEntry">
+                    <td class="col-6 text-left">{{item.empName}}</td>
+                    <td class="col-6 text-right">{{item.curTime}}, {{item.noOfMin}} mins ago</td>
                   </tr>
                 </tbody>
               </table>
@@ -172,65 +156,83 @@
           <div class="row overflow-auto">
             <div class="col-md-12">
               <div class="row mt-2">
-                <div class="col-md-6 text-left">
-                  <div class="row">
-                    <div class="col-md-2">
-                      <span class="fa fa-circle onfield" aria-hidden="true"></span>
-                    </div>
-                    <div class="col-md-10 text-left">
-                      <label class="onfield font0-9em ml-n3">Labour Day</label>
-                    </div>
-                  </div>
-                  <div class="row mt-n2">
-                    <div class="offset-md-2 col-md-10 text-left">
-                      <label class="font0-8em remote ml-n3">Friday,May 01,2020</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 text-right">
-                  <div class="row">
-                    <div class="col-md-2">
-                      <span class="fa fa-circle inoffice" aria-hidden="true"></span>
-                    </div>
-                    <div class="col-md-10 text-left">
-                      <label class="inoffice font0-9em ml-n3">Independence Day</label>
+                <div class="col-md-6 text-Left">
+                  <div *ngIf='oddHolidays.length>evenHolidays.length;'>
+                    <div *ngFor="let item of oddHolidays">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <span class="fa fa-circle onfield" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-10 text-left">
+                          <label class="onfield font0-9em ml-n3">{{item.holidayName}}</label>
+                        </div>
+                      </div>
+                      <div class="row mt-n2">
+                        <div class="offset-md-2 col-md-10 text-left">
+                          <label class="font0-8em remote ml-n3">{{item.dyName}},{{item.month}}
+                            {{item.dyofMon}}, {{item.yr}}
+                          </label>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="row mt-n2">
-                    <div class="offset-md-2 col-md-10 text-left">
-                      <label class="font0-8em remote ml-n3">Friday,August 14,2020</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row mt-2">
-                <div class="col-md-6 text-left">
-                  <div class="row">
-                    <div class="col-md-2">
-                      <span class="fa fa-circle onfield" aria-hidden="true"></span>
-                    </div>
-                    <div class="col-md-10 text-left">
-                      <label class="onfield font0-9em ml-n3">Eid ul-Fitr</label>
-                    </div>
-                  </div>
-                  <div class="row mt-n2">
-                    <div class="offset-md-2 col-md-10 text-left">
-                      <label class="font0-8em remote ml-n3">Sunday,May 24,2020</label>
+                  <div *ngIf='oddHolidays.length<evenHolidays.length;'>
+                    <div *ngFor="let item of evenHolidays">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <span class="fa fa-circle inoffice" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-10 text-left">
+                          <label class="inoffice font0-9em ml-n3">{{item.holidayName}}</label>
+                        </div>
+                      </div>
+                      <div class="row mt-n2">
+                        <div class="offset-md-2 col-md-10 text-left">
+                          <label class="font0-8em remote ml-n3">{{item.dyName}},{{item.month}}
+                            {{item.dyofMon}}, {{item.yr}}
+                          </label>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6 text-right">
-                  <div class="row">
-                    <div class="col-md-2">
-                      <span class="fa fa-circle inoffice" aria-hidden="true"></span>
-                    </div>
-                    <div class="col-md-10 text-left">
-                      <label class="inoffice font0-9em ml-n3">Ashura</label>
+                  <div *ngIf='oddHolidays.length>evenHolidays.length;'>
+                    <div *ngFor="let item of evenHolidays">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <span class="fa fa-circle inoffice" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-10 text-left">
+                          <label class="inoffice font0-9em ml-n3">{{item.holidayName}}</label>
+                        </div>
+                      </div>
+                      <div class="row mt-n2">
+                        <div class="offset-md-2 col-md-10 text-left">
+                          <label class="font0-8em remote ml-n3">{{item.dyName}},{{item.month}}
+                            {{item.dyofMon}}, {{item.yr}}
+                          </label>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="row mt-n2">
-                    <div class="offset-md-2 col-md-10 text-left">
-                      <label class="font0-8em remote ml-n3">Saturday,August 29,2020</label>
+                  <div *ngIf='oddHolidays.length<evenHolidays.length;'>
+                    <div *ngFor="let item of oddHolidays">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <span class="fa fa-circle onfield" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-10 text-left">
+                          <label class="onfield font0-9em ml-n3">{{item.holidayName}}</label>
+                        </div>
+                      </div>
+                      <div class="row mt-n2">
+                        <div class="offset-md-2 col-md-10 text-left">
+                          <label class="font0-8em remote ml-n3">{{item.dyName}},{{item.month}}
+                            {{item.dyofMon}}, {{item.yr}}
+                          </label>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

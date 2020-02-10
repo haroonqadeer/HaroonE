@@ -39,7 +39,8 @@
               </p-dropdown>
             </td>
             <td class="col-3 text-center">
-              <p-multiSelect [options]="departmentList" [(ngModel)]="cmbDepartment"></p-multiSelect>
+              <p-multiSelect [options]="departmentList" [(ngModel)]="cmbDepartment">
+              </p-multiSelect>
             </td>
             <td class="col-2 text-center">
               <p-calendar [(ngModel)]="startTime" [timeOnly]="true" [style]="{'width':'100%'}"></p-calendar>
@@ -57,19 +58,32 @@
             *ngFor="let item of deptShiftList | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' } let i=index">
             <td class="col-1 text-center">{{i + 1}}</td>
             <td class="col-2">{{item.shiftName}}</td>
-            <td class="col-3 text-center">{{item.deptCd}}</td>
+            <td class="col-3 text-center">
+              <button type="button" class="btn btn-link" type="button" class="btn btn-link" data-toggle="modal"
+                data-target="#shiftDetailModal" (click)="getShiftDeptDetail(item.shiftCd)"
+                *ngIf='item.department.length==1;'>
+                {{item.department[0].deptName}}
+              </button>
+              <button type="button" class="btn btn-link" type="button" class="btn btn-link" data-toggle="modal"
+                data-target="#shiftDetailModal" (click)="getShiftDeptDetail(item.shiftCd)"
+                *ngIf='item.department.length==2;'>
+                {{item.department[0].deptName }},
+                {{item.department[1].deptName }}</button>
+              <button type="button" class="btn btn-link" type="button" class="btn btn-link" data-toggle="modal"
+                data-target="#shiftDetailModal" (click)="getShiftDeptDetail(item.shiftCd)"
+                *ngIf='item.department.length>2;'>
+                {{item.department[0].deptName}}, {{item.department[1].deptName}} and More
+              </button>
+            </td>
             <td class="col-2 text-center">{{item.startTime}} hrs</td>
             <td class="col-2 text-center">{{item.endTime}} hrs</td>
             <td class="col-2 text-left">
-              <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#shiftDetailModal"
-                (click)="getDepartmentShiftDetail(item.shiftCd, item.shiftName, item.startTime, item.endTime)">
+              <span class="fa tableIcon pointerCursor" (click)="editShift(item)">
                 <span class="fa icon-u-edit"></span>
               </span>
-              <span class="fa tableIcon pointerCursor">
+              <span class="fa tableIcon pointerCursor" (click)="deleteShift(item)">
                 <span class="fa icon-u-delete"></span>
               </span>
-              <!-- <span class="fa fa-list-alt pointerCursor" data-toggle="modal" data-target="#shiftDetailModal"
-                (click)="getDepartmentShiftDetail(item.shiftCd, item.shiftName, item.startTime, item.endTime)"></span> -->
             </td>
           </tr>
         </tbody>
