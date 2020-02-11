@@ -182,7 +182,7 @@ export class AttendanceComponent implements OnInit {
             //alert("AddBreak = " +  myAddBreak + " --- " + "ApprvngManagerID = " + ManagerId + " --- " + "TimeIn = " + this.myTimeIn + " --- " + "TimeOut = " + this.myTimeOut + " --- " + "Rsn = " + this.attRemarks + " --- " + "TypeCd = " + BreakTypeId);
             // return false;
 
-            alert("AddBreak = " +  myAddBreak + " --- " + "TimeIn = " + this.myTimeIn + " --- " + "TimeOut = " + this.myTimeOut + " --- " + "Rsn = " + remarks);
+            //alert("AddBreak = " +  myAddBreak + " --- " + "TimeIn = " + this.myTimeIn + " --- " + "TimeOut = " + this.myTimeOut + " --- " + "Rsn = " + remarks);
             //return false;
 
             this.app.showSpinner();
