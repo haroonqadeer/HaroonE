@@ -23,11 +23,15 @@ export class EmpolyeeprofileComponent implements OnInit {
     @ViewChild(ConfigContactComponent) shrd_cntct: ConfigContactComponent;
     
     @Output() myEvent = new EventEmitter();  
-    // serverUrl = "http://localhost:5000/";
-    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
+    serverUrl = "http://localhost:9043/";
+    //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
     // imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
     imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
     // imgPath = "D:/Infovative Projects/HaroonE/src/assets/images/EmpImages";
+    
+    
+    
+    imageUrl: string = "../assets/images/EmpImages/dropHereImg.png";
 
     tokenKey = "token";
 
@@ -211,11 +215,12 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.selectedFile = <File>event.target.files[0];
         let reader = new FileReader();
 
-            reader.onloadend = (e) => {                
+            reader.onloadend = (e: any) => {                
                 this.image = reader.result;
 
                 var splitImg = (this.image).split(',')[1];
                 this.image = splitImg;
+                this.imageUrl = e.target.result;
 
             }
 
@@ -1496,7 +1501,7 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.desigId = dataList[0].jobDesigID;
             this.deptId = dataList[0].jobPostDeptCd;
             this.locationId = dataList[0].jobPostLocationCd;
-            this.lblJobTitle = dataList[0].jobDesigName;
+            this.lblJobTitle = dataList[0].desigName;
             this.lblBPS = dataList[0].payGradeName;
 
         }

@@ -14,10 +14,10 @@ declare var $: any;
   styleUrls: ["./attendance.component.scss"]
 })
 export class AttendanceComponent implements OnInit {
-  serverUrl = "http://localhost:9032/";
+    serverUrl = "http://localhost:9032/";
   //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9032/";
 
-  tokenKey = "token";
+    tokenKey = "token";
 
     httpOptions = {
         headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -49,7 +49,7 @@ export class AttendanceComponent implements OnInit {
     reverse = false;
     sortedCollection: any[];
     itemPerPage = "10";
-
+    
     //*hidden variables
     EmpId;
     EmpCalCd;
@@ -80,6 +80,9 @@ export class AttendanceComponent implements OnInit {
     onField = false;
     onLeave = false;
     remote = false;
+
+    attStatus;
+    imgPath = null;
 
     constructor(
         private _formBuilder: FormBuilder,
@@ -179,7 +182,7 @@ export class AttendanceComponent implements OnInit {
             //alert("AddBreak = " +  myAddBreak + " --- " + "ApprvngManagerID = " + ManagerId + " --- " + "TimeIn = " + this.myTimeIn + " --- " + "TimeOut = " + this.myTimeOut + " --- " + "Rsn = " + this.attRemarks + " --- " + "TypeCd = " + BreakTypeId);
             // return false;
 
-            //alert("AddBreak = " +  myAddBreak + " --- " + "TimeIn = " + this.myTimeIn + " --- " + "TimeOut = " + this.myTimeOut + " --- " + "Rsn = " + remarks);
+            alert("AddBreak = " +  myAddBreak + " --- " + "TimeIn = " + this.myTimeIn + " --- " + "TimeOut = " + this.myTimeOut + " --- " + "Rsn = " + remarks);
             //return false;
 
             this.app.showSpinner();
@@ -236,6 +239,52 @@ export class AttendanceComponent implements OnInit {
         this.myShifhCd = 0;
         this.myDtID = 0;
 
+        this.imgPath = null;
+        this.attStatus = '';
+
+    }
+
+    //function for get filtere list
+    showEmpDetail(item) {
+
+
+        if(item.timeIn == null){
+
+            this.myTimeIn = null;
+            this.myTimeOut = null;
+            this.myDtID = item.dtID;
+            this.myShifhCd = item.shiftCd;
+            this.myDeptCd = item.deptCd;
+            this.disableFlag = false;
+            this.ddlEmployee = item.empID;
+            this.imgPath = item.path;
+            $("#attModal").modal("show");
+
+        }
+        else{
+
+            this.myTimeIn = item.timeIn;
+            this.myTimeOut = item.timeOut;
+            this.myDtID = item.dtID;
+            this.myShifhCd = item.shiftCd;
+            this.myDeptCd = item.deptCd;
+            this.ddlEmployee = item.empID;
+            this.imgPath = item.path;
+
+            if(item.timeOut == null){
+                this.disableFlag = true;
+                this.attStatus = '';
+            }
+
+            $("#attModal").modal("show");
+        }
+
+        if(item.managerJobPostDeptCd == 0){ 
+            this.myDeptCd = item.jobPostDeptCd;
+        }else{
+            this.myDeptCd = item.managerJobPostDeptCd;
+        }
+
     }
 
     //function for get filtere list
@@ -253,6 +302,8 @@ export class AttendanceComponent implements OnInit {
                 this.myDtID = dataList[0].dtID;
                 this.myShifhCd = dataList[0].shiftCd;
                 this.myDeptCd = dataList[0].deptCd;
+                this.imgPath = dataList[0].path;
+                this.disableFlag = false;
 
             }
             else{
@@ -265,6 +316,7 @@ export class AttendanceComponent implements OnInit {
 
                 if(dataList[0].timeOut == null){
                     this.disableFlag = true;
+                    this.attStatus = '';
                 }
             }
 
@@ -327,6 +379,16 @@ export class AttendanceComponent implements OnInit {
             }
 
         }
+
+
+        if (filterOption == "empStatus") {
+
+            dataList = this.attTypeList.filter( x => x.attendanceStatCd == this.ddlAttType);
+
+            this.attStatus = dataList[0].attendanceStatName;
+
+        }
+
     }
 
 }

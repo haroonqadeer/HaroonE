@@ -270,6 +270,7 @@
 <!-- End Modal Window to delete leave rule -->
 
 
+
 <!-- Start Modal Window to add & update new user -->
 <div class="modal fade" id="promotionModal">
 
@@ -361,20 +362,8 @@
                   </mat-form-field>
 
                   <div class="row">
-                    <div class="col-md-6 text-right">
-                      <label>Designation</label>
-                    </div>
-                    <div class="col-md-6 text-left">
-                      <label>Pay Scale</label>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-6 text-right">
-                      <label>{{lblDesignation1}}</label>
-                    </div>
-                    <div class="col-md-6 text-left">
-                    <label>{{lblPayGrade1}}</label>
+                    <div class="col-md-12">
+                      <label>Desig / Pay scale : &nbsp;&nbsp; {{lblDesignation1}} / {{lblPayGrade1}}</label>
                     </div>
                   </div>
 
@@ -432,20 +421,8 @@
                   </mat-form-field>
 
                   <div class="row">
-                    <div class="col-md-6 text-right">
-                      <label>Designation</label>
-                    </div>
-                    <div class="col-md-6 text-left">
-                      <label>Pay Scale</label>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-6 text-right">
-                      <label>{{lblDesignation2}}</label>
-                    </div>
-                    <div class="col-md-6 text-left">
-                    <label>{{lblPayGrade2}}</label>
+                    <div class="col-md-12">
+                      <label>Desig / Pay scale : &nbsp;&nbsp;{{lblDesignation2}} / {{lblPayGrade2}}</label>
                     </div>
                   </div>
 
@@ -458,7 +435,7 @@
         <!--end row 2-->
 
         <!--start row 3-->
-        <div class="row mt-2">
+        <div class="row mt-3 ">
           <div class="offset-md-8 col-md-2">
             <button mat-raised-button class="btn fullwidth pb-1 pt-1 rounded-0" (click)="clear()">&nbsp;&nbsp;Clear&nbsp;&nbsp;</button>
           </div>
@@ -469,6 +446,14 @@
         <!--end row 3-->
 
         <!--start row 4-->
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Transfers List</h4>
+          </div>
+        </div>
+        <!--end row 4-->
+
+        <!--start row 5-->
         <div class="row mt-2">
           <div class="col-md-12">
             <table class="table table-striped">
@@ -491,9 +476,9 @@
             </table>
           </div>
         </div>
-        <!--end row 4-->
+        <!--end row 5-->
 
-        <!--start row 5-->
+        <!--start row 6-->
         <div class="row mt-4 mb-4">
           <div class="offset-md-7 col-md-5">
             <!--start buttons row -->
@@ -510,7 +495,7 @@
             <!--end buttons row -->
           </div>
         </div>
-        <!--end row 5-->
+        <!--end row 6-->
 
       </div>
       <!--end user Modal body -->

@@ -54,23 +54,24 @@
 
       <mat-card class="allBorder p-0 rounded-0">
 
-        <div class="row m-2">
+        <div class="row m-2 cursorPointer" (click)="showEmpDetail(item);">
 
-          <div class="col-md-4 p-0 allBorder text-center overflow-hidden">
-            <img src="../assets/images/EmpImages/Profile-Male.jpg" alt="" width="61px" height="75px">
+          <div class="col-md-4 p-0 text-center overflow-hidden">
+
+            <img class="allBorder" *ngIf="item.path == null" src="../assets/images/EmpImages/Profile-Male.jpg" alt="" width="65px" height="75px">
+
+            <img class="allBorder" *ngIf="item.path != null" src="../assets/images/EmpImages/{{item.empID}}.jpg" alt="" width="65px" height="75px">
+
           </div>
 
           <div class="col-md-8 p-0 pl-2">
             <div class="row mb-n2">
               <div class="col-md-12">
-                <label class="font0-9em">{{item.indvdlFullName}}</label>
+                <label class="font0-9em labelbreakH cursorPointer">{{item.indvdlFullName}}</label>
+                <label class="font0-8em labelbreakT text-secondary cursorPointer">{{item.jobDesigName}}</label>
               </div>
             </div>
-            <div class="row mb-n2 mt-n3">
-              <div class="col-md-12">
-                <label class="font0-8em text-secondary">{{item.jobDesigName}}</label>
-              </div>
-            </div>
+
 
 
             <!--Available Employees -->
@@ -173,12 +174,13 @@
       </div>
       <!--end user Modal Header -->
 
+
       <!--start user Modal body -->
       <div class="modal-body m-3">
         <!--start 1st row -->
         <div class="row">
           <!--start fields column-->
-          <div class="col-md-7">
+          <div class="col-md-6">
 
             <!--empoyee name -->
             <mat-form-field class="fullwidth">
@@ -198,7 +200,7 @@
 
             <!--availibility-->
             <mat-form-field class="fullwidth">
-              <mat-select disableOptionCentering placeholder="Availibility" [(ngModel)]="ddlAttType" [disabled]="disableFlag">
+              <mat-select disableOptionCentering placeholder="Availibility" [(ngModel)]="ddlAttType"  [disabled]="disableFlag" (ngModelChange)="getFilterItem('empStatus')">
                 <mat-option *ngFor="let item of attTypeList" [value]="item.attendanceStatCd">
                   {{item.attendanceStatName}}
                 </mat-option>
@@ -217,12 +219,25 @@
 
 
 
-          <div class="col-md-5 text-right">
+          <div class="col-md-5 offset-md-1 text-right">
             
             <div class="pt-3 pr-3 pb-0 pl-3" style="background-color: #E5E5E5;">
-              <img class="w-100 h-100"  src="../assets/images/EmpImages/Profile-Male.jpg" alt="">
+
+              <img *ngIf="imgPath == null" class="w-100 h-100"  src="../assets/images/EmpImages/Profile-Male.jpg" alt="">
+              <img *ngIf="imgPath != null" class="w-100 h-100"  src="../assets/images/EmpImages/{{ddlEmployee}}.jpg" alt="">
+
+
               <label class="font1emb pt-1">
-                <i class="fa fa-circle font0-8em remote"></i> Work at home
+                
+                <i *ngIf="ddlAttType == undefined || ddlAttType == '' || ddlAttType == 1">&nbsp;</i>
+                <i class="fa fa-circle font0-8em available" *ngIf="ddlAttType == 2"></i>
+                <i class="fa fa-circle font0-8em absent" *ngIf="ddlAttType == 3"></i> 
+                <i class="fa fa-circle font0-8em inoffice" *ngIf="ddlAttType == 4"></i> 
+                <i class="fa fa-circle font0-8em onfield" *ngIf="ddlAttType == 5"></i> 
+                <i class="fa fa-circle font0-8em onleave" *ngIf="ddlAttType == 6"></i> 
+                <i class="fa fa-circle font0-8em remote" *ngIf="ddlAttType == 7"></i> 
+                
+                {{attStatus}}
               </label>
             </div>
             

@@ -43,61 +43,60 @@
 
     <div *ngFor="let item of employeeListMain | search:'leaveTypeName,leaveTypeDesc':tblSearch let i=index" class="col-md-3 mb-3">
       <mat-card class="allBorder p-0" style="border-radius: 0;">
-        <div class="row m-1 mb-2">
-          <div class="col-md-7 pb-0 mt-2">
-            <div class="row mb-n2">
-              <div class="col-md-12">
-                <label class="font1emb">{{item.indvdlFullName}}</label>
+
+        <div class="row m-3">
+
+          <div class="col-md-8">
+
+            <div class="row" *ngIf="item.jobDesigName == ''">
+              <div class="col-md-12 p-0">
+                <label class="font1emb labelbreakH">{{item.indvdlFullName}}</label>
+                
+                <label class="font0-8em text-secondary labelbreakT">Designation</label>
+                <label class="font0-8em text-secondary labelbreakT">Department</label>
+                <label class="font0-8em text-secondary labelbreakT">Branch</label>
+                <label class="font0-8em text-secondary labelbreakT">Joining Date</label>
               </div>
             </div>
-            <div class="row mb-n2 mt-n3">
-              <div class="col-md-12">
-                <label class="font0-8em text-secondary">{{item.jobDesigName}}</label>
+
+            <div class="row" *ngIf="item.jobDesigName != ''">
+              <div class="col-md-12 p-0">
+                <label class="font1emb labelbreakH">{{item.indvdlFullName}}</label>
+                
+                <label class="font0-8em text-secondary labelbreakT">{{item.jobDesigName}}</label>
+                <label class="font0-8em text-secondary labelbreakT">{{item.deptName}}</label>
+                <label class="font0-8em text-secondary labelbreakT">{{item.locationName}}</label>
+                <label class="font0-8em text-secondary labelbreakT">Joining: {{item.empJobStartDt | date}}</label>
               </div>
             </div>
-            <div class="row mb-n3 mt-n3">
-              <div class="col-md-12">
-                <label class="font0-8em text-secondary">{{item.deptName}}</label>
-              </div>
-            </div>
-            <div class="row mb-n3 mt-n3">
-              <div class="col-md-12">
-                <label class="font0-8em text-secondary">{{item.locationName}}</label>
-              </div>
-            </div>
-            <div class="row mt-n2">
-              <div class="col-md-12">
-                <label class="font0-8em text-secondary p-0">Joining: {{item.empJobStartDt | date}}</label>
-              </div>
-            </div>
-            <div class="row mt-2 mb-0 pb-0">
-              <div class="col-md-2">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal"
-                  (click)="edit(item);">
+
+            <div class="row mt-1">
+              <div class="col-md-2 p-0">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal"(click)="edit(item);">
                   <span class="fa icon-emp-edit"></span>
                 </span>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-2 p-0">
                 <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
                   <span class="fa icon-emp-delete"></span>
                 </span>
 
               </div>
             </div>
+
           </div>
 
-          <div class="col-md-5 mt-3 pb-0" *ngIf="item.path == null">
-            <img src="../assets/images/EmpImages/Profile-Female.jpg" alt="" width="95px" height="110px">
+          <div class="col-md-4 p-0 text-right" *ngIf="item.path == null">
+            <img class="allBorder" src="../assets/images/EmpImages/Profile-Female.jpg" alt="" width="103px" height="125px">
           </div>
 
 
-          <div class="col-md-5 mt-3 pb-0" *ngIf="item.path != null">
-            <!-- <img src="{{item.path}}" alt="" height="120px"> -->
-            <img src="../assets/images/EmpImages/{{item.empID}}.jpg" alt="" width="95px" height="110px">
+          <div class="col-md-4 p-0 text-right" *ngIf="item.path != null">
+            <img class="allBorder" src="../assets/images/EmpImages/{{item.empID}}.jpg" alt="" width="103px" height="125px">
           </div>
-
 
         </div>
+
       </mat-card>
     </div>
 
@@ -193,7 +192,13 @@
                 <div class="col-md-6">
                   <app-config-contact></app-config-contact>
                   <br />
-                  <input type="file" (change)="onFileSelected($event)" [(ngModel)]="imgFile" />
+                  
+                  <div class="row">
+                    <div class="col-md-12 ml-1">
+                      <img class="allBorder" [src]="imageUrl" width="85" height="100">
+                      <input class="position-absolute absolute-bottom" type="file" accept="image/*" (change)="onFileSelected($event)" [(ngModel)]="imgFile" />
+                    </div>
+                  </div>
                 </div>
               </div>
               <!-- end row 3-->
@@ -262,9 +267,9 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Job Post" [(ngModel)]="jobPost"
-                      (ngModelChange)="getFilterItem('jobs')">
-                      <mat-option *ngFor="let item of tempJobList" [value]="item.jobDesigID">{{item.jobDesigName}}
+                    <mat-select disableOptionCentering placeholder="Job Post" [(ngModel)]="jobPost" (ngModelChange)="getFilterItem('jobs')">
+                      <mat-option *ngFor="let item of tempJobList" [value]="item.jobDesigID">
+                        {{item.jobDesigName}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -286,11 +291,8 @@
                 <div class="col-md-6">
                   <br />
                   <div class="row">
-                    <div class="col-md-8">
-                      <label style="font-weight: bold;">{{lblJobTitle}}</label>
-                    </div>
-                    <div class="col-md-4">
-                      <label style="font-weight: bold;">{{lblBPS}}</label>
+                    <div class="col-md-12">
+                      <label>Designation / Pay Scale : </label> &nbsp;&nbsp;&nbsp; <label><b>{{lblJobTitle}} / {{lblBPS}}</b></label>
                     </div>
                   </div>
                 </div>
@@ -483,7 +485,7 @@
                             <td class='col-1 text-center'>{{i + 1}}</td>
                             <td class='col-2'>{{item.qlfctnName}}</td>
                             <td class='col-3'>{{item.qlfctnCriteriaName}}</td>
-                            <td class='col-2'>
+                            <td class='col-2' >
                               <p-rating class="rating-size" [(ngModel)]="item.skillLvl" [cancel]="false"
                                 [disabled]="true"></p-rating>
                             </td>
