@@ -9,8 +9,8 @@ import { AppComponent } from "src/app/app.component";
   styleUrls: ["./attendance-dashboard.component.scss"]
 })
 export class AttendanceDashboardComponent implements OnInit {
-  serverUrl = "http://localhost:3010/";
-  // serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9031/";
+  // serverUrl = "http://localhost:3010/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9031/";
 
   //* Variables Declaration for chart
   Area_chart: Chart;

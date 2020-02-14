@@ -25,8 +25,8 @@ declare var $: any;
   styleUrls: ["./shift.component.scss"]
 })
 export class ShiftComponent implements OnInit {
-  serverUrl = "http://localhost:3006/";
-  // serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9022/";
+  // serverUrl = "http://localhost:3006/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9022/";
 
   p = 1;
   //pGroup = 1;
