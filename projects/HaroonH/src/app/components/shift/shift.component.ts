@@ -199,14 +199,11 @@ export class ShiftComponent implements OnInit {
   getShiftDeptDetail(shiftCd) {
     this.deptShiftDetailList = [];
 
-    for (var i = 0; i < this.deptShiftList.length; i++) {
-      for (var j = 0; j < this.departmentDetailList.length; j++) {
-        if (this.departmentDetailList[j].shiftCd == shiftCd) {
-          this.deptShiftDetailList.push({
-            deptName: this.departmentDetailList[j].deptName
-          });
-        }
-        i = this.deptShiftList.length + 1;
+    for (var i = 0; i < this.departmentShiftDetailList.length; i++) {
+      if (this.departmentShiftDetailList[i].shiftCd == shiftCd) {
+        this.deptShiftDetailList.push({
+          deptName: this.departmentShiftDetailList[i].deptName
+        });
       }
     }
   }
