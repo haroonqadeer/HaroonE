@@ -284,13 +284,17 @@ export class LeavetypeComponent implements OnInit {
       //* Initialize List and Assign data to list. Sending list to api
       this.app.showSpinner();
 
+      var currentDate = new Date();
+
+      // alert(currentDate);
+      // return;
       var saveData = {
         LeaveRuleID: this.leaveRuleId,
         LeaveNatureCd: 0,
         LeaveTypeCd: 0,
         LeaveLmtAmount: 0,
         noOfLeave: 0,
-        appliedDate: this.appliedFrom,
+        appliedDate: currentDate,
         ConnectedUser: this.app.empId,
         DelFlag: 1
       };

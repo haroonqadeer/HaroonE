@@ -171,17 +171,17 @@
           <!--start fields column-->
           <div class="col-md-6">
             <mat-form-field>
-              <input matInput placeholder="Post Title" [(ngModel)]="txtPostTitle" />
+              <input matInput placeholder="Post Title" tabindex="1" [(ngModel)]="txtPostTitle" />
             </mat-form-field>
             <mat-form-field>
-              <mat-select disableOptionCentering placeholder="Department*" [(ngModel)]="departmentName"
+              <mat-select disableOptionCentering placeholder="Department*" tabindex="3" [(ngModel)]="departmentName"
                 (ngModelChange)="onDeptChange($event)">
                 <mat-option *ngFor="let item of departments" [value]="item.deptCd">{{ item.deptName }}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field>
-              <mat-select disableOptionCentering placeholder="Job Designation*" (ngModelChange)="onJobChange($event)"
-                [(ngModel)]="jobPostName">
+              <mat-select disableOptionCentering placeholder="Job Designation*" tabindex="5"
+                (ngModelChange)="onJobChange($event)" [(ngModel)]="jobPostName">
                 <input type="text" placeholder="Search..." [(ngModel)]="srchDesig" class="form-control pt-4 pb-4" />
                 <mat-option *ngFor="let item of jobPost | search: 'desigName':srchDesig" [value]="item.desigCd">
                   <tbody>
@@ -194,15 +194,15 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field>
-              <mat-select disableOptionCentering placeholder="Reporting Officer*" [(ngModel)]="txtReptOfficer"
-                (ngModelChange)="onRptOffChange($event)">
+              <mat-select disableOptionCentering placeholder="Reporting Officer*" tabindex="7"
+                [(ngModel)]="txtReptOfficer" (ngModelChange)="onRptOffChange($event)">
                 <mat-option *ngFor="let item of reptOfficer" [value]="item.jobDesigID">
                   {{ item.jobDesigName }} - {{ item.payGradeCd }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field>
-              <mat-select [formControl]="formLeaveRule" disableOptionCentering placeholder="Leave Rule*"
+              <mat-select [formControl]="formLeaveRule" tabindex="9" disableOptionCentering placeholder="Leave Rule*"
                 [(ngModel)]="txtLeaveRule" multiple>
                 <mat-option *ngFor="let item of ruleList" [value]="item.leaveRuleID">
                   {{ item.leaveNatureName }} - {{ item.leaveTypeName }}
@@ -212,19 +212,19 @@
           </div>
           <div class="col-md-6">
             <mat-form-field>
-              <mat-select disableOptionCentering placeholder="Branch*" [(ngModel)]="officeName"
+              <mat-select disableOptionCentering placeholder="Branch*" tabindex="2" [(ngModel)]="officeName"
                 (ngModelChange)="onBranchChange($event)">
                 <mat-option *ngFor="let item of offices" [value]="item.locationCd">{{ item.locationName }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field>
-              <mat-select disableOptionCentering placeholder="Section" [(ngModel)]="sectionName">
+              <mat-select disableOptionCentering placeholder="Section" tabindex="4" [(ngModel)]="sectionName">
                 <mat-option *ngFor="let item of sections" [value]="item.deptCd">{{ item.deptName }}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field>
-              <mat-select disableOptionCentering placeholder="Pay Scale*" [(ngModel)]="BPS"
+              <mat-select disableOptionCentering placeholder="Pay Scale*" tabindex="6" [(ngModel)]="BPS"
                 (ngModelChange)="onBPSChange($event)">
                 <mat-option *ngFor="let item of bpsList" [value]="item.payGradeCd">{{ item.payGradeName }}
                 </mat-option>
@@ -232,7 +232,7 @@
             </mat-form-field>
             <div class="row mt-4">
               <div class="col-md-12">
-                <mat-radio-group [(ngModel)]="jobNature">
+                <mat-radio-group [(ngModel)]="jobNature" tabindex="8">
                   <div class="row">
                     <div class="col-md-4 text-left">
                       <mat-radio-button value="1">
@@ -249,7 +249,8 @@
               </div>
             </div>
             <mat-form-field class="mt-2">
-              <mat-select disableOptionCentering placeholder="Nature of Appointment*" [(ngModel)]="jobType">
+              <mat-select disableOptionCentering placeholder="Nature of Appointment*" tabindex="10"
+                [(ngModel)]="jobType">
                 <mat-option *ngFor="let item of jobTypes" [value]="item.jobTypeCd">{{ item.jobTypeName }}
                 </mat-option>
               </mat-select>
@@ -263,7 +264,7 @@
                 </button>
               </div>
               <div class="col-md-6">
-                <button mat-raised-button class="btn fullwidth pt-1 pb-1 noneOutLine" (click)="save()"
+                <button mat-raised-button class="btn fullwidth pt-1 pb-1 noneOutLine" tabindex="11" (click)="save()"
                   style="border-radius: 0;">
                   &nbsp;&nbsp;&nbsp;SAVE&nbsp;&nbsp;&nbsp;
                 </button>

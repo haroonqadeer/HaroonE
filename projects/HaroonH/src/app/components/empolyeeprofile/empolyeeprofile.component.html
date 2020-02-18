@@ -41,7 +41,7 @@
   <br />
   <div class="row">
 
-    <div *ngFor="let item of employeeListMain | search:'leaveTypeName,leaveTypeDesc':tblSearch let i=index" class="col-md-3 mb-3">
+    <div *ngFor="let item of employeeListMain | search:'indvdlFullName':tblSearch let i=index" class="col-md-3 mb-3">
       <mat-card class="allBorder p-0" style="border-radius: 0;">
 
         <div class="row m-3">
@@ -51,7 +51,7 @@
             <div class="row" *ngIf="item.jobDesigName == ''">
               <div class="col-md-12 p-0">
                 <label class="font1emb labelbreakH">{{item.indvdlFullName}}</label>
-                
+
                 <label class="font0-8em text-secondary labelbreakT">Designation</label>
                 <label class="font0-8em text-secondary labelbreakT">Department</label>
                 <label class="font0-8em text-secondary labelbreakT">Branch</label>
@@ -62,7 +62,7 @@
             <div class="row" *ngIf="item.jobDesigName != ''">
               <div class="col-md-12 p-0">
                 <label class="font1emb labelbreakH">{{item.indvdlFullName}}</label>
-                
+
                 <label class="font0-8em text-secondary labelbreakT">{{item.jobDesigName}}</label>
                 <label class="font0-8em text-secondary labelbreakT">{{item.deptName}}</label>
                 <label class="font0-8em text-secondary labelbreakT">{{item.locationName}}</label>
@@ -72,7 +72,8 @@
 
             <div class="row mt-1">
               <div class="col-md-2 p-0">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal"(click)="edit(item);">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal"
+                  (click)="edit(item);">
                   <span class="fa icon-emp-edit"></span>
                 </span>
               </div>
@@ -87,12 +88,14 @@
           </div>
 
           <div class="col-md-4 p-0 text-right" *ngIf="item.path == null">
-            <img class="allBorder" src="../assets/images/EmpImages/Profile-Female.jpg" alt="" width="103px" height="125px">
+            <img class="allBorder" src="../assets/images/EmpImages/Profile-Female.jpg" alt="" width="103px"
+              height="125px">
           </div>
 
 
           <div class="col-md-4 p-0 text-right" *ngIf="item.path != null">
-            <img class="allBorder" src="../assets/images/EmpImages/{{item.empID}}.jpg" alt="" width="103px" height="125px">
+            <img class="allBorder" src="../assets/images/EmpImages/{{item.empID}}.jpg" alt="" width="103px"
+              height="125px">
           </div>
 
         </div>
@@ -192,11 +195,12 @@
                 <div class="col-md-6">
                   <app-config-contact></app-config-contact>
                   <br />
-                  
+
                   <div class="row">
                     <div class="col-md-12 ml-1">
                       <img class="allBorder" [src]="imageUrl" width="85" height="100">
-                      <input class="position-absolute absolute-bottom" type="file" accept="image/*" (change)="onFileSelected($event)" [(ngModel)]="imgFile" />
+                      <input class="position-absolute absolute-bottom" type="file" accept="image/*"
+                        (change)="onFileSelected($event)" [(ngModel)]="imgFile" />
                     </div>
                   </div>
                 </div>
@@ -267,7 +271,8 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="fullwidth">
-                    <mat-select disableOptionCentering placeholder="Job Post" [(ngModel)]="jobPost" (ngModelChange)="getFilterItem('jobs')">
+                    <mat-select disableOptionCentering placeholder="Job Post" [(ngModel)]="jobPost"
+                      (ngModelChange)="getFilterItem('jobs')">
                       <mat-option *ngFor="let item of tempJobList" [value]="item.jobDesigID">
                         {{item.jobDesigName}}
                       </mat-option>
@@ -292,7 +297,8 @@
                   <br />
                   <div class="row">
                     <div class="col-md-12">
-                      <label>Designation / Pay Scale : </label> &nbsp;&nbsp;&nbsp; <label><b>{{lblJobTitle}} / {{lblBPS}}</b></label>
+                      <label>Designation / Pay Scale : </label> &nbsp;&nbsp;&nbsp; <label><b>{{lblJobTitle}} /
+                          {{lblBPS}}</b></label>
                     </div>
                   </div>
                 </div>
@@ -485,7 +491,7 @@
                             <td class='col-1 text-center'>{{i + 1}}</td>
                             <td class='col-2'>{{item.qlfctnName}}</td>
                             <td class='col-3'>{{item.qlfctnCriteriaName}}</td>
-                            <td class='col-2' >
+                            <td class='col-2'>
                               <p-rating class="rating-size" [(ngModel)]="item.skillLvl" [cancel]="false"
                                 [disabled]="true"></p-rating>
                             </td>

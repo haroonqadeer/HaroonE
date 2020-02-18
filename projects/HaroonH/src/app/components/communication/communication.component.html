@@ -32,7 +32,8 @@
     <div class="col-md-12">
       <div class="searchBar">
         <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search"
+          [(ngModel)]="tblSearch">
       </div>
     </div>
     <!--end search textbox column-->
@@ -46,7 +47,7 @@
         <thead>
           <tr class="d-flex">
             <th class="col-2 text-left">Sr No.</th>
-            <th [class.active]="order === 'documnetName'" (click)="setOrder('documnetName')"
+            <th [class.active]="order === 'docName'" (click)="setOrder('docName')"
               class="col-4 pointerCursor text-left ">
               Document Name
               <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
@@ -57,9 +58,11 @@
         </thead>
         <tbody>
           <!-- <tr *ngFor="let item of userDetail | search:'UserName,Email': query" class='d-flex'> -->
-          <tr class='d-flex' *ngFor="let doc of documentList | search:'documentName':tblSearch  | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' }  | orderBy: order:reverse:'case-insensitive' let i=index">
+          <tr class='d-flex'
+            *ngFor="let doc of documentList | search:'docName':tblSearch  | paginate: { itemsPerPage: itemPerPage, currentPage: p, id: 'first' }  | orderBy: order:reverse:'case-insensitive' let i=index">
             <td class='col-2 text-left'>{{i+1}}</td>
-            <td class='col-4 text-left'><a href="../assets/images/OrgDocuments/{{doc.docName}}.{{doc.docExtension}}" download>{{doc.docName}}</a></td>
+            <td class='col-4 text-left'><a href="../assets/images/OrgDocuments/{{doc.docName}}.{{doc.docExtension}}"
+                download>{{doc.docName}}</a></td>
             <td class='col-6 text-left'>
               <span class="fa tableIcon pointerCursor" (click)="delete(doc)">
                 <span class="fa icon-u-delete"></span>
@@ -134,9 +137,9 @@
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            <br/>
+            <br />
             <input type="file" (change)="onFileSelected($event)" [(ngModel)]="docFile" />
-            
+
             <!--start buttons row -->
             <div class="row mt-3">
               <div class="col-md-6">

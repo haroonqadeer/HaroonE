@@ -710,6 +710,13 @@ export class PostComponent implements OnInit {
         }
       } else {
         if (this.sectionName == "") {
+          // alert(this.jobDesigId);
+          // alert(this.officeName);
+          // alert(this.departmentName);
+          // alert(this.rptOffDeptCd);
+          // alert(this.rptOffLocCd);
+          // alert(this.txtReptOfficer);
+
           this.app.showSpinner();
 
           var updateData = {
