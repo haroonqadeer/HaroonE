@@ -1,39 +1,42 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from './shared/material.module';
-import { PNPrimeModule } from './shared/pnprime/pnprime.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ChartModule } from 'angular-highcharts';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule, ModuleWithProviders } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MaterialModule } from "./shared/material.module";
+import { PNPrimeModule } from "./shared/pnprime/pnprime.module";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ChartModule } from "angular-highcharts";
 //import { HttpModule } from '@angular/http';
-import { MatRadioModule } from '@angular/material/radio';
-import { NgCircleProgressModule } from 'ng-circle-progress';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { UserIdleModule } from 'angular-user-idle';
+import { MatRadioModule } from "@angular/material/radio";
+import { NgCircleProgressModule } from "ng-circle-progress";
+import { NgxSpinnerModule } from "ngx-spinner";
+import { UserIdleModule } from "angular-user-idle";
 
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NavComponent } from './components/nav/nav.component';
-import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { NavComponent } from "./components/nav/nav.component";
+import {
+  IgxGridModule,
+  IgxExcelExporterService,
+  IgxCsvExporterService
+} from "igniteui-angular";
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { ToastrModule } from 'ng6-toastr-notifications';
-import { OrderModule } from 'ngx-order-pipe';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
-import { SearchPipe } from './shared/pipe-filters/pipe-search';
-import { LoginComponent } from './components/login/login.component';
-import { AttendanceComponent } from './components/attendance/attendance.component';
+import { ToastrModule } from "ng6-toastr-notifications";
+import { OrderModule } from "ngx-order-pipe";
+import { NgxPaginationModule } from "ngx-pagination";
+import { InputTextModule } from "primeng/inputtext";
+import { DropdownModule } from "primeng/dropdown";
+import { SearchPipe } from "./shared/pipe-filters/pipe-search";
+import { LoginComponent } from "./components/login/login.component";
+import { AttendanceComponent } from "./components/attendance/attendance.component";
 
-import { HRSharedModule } from 'projects/HaroonH/src/app/app.module';
-import { ConfigSharedModule } from 'projects/HaroonConfig/src/app/app.module';
-import { UMSharedModule } from 'projects/HaroonU/src/app/app.module';
-import { CompSharedModule } from 'projects/HaroonC/src/app/app.module';
-import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { HRSharedModule } from "projects/HaroonH/src/app/app.module";
+import { ConfigSharedModule } from "projects/HaroonConfig/src/app/app.module";
+import { UMSharedModule } from "projects/HaroonU/src/app/app.module";
+import { CompSharedModule } from "projects/HaroonC/src/app/app.module";
+import { ForgotpasswordComponent } from "./components/forgotpassword/forgotpassword.component";
 
-import { CookieService } from 'ngx-cookie-service';
+import { CookieService } from "ngx-cookie-service";
 import { NgxMaskModule } from "ngx-mask";
 
 @NgModule({
@@ -43,8 +46,7 @@ import { NgxMaskModule } from "ngx-mask";
     //SearchPipe,
     LoginComponent,
     AttendanceComponent,
-    ForgotpasswordComponent,
-    
+    ForgotpasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -72,14 +74,20 @@ import { NgxMaskModule } from "ngx-mask";
     NgxSpinnerModule,
     NgxMaskModule.forRoot(),
     // Optionally you can set time for `idle`, `timeout` and `ping` in seconds.
-    // Default values: `idle` is 60 (1 minutes), `timeout` is 30 (0.5 minutes) 
+    // Default values: `idle` is 60 (1 minutes), `timeout` is 30 (0.5 minutes)
     // and `ping` is 15 0.25 minutes).
-    UserIdleModule.forRoot({ idle: 300, timeout: 300, ping: 15 }),
+    UserIdleModule.forRoot({ idle: 300, timeout: 300, ping: 15 })
 
     //SearchPipe
   ],
-  providers: [AttendanceComponent, NavComponent, IgxExcelExporterService, IgxCsvExporterService, CookieService],
+  providers: [
+    AttendanceComponent,
+    NavComponent,
+    IgxExcelExporterService,
+    IgxCsvExporterService,
+    CookieService
+  ],
   bootstrap: [AppComponent],
-  entryComponents: [NavComponent, AttendanceComponent],
+  entryComponents: [NavComponent, AttendanceComponent]
 })
-export class AppModule { }
+export class AppModule {}

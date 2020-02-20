@@ -25,7 +25,7 @@ export class YearcalendarComponent implements OnInit {
   CLIENT_ID =
     "665834675648-liuqhc13bk0lcg0shrduhorbig5ddifo.apps.googleusercontent.com";
   clientSecret = "YV64hY-0ssEw13MOan9LBfkr";
-  API_KEY = "AIzaSyAJMjp2nRl_swIG9Gei1bnzQQJ5oUMkoYI";
+  api_Key = "AIzaSyAsHi8NE9SF4vfID2SstAIcamHwLTqu3YQ";
 
   // Array of API discovery doc URLs for APIs used by the quickstart
   DISCOVERY_DOCS = [
@@ -39,18 +39,17 @@ export class YearcalendarComponent implements OnInit {
   authorizeButton = document.getElementById("authorize_button");
   signoutButton = document.getElementById("signout_button");
 
-  constructor() // private toastr: ToastrManager,
-  // private app: AppComponent,
-  // private http: HttpClient
-  {}
+  constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.handleClientLoad();
+  }
 
   /**
    *  On load, called to load the auth2 library and API client library.
    */
   handleClientLoad() {
-    // gapi.load("client:auth2", initClient);
+    gapi.load("client:auth2", this.initClient);
   }
 
   /**
@@ -59,35 +58,45 @@ export class YearcalendarComponent implements OnInit {
    */
   // Initialize the Google API client with desired scopes
   initClient() {
-    gapi.load("client", () => {
-      console.log("loaded client");
-
-      // It's OK to expose these credentials, they are client safe.
-      gapi.client.init({
-        apiKey: this.API_KEY,
+    gapi.client
+      .init({
+        apiKey: this.api_Key,
         clientId: this.CLIENT_ID,
-        discoveryDocs: [
-          "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
-        ],
-        scope: "https://www.googleapis.com/auth/calendar"
-      });
+        discoveryDocs: this.DISCOVERY_DOCS,
+        scope: this.SCOPES
+      })
+      .then(
+        function() {
+          // Listen for sign-in state changes.
+          gapi.auth2
+            .getAuthInstance()
+            .isSignedIn.listen(this.updateSigninStatus);
 
-      gapi.client.load("calendar", "v3", () => console.log("loaded calendar"));
-    });
+          // Handle the initial sign-in state.
+          this.updateSigninStatus(
+            gapi.auth2.getAuthInstance().isSignedIn.get()
+          );
+          this.authorizeButton.onclick = this.handleAuthClick;
+          this.signoutButton.onclick = this.handleSignoutClick;
+        },
+        function(error) {
+          this.appendPre(JSON.stringify(error, null, 2));
+        }
+      );
   }
   /**
    *  Called when the signed in status changes, to update the UI
    *  appropriately. After a sign-in, the API is called.
    */
   updateSigninStatus(isSignedIn) {
-    // if (isSignedIn) {
-    //   authorizeButton.style.display = "none";
-    //   signoutButton.style.display = "block";
-    //   listUpcomingEvents();
-    // } else {
-    //   authorizeButton.style.display = "block";
-    //   signoutButton.style.display = "none";
-    // }
+    if (isSignedIn) {
+      this.authorizeButton.style.display = "none";
+      this.signoutButton.style.display = "block";
+      this.listUpcomingEvents();
+    } else {
+      this.authorizeButton.style.display = "block";
+      this.signoutButton.style.display = "none";
+    }
   }
 
   /**
@@ -122,30 +131,31 @@ export class YearcalendarComponent implements OnInit {
    * appropriate message is printed.
    */
   listUpcomingEvents() {
-    // gapi.client.calendar.events
-    //   .list({
-    //     calendarId: "primary",
-    //     timeMin: new Date().toISOString(),
-    //     showDeleted: false,
-    //     singleEvents: true,
-    //     maxResults: 10,
-    //     orderBy: "startTime"
-    //   })
-    //   .then(function(response) {
-    //     var events = response.result.items;
-    //     appendPre("Upcoming events:");
-    //     if (events.length > 0) {
-    //       for (var i = 0; i < events.length; i++) {
-    //         var event = events[i];
-    //         var when = event.start.dateTime;
-    //         if (!when) {
-    //           when = event.start.date;
-    //         }
-    //         appendPre(event.summary + " (" + when + ")");
-    //       }
-    //     } else {
-    //       appendPre("No upcoming events found.");
-    //     }
-    //   });
+    gapi.client.calendar.events
+      .list({
+        calendarId: "primary",
+        timeMin: new Date().toISOString(),
+        showDeleted: false,
+        singleEvents: true,
+        maxResults: 10,
+        orderBy: "startTime"
+      })
+      .then(function(response) {
+        var events = response.result.items;
+        this.appendPre("Upcoming events:");
+
+        if (events.length > 0) {
+          for (var i = 0; i < events.length; i++) {
+            var event = events[i];
+            var when = event.start.dateTime;
+            if (!when) {
+              when = event.start.date;
+            }
+            this.appendPre(event.summary + " (" + when + ")");
+          }
+        } else {
+          this.appendPre("No upcoming events found.");
+        }
+      });
   }
 }
