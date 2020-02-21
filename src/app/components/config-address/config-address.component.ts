@@ -22,8 +22,8 @@ import { ToastrManager } from "ng6-toastr-notifications";
 })
 export class ConfigAddressComponent implements OnInit {
   
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
-  //serverUrl = "http://localhost:9043/";
+  //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
+  serverUrl = "http://localhost:9043/";
   
   tokenKey = "token";
 
@@ -79,9 +79,10 @@ export class ConfigAddressComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + "api/getCity", { headers: reqHeader }).subscribe((data: any) => {
+    this.http.get(this.serverUrl + "api/getDistrict", { headers: reqHeader }).subscribe((data: any) => {
         this.cityList = data;
     });
+
   }
 
   getAddressType() {
@@ -138,10 +139,10 @@ export class ConfigAddressComponent implements OnInit {
           addressId: 0,
           addressType: this.addressType,
           address: this.address,
-          cityCode: this.city,
-          districtCode: this.country,
+          cityCode: 1,
+          districtCode: this.city,
           provinceCode: 6,
-          countryCode: 1,
+          countryCode: this.country,
 
           addressTypeName: dataList1[0].addressTypeName,
           cntryName: dataList2[0].cntryName,
