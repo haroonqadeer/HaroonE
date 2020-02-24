@@ -24,7 +24,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
   @Output() myEvent = new EventEmitter();
   //serverUrl = "http://localhost:9043/";
-  // imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
+  //imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
 
   serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
   imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
@@ -1445,7 +1445,7 @@ export class EmpolyeeprofileComponent implements OnInit {
             this.toastr.successToastr(data.msg, "Success!", { toastTimeout: 2500 });
             this.clearEmp;
             this.getNewEmployee();
-            this.app.empId = "";
+            this.app.pin = "";
             return false;
           } else {
             this.app.hideSpinner();
