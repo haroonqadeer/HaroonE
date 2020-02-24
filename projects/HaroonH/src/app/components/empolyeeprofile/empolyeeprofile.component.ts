@@ -35,12 +35,12 @@ export class EmpolyeeprofileComponent implements OnInit {
   @ViewChild(ConfigContactComponent) shrd_cntct: ConfigContactComponent;
 
   @Output() myEvent = new EventEmitter();
-  serverUrl = "http://localhost:9043/";
-  imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
+  // serverUrl = "http://localhost:5000/";
+  // imgPath =
+  //   "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
 
-  //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
-  //imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
-  
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
+  imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
 
   imageUrl: string = "../assets/images/EmpImages/dropHereImg.png";
 
@@ -353,7 +353,9 @@ export class EmpolyeeprofileComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + "api/getJobProfile", { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getJobProfile", { headers: reqHeader })
+      .subscribe((data: any) => {
         this.postList = data;
         this.tempJobList = data;
         // for (var i = 0; i < data.length; i++) {
@@ -394,7 +396,11 @@ export class EmpolyeeprofileComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + "api/getQualificationCriteria", {headers: reqHeader}).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getQualificationCriteria", {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
         this.tempQualificationCriteriaList = data;
 
         for (var i = 0; i < data.length; i++) {
@@ -1093,7 +1099,10 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http.post(this.serverUrl + "api/updateQualification", updateData, {headers: reqHeader})
+      this.http
+        .post(this.serverUrl + "api/updateQualification", updateData, {
+          headers: reqHeader
+        })
         .subscribe((data: any) => {
           if (data.msg != "Record Updated Successfully!") {
             this.app.hideSpinner();
@@ -1251,8 +1260,6 @@ export class EmpolyeeprofileComponent implements OnInit {
     this.tempJobList = this.postList;
     this.departmentList = [];
     this.sectionList = [];
-
-
   }
 
   //Function for update employee personal info
@@ -1482,13 +1489,19 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http.post(this.serverUrl + "api/updateEmpJobProfile", updateData, {headers: reqHeader}).subscribe((data: any) => {
+      this.http
+        .post(this.serverUrl + "api/updateEmpJobProfile", updateData, {
+          headers: reqHeader
+        })
+        .subscribe((data: any) => {
           if (
             data.msg == "Record Updated Successfully!" ||
             data.msg == "Record Saved Successfully!"
           ) {
             this.app.hideSpinner();
-            this.toastr.successToastr(data.msg, "Success!", { toastTimeout: 2500 });
+            this.toastr.successToastr(data.msg, "Success!", {
+              toastTimeout: 2500
+            });
             this.getNewEmployee();
             this.clearJobProfile();
             return false;

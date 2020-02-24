@@ -21,10 +21,9 @@ import { ToastrManager } from "ng6-toastr-notifications";
   styleUrls: ["./config-address.component.scss"]
 })
 export class ConfigAddressComponent implements OnInit {
-  
-  //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
-  serverUrl = "http://localhost:9043/";
-  
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
+  // serverUrl = "http://localhost:9043/";
+
   tokenKey = "token";
 
   httpOptions = {
@@ -79,10 +78,11 @@ export class ConfigAddressComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + "api/getDistrict", { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getDistrict", { headers: reqHeader })
+      .subscribe((data: any) => {
         this.cityList = data;
-    });
-
+      });
   }
 
   getAddressType() {
@@ -93,41 +93,58 @@ export class ConfigAddressComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + "api/getAddressType", { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getAddressType", { headers: reqHeader })
+      .subscribe((data: any) => {
         this.adrsTypeList = data;
-    });
+      });
   }
 
   addAddress() {
     if (this.addressType == "") {
-      this.toastr.errorToastr("Please select address type", "Error", {toastTimeout: 2500});
+      this.toastr.errorToastr("Please select address type", "Error", {
+        toastTimeout: 2500
+      });
       return false;
     } else if (this.address.trim() == "") {
-      this.toastr.errorToastr("Please enter address", "Error", {toastTimeout: 2500});
+      this.toastr.errorToastr("Please enter address", "Error", {
+        toastTimeout: 2500
+      });
       return false;
     } else if (this.country == "") {
-      this.toastr.errorToastr("Please select country", "Error", {toastTimeout: 2500});
+      this.toastr.errorToastr("Please select country", "Error", {
+        toastTimeout: 2500
+      });
       return false;
     } else if (this.city == "") {
-      this.toastr.errorToastr("Please select city", "Error", {toastTimeout: 2500});
+      this.toastr.errorToastr("Please select city", "Error", {
+        toastTimeout: 2500
+      });
       return false;
     } else if (this.zipCode == "") {
-      this.toastr.errorToastr("Please enter zip code", "Error", {toastTimeout: 2500});
+      this.toastr.errorToastr("Please enter zip code", "Error", {
+        toastTimeout: 2500
+      });
       return false;
     } else {
       var flag = false;
 
       for (var i = 0; i < this.addressList.length; i++) {
-        if (this.addressList[i].addressType == this.addressType && this.addressList[i].address == this.address && this.addressList[i].cityCode == this.city && this.addressList[i].countryCode == this.country) 
-        {
+        if (
+          this.addressList[i].addressType == this.addressType &&
+          this.addressList[i].address == this.address &&
+          this.addressList[i].cityCode == this.city &&
+          this.addressList[i].countryCode == this.country
+        ) {
           flag = true;
           this.addressList[i].status = 1;
         }
       }
 
-
       var dataList1 = [];
-      dataList1 = this.adrsTypeList.filter(x => x.addressTypeCd == this.addressType);
+      dataList1 = this.adrsTypeList.filter(
+        x => x.addressTypeCd == this.addressType
+      );
       var dataList2 = [];
       dataList2 = this.cntryList.filter(x => x.cntryCd == this.country);
       var dataList3 = [];
@@ -147,7 +164,7 @@ export class ConfigAddressComponent implements OnInit {
           addressTypeName: dataList1[0].addressTypeName,
           cntryName: dataList2[0].cntryName,
           districtName: dataList3[0].districtName,
-          
+
           zipCode: this.zipCode,
           status: 0,
           IDelFlag: 0

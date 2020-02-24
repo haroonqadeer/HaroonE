@@ -13,7 +13,6 @@ import interactionPlugin from "@fullcalendar/interaction";
 import bootstrapPlugin from "@fullcalendar/bootstrap";
 
 declare var $: any;
-declare var gapi: any;
 
 @Component({
   selector: "app-yearcalendar",
@@ -21,141 +20,283 @@ declare var gapi: any;
   styleUrls: ["./yearcalendar.component.scss"]
 })
 export class YearcalendarComponent implements OnInit {
-  // Client ID and API key from the Developer Console
-  CLIENT_ID =
-    "665834675648-liuqhc13bk0lcg0shrduhorbig5ddifo.apps.googleusercontent.com";
-  clientSecret = "YV64hY-0ssEw13MOan9LBfkr";
-  api_Key = "AIzaSyAsHi8NE9SF4vfID2SstAIcamHwLTqu3YQ";
+  //serverUrl = "http://localhost:9021/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9021/";
 
-  // Array of API discovery doc URLs for APIs used by the quickstart
-  DISCOVERY_DOCS = [
-    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
+  events: any[];
+  options: any;
+
+  txtRemarks = "";
+  cmbHoliday = "";
+  eventDate = "";
+  startTime = "";
+  endTime = "";
+  eventType = "";
+
+  affectDate = "";
+  Monday = "";
+  Tuesday = "";
+  Wednesday = "";
+  Thursday = "";
+  Friday = "";
+  Saturday = "";
+  Sunday = "";
+
+  eventTypeList = [];
+  holidayList = [];
+
+  cmbHolidayList = [
+    {
+      value: "1",
+      label: "Kashmir Day"
+    },
+    {
+      value: "2",
+      label: "Pakistan Day"
+    },
+    {
+      value: "3",
+      label: "Labour Day"
+    },
+    {
+      value: "4",
+      label: "Independence Day"
+    },
+    {
+      value: "5",
+      label: "Defence Day"
+    },
+    {
+      value: "6",
+      label: "Iqbal Day"
+    },
+    {
+      value: "7",
+      label: "Quaid Day"
+    }
   ];
 
-  // Authorization scopes required by the API; multiple scopes can be
-  // included, separated by spaces.
-  SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
-
-  authorizeButton = document.getElementById("authorize_button");
-  signoutButton = document.getElementById("signout_button");
-
-  constructor() {}
+  constructor(
+    private toastr: ToastrManager,
+    private app: AppComponent,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
-    this.handleClientLoad();
-  }
+    this.getHolidays();
+    this.getEvents();
 
-  /**
-   *  On load, called to load the auth2 library and API client library.
-   */
-  handleClientLoad() {
-    gapi.load("client:auth2", this.initClient);
-  }
-
-  /**
-   *  Initializes the API client library and sets up sign-in state
-   *  listeners.
-   */
-  // Initialize the Google API client with desired scopes
-  initClient() {
-    gapi.client
-      .init({
-        apiKey: this.api_Key,
-        clientId: this.CLIENT_ID,
-        discoveryDocs: this.DISCOVERY_DOCS,
-        scope: this.SCOPES
-      })
-      .then(
-        function() {
-          // Listen for sign-in state changes.
-          gapi.auth2
-            .getAuthInstance()
-            .isSignedIn.listen(this.updateSigninStatus);
-
-          // Handle the initial sign-in state.
-          this.updateSigninStatus(
-            gapi.auth2.getAuthInstance().isSignedIn.get()
-          );
-          this.authorizeButton.onclick = this.handleAuthClick;
-          this.signoutButton.onclick = this.handleSignoutClick;
+    this.options = {
+      plugins: [
+        dayGridPlugin,
+        timeGridPlugin,
+        interactionPlugin,
+        bootstrapPlugin
+      ],
+      defaultDate: "2019-06-01",
+      eventTextColor: "white",
+      // dayTextColor:"black",
+      // editable: true,
+      // defaultView:'dayGridFourDay',
+      selectable: true,
+      selectHelper: true,
+      customButtons: {
+        addEvent: {
+          text: "Add Holidays",
+          click: function() {
+            $("#eventModal").modal("show");
+          }
         },
-        function(error) {
-          this.appendPre(JSON.stringify(error, null, 2));
+        generateCalender: {
+          text: "Generate Calendar",
+          click: function() {
+            $("#calendarModal").modal("show");
+          }
         }
-      );
+      },
+      header: {
+        left: "prev,next, today, addEvent, generateCalender",
+        center: "title",
+        right: "dayGridMonth,timeGridWeek,timeGridDay"
+      },
+      buttonIcons: {
+        prev: "left-single-arrow",
+        next: "right-single-arrow"
+      },
+      themeSystem: "bootstrap"
+      // eventLimit: true,
+    };
   }
-  /**
-   *  Called when the signed in status changes, to update the UI
-   *  appropriately. After a sign-in, the API is called.
-   */
-  updateSigninStatus(isSignedIn) {
-    if (isSignedIn) {
-      this.authorizeButton.style.display = "none";
-      this.signoutButton.style.display = "block";
-      this.listUpcomingEvents();
+
+  getHolidays() {
+    this.app.showSpinner();
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    this.http
+      .get(this.serverUrl + "api/getHolidays", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.holidayList = data;
+
+        this.app.hideSpinner();
+      });
+  }
+
+  getEvents() {
+    this.app.showSpinner();
+
+    //var Token = localStorage.getItem(this.tokenKey);
+
+    //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    this.http
+      .get(this.serverUrl + "api/getEvents", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.events = data;
+
+        this.app.hideSpinner();
+      });
+  }
+
+  convertDate(myDate) {
+    var oldDate = new Date(myDate);
+    var d = oldDate.getDate();
+    var m = oldDate.getMonth();
+    m += 1; // JavaScript months are 0-11
+    var y = oldDate.getFullYear();
+
+    var convertedDate = d + "-" + m + "-" + y;
+
+    return convertedDate;
+  }
+
+  saveCalender() {
+    if (this.affectDate == "") {
+      this.toastr.errorToastr("Please Select Affect Date!", "Error", {
+        toastTimeout: 2500
+      });
+      return;
+    } else if (
+      this.Monday == "" &&
+      this.Tuesday == "" &&
+      this.Wednesday == "" &&
+      this.Thursday == "" &&
+      this.Friday == "" &&
+      this.Saturday == "" &&
+      this.Sunday == ""
+    ) {
+      this.toastr.errorToastr("Please Select Weekend!", "Error", {
+        toastTimeout: 2500
+      });
+      return;
+      // }
+      // else if (this.txtRemarks == '') {
+      //   this.toastr.errorToastr('Please Enter Remarks', 'Error', { toastTimeout: (2500) });
+      //   return false;
     } else {
-      this.authorizeButton.style.display = "block";
-      this.signoutButton.style.display = "none";
+      this.app.showSpinner();
+
+      var saveData = {
+        monday: this.Monday,
+        tuesday: this.Tuesday,
+        wednesday: this.Wednesday,
+        thursday: this.Thursday,
+        friday: this.Friday,
+        saturday: this.Saturday,
+        sunday: this.Sunday,
+        affectDate: this.affectDate
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "api/saveCalendar", saveData, {
+          headers: reqHeader
+        })
+        .subscribe((data: any) => {
+          if (data.msg == "Record Saved Successfully!") {
+            this.toastr.successToastr(data.msg, "Success!", {
+              toastTimeout: 2500
+            });
+            this.clear();
+            this.getEvents();
+            $("#calendarModal").modal("hide");
+            this.app.hideSpinner();
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+            //$('#companyModal').modal('hide');
+            this.app.hideSpinner();
+            return false;
+          }
+        });
     }
   }
 
-  /**
-   *  Sign in the user upon button click.
-   */
-  handleAuthClick(event) {
-    gapi.auth2.getAuthInstance().signIn();
-  }
+  saveEvent() {
+    for (var i = 0; i < this.holidayList.length; i++) {
+      // alert(this.convertDate(this.holidayList[i].eventDate) + ' - ' + this.convertDate(this.eventDate));
+      if (
+        this.holidayList[i].holiday == this.cmbHoliday &&
+        this.convertDate(this.holidayList[i].eventDate) ==
+          this.convertDate(this.eventDate)
+      ) {
+        this.toastr.errorToastr("Holiday Already Saved!", "Error", {
+          toastTimeout: 2500
+        });
+        return;
+      }
+    }
 
-  /**
-   *  Sign out the user upon button click.
-   */
-  handleSignoutClick(event) {
-    gapi.auth2.getAuthInstance().signOut();
-  }
-
-  /**
-   * Append a pre element to the body containing the given message
-   * as its text node. Used to display the results of the API call.
-   *
-   * @param {string} message Text to be placed in pre element.
-   */
-  appendPre(message) {
-    var pre = document.getElementById("content");
-    var textContent = document.createTextNode(message + "\n");
-    pre.appendChild(textContent);
-  }
-
-  /**
-   * Print the summary and start datetime/date of the next ten events in
-   * the authorized user's calendar. If no events are found an
-   * appropriate message is printed.
-   */
-  listUpcomingEvents() {
-    gapi.client.calendar.events
-      .list({
-        calendarId: "primary",
-        timeMin: new Date().toISOString(),
-        showDeleted: false,
-        singleEvents: true,
-        maxResults: 10,
-        orderBy: "startTime"
-      })
-      .then(function(response) {
-        var events = response.result.items;
-        this.appendPre("Upcoming events:");
-
-        if (events.length > 0) {
-          for (var i = 0; i < events.length; i++) {
-            var event = events[i];
-            var when = event.start.dateTime;
-            if (!when) {
-              when = event.start.date;
-            }
-            this.appendPre(event.summary + " (" + when + ")");
-          }
-        } else {
-          this.appendPre("No upcoming events found.");
-        }
+    if (this.eventDate == "") {
+      this.toastr.errorToastr("Please Select Event Date", "Error", {
+        toastTimeout: 2500
       });
+      return;
+    } else if (this.cmbHoliday == "") {
+      this.toastr.errorToastr("Please Select Holiday", "Error", {
+        toastTimeout: 2500
+      });
+      return;
+    } else {
+      this.app.showSpinner();
+
+      var saveData = {
+        eventDate: this.eventDate,
+        holiday: this.cmbHoliday
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "api/saveHoliday", saveData, {
+          headers: reqHeader
+        })
+        .subscribe((data: any) => {
+          if (data.msg == "Record Saved Successfully!") {
+            this.toastr.successToastr(data.msg, "Success!", {
+              toastTimeout: 2500
+            });
+            this.getHolidays();
+            this.getEvents();
+            this.clear();
+            this.app.hideSpinner();
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+            //$('#companyModal').modal('hide');
+            this.app.hideSpinner();
+            return false;
+          }
+        });
+    }
+  }
+
+  clear() {
+    this.eventDate = "";
+    this.cmbHoliday = "";
   }
 }
