@@ -72,13 +72,12 @@
 
             <div class="row mt-1">
               <div class="col-md-2 p-0">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal"
-                  (click)="edit(item);">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal" (click)="edit(item);">
                   <span class="fa icon-emp-edit"></span>
                 </span>
               </div>
               <div class="col-md-2 p-0">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal">
+                <span class="fa tableIcon pointerCursor" (click)="delete(item)">
                   <span class="fa icon-emp-delete"></span>
                 </span>
 

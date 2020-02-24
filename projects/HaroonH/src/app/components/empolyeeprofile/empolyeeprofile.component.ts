@@ -1,20 +1,8 @@
-import {
-  Component,
-  ViewChild,
-  OnInit,
-  ViewEncapsulation,
-  EventEmitter,
-  Output
-} from "@angular/core";
+import { Component, ViewChild, OnInit, ViewEncapsulation, EventEmitter, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SelectItem } from "primeng/api";
 import { ToastrManager } from "ng6-toastr-notifications";
-import {
-  HttpHeaders,
-  HttpClient,
-  HttpEventType,
-  HttpRequest
-} from "@angular/common/http";
+import { HttpHeaders, HttpClient, HttpEventType, HttpRequest } from "@angular/common/http";
 
 import { AppComponent } from "src/app/app.component";
 import { jsonpCallbackContext } from "@angular/common/http/src/module";
@@ -35,9 +23,8 @@ export class EmpolyeeprofileComponent implements OnInit {
   @ViewChild(ConfigContactComponent) shrd_cntct: ConfigContactComponent;
 
   @Output() myEvent = new EventEmitter();
-  // serverUrl = "http://localhost:5000/";
-  // imgPath =
-  //   "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
+  //serverUrl = "http://localhost:9043/";
+  // imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
 
   serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
   imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
@@ -575,9 +562,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http
-      .get(this.serverUrl + "api/getDistrict", { headers: reqHeader })
-      .subscribe((data: any) => {
+    this.http.get(this.serverUrl + "api/getDistrict", { headers: reqHeader }).subscribe((data: any) => {
         for (var i = 0; i < data.length; i++) {
           this.districtList.push({
             label: data[i].districtName,
@@ -1156,6 +1141,16 @@ export class EmpolyeeprofileComponent implements OnInit {
     this.jobType = item.jobTypeCd;
     this.joiningDate = new Date(item.empJobStartDt);
     this.appliedDate = new Date(item.empJobAppntmntDt);
+
+    if(item.path == null){
+      this.imageUrl = "../assets/images/EmpImages/dropHereImg.png";
+    }else{
+      this.imageUrl = "../assets/images/EmpImages/" + item.empID +".jpg";
+    }
+    
+
+
+
     //this.renewalFrom = "";
     //this.contractEnd = "";
 
@@ -1344,11 +1339,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
         var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-        this.http
-          .post(this.serverUrl + "api/updateEmpPersonalInfo", saveData, {
-            headers: reqHeader
-          })
-          .subscribe((data: any) => {
+        this.http.post(this.serverUrl + "api/updateEmpPersonalInfo", saveData, { headers: reqHeader }).subscribe((data: any) => {
             if (data.msg == "Record Saved Successfully!") {
               this.app.hideSpinner();
               this.toastr.successToastr(data.msg, "Success!", {
@@ -1417,6 +1408,53 @@ export class EmpolyeeprofileComponent implements OnInit {
             }
           });
       }
+    }
+  }
+
+  delete(item) {
+    if (this.app.pin != "") {
+      this.app.showSpinner();
+      //* ********************************************save data
+      var delData = {
+        EmpID: item.empID,
+        IndvdlFirstName: null,
+        IndvdlMidName: null,
+        IndvdlLastName: null,
+        IndvdlFullName: null,
+        IndvdlCNIC: null,
+        CmpnyID: 59,
+        IndvdlFatherName: null, //this.fhName
+        addressList: JSON.stringify(this.shrd_adrs.addressList),
+        contactList: JSON.stringify(this.shrd_cntct.contactList),
+        emailList: JSON.stringify(this.shrd_cntct.emailList),
+        file: null,
+        path: null,
+        ConnectedUser: "12000",
+        DelFlag: 1
+      };
+
+      //var token = localStorage.getItem(this.tokenKey);
+
+      //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http .post(this.serverUrl + "api/updateEmpPersonalInfo", delData, { headers: reqHeader }) .subscribe((data: any) => {
+          if (data.msg == "Record Deleted Successfully!") {
+            this.app.hideSpinner();
+            this.toastr.successToastr(data.msg, "Success!", { toastTimeout: 2500 });
+            this.clearEmp;
+            this.getNewEmployee();
+            this.app.empId = "";
+            return false;
+          } else {
+            this.app.hideSpinner();
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 5000 });
+            return false;
+          }
+        });
+    } else {
+      this.app.genPin();
     }
   }
 
@@ -1631,13 +1669,5 @@ export class EmpolyeeprofileComponent implements OnInit {
   //function for email validation
   isEmail(email) {
     return this.app.validateEmail(email);
-  }
-
-  wait(ms) {
-    var start = new Date().getTime();
-    var end = start;
-    while (end < start + ms) {
-      end = new Date().getTime();
-    }
   }
 }
