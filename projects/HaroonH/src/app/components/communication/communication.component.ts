@@ -28,12 +28,12 @@ declare var $: any;
   encapsulation: ViewEncapsulation.None
 })
 export class CommunicationComponent implements OnInit {
-
   //serverUrl = "http://localhost:9050/";
   //filePath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/OrgDocuments";
   // filePath = "D:/Infovative Projects";
 
   serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9045/";
+  // filePath = "C:/inetpub/wwwroot/EMIS/assets/images/OrgDocuments";
   filePath = "C:/inetpub/wwwroot/EMIS/assets/images/OrgDocuments";
 
   tokenKey = "token";
@@ -145,7 +145,11 @@ export class CommunicationComponent implements OnInit {
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http.post(this.serverUrl + "api/uploadDocument", saveData, { headers: reqHeader }).subscribe((data: any) => {
+      this.http
+        .post(this.serverUrl + "api/uploadDocument", saveData, {
+          headers: reqHeader
+        })
+        .subscribe((data: any) => {
           if (data.msg == "Record Saved Successfully!") {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
