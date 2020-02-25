@@ -23,11 +23,11 @@ export class EmpolyeeprofileComponent implements OnInit {
   @ViewChild(ConfigContactComponent) shrd_cntct: ConfigContactComponent;
 
   @Output() myEvent = new EventEmitter();
-  //serverUrl = "http://localhost:9043/";
-  //imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
+  serverUrl = "http://localhost:9043/";
+  imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
 
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
-  imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
+  //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
+  //imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
 
   imageUrl: string = "../assets/images/EmpImages/dropHereImg.png";
 
@@ -162,8 +162,8 @@ export class EmpolyeeprofileComponent implements OnInit {
   ddlExperience;
   appliedDate;
   joiningDate;
-  renewalFrom = "";
-  contractEnd = "";
+  contractFrom;
+  contractEnd;
 
   txtdPassword = "";
   txtdPin = "";
@@ -1139,8 +1139,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     this.lblBPS = item.payGradeName;
     this.jobPost = item.jobDesigID;
     this.jobType = item.jobTypeCd;
-    this.joiningDate = new Date(item.empJobStartDt);
-    this.appliedDate = new Date(item.empJobAppntmntDt);
+    
 
     if(item.path == null){
       this.imageUrl = "../assets/images/EmpImages/dropHereImg.png";
@@ -1159,10 +1158,17 @@ export class EmpolyeeprofileComponent implements OnInit {
     //this.lblJobType = item.jobTypeName;
     //this.lblContract = "contract";
 
-    if (this.lblJobType == "Regular") {
-      this.chkJobType = true;
+    if (item.jobTypeCd == "1") {
+      this.joiningDate = new Date(item.empJobStartDt);
+      this.appliedDate = new Date(item.empJobAppntmntDt);
     } else {
-      this.chkJobType = false;
+      this.contractFrom = new Date(item.empJobStartDt);
+      if(item.empJobLastDt == null){
+        this.contractEnd = item.empJobLastDt;
+      }else{
+        this.contractEnd = new Date(item.empJobLastDt);
+      }
+      
     }
 
     if (item.managerJobPostDeptCd == 0) {
@@ -1249,7 +1255,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     this.lblBPS = "";
     this.joiningDate = "";
     this.appliedDate = "";
-    this.renewalFrom = "";
+    this.contractFrom = "";
     this.contractEnd = "";
 
     this.tempJobList = this.postList;
@@ -1463,49 +1469,50 @@ export class EmpolyeeprofileComponent implements OnInit {
     // this.toastr.errorToastr('Enter Complete Information', 'Error', { toastTimeout: (2500) });
     // return false;
 
-    if (
-      this.jobPost == "" ||
-      this.jobPost == null ||
-      this.jobPost == undefined
-    ) {
-      this.toastr.errorToastr("Please select job profile", "Error", {
-        toastTimeout: 2500
-      });
+    if ( this.jobPost == "" || this.jobPost == null || this.jobPost == undefined ) {
+      this.toastr.errorToastr("Please select job profile", "Error", { toastTimeout: 2500 });
       return false;
     }
-    if (
-      this.jobType == "" ||
-      this.jobType == null ||
-      this.jobType == undefined
-    ) {
-      this.toastr.errorToastr("Please select job type", "Error", {
-        toastTimeout: 2500
-      });
+    if ( this.jobType == "" || this.jobType == null || this.jobType == undefined ) {
+      this.toastr.errorToastr("Please select job type", "Error", { toastTimeout: 2500 });
       return false;
-    } else if (
-      this.appliedDate == undefined ||
-      this.appliedDate == "" ||
-      this.appliedDate == null
-    ) {
-      this.toastr.errorToastr("Please enter applied date", "Error", {
-        toastTimeout: 2500
-      });
+    } else if ( this.jobType == "1" && (this.appliedDate == undefined || this.appliedDate == "" || this.appliedDate == null )) {
+      this.toastr.errorToastr("Please enter applied date", "Error", { toastTimeout: 2500 });
       return false;
-    } else if (
-      this.joiningDate == undefined ||
-      this.joiningDate == "" ||
-      this.joiningDate == null
-    ) {
-      this.toastr.errorToastr("Please enter joining date", "Error", {
-        toastTimeout: 2500
-      });
+    } else if ( this.jobType == "1" && (this.joiningDate == undefined || this.joiningDate == "" || this.joiningDate == null )) {
+      this.toastr.errorToastr("Please enter joining date", "Error", { toastTimeout: 2500 });
       return false;
-    } else if (this.empId == undefined || this.empId == "") {
-      this.toastr.errorToastr("Invalid Employee Information", "Error", {
-        toastTimeout: 2500
-      });
+    } else if ( this.jobType != "1" && (this.contractFrom == undefined || this.contractFrom == "" || this.contractFrom == null )) {
+      this.toastr.errorToastr("Please enter contract start date", "Error", { toastTimeout: 2500 });
+      return false;
+    }else if ( this.jobType != "1" && (this.contractEnd == undefined || this.contractEnd == "" || this.contractEnd == null )) {
+      this.toastr.errorToastr("Please enter contract end date", "Error", { toastTimeout: 2500 });
+      return false;
+    }
+    
+    else if (this.empId == undefined || this.empId == "") {
+      this.toastr.errorToastr("Invalid Employee Information", "Error", { toastTimeout: 2500 });
       return false;
     } else {
+
+
+      var appDt = null, startDt = null , endDt = null;
+
+      if ( this.jobType == "1"){
+        appDt = this.appliedDate;
+        startDt = this.joiningDate;
+      }else {
+        appDt = this.contractFrom;
+        startDt = this.contractFrom;
+        endDt = this.contractEnd;
+      }
+
+      // alert(appDt);
+      // alert(startDt);
+      // alert(endDt);
+      //return false;
+
+
       this.app.showSpinner();
 
       //* ********************************************save data
@@ -1514,8 +1521,9 @@ export class EmpolyeeprofileComponent implements OnInit {
         JobDesigID: this.desigId,
         JobPostDeptCd: this.deptId,
         JobPostLocationCd: this.locationId,
-        EmpJobAppntmntDt: this.appliedDate,
-        EmpJobStartDt: this.joiningDate,
+        EmpJobAppntmntDt: appDt,
+        EmpJobStartDt: startDt,
+        EmpJobLastDt: endDt,
         JobTypeCd: this.jobType,
         ConnectedUser: "12000",
         DelFlag: 0
@@ -1527,19 +1535,10 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http
-        .post(this.serverUrl + "api/updateEmpJobProfile", updateData, {
-          headers: reqHeader
-        })
-        .subscribe((data: any) => {
-          if (
-            data.msg == "Record Updated Successfully!" ||
-            data.msg == "Record Saved Successfully!"
-          ) {
+      this.http.post(this.serverUrl + "api/updateEmpJobProfile", updateData, { headers: reqHeader }).subscribe((data: any) => {
+          if ( data.msg == "Record Updated Successfully!" || data.msg == "Record Saved Successfully!" ) {
             this.app.hideSpinner();
-            this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
-            });
+            this.toastr.successToastr(data.msg, "Success!", { toastTimeout: 2500 });
             this.getNewEmployee();
             this.clearJobProfile();
             return false;
