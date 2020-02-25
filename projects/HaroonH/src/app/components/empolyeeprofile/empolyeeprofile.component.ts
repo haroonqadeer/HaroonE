@@ -1,8 +1,20 @@
-import { Component, ViewChild, OnInit, ViewEncapsulation, EventEmitter, Output } from "@angular/core";
+import {
+  Component,
+  ViewChild,
+  OnInit,
+  ViewEncapsulation,
+  EventEmitter,
+  Output
+} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SelectItem } from "primeng/api";
 import { ToastrManager } from "ng6-toastr-notifications";
-import { HttpHeaders, HttpClient, HttpEventType, HttpRequest } from "@angular/common/http";
+import {
+  HttpHeaders,
+  HttpClient,
+  HttpEventType,
+  HttpRequest
+} from "@angular/common/http";
 
 import { AppComponent } from "src/app/app.component";
 import { jsonpCallbackContext } from "@angular/common/http/src/module";
@@ -23,11 +35,11 @@ export class EmpolyeeprofileComponent implements OnInit {
   @ViewChild(ConfigContactComponent) shrd_cntct: ConfigContactComponent;
 
   @Output() myEvent = new EventEmitter();
-  serverUrl = "http://localhost:9043/";
-  imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
+  // serverUrl = "http://localhost:9043/";
+  // imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
 
-  //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
-  //imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
+  imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
 
   imageUrl: string = "../assets/images/EmpImages/dropHereImg.png";
 
@@ -562,7 +574,9 @@ export class EmpolyeeprofileComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + "api/getDistrict", { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getDistrict", { headers: reqHeader })
+      .subscribe((data: any) => {
         for (var i = 0; i < data.length; i++) {
           this.districtList.push({
             label: data[i].districtName,
@@ -1139,16 +1153,12 @@ export class EmpolyeeprofileComponent implements OnInit {
     this.lblBPS = item.payGradeName;
     this.jobPost = item.jobDesigID;
     this.jobType = item.jobTypeCd;
-    
 
-    if(item.path == null){
+    if (item.path == null) {
       this.imageUrl = "../assets/images/EmpImages/dropHereImg.png";
-    }else{
-      this.imageUrl = "../assets/images/EmpImages/" + item.empID +".jpg";
+    } else {
+      this.imageUrl = "../assets/images/EmpImages/" + item.empID + ".jpg";
     }
-    
-
-
 
     //this.renewalFrom = "";
     //this.contractEnd = "";
@@ -1163,12 +1173,11 @@ export class EmpolyeeprofileComponent implements OnInit {
       this.appliedDate = new Date(item.empJobAppntmntDt);
     } else {
       this.contractFrom = new Date(item.empJobStartDt);
-      if(item.empJobLastDt == null){
+      if (item.empJobLastDt == null) {
         this.contractEnd = item.empJobLastDt;
-      }else{
+      } else {
         this.contractEnd = new Date(item.empJobLastDt);
       }
-      
     }
 
     if (item.managerJobPostDeptCd == 0) {
@@ -1345,7 +1354,11 @@ export class EmpolyeeprofileComponent implements OnInit {
 
         var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-        this.http.post(this.serverUrl + "api/updateEmpPersonalInfo", saveData, { headers: reqHeader }).subscribe((data: any) => {
+        this.http
+          .post(this.serverUrl + "api/updateEmpPersonalInfo", saveData, {
+            headers: reqHeader
+          })
+          .subscribe((data: any) => {
             if (data.msg == "Record Saved Successfully!") {
               this.app.hideSpinner();
               this.toastr.successToastr(data.msg, "Success!", {
@@ -1445,10 +1458,16 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http .post(this.serverUrl + "api/updateEmpPersonalInfo", delData, { headers: reqHeader }) .subscribe((data: any) => {
+      this.http
+        .post(this.serverUrl + "api/updateEmpPersonalInfo", delData, {
+          headers: reqHeader
+        })
+        .subscribe((data: any) => {
           if (data.msg == "Record Deleted Successfully!") {
             this.app.hideSpinner();
-            this.toastr.successToastr(data.msg, "Success!", { toastTimeout: 2500 });
+            this.toastr.successToastr(data.msg, "Success!", {
+              toastTimeout: 2500
+            });
             this.clearEmp;
             this.getNewEmployee();
             this.app.pin = "";
@@ -1469,39 +1488,79 @@ export class EmpolyeeprofileComponent implements OnInit {
     // this.toastr.errorToastr('Enter Complete Information', 'Error', { toastTimeout: (2500) });
     // return false;
 
-    if ( this.jobPost == "" || this.jobPost == null || this.jobPost == undefined ) {
-      this.toastr.errorToastr("Please select job profile", "Error", { toastTimeout: 2500 });
+    if (
+      this.jobPost == "" ||
+      this.jobPost == null ||
+      this.jobPost == undefined
+    ) {
+      this.toastr.errorToastr("Please select job profile", "Error", {
+        toastTimeout: 2500
+      });
       return false;
     }
-    if ( this.jobType == "" || this.jobType == null || this.jobType == undefined ) {
-      this.toastr.errorToastr("Please select job type", "Error", { toastTimeout: 2500 });
+    if (
+      this.jobType == "" ||
+      this.jobType == null ||
+      this.jobType == undefined
+    ) {
+      this.toastr.errorToastr("Please select job type", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    } else if ( this.jobType == "1" && (this.appliedDate == undefined || this.appliedDate == "" || this.appliedDate == null )) {
-      this.toastr.errorToastr("Please enter applied date", "Error", { toastTimeout: 2500 });
+    } else if (
+      this.jobType == "1" &&
+      (this.appliedDate == undefined ||
+        this.appliedDate == "" ||
+        this.appliedDate == null)
+    ) {
+      this.toastr.errorToastr("Please enter applied date", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    } else if ( this.jobType == "1" && (this.joiningDate == undefined || this.joiningDate == "" || this.joiningDate == null )) {
-      this.toastr.errorToastr("Please enter joining date", "Error", { toastTimeout: 2500 });
+    } else if (
+      this.jobType == "1" &&
+      (this.joiningDate == undefined ||
+        this.joiningDate == "" ||
+        this.joiningDate == null)
+    ) {
+      this.toastr.errorToastr("Please enter joining date", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    } else if ( this.jobType != "1" && (this.contractFrom == undefined || this.contractFrom == "" || this.contractFrom == null )) {
-      this.toastr.errorToastr("Please enter contract start date", "Error", { toastTimeout: 2500 });
+    } else if (
+      this.jobType != "1" &&
+      (this.contractFrom == undefined ||
+        this.contractFrom == "" ||
+        this.contractFrom == null)
+    ) {
+      this.toastr.errorToastr("Please enter contract start date", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }else if ( this.jobType != "1" && (this.contractEnd == undefined || this.contractEnd == "" || this.contractEnd == null )) {
-      this.toastr.errorToastr("Please enter contract end date", "Error", { toastTimeout: 2500 });
+    } else if (
+      this.jobType != "1" &&
+      (this.contractEnd == undefined ||
+        this.contractEnd == "" ||
+        this.contractEnd == null)
+    ) {
+      this.toastr.errorToastr("Please enter contract end date", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    
-    else if (this.empId == undefined || this.empId == "") {
-      this.toastr.errorToastr("Invalid Employee Information", "Error", { toastTimeout: 2500 });
+    } else if (this.empId == undefined || this.empId == "") {
+      this.toastr.errorToastr("Invalid Employee Information", "Error", {
+        toastTimeout: 2500
+      });
       return false;
     } else {
+      var appDt = null,
+        startDt = null,
+        endDt = null;
 
-
-      var appDt = null, startDt = null , endDt = null;
-
-      if ( this.jobType == "1"){
+      if (this.jobType == "1") {
         appDt = this.appliedDate;
         startDt = this.joiningDate;
-      }else {
+      } else {
         appDt = this.contractFrom;
         startDt = this.contractFrom;
         endDt = this.contractEnd;
@@ -1511,7 +1570,6 @@ export class EmpolyeeprofileComponent implements OnInit {
       // alert(startDt);
       // alert(endDt);
       //return false;
-
 
       this.app.showSpinner();
 
@@ -1535,10 +1593,19 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http.post(this.serverUrl + "api/updateEmpJobProfile", updateData, { headers: reqHeader }).subscribe((data: any) => {
-          if ( data.msg == "Record Updated Successfully!" || data.msg == "Record Saved Successfully!" ) {
+      this.http
+        .post(this.serverUrl + "api/updateEmpJobProfile", updateData, {
+          headers: reqHeader
+        })
+        .subscribe((data: any) => {
+          if (
+            data.msg == "Record Updated Successfully!" ||
+            data.msg == "Record Saved Successfully!"
+          ) {
             this.app.hideSpinner();
-            this.toastr.successToastr(data.msg, "Success!", { toastTimeout: 2500 });
+            this.toastr.successToastr(data.msg, "Success!", {
+              toastTimeout: 2500
+            });
             this.getNewEmployee();
             this.clearJobProfile();
             return false;
