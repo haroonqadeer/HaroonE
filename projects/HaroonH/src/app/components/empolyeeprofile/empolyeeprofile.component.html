@@ -306,7 +306,9 @@
 
               <!--start row 4-->
               <div class="row m-4">
-                <div class="col-md-6">
+
+                <div class="col-md-6" *ngIf="jobType == '1'">
+
                   <div class="row">
                     <div class="col-md-6">
                       <mat-form-field class="fullwidth">
@@ -323,26 +325,28 @@
                       </mat-form-field>
                     </div>
                   </div>
+
                 </div>
-                <div class="col-md-6">
+
+                <div class="col-md-6" *ngIf="jobType != '1'">
                   <div class="row">
                     <div class="col-md-6">
                       <mat-form-field class="fullwidth">
-                        <input matInput [matDatepicker]="picker2" placeholder="Renewal From" [(ngModel)]="renewalFrom">
+                        <input matInput [matDatepicker]="picker2" placeholder="Renewal From" [(ngModel)]="contractFrom">
                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                         <mat-datepicker #picker2></mat-datepicker>
                       </mat-form-field>
                     </div>
                     <div class="col-md-6">
                       <mat-form-field class="fullwidth">
-                        <input matInput [matDatepicker]="picker3" placeholder="Contract Ending On"
-                          [(ngModel)]="contractEnd">
+                        <input matInput [matDatepicker]="picker3" placeholder="Contract Ending On" [(ngModel)]="contractEnd">
                         <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                         <mat-datepicker #picker3></mat-datepicker>
                       </mat-form-field>
                     </div>
                   </div>
                 </div>
+
               </div>
               <!--end row 4-->
             </div>
