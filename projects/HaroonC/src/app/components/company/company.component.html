@@ -146,26 +146,9 @@
                     <!-- Logo row -->
                     <div class="row">
 
-                        <div class="col-md-4">
-                            <img [src]="imgURL" *ngIf="imgURL" height="100" width="100">
-                        </div>
-
-                        <!-- <input id="fileInput" type="file" class="ng-hide"> 
-                        <md-button id="uploadButton" class="md-raised md-primary" aria-label="attach_file">    
-                            Choose file 
-                        </md-button>
-                        <md-input-container  md-no-float>    
-                            <input id="textInput" ng-model="fileName" type="text" placeholder="No file chosen" ng-readonly="true">
-                        </md-input-container> -->
-                        <div class="col-md-8">
-                            <br/><br/>
-                            <input [hidden]="true" id="input-file-id" multiple type="file" accept='image/*' />
-                            <mat-form-field class="fullwidth">
-                                <input matInput placeholder="Upload Logo" [(ngModel)]="cLogo" (click)="showFile()">
-                            </mat-form-field>
-                            <!-- <button mat-raised-button for="input-file-id" class="btnClass" style="border-radius: 0;">
-                                Choose Files
-                            </button> -->
+                        <div class="col-md-12">
+                            <img class="allBorder" [src]="imageUrl" width="85" height="100">
+                            <input class="position-absolute absolute-bottom" [(ngModel)]="imgFile" type="file" accept="image/*" (change)="onFileSelected($event)" />
                         </div>
 
                     </div>

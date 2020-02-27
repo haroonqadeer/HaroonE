@@ -68,9 +68,16 @@ export class CompanyComponent implements OnInit {
 
     companyBox = true;
 
-    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
-    // serverUrl = "http://localhost:7007/";
+    //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
+    //imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
+
+    serverUrl = "http://localhost:9043/";
+    imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/CmpnyImages";
+
     tokenKey = "token";
+
+
+    imageUrl: string = "../assets/images/EmpImages/dropHereImg.png";
 
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -165,7 +172,7 @@ export class CompanyComponent implements OnInit {
     txtdPassword = '';
     txtdPin = '';
     dCompanyId = '';
-cmpnyHeadingLabel = '';
+    cmpnyHeadingLabel = '';
 
     //*Boolean ng models and variables
     solePro = true;
@@ -208,6 +215,10 @@ cmpnyHeadingLabel = '';
     companyDetail = [];
     compSumDetail = [];
 
+    selectedFile: File = null;
+    image;
+    imgFile;
+    progress;
 
     constructor(private toastr: ToastrManager,
         private app: AppComponent,
@@ -244,6 +255,20 @@ cmpnyHeadingLabel = '';
     @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent;//For excel
     @ViewChild("exportPDF") public exportPDF: ElementRef;//for pdf
 
+    onFileSelected(event) {
+        this.selectedFile = <File>event.target.files[0];
+        let reader = new FileReader();
+    
+        reader.onloadend = (e: any) => {
+            this.image = reader.result;
+        
+            var splitImg = this.image.split(",")[1];
+            this.image = splitImg;
+            this.imageUrl = e.target.result;
+        };
+
+        reader.readAsDataURL(this.selectedFile);
+    }
 
     showFile(){
         // alert('ok')
@@ -514,6 +539,13 @@ cmpnyHeadingLabel = '';
                     }
                 }
 
+                var imgPath = null;
+                if (this.image != undefined) {
+                    imgPath = this.imgPath;
+                }
+
+                //alert("File = " + this.image + " ------- Path " + this.imgPath);
+                //return false;
 
                 if (this.companyId != '') {
                     
@@ -538,6 +570,8 @@ cmpnyHeadingLabel = '';
                         currency: this.cCurrency,
                         website: null,
                         fbId: null,
+                        file: this.image,
+                        path: imgPath
                     };
 
                     //var token = localStorage.getItem(this.tokenKey);
@@ -586,6 +620,8 @@ cmpnyHeadingLabel = '';
                         currency: this.cCurrency,
                         website: null,
                         fbId: null,
+                        file: this.image,
+                        path: imgPath
                     };
 
 
@@ -1030,19 +1066,29 @@ cmpnyHeadingLabel = '';
         var cmpnyId = this.companyId;
         this.clear();
         this.companyId = cmpnyId;
+
+        //getting company name 
         var tempCmpnyData = [];
+        tempCmpnyData = this.cmpnyList.filter(x => x.companyId == cmpnyId); 
+
+        //geting Company DATA
+        if(tempCmpnyData.length > 0){
+            this.companyName = tempCmpnyData[0].companyTitle;
+        }
+
+        tempCmpnyData = [];
         tempCmpnyData = this.cmpnyDetailList.filter(x => x.companyId == cmpnyId); 
 
         //geting Company DATA
         if(tempCmpnyData.length > 0){
 
             //this.cmbCType = tempCmpnyData[0].businessType;
-            this.companyName = tempCmpnyData[0].companyTitle;
             this.cNtn = tempCmpnyData[0].companyNtn;
             this.cStrn = tempCmpnyData[0].companyStrn;
             this.cBusinessType = tempCmpnyData[0].businessType;
             this.cEmployeQty = tempCmpnyData[0].employees;
             this.cCurrency = tempCmpnyData[0].currency;
+            this.imageUrl = "../assets/images/CmpnyImages/" + tempCmpnyData[0].companyTitle + ".jpg";
         }
 
         for (var i = 0; i < tempCmpnyData.length; i++){
@@ -1341,6 +1387,11 @@ cmpnyHeadingLabel = '';
         this.indvdAddressList = [];
         this.indvdContactList = [];
         this.indvdEmailList = [];
+
+        this.imgFile = undefined;
+        this.image = undefined;
+        this.selectedFile = null;
+        this.imageUrl = "../assets/images/EmpImages/dropHereImg.png";
 
     }
 
