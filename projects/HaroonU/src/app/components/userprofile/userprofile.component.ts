@@ -66,8 +66,8 @@
 export class UserprofileComponent implements OnInit {
 
     /*** Api link published in server ***/
-    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9037/";
-    // serverUrl = "http://localhost:5000/";
+    //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9037/";
+    serverUrl = "http://localhost:9037/";
     tokenKey = "token";
 
     /*** http header ***/
@@ -138,6 +138,7 @@ export class UserprofileComponent implements OnInit {
     sortedCollection: any[];
     itemPerPage = '10';    
 
+    tempUserId;
     /*** Construction Function ***/
     constructor(private http: HttpClient,
         private excelExportService: IgxExcelExporterService,
@@ -157,6 +158,9 @@ export class UserprofileComponent implements OnInit {
         this.getUserTrend();
         this.getParty();
         this.getRole();
+
+        this.tempUserId = this.app.empId;
+
     }
 
     /*** Variable Declaration for exporting data to pdf  ***/
@@ -226,7 +230,6 @@ export class UserprofileComponent implements OnInit {
 
         this.http.get(this.serverUrl + 'api/getUserDetail', { headers: reqHeader }).subscribe((data: any) => {
             this.userData = data
-            
             this.app.hideSpinner();
         });
     }

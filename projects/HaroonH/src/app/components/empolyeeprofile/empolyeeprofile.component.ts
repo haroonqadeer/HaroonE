@@ -41,7 +41,7 @@ export class EmpolyeeprofileComponent implements OnInit {
   serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
   imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
 
-  imageUrl: string = "../assets/images/EmpImages/dropHereImg.png";
+  imageUrl: string = "../assets/images/EmpImages/dropHereImg1.jpg";
 
   tokenKey = "token";
 
@@ -235,13 +235,11 @@ export class EmpolyeeprofileComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .get(this.serverUrl + "api/getBranches?cmpnyID=59", {
-        headers: reqHeader
-      })
-      .subscribe((data: any) => {
-        this.branchList = data;
+      .get(this.serverUrl + "api/getBranches?cmpnyID=" + this.app.cmpnyId, {headers: reqHeader}).subscribe((data: any) => {
 
+        this.branchList = data;
         this.app.hideSpinner();
+
       });
   }
 
@@ -808,7 +806,7 @@ export class EmpolyeeprofileComponent implements OnInit {
       var updateData = {
         EmpID: this.empId,
         EmpPSDList: JSON.stringify(this.empOrgList),
-        ConnectedUser: "12000",
+        ConnectedUser: this.app.empId,
         DelFlag: 0
       };
       //var token = localStorage.getItem(this.tokenKey);
@@ -931,7 +929,7 @@ export class EmpolyeeprofileComponent implements OnInit {
       var updateData = {
         EmpID: this.empId,
         EmpSkillList: JSON.stringify(this.empSkillList),
-        ConnectedUser: "12000",
+        ConnectedUser: this.app.empId,
         DelFlag: 0
       };
       //var token = localStorage.getItem(this.tokenKey);
@@ -1036,7 +1034,7 @@ export class EmpolyeeprofileComponent implements OnInit {
           divIsion: this.ddlDivision,
           startDt: null,
           campusName: this.empInstitute,
-          educationalInstituteID: 59, //--------------------------------------
+          educationalInstituteID: this.app.cmpnyId, //--------------------------------------
           majorSbjcts: null,
           profileTypeCd: 2,
           educationTypeCd: dataList[0].qlfctnTypeCd,
@@ -1079,7 +1077,7 @@ export class EmpolyeeprofileComponent implements OnInit {
       var updateData = {
         EmpID: this.empId,
         EmpQualificationList: JSON.stringify(this.empDegreeList),
-        ConnectedUser: "12000",
+        ConnectedUser: this.app.empId,
         DelFlag: 0
       };
       //var token = localStorage.getItem(this.tokenKey);
@@ -1145,7 +1143,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     this.jobType = item.jobTypeCd;
 
     if (item.path == null) {
-      this.imageUrl = "../assets/images/EmpImages/dropHereImg.png";
+      this.imageUrl = "../assets/images/EmpImages/dropHereImg1.jpg";
     } else {
       this.imageUrl = "../assets/images/EmpImages/" + item.empID + ".jpg";
     }
@@ -1215,7 +1213,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     this.imgFile = undefined;
     this.image = undefined;
     this.selectedFile = null;
-    this.imageUrl = "../assets/images/EmpImages/dropHereImg.png";
+    this.imageUrl = "../assets/images/EmpImages/dropHereImg1.jpg";
 
     this.shrd_adrs.addressList = [];
     this.shrd_cntct.contactList = [];
@@ -1327,14 +1325,14 @@ export class EmpolyeeprofileComponent implements OnInit {
           IndvdlLastName: this.lastName,
           IndvdlFullName: this.fullName,
           IndvdlCNIC: this.CNIC,
-          CmpnyID: 59,
+          CmpnyID: this.app.cmpnyId,
           IndvdlFatherName: null, //this.fhName
           addressList: JSON.stringify(this.shrd_adrs.addressList),
           contactList: JSON.stringify(this.shrd_cntct.contactList),
           emailList: JSON.stringify(this.shrd_cntct.emailList),
           file: this.image,
           path: imgPath,
-          ConnectedUser: "12000",
+          ConnectedUser: this.app.empId,
           DelFlag: 0
         };
 
@@ -1378,14 +1376,14 @@ export class EmpolyeeprofileComponent implements OnInit {
           IndvdlLastName: this.lastName,
           IndvdlFullName: this.fullName,
           IndvdlCNIC: this.CNIC,
-          CmpnyID: 59,
+          CmpnyID: this.app.cmpnyId,
           IndvdlFatherName: null, //this.fhName
           addressList: JSON.stringify(this.shrd_adrs.addressList),
           contactList: JSON.stringify(this.shrd_cntct.contactList),
           emailList: JSON.stringify(this.shrd_cntct.emailList),
           file: this.image,
           path: imgPath,
-          ConnectedUser: "12000",
+          ConnectedUser: this.app.empId,
           DelFlag: 0
         };
 
@@ -1431,14 +1429,14 @@ export class EmpolyeeprofileComponent implements OnInit {
         IndvdlLastName: null,
         IndvdlFullName: null,
         IndvdlCNIC: null,
-        CmpnyID: 59,
+        CmpnyID: this.app.cmpnyId,
         IndvdlFatherName: null, //this.fhName
         addressList: JSON.stringify(this.shrd_adrs.addressList),
         contactList: JSON.stringify(this.shrd_cntct.contactList),
         emailList: JSON.stringify(this.shrd_cntct.emailList),
         file: null,
         path: null,
-        ConnectedUser: "12000",
+        ConnectedUser: this.app.empId,
         DelFlag: 1
       };
 
@@ -1573,7 +1571,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         EmpJobStartDt: startDt,
         EmpJobLastDt: endDt,
         JobTypeCd: this.jobType,
-        ConnectedUser: "12000",
+        ConnectedUser: this.app.empId,
         DelFlag: 0
       };
 

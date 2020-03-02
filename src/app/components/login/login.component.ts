@@ -30,8 +30,8 @@ declare var $: any;
 export class LoginComponent implements OnInit {
 
     /*** Api link published in server ***/
-    serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
-    //serverUrl = "http://localhost:9010/";
+    //serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
+    serverUrl = "http://localhost:9010/";
     tokenKey = "token";
 
     /*** http header ***/
@@ -102,6 +102,7 @@ export class LoginComponent implements OnInit {
                     this.app.locationId = data.userDetail[0].locationCd;
                     this.app.cmpnyId = data.userDetail[0].cmpnyId;
                     this.app.cmpnyName = data.userDetail[0].locationName;
+                    this.app.empId = data.userDetail[0].indvdlID;
 
 
                 } else {

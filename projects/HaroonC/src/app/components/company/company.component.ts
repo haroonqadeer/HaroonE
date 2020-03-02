@@ -80,7 +80,7 @@ export class CompanyComponent implements OnInit {
 
   tokenKey = "token";
 
-  imageUrl: string = "../assets/images/EmpImages/dropHereImg.png";
+  imageUrl: string = "../assets/images/EmpImages/uploadlogo.jpg";
 
   httpOptions = {
     headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -462,12 +462,14 @@ export class CompanyComponent implements OnInit {
         toastTimeout: 2500
       });
       return false;
-    } else if (this.cBusinessType == "") {
-      this.toastr.errorToastr("Please select business type", "Error", {
-        toastTimeout: 2500
-      });
-      return false;
-    } else if (this.cEmployeQty == "") {
+    } 
+    // else if (this.cBusinessType == "") {
+    //   this.toastr.errorToastr("Please select business type", "Error", {
+    //     toastTimeout: 2500
+    //   });
+    //   return false;
+    // } 
+    else if (this.cEmployeQty == "") {
       this.toastr.errorToastr("Please enter number of employees", "Error", {
         toastTimeout: 2500
       });
@@ -566,7 +568,8 @@ export class CompanyComponent implements OnInit {
             companyId: this.companyId,
             businessType: Number(this.cmbCType),
             companyTitle: this.companyName,
-            companyNature: this.cBusinessType,
+            //companyNature: this.cBusinessType,
+            companyNature: this.cmbCType,
             companyDesc: "",
             companyNtn: this.cNtn,
             companyStrn: this.cStrn,
@@ -621,7 +624,8 @@ export class CompanyComponent implements OnInit {
             comanyId: 0,
             businessType: Number(this.cmbCType),
             companyTitle: this.companyName,
-            companyNature: this.cBusinessType,
+            //companyNature: this.cBusinessType,
+            companyNature: this.cmbCType,
             companyDesc: "",
             companyNtn: this.cNtn,
             companyStrn: this.cStrn,
@@ -1061,6 +1065,7 @@ export class CompanyComponent implements OnInit {
       //this.cmbCType = tempCmpnyData[0].businessType;
       this.cNtn = tempCmpnyData[0].companyNtn;
       this.cStrn = tempCmpnyData[0].companyStrn;
+      this.cmbCType = tempCmpnyData[0].businessType;
       this.cBusinessType = tempCmpnyData[0].businessType;
       this.cEmployeQty = tempCmpnyData[0].employees;
       this.cCurrency = tempCmpnyData[0].currency;
@@ -1328,7 +1333,7 @@ export class CompanyComponent implements OnInit {
     this.imgFile = undefined;
     this.image = undefined;
     this.selectedFile = null;
-    this.imageUrl = "../assets/images/EmpImages/dropHereImg.png";
+    this.imageUrl = "../assets/images/EmpImages/uploadlogo.jpg";
   }
 
   //* function for edit existing currency

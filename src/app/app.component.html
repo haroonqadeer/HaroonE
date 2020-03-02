@@ -347,13 +347,14 @@
       <div class=" offset-md-5 col-md-1 text-right"></div>
 
       <!--welcome column -->
-      <div class="col-md-3 text-right" style="border:0px solid red; padding: 0;">
-        <img src="../assets/images/Default-Image.jpg" alt="" style="border-radius: 50%; margin-bottom: 3px;"
-          height="37px" />
+      <div class="col-md-3 text-right p-0">
+
+        <img src="../assets/images/EmpImages/{{empId}}.jpg" alt="" style="border-radius: 50%; margin-bottom: 3px;" height="37" width="37" />
 
         <div class="dropdown">
           <button class="dropbtn pointerCursor">
-            WELCOME! {{ logedInUserName }} &nbsp;
+            <span class="text-uppercase">wellcome</span>! 
+            <span class="text-capitalize">{{ logedInUserName }}</span> &nbsp;
             <span class="fa fa-caret-down"></span>
           </button>
 

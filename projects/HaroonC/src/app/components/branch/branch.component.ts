@@ -79,7 +79,7 @@ export class BranchComponent implements OnInit {
   //postal = false;
 
   serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9040/";
-  // serverUrl = "http://localhost:5000/";
+  //serverUrl = "http://localhost:9040/";
   tokenKey = "token";
 
   httpOptions = {
@@ -343,14 +343,10 @@ export class BranchComponent implements OnInit {
   //* Function for saving and updating the data
   saveBranch() {
     if (this.cmbCompany == "") {
-      this.toastr.errorToastr("Please Select Company", "Error", {
-        toastTimeout: 2500
-      });
+      this.toastr.errorToastr("Please Select Company", "Error", { toastTimeout: 2500 });
       return false;
     } else if (this.txtBranch == "") {
-      this.toastr.errorToastr("Please Enter Branch", "Error", {
-        toastTimeout: 2500
-      });
+      this.toastr.errorToastr("Please Enter Branch", "Error", { toastTimeout: 2500 });
       return false;
     } else if (this.address.trim() == "") {
       this.toastr.errorToastr("Please Enter Address", "Error", {
@@ -393,16 +389,22 @@ export class BranchComponent implements OnInit {
           addressId: 0,
           addressType: 2,
           address: this.address,
-          cityCode: this.city,
-          districtCode: 0,
-          provinceCode: 0,
+          cityCode: 1,
+          districtCode: this.city,
+          provinceCode: 6,
           countryCode: this.country,
+
+          addressTypeName: '',
+          cntryName: '',
+          districtName: '',
+
           zipCode: this.zipCode,
-          status: 0
+          status: 0,
+          IDelFlag: 0
         });
       } else {
         this.addressList[0].address = this.address;
-        this.addressList[0].cityCode = this.city;
+        this.addressList[0].districtCode = this.city;
         this.addressList[0].countryCode = this.country;
         this.addressList[0].zipCode = this.zipCode;
       }
@@ -458,7 +460,7 @@ export class BranchComponent implements OnInit {
         var saveData = {
           companyId: this.cmbCompany,
           branchName: this.txtBranch,
-          address: JSON.stringify(this.shrd_adrs.addressList),
+          address: JSON.stringify(this.addressList),
           telephone: JSON.stringify(this.shrd_cntct.contactList),
           email: JSON.stringify(this.shrd_cntct.emailList)
         };
@@ -538,18 +540,20 @@ export class BranchComponent implements OnInit {
           }
 
           if (this.branchDetail[i].addressTypeCd != 0) {
+
             addressList.push({
               contactDetailCode: this.branchDetail[i].cntctDetailCd,
               addressId: 0,
               addressType: this.branchDetail[i].addressTypeCd,
               address: this.branchDetail[i].addressLine1,
-              cityCode: this.branchDetail[i].districtCd,
-              districtCode: 0,
-              provinceCode: 0,
+              cityCode: 1,
+              districtCode: this.branchDetail[i].districtCd,
+              provinceCode: 6,
               countryCode: this.branchDetail[i].addCntryCd,
               zipCode: 0,
               status: 1
             });
+
           } else if (this.branchDetail[i].teleTypeCd != 0) {
             telephoneList.push({
               contactDetailCode: this.branchDetail[i].cntctDetailCd,

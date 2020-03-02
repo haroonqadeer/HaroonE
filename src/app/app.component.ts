@@ -179,20 +179,13 @@ export class AppComponent implements OnInit {
 
   getUserDetail(name) {
     var Token = localStorage.getItem(this.tokenKey);
-    var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
-    });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json", Authorization: "Bearer " + Token });
 
     var loginData = { IndvdlERPUsrID: name };
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    this.http
-      .post(this.serverUrl + "api/getUserDetail", loginData, {
-        headers: reqHeader
-      })
-      .subscribe((data: any) => {
+    this.http.post(this.serverUrl + "api/getUserDetail", loginData, { headers: reqHeader }).subscribe((data: any) => {
         this.cmpnyId = data.userDetail[0].cmpnyID;
         this.cmpnyName = data.userDetail[0].locationName;
         this.locationId = data.userDetail[0].locationCd;

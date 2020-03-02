@@ -272,6 +272,7 @@ export class DepartmentComponent implements OnInit {
               });
               this.clear();
               this.getDepartmentDetails();
+              this.getDepartment();
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error !", {
