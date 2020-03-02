@@ -967,26 +967,18 @@ export class EmpolyeeprofileComponent implements OnInit {
   //Function for add employee qualification detail
   addQualification() {
     if (this.ddlDegree == undefined || this.ddlDegree == "") {
-      this.toastr.errorToastr("Please select degree", "Error", {
-        toastTimeout: 2500
-      });
+      this.toastr.errorToastr("Please select degree", "Error", { toastTimeout: 2500 });
       return false;
     } else if (
       this.empInstitute == undefined ||
       this.empInstitute.trim() == ""
     ) {
-      this.toastr.errorToastr("Please enter institute/campus", "Error", {
-        toastTimeout: 2500
-      });
+      this.toastr.errorToastr("Please enter institute/campus", "Error", { toastTimeout: 2500 });
       return false;
     } else if (
-      this.empDegreeYear == undefined ||
-      this.empDegreeYear == "" ||
-      this.empDegreeYear == null
+      this.empDegreeYear == undefined || this.empDegreeYear == "" || this.empDegreeYear == null
     ) {
-      this.toastr.errorToastr("Please enter passing year", "Error", {
-        toastTimeout: 2500
-      });
+      this.toastr.errorToastr("Please enter passing year", "Error", { toastTimeout: 2500 });
       return false;
     }
     // else if (this.ddlGrade == undefined || this.ddlGrade == "") {
@@ -994,9 +986,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     //     return false;
     // }
     else if (this.ddlDivision == undefined || this.ddlDivision == "") {
-      this.toastr.errorToastr("Please enter division", "Error", {
-        toastTimeout: 2500
-      });
+      this.toastr.errorToastr("Please enter division", "Error", { toastTimeout: 2500 });
       return false;
     }
     // else if (this.empId == undefined || this.empId == 0) {
@@ -1046,7 +1036,7 @@ export class EmpolyeeprofileComponent implements OnInit {
           divIsion: this.ddlDivision,
           startDt: null,
           campusName: this.empInstitute,
-          educationalInstituteID: 1, //--------------------------------------
+          educationalInstituteID: 59, //--------------------------------------
           majorSbjcts: null,
           profileTypeCd: 2,
           educationTypeCd: dataList[0].qlfctnTypeCd,
