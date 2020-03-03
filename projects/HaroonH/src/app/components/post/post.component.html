@@ -186,8 +186,8 @@
                 <mat-option *ngFor="let item of jobPost | search: 'desigName':srchDesig" [value]="item.desigCd">
                   <tbody>
                     <tr>
-                      <td class="col-6">{{ item.desigName }}</td>
-                      <td class="col-6 text-left">{{ item.payGradeCd }}</td>
+                      <td class="col-12">{{ item.desigName }}</td>
+                      <!-- <td class="col-6 text-left">{{ item.payGradeCd }}</td> -->
                     </tr>
                   </tbody>
                 </mat-option>
@@ -197,7 +197,7 @@
               <mat-select disableOptionCentering placeholder="Reporting Officer*" tabindex="7"
                 [(ngModel)]="txtReptOfficer" (ngModelChange)="onRptOffChange($event)">
                 <mat-option *ngFor="let item of reptOfficer" [value]="item.jobDesigID">
-                  {{ item.jobDesigName }} - {{ item.payGradeCd }}
+                  {{ item.jobDesigName }}
                 </mat-option>
               </mat-select>
             </mat-form-field>

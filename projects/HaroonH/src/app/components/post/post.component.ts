@@ -828,6 +828,7 @@ export class PostComponent implements OnInit {
     this.jobNature = "";
     this.jobType = "";
     this.data1 = [];
+    this.formLeaveRule = new FormControl();
   }
 
   printDiv() {
