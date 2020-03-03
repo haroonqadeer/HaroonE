@@ -34,7 +34,7 @@ declare var $: any;
 export class LoginComponent implements OnInit {
   /*** Api link published in server ***/
   serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
-  // serverUrl = "http://localhost:9010/";
+  //serverUrl = "http://localhost:9010/";
   tokenKey = "token";
 
   /*** http header ***/
@@ -90,11 +90,7 @@ export class LoginComponent implements OnInit {
       //* header sending to api
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http
-        .post(this.serverUrl + "api/CreateToken", loginData, {
-          headers: reqHeader
-        })
-        .subscribe((data: any) => {
+      this.http.post(this.serverUrl + "api/CreateToken", loginData, {headers: reqHeader}).subscribe((data: any) => {
           //* check if message is login Successfully
           if (data.msg == "Login Successfully!") {
             this.toastr.successToastr(data.msg, "Success!", {
@@ -107,12 +103,23 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("userName", this.txtUserName);
             localStorage.setItem("myActModNam", "HR");
             localStorage.setItem("token", data.token);
+
+            localStorage.setItem("loc", data.userDetail[0].locationCd);
+            localStorage.setItem("ci", data.userDetail[0].cmpnyID);
+            localStorage.setItem("cn", data.userDetail[0].locationName);
+            localStorage.setItem("ei", data.userDetail[0].indvdlID);
+
+
             this.app.checkLogin("Yes");
             this.app.branchList = data.userDetail;
-            this.app.locationId = data.userDetail[0].locationCd;
-            this.app.cmpnyId = data.userDetail[0].cmpnyId;
-            this.app.cmpnyName = data.userDetail[0].locationName;
-            this.app.empId = data.userDetail[0].indvdlID;
+
+            // this.app.locationId = data.userDetail[0].locationCd;
+            // this.app.cmpnyId = data.userDetail[0].cmpnyId;
+            // this.app.cmpnyName = data.userDetail[0].locationName;
+            // this.app.empId = data.userDetail[0].indvdlID;
+
+
+
           } else {
             this.app.hideSpinner();
             this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
@@ -130,11 +137,7 @@ export class LoginComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http
-      .get(this.serverUrl + "api/getUserDept?empID=" + item, {
-        headers: reqHeader
-      })
-      .subscribe((data: any) => {
+    this.http.get(this.serverUrl + "api/getUserDept?empID=" + item, { headers: reqHeader }).subscribe((data: any) => {
         localStorage.setItem("deptCd", data[0].jobPostDeptCd);
       });
   }

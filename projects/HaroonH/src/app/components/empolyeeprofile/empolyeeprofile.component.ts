@@ -230,12 +230,11 @@ export class EmpolyeeprofileComponent implements OnInit {
   getBranch() {
     this.app.showSpinner();
     //var Token = localStorage.getItem(this.tokenKey);
-
+    
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http
-      .get(this.serverUrl + "api/getBranches?cmpnyID=" + this.app.cmpnyId, {headers: reqHeader}).subscribe((data: any) => {
+    this.http.get(this.serverUrl + "api/getBranches?cmpnyID=" + this.app.cmpnyId, {headers: reqHeader}).subscribe((data: any) => {
 
         this.branchList = data;
         this.app.hideSpinner();

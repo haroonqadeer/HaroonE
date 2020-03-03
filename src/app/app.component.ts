@@ -178,6 +178,13 @@ export class AppComponent implements OnInit {
   }
 
   getUserDetail(name) {
+
+      this.locationId = localStorage.getItem("loc");
+      this.cmpnyId = localStorage.getItem("ci");
+      this.cmpnyName = localStorage.getItem("cn");
+      this.empId = localStorage.getItem("ei");
+
+
     var Token = localStorage.getItem(this.tokenKey);
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json", Authorization: "Bearer " + Token });
 
@@ -186,16 +193,19 @@ export class AppComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     this.http.post(this.serverUrl + "api/getUserDetail", loginData, { headers: reqHeader }).subscribe((data: any) => {
-        this.cmpnyId = data.userDetail[0].cmpnyID;
-        this.cmpnyName = data.userDetail[0].locationName;
-        this.locationId = data.userDetail[0].locationCd;
-        this.empId = data.userDetail[0].indvdlID;
+        // this.cmpnyId = data.userDetail[0].cmpnyID;
+        // this.cmpnyName = data.userDetail[0].locationName;
+        // this.locationId = data.userDetail[0].locationCd;
+        // this.empId = data.userDetail[0].indvdlID;
 
         for (var i = 0; i < data.userDetail.length; i++) {
           this.branchList.push({
             label: data.userDetail[i].locationName,
             value: data.userDetail[i].locationCd
           });
+
+          //alert(data.userDetail[i].locationName);
+
         }
       });
   }
@@ -245,6 +255,12 @@ export class AppComponent implements OnInit {
     localStorage.removeItem("token");
     localStorage.removeItem("userName");
     localStorage.removeItem("myActModNam");
+
+    localStorage.removeItem("loc");
+    localStorage.removeItem("ci");
+    localStorage.removeItem("cn");
+    localStorage.removeItem("ei");
+
     this.router.navigate([""]);
     this.hideDiv = false;
     this.closeNav();
