@@ -164,6 +164,16 @@ export class YearcalendarComponent implements OnInit {
 
         this.app.hideSpinner();
       });
+
+    this.app.showSpinner();
+
+    this.http
+      .get(this.serverUrl + "api/getHolidays", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.holidayList = data;
+
+        this.app.hideSpinner();
+      });
   }
 
   getEvents() {
