@@ -26,7 +26,7 @@ declare var $: any;
   styleUrls: ["./attendance.component.scss"]
 })
 export class AttendanceComponent implements OnInit {
-  // serverUrl = "http://localhost:9032/";
+  //serverUrl = "http://localhost:9032/";
   serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9032/";
 
   tokenKey = "token";
@@ -116,9 +116,7 @@ export class AttendanceComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http
-      .get(this.serverUrl + "api/getEmployee", { headers: reqHeader })
-      .subscribe((data: any) => {
+    this.http.get(this.serverUrl + "api/getEmployee", { headers: reqHeader }).subscribe((data: any) => {
         //this.employeeListMain = data;
         // for (var i = 0; i < data.length; i++) {
         //     this.employeeList.push(data[i]);
@@ -149,22 +147,13 @@ export class AttendanceComponent implements OnInit {
   //Function for save attendance
   save() {
     if (this.ddlEmployee == undefined || this.ddlEmployee == "") {
-      this.toastr.errorToastr("Please select employee", "Error", {
-        toastTimeout: 2500
-      });
+      this.toastr.errorToastr("Please select employee", "Error", {toastTimeout: 2500});
       return false;
     } else if (this.txtPassword == undefined || this.txtPassword == "") {
-      this.toastr.errorToastr("Please enter code", "Error", {
-        toastTimeout: 2500
-      });
+      this.toastr.errorToastr("Please enter code", "Error", {toastTimeout: 2500});
       return false;
-    } else if (
-      this.disableFlag == false &&
-      (this.ddlAttType == undefined || this.ddlAttType == "")
-    ) {
-      this.toastr.errorToastr("Please select availibility", "Error", {
-        toastTimeout: 2500
-      });
+    } else if (this.disableFlag == false && (this.ddlAttType == undefined || this.ddlAttType == "")) {
+      this.toastr.errorToastr("Please select availibility", "Error", {toastTimeout: 2500});
       return false;
     } else {
       var attDateTime = new Date();
@@ -224,20 +213,14 @@ export class AttendanceComponent implements OnInit {
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http
-        .post(this.serverUrl + "api/saveEmpAttendance", saveData, {
-          headers: reqHeader
-        })
-        .subscribe((data: any) => {
+      this.http.post(this.serverUrl + "api/saveEmpAttendance", saveData, {headers: reqHeader}).subscribe((data: any) => {
           if (data.msg != "Record Saved Successfully!") {
             this.app.hideSpinner();
             this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 5000 });
             return false;
           } else {
             this.app.hideSpinner();
-            this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
-            });
+            this.toastr.successToastr(data.msg, "Success!", {toastTimeout: 2500});
             this.getEmployee();
             this.clear();
             return false;
@@ -263,6 +246,10 @@ export class AttendanceComponent implements OnInit {
 
   //function for get filtere list
   showEmpDetail(item) {
+
+    //alert(item.deptCd);
+    //return false;
+
     if (item.timeIn == null) {
       this.myTimeIn = null;
       this.myTimeOut = null;
@@ -290,11 +277,11 @@ export class AttendanceComponent implements OnInit {
       $("#attModal").modal("show");
     }
 
-    if (item.managerJobPostDeptCd == 0) {
+    //if (item.managerJobPostDeptCd == 0) {
       this.myDeptCd = item.jobPostDeptCd;
-    } else {
-      this.myDeptCd = item.managerJobPostDeptCd;
-    }
+    //} else {
+      //this.myDeptCd = item.managerJobPostDeptCd;
+    //}
   }
 
   //function for get filtere list
