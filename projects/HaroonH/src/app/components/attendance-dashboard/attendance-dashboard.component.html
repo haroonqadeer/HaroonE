@@ -161,10 +161,21 @@
                     <div *ngFor="let item of oddHolidays">
                       <div class="row">
                         <div class="col-md-2">
-                          <span class="fa fa-circle onfield" aria-hidden="true"></span>
+                          <span class="fa fa-circle" [ngClass]="{'inoffice' : item.dyofMon < 4,
+                                        'onfield' : item.dyofMon > 3 && item.dyofMon <= 6 || item.dyofMon > 25 && item.dyofMon < 30,
+                                        'onleave' : item.dyofMon > 6 && item.dyofMon < 20,
+                                        'remote' : item.dyofMon > 19 && item.dyofMon < 25 || item.dyofMon == 31,
+                                        'tomatoRed' : item.dyofMon == 30,
+                                        'available' : item.dyofMon == 25 }" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-10 text-left">
-                          <label class="onfield font0-9em ml-n3">{{item.holidayName}}</label>
+                          <label class="font0-9em ml-n3" [ngClass]="{'inoffice' : item.dyofMon < 4,
+                          'onfield' : item.dyofMon > 3 && item.dyofMon <= 6 || item.dyofMon > 25 && item.dyofMon < 30,
+                          'onleave' : item.dyofMon > 6 && item.dyofMon < 20,
+                          'remote' : item.dyofMon > 19 && item.dyofMon < 25 || item.dyofMon == 31,
+                          'tomatoRed' : item.dyofMon == 30,
+                          'available' : item.dyofMon == 25 }">
+                            {{item.holidayName}}</label>
                         </div>
                       </div>
                       <div class="row mt-n2">
@@ -180,10 +191,21 @@
                     <div *ngFor="let item of evenHolidays">
                       <div class="row">
                         <div class="col-md-2">
-                          <span class="fa fa-circle inoffice" aria-hidden="true"></span>
+                          <span class="fa fa-circle" [ngClass]="{'inoffice' : item.dyofMon < 4,
+                          'onfield' : item.dyofMon > 3 && item.dyofMon <= 6 || item.dyofMon > 25 && item.dyofMon < 30,
+                          'onleave' : item.dyofMon > 6 && item.dyofMon < 20,
+                          'remote' : item.dyofMon > 19 && item.dyofMon < 25 || item.dyofMon == 31,
+                          'tomatoRed' : item.dyofMon == 30,
+                          'available' : item.dyofMon == 25 }" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-10 text-left">
-                          <label class="inoffice font0-9em ml-n3">{{item.holidayName}}</label>
+                          <label class="font0-9em ml-n3" [ngClass]="{'inoffice' : item.dyofMon < 4,
+                          'onfield' : item.dyofMon > 3 && item.dyofMon <= 6 || item.dyofMon > 25 && item.dyofMon < 30,
+                          'onleave' : item.dyofMon > 6 && item.dyofMon < 20,
+                          'remote' : item.dyofMon > 19 && item.dyofMon < 25 || item.dyofMon == 31,
+                          'tomatoRed' : item.dyofMon == 30,
+                          'available' : item.dyofMon == 25 }">
+                            {{item.holidayName}}</label>
                         </div>
                       </div>
                       <div class="row mt-n2">
@@ -201,10 +223,21 @@
                     <div *ngFor="let item of evenHolidays">
                       <div class="row">
                         <div class="col-md-2">
-                          <span class="fa fa-circle inoffice" aria-hidden="true"></span>
+                          <span class="fa fa-circle" [ngClass]="{'inoffice' : item.dyofMon < 4,
+                          'onfield' : item.dyofMon > 3 && item.dyofMon <= 6 || item.dyofMon > 25 && item.dyofMon < 30,
+                          'onleave' : item.dyofMon > 6 && item.dyofMon < 20,
+                          'remote' : item.dyofMon > 19 && item.dyofMon < 25 || item.dyofMon == 31,
+                          'tomatoRed' : item.dyofMon == 30,
+                          'available' : item.dyofMon == 25 }" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-10 text-left">
-                          <label class="inoffice font0-9em ml-n3">{{item.holidayName}}</label>
+                          <label class="font0-9em ml-n3" [ngClass]="{'inoffice' : item.dyofMon < 4,
+                          'onfield' : item.dyofMon > 3 && item.dyofMon <= 6 || item.dyofMon > 25 && item.dyofMon < 30,
+                          'onleave' : item.dyofMon > 6 && item.dyofMon < 20,
+                          'remote' : item.dyofMon > 19 && item.dyofMon < 25 || item.dyofMon == 31,
+                          'tomatoRed' : item.dyofMon == 30,
+                          'available' : item.dyofMon == 25 }">
+                            {{item.holidayName}}</label>
                         </div>
                       </div>
                       <div class="row mt-n2">
@@ -220,10 +253,21 @@
                     <div *ngFor="let item of oddHolidays">
                       <div class="row">
                         <div class="col-md-2">
-                          <span class="fa fa-circle onfield" aria-hidden="true"></span>
+                          <span class="fa fa-circle" [ngClass]="{'inoffice' : item.dyofMon < 4,
+                          'onfield' : item.dyofMon > 3 && item.dyofMon <= 6 || item.dyofMon > 25 && item.dyofMon < 30,
+                          'onleave' : item.dyofMon > 6 && item.dyofMon < 20,
+                          'remote' : item.dyofMon > 19 && item.dyofMon < 25 || item.dyofMon == 31,
+                          'tomatoRed' : item.dyofMon == 30,
+                          'available' : item.dyofMon == 25 }" aria-hidden="true"></span>
                         </div>
                         <div class="col-md-10 text-left">
-                          <label class="onfield font0-9em ml-n3">{{item.holidayName}}</label>
+                          <label class="font0-9em ml-n3" [ngClass]="{'inoffice' : item.dyofMon < 4,
+                          'onfield' : item.dyofMon > 3 && item.dyofMon <= 6 || item.dyofMon > 25 && item.dyofMon < 30,
+                          'onleave' : item.dyofMon > 6 && item.dyofMon < 20,
+                          'remote' : item.dyofMon > 19 && item.dyofMon < 25 || item.dyofMon == 31,
+                          'tomatoRed' : item.dyofMon == 30,
+                          'available' : item.dyofMon == 25 }">
+                            {{item.holidayName}}</label>
                         </div>
                       </div>
                       <div class="row mt-n2">

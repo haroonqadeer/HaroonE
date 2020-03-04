@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ToastrManager } from 'ng6-toastr-notifications';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { ToastrManager } from "ng6-toastr-notifications";
 
-
-import { AppComponent } from 'src/app/app.component';
+import { AppComponent } from "src/app/app.component";
 
 import {
   IgxExcelExporterOptions,
@@ -12,8 +11,7 @@ import {
   IgxCsvExporterOptions,
   CsvFileTypes
 } from "igniteui-angular";
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-
+import { HttpHeaders, HttpClient } from "@angular/common/http";
 
 declare var $: any;
 
@@ -29,19 +27,20 @@ declare var $: any;
 //-------------------Export into PDF, CSV, Excel -----------------------------//
 //---------------------------------------------------------------------------//
 @Component({
-  selector: 'app-skill',
-  templateUrl: './skill.component.html',
-  styleUrls: ['./skill.component.scss']
+  selector: "app-skill",
+  templateUrl: "./skill.component.html",
+  styleUrls: ["./skill.component.scss"]
 })
 export class SkillComponent implements OnInit {
-
   //serverUrl = "http://localhost:9018/";
-  serverUrl = "http://52.163.189.189:9018/";
+  // serverUrl = "http://52.163.189.189:9018/";
+  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9018/";
+
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  }
+    headers: new HttpHeaders({ "Content-Type": "application/json" })
+  };
 
   //Lists
   skillTypeList = [];
@@ -51,45 +50,47 @@ export class SkillComponent implements OnInit {
   excelDataList = [];
 
   //Main page ng-models
-  tblSearch = '';
-  tblSearchGroup = '';
+  tblSearch = "";
+  tblSearchGroup = "";
 
   //Ng-Models Add skill Modal
-  skillId = '';
-  skillTypeName = '';
-  skillGroup = '';
-  skillGroupDescription = '';
-  skillTitleId = '';
-  skillTitle = '';
-  skillTitleDescription = '';
+  skillId = "";
+  skillTypeName = "";
+  skillGroup = "";
+  skillGroupDescription = "";
+  skillTitleId = "";
+  skillTitle = "";
+  skillTitleDescription = "";
 
   //Ng-models for add skill group modal
-  sklGroupId = '';
-  sklGroupName = '';
-  sklGroupDesc = '';
+  sklGroupId = "";
+  sklGroupName = "";
+  sklGroupDesc = "";
 
   //Ng-Models for delete modal
-  userPassword = '';
-  userPINCode = '';
-  dCriteriaId = '';
-  dGroupId = '';
+  userPassword = "";
+  userPINCode = "";
+  dCriteriaId = "";
+  dGroupId = "";
 
   //* variables for pagination and orderby pipe
   p = 1;
   pGroup = 1;
-  order = 'info.name';
+  order = "info.name";
   reverse = false;
   // orderGroup = 'info.name';
   // reverseGroup = false;
   sortedCollection: any[];
-  itemPerPage = '10';
-  itemPerPageGroup = '5';
+  itemPerPage = "10";
+  itemPerPageGroup = "5";
 
-  constructor(public toastr: ToastrManager,
+  constructor(
+    public toastr: ToastrManager,
     private app: AppComponent,
     private excelExportService: IgxExcelExporterService,
     private csvExportService: IgxCsvExporterService,
-    private http: HttpClient) { }
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.getSkillType();
@@ -101,154 +102,176 @@ export class SkillComponent implements OnInit {
 
   @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
-
   // get skill type
   getSkillType() {
     var Token = localStorage.getItem(this.tokenKey);
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-
-    this.http.get(this.serverUrl + 'api/getSkillType', { headers: reqHeader }).subscribe((data: any) => {
-      this.skillTypeList = data
-
-      this.skillId = this.skillTypeList[4].qlfctnTypeCd;
-      this.skillTypeName = this.skillTypeList[4].qlfctnTypeName;
-
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + Token
     });
-  }
 
+    this.http
+      .get(this.serverUrl + "api/getSkillType", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.skillTypeList = data;
+
+        this.skillId = this.skillTypeList[4].qlfctnTypeCd;
+        this.skillTypeName = this.skillTypeList[4].qlfctnTypeName;
+      });
+  }
 
   // get skill group
   getSkillGroup() {
     var Token = localStorage.getItem(this.tokenKey);
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-
-    this.http.get(this.serverUrl + 'api/getSkillGroup', { headers: reqHeader }).subscribe((data: any) => {
-      this.skillGroupList = data
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + Token
     });
-  }
 
+    this.http
+      .get(this.serverUrl + "api/getSkillGroup", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.skillGroupList = data;
+      });
+  }
 
   // get the skill criteria
   getSkillCriteria() {
     var Token = localStorage.getItem(this.tokenKey);
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-
-    this.http.get(this.serverUrl + 'api/getSkillCriteria', { headers: reqHeader }).subscribe((data: any) => {
-      this.skillCriteriaList = data
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + Token
     });
-  }
 
+    this.http
+      .get(this.serverUrl + "api/getSkillCriteria", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.skillCriteriaList = data;
+      });
+  }
 
   // save skill criteria
   saveSkillCriteria() {
-
     if (this.skillGroup == "") {
-      this.toastr.errorToastr('Please Select skill Group', 'Error', { toastTimeout: (2500) });
+      this.toastr.errorToastr("Please Select skill Group", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else if (this.skillTitle == "") {
-      this.toastr.errorToastr('Please Enter skill Title', 'Error', { toastTimeout: (2500) });
+    } else if (this.skillTitle == "") {
+      this.toastr.errorToastr("Please Enter skill Title", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else if (this.skillTitleDescription == "") {
-      this.toastr.errorToastr('Please Enter skill Title Description', 'Error', { toastTimeout: (2500) });
+    } else if (this.skillTitleDescription == "") {
+      this.toastr.errorToastr("Please Enter skill Title Description", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else {
-
+    } else {
       if (this.skillTitleId != "") {
         //return false;
         var updateData = {
-          "qlfctnCriteriaCd": this.skillTitleId,
-          "qlfctnTypeCd": this.skillId,
-          "qlfctnCd": this.skillGroup,
-          "qlfctnCriteriaName": this.skillTitle,
-          "qlfctnCriteriaDesc": this.skillTitleDescription,
-          "connectedUser": 12000
+          qlfctnCriteriaCd: this.skillTitleId,
+          qlfctnTypeCd: this.skillId,
+          qlfctnCd: this.skillGroup,
+          qlfctnCriteriaName: this.skillTitle,
+          qlfctnCriteriaDesc: this.skillTitleDescription,
+          connectedUser: 12000
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-        this.http.put(this.serverUrl + 'api/updateSkillCriteria', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-          //alert(data.msg);
-
-          if (data.msg == 'Record Updated Successfully!') {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillModal').modal('hide');
-            this.getSkillCriteria();
-            return false;
-          }
-
-          else if (data.msg == "Update - Record Already Exists!") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillModal').modal('hide');
-            this.getSkillCriteria();
-            return false;
-          }
-
-          else {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillModal').modal('hide');
-            this.getSkillCriteria();
-            return false;
-          }
-
+        var reqHeader = new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
         });
-      }
 
-      else {
+        this.http
+          .put(this.serverUrl + "api/updateSkillCriteria", updateData, {
+            headers: reqHeader
+          })
+          .subscribe((data: any) => {
+            //alert(data.msg);
+
+            if (data.msg == "Record Updated Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#addSkillModal").modal("hide");
+              this.getSkillCriteria();
+              return false;
+            } else if (data.msg == "Update - Record Already Exists!") {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#addSkillModal").modal("hide");
+              this.getSkillCriteria();
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#addSkillModal").modal("hide");
+              this.getSkillCriteria();
+              return false;
+            }
+          });
+      } else {
         var saveData = {
-          "qlfctnTypeCd": this.skillId,
-          "qlfctnCd": this.skillGroup,
-          "qlfctnCriteriaName": this.skillTitle,
-          "qlfctnCriteriaDesc": this.skillTitleDescription,
-          "connectedUser": 12000
+          qlfctnTypeCd: this.skillId,
+          qlfctnCd: this.skillGroup,
+          qlfctnCriteriaName: this.skillTitle,
+          qlfctnCriteriaDesc: this.skillTitleDescription,
+          connectedUser: 12000
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
         // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+        var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
         //alert(reqHeader);
-        this.http.post(this.serverUrl + 'api/saveSkillCriteria', saveData, { responseType: 'json' }).subscribe((data: any) => {
-          // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
+        this.http
+          .post(this.serverUrl + "api/saveSkillCriteria", saveData, {
+            responseType: "json"
+          })
+          .subscribe((data: any) => {
+            // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
 
-          //alert(data.msg);
-          //return false;
+            //alert(data.msg);
+            //return false;
 
-          if (data.msg == "Record Saved Successfully!") {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillModal').modal('hide');
-            this.getSkillCriteria();
-            return false;
-          }
-
-          else if (data.msg == "Insert - Record Already Exists!") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillModal').modal('hide');
-            this.getSkillCriteria();
-            return false;
-          }
-
-          else {
-            this.toastr.errorToastr(data.msg, 'Error !', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillModal').modal('hide');
-            this.getSkillCriteria();
-            return false;
-          }
-        });
+            if (data.msg == "Record Saved Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#addSkillModal").modal("hide");
+              this.getSkillCriteria();
+              return false;
+            } else if (data.msg == "Insert - Record Already Exists!") {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#addSkillModal").modal("hide");
+              this.getSkillCriteria();
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error !", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#addSkillModal").modal("hide");
+              this.getSkillCriteria();
+              return false;
+            }
+          });
       }
     }
   }
@@ -256,107 +279,119 @@ export class SkillComponent implements OnInit {
   //save skill group
   saveSkillGroup() {
     if (this.sklGroupName == "") {
-      this.toastr.errorToastr('Please Select skill Group', 'Error', { toastTimeout: (2500) });
+      this.toastr.errorToastr("Please Select skill Group", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else if (this.sklGroupDesc == "") {
-      this.toastr.errorToastr('Please Enter Description', 'Error', { toastTimeout: (2500) });
+    } else if (this.sklGroupDesc == "") {
+      this.toastr.errorToastr("Please Enter Description", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else {
+    } else {
       if (this.sklGroupId != "") {
         //return false;
         var updateData = {
-          "qlfctnCd": this.sklGroupId,
-          "qlfctnName": this.sklGroupName,
-          "qlfctnDesc": this.sklGroupDesc,
-          "qlfctnTypeCd": this.skillId,
-          "connectedUser": 12000
+          qlfctnCd: this.sklGroupId,
+          qlfctnName: this.sklGroupName,
+          qlfctnDesc: this.sklGroupDesc,
+          qlfctnTypeCd: this.skillId,
+          connectedUser: 12000
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-        this.http.put(this.serverUrl + 'api/updateskillGroup', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-          //alert(data.msg);
-
-          if (data.msg == 'Record Updated Successfully!') {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillGroupModal').modal('hide');
-            this.getSkillGroup();
-            return false;
-          }
-
-          else if (data.msg == "Update - Record Already Exists!") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillGroupModal').modal('hide');
-            this.getSkillGroup();
-            return false;
-          }
-
-          else {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillGroupModal').modal('hide');
-            this.getSkillGroup();
-            return false;
-          }
-
+        var reqHeader = new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
         });
-      }
 
-      else {
+        this.http
+          .put(this.serverUrl + "api/updateskillGroup", updateData, {
+            headers: reqHeader
+          })
+          .subscribe((data: any) => {
+            //alert(data.msg);
+
+            if (data.msg == "Record Updated Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#addSkillGroupModal").modal("hide");
+              this.getSkillGroup();
+              return false;
+            } else if (data.msg == "Update - Record Already Exists!") {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#addSkillGroupModal").modal("hide");
+              this.getSkillGroup();
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#addSkillGroupModal").modal("hide");
+              this.getSkillGroup();
+              return false;
+            }
+          });
+      } else {
         var saveData = {
-          "qlfctnName": this.sklGroupName,
-          "qlfctnDesc": this.sklGroupDesc,
-          "qlfctnTypeCd": this.skillId,
-          "connectedUser": 12000
+          qlfctnName: this.sklGroupName,
+          qlfctnDesc: this.sklGroupDesc,
+          qlfctnTypeCd: this.skillId,
+          connectedUser: 12000
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
         // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+        var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
         //alert(reqHeader);
-        this.http.post(this.serverUrl + 'api/saveSkillGroup', saveData, { responseType: 'json' }).subscribe((data: any) => {
-          // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
+        this.http
+          .post(this.serverUrl + "api/saveSkillGroup", saveData, {
+            responseType: "json"
+          })
+          .subscribe((data: any) => {
+            // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
 
-          //alert(data.msg);
-          //return false;
-          if (data.msg == "Record Saved Successfully!") {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillGroupModal').modal('hide');
-            this.getSkillGroup();
-            return false;
-          }
-
-          else if (data.msg == "Insert - Record Already Exists!") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillGroupModal').modal('hide');
-            this.getSkillGroup();
-            return false;
-          }
-
-          else {
-            this.toastr.errorToastr(data.msg, 'Error !', { toastTimeout: (2500) });
-            this.clear();
-            $('#addSkillGroupModal').modal('hide');
-            this.getSkillGroup();
-            return false;
-          }
-
-        });
+            //alert(data.msg);
+            //return false;
+            if (data.msg == "Record Saved Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#addSkillGroupModal").modal("hide");
+              this.getSkillGroup();
+              return false;
+            } else if (data.msg == "Insert - Record Already Exists!") {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#addSkillGroupModal").modal("hide");
+              this.getSkillGroup();
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error !", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#addSkillGroupModal").modal("hide");
+              this.getSkillGroup();
+              return false;
+            }
+          });
       }
     }
   }
 
-  // edit skill criteria 
+  // edit skill criteria
   edit(item) {
     this.skillId = item.qlfctnTypeCd;
     this.skillGroup = item.qlfctnCd;
@@ -365,7 +400,6 @@ export class SkillComponent implements OnInit {
     this.skillTitleDescription = item.qlfctnCriteriaDesc;
 
     //alert(this.skillTitleId);
-
   }
 
   editGroup(item) {
@@ -375,27 +409,25 @@ export class SkillComponent implements OnInit {
     this.skillId = item.qlfctnTypeCd;
   }
 
-
-
   // clear the fields
   clear() {
     //this.skillId = '';
     //skillType = '';
     //skillTypeName = '';
-    this.skillGroup = '';
+    this.skillGroup = "";
     //this.skillGroupDescription = '';
-    this.skillTitleId = '';
-    this.skillTitle = '';
-    this.skillTitleDescription = '';
+    this.skillTitleId = "";
+    this.skillTitle = "";
+    this.skillTitleDescription = "";
 
-    this.sklGroupId = '';
-    this.sklGroupName = '';
-    this.sklGroupDesc = '';
+    this.sklGroupId = "";
+    this.sklGroupName = "";
+    this.sklGroupDesc = "";
 
-    this.dCriteriaId = '';
-    this.userPassword = '';
-    this.userPINCode = '';
-    this.dGroupId = '';
+    this.dCriteriaId = "";
+    this.userPassword = "";
+    this.userPINCode = "";
+    this.dGroupId = "";
   }
 
   deleteSkillGroup(item) {
@@ -409,7 +441,7 @@ export class SkillComponent implements OnInit {
     //alert("Type Id = " + this.skillId);
   }
 
-  // get the "ids" of the delete entry 
+  // get the "ids" of the delete entry
   deleteSkillCriteria(item) {
     this.clear();
     this.dCriteriaId = item.qlfctnCriteriaCd;
@@ -422,81 +454,97 @@ export class SkillComponent implements OnInit {
   // delete the skill criteria
   delete() {
     if (this.userPassword == "") {
-      this.toastr.errorToastr('Please Enter Password', 'Error', { toastTimeout: (2500) });
+      this.toastr.errorToastr("Please Enter Password", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else if (this.userPINCode == "") {
-      this.toastr.errorToastr('Please Enter PIN Code', 'Error', { toastTimeout: (2500) });
+    } else if (this.userPINCode == "") {
+      this.toastr.errorToastr("Please Enter PIN Code", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else {
+    } else {
       if (this.dCriteriaId != "") {
-
         var data = {
-          "qlfctnCriteriaCd": this.dCriteriaId,
+          qlfctnCriteriaCd: this.dCriteriaId,
           // "qlfctnTypeCd": this.skillId,
           // "qlfctnCd": this.skillGroup,
           // "qlfctnCriteriaName": this.skillTitle,
           // "qlfctnCriteriaDesc": this.skillTitleDescription,
-          "connectedUser": 12000
+          connectedUser: 12000
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-        this.http.put(this.serverUrl + 'api/deleteskillCriteria', data, { headers: reqHeader }).subscribe((data: any) => {
-
-          //alert(data.msg);
-
-          if (data.msg == "Record Deleted Successfully!") {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.clear();
-            $('#deleteModal').modal('hide');
-            this.getSkillCriteria();
-            return false;
-          }
-          else {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            return false;
-          }
-
+        var reqHeader = new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
         });
-      }
-      else if (this.dGroupId != "") {
+
+        this.http
+          .put(this.serverUrl + "api/deleteskillCriteria", data, {
+            headers: reqHeader
+          })
+          .subscribe((data: any) => {
+            //alert(data.msg);
+
+            if (data.msg == "Record Deleted Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#deleteModal").modal("hide");
+              this.getSkillCriteria();
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              return false;
+            }
+          });
+      } else if (this.dGroupId != "") {
         var groupdata = {
-          "qlfctnCd": this.dGroupId,
-          "qlfctnTypeCd": this.skillId,
+          qlfctnCd: this.dGroupId,
+          qlfctnTypeCd: this.skillId,
           // "qlfctnName": this.sklGroupName,
           // "qlfctnDesc": this.sklGroupDesc,
-          "connectedUser": 12000
+          connectedUser: 12000
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-        this.http.put(this.serverUrl + 'api/deleteSkillGroup', groupdata, { headers: reqHeader }).subscribe((data: any) => {
-
-          //alert(data.msg);
-		  if (data.msg == "Record Deleted Successfully!") {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.clear();
-            $('#deleteModal').modal('hide');
-            this.getSkillGroup();
-            return false;
-		  }
-		  else {
-			this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-			return false;
-		  }
+        var reqHeader = new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
         });
-      }// else if ends
-    }//else ends
+
+        this.http
+          .put(this.serverUrl + "api/deleteSkillGroup", groupdata, {
+            headers: reqHeader
+          })
+          .subscribe((data: any) => {
+            //alert(data.msg);
+            if (data.msg == "Record Deleted Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#deleteModal").modal("hide");
+              this.getSkillGroup();
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              return false;
+            }
+          });
+      } // else if ends
+    } //else ends
   }
 
-
-  //function for sorting/orderBy table data 
+  //function for sorting/orderBy table data
   setOrder(value: string) {
     if (this.order === value) {
       this.reverse = !this.reverse;
@@ -506,7 +554,6 @@ export class SkillComponent implements OnInit {
 
   // Print Function
   printDiv() {
-
     // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
 
     // var cssHeading = ".cssHeading {font-size: 25px; font-weight: bold;}";
@@ -517,38 +564,46 @@ export class SkillComponent implements OnInit {
 
     var printCss = this.app.printCSS();
 
-
     //printCss = printCss + "";
 
     var contents = $("#printArea").html();
 
-    var frame1 = $('<iframe />');
+    var frame1 = $("<iframe />");
     frame1[0].name = "frame1";
-    frame1.css({ "position": "absolute", "top": "-1000000px" });
+    frame1.css({ position: "absolute", top: "-1000000px" });
     $("body").append(frame1);
-    var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+    var frameDoc = frame1[0].contentWindow
+      ? frame1[0].contentWindow
+      : frame1[0].contentDocument.document
+      ? frame1[0].contentDocument.document
+      : frame1[0].contentDocument;
     frameDoc.document.open();
 
     //Create a new HTML document.
-    frameDoc.document.write('<html><head><title>DIV Contents</title>' + "<style>" + printCss + "</style>");
-
+    frameDoc.document.write(
+      "<html><head><title>DIV Contents</title>" +
+        "<style>" +
+        printCss +
+        "</style>"
+    );
 
     //Append the external CSS file.  <link rel="stylesheet" href="../../../styles.scss" />  <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
-    frameDoc.document.write('<style type="text/css" media="print">/*@page { size: landscape; }*/</style>');
+    frameDoc.document.write(
+      '<style type="text/css" media="print">/*@page { size: landscape; }*/</style>'
+    );
 
-    frameDoc.document.write('</head><body>');
+    frameDoc.document.write("</head><body>");
 
     //Append the DIV contents.
     frameDoc.document.write(contents);
-    frameDoc.document.write('</body></html>');
+    frameDoc.document.write("</body></html>");
 
     frameDoc.document.close();
-
 
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function () {
+    setTimeout(function() {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();
@@ -573,27 +628,44 @@ export class SkillComponent implements OnInit {
           skill_Title_Description: this.skillCriteriaList[i].qlfctnCriteriaDesc
         });
       }
-      this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("skillCompleteCSV", CsvFileTypes.CSV));
+      this.csvExportService.exportData(
+        completeDataList,
+        new IgxCsvExporterOptions("skillCompleteCSV", CsvFileTypes.CSV)
+      );
     }
     // case 2: When tblSearch is not empty then assign new data list
     else if (this.tblSearch != "") {
       var filteredDataList = [];
       for (var i = 0; i < this.skillCriteriaList.length; i++) {
-        if (this.skillCriteriaList[i].qlfctnName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-          this.skillCriteriaList[i].qlfctnCriteriaName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-          this.skillCriteriaList[i].qlfctnCriteriaDesc.toUpperCase().includes(this.tblSearch.toUpperCase())) {
+        if (
+          this.skillCriteriaList[i].qlfctnName
+            .toUpperCase()
+            .includes(this.tblSearch.toUpperCase()) ||
+          this.skillCriteriaList[i].qlfctnCriteriaName
+            .toUpperCase()
+            .includes(this.tblSearch.toUpperCase()) ||
+          this.skillCriteriaList[i].qlfctnCriteriaDesc
+            .toUpperCase()
+            .includes(this.tblSearch.toUpperCase())
+        ) {
           filteredDataList.push({
             skill_Group: this.skillCriteriaList[i].qlfctnName,
             skill_Title: this.skillCriteriaList[i].qlfctnCriteriaName,
-            skill_Title_Description: this.skillCriteriaList[i].qlfctnCriteriaDesc
+            skill_Title_Description: this.skillCriteriaList[i]
+              .qlfctnCriteriaDesc
           });
         }
       }
 
       if (filteredDataList.length > 0) {
-        this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("skillFilterCSV", CsvFileTypes.CSV));
+        this.csvExportService.exportData(
+          filteredDataList,
+          new IgxCsvExporterOptions("skillFilterCSV", CsvFileTypes.CSV)
+        );
       } else {
-        this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+        this.toastr.errorToastr("Oops! No data found", "Error", {
+          toastTimeout: 2500
+        });
       }
     }
   }
@@ -610,19 +682,31 @@ export class SkillComponent implements OnInit {
           skill_Title_Description: this.skillCriteriaList[i].qlfctnCriteriaDesc
         });
       }
-      this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("skillCompleteExcel"));
+      this.excelExportService.export(
+        this.excelDataContent,
+        new IgxExcelExporterOptions("skillCompleteExcel")
+      );
       this.excelDataList = [];
     }
     // case 2: When tblSearch is not empty then assign new data list
     else if (this.tblSearch != "") {
       for (var i = 0; i < this.skillCriteriaList.length; i++) {
-        if (this.skillCriteriaList[i].qlfctnName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-          this.skillCriteriaList[i].qlfctnCriteriaName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-          this.skillCriteriaList[i].qlfctnCriteriaDesc.toUpperCase().includes(this.tblSearch.toUpperCase())) {
+        if (
+          this.skillCriteriaList[i].qlfctnName
+            .toUpperCase()
+            .includes(this.tblSearch.toUpperCase()) ||
+          this.skillCriteriaList[i].qlfctnCriteriaName
+            .toUpperCase()
+            .includes(this.tblSearch.toUpperCase()) ||
+          this.skillCriteriaList[i].qlfctnCriteriaDesc
+            .toUpperCase()
+            .includes(this.tblSearch.toUpperCase())
+        ) {
           this.excelDataList.push({
             skill_Group: this.skillCriteriaList[i].qlfctnName,
             skill_Title: this.skillCriteriaList[i].qlfctnCriteriaName,
-            skill_Title_Description: this.skillCriteriaList[i].qlfctnCriteriaDesc
+            skill_Title_Description: this.skillCriteriaList[i]
+              .qlfctnCriteriaDesc
           });
         }
       }
@@ -630,13 +714,16 @@ export class SkillComponent implements OnInit {
       if (this.excelDataList.length > 0) {
         //alert("Filter List " + this.excelDataList.length);
 
-        this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("skillFilterExcel"));
+        this.excelExportService.export(
+          this.excelDataContent,
+          new IgxExcelExporterOptions("skillFilterExcel")
+        );
         this.excelDataList = [];
-      }
-      else {
-        this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
+      } else {
+        this.toastr.errorToastr("Oops! No data found", "Error", {
+          toastTimeout: 2500
+        });
       }
     }
   }
-
 }

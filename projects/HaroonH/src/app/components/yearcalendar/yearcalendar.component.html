@@ -25,7 +25,7 @@
   <!-- end menubar buttons -->
 </div>
 <div class="myContainer bgWhite allBorder mb-1 mt-3">
-  <div class="row">
+  <div class="row mt-2">
     <div class="col-md-3">
       <div class="row mb-2">
         <div class="offset-md-1 col-md-11">
@@ -34,9 +34,38 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="bg-light-grey allBorder">
-            <div class="row">
-              <div class="col-md-12"></div>
+          <div class="bg-light-grey">
+            <div class="row overflow-auto">
+              <div class="col-md-12">
+                <div *ngFor="let item of evenHolidays">
+                  <div class="row mt-2">
+                    <div class="offset-md-1 col-md-2">
+                      <span class="fa fa-circle" [ngClass]="{'inoffice' : item.dyofMon < 4,
+                        'onfield' : item.dyofMon > 3 && item.dyofMon <= 6 || item.dyofMon > 25 && item.dyofMon < 30,
+                        'onleave' : item.dyofMon > 6 && item.dyofMon < 20,
+                        'remote' : item.dyofMon > 19 && item.dyofMon < 25 || item.dyofMon == 31,
+                        'tomatoRed' : item.dyofMon == 30,
+                        'available' : item.dyofMon == 25 }" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-md-9 text-left">
+                      <label class="font0-9em ml-n3" [ngClass]="{'inoffice' : item.dyofMon < 4,
+                        'onfield' : item.dyofMon > 3 && item.dyofMon <= 6 || item.dyofMon > 25 && item.dyofMon < 30,
+                        'onleave' : item.dyofMon > 6 && item.dyofMon < 20,
+                        'remote' : item.dyofMon > 19 && item.dyofMon < 25 || item.dyofMon == 31,
+                        'tomatoRed' : item.dyofMon == 30,
+                        'available' : item.dyofMon == 25 }">
+                        {{item.holidayName}}</label>
+                    </div>
+                  </div>
+                  <div class="row mt-n2">
+                    <div class="offset-md-3 col-md-9 text-left">
+                      <label class="font0-8em remote ml-n3">{{item.dyName}},{{item.month}}
+                        {{item.dyofMon}}, {{item.yr}}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

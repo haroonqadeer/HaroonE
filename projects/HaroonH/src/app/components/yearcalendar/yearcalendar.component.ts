@@ -42,6 +42,8 @@ export class YearcalendarComponent implements OnInit {
   Saturday = "";
   Sunday = "";
 
+  oddHolidays = [];
+  evenHolidays = [];
   eventTypeList = [];
   holidayList = [];
 
@@ -86,6 +88,8 @@ export class YearcalendarComponent implements OnInit {
     this.getHolidays();
     this.getEvents();
 
+    var date = new Date();
+
     this.options = {
       plugins: [
         dayGridPlugin,
@@ -93,7 +97,7 @@ export class YearcalendarComponent implements OnInit {
         interactionPlugin,
         bootstrapPlugin
       ],
-      defaultDate: "2019-06-01",
+      defaultDate: date,
       eventTextColor: "white",
       // dayTextColor:"black",
       // editable: true,
@@ -136,9 +140,27 @@ export class YearcalendarComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .get(this.serverUrl + "api/getHolidays", { headers: reqHeader })
+      .get(
+        "http://ambit.southeastasia.cloudapp.azure.com:9031/api/getHolidays",
+        { headers: reqHeader }
+      )
       .subscribe((data: any) => {
-        this.holidayList = data;
+        for (var i = 0; i < data.length; i++) {
+          var found = false;
+          for (var j = 0; j < this.evenHolidays.length; j++) {
+            if (this.evenHolidays[j].holidayName == data[i].holidayName)
+              found = true;
+          }
+          if (found == false) {
+            this.evenHolidays.push({
+              dyofMon: data[i].dyofMon,
+              yr: data[i].yr,
+              month: data[i].month,
+              dyName: data[i].dyName,
+              holidayName: data[i].holidayName
+            });
+          }
+        }
 
         this.app.hideSpinner();
       });
