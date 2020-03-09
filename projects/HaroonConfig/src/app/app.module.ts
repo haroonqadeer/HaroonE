@@ -25,6 +25,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 
 import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
+import { ExperienceComponent } from './components/experience/experience.component';
 
 
 
@@ -34,7 +35,8 @@ import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "i
     SearchPipe,
     CertificateComponent,
     DegreeeComponent,
-    SkillComponent
+    SkillComponent,
+    ExperienceComponent
   ],
   imports: [
     BrowserModule,

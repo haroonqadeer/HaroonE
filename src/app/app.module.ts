@@ -38,7 +38,6 @@ import { ForgotpasswordComponent } from "./components/forgotpassword/forgotpassw
 
 import { CookieService } from "ngx-cookie-service";
 import { NgxMaskModule } from "ngx-mask";
-import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -86,8 +85,7 @@ import { HashLocationStrategy, LocationStrategy } from "@angular/common";
     NavComponent,
     IgxExcelExporterService,
     IgxCsvExporterService,
-    CookieService,
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    CookieService
   ],
   bootstrap: [AppComponent],
   entryComponents: [NavComponent, AttendanceComponent]

@@ -188,22 +188,28 @@
             </mat-expansion-panel-header>
 
             <ul class="nav ml-n4">
-              <li routerLinkActive='active'>
+              <li routerLinkActive='active' (click)="closeNav()">
                 <a routerLink="Config/certificate">
                   <!-- <span class="fa logo"><img src="../assets/images/Plus.svg"></span> -->
                   <span class="text">Certificate</span>
                 </a>
               </li>
-              <li routerLinkActive='active'>
+              <li routerLinkActive='active' (click)="closeNav()">
                 <a routerLink="Config/degree">
                   <!-- <span class="fa logo"><img src="../assets/images/Plus.svg"></span> -->
                   <span class="text">Degree</span>
                 </a>
               </li>
-              <li routerLinkActive='active'>
+              <li routerLinkActive='active' (click)="closeNav()">
                 <a routerLink="Config/skill">
                   <!-- <span class="fa logo"><img src="../assets/images/Plus.svg"></span> -->
                   <span class="text">Skill</span>
+                </a>
+              </li>
+              <li routerLinkActive='active' (click)="closeNav()">
+                <a routerLink="Config/experience">
+                  <!-- <span class="fa logo"><img src="../assets/images/Plus.svg"></span> -->
+                  <span class="text">Experience</span>
                 </a>
               </li>
             </ul>
@@ -364,10 +370,6 @@
               <span class="fa fa-sitemap"></span>&nbsp;
               <span> Modules</span>
             </div> -->
-            <div class="btn" (click)=showAttendance()>
-              <span class="fa fa-calendar-check-o"></span>&nbsp;
-              <span>Attendance</span>
-            </div>
             <div class="btn" data-toggle="modal" data-target="#changePasWrdModal">
               <span class="fa fa-key"></span>&nbsp;
               <span>ChangePassword</span>
