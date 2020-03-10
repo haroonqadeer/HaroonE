@@ -72,7 +72,8 @@
 
             <div class="row mt-1">
               <div class="col-md-2 p-0">
-                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal" (click)="edit(item);">
+                <span class="fa tableIcon pointerCursor" data-toggle="modal" data-target="#employeeModal"
+                  (click)="edit(item);">
                   <span class="fa icon-emp-edit"></span>
                 </span>
               </div>
@@ -87,8 +88,7 @@
           </div>
 
           <div class="col-md-4 p-0 text-right" *ngIf="item.path == null">
-            <img class="allBorder" src="../assets/images/EmpImages/Profile.jpg" alt="" width="103px"
-              height="125px">
+            <img class="allBorder" src="../assets/images/EmpImages/Profile.jpg" alt="" width="103px" height="125px">
           </div>
 
 
@@ -198,7 +198,8 @@
                   <div class="row">
                     <div class="col-md-12 ml-1">
                       <img class="mr-3" [src]="imageUrl" width="95" height="115">
-                      <input class="position-absolute absolute-bottom" [(ngModel)]="imgFile" type="file" accept="image/*" (change)="onFileSelected($event)" />
+                      <input class="position-absolute absolute-bottom" [(ngModel)]="imgFile" type="file"
+                        accept="image/*" (change)="onFileSelected($event)" />
                     </div>
                   </div>
                 </div>
@@ -339,7 +340,8 @@
                     </div>
                     <div class="col-md-6">
                       <mat-form-field class="fullwidth">
-                        <input matInput [matDatepicker]="picker3" placeholder="Contract Ending On" [(ngModel)]="contractEnd">
+                        <input matInput [matDatepicker]="picker3" placeholder="Contract Ending On"
+                          [(ngModel)]="contractEnd">
                         <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                         <mat-datepicker #picker3></mat-datepicker>
                       </mat-form-field>
@@ -581,29 +583,34 @@
                         <thead>
                           <tr class='d-flex'>
                             <th class='col-1 text-center'>Sr #</th>
-                            <th class='col-3 text-left'>Designation</th>
-                            <th class='col-3 text-left'>Experience</th>
-                            <th class='col-2 text-center'>Starting Date</th>
-                            <th class='col-2 text-center'>End Date</th>
+                            <th class='col-2 text-left'>Start Date</th>
+                            <th class='col-2 text-left'>Finish Date</th>
+                            <th class='col-3 text-left'>Area</th>
+                            <th class='col-3 text-left'>Detail</th>
                             <th class='col-1 text-center'>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr *ngFor="let item of empOrgList; let i=index" class='d-flex'>
                             <td class='col-1 text-center'>{{i+1}}</td>
-                            <td class='col-3'>{{item.desigRmrks}}</td>
-                            <td class='col-3'>{{item.qlfctnCriteriaName}}</td>
                             <td class='col-2'>{{item.startDt | date}}</td>
                             <td class='col-2'>{{item.leavingDt | date}}</td>
+                            <td class='col-3'>{{item.qlfctnCriteriaName}}</td>
+                            <td class='col-3'>{{item.desigRmrks}}</td>
                             <td class='col-1 text-center'>
                               <span class="fa fa-minus pointerCursor text-danger" (click)="removePSD(i)"></span>
                             </td>
                           </tr>
 
                           <tr class='d-flex'>
-                            <td class='col-4'>
-                              <input type="text" pInputText [(ngModel)]="empPost" class="fullwidth"
-                                placeholder="Designation">
+                            <td class='col-1'></td>
+                            <td class='col-2'>
+                              <p-calendar [(ngModel)]="orgStartDate" placeholder="Job Start Date"
+                                [inputStyle]="{'width':'100%'}"></p-calendar>
+                            </td>
+                            <td class='col-2'>
+                              <p-calendar [(ngModel)]="orgEndDate" placeholder="Job End Date"
+                                [inputStyle]="{'width':'100%'}"></p-calendar>
                             </td>
                             <td class='col-3'>
                               <p-dropdown appendTo="body" [options]="experienceList" filter="true"
@@ -615,19 +622,17 @@
                                 </ng-template>
                               </p-dropdown>
                             </td>
-                            <td class='col-2'>
-                              <p-calendar [(ngModel)]="orgStartDate" placeholder="Job Start Date"
-                                [inputStyle]="{'width':'100%'}"></p-calendar>
-                            </td>
-                            <td class='col-2'>
-                              <p-calendar [(ngModel)]="orgEndDate" placeholder="Job End Date"
-                                [inputStyle]="{'width':'100%'}"></p-calendar>
+                            <td class='col-4'></td>
+                          </tr>
+                          <tr class="d-flex">
+                            <td class="col-11">
+                              <textarea [(ngModel)]="empPost" class="fullwidth" [rows]="5" [cols]="120"
+                                placeholder="Details" pInputTextarea autoResize="autoResize"></textarea>
                             </td>
                             <td class='col-1 text-center'>
                               <span class="fa fa-plus pointerCursor text-primary" (click)="addPSD()"></span>
                             </td>
                           </tr>
-
                         </tbody>
                       </table>
                     </div>

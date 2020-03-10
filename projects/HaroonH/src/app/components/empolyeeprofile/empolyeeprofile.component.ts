@@ -37,6 +37,7 @@ export class EmpolyeeprofileComponent implements OnInit {
   @Output() myEvent = new EventEmitter();
   // serverUrl = "http://localhost:9043/";
   // imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
+  // imgPath = "D:/Infovative Projects/HaroonE/src/assets/images/EmpImages";
 
   serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
   imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
@@ -230,15 +231,17 @@ export class EmpolyeeprofileComponent implements OnInit {
   getBranch() {
     this.app.showSpinner();
     //var Token = localStorage.getItem(this.tokenKey);
-    
+
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + "api/getBranches?cmpnyID=" + this.app.cmpnyId, {headers: reqHeader}).subscribe((data: any) => {
-
+    this.http
+      .get(this.serverUrl + "api/getBranches?cmpnyID=" + this.app.cmpnyId, {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
         this.branchList = data;
         this.app.hideSpinner();
-
       });
   }
 
@@ -687,17 +690,7 @@ export class EmpolyeeprofileComponent implements OnInit {
   addPSD() {
     var myDate = new Date();
 
-    if (this.empPost == undefined || this.empPost.trim() == "") {
-      this.toastr.errorToastr("Please enter post", "Error", {
-        toastTimeout: 2500
-      });
-      return false;
-    }
-    // else if (this.ddlOrg == undefined || this.ddlOrg == "" ) {
-    //     this.toastr.errorToastr('Please select organization', 'Error', { toastTimeout: (2500) });
-    //     return false;
-    // }
-    else if (this.ddlExperience == undefined || this.ddlExperience == "") {
+    if (this.ddlExperience == undefined || this.ddlExperience == "") {
       this.toastr.errorToastr("Please select experience", "Error", {
         toastTimeout: 2500
       });
@@ -727,6 +720,11 @@ export class EmpolyeeprofileComponent implements OnInit {
       return false;
     } else if (this.orgEndDate > myDate) {
       this.toastr.errorToastr("Invalid job end date", "Error", {
+        toastTimeout: 2500
+      });
+      return false;
+    } else if (this.empPost == undefined || this.empPost.trim() == "") {
+      this.toastr.errorToastr("Please enter Details", "Error", {
         toastTimeout: 2500
       });
       return false;
@@ -964,18 +962,26 @@ export class EmpolyeeprofileComponent implements OnInit {
   //Function for add employee qualification detail
   addQualification() {
     if (this.ddlDegree == undefined || this.ddlDegree == "") {
-      this.toastr.errorToastr("Please select degree", "Error", { toastTimeout: 2500 });
+      this.toastr.errorToastr("Please select degree", "Error", {
+        toastTimeout: 2500
+      });
       return false;
     } else if (
       this.empInstitute == undefined ||
       this.empInstitute.trim() == ""
     ) {
-      this.toastr.errorToastr("Please enter institute/campus", "Error", { toastTimeout: 2500 });
+      this.toastr.errorToastr("Please enter institute/campus", "Error", {
+        toastTimeout: 2500
+      });
       return false;
     } else if (
-      this.empDegreeYear == undefined || this.empDegreeYear == "" || this.empDegreeYear == null
+      this.empDegreeYear == undefined ||
+      this.empDegreeYear == "" ||
+      this.empDegreeYear == null
     ) {
-      this.toastr.errorToastr("Please enter passing year", "Error", { toastTimeout: 2500 });
+      this.toastr.errorToastr("Please enter passing year", "Error", {
+        toastTimeout: 2500
+      });
       return false;
     }
     // else if (this.ddlGrade == undefined || this.ddlGrade == "") {
@@ -983,7 +989,9 @@ export class EmpolyeeprofileComponent implements OnInit {
     //     return false;
     // }
     else if (this.ddlDivision == undefined || this.ddlDivision == "") {
-      this.toastr.errorToastr("Please enter division", "Error", { toastTimeout: 2500 });
+      this.toastr.errorToastr("Please enter division", "Error", {
+        toastTimeout: 2500
+      });
       return false;
     }
     // else if (this.empId == undefined || this.empId == 0) {
