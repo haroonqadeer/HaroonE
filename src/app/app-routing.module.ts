@@ -22,23 +22,34 @@ const routes: Routes = [
   {
     path: "Config",
     // loadChildren: () => ConfigSharedModule
-    loadChildren:
-      () => import('../../projects/HaroonConfig/src/app/app.module').then(m => m.ConfigSharedModule)
+    loadChildren: () =>
+      import("../../projects/HaroonConfig/src/app/app.module").then(
+        m => m.ConfigSharedModule
+      )
   },
   {
     path: "HR",
     // loadChildren: () => HRSharedModule
-    loadChildren: () => import('../../projects/HaroonH/src/app/app.module').then(m => m.HRSharedModule)
+    loadChildren: () =>
+      import("../../projects/HaroonH/src/app/app.module").then(
+        m => m.HRSharedModule
+      )
   },
   {
     path: "UM",
     // loadChildren: () => UMSharedModule
-    loadChildren: () => import('../../projects/HaroonH/src/app/app.module').then(m => m.HRSharedModule)
+    loadChildren: () =>
+      import("../../projects/HaroonH/src/app/app.module").then(
+        m => m.HRSharedModule
+      )
   },
   {
     path: "Comp",
     // loadChildren: () => CompSharedModule
-    loadChildren: () => import('../../projects/HaroonH/src/app/app.module').then(m => m.HRSharedModule)
+    loadChildren: () =>
+      import("../../projects/HaroonH/src/app/app.module").then(
+        m => m.HRSharedModule
+      )
   }
 ];
 
