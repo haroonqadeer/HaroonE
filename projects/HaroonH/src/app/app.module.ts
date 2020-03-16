@@ -123,7 +123,7 @@ export class AppModule {}
 
 @NgModule({})
 export class HRSharedModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<AppModule> {
     return {
       ngModule: AppModule,
       providers: []

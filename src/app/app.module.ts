@@ -6,7 +6,7 @@ import { PNPrimeModule } from "./shared/pnprime/pnprime.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ChartModule } from "angular-highcharts";
 //import { HttpModule } from '@angular/http';
-import { MatRadioModule } from "@angular/material/radio";
+// import { MatRadioModule } from "@angular/material/radio";
 import { NgCircleProgressModule } from "ng-circle-progress";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { UserIdleModule } from "angular-user-idle";
@@ -38,6 +38,7 @@ import { ForgotpasswordComponent } from "./components/forgotpassword/forgotpassw
 
 import { CookieService } from "ngx-cookie-service";
 import { NgxMaskModule } from "ngx-mask";
+// import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import { NgxMaskModule } from "ngx-mask";
     ReactiveFormsModule,
     PNPrimeModule,
     //HttpModule,
-    MatRadioModule,
+    // MatRadioModule,
     NgCircleProgressModule.forRoot({}),
     ToastrModule.forRoot(),
     HttpClientModule,
@@ -77,6 +78,7 @@ import { NgxMaskModule } from "ngx-mask";
     // Default values: `idle` is 60 (1 minutes), `timeout` is 30 (0.5 minutes)
     // and `ping` is 15 0.25 minutes).
     UserIdleModule.forRoot({ idle: 300, timeout: 300, ping: 15 })
+    // MatPasswordStrengthModule
 
     //SearchPipe
   ],

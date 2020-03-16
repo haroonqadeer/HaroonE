@@ -6,7 +6,7 @@ import {
   HostListener
 } from "@angular/core";
 import { MenuItem } from "primeng/api";
-import { MatBottomSheet } from "@angular/material";
+import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { Event, Router, NavigationStart, NavigationEnd } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
