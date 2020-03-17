@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-material-extensions/password-strength": "^4.0.1",
+    "@angular-material-extensions/password-strength": "^6.0.0",
     "@angular/animations": "^9.0.0-rc.14",
     "@angular/cdk": "^9.1.2",
     "@angular/common": "~9.0.0-rc.14",

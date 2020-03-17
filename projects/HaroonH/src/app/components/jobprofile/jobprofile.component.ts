@@ -5,7 +5,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 import { AppComponent } from 'src/app/app.component';
-import { jsonpCallbackContext } from '@angular/common/http/src/module';
+// import { jsonpCallbackContext } from '@angular/common/http/src/module';
 
 declare var $: any;
 

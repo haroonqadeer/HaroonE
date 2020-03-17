@@ -1,5 +1,9 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule, ModuleWithProviders } from "@angular/core";
+import {
+  NgModule,
+  ModuleWithProviders,
+  CUSTOM_ELEMENTS_SCHEMA
+} from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MaterialModule } from "./shared/material.module";
 import { PNPrimeModule } from "./shared/pnprime/pnprime.module";
@@ -90,6 +94,7 @@ import { NgxMaskModule } from "ngx-mask";
     CookieService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NavComponent, AttendanceComponent]
+  entryComponents: [NavComponent, AttendanceComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}

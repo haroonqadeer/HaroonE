@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
@@ -21,7 +21,6 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatStepperModule } from "@angular/material/stepper";
 import { MatTableModule } from "@angular/material/table";
 import { MatTabsModule } from "@angular/material/tabs";
-
 
 @NgModule({
   imports: [
@@ -71,6 +70,7 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatBottomSheetModule,
     MatSlideToggleModule
   ],
-  declarations: []
+  declarations: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MaterialModule {}

@@ -30,7 +30,7 @@ import {
   IgxCsvExporterOptions,
   CsvFileTypes
 } from "igniteui-angular";
-import { jsonpCallbackContext } from "@angular/common/http/src/module";
+// import { jsonpCallbackContext } from "@angular/common/http/src/module";
 import { parse } from "querystring";
 
 //----------------------------------------------------------------------------//
@@ -354,7 +354,9 @@ export class CompanyComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + "api/getCompanyDetail", { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getCompanyDetail", { headers: reqHeader })
+      .subscribe((data: any) => {
         this.cmpnyDetailList = data;
       });
   }
@@ -460,13 +462,13 @@ export class CompanyComponent implements OnInit {
         toastTimeout: 2500
       });
       return false;
-    } 
+    }
     // else if (this.cBusinessType == "") {
     //   this.toastr.errorToastr("Please select business type", "Error", {
     //     toastTimeout: 2500
     //   });
     //   return false;
-    // } 
+    // }
     else if (this.cEmployeQty == "") {
       this.toastr.errorToastr("Please enter number of employees", "Error", {
         toastTimeout: 2500
@@ -1050,15 +1052,13 @@ export class CompanyComponent implements OnInit {
     var tempCmpnyData = [];
     tempCmpnyData = this.cmpnyList.filter(x => x.companyId == cmpnyId);
 
-    
-
     //geting Company DATA
     if (tempCmpnyData.length > 0) {
       this.companyName = tempCmpnyData[0].companyTitle;
     }
 
     tempCmpnyData = [];
-    tempCmpnyData = this.cmpnyDetailList.filter(x => x.companyId == cmpnyId);  
+    tempCmpnyData = this.cmpnyDetailList.filter(x => x.companyId == cmpnyId);
 
     //geting Company DATA
     if (tempCmpnyData.length > 0) {
@@ -1069,7 +1069,10 @@ export class CompanyComponent implements OnInit {
       this.cBusinessType = tempCmpnyData[0].businessType;
       this.cEmployeQty = tempCmpnyData[0].employees;
       this.cCurrency = tempCmpnyData[0].currency;
-      this.imageUrl = "../assets/images/CmpnyImages/" + tempCmpnyData[0].companyTitle + ".jpg";
+      this.imageUrl =
+        "../assets/images/CmpnyImages/" +
+        tempCmpnyData[0].companyTitle +
+        ".jpg";
     }
 
     for (var i = 0; i < tempCmpnyData.length; i++) {

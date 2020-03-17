@@ -11,7 +11,7 @@ import { Event, Router, NavigationStart, NavigationEnd } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
 import { UserIdleService } from "angular-user-idle";
-import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
+import { OnInit } from "@angular/core";
 
 import { NavComponent } from "./components/nav/nav.component";
 import { AttendanceComponent } from "./components/attendance/attendance.component";
@@ -26,7 +26,7 @@ import {
   CsvFileTypes
 } from "igniteui-angular";
 
-declare var $: any; 
+declare var $: any;
 
 @Component({
   selector: "app-root",
@@ -178,21 +178,26 @@ export class AppComponent implements OnInit {
   }
 
   getUserDetail(name) {
-
-      this.locationId = localStorage.getItem("loc");
-      this.cmpnyId = localStorage.getItem("ci");
-      this.cmpnyName = localStorage.getItem("cn");
-      this.empId = localStorage.getItem("ei");
-
+    this.locationId = localStorage.getItem("loc");
+    this.cmpnyId = localStorage.getItem("ci");
+    this.cmpnyName = localStorage.getItem("cn");
+    this.empId = localStorage.getItem("ei");
 
     var Token = localStorage.getItem(this.tokenKey);
-    var reqHeader = new HttpHeaders({ "Content-Type": "application/json", Authorization: "Bearer " + Token });
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + Token
+    });
 
     var loginData = { IndvdlERPUsrID: name };
 
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    this.http.post(this.serverUrl + "api/getUserDetail", loginData, { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .post(this.serverUrl + "api/getUserDetail", loginData, {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
         // this.cmpnyId = data.userDetail[0].cmpnyID;
         // this.cmpnyName = data.userDetail[0].locationName;
         // this.locationId = data.userDetail[0].locationCd;
@@ -205,7 +210,6 @@ export class AppComponent implements OnInit {
           });
 
           //alert(data.userDetail[i].locationName);
-
         }
       });
   }
@@ -420,18 +424,16 @@ export class AppComponent implements OnInit {
   }
 
   public convertDate(myDate) {
-
     var oldDate = new Date(myDate);
     var d = oldDate.getDate();
     var m = oldDate.getMonth();
-    m += 1;  // JavaScript months are 0-11
+    m += 1; // JavaScript months are 0-11
     var y = oldDate.getFullYear();
 
     var convertedDate = m + "-" + d + "-" + y;
 
     return convertedDate;
-
-}
+  }
 
   //* -------------- CSV Export --------------
   public download_CSV(csvDataList) {
