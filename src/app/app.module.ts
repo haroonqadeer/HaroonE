@@ -18,11 +18,6 @@ import { UserIdleModule } from "angular-user-idle";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { NavComponent } from "./components/nav/nav.component";
-import {
-  IgxGridModule,
-  IgxExcelExporterService,
-  IgxCsvExporterService
-} from "igniteui-angular";
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ToastrModule } from "ng6-toastr-notifications";
@@ -75,7 +70,6 @@ import { NgxMaskModule } from "ngx-mask";
     NgxPaginationModule,
     InputTextModule,
     DropdownModule,
-    IgxGridModule,
     NgxSpinnerModule,
     NgxMaskModule.forRoot(),
     // Optionally you can set time for `idle`, `timeout` and `ping` in seconds.
@@ -86,13 +80,7 @@ import { NgxMaskModule } from "ngx-mask";
 
     //SearchPipe
   ],
-  providers: [
-    AttendanceComponent,
-    NavComponent,
-    IgxExcelExporterService,
-    IgxCsvExporterService,
-    CookieService
-  ],
+  providers: [AttendanceComponent, NavComponent, CookieService],
   bootstrap: [AppComponent],
   entryComponents: [NavComponent, AttendanceComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
