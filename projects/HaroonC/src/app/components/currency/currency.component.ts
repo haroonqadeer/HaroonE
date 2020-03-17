@@ -18,14 +18,14 @@ import { strictEqual } from "assert";
 import { AppComponent } from "src/app/app.component";
 
 // import * as jsPDF from 'jspdf';
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 //import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
 
 //----------------------------------------------------------------------------//
@@ -93,10 +93,9 @@ export class CurrencyComponent implements OnInit {
     private toastr: ToastrManager,
     private app: AppComponent,
     private http: HttpClient,
-    private orderPipe: OrderPipe,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService
-  ) {}
+    private orderPipe: OrderPipe // private excelExportService: IgxExcelExporterService,
+  ) // private csvExportService: IgxCsvExporterService
+  {}
 
   ngOnInit() {
     this.getCurrency();
@@ -105,7 +104,7 @@ export class CurrencyComponent implements OnInit {
     this.getCompanyCurrency();
   }
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
   @ViewChild("exportPDF") public exportPDF: ElementRef;
 
   //function for get all saved currencies from db

@@ -17,16 +17,16 @@ import { catchError, filter } from "rxjs/operators";
 import { AppComponent } from "src/app/app.component";
 import { TreeNode } from "../../nodeTree/TreeNode";
 import { ActivatedRoute } from "@angular/router";
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 
-import * as jsPDF from "jspdf";
+// import * as jsPDF from "jspdf";
 
 declare var $: any;
 
@@ -150,8 +150,8 @@ export class UserprofileComponent implements OnInit {
   /*** Construction Function ***/
   constructor(
     private http: HttpClient,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
     private app: AppComponent,
     public toastr: ToastrManager,
     private actRoute: ActivatedRoute
@@ -173,7 +173,7 @@ export class UserprofileComponent implements OnInit {
   }
 
   /*** Variable Declaration for exporting data to pdf  ***/
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
   @ViewChild("exportPDF") public exportPDF: ElementRef; // for pdf
 
   /***  Getting User Management chart data ***/
@@ -727,147 +727,147 @@ export class UserprofileComponent implements OnInit {
 
   /*** For PDF Download ***/
   downPDF() {
-    let doc = new jsPDF();
-    let specialElementHandlers = {
-      "#editor": function(element, renderer) {
-        return true;
-      }
-    };
-    let content = this.exportPDF.nativeElement;
-    doc.fromHTML(content.innerHTML, 15, 15, {
-      width: 190,
-      "elementHandlers ": specialElementHandlers
-    });
-    doc.save("testabc.pdf");
+    // let doc = new jsPDF();
+    // let specialElementHandlers = {
+    //   "#editor": function(element, renderer) {
+    //     return true;
+    //   }
+    // };
+    // let content = this.exportPDF.nativeElement;
+    // doc.fromHTML(content.innerHTML, 15, 15, {
+    //   width: 190,
+    //   "elementHandlers ": specialElementHandlers
+    // });
+    // doc.save("testabc.pdf");
   }
 
   /*** For CSV File ***/
 
-  public downloadCSV() {
-    // case 1: When userSearch is empty then assign full data list
-    if (this.userSearch == "") {
-      var completeDataList = [];
-      for (var i = 0; i < this.userData.length; i++) {
-        completeDataList.push({
-          userName: this.userData[i].uName,
-          email: this.userData[i].uEmail,
-          role: this.userData[i].uRole,
-          userSince: this.userData[i].uSince,
-          lastLogin: this.userData[i].lastLogin
-        });
-      }
-      this.csvExportService.exportData(
-        completeDataList,
-        new IgxCsvExporterOptions("UserProfileCompleteCSV", CsvFileTypes.CSV)
-      );
-    }
-    // case 2: When userSearch is not empty then assign new data list
-    else if (this.userSearch != "") {
-      var filteredDataList = [];
-      for (var i = 0; i < this.userData.length; i++) {
-        if (
-          this.userData[i].uName
-            .toUpperCase()
-            .includes(this.userSearch.toUpperCase()) ||
-          this.userData[i].uEmail
-            .toUpperCase()
-            .includes(this.userSearch.toUpperCase()) ||
-          this.userData[i].uRole
-            .toUpperCase()
-            .includes(this.userSearch.toUpperCase()) ||
-          this.userData[i].uSince
-            .toUpperCase()
-            .includes(this.userSearch.toUpperCase()) ||
-          this.userData[i].lastLogin
-            .toUpperCase()
-            .includes(this.userSearch.toUpperCase())
-        ) {
-          filteredDataList.push({
-            userName: this.userData[i].uName,
-            email: this.userData[i].uEmail,
-            role: this.userData[i].uRole,
-            userSince: this.userData[i].uSince,
-            lastLogin: this.userData[i].lastLogin
-          });
-        }
-      }
+  // public downloadCSV() {
+  //   // case 1: When userSearch is empty then assign full data list
+  //   if (this.userSearch == "") {
+  //     var completeDataList = [];
+  //     for (var i = 0; i < this.userData.length; i++) {
+  //       completeDataList.push({
+  //         userName: this.userData[i].uName,
+  //         email: this.userData[i].uEmail,
+  //         role: this.userData[i].uRole,
+  //         userSince: this.userData[i].uSince,
+  //         lastLogin: this.userData[i].lastLogin
+  //       });
+  //     }
+  //     this.csvExportService.exportData(
+  //       completeDataList,
+  //       new IgxCsvExporterOptions("UserProfileCompleteCSV", CsvFileTypes.CSV)
+  //     );
+  //   }
+  //   // case 2: When userSearch is not empty then assign new data list
+  //   else if (this.userSearch != "") {
+  //     var filteredDataList = [];
+  //     for (var i = 0; i < this.userData.length; i++) {
+  //       if (
+  //         this.userData[i].uName
+  //           .toUpperCase()
+  //           .includes(this.userSearch.toUpperCase()) ||
+  //         this.userData[i].uEmail
+  //           .toUpperCase()
+  //           .includes(this.userSearch.toUpperCase()) ||
+  //         this.userData[i].uRole
+  //           .toUpperCase()
+  //           .includes(this.userSearch.toUpperCase()) ||
+  //         this.userData[i].uSince
+  //           .toUpperCase()
+  //           .includes(this.userSearch.toUpperCase()) ||
+  //         this.userData[i].lastLogin
+  //           .toUpperCase()
+  //           .includes(this.userSearch.toUpperCase())
+  //       ) {
+  //         filteredDataList.push({
+  //           userName: this.userData[i].uName,
+  //           email: this.userData[i].uEmail,
+  //           role: this.userData[i].uRole,
+  //           userSince: this.userData[i].uSince,
+  //           lastLogin: this.userData[i].lastLogin
+  //         });
+  //       }
+  //     }
 
-      if (filteredDataList.length > 0) {
-        this.csvExportService.exportData(
-          filteredDataList,
-          new IgxCsvExporterOptions("UserProfileFilterCSV", CsvFileTypes.CSV)
-        );
-      } else {
-        this.toastr.errorToastr("Oops! No data found", "Error", {
-          toastTimeout: 2500
-        });
-      }
-    }
-  }
+  //     if (filteredDataList.length > 0) {
+  //       this.csvExportService.exportData(
+  //         filteredDataList,
+  //         new IgxCsvExporterOptions("UserProfileFilterCSV", CsvFileTypes.CSV)
+  //       );
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 
   /*** For Exce File ***/
-  public downloadExcel() {
-    // case 1: When userSearch is empty then assign full data list
-    if (this.userSearch == "") {
-      for (var i = 0; i < this.userData.length; i++) {
-        this.excelDataList.push({
-          userName: this.userData[i].uName,
-          email: this.userData[i].uEmail,
-          role: this.userData[i].uRole,
-          userSince: this.userData[i].uSince,
-          lastLogin: this.userData[i].lastLogin
-        });
-      }
+  // public downloadExcel() {
+  //   // case 1: When userSearch is empty then assign full data list
+  //   if (this.userSearch == "") {
+  //     for (var i = 0; i < this.userData.length; i++) {
+  //       this.excelDataList.push({
+  //         userName: this.userData[i].uName,
+  //         email: this.userData[i].uEmail,
+  //         role: this.userData[i].uRole,
+  //         userSince: this.userData[i].uSince,
+  //         lastLogin: this.userData[i].lastLogin
+  //       });
+  //     }
 
-      this.excelExportService.export(
-        this.excelDataContent,
-        new IgxExcelExporterOptions("UserProfileCompleteExcel")
-      );
-      this.excelDataList = [];
-    }
-    // case 2: When userSearch is not empty then assign new data list
-    else if (this.userSearch != "") {
-      for (var i = 0; i < this.userData.length; i++) {
-        if (
-          this.userData[i].uName
-            .toUpperCase()
-            .includes(this.userSearch.toUpperCase()) ||
-          this.userData[i].uEmail
-            .toUpperCase()
-            .includes(this.userSearch.toUpperCase()) ||
-          this.userData[i].uRole
-            .toUpperCase()
-            .includes(this.userSearch.toUpperCase()) ||
-          this.userData[i].uSince
-            .toUpperCase()
-            .includes(this.userSearch.toUpperCase()) ||
-          this.userData[i].lastLogin
-            .toUpperCase()
-            .includes(this.userSearch.toUpperCase())
-        ) {
-          this.excelDataList.push({
-            userName: this.userData[i].uName,
-            email: this.userData[i].uEmail,
-            role: this.userData[i].uRole,
-            userSince: this.userData[i].uSince,
-            lastLogin: this.userData[i].lastLogin
-          });
-        }
-      }
+  //     this.excelExportService.export(
+  //       this.excelDataContent,
+  //       new IgxExcelExporterOptions("UserProfileCompleteExcel")
+  //     );
+  //     this.excelDataList = [];
+  //   }
+  //   // case 2: When userSearch is not empty then assign new data list
+  //   else if (this.userSearch != "") {
+  //     for (var i = 0; i < this.userData.length; i++) {
+  //       if (
+  //         this.userData[i].uName
+  //           .toUpperCase()
+  //           .includes(this.userSearch.toUpperCase()) ||
+  //         this.userData[i].uEmail
+  //           .toUpperCase()
+  //           .includes(this.userSearch.toUpperCase()) ||
+  //         this.userData[i].uRole
+  //           .toUpperCase()
+  //           .includes(this.userSearch.toUpperCase()) ||
+  //         this.userData[i].uSince
+  //           .toUpperCase()
+  //           .includes(this.userSearch.toUpperCase()) ||
+  //         this.userData[i].lastLogin
+  //           .toUpperCase()
+  //           .includes(this.userSearch.toUpperCase())
+  //       ) {
+  //         this.excelDataList.push({
+  //           userName: this.userData[i].uName,
+  //           email: this.userData[i].uEmail,
+  //           role: this.userData[i].uRole,
+  //           userSince: this.userData[i].uSince,
+  //           lastLogin: this.userData[i].lastLogin
+  //         });
+  //       }
+  //     }
 
-      if (this.excelDataList.length > 0) {
-        this.excelExportService.export(
-          this.excelDataContent,
-          new IgxExcelExporterOptions("UserProfileFilterExcel")
-        );
-        this.excelDataList = [];
-      } else {
-        this.toastr.errorToastr("Oops! No data found", "Error", {
-          toastTimeout: 2500
-        });
-      }
-    }
-  }
+  //     if (this.excelDataList.length > 0) {
+  //       this.excelExportService.export(
+  //         this.excelDataContent,
+  //         new IgxExcelExporterOptions("UserProfileFilterExcel")
+  //       );
+  //       this.excelDataList = [];
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 
   /***function for sort table data ***/
 

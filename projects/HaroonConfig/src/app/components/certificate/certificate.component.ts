@@ -2,14 +2,14 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ToastrManager } from "ng6-toastr-notifications";
 
 import { AppComponent } from "src/app/app.component";
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
 
 declare var $: any;
@@ -87,8 +87,8 @@ export class CertificateComponent implements OnInit {
   constructor(
     public toastr: ToastrManager,
     private app: AppComponent,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
     private http: HttpClient
   ) {}
 
@@ -100,7 +100,7 @@ export class CertificateComponent implements OnInit {
     //this.assignValue();
   }
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
   // get Certificate type
   getCertificateType() {
@@ -642,118 +642,118 @@ export class CertificateComponent implements OnInit {
   }
 
   // CSV Function
-  public downloadCSV() {
-    // case 1: When tblSearch is empty then assign full data list
-    if (this.tblSearch == "") {
-      var completeDataList = [];
-      for (var i = 0; i < this.certificateCriteriaList.length; i++) {
-        //alert(this.tblSearch + " - " + this.certificateCriteriaList[i].departmentName)
-        completeDataList.push({
-          certificate_Group: this.certificateCriteriaList[i].qlfctnName,
-          certificate_Title: this.certificateCriteriaList[i].qlfctnCriteriaName,
-          certificate_Title_Description: this.certificateCriteriaList[i]
-            .qlfctnCriteriaDesc
-        });
-      }
-      this.csvExportService.exportData(
-        completeDataList,
-        new IgxCsvExporterOptions("CertificateCompleteCSV", CsvFileTypes.CSV)
-      );
-    }
-    // case 2: When tblSearch is not empty then assign new data list
-    else if (this.tblSearch != "") {
-      var filteredDataList = [];
-      for (var i = 0; i < this.certificateCriteriaList.length; i++) {
-        if (
-          this.certificateCriteriaList[i].qlfctnName
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.certificateCriteriaList[i].qlfctnCriteriaName
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.certificateCriteriaList[i].qlfctnCriteriaDesc
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase())
-        ) {
-          filteredDataList.push({
-            certificate_Group: this.certificateCriteriaList[i].qlfctnName,
-            certificate_Title: this.certificateCriteriaList[i]
-              .qlfctnCriteriaName,
-            certificate_Title_Description: this.certificateCriteriaList[i]
-              .qlfctnCriteriaDesc
-          });
-        }
-      }
+  // public downloadCSV() {
+  //   // case 1: When tblSearch is empty then assign full data list
+  //   if (this.tblSearch == "") {
+  //     var completeDataList = [];
+  //     for (var i = 0; i < this.certificateCriteriaList.length; i++) {
+  //       //alert(this.tblSearch + " - " + this.certificateCriteriaList[i].departmentName)
+  //       completeDataList.push({
+  //         certificate_Group: this.certificateCriteriaList[i].qlfctnName,
+  //         certificate_Title: this.certificateCriteriaList[i].qlfctnCriteriaName,
+  //         certificate_Title_Description: this.certificateCriteriaList[i]
+  //           .qlfctnCriteriaDesc
+  //       });
+  //     }
+  //     this.csvExportService.exportData(
+  //       completeDataList,
+  //       new IgxCsvExporterOptions("CertificateCompleteCSV", CsvFileTypes.CSV)
+  //     );
+  //   }
+  //   // case 2: When tblSearch is not empty then assign new data list
+  //   else if (this.tblSearch != "") {
+  //     var filteredDataList = [];
+  //     for (var i = 0; i < this.certificateCriteriaList.length; i++) {
+  //       if (
+  //         this.certificateCriteriaList[i].qlfctnName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.certificateCriteriaList[i].qlfctnCriteriaName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.certificateCriteriaList[i].qlfctnCriteriaDesc
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase())
+  //       ) {
+  //         filteredDataList.push({
+  //           certificate_Group: this.certificateCriteriaList[i].qlfctnName,
+  //           certificate_Title: this.certificateCriteriaList[i]
+  //             .qlfctnCriteriaName,
+  //           certificate_Title_Description: this.certificateCriteriaList[i]
+  //             .qlfctnCriteriaDesc
+  //         });
+  //       }
+  //     }
 
-      if (filteredDataList.length > 0) {
-        this.csvExportService.exportData(
-          filteredDataList,
-          new IgxCsvExporterOptions("CertificateFilterCSV", CsvFileTypes.CSV)
-        );
-      } else {
-        this.toastr.errorToastr("Oops! No data found", "Error", {
-          toastTimeout: 2500
-        });
-      }
-    }
-  }
+  //     if (filteredDataList.length > 0) {
+  //       this.csvExportService.exportData(
+  //         filteredDataList,
+  //         new IgxCsvExporterOptions("CertificateFilterCSV", CsvFileTypes.CSV)
+  //       );
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 
   // Excel Xlxs Function
-  public downloadExcel() {
-    // case 1: When tblSearch is empty then assign full data list
-    if (this.tblSearch == "") {
-      //var completeDataList = [];
-      for (var i = 0; i < this.certificateCriteriaList.length; i++) {
-        this.excelDataList.push({
-          certificate_Group: this.certificateCriteriaList[i].qlfctnName,
-          certificate_Title: this.certificateCriteriaList[i].qlfctnCriteriaName,
-          certificate_Title_Description: this.certificateCriteriaList[i]
-            .qlfctnCriteriaDesc
-        });
-      }
-      this.excelExportService.export(
-        this.excelDataContent,
-        new IgxExcelExporterOptions("CertificateCompleteExcel")
-      );
-      this.excelDataList = [];
-    }
-    // case 2: When tblSearch is not empty then assign new data list
-    else if (this.tblSearch != "") {
-      for (var i = 0; i < this.certificateCriteriaList.length; i++) {
-        if (
-          this.certificateCriteriaList[i].qlfctnName
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.certificateCriteriaList[i].qlfctnCriteriaName
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.certificateCriteriaList[i].qlfctnCriteriaDesc
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase())
-        ) {
-          this.excelDataList.push({
-            certificate_Group: this.certificateCriteriaList[i].qlfctnName,
-            certificate_Title: this.certificateCriteriaList[i]
-              .qlfctnCriteriaName,
-            certificate_Title_Description: this.certificateCriteriaList[i]
-              .qlfctnCriteriaDesc
-          });
-        }
-      }
+  // public downloadExcel() {
+  //   // case 1: When tblSearch is empty then assign full data list
+  //   if (this.tblSearch == "") {
+  //     //var completeDataList = [];
+  //     for (var i = 0; i < this.certificateCriteriaList.length; i++) {
+  //       this.excelDataList.push({
+  //         certificate_Group: this.certificateCriteriaList[i].qlfctnName,
+  //         certificate_Title: this.certificateCriteriaList[i].qlfctnCriteriaName,
+  //         certificate_Title_Description: this.certificateCriteriaList[i]
+  //           .qlfctnCriteriaDesc
+  //       });
+  //     }
+  //     this.excelExportService.export(
+  //       this.excelDataContent,
+  //       new IgxExcelExporterOptions("CertificateCompleteExcel")
+  //     );
+  //     this.excelDataList = [];
+  //   }
+  //   // case 2: When tblSearch is not empty then assign new data list
+  //   else if (this.tblSearch != "") {
+  //     for (var i = 0; i < this.certificateCriteriaList.length; i++) {
+  //       if (
+  //         this.certificateCriteriaList[i].qlfctnName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.certificateCriteriaList[i].qlfctnCriteriaName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.certificateCriteriaList[i].qlfctnCriteriaDesc
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase())
+  //       ) {
+  //         this.excelDataList.push({
+  //           certificate_Group: this.certificateCriteriaList[i].qlfctnName,
+  //           certificate_Title: this.certificateCriteriaList[i]
+  //             .qlfctnCriteriaName,
+  //           certificate_Title_Description: this.certificateCriteriaList[i]
+  //             .qlfctnCriteriaDesc
+  //         });
+  //       }
+  //     }
 
-      if (this.excelDataList.length > 0) {
-        //alert("Filter List " + this.excelDataList.length);
+  //     if (this.excelDataList.length > 0) {
+  //       //alert("Filter List " + this.excelDataList.length);
 
-        this.excelExportService.export(
-          this.excelDataContent,
-          new IgxExcelExporterOptions("CertificateFilterExcel")
-        );
-        this.excelDataList = [];
-      } else {
-        this.toastr.errorToastr("Oops! No data found", "Error", {
-          toastTimeout: 2500
-        });
-      }
-    }
-  }
+  //       this.excelExportService.export(
+  //         this.excelDataContent,
+  //         new IgxExcelExporterOptions("CertificateFilterExcel")
+  //       );
+  //       this.excelDataList = [];
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 }

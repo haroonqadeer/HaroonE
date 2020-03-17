@@ -3,14 +3,14 @@ import { ToastrManager } from "ng6-toastr-notifications";
 
 import { AppComponent } from "src/app/app.component";
 
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
 
 declare var $: any;
@@ -87,8 +87,8 @@ export class SkillComponent implements OnInit {
   constructor(
     public toastr: ToastrManager,
     private app: AppComponent,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
     private http: HttpClient
   ) {}
 
@@ -100,7 +100,7 @@ export class SkillComponent implements OnInit {
     //this.assignValue();
   }
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
   // get skill type
   getSkillType() {
@@ -616,114 +616,114 @@ export class SkillComponent implements OnInit {
   }
 
   // CSV Function
-  public downloadCSV() {
-    // case 1: When tblSearch is empty then assign full data list
-    if (this.tblSearch == "") {
-      var completeDataList = [];
-      for (var i = 0; i < this.skillCriteriaList.length; i++) {
-        //alert(this.tblSearch + " - " + this.skillCriteriaList[i].departmentName)
-        completeDataList.push({
-          skill_Group: this.skillCriteriaList[i].qlfctnName,
-          skill_Title: this.skillCriteriaList[i].qlfctnCriteriaName,
-          skill_Title_Description: this.skillCriteriaList[i].qlfctnCriteriaDesc
-        });
-      }
-      this.csvExportService.exportData(
-        completeDataList,
-        new IgxCsvExporterOptions("skillCompleteCSV", CsvFileTypes.CSV)
-      );
-    }
-    // case 2: When tblSearch is not empty then assign new data list
-    else if (this.tblSearch != "") {
-      var filteredDataList = [];
-      for (var i = 0; i < this.skillCriteriaList.length; i++) {
-        if (
-          this.skillCriteriaList[i].qlfctnName
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.skillCriteriaList[i].qlfctnCriteriaName
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.skillCriteriaList[i].qlfctnCriteriaDesc
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase())
-        ) {
-          filteredDataList.push({
-            skill_Group: this.skillCriteriaList[i].qlfctnName,
-            skill_Title: this.skillCriteriaList[i].qlfctnCriteriaName,
-            skill_Title_Description: this.skillCriteriaList[i]
-              .qlfctnCriteriaDesc
-          });
-        }
-      }
+  // public downloadCSV() {
+  //   // case 1: When tblSearch is empty then assign full data list
+  //   if (this.tblSearch == "") {
+  //     var completeDataList = [];
+  //     for (var i = 0; i < this.skillCriteriaList.length; i++) {
+  //       //alert(this.tblSearch + " - " + this.skillCriteriaList[i].departmentName)
+  //       completeDataList.push({
+  //         skill_Group: this.skillCriteriaList[i].qlfctnName,
+  //         skill_Title: this.skillCriteriaList[i].qlfctnCriteriaName,
+  //         skill_Title_Description: this.skillCriteriaList[i].qlfctnCriteriaDesc
+  //       });
+  //     }
+  //     this.csvExportService.exportData(
+  //       completeDataList,
+  //       new IgxCsvExporterOptions("skillCompleteCSV", CsvFileTypes.CSV)
+  //     );
+  //   }
+  //   // case 2: When tblSearch is not empty then assign new data list
+  //   else if (this.tblSearch != "") {
+  //     var filteredDataList = [];
+  //     for (var i = 0; i < this.skillCriteriaList.length; i++) {
+  //       if (
+  //         this.skillCriteriaList[i].qlfctnName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.skillCriteriaList[i].qlfctnCriteriaName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.skillCriteriaList[i].qlfctnCriteriaDesc
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase())
+  //       ) {
+  //         filteredDataList.push({
+  //           skill_Group: this.skillCriteriaList[i].qlfctnName,
+  //           skill_Title: this.skillCriteriaList[i].qlfctnCriteriaName,
+  //           skill_Title_Description: this.skillCriteriaList[i]
+  //             .qlfctnCriteriaDesc
+  //         });
+  //       }
+  //     }
 
-      if (filteredDataList.length > 0) {
-        this.csvExportService.exportData(
-          filteredDataList,
-          new IgxCsvExporterOptions("skillFilterCSV", CsvFileTypes.CSV)
-        );
-      } else {
-        this.toastr.errorToastr("Oops! No data found", "Error", {
-          toastTimeout: 2500
-        });
-      }
-    }
-  }
+  //     if (filteredDataList.length > 0) {
+  //       this.csvExportService.exportData(
+  //         filteredDataList,
+  //         new IgxCsvExporterOptions("skillFilterCSV", CsvFileTypes.CSV)
+  //       );
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 
   // Excel Xlxs Function
-  public downloadExcel() {
-    // case 1: When tblSearch is empty then assign full data list
-    if (this.tblSearch == "") {
-      //var completeDataList = [];
-      for (var i = 0; i < this.skillCriteriaList.length; i++) {
-        this.excelDataList.push({
-          skill_Group: this.skillCriteriaList[i].qlfctnName,
-          skill_Title: this.skillCriteriaList[i].qlfctnCriteriaName,
-          skill_Title_Description: this.skillCriteriaList[i].qlfctnCriteriaDesc
-        });
-      }
-      this.excelExportService.export(
-        this.excelDataContent,
-        new IgxExcelExporterOptions("skillCompleteExcel")
-      );
-      this.excelDataList = [];
-    }
-    // case 2: When tblSearch is not empty then assign new data list
-    else if (this.tblSearch != "") {
-      for (var i = 0; i < this.skillCriteriaList.length; i++) {
-        if (
-          this.skillCriteriaList[i].qlfctnName
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.skillCriteriaList[i].qlfctnCriteriaName
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.skillCriteriaList[i].qlfctnCriteriaDesc
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase())
-        ) {
-          this.excelDataList.push({
-            skill_Group: this.skillCriteriaList[i].qlfctnName,
-            skill_Title: this.skillCriteriaList[i].qlfctnCriteriaName,
-            skill_Title_Description: this.skillCriteriaList[i]
-              .qlfctnCriteriaDesc
-          });
-        }
-      }
+  // public downloadExcel() {
+  //   // case 1: When tblSearch is empty then assign full data list
+  //   if (this.tblSearch == "") {
+  //     //var completeDataList = [];
+  //     for (var i = 0; i < this.skillCriteriaList.length; i++) {
+  //       this.excelDataList.push({
+  //         skill_Group: this.skillCriteriaList[i].qlfctnName,
+  //         skill_Title: this.skillCriteriaList[i].qlfctnCriteriaName,
+  //         skill_Title_Description: this.skillCriteriaList[i].qlfctnCriteriaDesc
+  //       });
+  //     }
+  //     this.excelExportService.export(
+  //       this.excelDataContent,
+  //       new IgxExcelExporterOptions("skillCompleteExcel")
+  //     );
+  //     this.excelDataList = [];
+  //   }
+  //   // case 2: When tblSearch is not empty then assign new data list
+  //   else if (this.tblSearch != "") {
+  //     for (var i = 0; i < this.skillCriteriaList.length; i++) {
+  //       if (
+  //         this.skillCriteriaList[i].qlfctnName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.skillCriteriaList[i].qlfctnCriteriaName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.skillCriteriaList[i].qlfctnCriteriaDesc
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase())
+  //       ) {
+  //         this.excelDataList.push({
+  //           skill_Group: this.skillCriteriaList[i].qlfctnName,
+  //           skill_Title: this.skillCriteriaList[i].qlfctnCriteriaName,
+  //           skill_Title_Description: this.skillCriteriaList[i]
+  //             .qlfctnCriteriaDesc
+  //         });
+  //       }
+  //     }
 
-      if (this.excelDataList.length > 0) {
-        //alert("Filter List " + this.excelDataList.length);
+  //     if (this.excelDataList.length > 0) {
+  //       //alert("Filter List " + this.excelDataList.length);
 
-        this.excelExportService.export(
-          this.excelDataContent,
-          new IgxExcelExporterOptions("skillFilterExcel")
-        );
-        this.excelDataList = [];
-      } else {
-        this.toastr.errorToastr("Oops! No data found", "Error", {
-          toastTimeout: 2500
-        });
-      }
-    }
-  }
+  //       this.excelExportService.export(
+  //         this.excelDataContent,
+  //         new IgxExcelExporterOptions("skillFilterExcel")
+  //       );
+  //       this.excelDataList = [];
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 }

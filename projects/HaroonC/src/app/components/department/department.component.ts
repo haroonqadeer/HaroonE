@@ -17,14 +17,14 @@ import { ToastrManager } from "ng6-toastr-notifications";
 import { AppComponent } from "../../../../../../src/app/app.component";
 declare var $: any;
 // import * as jsPDF from 'jspdf';
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 
 //----------------------------------------------------------------------------//
 //-------------------Working of this typescript file are as follows-----------//
@@ -82,8 +82,8 @@ export class DepartmentComponent implements OnInit {
   constructor(
     public toastr: ToastrManager,
     private app: AppComponent,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
     private http: HttpClient
   ) {}
 
@@ -94,7 +94,7 @@ export class DepartmentComponent implements OnInit {
     this.getDepartmentDetails();
   }
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
   @ViewChild("exportPDF") public exportPDF: ElementRef; //For PDF
 
   //******************** get companys list

@@ -8,14 +8,14 @@ import {
   HttpErrorResponse
 } from "@angular/common/http";
 
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 
 import { AppComponent } from "src/app/app.component";
 
@@ -157,8 +157,8 @@ export class PostComponent implements OnInit {
   constructor(
     public toastr: ToastrManager,
     private app: AppComponent,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
     private http: HttpClient
   ) {}
 
@@ -175,7 +175,7 @@ export class PostComponent implements OnInit {
     this.getPostDetail();
   }
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
   getDepartment() {
     //return false;
@@ -906,133 +906,133 @@ export class PostComponent implements OnInit {
   }
 
   //For CSV
-  downloadCSV() {
-    //alert('CSV works');
+  // downloadCSV() {
+  //   //alert('CSV works');
 
-    // case 1: When postSearch is empty then assign full data list
-    if (this.postSearch == "") {
-      var completeDataList = [];
-      for (var i = 0; i < this.posts.length; i++) {
-        //alert(this.postSearch + " - " + this.skillCriteriaList[i].departmentName)
-        completeDataList.push({
-          Office: this.posts[i].office,
-          Department: this.posts[i].department,
-          Section: this.posts[i].section,
-          JobTitle: this.posts[i].designation,
-          Quantity: this.posts[i].desigCount
-        });
-      }
-      this.csvExportService.exportData(
-        completeDataList,
-        new IgxCsvExporterOptions("postCompleteCSV", CsvFileTypes.CSV)
-      );
-    }
+  //   // case 1: When postSearch is empty then assign full data list
+  //   if (this.postSearch == "") {
+  //     var completeDataList = [];
+  //     for (var i = 0; i < this.posts.length; i++) {
+  //       //alert(this.postSearch + " - " + this.skillCriteriaList[i].departmentName)
+  //       completeDataList.push({
+  //         Office: this.posts[i].office,
+  //         Department: this.posts[i].department,
+  //         Section: this.posts[i].section,
+  //         JobTitle: this.posts[i].designation,
+  //         Quantity: this.posts[i].desigCount
+  //       });
+  //     }
+  //     this.csvExportService.exportData(
+  //       completeDataList,
+  //       new IgxCsvExporterOptions("postCompleteCSV", CsvFileTypes.CSV)
+  //     );
+  //   }
 
-    // case 2: When postSearch is not empty then assign new data list
-    else if (this.postSearch != "") {
-      var filteredDataList = [];
-      for (var i = 0; i < this.posts.length; i++) {
-        if (
-          this.posts[i].office
-            .toUpperCase()
-            .includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].department
-            .toUpperCase()
-            .includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].section
-            .toUpperCase()
-            .includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].designation
-            .toUpperCase()
-            .includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].desigCount == this.postSearch
-        ) {
-          filteredDataList.push({
-            Office: this.posts[i].office,
-            Department: this.posts[i].department,
-            Section: this.posts[i].section,
-            JobTitle: this.posts[i].designation,
-            Quantity: this.posts[i].desigCount
-          });
-        }
-      }
+  //   // case 2: When postSearch is not empty then assign new data list
+  //   else if (this.postSearch != "") {
+  //     var filteredDataList = [];
+  //     for (var i = 0; i < this.posts.length; i++) {
+  //       if (
+  //         this.posts[i].office
+  //           .toUpperCase()
+  //           .includes(this.postSearch.toUpperCase()) ||
+  //         this.posts[i].department
+  //           .toUpperCase()
+  //           .includes(this.postSearch.toUpperCase()) ||
+  //         this.posts[i].section
+  //           .toUpperCase()
+  //           .includes(this.postSearch.toUpperCase()) ||
+  //         this.posts[i].designation
+  //           .toUpperCase()
+  //           .includes(this.postSearch.toUpperCase()) ||
+  //         this.posts[i].desigCount == this.postSearch
+  //       ) {
+  //         filteredDataList.push({
+  //           Office: this.posts[i].office,
+  //           Department: this.posts[i].department,
+  //           Section: this.posts[i].section,
+  //           JobTitle: this.posts[i].designation,
+  //           Quantity: this.posts[i].desigCount
+  //         });
+  //       }
+  //     }
 
-      if (filteredDataList.length > 0) {
-        this.csvExportService.exportData(
-          filteredDataList,
-          new IgxCsvExporterOptions("postFilterCSV", CsvFileTypes.CSV)
-        );
-      } else {
-        this.toastr.errorToastr("Oops! No data found", "Error", {
-          toastTimeout: 2500
-        });
-      }
-    }
-  }
+  //     if (filteredDataList.length > 0) {
+  //       this.csvExportService.exportData(
+  //         filteredDataList,
+  //         new IgxCsvExporterOptions("postFilterCSV", CsvFileTypes.CSV)
+  //       );
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 
-  downloadExcel() {
-    //alert('Excel works');
-    // case 1: When postSearch is empty then assign full data list
-    if (this.postSearch == "") {
-      //var completeDataList = [];
-      for (var i = 0; i < this.posts.length; i++) {
-        this.excelDataList.push({
-          Office: this.posts[i].office,
-          Department: this.posts[i].department,
-          Section: this.posts[i].section,
-          JobTitle: this.posts[i].designation,
-          Quantity: this.posts[i].desigCount
-        });
-      }
-      this.excelExportService.export(
-        this.excelDataContent,
-        new IgxExcelExporterOptions("postCompleteExcel")
-      );
-      this.excelDataList = [];
-    }
-    // case 2: When postSearch is not empty then assign new data list
-    else if (this.postSearch != "") {
-      for (var i = 0; i < this.posts.length; i++) {
-        if (
-          this.posts[i].office
-            .toUpperCase()
-            .includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].department
-            .toUpperCase()
-            .includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].section
-            .toUpperCase()
-            .includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].designation
-            .toUpperCase()
-            .includes(this.postSearch.toUpperCase()) ||
-          this.posts[i].desigCount == this.postSearch
-        ) {
-          this.excelDataList.push({
-            Office: this.posts[i].office,
-            Department: this.posts[i].department,
-            Section: this.posts[i].section,
-            JobTitle: this.posts[i].designation,
-            Quantity: this.posts[i].desigCount
-          });
-        }
-      }
+  // downloadExcel() {
+  //   //alert('Excel works');
+  //   // case 1: When postSearch is empty then assign full data list
+  //   if (this.postSearch == "") {
+  //     //var completeDataList = [];
+  //     for (var i = 0; i < this.posts.length; i++) {
+  //       this.excelDataList.push({
+  //         Office: this.posts[i].office,
+  //         Department: this.posts[i].department,
+  //         Section: this.posts[i].section,
+  //         JobTitle: this.posts[i].designation,
+  //         Quantity: this.posts[i].desigCount
+  //       });
+  //     }
+  //     this.excelExportService.export(
+  //       this.excelDataContent,
+  //       new IgxExcelExporterOptions("postCompleteExcel")
+  //     );
+  //     this.excelDataList = [];
+  //   }
+  //   // case 2: When postSearch is not empty then assign new data list
+  //   else if (this.postSearch != "") {
+  //     for (var i = 0; i < this.posts.length; i++) {
+  //       if (
+  //         this.posts[i].office
+  //           .toUpperCase()
+  //           .includes(this.postSearch.toUpperCase()) ||
+  //         this.posts[i].department
+  //           .toUpperCase()
+  //           .includes(this.postSearch.toUpperCase()) ||
+  //         this.posts[i].section
+  //           .toUpperCase()
+  //           .includes(this.postSearch.toUpperCase()) ||
+  //         this.posts[i].designation
+  //           .toUpperCase()
+  //           .includes(this.postSearch.toUpperCase()) ||
+  //         this.posts[i].desigCount == this.postSearch
+  //       ) {
+  //         this.excelDataList.push({
+  //           Office: this.posts[i].office,
+  //           Department: this.posts[i].department,
+  //           Section: this.posts[i].section,
+  //           JobTitle: this.posts[i].designation,
+  //           Quantity: this.posts[i].desigCount
+  //         });
+  //       }
+  //     }
 
-      if (this.excelDataList.length > 0) {
-        //alert("Filter List " + this.excelDataList.length);
+  //     if (this.excelDataList.length > 0) {
+  //       //alert("Filter List " + this.excelDataList.length);
 
-        this.excelExportService.export(
-          this.excelDataContent,
-          new IgxExcelExporterOptions("postFilterExcel")
-        );
-        this.excelDataList = [];
-      } else {
-        this.toastr.errorToastr("Oops! No data found", "Error", {
-          toastTimeout: 2500
-        });
-      }
-    }
-  }
+  //       this.excelExportService.export(
+  //         this.excelDataContent,
+  //         new IgxExcelExporterOptions("postFilterExcel")
+  //       );
+  //       this.excelDataList = [];
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 
   //function for sort table data
   setOrder(value: string) {

@@ -23,10 +23,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -43,16 +40,20 @@
               "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/fullcalendar/dist/fullcalendar.min.js",
-              "node_modules/moment/min/moment.min.js"
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/quill/dist/quill.js"
             ],
             "es5BrowserSupport": true
           },
           "configurations": {
             "production": {
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -100,26 +101,16 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": [],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ]
+            "assets": ["src/favicon.ico", "src/assets"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -145,9 +136,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -195,10 +184,12 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [{
-                "replace": "projects/HaroonH/src/environments/environment.ts",
-                "with": "projects/HaroonH/src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "projects/HaroonH/src/environments/environment.ts",
+                  "with": "projects/HaroonH/src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -246,9 +237,7 @@
             "polyfills": "projects/HaroonH/src/polyfills.ts",
             "tsConfig": "projects/HaroonH/tsconfig.spec.json",
             "karmaConfig": "projects/HaroonH/karma.conf.js",
-            "styles": [
-              "projects/HaroonH/src/styles.scss"
-            ],
+            "styles": ["projects/HaroonH/src/styles.scss"],
             "scripts": [],
             "assets": [
               "projects/HaroonH/src/favicon.ico",
@@ -263,9 +252,7 @@
               "projects/HaroonH/tsconfig.app.json",
               "projects/HaroonH/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -291,9 +278,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "projects/HaroonH-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -341,10 +326,12 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [{
-                "replace": "projects/HaroonConfig/src/environments/environment.ts",
-                "with": "projects/HaroonConfig/src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "projects/HaroonConfig/src/environments/environment.ts",
+                  "with": "projects/HaroonConfig/src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -392,9 +379,7 @@
             "polyfills": "projects/HaroonConfig/src/polyfills.ts",
             "tsConfig": "projects/HaroonConfig/tsconfig.spec.json",
             "karmaConfig": "projects/HaroonConfig/karma.conf.js",
-            "styles": [
-              "projects/HaroonConfig/src/styles.scss"
-            ],
+            "styles": ["projects/HaroonConfig/src/styles.scss"],
             "scripts": [],
             "assets": [
               "projects/HaroonConfig/src/favicon.ico",
@@ -409,9 +394,7 @@
               "projects/HaroonConfig/tsconfig.app.json",
               "projects/HaroonConfig/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -437,9 +420,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "projects/HaroonConfig-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -487,10 +468,12 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [{
-                "replace": "projects/HaroonU/src/environments/environment.ts",
-                "with": "projects/HaroonU/src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "projects/HaroonU/src/environments/environment.ts",
+                  "with": "projects/HaroonU/src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -538,9 +521,7 @@
             "polyfills": "projects/HaroonU/src/polyfills.ts",
             "tsConfig": "projects/HaroonU/tsconfig.spec.json",
             "karmaConfig": "projects/HaroonU/karma.conf.js",
-            "styles": [
-              "projects/HaroonU/src/styles.scss"
-            ],
+            "styles": ["projects/HaroonU/src/styles.scss"],
             "scripts": [],
             "assets": [
               "projects/HaroonU/src/favicon.ico",
@@ -555,9 +536,7 @@
               "projects/HaroonU/tsconfig.app.json",
               "projects/HaroonU/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -583,9 +562,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "projects/HaroonU-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -633,10 +610,12 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [{
-                "replace": "projects/HaroonC/src/environments/environment.ts",
-                "with": "projects/HaroonC/src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "projects/HaroonC/src/environments/environment.ts",
+                  "with": "projects/HaroonC/src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -684,9 +663,7 @@
             "polyfills": "projects/HaroonC/src/polyfills.ts",
             "tsConfig": "projects/HaroonC/tsconfig.spec.json",
             "karmaConfig": "projects/HaroonC/karma.conf.js",
-            "styles": [
-              "projects/HaroonC/src/styles.scss"
-            ],
+            "styles": ["projects/HaroonC/src/styles.scss"],
             "scripts": [],
             "assets": [
               "projects/HaroonC/src/favicon.ico",
@@ -701,9 +678,7 @@
               "projects/HaroonC/tsconfig.app.json",
               "projects/HaroonC/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -729,9 +704,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "projects/HaroonC-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

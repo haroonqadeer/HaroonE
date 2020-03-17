@@ -6,15 +6,15 @@ import { NodeService } from "../../nodeTree/node.service";
 import { HttpClient } from "@angular/common/http";
 
 import { AppComponent } from "src/app/app.component";
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
-import * as jsPDF from "jspdf";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
+// import * as jsPDF from "jspdf";
 
 declare var $: any;
 
@@ -113,8 +113,8 @@ export class UserrolesComponent implements OnInit {
   /*** Construction Function ***/
   constructor(
     private http: HttpClient,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
     private app: AppComponent,
     public toastr: ToastrManager
   ) {}
@@ -127,7 +127,7 @@ export class UserrolesComponent implements OnInit {
   }
 
   /*** Variable Declaration for exporting data to pdf  ***/
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
   @ViewChild("exportPDF") public exportPDF: ElementRef; // for pdf
 
   /*** Getting Roles List ***/
@@ -834,30 +834,30 @@ export class UserrolesComponent implements OnInit {
 
   /*** For PDF Download ***/
   downloadPDF() {
-    var doc = new jsPDF("p", "pt", "A4"),
-      source = $("#printArea")[0],
-      margins = {
-        top: 75,
-        right: 30,
-        bottom: 50,
-        left: 30,
-        width: 50
-      };
-    doc.fromHTML(
-      source, // HTML string or DOM elem ref.
-      margins.left, // x coord
-      margins.top,
-      {
-        // y coord
-        width: margins.width // max width of content on PDF
-      },
-      function(dispose) {
-        // dispose: object with X, Y of the last line add to the PDF
-        //          this allow the insertion of new lines after html
-        doc.save("Test.pdf");
-      },
-      margins
-    );
+    // var doc = new jsPDF("p", "pt", "A4"),
+    //   source = $("#printArea")[0],
+    //   margins = {
+    //     top: 75,
+    //     right: 30,
+    //     bottom: 50,
+    //     left: 30,
+    //     width: 50
+    //   };
+    // doc.fromHTML(
+    //   source, // HTML string or DOM elem ref.
+    //   margins.left, // x coord
+    //   margins.top,
+    //   {
+    //     // y coord
+    //     width: margins.width // max width of content on PDF
+    //   },
+    //   function(dispose) {
+    //     // dispose: object with X, Y of the last line add to the PDF
+    //     //          this allow the insertion of new lines after html
+    //     doc.save("Test.pdf");
+    //   },
+    //   margins
+    // );
   }
 
   /*** For CSV File ***/

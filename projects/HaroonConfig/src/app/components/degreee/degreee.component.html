@@ -9,7 +9,7 @@
     <div class="logo"><img src="../../../assets/images/degree.svg"></div>
     <h1> Degree</h1> -->
 
-    <a class="pointerCursor" (click)="downloadExcel()">
+    <!-- <a class="pointerCursor" (click)="downloadExcel()">
       <i class="fa fa-file-excel-o"></i>
       Excel
     </a>
@@ -22,7 +22,7 @@
     <a class="pointerCursor" (click)="downloadPDF()">
       <i class="fa fa-file-pdf-o"></i>
       PDF
-    </a>
+    </a> -->
 
     <a class="pointerCursor" (click)="printDiv()">
       <i class="fa fa-print"></i>
@@ -46,7 +46,8 @@
     <div class="col-md-12">
       <div class="searchBar">
         <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="postSearch">
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search"
+          [(ngModel)]="postSearch">
       </div>
       <!-- <mat-form-field class="fullwidth">
         <input matInput [(ngModel)]="tblSearch" placeholder="Search">
@@ -98,7 +99,7 @@
           </td>
         </tr>
       </tbody>
-    </table>    
+    </table>
   </div>
   <!-- Pagination Starts -->
   <div class="row">
@@ -172,8 +173,8 @@
 <!-- Hidden Table for Print and PDF files ends-->
 
 <!-- Hidden Table Starts for Excel and CSV files -->
-<igx-grid #excelDataContent [data]="excelDataList" [autoGenerate]="false" height="null" width="null" [hidden]="true">
-</igx-grid>
+<!-- <igx-grid #excelDataContent [data]="excelDataList" [autoGenerate]="false" height="null" width="null" [hidden]="true">
+</igx-grid> -->
 <!-- Hidden Table Ends  for Excel and CSV files -->
 
 <!-- Add Degree Modal Starts -->
@@ -183,9 +184,12 @@
       <div class="modal-header">
         <h5 class="modal-title">Add Degree</h5>
         <div>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveDegreeCriteria()"><span class="fa fa-save"></span> &nbsp;Save</button>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
-          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveDegreeCriteria()"><span
+              class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span
+              class="fa fa-undo"></span> &nbsp;Reset</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span
+              class="fa fa-times-circle"></span> &nbsp;Close</button>
         </div>
         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -200,10 +204,10 @@
 
           <div class="col-md-8 bgWhiteGrey bottomBorder">
             <label>{{degreeTypeName}}</label>
-          </div>          
-          <!-- hidden Id field -->          
+          </div>
+          <!-- hidden Id field -->
           <input matInput [(ngModel)]="degreeId" [hidden]=true>
-          
+
         </div>
         <hr>
         <!-- Row 2 -->

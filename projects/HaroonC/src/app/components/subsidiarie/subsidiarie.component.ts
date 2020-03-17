@@ -10,14 +10,14 @@ import { catchError, filter } from "rxjs/operators";
 import { AppComponent } from "../../../../../../src/app/app.component";
 import { OrderPipe } from "ngx-order-pipe";
 // import * as jsPDF from 'jspdf';
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 import { FormGroup, FormBuilder, Validators, FormArray } from "@angular/forms";
 // import { forEach } from '@angular/router/src/utils/collection';
 
@@ -144,8 +144,8 @@ export class SubsidiarieComponent implements OnInit {
     private toastr: ToastrManager,
     private http: HttpClient,
     private app: AppComponent,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
     private fb: FormBuilder
   ) {}
 
@@ -161,7 +161,7 @@ export class SubsidiarieComponent implements OnInit {
     this.getBusinessTypes();
   }
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
   @ViewChild("exportPDF") public exportPDF: ElementRef;
 
   //function for get all saved subsidiaries from db
@@ -803,130 +803,130 @@ export class SubsidiarieComponent implements OnInit {
   }
 
   //For CSV File
-  public downloadCSV() {
-    // case 1: When tblSearch is empty then assign full data list
-    if (this.tblSearch == "") {
-      var completeDataList = [];
-      for (var i = 0; i < this.subsidiaryDetail.length; i++) {
-        completeDataList.push({
-          subsidiaryTitle: this.subsidiaryDetail[i].subsidiaryTitle,
-          subsidiaryType: this.subsidiaryDetail[i].subsidiaryType,
-          representator: this.subsidiaryDetail[i].representator,
-          mobile: this.subsidiaryDetail[i].mobile,
-          website: this.subsidiaryDetail[i].website
-        });
-      }
-      this.csvExportService.exportData(
-        completeDataList,
-        new IgxCsvExporterOptions("SubsidiaryCompleteCSV", CsvFileTypes.CSV)
-      );
-    }
-    // case 2: When tblSearch is not empty then assign new data list
-    else if (this.tblSearch != "") {
-      var filteredDataList = [];
-      for (var i = 0; i < this.subsidiaryDetail.length; i++) {
-        if (
-          this.subsidiaryDetail[i].subsidiaryTitle
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.subsidiaryDetail[i].subsidiaryType
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.subsidiaryDetail[i].representator
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.subsidiaryDetail[i].mobile
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.subsidiaryDetail[i].website
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase())
-        ) {
-          filteredDataList.push({
-            subsidiaryTitle: this.subsidiaryDetail[i].subsidiaryTitle,
-            subsidiaryType: this.subsidiaryDetail[i].subsidiaryType,
-            representator: this.subsidiaryDetail[i].representator,
-            mobile: this.subsidiaryDetail[i].mobile,
-            website: this.subsidiaryDetail[i].website
-          });
-        }
-      }
+  // public downloadCSV() {
+  //   // case 1: When tblSearch is empty then assign full data list
+  //   if (this.tblSearch == "") {
+  //     var completeDataList = [];
+  //     for (var i = 0; i < this.subsidiaryDetail.length; i++) {
+  //       completeDataList.push({
+  //         subsidiaryTitle: this.subsidiaryDetail[i].subsidiaryTitle,
+  //         subsidiaryType: this.subsidiaryDetail[i].subsidiaryType,
+  //         representator: this.subsidiaryDetail[i].representator,
+  //         mobile: this.subsidiaryDetail[i].mobile,
+  //         website: this.subsidiaryDetail[i].website
+  //       });
+  //     }
+  //     this.csvExportService.exportData(
+  //       completeDataList,
+  //       new IgxCsvExporterOptions("SubsidiaryCompleteCSV", CsvFileTypes.CSV)
+  //     );
+  //   }
+  //   // case 2: When tblSearch is not empty then assign new data list
+  //   else if (this.tblSearch != "") {
+  //     var filteredDataList = [];
+  //     for (var i = 0; i < this.subsidiaryDetail.length; i++) {
+  //       if (
+  //         this.subsidiaryDetail[i].subsidiaryTitle
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.subsidiaryDetail[i].subsidiaryType
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.subsidiaryDetail[i].representator
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.subsidiaryDetail[i].mobile
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.subsidiaryDetail[i].website
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase())
+  //       ) {
+  //         filteredDataList.push({
+  //           subsidiaryTitle: this.subsidiaryDetail[i].subsidiaryTitle,
+  //           subsidiaryType: this.subsidiaryDetail[i].subsidiaryType,
+  //           representator: this.subsidiaryDetail[i].representator,
+  //           mobile: this.subsidiaryDetail[i].mobile,
+  //           website: this.subsidiaryDetail[i].website
+  //         });
+  //       }
+  //     }
 
-      if (filteredDataList.length > 0) {
-        this.csvExportService.exportData(
-          filteredDataList,
-          new IgxCsvExporterOptions("SubsidiaryFilterCSV", CsvFileTypes.CSV)
-        );
-      } else {
-        this.toastr.errorToastr("Oops! No data found", "Error", {
-          toastTimeout: 2500
-        });
-      }
-    }
-  }
+  //     if (filteredDataList.length > 0) {
+  //       this.csvExportService.exportData(
+  //         filteredDataList,
+  //         new IgxCsvExporterOptions("SubsidiaryFilterCSV", CsvFileTypes.CSV)
+  //       );
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 
   //For Exce File
-  public downloadExcel() {
-    // case 1: When tblSearch is empty then assign full data list
-    if (this.tblSearch == "") {
-      for (var i = 0; i < this.subsidiaryDetail.length; i++) {
-        this.excelDataList.push({
-          subsidiaryTitle: this.subsidiaryDetail[i].subsidiaryTitle,
-          subsidiaryType: this.subsidiaryDetail[i].subsidiaryType,
-          representator: this.subsidiaryDetail[i].representator,
-          mobile: this.subsidiaryDetail[i].mobile,
-          website: this.subsidiaryDetail[i].website
-        });
-      }
-      this.excelExportService.export(
-        this.excelDataContent,
-        new IgxExcelExporterOptions("SubsidiaryCompleteExcel")
-      );
-      this.excelDataList = [];
-    }
-    // case 2: When tblSearch is not empty then assign new data list
-    else if (this.tblSearch != "") {
-      for (var i = 0; i < this.subsidiaryDetail.length; i++) {
-        if (
-          this.subsidiaryDetail[i].subsidiaryTitle
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.subsidiaryDetail[i].subsidiaryType
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.subsidiaryDetail[i].representator
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.subsidiaryDetail[i].mobile
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.subsidiaryDetail[i].website
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase())
-        ) {
-          this.excelDataList.push({
-            subsidiaryTitle: this.subsidiaryDetail[i].subsidiaryTitle,
-            subsidiaryType: this.subsidiaryDetail[i].subsidiaryType,
-            representator: this.subsidiaryDetail[i].representator,
-            mobile: this.subsidiaryDetail[i].mobile,
-            website: this.subsidiaryDetail[i].website
-          });
-        }
-      }
+  // public downloadExcel() {
+  //   // case 1: When tblSearch is empty then assign full data list
+  //   if (this.tblSearch == "") {
+  //     for (var i = 0; i < this.subsidiaryDetail.length; i++) {
+  //       this.excelDataList.push({
+  //         subsidiaryTitle: this.subsidiaryDetail[i].subsidiaryTitle,
+  //         subsidiaryType: this.subsidiaryDetail[i].subsidiaryType,
+  //         representator: this.subsidiaryDetail[i].representator,
+  //         mobile: this.subsidiaryDetail[i].mobile,
+  //         website: this.subsidiaryDetail[i].website
+  //       });
+  //     }
+  //     this.excelExportService.export(
+  //       this.excelDataContent,
+  //       new IgxExcelExporterOptions("SubsidiaryCompleteExcel")
+  //     );
+  //     this.excelDataList = [];
+  //   }
+  //   // case 2: When tblSearch is not empty then assign new data list
+  //   else if (this.tblSearch != "") {
+  //     for (var i = 0; i < this.subsidiaryDetail.length; i++) {
+  //       if (
+  //         this.subsidiaryDetail[i].subsidiaryTitle
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.subsidiaryDetail[i].subsidiaryType
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.subsidiaryDetail[i].representator
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.subsidiaryDetail[i].mobile
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.subsidiaryDetail[i].website
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase())
+  //       ) {
+  //         this.excelDataList.push({
+  //           subsidiaryTitle: this.subsidiaryDetail[i].subsidiaryTitle,
+  //           subsidiaryType: this.subsidiaryDetail[i].subsidiaryType,
+  //           representator: this.subsidiaryDetail[i].representator,
+  //           mobile: this.subsidiaryDetail[i].mobile,
+  //           website: this.subsidiaryDetail[i].website
+  //         });
+  //       }
+  //     }
 
-      if (this.excelDataList.length > 0) {
-        this.excelExportService.export(
-          this.excelDataContent,
-          new IgxExcelExporterOptions("SubsidiaryFilterExcel")
-        );
-        this.excelDataList = [];
-      } else {
-        this.toastr.errorToastr("Oops! No data found", "Error", {
-          toastTimeout: 2500
-        });
-      }
-    }
-  }
+  //     if (this.excelDataList.length > 0) {
+  //       this.excelExportService.export(
+  //         this.excelDataContent,
+  //         new IgxExcelExporterOptions("SubsidiaryFilterExcel")
+  //       );
+  //       this.excelDataList = [];
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 
   onContactChange(contactType, item) {
     if (contactType == "1") {

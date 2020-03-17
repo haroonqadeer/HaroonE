@@ -10,14 +10,14 @@ import { catchError, filter } from "rxjs/operators";
 import { allSettled } from "q";
 import { AppComponent } from "../../../../../../src/app/app.component";
 // import * as jsPDF from 'jspdf';
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 
 //----------------------------------------------------------------------------//
 //-------------------Working of this typescript file are as follows-----------//
@@ -77,8 +77,8 @@ export class SectionComponent implements OnInit {
     private toastr: ToastrManager,
     private app: AppComponent,
     private http: HttpClient,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService
   ) {}
 
   ngOnInit() {
@@ -89,7 +89,7 @@ export class SectionComponent implements OnInit {
     this.getSectionDetails();
   }
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
   @ViewChild("exportPDF") public exportPDF: ElementRef;
 
   //******************** get companys list

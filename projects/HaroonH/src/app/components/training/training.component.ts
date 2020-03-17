@@ -1,87 +1,84 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ToastrManager } from 'ng6-toastr-notifications';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { ToastrManager } from "ng6-toastr-notifications";
 
-import { AppComponent } from 'src/app/app.component';
+import { AppComponent } from "src/app/app.component";
 
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
-
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from "@angular/common/http";
 
 declare var $: any;
 
-
 @Component({
-  selector: 'app-training',
-  templateUrl: './training.component.html',
-  styleUrls: ['./training.component.scss']
+  selector: "app-training",
+  templateUrl: "./training.component.html",
+  styleUrls: ["./training.component.scss"]
 })
 export class TrainingComponent implements OnInit {
-
   //serverUrl = "http://localhost:9019/";
   // serverUrl = "http://52.163.189.189:9019/";
   serverUrl = "https://localhost:8004/";
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  }
+    headers: new HttpHeaders({ "Content-Type": "application/json" })
+  };
 
-
-  tblSearch = '';
-  tblSearchType = '';
+  tblSearch = "";
+  tblSearchType = "";
 
   //Ng-Models for Add Training Model
-  trainingId = ''; // for update/delete
-  trainingType = '';
-  trainingName = '';
-  trainingDesc = '';
-  trainingInstitute = '';
+  trainingId = ""; // for update/delete
+  trainingType = "";
+  trainingName = "";
+  trainingDesc = "";
+  trainingInstitute = "";
   trainingInstituteList = []; // vendor's list
-  trainingDuration = '';
+  trainingDuration = "";
   trainingList = [];
-  dTrainingId = '';
+  dTrainingId = "";
 
   //trainingList = [];
 
   // Ng-Models for Training Type Modal Window
-  trainingTypeId = ''; // for update
-  trainingTypeName = '';
-  trainingTypeDesc = '';
+  trainingTypeId = ""; // for update
+  trainingTypeName = "";
+  trainingTypeDesc = "";
   trainingTypeList = [];
-  dTrainingTypeId = ''; // for delete purpose
+  dTrainingTypeId = ""; // for delete purpose
 
   //* Excel Data List
   excelDataList = [];
 
   //Ng-models for delete modal window
-  userPassword = '';
-  userPINCode = '';
+  userPassword = "";
+  userPINCode = "";
 
   //* variables for pagination and orderby pipe
   p = 1;
   pType = 1;
-  order = 'info.name';
+  order = "info.name";
   reverse = false;
   // orderGroup = 'info.name';
   // reverseGroup = false;
   sortedCollection: any[];
-  itemPerPage = '10';
-  itemPerPageType = '5';
+  itemPerPage = "10";
+  itemPerPageType = "5";
 
-
-  constructor(public toastr: ToastrManager,
+  constructor(
+    public toastr: ToastrManager,
     private app: AppComponent,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
-    private http: HttpClient) { }
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.getTraining();
@@ -89,14 +86,9 @@ export class TrainingComponent implements OnInit {
     this.getVendors();
   }
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
-
+  // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
   //*---------------------- Get Functions --------------------//
-
-
-
-
 
   // get training list
   getTraining() {
@@ -104,14 +96,18 @@ export class TrainingComponent implements OnInit {
     //return false;
     var Token = localStorage.getItem(this.tokenKey);
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-
-    this.http.get(this.serverUrl + 'api/getTraining', { headers: reqHeader }).subscribe((data: any) => {
-      this.trainingList = data
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + Token
     });
+
+    this.http
+      .get(this.serverUrl + "api/getTraining", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.trainingList = data;
+      });
     this.app.hideSpinner();
   }
-
 
   // get training type list
   getTrainingType() {
@@ -119,14 +115,18 @@ export class TrainingComponent implements OnInit {
 
     var Token = localStorage.getItem(this.tokenKey);
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-
-    this.http.get(this.serverUrl + 'api/getTrainingType', { headers: reqHeader }).subscribe((data: any) => {
-      this.trainingTypeList = data
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + Token
     });
 
-    this.app.hideSpinner();
+    this.http
+      .get(this.serverUrl + "api/getTrainingType", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.trainingTypeList = data;
+      });
 
+    this.app.hideSpinner();
   }
 
   // get training institute list
@@ -135,160 +135,183 @@ export class TrainingComponent implements OnInit {
     //return false;
     var Token = localStorage.getItem(this.tokenKey);
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
-
-    this.http.get(this.serverUrl + 'api/getVendors', { headers: reqHeader }).subscribe((data: any) => {
-      this.trainingInstituteList = data
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + Token
     });
+
+    this.http
+      .get(this.serverUrl + "api/getVendors", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.trainingInstituteList = data;
+      });
     this.app.hideSpinner();
   }
-
 
   //*..... Add Training Modal Window....//
 
   saveTraining() {
     if (this.trainingType == "") {
-      this.toastr.errorToastr('Please Select Training Type', 'Error', { toastTimeout: (2500) });
+      this.toastr.errorToastr("Please Select Training Type", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else if (this.trainingName == "") {
-      this.toastr.errorToastr('Please Enter Training Name', 'Error', { toastTimeout: (2500) });
+    } else if (this.trainingName == "") {
+      this.toastr.errorToastr("Please Enter Training Name", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else if (this.trainingInstitute == "") {
-      this.toastr.errorToastr('Please Select Institute', 'Error', { toastTimeout: (2500) });
+    } else if (this.trainingInstitute == "") {
+      this.toastr.errorToastr("Please Select Institute", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else if (this.trainingDuration == "") {
-      this.toastr.errorToastr('Please Enter Training Duration', 'Error', { toastTimeout: (2500) });
+    } else if (this.trainingDuration == "") {
+      this.toastr.errorToastr("Please Enter Training Duration", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else {
+    } else {
       if (this.trainingId != "") {
         //return false;
         var updateData = {
-          "trnngCd": this.trainingId,
-          "trnngTypeCd": this.trainingType,
-          "trnngName": this.trainingName,
-          "trnngDesc": this.trainingDesc,
-          "vndrId": this.trainingInstitute,
-          "trnngDuration": this.trainingDuration,
-          "connectedUser": 12000
+          trnngCd: this.trainingId,
+          trnngTypeCd: this.trainingType,
+          trnngName: this.trainingName,
+          trnngDesc: this.trainingDesc,
+          vndrId: this.trainingInstitute,
+          trnngDuration: this.trainingDuration,
+          connectedUser: 12000
         };
 
         this.app.showSpinner();
 
         var token = localStorage.getItem(this.tokenKey);
 
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-        this.http.put(this.serverUrl + 'api/updateTraining', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-          //alert(data.msg);
-
-          if (data.msg == 'Record Updated Successfully!') {
-
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-
-            this.clear();
-            $('#addTrainingTypeModal').modal('hide');
-            this.getTraining();
-            //this.getCertificateCriteria();
-            this.app.hideSpinner();
-            return false;
-
-          }
-          else if (data.msg == "Update - Training Already Exist!") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            //$('#addTrainingTypeModal').modal('hide');
-            this.getTraining();
-            this.app.hideSpinner();
-            //this.getCertificateCriteria();
-            return false;
-          }
-          else if (data.msg == "Update - Vendor Training Already Exist!") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            //$('#addTrainingTypeModal').modal('hide');
-            this.getTraining();
-            this.app.hideSpinner();
-            //this.getCertificateCriteria();
-            return false;
-          }
-          else {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            //$('#addTrainingTypeModal').modal('hide');
-            this.getTraining();
-            this.app.hideSpinner();
-            //this.getCertificateCriteria();
-            return false;
-          }
-
+        var reqHeader = new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
         });
-      }
 
-      else {
+        this.http
+          .put(this.serverUrl + "api/updateTraining", updateData, {
+            headers: reqHeader
+          })
+          .subscribe((data: any) => {
+            //alert(data.msg);
+
+            if (data.msg == "Record Updated Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+
+              this.clear();
+              $("#addTrainingTypeModal").modal("hide");
+              this.getTraining();
+              //this.getCertificateCriteria();
+              this.app.hideSpinner();
+              return false;
+            } else if (data.msg == "Update - Training Already Exist!") {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              //$('#addTrainingTypeModal').modal('hide');
+              this.getTraining();
+              this.app.hideSpinner();
+              //this.getCertificateCriteria();
+              return false;
+            } else if (data.msg == "Update - Vendor Training Already Exist!") {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              //$('#addTrainingTypeModal').modal('hide');
+              this.getTraining();
+              this.app.hideSpinner();
+              //this.getCertificateCriteria();
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              //$('#addTrainingTypeModal').modal('hide');
+              this.getTraining();
+              this.app.hideSpinner();
+              //this.getCertificateCriteria();
+              return false;
+            }
+          });
+      } else {
         var saveData = {
-          "trnngTypeCd": this.trainingType,
-          "trnngName": this.trainingName,
-          "trnngDesc": this.trainingDesc,
-          "vndrId": this.trainingInstitute,
-          "trnngDuration": this.trainingDuration,
-          "connectedUser": 12000
+          trnngTypeCd: this.trainingType,
+          trnngName: this.trainingName,
+          trnngDesc: this.trainingDesc,
+          vndrId: this.trainingInstitute,
+          trnngDuration: this.trainingDuration,
+          connectedUser: 12000
         };
 
         this.app.showSpinner();
         var token = localStorage.getItem(this.tokenKey);
 
         // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+        var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
         //alert(reqHeader);
-        this.http.post(this.serverUrl + 'api/saveTraining', saveData, { responseType: 'json' }).subscribe((data: any) => {
-          // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
+        this.http
+          .post(this.serverUrl + "api/saveTraining", saveData, {
+            responseType: "json"
+          })
+          .subscribe((data: any) => {
+            // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
 
-          //alert(data.msg);
-          //return false;
+            //alert(data.msg);
+            //return false;
 
-          if (data.msg == "Record Saved Successfully!") {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.clear();
-            $('#addTrainingTypeModal').modal('hide');
-            this.getTraining();
-            //this.getCertificateCriteria();
-            this.app.hideSpinner();
-            return false;
-          }
-          else if (data.msg == "Insert - Training Already Exists") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            //$('#addTrainingTypeModal').modal('hide');
-            this.getTraining();
-            this.app.hideSpinner();
-            //this.getCertificateCriteria();
-            return false;
-          }
-          else if (data.msg == "Insert - Vendor Training Already Exist!") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            //$('#addTrainingTypeModal').modal('hide');
-            this.getTraining();
-            this.app.hideSpinner();
-            //this.getCertificateCriteria();
-            return false;
-          }
-          else {
-            this.toastr.errorToastr(data.msg, 'Error !', { toastTimeout: (2500) });
-            this.clear();
-            //$('#addTrainingTypeModal').modal('hide');
-            this.getTraining();
-            this.app.hideSpinner();
-            //this.getCertificateCriteria();
+            if (data.msg == "Record Saved Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#addTrainingTypeModal").modal("hide");
+              this.getTraining();
+              //this.getCertificateCriteria();
+              this.app.hideSpinner();
+              return false;
+            } else if (data.msg == "Insert - Training Already Exists") {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              //$('#addTrainingTypeModal').modal('hide');
+              this.getTraining();
+              this.app.hideSpinner();
+              //this.getCertificateCriteria();
+              return false;
+            } else if (data.msg == "Insert - Vendor Training Already Exist!") {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              //$('#addTrainingTypeModal').modal('hide');
+              this.getTraining();
+              this.app.hideSpinner();
+              //this.getCertificateCriteria();
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error !", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              //$('#addTrainingTypeModal').modal('hide');
+              this.getTraining();
+              this.app.hideSpinner();
+              //this.getCertificateCriteria();
 
-            return false;
-          }
-        });
+              return false;
+            }
+          });
       }
     }
   }
@@ -306,118 +329,132 @@ export class TrainingComponent implements OnInit {
     this.dTrainingId = item.trnngCd;
   }
 
-
   //*    Add Training Type Modal Window....//
 
   saveTrainingType() {
     if (this.trainingTypeName == "") {
-      this.toastr.errorToastr('Please Enter Type Name', 'Error', { toastTimeout: (2500) });
+      this.toastr.errorToastr("Please Enter Type Name", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else if (this.trainingTypeDesc == "") {
-      this.toastr.errorToastr('Please Enter Type Description', 'Error', { toastTimeout: (2500) });
+    } else if (this.trainingTypeDesc == "") {
+      this.toastr.errorToastr("Please Enter Type Description", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else {
+    } else {
       if (this.trainingTypeId != "") {
         //return false;
         var updateData = {
-          "trnngTypeCd": this.trainingTypeId,
-          "trnngTypeName": this.trainingTypeName,
-          "trnngTypeDesc": this.trainingTypeDesc,
-          "connectedUser": 12000
+          trnngTypeCd: this.trainingTypeId,
+          trnngTypeName: this.trainingTypeName,
+          trnngTypeDesc: this.trainingTypeDesc,
+          connectedUser: 12000
         };
 
         this.app.showSpinner();
         var token = localStorage.getItem(this.tokenKey);
 
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-        this.http.put(this.serverUrl + 'api/updateTrainingType', updateData, { headers: reqHeader }).subscribe((data: any) => {
-
-          //alert(data.msg);
-
-          if (data.msg == 'Record Updated Successfully!') {
-
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-
-            this.clear();
-            //$('#addTrainingTypeModal').modal('hide');
-            this.getTrainingType();
-            //this.getCertificateCriteria();
-            this.app.hideSpinner();
-            return false;
-
-          }
-          else if (data.msg == "Update - Record Already Exists!") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            //$('#addTrainingTypeModal').modal('hide');
-            this.getTrainingType();
-            //this.getCertificateCriteria();
-            this.app.hideSpinner();
-            return false;
-          }
-          else {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            //$('#addTrainingTypeModal').modal('hide');
-            this.getTrainingType();
-            this.app.hideSpinner();
-            //this.getCertificateCriteria();
-            return false;
-          }
-
+        var reqHeader = new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
         });
-      }
 
-      else {
+        this.http
+          .put(this.serverUrl + "api/updateTrainingType", updateData, {
+            headers: reqHeader
+          })
+          .subscribe((data: any) => {
+            //alert(data.msg);
+
+            if (data.msg == "Record Updated Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+
+              this.clear();
+              //$('#addTrainingTypeModal').modal('hide');
+              this.getTrainingType();
+              //this.getCertificateCriteria();
+              this.app.hideSpinner();
+              return false;
+            } else if (data.msg == "Update - Record Already Exists!") {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              //$('#addTrainingTypeModal').modal('hide');
+              this.getTrainingType();
+              //this.getCertificateCriteria();
+              this.app.hideSpinner();
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              //$('#addTrainingTypeModal').modal('hide');
+              this.getTrainingType();
+              this.app.hideSpinner();
+              //this.getCertificateCriteria();
+              return false;
+            }
+          });
+      } else {
         var saveData = {
-          "trnngTypeName": this.trainingTypeName,
-          "trnngTypeDesc": this.trainingTypeDesc,
-          "connectedUser": 12000
+          trnngTypeName: this.trainingTypeName,
+          trnngTypeDesc: this.trainingTypeDesc,
+          connectedUser: 12000
         };
 
         this.app.showSpinner();
         var token = localStorage.getItem(this.tokenKey);
 
         // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+        var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
         //alert(reqHeader);
-        this.http.post(this.serverUrl + 'api/saveTrainingType', saveData, { responseType: 'json' }).subscribe((data: any) => {
-          // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
+        this.http
+          .post(this.serverUrl + "api/saveTrainingType", saveData, {
+            responseType: "json"
+          })
+          .subscribe((data: any) => {
+            // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
 
-          //alert(data.msg);
-          //return false;
+            //alert(data.msg);
+            //return false;
 
-          if (data.msg == "Record Saved Successfully!") {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.clear();
-            //$('#addTrainingTypeModal').modal('hide');
-            this.getTrainingType();
-            //this.getCertificateCriteria();
-            this.app.hideSpinner();
-            return false;
-          }
-          else if (data.msg == "Insert - Record Already Exists!") {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.clear();
-            //$('#addTrainingTypeModal').modal('hide');
-            this.getTrainingType();
-            //this.getCertificateCriteria();
-            this.app.hideSpinner();
-            return false;
-          }
-          else {
-            this.toastr.errorToastr(data.msg, 'Error !', { toastTimeout: (2500) });
-            this.clear();
-            //$('#addTrainingTypeModal').modal('hide');
-            this.getTrainingType();
-            //this.getCertificateCriteria();
-            this.app.hideSpinner();
-            return false;
-          }
-        });
+            if (data.msg == "Record Saved Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              //$('#addTrainingTypeModal').modal('hide');
+              this.getTrainingType();
+              //this.getCertificateCriteria();
+              this.app.hideSpinner();
+              return false;
+            } else if (data.msg == "Insert - Record Already Exists!") {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              //$('#addTrainingTypeModal').modal('hide');
+              this.getTrainingType();
+              //this.getCertificateCriteria();
+              this.app.hideSpinner();
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error !", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              //$('#addTrainingTypeModal').modal('hide');
+              this.getTrainingType();
+              //this.getCertificateCriteria();
+              this.app.hideSpinner();
+              return false;
+            }
+          });
       }
     }
   }
@@ -430,20 +467,20 @@ export class TrainingComponent implements OnInit {
 
   clear() {
     //Ng-Models for Add Training Model
-    this.trainingId = ''; // for update/delete
-    this.trainingType = '';
-    this.trainingName = '';
-    this.trainingInstitute = '';
-    this.trainingDuration = '';
+    this.trainingId = ""; // for update/delete
+    this.trainingType = "";
+    this.trainingName = "";
+    this.trainingInstitute = "";
+    this.trainingDuration = "";
 
     // Ng-Models for Training Type Modal Window
-    this.trainingTypeId = ''; // for update/delete
-    this.trainingTypeName = '';
-    this.trainingTypeDesc = '';
+    this.trainingTypeId = ""; // for update/delete
+    this.trainingTypeName = "";
+    this.trainingTypeDesc = "";
 
     //Ng-models for delete modal window
-    this.userPassword = '';
-    this.userPINCode = '';
+    this.userPassword = "";
+    this.userPINCode = "";
   }
 
   deleteTrainingType(item) {
@@ -451,91 +488,101 @@ export class TrainingComponent implements OnInit {
     this.dTrainingTypeId = item.trnngTypeCd;
   }
 
-
   delete() {
-
     //alert(this.dTrainingTypeId);
 
     if (this.userPassword == "") {
-      this.toastr.errorToastr('Please Enter Password', 'Error', { toastTimeout: (2500) });
+      this.toastr.errorToastr("Please Enter Password", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else if (this.userPINCode == "") {
-      this.toastr.errorToastr('Please Enter PIN Code', 'Error', { toastTimeout: (2500) });
+    } else if (this.userPINCode == "") {
+      this.toastr.errorToastr("Please Enter PIN Code", "Error", {
+        toastTimeout: 2500
+      });
       return false;
-    }
-    else {
+    } else {
       if (this.dTrainingId != "") {
-
         var data = {
-          "trnngCd": this.dTrainingId,
+          trnngCd: this.dTrainingId,
           // "qlfctnTypeCd": this.certificateId,
           // "qlfctnCd": this.certificateGroup,
           // "qlfctnCriteriaName": this.certificateTitle,
           // "qlfctnCriteriaDesc": this.certificateTitleDescription,
-          "connectedUser": 12000
+          connectedUser: 12000
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-        this.http.put(this.serverUrl + 'api/deleteTraining', data, { headers: reqHeader }).subscribe((data: any) => {
-
-          //alert(data.msg);
-
-          if (data.msg == "Record Deleted Successfully!") {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.clear();
-            $('#deleteModal').modal('hide');
-            this.getTraining();
-            return false;
-          }
-          else {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            return false;
-          }
+        var reqHeader = new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
         });
-      }
-      else if (this.dTrainingTypeId != "") {
+
+        this.http
+          .put(this.serverUrl + "api/deleteTraining", data, {
+            headers: reqHeader
+          })
+          .subscribe((data: any) => {
+            //alert(data.msg);
+
+            if (data.msg == "Record Deleted Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#deleteModal").modal("hide");
+              this.getTraining();
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              return false;
+            }
+          });
+      } else if (this.dTrainingTypeId != "") {
         var groupdata = {
-          "trnngTypeCd": this.dTrainingTypeId,
+          trnngTypeCd: this.dTrainingTypeId,
           // "qlfctnName": this.certfctGroupName,
           // "qlfctnDesc": this.certfctGroupDesc,
-          "connectedUser": 12000
+          connectedUser: 12000
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
-        this.http.put(this.serverUrl + 'api/deleteTrainingType', groupdata, { headers: reqHeader }).subscribe((data: any) => {
-
-          //alert(data.msg);
-
-          if (data.msg == "Record Deleted Successfully!") {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.clear();
-            $('#deleteModal').modal('hide');
-            this.getTrainingType();
-            return false;
-          }
-          else {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            return false;
-          }
+        var reqHeader = new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
         });
-      }// else if ends
-    }//else ends
+
+        this.http
+          .put(this.serverUrl + "api/deleteTrainingType", groupdata, {
+            headers: reqHeader
+          })
+          .subscribe((data: any) => {
+            //alert(data.msg);
+
+            if (data.msg == "Record Deleted Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.clear();
+              $("#deleteModal").modal("hide");
+              this.getTrainingType();
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              return false;
+            }
+          });
+      } // else if ends
+    } //else ends
   }
 
-
-
-
-
-
-
-  //function for sorting/orderBy table data 
+  //function for sorting/orderBy table data
   setOrder(value: string) {
     if (this.order === value) {
       this.reverse = !this.reverse;
@@ -544,7 +591,6 @@ export class TrainingComponent implements OnInit {
   }
 
   printDiv() {
-
     // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
 
     // var cssHeading = ".cssHeading {font-size: 25px; font-weight: bold;}";
@@ -555,132 +601,167 @@ export class TrainingComponent implements OnInit {
 
     var printCss = this.app.printCSS();
 
-
     //printCss = printCss + "";
 
     var contents = $("#printArea").html();
 
-    var frame1 = $('<iframe />');
+    var frame1 = $("<iframe />");
     frame1[0].name = "frame1";
-    frame1.css({ "position": "absolute", "top": "-1000000px" });
+    frame1.css({ position: "absolute", top: "-1000000px" });
     $("body").append(frame1);
-    var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+    var frameDoc = frame1[0].contentWindow
+      ? frame1[0].contentWindow
+      : frame1[0].contentDocument.document
+      ? frame1[0].contentDocument.document
+      : frame1[0].contentDocument;
     frameDoc.document.open();
 
     //Create a new HTML document.
-    frameDoc.document.write('<html><head><title>DIV Contents</title>' + "<style>" + printCss + "</style>");
-
+    frameDoc.document.write(
+      "<html><head><title>DIV Contents</title>" +
+        "<style>" +
+        printCss +
+        "</style>"
+    );
 
     //Append the external CSS file.  <link rel="stylesheet" href="../../../styles.scss" />  <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
-    frameDoc.document.write('<style type="text/css" media="print">/*@page { size: landscape; }*/</style>');
+    frameDoc.document.write(
+      '<style type="text/css" media="print">/*@page { size: landscape; }*/</style>'
+    );
 
-    frameDoc.document.write('</head><body>');
+    frameDoc.document.write("</head><body>");
 
     //Append the DIV contents.
     frameDoc.document.write(contents);
-    frameDoc.document.write('</body></html>');
+    frameDoc.document.write("</body></html>");
 
     frameDoc.document.close();
-
 
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function () {
+    setTimeout(function() {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();
     }, 500);
   }
 
+  downloadPDF() {}
 
-  downloadPDF() { }
+  // downloadCSV() {
+  //   //alert('CSV works');
+  //   // case 1: When tblSearch is empty then assign full data list
+  //   if (this.tblSearch == "") {
+  //     var completeDataList = [];
+  //     for (var i = 0; i < this.trainingList.length; i++) {
+  //       //alert(this.tblSearch + " - " + this.skillCriteriaList[i].departmentName)
+  //       completeDataList.push({
+  //         TrainingType: this.trainingList[i].trnngTypeName,
+  //         TrainingName: this.trainingList[i].trnngName,
+  //         Institute: this.trainingList[i].orgName,
+  //         Duration: this.trainingList[i].trnngDuration
+  //       });
+  //     }
+  //     this.csvExportService.exportData(
+  //       completeDataList,
+  //       new IgxCsvExporterOptions("trainingCompleteCSV", CsvFileTypes.CSV)
+  //     );
+  //   }
+  //   // case 2: When tblSearch is not empty then assign new data list
+  //   else if (this.tblSearch != "") {
+  //     var filteredDataList = [];
+  //     for (var i = 0; i < this.trainingList.length; i++) {
+  //       if (
+  //         this.trainingList[i].trnngTypeName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.trainingList[i].trnngName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.trainingList[i].orgName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.trainingList[i].trnngDuration == this.tblSearch
+  //       ) {
+  //         filteredDataList.push({
+  //           TrainingType: this.trainingList[i].trnngTypeName,
+  //           TrainingName: this.trainingList[i].trnngName,
+  //           Institute: this.trainingList[i].orgName,
+  //           Duration: this.trainingList[i].trnngDuration
+  //         });
+  //       }
+  //     }
 
+  //     if (filteredDataList.length > 0) {
+  //       this.csvExportService.exportData(
+  //         filteredDataList,
+  //         new IgxCsvExporterOptions("trainingFilterCSV", CsvFileTypes.CSV)
+  //       );
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 
-  downloadCSV() {
-    //alert('CSV works');
-    // case 1: When tblSearch is empty then assign full data list
-    if (this.tblSearch == "") {
-      var completeDataList = [];
-      for (var i = 0; i < this.trainingList.length; i++) {
-        //alert(this.tblSearch + " - " + this.skillCriteriaList[i].departmentName)
-        completeDataList.push({
-          TrainingType: this.trainingList[i].trnngTypeName,
-          TrainingName: this.trainingList[i].trnngName,
-          Institute: this.trainingList[i].orgName,
-          Duration: this.trainingList[i].trnngDuration
-        });
-      }
-      this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("trainingCompleteCSV", CsvFileTypes.CSV));
-    }
-    // case 2: When tblSearch is not empty then assign new data list
-    else if (this.tblSearch != "") {
-      var filteredDataList = [];
-      for (var i = 0; i < this.trainingList.length; i++) {
-        if (this.trainingList[i].trnngTypeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-          this.trainingList[i].trnngName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-          this.trainingList[i].orgName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-          this.trainingList[i].trnngDuration == this.tblSearch) {
-          filteredDataList.push({
-            TrainingType: this.trainingList[i].trnngTypeName,
-            TrainingName: this.trainingList[i].trnngName,
-            Institute: this.trainingList[i].orgName,
-            Duration: this.trainingList[i].trnngDuration
-          });
-        }
-      }
+  // downloadExcel() {
+  //   //alert('Excel works');
+  //   // case 1: When tblSearch is empty then assign full data list
+  //   if (this.tblSearch == "") {
+  //     //var completeDataList = [];
+  //     for (var i = 0; i < this.trainingList.length; i++) {
+  //       this.excelDataList.push({
+  //         TrainingType: this.trainingList[i].trnngTypeName,
+  //         TrainingName: this.trainingList[i].trnngName,
+  //         Institute: this.trainingList[i].orgName,
+  //         Duration: this.trainingList[i].trnngDuration
+  //       });
+  //     }
+  //     this.excelExportService.export(
+  //       this.excelDataContent,
+  //       new IgxExcelExporterOptions("trainingCompleteExcel")
+  //     );
+  //     this.excelDataList = [];
+  //   }
+  //   // case 2: When tblSearch is not empty then assign new data list
+  //   else if (this.tblSearch != "") {
+  //     for (var i = 0; i < this.trainingList.length; i++) {
+  //       if (
+  //         this.trainingList[i].trnngTypeName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.trainingList[i].trnngName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.trainingList[i].orgName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.trainingList[i].trnngDuration == this.tblSearch
+  //       ) {
+  //         this.excelDataList.push({
+  //           TrainingType: this.trainingList[i].trnngTypeName,
+  //           TrainingName: this.trainingList[i].trnngName,
+  //           Institute: this.trainingList[i].orgName,
+  //           Duration: this.trainingList[i].trnngDuration
+  //         });
+  //       }
+  //     }
 
-      if (filteredDataList.length > 0) {
-        this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("trainingFilterCSV", CsvFileTypes.CSV));
-      } else {
-        this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
-      }
-    }
-  }
+  //     if (this.excelDataList.length > 0) {
+  //       //alert("Filter List " + this.excelDataList.length);
 
-
-  downloadExcel() {
-    //alert('Excel works');
-    // case 1: When tblSearch is empty then assign full data list
-    if (this.tblSearch == "") {
-      //var completeDataList = [];
-      for (var i = 0; i < this.trainingList.length; i++) {
-        this.excelDataList.push({
-          TrainingType: this.trainingList[i].trnngTypeName,
-          TrainingName: this.trainingList[i].trnngName,
-          Institute: this.trainingList[i].orgName,
-          Duration: this.trainingList[i].trnngDuration
-        });
-      }
-      this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("trainingCompleteExcel"));
-      this.excelDataList = [];
-    }
-    // case 2: When tblSearch is not empty then assign new data list
-    else if (this.tblSearch != "") {
-      for (var i = 0; i < this.trainingList.length; i++) {
-        if (this.trainingList[i].trnngTypeName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-          this.trainingList[i].trnngName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-          this.trainingList[i].orgName.toUpperCase().includes(this.tblSearch.toUpperCase()) ||
-          this.trainingList[i].trnngDuration == this.tblSearch) {
-          this.excelDataList.push({
-            TrainingType: this.trainingList[i].trnngTypeName,
-            TrainingName: this.trainingList[i].trnngName,
-            Institute: this.trainingList[i].orgName,
-            Duration: this.trainingList[i].trnngDuration
-          });
-        }
-      }
-
-      if (this.excelDataList.length > 0) {
-        //alert("Filter List " + this.excelDataList.length);
-
-        this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("trainingFilterExcel"));
-        this.excelDataList = [];
-      }
-      else {
-        this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
-      }
-    }
-  }
-
+  //       this.excelExportService.export(
+  //         this.excelDataContent,
+  //         new IgxExcelExporterOptions("trainingFilterExcel")
+  //       );
+  //       this.excelDataList = [];
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 }

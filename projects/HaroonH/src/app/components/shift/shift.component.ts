@@ -8,14 +8,14 @@ import {
 } from "@angular/common/http";
 import { AppComponent } from "src/app/app.component";
 
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 
 declare var $: any;
 
@@ -58,8 +58,8 @@ export class ShiftComponent implements OnInit {
   constructor(
     public toastr: ToastrManager,
     private app: AppComponent,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
     private http: HttpClient
   ) {}
 
@@ -70,7 +70,7 @@ export class ShiftComponent implements OnInit {
     this.getDepartmentDetail();
   }
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
   getShift() {
     //var Token = localStorage.getItem(this.tokenKey);
@@ -394,37 +394,37 @@ export class ShiftComponent implements OnInit {
 
   downloadPDF() {}
 
-  downloadCSV() {
-    //alert('CSV works');
-    var completeDataList = [];
-    for (var i = 0; i < this.deptShiftList.length; i++) {
-      completeDataList.push({
-        ShiftName: this.deptShiftList[i].shiftName,
-        Department: this.deptShiftList[i].deptCd,
-        StartTime: this.deptShiftList[i].startTime,
-        EndTime: this.deptShiftList[i].endTime
-      });
-    }
-    this.csvExportService.exportData(
-      completeDataList,
-      new IgxCsvExporterOptions("shiftCompleteCSV", CsvFileTypes.CSV)
-    );
-  }
+  // downloadCSV() {
+  //   //alert('CSV works');
+  //   var completeDataList = [];
+  //   for (var i = 0; i < this.deptShiftList.length; i++) {
+  //     completeDataList.push({
+  //       ShiftName: this.deptShiftList[i].shiftName,
+  //       Department: this.deptShiftList[i].deptCd,
+  //       StartTime: this.deptShiftList[i].startTime,
+  //       EndTime: this.deptShiftList[i].endTime
+  //     });
+  //   }
+  //   this.csvExportService.exportData(
+  //     completeDataList,
+  //     new IgxCsvExporterOptions("shiftCompleteCSV", CsvFileTypes.CSV)
+  //   );
+  // }
 
-  downloadExcel() {
-    //alert('Excel works');
-    for (var i = 0; i < this.deptShiftList.length; i++) {
-      this.excelDataList.push({
-        ShiftName: this.deptShiftList[i].shiftName,
-        Department: this.deptShiftList[i].deptCd,
-        StartTime: this.deptShiftList[i].startTime,
-        EndTime: this.deptShiftList[i].endTime
-      });
-    }
-    this.excelExportService.export(
-      this.excelDataContent,
-      new IgxExcelExporterOptions("shiftCompleteExcel")
-    );
-    this.excelDataList = [];
-  }
+  // downloadExcel() {
+  //   //alert('Excel works');
+  //   for (var i = 0; i < this.deptShiftList.length; i++) {
+  //     this.excelDataList.push({
+  //       ShiftName: this.deptShiftList[i].shiftName,
+  //       Department: this.deptShiftList[i].deptCd,
+  //       StartTime: this.deptShiftList[i].startTime,
+  //       EndTime: this.deptShiftList[i].endTime
+  //     });
+  //   }
+  //   this.excelExportService.export(
+  //     this.excelDataContent,
+  //     new IgxExcelExporterOptions("shiftCompleteExcel")
+  //   );
+  //   this.excelDataList = [];
+  // }
 }

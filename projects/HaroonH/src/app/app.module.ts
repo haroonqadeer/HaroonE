@@ -39,7 +39,7 @@ import { CheckboxModule } from "primeng/checkbox";
 import { InputSwitchModule } from "primeng/inputswitch";
 import { NgxSpinnerModule } from "ngx-spinner";
 
-import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
+// import { IgxGridModule, IgxExcelExporterService, IgxCsvExporterService } from "igniteui-angular";
 import { TrainingComponent } from "./components/training/training.component";
 import { TrainingemployeeComponent } from "./components/trainingemployee/trainingemployee.component";
 import { ShiftComponent } from "./components/shift/shift.component";
@@ -51,9 +51,9 @@ import { NgxMaskModule } from "ngx-mask";
 import { PromotionComponent } from "./components/promotion/promotion.component";
 import { TransferpostingComponent } from "./components/transferposting/transferposting.component";
 
-import { SharedmodModule } from 'src/app/components/sharedmod.module';
-import { ConfigAddressComponent } from 'src/app/components/config-address/config-address.component';
-import { ConfigContactComponent } from 'src/app/components/config-contact/config-contact.component';
+import { SharedmodModule } from "src/app/components/sharedmod.module";
+import { ConfigAddressComponent } from "src/app/components/config-address/config-address.component";
+import { ConfigContactComponent } from "src/app/components/config-contact/config-contact.component";
 
 @NgModule({
   declarations: [
@@ -103,7 +103,7 @@ import { ConfigContactComponent } from 'src/app/components/config-contact/config
     NgxPaginationModule,
     InputTextModule,
     DropdownModule,
-    IgxGridModule,
+    // IgxGridModule,
     CheckboxModule,
     InputSwitchModule,
     NgxSpinnerModule,
@@ -111,8 +111,8 @@ import { ConfigContactComponent } from 'src/app/components/config-contact/config
     SharedmodModule
   ],
   providers: [
-    IgxExcelExporterService,
-    IgxCsvExporterService,
+    // IgxExcelExporterService,
+    // IgxCsvExporterService,
     ConfigAddressComponent,
     ConfigContactComponent
   ],

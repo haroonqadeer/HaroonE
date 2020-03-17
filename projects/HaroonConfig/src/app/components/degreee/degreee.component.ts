@@ -2,14 +2,14 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ToastrManager } from "ng6-toastr-notifications";
 
 import { AppComponent } from "src/app/app.component";
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
 
 declare var $: any;
@@ -83,8 +83,8 @@ export class DegreeeComponent implements OnInit {
   constructor(
     public toastr: ToastrManager,
     private app: AppComponent,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
     private http: HttpClient
   ) {}
 
@@ -96,7 +96,7 @@ export class DegreeeComponent implements OnInit {
     //this.assignValue();
   }
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
   // get degree type
   getDegreeType() {
@@ -443,120 +443,120 @@ export class DegreeeComponent implements OnInit {
   }
 
   // CSV Function
-  public downloadCSV() {
-    this.app.download_CSV(this.degreeCriteriaList);
-    return false;
-    // case 1: When tblSearch is empty then assign full data list
-    if (this.tblSearch == "") {
-      var completeDataList = [];
-      for (var i = 0; i < this.degreeCriteriaList.length; i++) {
-        //alert(this.tblSearch + " - " + this.degreeCriteriaList[i].departmentName)
-        completeDataList.push({
-          Degree_Group: this.degreeCriteriaList[i].qlfctnName,
-          Degree_Title: this.degreeCriteriaList[i].qlfctnCriteriaName,
-          Degree_Title_Description: this.degreeCriteriaList[i]
-            .qlfctnCriteriaDesc
-        });
-      }
-      this.csvExportService.exportData(
-        completeDataList,
-        new IgxCsvExporterOptions("DegreeCompleteCSV", CsvFileTypes.CSV)
-      );
-    }
-    // case 2: When tblSearch is not empty then assign new data list
-    else if (this.tblSearch != "") {
-      var filteredDataList = [];
-      for (var i = 0; i < this.degreeCriteriaList.length; i++) {
-        if (
-          this.degreeCriteriaList[i].qlfctnName
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.degreeCriteriaList[i].qlfctnCriteriaName
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.degreeCriteriaList[i].qlfctnCriteriaDesc
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase())
-        ) {
-          filteredDataList.push({
-            Degree_Group: this.degreeCriteriaList[i].qlfctnName,
-            Degree_Title: this.degreeCriteriaList[i].qlfctnCriteriaName,
-            Degree_Title_Description: this.degreeCriteriaList[i]
-              .qlfctnCriteriaDesc
-          });
-        }
-      }
+  // public downloadCSV() {
+  //   this.app.download_CSV(this.degreeCriteriaList);
+  //   return false;
+  //   // case 1: When tblSearch is empty then assign full data list
+  //   if (this.tblSearch == "") {
+  //     var completeDataList = [];
+  //     for (var i = 0; i < this.degreeCriteriaList.length; i++) {
+  //       //alert(this.tblSearch + " - " + this.degreeCriteriaList[i].departmentName)
+  //       completeDataList.push({
+  //         Degree_Group: this.degreeCriteriaList[i].qlfctnName,
+  //         Degree_Title: this.degreeCriteriaList[i].qlfctnCriteriaName,
+  //         Degree_Title_Description: this.degreeCriteriaList[i]
+  //           .qlfctnCriteriaDesc
+  //       });
+  //     }
+  //     this.csvExportService.exportData(
+  //       completeDataList,
+  //       new IgxCsvExporterOptions("DegreeCompleteCSV", CsvFileTypes.CSV)
+  //     );
+  //   }
+  //   // case 2: When tblSearch is not empty then assign new data list
+  //   else if (this.tblSearch != "") {
+  //     var filteredDataList = [];
+  //     for (var i = 0; i < this.degreeCriteriaList.length; i++) {
+  //       if (
+  //         this.degreeCriteriaList[i].qlfctnName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.degreeCriteriaList[i].qlfctnCriteriaName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.degreeCriteriaList[i].qlfctnCriteriaDesc
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase())
+  //       ) {
+  //         filteredDataList.push({
+  //           Degree_Group: this.degreeCriteriaList[i].qlfctnName,
+  //           Degree_Title: this.degreeCriteriaList[i].qlfctnCriteriaName,
+  //           Degree_Title_Description: this.degreeCriteriaList[i]
+  //             .qlfctnCriteriaDesc
+  //         });
+  //       }
+  //     }
 
-      if (filteredDataList.length > 0) {
-        this.csvExportService.exportData(
-          filteredDataList,
-          new IgxCsvExporterOptions("DegreeFilterCSV", CsvFileTypes.CSV)
-        );
-      } else {
-        this.toastr.errorToastr("Oops! No data found", "Error", {
-          toastTimeout: 2500
-        });
-      }
-    }
-  }
+  //     if (filteredDataList.length > 0) {
+  //       this.csvExportService.exportData(
+  //         filteredDataList,
+  //         new IgxCsvExporterOptions("DegreeFilterCSV", CsvFileTypes.CSV)
+  //       );
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 
-  // Excel Xlxs Function
-  public downloadExcel() {
-    this.app.download_Excel(this.degreeCriteriaList);
-    return false;
-    // case 1: When tblSearch is empty then assign full data list
-    if (this.tblSearch == "") {
-      //var completeDataList = [];
-      for (var i = 0; i < this.degreeCriteriaList.length; i++) {
-        this.excelDataList.push({
-          Degree_Group: this.degreeCriteriaList[i].qlfctnName,
-          Degree_Title: this.degreeCriteriaList[i].qlfctnCriteriaName,
-          Degree_Title_Description: this.degreeCriteriaList[i]
-            .qlfctnCriteriaDesc
-        });
-      }
-      this.excelExportService.export(
-        this.excelDataContent,
-        new IgxExcelExporterOptions("DegreeCompleteExcel")
-      );
-      this.excelDataList = [];
-    }
-    // case 2: When tblSearch is not empty then assign new data list
-    else if (this.tblSearch != "") {
-      for (var i = 0; i < this.degreeCriteriaList.length; i++) {
-        if (
-          this.degreeCriteriaList[i].qlfctnName
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.degreeCriteriaList[i].qlfctnCriteriaName
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase()) ||
-          this.degreeCriteriaList[i].qlfctnCriteriaDesc
-            .toUpperCase()
-            .includes(this.tblSearch.toUpperCase())
-        ) {
-          this.excelDataList.push({
-            Degree_Group: this.degreeCriteriaList[i].qlfctnName,
-            Degree_Title: this.degreeCriteriaList[i].qlfctnCriteriaName,
-            Degree_Title_Description: this.degreeCriteriaList[i]
-              .qlfctnCriteriaDesc
-          });
-        }
-      }
+  // // Excel Xlxs Function
+  // public downloadExcel() {
+  //   this.app.download_Excel(this.degreeCriteriaList);
+  //   return false;
+  //   // case 1: When tblSearch is empty then assign full data list
+  //   if (this.tblSearch == "") {
+  //     //var completeDataList = [];
+  //     for (var i = 0; i < this.degreeCriteriaList.length; i++) {
+  //       this.excelDataList.push({
+  //         Degree_Group: this.degreeCriteriaList[i].qlfctnName,
+  //         Degree_Title: this.degreeCriteriaList[i].qlfctnCriteriaName,
+  //         Degree_Title_Description: this.degreeCriteriaList[i]
+  //           .qlfctnCriteriaDesc
+  //       });
+  //     }
+  //     this.excelExportService.export(
+  //       this.excelDataContent,
+  //       new IgxExcelExporterOptions("DegreeCompleteExcel")
+  //     );
+  //     this.excelDataList = [];
+  //   }
+  //   // case 2: When tblSearch is not empty then assign new data list
+  //   else if (this.tblSearch != "") {
+  //     for (var i = 0; i < this.degreeCriteriaList.length; i++) {
+  //       if (
+  //         this.degreeCriteriaList[i].qlfctnName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.degreeCriteriaList[i].qlfctnCriteriaName
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase()) ||
+  //         this.degreeCriteriaList[i].qlfctnCriteriaDesc
+  //           .toUpperCase()
+  //           .includes(this.tblSearch.toUpperCase())
+  //       ) {
+  //         this.excelDataList.push({
+  //           Degree_Group: this.degreeCriteriaList[i].qlfctnName,
+  //           Degree_Title: this.degreeCriteriaList[i].qlfctnCriteriaName,
+  //           Degree_Title_Description: this.degreeCriteriaList[i]
+  //             .qlfctnCriteriaDesc
+  //         });
+  //       }
+  //     }
 
-      if (this.excelDataList.length > 0) {
-        //alert("Filter List " + this.excelDataList.length);
+  //     if (this.excelDataList.length > 0) {
+  //       //alert("Filter List " + this.excelDataList.length);
 
-        this.excelExportService.export(
-          this.excelDataContent,
-          new IgxExcelExporterOptions("DegreeFilterExcel")
-        );
-        this.excelDataList = [];
-      } else {
-        this.toastr.errorToastr("Oops! No data found", "Error", {
-          toastTimeout: 2500
-        });
-      }
-    }
-  }
+  //       this.excelExportService.export(
+  //         this.excelDataContent,
+  //         new IgxExcelExporterOptions("DegreeFilterExcel")
+  //       );
+  //       this.excelDataList = [];
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 }

@@ -10,7 +10,7 @@
     <!-- <div class="logo"><img src="../../../assets/images/skills.svg"></div>
     <h1> Skills</h1> -->
 
-    <a class="pointerCursor" (click)="downloadExcel()">
+    <!-- <a class="pointerCursor" (click)="downloadExcel()">
       <i class="fa fa-file-excel-o"></i>
       Excel
     </a>
@@ -23,7 +23,7 @@
     <a class="pointerCursor" (click)="downloadPDF()">
       <i class="fa fa-file-pdf-o"></i>
       PDF
-    </a>
+    </a> -->
 
     <a class="pointerCursor" (click)="printDiv()">
       <i class="fa fa-print"></i>
@@ -46,8 +46,9 @@
     <div class="col-md-12">
       <div class="searchBar">
         <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
-      </div>      
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search"
+          [(ngModel)]="tblSearch">
+      </div>
     </div>
   </div>
   <!--end search textbox Row-->
@@ -169,8 +170,8 @@
 <!-- Hidden Table for Print and PDF files ends-->
 
 <!-- Hidden Table Starts for Excel and CSV files -->
-<igx-grid #excelDataContent [data]="excelDataList" [autoGenerate]="false" height="null" width="null" [hidden]="true">
-</igx-grid>
+<!-- <igx-grid #excelDataContent [data]="excelDataList" [autoGenerate]="false" height="null" width="null" [hidden]="true">
+</igx-grid> -->
 <!-- Hidden Table Ends  for Excel and CSV files -->
 
 <!-- Add skill Modal Starts -->
@@ -180,9 +181,12 @@
       <div class="modal-header">
         <h5 class="modal-title">Add Skills</h5>
         <div>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveSkillCriteria()"><span class="fa fa-save"></span> &nbsp;Save</button>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
-          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveSkillCriteria()"><span
+              class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span
+              class="fa fa-undo"></span> &nbsp;Reset</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span
+              class="fa fa-times-circle"></span> &nbsp;Close</button>
         </div>
         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -273,9 +277,12 @@
       <div class="modal-header">
         <h5 class="modal-title">Add skill Group</h5>
         <div>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveSkillGroup()"><span class="fa fa-save"></span> &nbsp;Save</button>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
-          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveSkillGroup()"><span
+              class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span
+              class="fa fa-undo"></span> &nbsp;Reset</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span
+              class="fa fa-times-circle"></span> &nbsp;Close</button>
         </div>
         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>

@@ -17,14 +17,14 @@ import { NavComponent } from "./components/nav/nav.component";
 import { AttendanceComponent } from "./components/attendance/attendance.component";
 
 import { ToastrManager } from "ng6-toastr-notifications";
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 
 declare var $: any;
 
@@ -69,7 +69,7 @@ export class AppComponent implements OnInit {
 
   @ViewChild("exportPDF") public exportPDF: ElementRef;
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
   excelDataList: any;
 
@@ -80,8 +80,8 @@ export class AppComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private http: HttpClient,
     public toastr: ToastrManager,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
     private userIdle: UserIdleService // private attendApp: AttendanceComponent
   ) {}
 
@@ -436,36 +436,36 @@ export class AppComponent implements OnInit {
   }
 
   //* -------------- CSV Export --------------
-  public download_CSV(csvDataList) {
-    if (csvDataList.length > 0) {
-      this.csvExportService.exportData(
-        csvDataList,
-        new IgxCsvExporterOptions("downloadCompleteCSV", CsvFileTypes.CSV)
-      );
-    } else {
-      this.toastr.errorToastr("Oops! No data found", "Error", {
-        toastTimeout: 2500
-      });
-    }
-  }
+  // public download_CSV(csvDataList) {
+  //   if (csvDataList.length > 0) {
+  //     this.csvExportService.exportData(
+  //       csvDataList,
+  //       new IgxCsvExporterOptions("downloadCompleteCSV", CsvFileTypes.CSV)
+  //     );
+  //   } else {
+  //     this.toastr.errorToastr("Oops! No data found", "Error", {
+  //       toastTimeout: 2500
+  //     });
+  //   }
+  // }
 
   //* -------------- Excel Export --------------
-  public download_Excel(xlsDataList) {
-    alert("Excel Called");
-    this.excelDataList = xlsDataList;
+  // public download_Excel(xlsDataList) {
+  //   alert("Excel Called");
+  //   this.excelDataList = xlsDataList;
 
-    if (xlsDataList.length > 0) {
-      this.excelExportService.export(
-        this.excelDataContent,
-        new IgxExcelExporterOptions("DegreeCompleteExcel")
-      );
-      this.excelDataList = [];
-    } else {
-      this.toastr.errorToastr("Oops! No data found", "Error", {
-        toastTimeout: 2500
-      });
-    }
-  }
+  //   if (xlsDataList.length > 0) {
+  //     this.excelExportService.export(
+  //       this.excelDataContent,
+  //       new IgxExcelExporterOptions("DegreeCompleteExcel")
+  //     );
+  //     this.excelDataList = [];
+  //   } else {
+  //     this.toastr.errorToastr("Oops! No data found", "Error", {
+  //       toastTimeout: 2500
+  //     });
+  //   }
+  // }
 
   //************************ Function for change password *************************/
   changePassword() {

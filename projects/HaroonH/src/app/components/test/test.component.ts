@@ -1,31 +1,32 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
-import { ToastrManager } from 'ng6-toastr-notifications';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { AppComponent } from "src/app/app.component";
+import { ToastrManager } from "ng6-toastr-notifications";
 import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse
+} from "@angular/common/http";
+
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 
 declare var $: any;
 @Component({
-  selector: 'app-test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.scss']
+  selector: "app-test",
+  templateUrl: "./test.component.html",
+  styleUrls: ["./test.component.scss"]
 })
 export class TestComponent implements OnInit {
-
-
   //serverUrl = "http://localhost:9017/";
   serverUrl = "http://52.163.189.189:9017/";
 
-  testSearch = '';
-
+  testSearch = "";
 
   subjectGroup = "";
   subjectName = "";
@@ -54,8 +55,8 @@ export class TestComponent implements OnInit {
   jobProfileList = [];
   jobProfileTestList = [];
 
-  txtdPassword = '';
-  txtdPin = '';
+  txtdPassword = "";
+  txtdPin = "";
 
   //* Excel Data List
   excelDataList = [];
@@ -63,49 +64,45 @@ export class TestComponent implements OnInit {
   //* variables for pagination and orderby pipe
   p = 1;
   //pGroup = 1;
-  order = 'info.name';
+  order = "info.name";
   reverse = false;
   // orderGroup = 'info.name';
   // reverseGroup = false;
   sortedCollection: any[];
-  itemPerPage = '10';
+  itemPerPage = "10";
   //itemPerPageGroup = '5';
 
-
-  constructor(public toastr: ToastrManager,
+  constructor(
+    public toastr: ToastrManager,
     private app: AppComponent,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
-    private http: HttpClient) { }
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
-
     this.getsubjectGroup();
     this.getTest();
     this.getJobDesig();
-
   }
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
-
+  // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
 
   getsubjectGroup() {
-
     this.app.showSpinner();
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + 'api/getSubjectGroup', { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getSubjectGroup", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.subGroupList = data;
 
-      this.subGroupList = data;
-
-      this.app.hideSpinner();
-
-    });
+        this.app.hideSpinner();
+      });
   }
 
   getJobProfile(item) {
-
     this.clear();
 
     this.app.showSpinner();
@@ -113,127 +110,143 @@ export class TestComponent implements OnInit {
     this.lblSubject = item.testSbjctName;
     this.lblSubjectID = item.testSbjctCd;
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + 'api/getJobProfile?testSubjectCd=' + item.testSbjctCd, { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(
+        this.serverUrl + "api/getJobProfile?testSubjectCd=" + item.testSbjctCd,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.jobProfileList = data;
 
-      this.jobProfileList = data;
-
-      this.app.hideSpinner();
-
-    });
+        this.app.hideSpinner();
+      });
 
     this.app.showSpinner();
 
-    this.http.get(this.serverUrl + 'api/getJobDesig?subjectCd=' + item.testSbjctCd, { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getJobDesig?subjectCd=" + item.testSbjctCd, {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
+        this.jobDesigList = data;
 
-      this.jobDesigList = data;
-
-      this.app.hideSpinner();
-
-    });
-
+        this.app.hideSpinner();
+      });
   }
 
   getJobProfileTest(item) {
+    this.app.showSpinner();
+
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    this.http
+      .get(this.serverUrl + "api/getJobProfile?testSubjectCd=" + item, {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
+        this.jobProfileList = data;
+
+        this.app.hideSpinner();
+      });
 
     this.app.showSpinner();
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http
+      .get(this.serverUrl + "api/getJobDesig?subjectCd=" + item, {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
+        this.jobDesigList = data;
 
-    this.http.get(this.serverUrl + 'api/getJobProfile?testSubjectCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
-
-      this.jobProfileList = data;
-
-      this.app.hideSpinner();
-
-    });
-
-    this.app.showSpinner();
-
-    this.http.get(this.serverUrl + 'api/getJobDesig?subjectCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
-
-      this.jobDesigList = data;
-
-      this.app.hideSpinner();
-    });
-
+        this.app.hideSpinner();
+      });
   }
 
   getJobQuestion(item) {
-
     this.clear();
-    
+
     this.app.showSpinner();
-    
+
     this.lblSubjectID = item.testSbjctCd;
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + 'api/getTestQuestionCount?subjectCd=' + item.testSbjctCd, { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(
+        this.serverUrl +
+          "api/getTestQuestionCount?subjectCd=" +
+          item.testSbjctCd,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.testQuestionListCount = data;
 
-      this.testQuestionListCount = data;
-
-      this.app.hideSpinner();
-    });
+        this.app.hideSpinner();
+      });
 
     this.app.showSpinner();
 
-    this.http.get(this.serverUrl + 'api/getTestQuestion?subjectCd=' + item.testSbjctCd, { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(
+        this.serverUrl + "api/getTestQuestion?subjectCd=" + item.testSbjctCd,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.testQuestionList = data;
 
-      this.testQuestionList = data;
-
-      this.app.hideSpinner();
-    });
+        this.app.hideSpinner();
+      });
   }
 
   getJobPostQuestion(item) {
+    this.app.showSpinner();
+
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    this.http
+      .get(this.serverUrl + "api/getTestQuestionCount?subjectCd=" + item, {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
+        this.testQuestionListCount = data;
+
+        this.app.hideSpinner();
+      });
 
     this.app.showSpinner();
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http
+      .get(this.serverUrl + "api/getTestQuestion?subjectCd=" + item, {
+        headers: reqHeader
+      })
+      .subscribe((data: any) => {
+        this.testQuestionList = data;
 
-    this.http.get(this.serverUrl + 'api/getTestQuestionCount?subjectCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
-
-      this.testQuestionListCount = data;
-
-      this.app.hideSpinner();
-
-    });
-
-    this.app.showSpinner();
-
-    this.http.get(this.serverUrl + 'api/getTestQuestion?subjectCd=' + item, { headers: reqHeader }).subscribe((data: any) => {
-
-      this.testQuestionList = data;
-
-      this.app.hideSpinner();
-    });
+        this.app.hideSpinner();
+      });
   }
 
   getJobDesig() {
-
     // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-
     // this.http.get(this.serverUrl + 'api/getJobDesig', { headers: reqHeader }).subscribe((data: any) => {
-
     //   this.jobDesigList = data;
     // });
   }
 
   getTest() {
-
     this.app.showSpinner();
 
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + 'api/getTest', { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getTest", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.testList = data;
 
-      this.testList = data;
-
-      this.app.hideSpinner();
-
-    });
+        this.app.hideSpinner();
+      });
   }
 
   addQuestion() {
@@ -244,17 +257,16 @@ export class TestComponent implements OnInit {
   }
 
   addJobProfile() {
-
     for (var i = 0; i < this.jobProfileTestList.length; i++) {
       if (this.jobProfile == this.jobProfileTestList[i].jobDesigID) {
-        this.toastr.errorToastr('Job Profile Already Exist!', 'Error', { toastTimeout: (2500) });
+        this.toastr.errorToastr("Job Profile Already Exist!", "Error", {
+          toastTimeout: 2500
+        });
         return;
       }
     }
     for (var i = 0; i < this.jobDesigList.length; i++) {
-
       if (this.jobProfile == this.jobDesigList[i].jobDesigID) {
-
         this.jobProfileTestList.push({
           testSbjctCd: this.lblSubjectID,
           jobDesigID: this.jobProfile,
@@ -270,19 +282,20 @@ export class TestComponent implements OnInit {
   remove(item) {
     var index = this.jobProfileTestList.indexOf(item);
     this.jobProfileTestList.splice(index, 1);
-
   }
 
   saveSubject() {
-
-    if (this.subjectGroup == '') {
-      this.toastr.errorToastr('Please select Subject Group', 'Error', { toastTimeout: (2500) });
+    if (this.subjectGroup == "") {
+      this.toastr.errorToastr("Please select Subject Group", "Error", {
+        toastTimeout: 2500
+      });
       return;
-    } else if (this.subjectName == '') {
-      this.toastr.errorToastr('Please Enter Subject', 'Error', { toastTimeout: (2500) });
+    } else if (this.subjectName == "") {
+      this.toastr.errorToastr("Please Enter Subject", "Error", {
+        toastTimeout: 2500
+      });
       return;
     } else {
-
       this.app.showSpinner();
 
       var saveData = {
@@ -290,31 +303,33 @@ export class TestComponent implements OnInit {
         testSbjctGroupCd: this.subjectGroup
       };
 
-      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http.post(this.serverUrl + 'api/saveSubject', saveData, { headers: reqHeader }).subscribe((data: any) => {
-
-        if (data.msg == "Record Saved Successfully!") {
-          this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-          this.getTest();
-          $('#addSubject').modal('hide');
-          this.app.hideSpinner();
-          this.clear();
-          return false;
-        } else {
-          this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-          //$('#companyModal').modal('hide');
-          this.app.hideSpinner();
-          return false;
-        }
-      });
-
+      this.http
+        .post(this.serverUrl + "api/saveSubject", saveData, {
+          headers: reqHeader
+        })
+        .subscribe((data: any) => {
+          if (data.msg == "Record Saved Successfully!") {
+            this.toastr.successToastr(data.msg, "Success!", {
+              toastTimeout: 2500
+            });
+            this.getTest();
+            $("#addSubject").modal("hide");
+            this.app.hideSpinner();
+            this.clear();
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+            //$('#companyModal').modal('hide');
+            this.app.hideSpinner();
+            return false;
+          }
+        });
     }
-
   }
 
   editQuestion(item) {
-
     this.clear();
 
     //this.lblSubjectID = item.testSbjctCd;
@@ -327,56 +342,67 @@ export class TestComponent implements OnInit {
       if (item.testQuesID == this.testQuestionList[i].testQuesID) {
         this.lblSubjectID = this.testQuestionList[i].testSbjctCd;
         if (this.opt1 == "") {
-
           this.opt1 = this.testQuestionList[i].testQuesOptnText;
           this.opt1ID = this.testQuestionList[i].testQuesOptnID;
         } else if (this.opt1 != "" && this.opt2 == "") {
-
           this.opt2 = this.testQuestionList[i].testQuesOptnText;
           this.opt2ID = this.testQuestionList[i].testQuesOptnID;
         } else if (this.opt1 != "" && this.opt2 != "" && this.opt3 == "") {
-
           this.opt3 = this.testQuestionList[i].testQuesOptnText;
           this.opt3ID = this.testQuestionList[i].testQuesOptnID;
-        } else if (this.opt1 != "" && this.opt2 != "" && this.opt3 != "" && this.opt4 == "") {
-
+        } else if (
+          this.opt1 != "" &&
+          this.opt2 != "" &&
+          this.opt3 != "" &&
+          this.opt4 == ""
+        ) {
           this.opt4 = this.testQuestionList[i].testQuesOptnText;
           this.opt4ID = this.testQuestionList[i].testQuesOptnID;
         }
       }
     }
-
   }
 
   saveQuestion() {
-
     var subjectID;
 
-    if (this.question == '') {
-      this.toastr.errorToastr('Please enter Question', 'Error', { toastTimeout: (2500) });
+    if (this.question == "") {
+      this.toastr.errorToastr("Please enter Question", "Error", {
+        toastTimeout: 2500
+      });
       return;
-    } else if (this.quesMarks == '') {
-      this.toastr.errorToastr('Please enter Marks', 'Error', { toastTimeout: (2500) });
+    } else if (this.quesMarks == "") {
+      this.toastr.errorToastr("Please enter Marks", "Error", {
+        toastTimeout: 2500
+      });
       return;
-    } else if (this.opt1 == '') {
-      this.toastr.errorToastr('Please enter option 1', 'Error', { toastTimeout: (2500) });
+    } else if (this.opt1 == "") {
+      this.toastr.errorToastr("Please enter option 1", "Error", {
+        toastTimeout: 2500
+      });
       return;
-    } else if (this.opt2 == '') {
-      this.toastr.errorToastr('Please enter option 2', 'Error', { toastTimeout: (2500) });
+    } else if (this.opt2 == "") {
+      this.toastr.errorToastr("Please enter option 2", "Error", {
+        toastTimeout: 2500
+      });
       return;
-    } else if (this.opt3 == '') {
-      this.toastr.errorToastr('Please enter option 3', 'Error', { toastTimeout: (2500) });
+    } else if (this.opt3 == "") {
+      this.toastr.errorToastr("Please enter option 3", "Error", {
+        toastTimeout: 2500
+      });
       return;
-    } else if (this.opt4 == '') {
-      this.toastr.errorToastr('Please enter option 4', 'Error', { toastTimeout: (2500) });
+    } else if (this.opt4 == "") {
+      this.toastr.errorToastr("Please enter option 4", "Error", {
+        toastTimeout: 2500
+      });
       return;
-    } else if (this.optAnswer == '') {
-      this.toastr.errorToastr('Please select Correct Option', 'Error', { toastTimeout: (2500) });
+    } else if (this.optAnswer == "") {
+      this.toastr.errorToastr("Please select Correct Option", "Error", {
+        toastTimeout: 2500
+      });
       return;
     } else {
-
-      if (this.lblQuestionID == '') {
-
+      if (this.lblQuestionID == "") {
         this.app.showSpinner();
 
         var saveData = {
@@ -390,30 +416,35 @@ export class TestComponent implements OnInit {
           subjectCd: this.lblSubjectID
         };
 
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+        var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-        this.http.post(this.serverUrl + 'api/saveQuestion', saveData, { headers: reqHeader }).subscribe((data: any) => {
-
-          if (data.msg == "Record Saved Successfully!") {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.getTest();
-            this.getJobPostQuestion(this.lblSubjectID);
-            subjectID = this.lblSubjectID;
-            $('#addQuestionsModal').modal('hide');
-            this.app.hideSpinner();
-            this.clear();
-            this.lblSubjectID = subjectID;
-            return false;
-          } else {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            //$('#companyModal').modal('hide');
-            this.app.hideSpinner();
-            return false;
-          }
-        });
-
+        this.http
+          .post(this.serverUrl + "api/saveQuestion", saveData, {
+            headers: reqHeader
+          })
+          .subscribe((data: any) => {
+            if (data.msg == "Record Saved Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.getTest();
+              this.getJobPostQuestion(this.lblSubjectID);
+              subjectID = this.lblSubjectID;
+              $("#addQuestionsModal").modal("hide");
+              this.app.hideSpinner();
+              this.clear();
+              this.lblSubjectID = subjectID;
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              //$('#companyModal').modal('hide');
+              this.app.hideSpinner();
+              return false;
+            }
+          });
       } else {
-
         this.app.showSpinner();
 
         var saveData1 = {
@@ -432,68 +463,76 @@ export class TestComponent implements OnInit {
           subjectCd: this.lblSubjectID
         };
 
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+        var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-        this.http.put(this.serverUrl + 'api/updateQuestion', saveData1, { headers: reqHeader }).subscribe((data: any) => {
-
-          if (data.msg == "Record Updated Successfully!") {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.getTest();
-            this.getJobPostQuestion(this.lblSubjectID);
-            subjectID = this.lblSubjectID;
-            $('#addQuestionsModal').modal('hide');
-            this.app.hideSpinner();
-            this.clear();
-            this.lblSubjectID = subjectID;
-            return false;
-          } else {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            //$('#companyModal').modal('hide');
-            this.app.hideSpinner();
-            return false;
-          }
-        });
-
+        this.http
+          .put(this.serverUrl + "api/updateQuestion", saveData1, {
+            headers: reqHeader
+          })
+          .subscribe((data: any) => {
+            if (data.msg == "Record Updated Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.getTest();
+              this.getJobPostQuestion(this.lblSubjectID);
+              subjectID = this.lblSubjectID;
+              $("#addQuestionsModal").modal("hide");
+              this.app.hideSpinner();
+              this.clear();
+              this.lblSubjectID = subjectID;
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              //$('#companyModal').modal('hide');
+              this.app.hideSpinner();
+              return false;
+            }
+          });
       }
-
     }
   }
 
   saveJobProfile() {
-
     //alert(JSON.stringify(this.jobProfileTestList)); return;
     if (this.jobProfileTestList.length == 0) {
-      this.toastr.errorToastr('Please enter Job Profiles in Table', 'Error', { toastTimeout: (2500) });
+      this.toastr.errorToastr("Please enter Job Profiles in Table", "Error", {
+        toastTimeout: 2500
+      });
       return;
     } else {
-  
       this.app.showSpinner();
 
       var saveData = {
         jobProfileTestList: JSON.stringify(this.jobProfileTestList)
       };
 
-      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http.post(this.serverUrl + 'api/saveJobProfile', saveData, { headers: reqHeader }).subscribe((data: any) => {
-
-        if (data.msg == "Record Saved Successfully!") {
-          this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-          this.getTest();
-          $('#jobProfileModal').modal('hide');
-          this.app.hideSpinner();
-          this.clear();
-          return false;
-        } else {
-          this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-          //$('#companyModal').modal('hide');
-          this.app.hideSpinner();
-          return false;
-        }
-      });
-
+      this.http
+        .post(this.serverUrl + "api/saveJobProfile", saveData, {
+          headers: reqHeader
+        })
+        .subscribe((data: any) => {
+          if (data.msg == "Record Saved Successfully!") {
+            this.toastr.successToastr(data.msg, "Success!", {
+              toastTimeout: 2500
+            });
+            this.getTest();
+            $("#jobProfileModal").modal("hide");
+            this.app.hideSpinner();
+            this.clear();
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+            //$('#companyModal').modal('hide');
+            this.app.hideSpinner();
+            return false;
+          }
+        });
     }
-
   }
 
   deleteJobProfile(item) {
@@ -503,7 +542,6 @@ export class TestComponent implements OnInit {
   }
 
   deleteQuestion(item) {
-
     this.clear();
 
     this.lblQuestionID = item.testQuesID;
@@ -515,65 +553,75 @@ export class TestComponent implements OnInit {
       if (item.testQuesID == this.testQuestionList[i].testQuesID) {
         this.lblSubjectID = this.testQuestionList[i].testSbjctCd;
         if (this.opt1 == "") {
-
           this.opt1 = this.testQuestionList[i].testQuesOptnText;
           this.opt1ID = this.testQuestionList[i].testQuesOptnID;
         } else if (this.opt1 != "" && this.opt2 == "") {
-
           this.opt2 = this.testQuestionList[i].testQuesOptnText;
           this.opt2ID = this.testQuestionList[i].testQuesOptnID;
         } else if (this.opt1 != "" && this.opt2 != "" && this.opt3 == "") {
-
           this.opt3 = this.testQuestionList[i].testQuesOptnText;
           this.opt3ID = this.testQuestionList[i].testQuesOptnID;
-        } else if (this.opt1 != "" && this.opt2 != "" && this.opt3 != "" && this.opt4 == "") {
-
+        } else if (
+          this.opt1 != "" &&
+          this.opt2 != "" &&
+          this.opt3 != "" &&
+          this.opt4 == ""
+        ) {
           this.opt4 = this.testQuestionList[i].testQuesOptnText;
           this.opt4ID = this.testQuestionList[i].testQuesOptnID;
         }
       }
     }
-
   }
 
   delete() {
     var subjectID;
 
-    if (this.txtdPassword == '') {
-      this.toastr.errorToastr('Please enter password', 'Error', { toastTimeout: (2500) });
-      return false
-    }
-    else if (this.txtdPin == '') {
-      this.toastr.errorToastr('Please enter PIN', 'Error', { toastTimeout: (2500) });
-      return false
-    }
-    else {
+    if (this.txtdPassword == "") {
+      this.toastr.errorToastr("Please enter password", "Error", {
+        toastTimeout: 2500
+      });
+      return false;
+    } else if (this.txtdPin == "") {
+      this.toastr.errorToastr("Please enter PIN", "Error", {
+        toastTimeout: 2500
+      });
+      return false;
+    } else {
       this.app.showSpinner();
-      if (this.lblJobDesigID != '' && this.lblSubjectID != '') {
-
-        this.http.delete(this.serverUrl + 'api/deleteJobProfile?subjectCd=' + this.lblSubjectID + '&jobDesigCd=' + this.lblJobDesigID).subscribe((data: any) => {
-
-          if (data.msg == "Record Deleted Successfully!") {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.app.hideSpinner();
-            this.getTest();
-            this.getJobProfileTest(this.lblSubjectID);
-            subjectID = this.lblSubjectID;
-            $('#deleteModal').modal('hide');
-            //this.getCurrency();
-            this.clear();
-            this.lblSubjectID = subjectID;
-            return false;
-          } else {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            this.app.hideSpinner();
-            //$('#deleteModal').modal('hide');
-            return false;
-          }
-        });
-
+      if (this.lblJobDesigID != "" && this.lblSubjectID != "") {
+        this.http
+          .delete(
+            this.serverUrl +
+              "api/deleteJobProfile?subjectCd=" +
+              this.lblSubjectID +
+              "&jobDesigCd=" +
+              this.lblJobDesigID
+          )
+          .subscribe((data: any) => {
+            if (data.msg == "Record Deleted Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.app.hideSpinner();
+              this.getTest();
+              this.getJobProfileTest(this.lblSubjectID);
+              subjectID = this.lblSubjectID;
+              $("#deleteModal").modal("hide");
+              //this.getCurrency();
+              this.clear();
+              this.lblSubjectID = subjectID;
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              this.app.hideSpinner();
+              //$('#deleteModal').modal('hide');
+              return false;
+            }
+          });
       } else {
-
         this.app.showSpinner();
 
         var saveData1 = {
@@ -592,39 +640,43 @@ export class TestComponent implements OnInit {
           subjectCd: this.lblSubjectID
         };
 
-        var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+        var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-        this.http.put(this.serverUrl + 'api/deleteQuestion', saveData1, { headers: reqHeader }).subscribe((data: any) => {
-
-          if (data.msg == "Record Deleted Successfully!") {
-            this.toastr.successToastr(data.msg, 'Success!', { toastTimeout: (2500) });
-            this.getTest();
-            this.getJobPostQuestion(this.lblSubjectID);
-            subjectID = this.lblSubjectID;
-            $('#deleteModal').modal('hide');
-            this.app.hideSpinner();
-            this.clear();
-            this.lblSubjectID = subjectID;
-            return false;
-          } else {
-            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: (2500) });
-            //$('#companyModal').modal('hide');
-            this.app.hideSpinner();
-            return false;
-          }
-        });
-
+        this.http
+          .put(this.serverUrl + "api/deleteQuestion", saveData1, {
+            headers: reqHeader
+          })
+          .subscribe((data: any) => {
+            if (data.msg == "Record Deleted Successfully!") {
+              this.toastr.successToastr(data.msg, "Success!", {
+                toastTimeout: 2500
+              });
+              this.getTest();
+              this.getJobPostQuestion(this.lblSubjectID);
+              subjectID = this.lblSubjectID;
+              $("#deleteModal").modal("hide");
+              this.app.hideSpinner();
+              this.clear();
+              this.lblSubjectID = subjectID;
+              return false;
+            } else {
+              this.toastr.errorToastr(data.msg, "Error!", {
+                toastTimeout: 2500
+              });
+              //$('#companyModal').modal('hide');
+              this.app.hideSpinner();
+              return false;
+            }
+          });
       }
-
     }
   }
 
   clear() {
-
     this.jobProfileTestList = [];
     this.jobProfile = "";
-    this.subjectName = '';
-    this.subjectGroup = '';
+    this.subjectName = "";
+    this.subjectGroup = "";
     this.lblSubject = "";
     this.lblSubjectID = "";
     this.txtdPassword = "";
@@ -642,11 +694,9 @@ export class TestComponent implements OnInit {
     this.opt3ID = "";
     this.opt4 = "";
     this.opt4ID = "";
-
   }
 
   printDiv() {
-
     // var commonCss = ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
 
     // var cssHeading = ".cssHeading {font-size: 25px; font-weight: bold;}";
@@ -659,38 +709,46 @@ export class TestComponent implements OnInit {
 
     var printCss = this.app.printCSS();
 
-
     //printCss = printCss + "";
 
     var contents = $("#printArea").html();
 
-    var frame1 = $('<iframe />');
+    var frame1 = $("<iframe />");
     frame1[0].name = "frame1";
-    frame1.css({ "position": "absolute", "top": "-1000000px" });
+    frame1.css({ position: "absolute", top: "-1000000px" });
     $("body").append(frame1);
-    var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+    var frameDoc = frame1[0].contentWindow
+      ? frame1[0].contentWindow
+      : frame1[0].contentDocument.document
+      ? frame1[0].contentDocument.document
+      : frame1[0].contentDocument;
     frameDoc.document.open();
 
     //Create a new HTML document.
-    frameDoc.document.write('<html><head><title>DIV Contents</title>' + "<style>" + printCss + "</style>");
-
+    frameDoc.document.write(
+      "<html><head><title>DIV Contents</title>" +
+        "<style>" +
+        printCss +
+        "</style>"
+    );
 
     //Append the external CSS file.  <link rel="stylesheet" href="../../../styles.scss" />  <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
-    frameDoc.document.write('<style type="text/css" media="print">/*@page { size: landscape; }*/</style>');
+    frameDoc.document.write(
+      '<style type="text/css" media="print">/*@page { size: landscape; }*/</style>'
+    );
 
-    frameDoc.document.write('</head><body>');
+    frameDoc.document.write("</head><body>");
 
     //Append the DIV contents.
     frameDoc.document.write(contents);
-    frameDoc.document.write('</body></html>');
+    frameDoc.document.write("</body></html>");
 
     frameDoc.document.close();
-
 
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function () {
+    setTimeout(function() {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();
@@ -712,84 +770,107 @@ export class TestComponent implements OnInit {
     // doc.save('testabc.pdf');
   }
 
+  //For CSV File
+  // downloadCSV() {
+  //   //alert('CSV works');
+  //   // case 1: When testSearch is empty then assign full data list
+  //   if (this.testSearch == "") {
+  //     var completeDataList = [];
+  //     for (var i = 0; i < this.testList.length; i++) {
+  //       //alert(this.testSearch + " - " + this.skillCriteriaList[i].departmentName)
+  //       completeDataList.push({
+  //         Subject: this.testList[i].testSbjctName,
+  //         No_Questions: this.testList[i].questionCount,
+  //         JobProfile: this.testList[i].jobCount
+  //       });
+  //     }
+  //     this.csvExportService.exportData(
+  //       completeDataList,
+  //       new IgxCsvExporterOptions("testCompleteCSV", CsvFileTypes.CSV)
+  //     );
+  //   }
+  //   // case 2: When testSearch is not empty then assign new data list
+  //   else if (this.testSearch != "") {
+  //     var filteredDataList = [];
+  //     for (var i = 0; i < this.testList.length; i++) {
+  //       if (
+  //         this.testList[i].testSbjctName
+  //           .toUpperCase()
+  //           .includes(this.testSearch.toUpperCase()) ||
+  //         this.testList[i].questionCount == this.testSearch ||
+  //         this.testList[i].jobCount == this.testSearch
+  //       ) {
+  //         filteredDataList.push({
+  //           Subject: this.testList[i].testSbjctName,
+  //           No_Questions: this.testList[i].questionCount,
+  //           JobProfile: this.testList[i].jobCount
+  //         });
+  //       }
+  //     }
 
-  //For CSV File 
-  downloadCSV() {
-    //alert('CSV works');
-    // case 1: When testSearch is empty then assign full data list
-    if (this.testSearch == "") {
-      var completeDataList = [];
-      for (var i = 0; i < this.testList.length; i++) {
-        //alert(this.testSearch + " - " + this.skillCriteriaList[i].departmentName)
-        completeDataList.push({
-          Subject: this.testList[i].testSbjctName,
-          No_Questions: this.testList[i].questionCount,
-          JobProfile: this.testList[i].jobCount
-        });
-      }
-      this.csvExportService.exportData(completeDataList, new IgxCsvExporterOptions("testCompleteCSV", CsvFileTypes.CSV));
-    }
-    // case 2: When testSearch is not empty then assign new data list
-    else if (this.testSearch != "") {
-      var filteredDataList = [];
-      for (var i = 0; i < this.testList.length; i++) {
-        if (this.testList[i].testSbjctName.toUpperCase().includes(this.testSearch.toUpperCase()) ||
-          this.testList[i].questionCount == this.testSearch || this.testList[i].jobCount == this.testSearch) {
-          filteredDataList.push({
-            Subject: this.testList[i].testSbjctName,
-            No_Questions: this.testList[i].questionCount,
-            JobProfile: this.testList[i].jobCount
-          });
-        }
-      }
+  //     if (filteredDataList.length > 0) {
+  //       this.csvExportService.exportData(
+  //         filteredDataList,
+  //         new IgxCsvExporterOptions("testFilterCSV", CsvFileTypes.CSV)
+  //       );
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 
-      if (filteredDataList.length > 0) {
-        this.csvExportService.exportData(filteredDataList, new IgxCsvExporterOptions("testFilterCSV", CsvFileTypes.CSV));
-      } else {
-        this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
-      }
-    }
-  }
+  // downloadExcel() {
+  //   //alert('Excel works' + this.testList.length);
+  //   //return;
+  //   // case 1: When testSearch is empty then assign full data list
+  //   if (this.testSearch == "") {
+  //     //var completeDataList = [];
+  //     for (var i = 0; i < this.testList.length; i++) {
+  //       this.excelDataList.push({
+  //         Subject: this.testList[i].testSbjctName,
+  //         No_Questions: this.testList[i].questionCount,
+  //         JobProfile: this.testList[i].jobCount
+  //       });
+  //     }
+  //     this.excelExportService.export(
+  //       this.excelDataContent,
+  //       new IgxExcelExporterOptions("testCompleteExcel")
+  //     );
+  //     this.excelDataList = [];
+  //   }
+  //   // case 2: When testSearch is not empty then assign new data list
+  //   else if (this.testSearch != "") {
+  //     for (var i = 0; i < this.testList.length; i++) {
+  //       if (
+  //         this.testList[i].testSbjctName
+  //           .toUpperCase()
+  //           .includes(this.testSearch.toUpperCase()) ||
+  //         this.testList[i].questionCount == this.testSearch ||
+  //         this.testList[i].jobCount == this.testSearch
+  //       ) {
+  //         this.excelDataList.push({
+  //           Subject: this.testList[i].testSbjctName,
+  //           No_Questions: this.testList[i].questionCount,
+  //           JobProfile: this.testList[i].jobCount
+  //         });
+  //       }
+  //     }
 
+  //     if (this.excelDataList.length > 0) {
+  //       //alert("Filter List " + this.excelDataList.length);
 
-  downloadExcel() {
-    //alert('Excel works' + this.testList.length);
-    //return;
-    // case 1: When testSearch is empty then assign full data list
-    if (this.testSearch == "") {
-      //var completeDataList = [];
-      for (var i = 0; i < this.testList.length; i++) {
-        this.excelDataList.push({
-          Subject: this.testList[i].testSbjctName,
-          No_Questions: this.testList[i].questionCount,
-          JobProfile: this.testList[i].jobCount
-        });
-      }
-      this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("testCompleteExcel"));
-      this.excelDataList = [];
-    }
-    // case 2: When testSearch is not empty then assign new data list
-    else if (this.testSearch != "") {
-      for (var i = 0; i < this.testList.length; i++) {
-        if (this.testList[i].testSbjctName.toUpperCase().includes(this.testSearch.toUpperCase()) ||
-          this.testList[i].questionCount == this.testSearch || this.testList[i].jobCount == this.testSearch) {
-          this.excelDataList.push({
-            Subject: this.testList[i].testSbjctName,
-            No_Questions: this.testList[i].questionCount,
-            JobProfile: this.testList[i].jobCount
-          });
-        }
-      }
-
-      if (this.excelDataList.length > 0) {
-        //alert("Filter List " + this.excelDataList.length);
-
-        this.excelExportService.export(this.excelDataContent, new IgxExcelExporterOptions("testFilterExcel"));
-        this.excelDataList = [];
-      }
-      else {
-        this.toastr.errorToastr('Oops! No data found', 'Error', { toastTimeout: (2500) });
-      }
-    }
-  }
+  //       this.excelExportService.export(
+  //         this.excelDataContent,
+  //         new IgxExcelExporterOptions("testFilterExcel")
+  //       );
+  //       this.excelDataList = [];
+  //     } else {
+  //       this.toastr.errorToastr("Oops! No data found", "Error", {
+  //         toastTimeout: 2500
+  //       });
+  //     }
+  //   }
+  // }
 }

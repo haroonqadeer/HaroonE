@@ -17,14 +17,14 @@ import { ConfigContactComponent } from "src/app/components/config-contact/config
 //import { SelectItem } from 'primeng/api';
 
 // import * as jsPDF from 'jspdf';
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 import { FormArray, Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { NgForOf } from "@angular/common";
 
@@ -216,8 +216,8 @@ export class BranchComponent implements OnInit {
     public toastr: ToastrManager,
     private app: AppComponent,
     private http: HttpClient,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
     private fb: FormBuilder,
     private validObj: ValidationAddressService // private addObj: AddressComponent
   ) {}
@@ -231,7 +231,7 @@ export class BranchComponent implements OnInit {
     this.getCity();
   }
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
   @ViewChild("exportPDF") public exportPDF: ElementRef; // for pdf
 
   //@ViewChild("addressObj") public addressObj: AddressComponent;
@@ -343,10 +343,14 @@ export class BranchComponent implements OnInit {
   //* Function for saving and updating the data
   saveBranch() {
     if (this.cmbCompany == "") {
-      this.toastr.errorToastr("Please Select Company", "Error", { toastTimeout: 2500 });
+      this.toastr.errorToastr("Please Select Company", "Error", {
+        toastTimeout: 2500
+      });
       return false;
     } else if (this.txtBranch == "") {
-      this.toastr.errorToastr("Please Enter Branch", "Error", { toastTimeout: 2500 });
+      this.toastr.errorToastr("Please Enter Branch", "Error", {
+        toastTimeout: 2500
+      });
       return false;
     } else if (this.address.trim() == "") {
       this.toastr.errorToastr("Please Enter Address", "Error", {
@@ -394,9 +398,9 @@ export class BranchComponent implements OnInit {
           provinceCode: 6,
           countryCode: this.country,
 
-          addressTypeName: '',
-          cntryName: '',
-          districtName: '',
+          addressTypeName: "",
+          cntryName: "",
+          districtName: "",
 
           zipCode: this.zipCode,
           status: 0,
@@ -540,7 +544,6 @@ export class BranchComponent implements OnInit {
           }
 
           if (this.branchDetail[i].addressTypeCd != 0) {
-
             addressList.push({
               contactDetailCode: this.branchDetail[i].cntctDetailCd,
               addressId: 0,
@@ -553,7 +556,6 @@ export class BranchComponent implements OnInit {
               zipCode: 0,
               status: 1
             });
-
           } else if (this.branchDetail[i].teleTypeCd != 0) {
             telephoneList.push({
               contactDetailCode: this.branchDetail[i].cntctDetailCd,

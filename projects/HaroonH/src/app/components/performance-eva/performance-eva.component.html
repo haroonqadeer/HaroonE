@@ -39,7 +39,7 @@
         <div>
           <h2>Reviews</h2>
 
-          <a class="pointerCursor" (click)="downloadExcelReviews()">
+          <!-- <a class="pointerCursor" (click)="downloadExcelReviews()">
             <i class="fa fa-file-excel-o"></i>
             Excel
           </a>
@@ -52,7 +52,7 @@
           <a class="pointerCursor" (click)="downloadPDFReviews()">
             <i class="fa fa-file-pdf-o"></i>
             PDF
-          </a>
+          </a> -->
 
           <a class="pointerCursor" (click)="printDivReviews()">
             <i class="fa fa-print"></i>
@@ -178,7 +178,7 @@
         <div>
           <h2>Projects</h2>
 
-          <a class="pointerCursor" (click)="downloadExcelGoals()">
+          <!-- <a class="pointerCursor" (click)="downloadExcelGoals()">
             <i class="fa fa-file-excel-o"></i>
             Excel
           </a>
@@ -191,7 +191,7 @@
           <a class="pointerCursor" (click)="downloadPDFGoals()">
             <i class="fa fa-file-pdf-o"></i>
             PDF
-          </a>
+          </a> -->
 
           <a class="pointerCursor" (click)="printDivGoals()">
             <i class="fa fa-print"></i>
@@ -356,7 +356,7 @@
       <div class="topnav boxShadow">
         <div>
           <h2>Skills</h2>
-
+          <!-- 
           <a class="pointerCursor" (click)="downloadExcelSkills()">
             <i class="fa fa-file-excel-o"></i>
             Excel
@@ -370,7 +370,7 @@
           <a class="pointerCursor" (click)="downloadPDFSkills()">
             <i class="fa fa-file-pdf-o"></i>
             PDF
-          </a>
+          </a> -->
 
           <a class="pointerCursor" (click)="printDivSkills()">
             <i class="fa fa-print"></i>
@@ -545,9 +545,9 @@
 <!-- Hidden Table for Print and PDF files ends-->
 
 <!-- Hidden Table Starts for Excel and CSV files -->
-<igx-grid #excelDataContentReviews [data]="excelDataListReviews" [autoGenerate]="false" height="null" width="null"
+<!-- <igx-grid #excelDataContentReviews [data]="excelDataListReviews" [autoGenerate]="false" height="null" width="null"
   [hidden]="true">
-</igx-grid>
+</igx-grid> -->
 <!-- Hidden Table Ends  for Excel and CSV files -->
 
 <!--* -------- Projects ------ -->
@@ -604,9 +604,9 @@
 <!-- Hidden Table for Print and PDF files ends-->
 
 <!-- Hidden Table Starts for Excel and CSV files -->
-<igx-grid #excelDataContentGoals [data]="excelDataListGoals" [autoGenerate]="false" height="null" width="null"
+<!-- <igx-grid #excelDataContentGoals [data]="excelDataListGoals" [autoGenerate]="false" height="null" width="null"
   [hidden]="true">
-</igx-grid>
+</igx-grid> -->
 <!-- Hidden Table Ends  for Excel and CSV files -->
 
 
@@ -662,9 +662,9 @@
 <!-- Hidden Table for Print and PDF files ends-->
 
 <!-- Hidden Table Starts for Excel and CSV files -->
-<igx-grid #excelDataContentSkills [data]="excelDataListSkills" [autoGenerate]="false" height="null" width="null"
+<!-- <igx-grid #excelDataContentSkills [data]="excelDataListSkills" [autoGenerate]="false" height="null" width="null"
   [hidden]="true">
-</igx-grid>
+</igx-grid> -->
 <!-- Hidden Table Ends  for Excel and CSV files -->
 
 

@@ -12,7 +12,7 @@
     <h1> Certificate</h1> -->
 
 
-    <a class="pointerCursor" (click)="downloadExcel()">
+    <!-- <a class="pointerCursor" (click)="downloadExcel()">
       <i class="fa fa-file-excel-o"></i>
       Excel
     </a>
@@ -25,7 +25,7 @@
     <a class="pointerCursor" (click)="downloadPDF()">
       <i class="fa fa-file-pdf-o"></i>
       PDF
-    </a>
+    </a> -->
 
     <a class="pointerCursor" (click)="printDiv()">
       <i class="fa fa-print"></i>
@@ -43,14 +43,15 @@
 
 <!-- Table Container Starts -->
 <div class="container-fluid bgWhite">
-  
+
   <!--Start search textbox Row-->
   <div class="row">
     <div class="col-md-12">
       <div class="searchBar">
         <span class="fa icon-search"></span>
-        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search" [(ngModel)]="tblSearch">
-      </div>      
+        <input class="noneOutLine menuSearchBox" type="text" maxlength="32" placeholder="Search"
+          [(ngModel)]="tblSearch">
+      </div>
     </div>
   </div>
   <!--end search textbox Row-->
@@ -99,7 +100,7 @@
           </td>
         </tr>
       </tbody>
-    </table>    
+    </table>
   </div>
   <!-- Pagination Starts -->
   <div class="row">
@@ -173,8 +174,8 @@
 <!-- Hidden Table for Print and PDF files ends-->
 
 <!-- Hidden Table Starts for Excel and CSV files -->
-<igx-grid #excelDataContent [data]="excelDataList" [autoGenerate]="false" height="null" width="null" [hidden]="true">
-</igx-grid>
+<!-- <igx-grid #excelDataContent [data]="excelDataList" [autoGenerate]="false" height="null" width="null" [hidden]="true">
+</igx-grid> -->
 <!-- Hidden Table Ends  for Excel and CSV files -->
 
 <!-- Add Certificate Modal Starts -->
@@ -184,9 +185,12 @@
       <div class="modal-header">
         <h5 class="modal-title">Add Certificate</h5>
         <div>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveCertificateCriteria()"><span class="fa fa-save"></span> &nbsp;Save</button>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
-          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveCertificateCriteria()"><span
+              class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span
+              class="fa fa-undo"></span> &nbsp;Reset</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span
+              class="fa fa-times-circle"></span> &nbsp;Close</button>
         </div>
         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -277,9 +281,12 @@
       <div class="modal-header">
         <h5 class="modal-title">Add Certificate Group</h5>
         <div>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveCertificateGroup()"><span class="fa fa-save"></span> &nbsp;Save</button>
-          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span class="fa fa-undo"></span> &nbsp;Reset</button>
-          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span class="fa fa-times-circle"></span> &nbsp;Close</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="saveCertificateGroup()"><span
+              class="fa fa-save"></span> &nbsp;Save</button>
+          <button type="button" class="btn-ia cursorPointer text-right" (click)="clear()"><span
+              class="fa fa-undo"></span> &nbsp;Reset</button>
+          <button type="button" class="btn-ia cursorPointer" data-dismiss="modal"><span
+              class="fa fa-times-circle"></span> &nbsp;Close</button>
         </div>
         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -354,7 +361,7 @@
                 </td>
               </tr>
             </tbody>
-          </table>          
+          </table>
         </div>
         <div class="row">
           <!-- Pagination Starts -->

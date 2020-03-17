@@ -22,14 +22,14 @@ import { ConfigAddressComponent } from "src/app/components/config-address/config
 //import { ConfigSocialMediaComponent } from 'src/app/components/config-social-media/config-social-media.component';
 
 // import * as jsPDF from 'jspdf';
-import {
-  IgxExcelExporterOptions,
-  IgxExcelExporterService,
-  IgxGridComponent,
-  IgxCsvExporterService,
-  IgxCsvExporterOptions,
-  CsvFileTypes
-} from "igniteui-angular";
+// import {
+//   IgxExcelExporterOptions,
+//   IgxExcelExporterService,
+//   IgxGridComponent,
+//   IgxCsvExporterService,
+//   IgxCsvExporterOptions,
+//   CsvFileTypes
+// } from "igniteui-angular";
 // import { jsonpCallbackContext } from "@angular/common/http/src/module";
 import { parse } from "querystring";
 
@@ -219,8 +219,8 @@ export class CompanyComponent implements OnInit {
     private toastr: ToastrManager,
     private app: AppComponent,
     private http: HttpClient,
-    private excelExportService: IgxExcelExporterService,
-    private csvExportService: IgxCsvExporterService,
+    // private excelExportService: IgxExcelExporterService,
+    // private csvExportService: IgxCsvExporterService,
     private fb: FormBuilder,
     private router: Router
   ) {}
@@ -244,7 +244,7 @@ export class CompanyComponent implements OnInit {
     }
   }
 
-  @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
+  // // @ViewChild("excelDataContent") public excelDataContent: IgxGridComponent; //For excel
   @ViewChild("exportPDF") public exportPDF: ElementRef; //for pdf
 
   onFileSelected(event) {
