@@ -29,17 +29,17 @@ declare var $: any;
 @Component({
   selector: "app-skill",
   templateUrl: "./skill.component.html",
-  styleUrls: ["./skill.component.scss"]
+  styleUrls: ["./skill.component.scss"],
 })
 export class SkillComponent implements OnInit {
   //serverUrl = "http://localhost:9018/";
   // serverUrl = "http://52.163.189.189:9018/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9018/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9018/";
 
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   //Lists
@@ -108,7 +108,7 @@ export class SkillComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -127,7 +127,7 @@ export class SkillComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -143,7 +143,7 @@ export class SkillComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -157,17 +157,17 @@ export class SkillComponent implements OnInit {
   saveSkillCriteria() {
     if (this.skillGroup == "") {
       this.toastr.errorToastr("Please Select skill Group", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.skillTitle == "") {
       this.toastr.errorToastr("Please Enter skill Title", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.skillTitleDescription == "") {
       this.toastr.errorToastr("Please Enter skill Title Description", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -179,26 +179,26 @@ export class SkillComponent implements OnInit {
           qlfctnCd: this.skillGroup,
           qlfctnCriteriaName: this.skillTitle,
           qlfctnCriteriaDesc: this.skillTitleDescription,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         this.http
           .put(this.serverUrl + "api/updateSkillCriteria", updateData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             //alert(data.msg);
 
             if (data.msg == "Record Updated Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addSkillModal").modal("hide");
@@ -206,7 +206,7 @@ export class SkillComponent implements OnInit {
               return false;
             } else if (data.msg == "Update - Record Already Exists!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addSkillModal").modal("hide");
@@ -214,7 +214,7 @@ export class SkillComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addSkillModal").modal("hide");
@@ -228,7 +228,7 @@ export class SkillComponent implements OnInit {
           qlfctnCd: this.skillGroup,
           qlfctnCriteriaName: this.skillTitle,
           qlfctnCriteriaDesc: this.skillTitleDescription,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
@@ -238,7 +238,7 @@ export class SkillComponent implements OnInit {
         //alert(reqHeader);
         this.http
           .post(this.serverUrl + "api/saveSkillCriteria", saveData, {
-            responseType: "json"
+            responseType: "json",
           })
           .subscribe((data: any) => {
             // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
@@ -248,7 +248,7 @@ export class SkillComponent implements OnInit {
 
             if (data.msg == "Record Saved Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addSkillModal").modal("hide");
@@ -256,7 +256,7 @@ export class SkillComponent implements OnInit {
               return false;
             } else if (data.msg == "Insert - Record Already Exists!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addSkillModal").modal("hide");
@@ -264,7 +264,7 @@ export class SkillComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error !", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addSkillModal").modal("hide");
@@ -280,12 +280,12 @@ export class SkillComponent implements OnInit {
   saveSkillGroup() {
     if (this.sklGroupName == "") {
       this.toastr.errorToastr("Please Select skill Group", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.sklGroupDesc == "") {
       this.toastr.errorToastr("Please Enter Description", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -296,26 +296,26 @@ export class SkillComponent implements OnInit {
           qlfctnName: this.sklGroupName,
           qlfctnDesc: this.sklGroupDesc,
           qlfctnTypeCd: this.skillId,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         this.http
           .put(this.serverUrl + "api/updateskillGroup", updateData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             //alert(data.msg);
 
             if (data.msg == "Record Updated Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addSkillGroupModal").modal("hide");
@@ -323,7 +323,7 @@ export class SkillComponent implements OnInit {
               return false;
             } else if (data.msg == "Update - Record Already Exists!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addSkillGroupModal").modal("hide");
@@ -331,7 +331,7 @@ export class SkillComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addSkillGroupModal").modal("hide");
@@ -344,7 +344,7 @@ export class SkillComponent implements OnInit {
           qlfctnName: this.sklGroupName,
           qlfctnDesc: this.sklGroupDesc,
           qlfctnTypeCd: this.skillId,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
@@ -354,7 +354,7 @@ export class SkillComponent implements OnInit {
         //alert(reqHeader);
         this.http
           .post(this.serverUrl + "api/saveSkillGroup", saveData, {
-            responseType: "json"
+            responseType: "json",
           })
           .subscribe((data: any) => {
             // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
@@ -363,7 +363,7 @@ export class SkillComponent implements OnInit {
             //return false;
             if (data.msg == "Record Saved Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addSkillGroupModal").modal("hide");
@@ -371,7 +371,7 @@ export class SkillComponent implements OnInit {
               return false;
             } else if (data.msg == "Insert - Record Already Exists!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addSkillGroupModal").modal("hide");
@@ -379,7 +379,7 @@ export class SkillComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error !", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addSkillGroupModal").modal("hide");
@@ -455,12 +455,12 @@ export class SkillComponent implements OnInit {
   delete() {
     if (this.userPassword == "") {
       this.toastr.errorToastr("Please Enter Password", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.userPINCode == "") {
       this.toastr.errorToastr("Please Enter PIN Code", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -471,26 +471,26 @@ export class SkillComponent implements OnInit {
           // "qlfctnCd": this.skillGroup,
           // "qlfctnCriteriaName": this.skillTitle,
           // "qlfctnCriteriaDesc": this.skillTitleDescription,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         this.http
           .put(this.serverUrl + "api/deleteskillCriteria", data, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             //alert(data.msg);
 
             if (data.msg == "Record Deleted Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#deleteModal").modal("hide");
@@ -498,7 +498,7 @@ export class SkillComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             }
@@ -509,25 +509,25 @@ export class SkillComponent implements OnInit {
           qlfctnTypeCd: this.skillId,
           // "qlfctnName": this.sklGroupName,
           // "qlfctnDesc": this.sklGroupDesc,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         this.http
           .put(this.serverUrl + "api/deleteSkillGroup", groupdata, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             //alert(data.msg);
             if (data.msg == "Record Deleted Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#deleteModal").modal("hide");
@@ -535,7 +535,7 @@ export class SkillComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             }
@@ -603,7 +603,7 @@ export class SkillComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

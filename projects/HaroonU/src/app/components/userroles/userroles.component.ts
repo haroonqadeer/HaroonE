@@ -65,11 +65,11 @@ export interface erpObject {
 @Component({
   selector: "app-userroles",
   templateUrl: "./userroles.component.html",
-  styleUrls: ["./userroles.component.scss"]
+  styleUrls: ["./userroles.component.scss"],
 })
 export class UserrolesComponent implements OnInit {
   /*** Api link published in server ***/
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9036/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9036/";
 
   /*** Variable Declaration ***/
 
@@ -172,9 +172,9 @@ export class UserrolesComponent implements OnInit {
                       objCode: this.employees[j].erpObjctCd,
                       parentErpObjCd: this.employees[i].erpObjctCd,
                       parentErpObjTypeCd: this.employees[i].erpObjctTypeCd,
-                      parentErpObjName: this.employees[i].erpObjctName
-                    }
-                  ]
+                      parentErpObjName: this.employees[i].erpObjctName,
+                    },
+                  ],
                 });
               }
             }
@@ -185,10 +185,10 @@ export class UserrolesComponent implements OnInit {
                 {
                   objName: this.employees[i].erpObjctName,
                   typeCode: this.employees[i].erpObjctTypeCd,
-                  objCode: this.employees[i].erpObjctCd
-                }
+                  objCode: this.employees[i].erpObjctCd,
+                },
               ],
-              children: this.roleChildren
+              children: this.roleChildren,
             });
           }
         }
@@ -202,14 +202,14 @@ export class UserrolesComponent implements OnInit {
   /*** Menu list filter method  ***/
   getFilterMenu(item) {
     return this.tempRoleList.filter(
-      x => x.parentErpObjctCd == item && x.erpObjctTypeCd == 2
+      (x) => x.parentErpObjctCd == item && x.erpObjctTypeCd == 2
     );
   }
 
   /*** Module list filter method ***/
   getFilterModule() {
     //alert(roleId);
-    return this.tempRoleList.filter(x => x.erpObjctTypeCd == 1);
+    return this.tempRoleList.filter((x) => x.erpObjctTypeCd == 1);
   }
 
   /*** Getting Module & Menu List  ***/
@@ -240,9 +240,9 @@ export class UserrolesComponent implements OnInit {
                     objCode: this.employees[j].erpobjctCd,
                     parentErpObjCd: this.employees[i].erpobjctCd,
                     parentErpObjTypeCd: this.employees[i].erpobjctTypeCd,
-                    parentErpObjName: this.employees[i].erpobjctName
-                  }
-                ]
+                    parentErpObjName: this.employees[i].erpobjctName,
+                  },
+                ],
               });
             }
           }
@@ -253,10 +253,10 @@ export class UserrolesComponent implements OnInit {
               {
                 objName: this.employees[i].erpobjctName,
                 typeCode: this.employees[i].erpobjctTypeCd,
-                objCode: this.employees[i].erpobjctCd
-              }
+                objCode: this.employees[i].erpobjctCd,
+              },
             ],
-            children: this.children
+            children: this.children,
           });
         }
       }
@@ -284,14 +284,14 @@ export class UserrolesComponent implements OnInit {
     //* checking if role name is empty
     if (this.erpRoleName.trim().length == 0) {
       this.toastr.errorToastr("Please Enter Role Name", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     }
     //* checking if role list is empty
     else if (this.roleTree == undefined) {
       this.toastr.errorToastr("Please Push Data in Role Tree", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     }
@@ -301,12 +301,12 @@ export class UserrolesComponent implements OnInit {
     for (var i = 0; i < this.roleTree.length; i++) {
       this.erpObjct.push({
         erpObjctCd: this.roleTree[i].data[0].objCode,
-        erpObjctTypeCd: this.roleTree[i].data[0].typeCode
+        erpObjctTypeCd: this.roleTree[i].data[0].typeCode,
       });
       for (var j = 0; j < this.roleTree[i].children.length; j++)
         this.erpObjct.push({
           erpObjctCd: this.roleTree[i].children[j].data[0].objCode,
-          erpObjctTypeCd: this.roleTree[i].children[j].data[0].typeCode
+          erpObjctTypeCd: this.roleTree[i].children[j].data[0].typeCode,
         });
     }
 
@@ -319,7 +319,7 @@ export class UserrolesComponent implements OnInit {
       //* Initialize List and Assign data to list. Sending list to api
       var roleData = {
         erpObjct: JSON.stringify(this.erpObjct),
-        erpRoleName: this.erpRoleName
+        erpRoleName: this.erpRoleName,
       };
 
       this.http
@@ -333,7 +333,7 @@ export class UserrolesComponent implements OnInit {
           } else {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getRole();
             $("#userRoleModal").modal("hide");
@@ -349,7 +349,7 @@ export class UserrolesComponent implements OnInit {
       var rolesData = {
         erpObjct: JSON.stringify(this.erpObjct),
         erpRoleCd: this.erpRoleCd,
-        erpRoleName: this.erpRoleName
+        erpRoleName: this.erpRoleName,
       };
 
       this.http
@@ -363,7 +363,7 @@ export class UserrolesComponent implements OnInit {
           } else {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getRole();
             $("#userRoleModal").modal("hide");
@@ -378,7 +378,7 @@ export class UserrolesComponent implements OnInit {
     //* checking if menuTree data is not selected
     if (this.selectedMenu == undefined) {
       this.toastr.errorToastr("Please Select Nodes!", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       this.app.hideSpinner();
       return false;
@@ -386,7 +386,7 @@ export class UserrolesComponent implements OnInit {
     //* checking if menuTree data is not selected
     else if (this.selectedMenu.length == 0) {
       this.toastr.errorToastr("Please Select Nodes!", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       this.app.hideSpinner();
       return false;
@@ -430,9 +430,9 @@ export class UserrolesComponent implements OnInit {
                       objName: this.selectedMenu[i].data[0].objName,
                       typeCode: this.selectedMenu[i].data[0].typeCode,
                       objCode: this.selectedMenu[i].data[0].objCode,
-                      parentErpoObjCd: this.selectedMenu[i].data[0].objCode
-                    }
-                  ]
+                      parentErpoObjCd: this.selectedMenu[i].data[0].objCode,
+                    },
+                  ],
                 });
               }
             } else {
@@ -456,9 +456,9 @@ export class UserrolesComponent implements OnInit {
                       objName: this.selectedMenu[i].data[0].objName,
                       typeCode: this.selectedMenu[i].data[0].typeCode,
                       objCode: this.selectedMenu[i].data[0].objCode,
-                      parentErpoObjCd: this.selectedMenu[i].data[0].objCode
-                    }
-                  ]
+                      parentErpoObjCd: this.selectedMenu[i].data[0].objCode,
+                    },
+                  ],
                 });
 
                 this.roleList.push({
@@ -467,10 +467,10 @@ export class UserrolesComponent implements OnInit {
                     {
                       objName: this.selectedMenu[i].data[0].parentErpObjName,
                       typeCode: this.selectedMenu[i].data[0].parentErpObjTypeCd,
-                      objCode: this.selectedMenu[i].data[0].parentErpObjCd
-                    }
+                      objCode: this.selectedMenu[i].data[0].parentErpObjCd,
+                    },
                   ],
-                  children: this.roleChildren
+                  children: this.roleChildren,
                 });
               }
             }
@@ -500,9 +500,9 @@ export class UserrolesComponent implements OnInit {
                     objName: tempRoleList[o].data[0].objName,
                     typeCode: tempRoleList[o].data[0].typeCode,
                     objCode: tempRoleList[o].data[0].objCode,
-                    parentErpoObjCd: this.selectedMenu[i].data[0].objCode
-                  }
-                ]
+                    parentErpoObjCd: this.selectedMenu[i].data[0].objCode,
+                  },
+                ],
               });
             }
 
@@ -512,10 +512,10 @@ export class UserrolesComponent implements OnInit {
                 {
                   objName: this.selectedMenu[i].data[0].parentErpObjName,
                   typeCode: this.selectedMenu[i].data[0].parentErpObjTypeCd,
-                  objCode: this.selectedMenu[i].data[0].parentErpObjCd
-                }
+                  objCode: this.selectedMenu[i].data[0].parentErpObjCd,
+                },
               ],
-              children: this.roleChildren
+              children: this.roleChildren,
             });
           }
 
@@ -533,19 +533,19 @@ export class UserrolesComponent implements OnInit {
   /*** Filter array ***/
   filterRoleList(name, code) {
     return this.selectedMenu.filter(
-      x => x.data[0].parentErpObjName == name && x.data[0].typeCode == code
+      (x) => x.data[0].parentErpObjName == name && x.data[0].typeCode == code
     );
   }
 
   /*** filter array  ***/
   oldRoleList(name, code) {
-    return this.myTempList.filter(x => x.label == name);
+    return this.myTempList.filter((x) => x.label == name);
   }
 
   /*** filter array ***/
   filterNewRoleList(name, code) {
     return this.roleList.filter(
-      x => x.data[0].objName == name && x.data[0].typeCode == code
+      (x) => x.data[0].objName == name && x.data[0].typeCode == code
     );
   }
 
@@ -650,14 +650,14 @@ export class UserrolesComponent implements OnInit {
     //* checking if password is empty
     if (this.txtdPassword.trim().length == 0) {
       this.toastr.errorToastr("Please Enter Password", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     }
     //* checking if pin is empty
     else if (this.txtdPin.trim().length == 0) {
       this.toastr.errorToastr("Please Enter Pin", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     }
@@ -665,7 +665,7 @@ export class UserrolesComponent implements OnInit {
     //* Initialize List and Assign data to list. Sending list to api
     var roleData = {
       erpObjct: JSON.stringify(this.erpObjct),
-      erpRoleCd: this.erpRoleCd
+      erpRoleCd: this.erpRoleCd,
     };
 
     this.http
@@ -679,7 +679,7 @@ export class UserrolesComponent implements OnInit {
         } else {
           this.app.hideSpinner();
           this.toastr.successToastr(data.msg, "Success!", {
-            toastTimeout: 2500
+            toastTimeout: 2500,
           });
           this.getRole();
           return false;
@@ -692,14 +692,14 @@ export class UserrolesComponent implements OnInit {
     //* checking if roleTree data not selected
     if (this.selectedRole == undefined) {
       this.toastr.errorToastr("Please Select Nodes to Remove!", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     }
     //* checking if roleTree data not selected
     else if (this.selectedRole.length == 0) {
       this.toastr.errorToastr("Please Select Nodes to Remove!", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     }
@@ -746,7 +746,7 @@ export class UserrolesComponent implements OnInit {
       //* Initialize List and Assign data to list. Sending list to api
       var roleData = {
         erpObjct: JSON.stringify(this.erpObjct),
-        erpRoleCd: this.erpRoleCd
+        erpRoleCd: this.erpRoleCd,
       };
 
       this.http
@@ -760,7 +760,7 @@ export class UserrolesComponent implements OnInit {
             this.app.hideSpinner();
             this.app.pin = "";
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getRole();
             return false;
@@ -825,7 +825,7 @@ export class UserrolesComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

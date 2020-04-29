@@ -70,7 +70,7 @@ export class CompanyComponent implements OnInit {
 
   companyBox = true;
 
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9043/";
   //imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
 
   // serverUrl = "http://localhost:9043/";

@@ -605,12 +605,12 @@
                           <tr class='d-flex'>
                             <td class='col-1'></td>
                             <td class='col-2'>
-                              <p-calendar [(ngModel)]="orgStartDate" placeholder="Job Start Date"
-                                [inputStyle]="{'width':'100%'}"></p-calendar>
+                              <p-calendar [(ngModel)]="orgStartDate" placeholder="Job Start Date" [yearNavigator]="true"
+                                yearRange="1947:2030" [inputStyle]="{'width':'100%'}"></p-calendar>
                             </td>
                             <td class='col-2'>
-                              <p-calendar [(ngModel)]="orgEndDate" placeholder="Job End Date"
-                                [inputStyle]="{'width':'100%'}"></p-calendar>
+                              <p-calendar [(ngModel)]="orgEndDate" placeholder="Job End Date" [yearNavigator]="true"
+                                yearRange="1947:2030" [inputStyle]="{'width':'100%'}"></p-calendar>
                             </td>
                             <td class='col-3'>
                               <p-dropdown appendTo="body" [options]="experienceList" filter="true"

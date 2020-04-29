@@ -4,7 +4,7 @@ import { AppComponent } from "../../../../../../src/app/app.component";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 
 // @Component({
@@ -66,12 +66,12 @@ import {
       .department-cto .ui-node-toggler {
         color: #ffffff !important;
       }
-    `
+    `,
   ],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class CompanydashboardComponent implements OnInit {
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9044/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9044/";
   // serverUrl = "http://localhost:5000/";
 
   cmbCompany = "";
@@ -116,7 +116,7 @@ export class CompanydashboardComponent implements OnInit {
     this.app.showSpinner();
     this.http
       .get(this.serverUrl + "api/getOrgData?cmpnyID=" + item, {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.orgData = data;
@@ -149,14 +149,14 @@ export class CompanydashboardComponent implements OnInit {
                       ) {
                         this.deptChild.push({
                           label: this.orgData[l].deptName,
-                          styleClass: "department-cfo"
+                          styleClass: "department-cfo",
                         });
                       }
                     }
                     this.branchChild.push({
                       label: this.orgData[k].deptName,
                       styleClass: "department-cto",
-                      children: this.deptChild
+                      children: this.deptChild,
                     });
                   }
                 }
@@ -167,9 +167,9 @@ export class CompanydashboardComponent implements OnInit {
                   expanded: true,
                   data: {
                     name: "",
-                    avatar: "Default-Image.jpg"
+                    avatar: "Default-Image.jpg",
                   },
-                  children: this.branchChild
+                  children: this.branchChild,
                 });
               }
             }
@@ -181,7 +181,7 @@ export class CompanydashboardComponent implements OnInit {
             type: "person",
             expanded: true,
             data: { name: "" },
-            children: this.compChild
+            children: this.compChild,
           });
           i = this.orgData.length + 1;
         }

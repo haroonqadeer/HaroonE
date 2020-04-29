@@ -6,11 +6,11 @@ declare var $: any;
 @Component({
   selector: "app-nav",
   templateUrl: "./nav.component.html",
-  styleUrls: ["./nav.component.scss"]
+  styleUrls: ["./nav.component.scss"],
 })
 export class NavComponent implements OnInit {
-  appLocation = "http://localhost:4200";
-  // appLocation = "http://ambit.southeastasia.cloudapp.azure.com:9000";
+  // appLocation = "http://localhost:4200";
+  appLocation = "http://ambit-erp.southeastasia.cloudapp.azure.com:9000";
 
   public moduleHR = false;
   public moduleConfig = false;

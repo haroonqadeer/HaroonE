@@ -11,12 +11,12 @@ Variablepie(Highcharts);
 @Component({
   selector: "app-hrdashboard",
   templateUrl: "./hrdashboard.component.html",
-  styleUrls: ["./hrdashboard.component.scss"]
+  styleUrls: ["./hrdashboard.component.scss"],
 })
 export class HrdashboardComponent implements OnInit {
   // serverUrl = "http://localhost:3011/";
   // serverUrl = "http://52.163.189.189:9030/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9030/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9030/";
 
   Column_Chart: Chart;
   Off_Column_Chart: Chart;
@@ -54,34 +54,34 @@ export class HrdashboardComponent implements OnInit {
           tempList.push({
             name: data[i].locationName,
             y: data[i].qty,
-            z: count
+            z: count,
           });
           count = count + 23.6;
         }
 
         let chart = new Chart({
           chart: {
-            type: "variablepie"
+            type: "variablepie",
           },
           title: {
             text: "Number of employees by branch",
             style: {
               fontSize: "15px",
-              fontWeight: "bold"
-            }
+              fontWeight: "bold",
+            },
           },
           tooltip: {
             headerFormat: "",
             pointFormat:
               '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
               "Area (square km): <b>{point.y}</b><br/>" +
-              "Population density (people per square km): <b>{point.z}</b><br/>"
+              "Population density (people per square km): <b>{point.z}</b><br/>",
           },
           series: [
             {
               innerSize: "20%",
               name: "branches",
-              data: tempList
+              data: tempList,
               // data: [
               //   {
               //     name: "Islamabad",
@@ -114,8 +114,8 @@ export class HrdashboardComponent implements OnInit {
               //     z: 428.5
               //   }
               // ]
-            }
-          ]
+            },
+          ],
         });
 
         this.Variablepie_Chart = chart;
@@ -156,37 +156,37 @@ export class HrdashboardComponent implements OnInit {
 
           deptList.push({
             name: data[i].deptName,
-            data: deptChildList
+            data: deptChildList,
           });
         }
 
         let chart = new Chart({
           chart: {
-            type: "column"
+            type: "column",
           },
           title: {
-            text: "Number of employees by department and branch"
+            text: "Number of employees by department and branch",
           },
           xAxis: {
-            categories: branchList
+            categories: branchList,
           },
           yAxis: {
             min: 0,
             title: {
-              text: "Number of Employees"
-            }
+              text: "Number of Employees",
+            },
           },
           tooltip: {
             pointFormat:
               '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-            shared: true
+            shared: true,
           },
           plotOptions: {
             column: {
-              stacking: "percent"
-            }
+              stacking: "percent",
+            },
           },
-          series: deptList
+          series: deptList,
         });
 
         this.StackColumn_Chart = chart;
@@ -215,22 +215,22 @@ export class HrdashboardComponent implements OnInit {
   ColumnChart_init() {
     let chart = new Chart({
       chart: {
-        type: "column"
+        type: "column",
       },
       title: {
-        text: "Number of employees in a department by payscale"
+        text: "Number of employees in a department by payscale",
       },
       legend: {
         reversed: true,
         itemStyle: {
           fontSize: "15px",
-          fontWeight: "static"
-        }
+          fontWeight: "static",
+        },
       },
       yAxis: {
         title: {
-          text: "Number of Employees"
-        }
+          text: "Number of Employees",
+        },
       },
       xAxis: {
         categories: [
@@ -248,11 +248,11 @@ export class HrdashboardComponent implements OnInit {
           "120000",
           "130000",
           "140000",
-          "150000"
-        ]
+          "150000",
+        ],
       },
       credits: {
-        enabled: false
+        enabled: false,
       },
       series: [
         {
@@ -269,8 +269,8 @@ export class HrdashboardComponent implements OnInit {
             216.4,
             194.1,
             95.6,
-            54.4
-          ]
+            54.4,
+          ],
         },
         {
           name: "Admin",
@@ -286,8 +286,8 @@ export class HrdashboardComponent implements OnInit {
             91.2,
             83.5,
             106.6,
-            92.3
-          ]
+            92.3,
+          ],
         },
         {
           name: "IT",
@@ -303,8 +303,8 @@ export class HrdashboardComponent implements OnInit {
             52.4,
             65.2,
             59.3,
-            51.2
-          ]
+            51.2,
+          ],
         },
         {
           name: "Customer Support",
@@ -320,10 +320,10 @@ export class HrdashboardComponent implements OnInit {
             47.6,
             39.1,
             46.8,
-            51.1
-          ]
-        }
-      ]
+            51.1,
+          ],
+        },
+      ],
     });
     this.Column_Chart = chart;
   }
@@ -343,36 +343,36 @@ export class HrdashboardComponent implements OnInit {
 
         let chart = new Chart({
           chart: {
-            type: "column"
+            type: "column",
           },
           colors: ["#ff9800"],
           title: {
-            text: "Offices"
+            text: "Offices",
           },
           legend: {
             reversed: true,
             itemStyle: {
               fontSize: "15px",
-              fontWeight: "static"
-            }
+              fontWeight: "static",
+            },
           },
           yAxis: {
             title: {
-              text: "Amount"
-            }
+              text: "Amount",
+            },
           },
           xAxis: {
-            categories: myCategory
+            categories: myCategory,
           },
           credits: {
-            enabled: false
+            enabled: false,
           },
           series: [
             {
               name: "Quantity",
-              data: mySeries
-            }
-          ]
+              data: mySeries,
+            },
+          ],
         });
         this.Off_Column_Chart = chart;
       });

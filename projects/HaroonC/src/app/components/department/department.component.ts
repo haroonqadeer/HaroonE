@@ -3,12 +3,12 @@ import {
   OnInit,
   ViewEncapsulation,
   ViewChild,
-  ElementRef
+  ElementRef,
 } from "@angular/core";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 import { throwError } from "rxjs";
 import { catchError, filter } from "rxjs/operators";
@@ -42,15 +42,15 @@ declare var $: any;
 @Component({
   selector: "app-department",
   templateUrl: "./department.component.html",
-  styleUrls: ["./department.component.scss"]
+  styleUrls: ["./department.component.scss"],
 })
 export class DepartmentComponent implements OnInit {
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9041/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9041/";
   // serverUrl = "http://localhost:7004/";
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   //list variables
@@ -120,7 +120,7 @@ export class DepartmentComponent implements OnInit {
     var Token = localStorage.getItem(this.tokenKey);
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -135,7 +135,7 @@ export class DepartmentComponent implements OnInit {
     var Token = localStorage.getItem(this.tokenKey);
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.app.showSpinner();
@@ -153,7 +153,7 @@ export class DepartmentComponent implements OnInit {
     var Token = localStorage.getItem(this.tokenKey);
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.app.showSpinner();
@@ -187,7 +187,7 @@ export class DepartmentComponent implements OnInit {
         deptName: item.deptName,
         branch: JSON.stringify(this.selectedBranchList),
         DelFlag: item.delFlag,
-        connectedUser: 12000
+        connectedUser: 12000,
       };
 
       this.http
@@ -204,7 +204,7 @@ export class DepartmentComponent implements OnInit {
             this.app.hideSpinner();
             this.app.pin = "";
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getDepartment();
             return false;
@@ -230,17 +230,17 @@ export class DepartmentComponent implements OnInit {
   save() {
     if (this.ddlCompany == "" || this.ddlCompany == "0") {
       this.toastr.errorToastr("Please Select Company", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.departmentName == "") {
       this.toastr.errorToastr("Please Enter Department Name", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.extractSelectedBranchsList() == false) {
       this.toastr.errorToastr("Please Select Branch", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -251,7 +251,7 @@ export class DepartmentComponent implements OnInit {
           deptName: this.departmentName,
           branch: JSON.stringify(this.selectedBranchList),
           DelFlag: false,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         //var token = localStorage.getItem(this.tokenKey);
@@ -260,7 +260,7 @@ export class DepartmentComponent implements OnInit {
 
         this.http
           .post(this.serverUrl + "api/saveDepartment", saveData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
@@ -268,7 +268,7 @@ export class DepartmentComponent implements OnInit {
             //alert(data.msg);
             if (data.msg == "Record Saved Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               this.getDepartmentDetails();
@@ -276,7 +276,7 @@ export class DepartmentComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error !", {
-                toastTimeout: 5000
+                toastTimeout: 5000,
               });
               return false;
             }
@@ -288,7 +288,7 @@ export class DepartmentComponent implements OnInit {
           deptName: this.departmentName,
           branch: JSON.stringify(this.selectedBranchList),
           DelFlag: false,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         //var token = localStorage.getItem(this.tokenKey);
@@ -297,17 +297,17 @@ export class DepartmentComponent implements OnInit {
 
         this.http
           .put(this.serverUrl + "api/updateDepartment", updateData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg == undefined) {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 5000
+                toastTimeout: 5000,
               });
               return false;
             } else {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
 
               this.clear();
@@ -350,7 +350,7 @@ export class DepartmentComponent implements OnInit {
   //******************** extracting selected branches
   extractSelectedBranchsList() {
     this.selectedBranchList = [];
-    var tempList = this.locationList.filter(x => x.status == 1);
+    var tempList = this.locationList.filter((x) => x.status == 1);
 
     if (tempList.length == 0) {
       return false;
@@ -358,7 +358,7 @@ export class DepartmentComponent implements OnInit {
       for (var i = 0; i < this.locationList.length; i++) {
         if (this.locationList[i].status == 1) {
           this.selectedBranchList.push({
-            branchID: this.locationList[i].locationCd
+            branchID: this.locationList[i].locationCd,
           });
         }
       }
@@ -383,7 +383,7 @@ export class DepartmentComponent implements OnInit {
   //******************** extracting selected branches
   editSelectedBranchsList() {
     var tempList = this.departmentDetailsList.filter(
-      x => x.deptCd == this.departmentId
+      (x) => x.deptCd == this.departmentId
     );
 
     for (var i = 0; i < tempList.length; i++) {
@@ -454,7 +454,7 @@ export class DepartmentComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

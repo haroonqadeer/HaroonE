@@ -3,12 +3,12 @@ import {
   OnInit,
   ViewEncapsulation,
   ViewChild,
-  ElementRef
+  ElementRef,
 } from "@angular/core";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 import { throwError } from "rxjs";
 import { catchError, filter } from "rxjs/operators";
@@ -84,18 +84,19 @@ export interface emailList {
 @Component({
   selector: "app-new-company",
   templateUrl: "./new-company.component.html",
-  styleUrls: ["./new-company.component.scss"]
+  styleUrls: ["./new-company.component.scss"],
 })
 export class NewCompanyComponent implements OnInit {
   @ViewChild(ConfigAddressComponent) child: ConfigAddressComponent;
 
   companyBox = true;
 
-  serverUrl = "https://localhost:7007/";
+  // serverUrl = "https://localhost:7007/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:7007/";
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   // list variables -----------
@@ -225,7 +226,7 @@ export class NewCompanyComponent implements OnInit {
   types = [
     { BusinessTypeCd: 1, BusinessTypeName: "Sole Proprietorship" },
     { BusinessTypeCd: 2, BusinessTypeName: "Partnership" },
-    { BusinessTypeCd: 3, BusinessTypeName: "Public Company" }
+    { BusinessTypeCd: 3, BusinessTypeName: "Public Company" },
   ];
 
   //*----------------For Owner Starts---------------//
@@ -239,8 +240,8 @@ export class NewCompanyComponent implements OnInit {
       areaCode: true,
       mobileCode: false,
       contactNumber: "",
-      mobileNumber: ""
-    }
+      mobileNumber: "",
+    },
   ];
 
   //address Detail Owner
@@ -252,8 +253,8 @@ export class NewCompanyComponent implements OnInit {
       countryCode: "",
       provinceCode: "",
       districtCode: "",
-      cityCode: ""
-    }
+      cityCode: "",
+    },
   ];
 
   //Emails Detail Owner
@@ -261,8 +262,8 @@ export class NewCompanyComponent implements OnInit {
     {
       id: 0,
       type: "",
-      email: ""
-    }
+      email: "",
+    },
   ];
 
   //*----------------For Owner Ends---------------//
@@ -278,8 +279,8 @@ export class NewCompanyComponent implements OnInit {
       areaCode: true,
       mobileCode: false,
       contactNumber: "",
-      mobileNumber: ""
-    }
+      mobileNumber: "",
+    },
   ];
 
   //address Detail Business
@@ -291,8 +292,8 @@ export class NewCompanyComponent implements OnInit {
       countryCode: "",
       provinceCode: "",
       districtCode: "",
-      cityCode: ""
-    }
+      cityCode: "",
+    },
   ];
 
   //addressDetail: Array[];
@@ -302,8 +303,8 @@ export class NewCompanyComponent implements OnInit {
     {
       id: 0,
       type: "",
-      email: ""
-    }
+      email: "",
+    },
   ];
   //*----------------For Business Ends---------------//
 
@@ -317,7 +318,7 @@ export class NewCompanyComponent implements OnInit {
       title: "Title A",
       nature: "Private Sector",
       ntn: "345454",
-      website: "www.Youtube.com"
+      website: "www.Youtube.com",
     },
     {
       companyId: 2,
@@ -325,7 +326,7 @@ export class NewCompanyComponent implements OnInit {
       title: "Title B",
       nature: "Public Sector",
       ntn: "1545453",
-      website: "www.edx.com"
+      website: "www.edx.com",
     },
     {
       companyId: 3,
@@ -333,7 +334,7 @@ export class NewCompanyComponent implements OnInit {
       title: "Title C",
       nature: "Private Sector",
       ntn: "67534653",
-      website: "www.facebook.com"
+      website: "www.facebook.com",
     },
     {
       companyId: 4,
@@ -341,7 +342,7 @@ export class NewCompanyComponent implements OnInit {
       title: "Title D",
       nature: "Private Sector",
       ntn: "3535663",
-      website: "www.udemy.com"
+      website: "www.udemy.com",
     },
     {
       companyId: 5,
@@ -349,7 +350,7 @@ export class NewCompanyComponent implements OnInit {
       title: "Title A",
       nature: "Private Sector",
       ntn: "34224",
-      website: "www.Youtube.com"
+      website: "www.Youtube.com",
     },
     {
       companyId: 6,
@@ -357,7 +358,7 @@ export class NewCompanyComponent implements OnInit {
       title: "Title B",
       nature: "Public Sector",
       ntn: "155233",
-      website: "www.edx.com"
+      website: "www.edx.com",
     },
     {
       companyId: 7,
@@ -365,7 +366,7 @@ export class NewCompanyComponent implements OnInit {
       title: "Title C",
       nature: "Public Sector",
       ntn: "63543",
-      website: "www.facebook.com"
+      website: "www.facebook.com",
     },
     {
       companyId: 8,
@@ -373,7 +374,7 @@ export class NewCompanyComponent implements OnInit {
       title: "Title D",
       nature: "Private Sector",
       ntn: "5654",
-      website: "www.udemy.com"
+      website: "www.udemy.com",
     },
     {
       companyId: 9,
@@ -381,7 +382,7 @@ export class NewCompanyComponent implements OnInit {
       title: "Title A",
       nature: "Semi-Private Sector",
       ntn: "34444",
-      website: "www.Youtube.com"
+      website: "www.Youtube.com",
     },
     {
       companyId: 10,
@@ -389,7 +390,7 @@ export class NewCompanyComponent implements OnInit {
       title: "Title B",
       nature: "Semi-Private Sector",
       ntn: "155334",
-      website: "www.edx.com"
+      website: "www.edx.com",
     },
     {
       companyId: 11,
@@ -397,7 +398,7 @@ export class NewCompanyComponent implements OnInit {
       title: "Title C",
       nature: "Public Sector",
       ntn: "677853",
-      website: "www.facebook.com"
+      website: "www.facebook.com",
     },
     {
       companyId: 12,
@@ -405,8 +406,8 @@ export class NewCompanyComponent implements OnInit {
       title: "Title D",
       nature: "Semi-Private Sector",
       ntn: "36753",
-      website: "www.udemy.com"
-    }
+      website: "www.udemy.com",
+    },
   ];
 
   //* initializing array for partners detail
@@ -423,21 +424,21 @@ export class NewCompanyComponent implements OnInit {
     this.contactType = [
       { label: "Fax", value: "1" },
       { label: "Telephone", value: "2" },
-      { label: "Mobile", value: "3" }
+      { label: "Mobile", value: "3" },
     ];
 
     //Country Code for Mobiles
     this.country = [
       { label: "Pakistan +92", value: "+92" },
       { label: "Turkey +90", value: "+90" },
-      { label: "US +1", value: "+1" }
+      { label: "US +1", value: "+1" },
     ];
 
     //Area Code
     this.area = [
       { label: 51, areaName: "Islamabad", value: "51" },
       { label: 21, areaName: "Karachi", value: "21" },
-      { label: 42, areaName: "Lahore", value: "42" }
+      { label: 42, areaName: "Lahore", value: "42" },
     ];
 
     //Mobile Code
@@ -445,7 +446,7 @@ export class NewCompanyComponent implements OnInit {
       { label: 300, networkName: "Jazz", value: "300" },
       { label: 313, networkName: "Zong", value: "313" },
       { label: 345, networkName: "Telenor", value: "345" },
-      { label: 333, networkName: "Ufone", value: "333" }
+      { label: 333, networkName: "Ufone", value: "333" },
     ];
 
     //Address Types
@@ -458,28 +459,28 @@ export class NewCompanyComponent implements OnInit {
     //Email Types
     this.emailType = [
       { label: "Personal Email", value: "1" },
-      { label: "Office Email", value: "2" }
+      { label: "Office Email", value: "2" },
     ];
 
     //* For partner ----------------------------------------//
     this.pContactType = [
       { label: "Fax", value: "1" },
       { label: "Telephone", value: "2" },
-      { label: "Mobile", value: "3" }
+      { label: "Mobile", value: "3" },
     ];
 
     //Country Code
     this.pCountry = [
       { label: "Pakistan +92", value: "+92" },
       { label: "Turkey +90", value: "+90" },
-      { label: "US +1", value: "+1" }
+      { label: "US +1", value: "+1" },
     ];
 
     //Area Code
     this.pArea = [
       { label: 51, areaName: "Islamabad", value: "51" },
       { label: 21, areaName: "Karachi", value: "21" },
-      { label: 42, areaName: "Lahore", value: "42" }
+      { label: 42, areaName: "Lahore", value: "42" },
     ];
 
     //Mobile Code
@@ -487,41 +488,41 @@ export class NewCompanyComponent implements OnInit {
       { label: 300, networkName: "Jazz", value: "300" },
       { label: 313, networkName: "Zong", value: "313" },
       { label: 345, networkName: "Telenor", value: "345" },
-      { label: 333, networkName: "Ufone", value: "333" }
+      { label: 333, networkName: "Ufone", value: "333" },
     ];
 
     //Address Types
     this.pAddressType = [
       { label: "Current Address", value: "1" },
       { label: "Office Address", value: "2" },
-      { label: "Postal Address", value: "3" }
+      { label: "Postal Address", value: "3" },
     ];
 
     //Email Types
     this.pEmailType = [
       { label: "Personal Email", value: "1" },
-      { label: "Office Email", value: "2" }
+      { label: "Office Email", value: "2" },
     ];
 
     //* For BOD ----------------------------------------//
     this.bdContactType = [
       { label: "Fax", value: "1" },
       { label: "Telephone", value: "2" },
-      { label: "Mobile", value: "3" }
+      { label: "Mobile", value: "3" },
     ];
 
     //Country Code
     this.bdCountry = [
       { label: "Pakistan +92", value: "+92" },
       { label: "Turkey +90", value: "+90" },
-      { label: "US +1", value: "+1" }
+      { label: "US +1", value: "+1" },
     ];
 
     //Area Code
     this.bdArea = [
       { label: 51, areaName: "Islamabad", value: "51" },
       { label: 21, areaName: "Karachi", value: "21" },
-      { label: 42, areaName: "Lahore", value: "42" }
+      { label: 42, areaName: "Lahore", value: "42" },
     ];
 
     //Mobile Code
@@ -529,41 +530,41 @@ export class NewCompanyComponent implements OnInit {
       { label: 300, networkName: "Jazz", value: "300" },
       { label: 313, networkName: "Zong", value: "313" },
       { label: 345, networkName: "Telenor", value: "345" },
-      { label: 333, networkName: "Ufone", value: "333" }
+      { label: 333, networkName: "Ufone", value: "333" },
     ];
 
     //Address Types
     this.bdAddressType = [
       { label: "Current Address", value: "1" },
       { label: "Office Address", value: "2" },
-      { label: "Postal Address", value: "3" }
+      { label: "Postal Address", value: "3" },
     ];
 
     //Email Types
     this.bdEmailType = [
       { label: "Personal Email", value: "1" },
-      { label: "Office Email", value: "22" }
+      { label: "Office Email", value: "22" },
     ];
 
     //* For Owner ----------------------------------------//
     this.oContactType = [
       { label: "Fax", value: "1" },
       { label: "Telephone", value: "2" },
-      { label: "Mobile", value: "3" }
+      { label: "Mobile", value: "3" },
     ];
 
     //Country Code
     this.oCountry = [
       { label: "Pakistan +92", value: "+92" },
       { label: "Turkey +90", value: "+90" },
-      { label: "US +1", value: "+1" }
+      { label: "US +1", value: "+1" },
     ];
 
     //Area Code
     this.oArea = [
       { label: 51, areaName: "Islamabad", value: "51" },
       { label: 21, areaName: "Karachi", value: "21" },
-      { label: 42, areaName: "Lahore", value: "42" }
+      { label: 42, areaName: "Lahore", value: "42" },
     ];
 
     //Mobile Code
@@ -571,20 +572,20 @@ export class NewCompanyComponent implements OnInit {
       { label: 300, networkName: "Jazz", value: "300" },
       { label: 313, networkName: "Zong", value: "313" },
       { label: 345, networkName: "Telenor", value: "345" },
-      { label: 333, networkName: "Ufone", value: "333" }
+      { label: 333, networkName: "Ufone", value: "333" },
     ];
 
     //Address Types
     this.oAddressType = [
       { label: "Current Address", value: "1" },
       { label: "Office Address", value: "2" },
-      { label: "Postal Address", value: "3" }
+      { label: "Postal Address", value: "3" },
     ];
 
     //Email Types
     this.oEmailType = [
       { label: "Personal Email", value: "1" },
-      { label: "Office Email", value: "2" }
+      { label: "Office Email", value: "2" },
     ];
   }
 
@@ -624,7 +625,7 @@ export class NewCompanyComponent implements OnInit {
       { label: "Quetta", value: "8" },
       { label: "Peshawar", value: "8" },
       { label: "Merdan", value: "8" },
-      { label: "Noshera", value: "8" }
+      { label: "Noshera", value: "8" },
     ];
 
     this.getCompany();
@@ -653,7 +654,7 @@ export class NewCompanyComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           this.addressType.push({
             label: data[i].addressTypeName,
-            value: data[i].addressTypeCd
+            value: data[i].addressTypeCd,
           });
         }
         //alert(this.addressType)
@@ -676,7 +677,7 @@ export class NewCompanyComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           this.countryListForAddress.push({
             label: data[i].cntryName,
-            value: data[i].cntryCd
+            value: data[i].cntryCd,
           });
         }
         //alert(this.addressType)
@@ -706,7 +707,7 @@ export class NewCompanyComponent implements OnInit {
               title: data[i].orgName,
               //nature: data[i].n,
               ntn: data[i].orgNTN,
-              website: data[i].orgWebsite
+              website: data[i].orgWebsite,
             });
           } else {
             for (var j = 0; j < this.companyDetail.length; j++) {
@@ -717,7 +718,7 @@ export class NewCompanyComponent implements OnInit {
                   title: data[i].orgName,
                   //nature: data[i].n,
                   ntn: data[i].orgNTN,
-                  website: data[i].orgWebsite
+                  website: data[i].orgWebsite,
                 });
               }
             }
@@ -743,7 +744,7 @@ export class NewCompanyComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           this.provinceList.push({
             label: data[i].prvinceName,
-            value: data[i].prvncCd
+            value: data[i].prvncCd,
           });
         }
         //alert(this.addressType)
@@ -766,7 +767,7 @@ export class NewCompanyComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           this.districtList.push({
             label: data[i].districtName,
-            value: data[i].districtCd
+            value: data[i].districtCd,
           });
         }
         //alert(this.addressType)
@@ -777,7 +778,7 @@ export class NewCompanyComponent implements OnInit {
   save() {
     if (this.cmbCType == "") {
       this.toastr.errorToastr("Please select business type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -785,42 +786,42 @@ export class NewCompanyComponent implements OnInit {
     //*----- For Business ------//
     else if (this.bNtn == "" || this.bNtn.length < 8) {
       this.toastr.errorToastr("Please enter business ntn", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.bStrn == "" || this.bStrn.length < 10) {
       this.toastr.errorToastr("Please enter business strn", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.bTitle == "") {
       this.toastr.errorToastr("Please enter business title", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.bNature == "") {
       this.toastr.errorToastr("Please enter business nature", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.bDescription == "") {
       this.toastr.errorToastr("Please enter business description", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.bWebsite == "") {
       this.toastr.errorToastr("Please enter business website", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.bFacebook == "") {
       this.toastr.errorToastr("Please enter facebook link", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.addressDetail.length == 0) {
       this.toastr.errorToastr("Please Add Business Address Info", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.contactDetail.length == 0) {
@@ -832,7 +833,7 @@ export class NewCompanyComponent implements OnInit {
       return false;
     } else if (this.emailDetail.length == 0) {
       this.toastr.errorToastr("Please Add Business Email Info", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -843,7 +844,7 @@ export class NewCompanyComponent implements OnInit {
       (this.sCnic == "" || this.sCnic.length < 13)
     ) {
       this.toastr.errorToastr("Please enter owner CNIC", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -851,27 +852,27 @@ export class NewCompanyComponent implements OnInit {
       (this.sNtn == "" || this.sNtn.length < 8)
     ) {
       this.toastr.errorToastr("Please enter owner NTN", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.solePro == true && this.sOwnerName == "") {
       this.toastr.errorToastr("Please enter owner name", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.solePro == true && this.oAddressDetail.length == 0) {
       this.toastr.errorToastr("Please Add Owner Address Info", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.solePro == true && this.oContactDetail.length == 0) {
       this.toastr.errorToastr("Please Add Owner Contact Info Type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.solePro == true && this.oEmailDetail.length == 0) {
       this.toastr.errorToastr("Please Add Owner Email Info", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -881,7 +882,7 @@ export class NewCompanyComponent implements OnInit {
       (this.partners.length == undefined || this.partners.length < 1)
     ) {
       this.toastr.errorToastr("Please enter partner information", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -891,7 +892,7 @@ export class NewCompanyComponent implements OnInit {
       (this.ppCnic == "" || this.ppCnic.length < 13)
     ) {
       this.toastr.errorToastr("Please enter director cnic", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -899,37 +900,37 @@ export class NewCompanyComponent implements OnInit {
       (this.ppNtn == "" || this.ppNtn.length < 8)
     ) {
       this.toastr.errorToastr("Please enter director ntn", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.ppCom == true && this.ppDirectorName == "") {
       this.toastr.errorToastr("Please enter director name", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.ppCom == true && this.ppPosition == "") {
       this.toastr.errorToastr("Please enter director position", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.ppCom == true && this.ppShare == "") {
       this.toastr.errorToastr("Please enter director share", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.ppCom == true && this.oAddressDetail.length == 0) {
       this.toastr.errorToastr("Please Add BOD Address Info", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.ppCom == true && this.oContactDetail.length == 0) {
       this.toastr.errorToastr("Please Add BOD Contact Info", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.ppCom == true && this.oEmailDetail.length == 0) {
       this.toastr.errorToastr("Please Add BOD Email Info", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -1037,12 +1038,12 @@ export class NewCompanyComponent implements OnInit {
             return false;
           } else if (this.emailDetail[i].email.trim() == "") {
             this.toastr.errorToastr("Please Enter Business Email", "Error", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             return false;
           } else if (this.isEmail(this.emailDetail[i].email.trim()) == false) {
             this.toastr.errorToastr("Invalid Business email", "Error", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             return false;
           }
@@ -1156,7 +1157,7 @@ export class NewCompanyComponent implements OnInit {
             return false;
           } else if (this.isEmail(this.oEmailDetail[i].email.trim()) == false) {
             this.toastr.errorToastr("Invalid Owner email detail", "Error", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             return false;
           }
@@ -1177,7 +1178,7 @@ export class NewCompanyComponent implements OnInit {
           role: null,
           date: null,
           share: null,
-          position: null
+          position: null,
         });
       } else if (this.cmbCType == "3") {
         this.partners = [];
@@ -1191,14 +1192,14 @@ export class NewCompanyComponent implements OnInit {
           role: null,
           date: null,
           share: this.ppShare,
-          position: this.ppPosition
+          position: this.ppPosition,
         });
       }
 
       if (this.companyId != "") {
         this.app.showSpinner();
         this.toastr.successToastr("update successfully", "Success", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         //this.clear(this.companyId);
         this.clear(1);
@@ -1215,17 +1216,17 @@ export class NewCompanyComponent implements OnInit {
 
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         this.http
           .put(this.serverUrl + "api/pwCreate", updateData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg != undefined) {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             } else {
@@ -1263,7 +1264,7 @@ export class NewCompanyComponent implements OnInit {
           partners: JSON.stringify(this.partners),
           pAddress: JSON.stringify(this.oAddressDetail),
           pTelephone: JSON.stringify(this.oContactDetail),
-          pEmail: JSON.stringify(this.oEmailDetail)
+          pEmail: JSON.stringify(this.oEmailDetail),
         };
 
         //alert(saveData.companyStrn);
@@ -1277,12 +1278,12 @@ export class NewCompanyComponent implements OnInit {
         // this.http.post(this.serverUrl + 'api/saveCompany', saveData, { headers: reqHeader }).subscribe((data: any) => {
         this.http
           .post(this.serverUrl + "api/saveCompany", saveData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg != undefined) {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.getCompany();
               $("#companyModal").modal("hide");
@@ -1290,7 +1291,7 @@ export class NewCompanyComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               //$('#companyModal').modal('hide');
               this.app.hideSpinner();
@@ -1306,61 +1307,61 @@ export class NewCompanyComponent implements OnInit {
     //return false;
     if (this.pCnic == "" || this.pCnic.length < 13) {
       this.toastr.errorToastr("Please enter partner CNIC", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.pNtn == "" || this.pNtn.length < 8) {
       this.toastr.errorToastr("Please enter partner NTN", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.pPartnerName == "") {
       this.toastr.errorToastr("Please enter partner name", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.pPartnerRole == "") {
       this.toastr.errorToastr("Please enter partner role", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.pDate == "") {
       this.toastr.errorToastr("Please enter partner date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.pShare == "") {
       this.toastr.errorToastr("Please enter partner share", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
     // address type conditions
     else if (this.oAddressDetail.length == 0) {
       this.toastr.errorToastr("Please Add Partner Address Info", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
     // contact type conditions
     else if (this.oContactDetail.length == 0) {
       this.toastr.errorToastr("Please Add Partner Contact Info Type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
     // email type conditions
     else if (this.oEmailDetail.length == 0) {
       this.toastr.errorToastr("Please Add Partner Email Info", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
-      let data = this.partners.find(x => x.cnic == this.pCnic);
+      let data = this.partners.find((x) => x.cnic == this.pCnic);
 
       if (data != undefined) {
         this.toastr.errorToastr("Partner already exist", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else {
@@ -1372,7 +1373,7 @@ export class NewCompanyComponent implements OnInit {
           role: this.pPartnerRole,
           date: new Date(this.pDate),
           share: this.pShare,
-          position: null
+          position: null,
         });
 
         this.clearPartner();
@@ -1404,8 +1405,8 @@ export class NewCompanyComponent implements OnInit {
           mobileCode: false,
           contactNumber: "",
           mobileNumber: "",
-          id: 0
-        }
+          id: 0,
+        },
       ];
 
       //address Detail Owner
@@ -1417,8 +1418,8 @@ export class NewCompanyComponent implements OnInit {
           provinceCode: "",
           districtCode: "",
           cityCode: "",
-          id: 0
-        }
+          id: 0,
+        },
       ];
 
       //Emails Detail Owner
@@ -1426,8 +1427,8 @@ export class NewCompanyComponent implements OnInit {
         {
           type: "",
           email: "",
-          id: 0
-        }
+          id: 0,
+        },
       ];
     } else {
       //contact Detail Owner
@@ -1440,8 +1441,8 @@ export class NewCompanyComponent implements OnInit {
           mobileCode: false,
           contactNumber: "",
           mobileNumber: "",
-          id: this.partners.length
-        }
+          id: this.partners.length,
+        },
       ];
 
       //address Detail Owner
@@ -1453,8 +1454,8 @@ export class NewCompanyComponent implements OnInit {
           provinceCode: "",
           districtCode: "",
           cityCode: "",
-          id: this.partners.length
-        }
+          id: this.partners.length,
+        },
       ];
 
       //Emails Detail Owner
@@ -1462,8 +1463,8 @@ export class NewCompanyComponent implements OnInit {
         {
           type: "",
           email: "",
-          id: this.partners.length
-        }
+          id: this.partners.length,
+        },
       ];
     }
   }
@@ -1529,8 +1530,8 @@ export class NewCompanyComponent implements OnInit {
           countryCode: "",
           provinceCode: "",
           districtCode: "",
-          cityCode: ""
-        }
+          cityCode: "",
+        },
       ];
 
       this.contactDetail = [
@@ -1542,16 +1543,16 @@ export class NewCompanyComponent implements OnInit {
           areaCode: true,
           mobileCode: false,
           contactNumber: "",
-          mobileNumber: ""
-        }
+          mobileNumber: "",
+        },
       ];
 
       this.emailDetail = [
         {
           id: 0,
           type: "",
-          email: ""
-        }
+          email: "",
+        },
       ];
     }
   }
@@ -1574,17 +1575,17 @@ export class NewCompanyComponent implements OnInit {
   delete() {
     if (this.txtdPassword == "") {
       this.toastr.errorToastr("Please enter password", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.txtdPin == "") {
       this.toastr.errorToastr("Please enter PIN", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.dCompanyId == "") {
       this.toastr.errorToastr("Invalid delete request", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -1612,7 +1613,7 @@ export class NewCompanyComponent implements OnInit {
         .subscribe((data: any) => {
           if (data.msg != undefined) {
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getCompany();
             $("#closeDeleteModel").modal("hide");
@@ -1699,7 +1700,7 @@ export class NewCompanyComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();
@@ -1865,7 +1866,7 @@ export class NewCompanyComponent implements OnInit {
 
     if (this.cmbCType == "") {
       this.toastr.errorToastr("Please select business type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.cmbCType == "1") {
@@ -1913,7 +1914,7 @@ export class NewCompanyComponent implements OnInit {
         mobileCode: false,
         contactNumber: "",
         mobileNumber: "",
-        id: 0
+        id: 0,
       });
     } else {
       this.oContactDetail.push({
@@ -1924,7 +1925,7 @@ export class NewCompanyComponent implements OnInit {
         mobileCode: false,
         contactNumber: "",
         mobileNumber: "",
-        id: this.partners.length
+        id: this.partners.length,
       });
     }
   }
@@ -1938,7 +1939,7 @@ export class NewCompanyComponent implements OnInit {
         provinceCode: "",
         districtCode: "",
         cityCode: "",
-        id: 0
+        id: 0,
       });
     } else {
       this.oAddressDetail.push({
@@ -1948,7 +1949,7 @@ export class NewCompanyComponent implements OnInit {
         provinceCode: "",
         districtCode: "",
         cityCode: "",
-        id: this.partners.length
+        id: this.partners.length,
       });
     }
   }
@@ -1958,13 +1959,13 @@ export class NewCompanyComponent implements OnInit {
       this.oEmailDetail.push({
         type: "",
         email: "",
-        id: 0
+        id: 0,
       });
     } else {
       this.oEmailDetail.push({
         type: "",
         email: "",
-        id: this.partners.length
+        id: this.partners.length,
       });
     }
   }
@@ -2020,7 +2021,7 @@ export class NewCompanyComponent implements OnInit {
       areaCode: true,
       mobileCode: false,
       contactNumber: "",
-      mobileNumber: ""
+      mobileNumber: "",
     });
   }
 
@@ -2032,7 +2033,7 @@ export class NewCompanyComponent implements OnInit {
       countryCode: "",
       provinceCode: "",
       districtCode: "",
-      cityCode: ""
+      cityCode: "",
     });
   }
 
@@ -2040,7 +2041,7 @@ export class NewCompanyComponent implements OnInit {
     this.emailDetail.push({
       id: 0,
       type: "",
-      email: ""
+      email: "",
     });
   }
 

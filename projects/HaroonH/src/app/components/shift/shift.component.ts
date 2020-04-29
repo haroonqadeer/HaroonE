@@ -4,7 +4,7 @@ import { ToastrManager } from "ng6-toastr-notifications";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 import { AppComponent } from "src/app/app.component";
 
@@ -22,11 +22,11 @@ declare var $: any;
 @Component({
   selector: "app-shift",
   templateUrl: "./shift.component.html",
-  styleUrls: ["./shift.component.scss"]
+  styleUrls: ["./shift.component.scss"],
 })
 export class ShiftComponent implements OnInit {
   // serverUrl = "http://localhost:3006/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9022/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9022/";
 
   p = 1;
   //pGroup = 1;
@@ -93,7 +93,7 @@ export class ShiftComponent implements OnInit {
 
     this.http
       .get(this.serverUrl + "api/getDepartment?cmpnyID=59", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.departmentList = data;
@@ -112,7 +112,7 @@ export class ShiftComponent implements OnInit {
 
     this.http
       .get(this.serverUrl + "api/getDepartmentShiftDetail", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.departmentShiftDetailList = data;
@@ -124,7 +124,7 @@ export class ShiftComponent implements OnInit {
           if (tempShiftCode == "") {
             this.childList.push({
               deptCd: this.departmentShiftDetailList[i].deptCd,
-              deptName: this.departmentShiftDetailList[i].deptName
+              deptName: this.departmentShiftDetailList[i].deptName,
             });
             tempShiftCode = this.departmentShiftDetailList[i].shiftCd;
           } else if (
@@ -132,14 +132,14 @@ export class ShiftComponent implements OnInit {
           ) {
             this.childList.push({
               deptCd: this.departmentShiftDetailList[i].deptCd,
-              deptName: this.departmentShiftDetailList[i].deptName
+              deptName: this.departmentShiftDetailList[i].deptName,
             });
             tempShiftCode = this.departmentShiftDetailList[i].shiftCd;
             tempList.push({
               sName: this.departmentShiftDetailList[i].shiftName,
               shiftCd: this.departmentShiftDetailList[i].shiftCd,
               startTime: this.departmentShiftDetailList[i].startTime,
-              endTime: this.departmentShiftDetailList[i].endTime
+              endTime: this.departmentShiftDetailList[i].endTime,
             });
           } else if (
             tempShiftCode != this.departmentShiftDetailList[i].shiftCd
@@ -149,7 +149,7 @@ export class ShiftComponent implements OnInit {
               shiftCd: tempList[0].shiftCd,
               startTime: tempList[0].startTime,
               endTime: tempList[0].endTime,
-              department: this.childList
+              department: this.childList,
             });
             this.childList = [];
             tempList = [];
@@ -157,7 +157,7 @@ export class ShiftComponent implements OnInit {
             tempShiftCode = this.departmentShiftDetailList[i].shiftCd;
             this.childList.push({
               deptCd: this.departmentShiftDetailList[i].deptCd,
-              deptName: this.departmentShiftDetailList[i].deptName
+              deptName: this.departmentShiftDetailList[i].deptName,
             });
           }
 
@@ -167,7 +167,7 @@ export class ShiftComponent implements OnInit {
               shiftCd: tempList[0].shiftCd,
               startTime: tempList[0].startTime,
               endTime: tempList[0].endTime,
-              department: this.childList
+              department: this.childList,
             });
             this.childList = [];
           }
@@ -187,7 +187,7 @@ export class ShiftComponent implements OnInit {
 
     this.http
       .get(this.serverUrl + "api/getDepartmentDetail", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.departmentDetailList = data;
@@ -202,7 +202,7 @@ export class ShiftComponent implements OnInit {
     for (var i = 0; i < this.departmentShiftDetailList.length; i++) {
       if (this.departmentShiftDetailList[i].shiftCd == shiftCd) {
         this.deptShiftDetailList.push({
-          deptName: this.departmentShiftDetailList[i].deptName
+          deptName: this.departmentShiftDetailList[i].deptName,
         });
       }
     }
@@ -227,22 +227,22 @@ export class ShiftComponent implements OnInit {
   saveShift() {
     if (this.cmbShift == "") {
       this.toastr.errorToastr("Please select Shift", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (this.cmbDepartment.length == 0) {
       this.toastr.errorToastr("Please Select Department", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (this.startTime == "") {
       this.toastr.errorToastr("Please Select Start Time", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (this.endTime == "") {
       this.toastr.errorToastr("Please Select End Time", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else {
@@ -253,19 +253,19 @@ export class ShiftComponent implements OnInit {
         deptList: this.cmbDepartment,
         startTime: this.startTime,
         endTime: this.endTime,
-        connectedUser: this.app.empId
+        connectedUser: this.app.empId,
       };
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
         .post(this.serverUrl + "api/saveDepartmentShift", saveData, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg == "Record Saved Successfully!") {
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getDepartmentShiftDetail();
             this.getDepartmentDetail();
@@ -300,7 +300,7 @@ export class ShiftComponent implements OnInit {
 
       var shiftData = {
         shiftCd: this.lblShiftCd,
-        connectedUser: this.app.empId
+        connectedUser: this.app.empId,
       };
 
       this.http
@@ -315,7 +315,7 @@ export class ShiftComponent implements OnInit {
             this.app.pin = "";
             this.clear();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getDepartmentDetail();
             this.getDepartmentShiftDetail();
@@ -385,7 +385,7 @@ export class ShiftComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

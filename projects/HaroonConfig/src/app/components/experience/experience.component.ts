@@ -29,17 +29,17 @@ declare var $: any;
 @Component({
   selector: "app-experience",
   templateUrl: "./experience.component.html",
-  styleUrls: ["./experience.component.scss"]
+  styleUrls: ["./experience.component.scss"],
 })
 export class ExperienceComponent implements OnInit {
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9046/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9046/";
 
   postSearch = "";
 
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   expHeading = "Add";
@@ -103,7 +103,7 @@ export class ExperienceComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -122,7 +122,7 @@ export class ExperienceComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -139,7 +139,7 @@ export class ExperienceComponent implements OnInit {
     this.app.showSpinner();
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -158,12 +158,12 @@ export class ExperienceComponent implements OnInit {
 
     if (this.degreeGroup == "") {
       this.toastr.errorToastr("Please Select Degree Group", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.degreeTitle == "") {
       this.toastr.errorToastr("Please Enter Degree Title", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.degreeTitleDescription == "") {
@@ -182,7 +182,7 @@ export class ExperienceComponent implements OnInit {
           qlfctnCd: this.degreeGroup,
           qlfctnCriteriaName: this.degreeTitle,
           qlfctnCriteriaDesc: this.degreeTitleDescription,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
@@ -190,17 +190,17 @@ export class ExperienceComponent implements OnInit {
         this.app.showSpinner();
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         this.http
           .put(this.serverUrl + "api/updateExperienceCriteria", updateData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg == "Record Updated Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addDegreeModal").modal("hide");
@@ -209,7 +209,7 @@ export class ExperienceComponent implements OnInit {
               return false;
             } else if (data.msg == "Update - Record Already Exists!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addDegreeModal").modal("hide");
@@ -218,7 +218,7 @@ export class ExperienceComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addDegreeModal").modal("hide");
@@ -233,7 +233,7 @@ export class ExperienceComponent implements OnInit {
           qlfctnCd: this.degreeGroup,
           qlfctnCriteriaName: this.degreeTitle,
           qlfctnCriteriaDesc: this.degreeTitleDescription,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         this.app.showSpinner();
@@ -244,14 +244,14 @@ export class ExperienceComponent implements OnInit {
         //alert(reqHeader);
         this.http
           .post(this.serverUrl + "api/saveExperienceCriteria", saveData, {
-            responseType: "json"
+            responseType: "json",
           })
           .subscribe((data: any) => {
             // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
 
             if (data.msg == "Record Saved Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addDegreeModal").modal("hide");
@@ -260,7 +260,7 @@ export class ExperienceComponent implements OnInit {
               return false;
             } else if (data.msg == "Insert - Record Already Exists!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addDegreeModal").modal("hide");
@@ -269,7 +269,7 @@ export class ExperienceComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error !", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addDegreeModal").modal("hide");
@@ -339,24 +339,24 @@ export class ExperienceComponent implements OnInit {
         qlfctnCd: this.degreeGroup,
         qlfctnCriteriaName: this.degreeTitle,
         qlfctnCriteriaDesc: this.degreeTitleDescription,
-        connectedUser: this.app.empId
+        connectedUser: this.app.empId,
       };
 
       var token = localStorage.getItem(this.tokenKey);
 
       var reqHeader = new HttpHeaders({
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token
+        Authorization: "Bearer " + token,
       });
 
       this.http
         .put(this.serverUrl + "api/deleteExperienceCriteria", data, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg == "Record Deleted Successfully!") {
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.clear();
             this.getExperienceCriteria();
@@ -364,7 +364,7 @@ export class ExperienceComponent implements OnInit {
             return false;
           } else {
             this.toastr.errorToastr(data.msg, "Error!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             return false;
           }
@@ -432,7 +432,7 @@ export class ExperienceComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

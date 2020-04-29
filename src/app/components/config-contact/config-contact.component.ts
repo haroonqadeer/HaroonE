@@ -3,12 +3,12 @@ import {
   OnInit,
   ViewEncapsulation,
   ViewChild,
-  ElementRef
+  ElementRef,
 } from "@angular/core";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 import { throwError } from "rxjs";
 import { catchError, filter } from "rxjs/operators";
@@ -18,15 +18,15 @@ import { ToastrManager } from "ng6-toastr-notifications";
 @Component({
   selector: "app-config-contact",
   templateUrl: "./config-contact.component.html",
-  styleUrls: ["./config-contact.component.scss"]
+  styleUrls: ["./config-contact.component.scss"],
 })
 export class ConfigContactComponent implements OnInit {
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9043/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com/:9043/";
   // serverUrl = "http://localhost:5000/";
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   cntctTypeList = [];
@@ -61,12 +61,12 @@ export class ConfigContactComponent implements OnInit {
   addContact() {
     if (this.contactType == "") {
       this.toastr.errorToastr("Please select contact type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.contactNumber == "") {
       this.toastr.errorToastr("Please enter contact number", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -89,16 +89,16 @@ export class ConfigContactComponent implements OnInit {
           countryCode: 168,
           contactNumber: this.contactNumber,
           mobileNumber: "",
-          contactDetailCode: 0, 
+          contactDetailCode: 0,
           status: 0,
-          IDelFlag: 0
+          IDelFlag: 0,
         });
 
         this.contactType = "";
         this.contactNumber = "";
       } else {
         this.toastr.errorToastr("Contact Already Exists", "Sorry!", {
-          toastTimeout: 5000
+          toastTimeout: 5000,
         });
       }
     }
@@ -117,12 +117,12 @@ export class ConfigContactComponent implements OnInit {
   addEmail() {
     if (this.emailAdrs == "") {
       this.toastr.errorToastr("Please enter email address", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.validateEmail(this.emailAdrs) == false) {
       this.toastr.errorToastr("Invalid email address", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -142,13 +142,13 @@ export class ConfigContactComponent implements OnInit {
           type: 2,
           status: 0,
           email: this.emailAdrs,
-          IDelFlag: 0
+          IDelFlag: 0,
         });
 
         this.emailAdrs = "";
       } else {
         this.toastr.errorToastr("Email Already Exists", "Sorry!", {
-          toastTimeout: 5000
+          toastTimeout: 5000,
         });
       }
     }

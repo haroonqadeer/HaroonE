@@ -29,19 +29,19 @@ declare var $: any;
 @Component({
   selector: "app-degreee",
   templateUrl: "./degreee.component.html",
-  styleUrls: ["./degreee.component.scss"]
+  styleUrls: ["./degreee.component.scss"],
 })
 export class DegreeeComponent implements OnInit {
   //serverUrl = "http://localhost:9015/";
   // serverUrl = "http://52.163.49.124:9015/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9015/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9015/";
 
   postSearch = "";
 
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   //Lists
@@ -104,7 +104,7 @@ export class DegreeeComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -125,7 +125,7 @@ export class DegreeeComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -141,7 +141,7 @@ export class DegreeeComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -159,12 +159,12 @@ export class DegreeeComponent implements OnInit {
 
     if (this.degreeGroup == "") {
       this.toastr.errorToastr("Please Select Degree Group", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.degreeTitle == "") {
       this.toastr.errorToastr("Please Enter Degree Title", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.degreeTitleDescription == "") {
@@ -183,24 +183,24 @@ export class DegreeeComponent implements OnInit {
           qlfctnCd: this.degreeGroup,
           qlfctnCriteriaName: this.degreeTitle,
           qlfctnCriteriaDesc: this.degreeTitleDescription,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         this.http
           .put(this.serverUrl + "api/updateDegreeCriteria", updateData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg == "Record Updated Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addDegreeModal").modal("hide");
@@ -208,7 +208,7 @@ export class DegreeeComponent implements OnInit {
               return false;
             } else if (data.msg == "Update - Record Already Exists!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addDegreeModal").modal("hide");
@@ -216,7 +216,7 @@ export class DegreeeComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addDegreeModal").modal("hide");
@@ -230,7 +230,7 @@ export class DegreeeComponent implements OnInit {
           qlfctnCd: this.degreeGroup,
           qlfctnCriteriaName: this.degreeTitle,
           qlfctnCriteriaDesc: this.degreeTitleDescription,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
@@ -240,14 +240,14 @@ export class DegreeeComponent implements OnInit {
         //alert(reqHeader);
         this.http
           .post(this.serverUrl + "api/saveDegreeCriteria", saveData, {
-            responseType: "json"
+            responseType: "json",
           })
           .subscribe((data: any) => {
             // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
 
             if (data.msg == "Record Saved Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addDegreeModal").modal("hide");
@@ -255,7 +255,7 @@ export class DegreeeComponent implements OnInit {
               return false;
             } else if (data.msg == "Insert - Record Already Exists!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addDegreeModal").modal("hide");
@@ -263,7 +263,7 @@ export class DegreeeComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error !", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addDegreeModal").modal("hide");
@@ -321,12 +321,12 @@ export class DegreeeComponent implements OnInit {
   delete() {
     if (this.userPassword == "") {
       this.toastr.errorToastr("Please Enter Password", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.userPINCode == "") {
       this.toastr.errorToastr("Please Enter PIN Code", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -337,24 +337,24 @@ export class DegreeeComponent implements OnInit {
           qlfctnCd: this.degreeGroup,
           qlfctnCriteriaName: this.degreeTitle,
           qlfctnCriteriaDesc: this.degreeTitleDescription,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         this.http
           .put(this.serverUrl + "api/deleteDegreeCriteria", data, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg == "Record Deleted Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#deleteModal").modal("hide");
@@ -362,7 +362,7 @@ export class DegreeeComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             }
@@ -430,7 +430,7 @@ export class DegreeeComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

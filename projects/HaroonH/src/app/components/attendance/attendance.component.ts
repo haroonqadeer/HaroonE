@@ -4,7 +4,7 @@ import {
   OnInit,
   ViewEncapsulation,
   EventEmitter,
-  Output
+  Output,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SelectItem } from "primeng/api";
@@ -13,7 +13,7 @@ import {
   HttpHeaders,
   HttpClient,
   HttpEventType,
-  HttpRequest
+  HttpRequest,
 } from "@angular/common/http";
 
 import { AppComponent } from "src/app/app.component";
@@ -23,16 +23,16 @@ declare var $: any;
 @Component({
   selector: "app-attendance",
   templateUrl: "./attendance.component.html",
-  styleUrls: ["./attendance.component.scss"]
+  styleUrls: ["./attendance.component.scss"],
 })
 export class AttendanceComponent implements OnInit {
   //serverUrl = "http://localhost:9032/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9032/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9032/";
 
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   //*Bolean variable
@@ -116,7 +116,9 @@ export class AttendanceComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + "api/getEmployee", { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getEmployee", { headers: reqHeader })
+      .subscribe((data: any) => {
         //this.employeeListMain = data;
         // for (var i = 0; i < data.length; i++) {
         //     this.employeeList.push(data[i]);
@@ -147,13 +149,22 @@ export class AttendanceComponent implements OnInit {
   //Function for save attendance
   save() {
     if (this.ddlEmployee == undefined || this.ddlEmployee == "") {
-      this.toastr.errorToastr("Please select employee", "Error", {toastTimeout: 2500});
+      this.toastr.errorToastr("Please select employee", "Error", {
+        toastTimeout: 2500,
+      });
       return false;
     } else if (this.txtPassword == undefined || this.txtPassword == "") {
-      this.toastr.errorToastr("Please enter code", "Error", {toastTimeout: 2500});
+      this.toastr.errorToastr("Please enter code", "Error", {
+        toastTimeout: 2500,
+      });
       return false;
-    } else if (this.disableFlag == false && (this.ddlAttType == undefined || this.ddlAttType == "")) {
-      this.toastr.errorToastr("Please select availibility", "Error", {toastTimeout: 2500});
+    } else if (
+      this.disableFlag == false &&
+      (this.ddlAttType == undefined || this.ddlAttType == "")
+    ) {
+      this.toastr.errorToastr("Please select availibility", "Error", {
+        toastTimeout: 2500,
+      });
       return false;
     } else {
       var attDateTime = new Date();
@@ -204,7 +215,7 @@ export class AttendanceComponent implements OnInit {
         Rsn: remarks,
         TypeCd: 1, //BreakTypeId,
         ConnectedUser: this.app.empId,
-        DelFlag: 0
+        DelFlag: 0,
       };
 
       //var token = localStorage.getItem(this.tokenKey);
@@ -213,14 +224,20 @@ export class AttendanceComponent implements OnInit {
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http.post(this.serverUrl + "api/saveEmpAttendance", saveData, {headers: reqHeader}).subscribe((data: any) => {
+      this.http
+        .post(this.serverUrl + "api/saveEmpAttendance", saveData, {
+          headers: reqHeader,
+        })
+        .subscribe((data: any) => {
           if (data.msg != "Record Saved Successfully!") {
             this.app.hideSpinner();
             this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 5000 });
             return false;
           } else {
             this.app.hideSpinner();
-            this.toastr.successToastr(data.msg, "Success!", {toastTimeout: 2500});
+            this.toastr.successToastr(data.msg, "Success!", {
+              toastTimeout: 2500,
+            });
             this.getEmployee();
             this.clear();
             return false;
@@ -246,7 +263,6 @@ export class AttendanceComponent implements OnInit {
 
   //function for get filtere list
   showEmpDetail(item) {
-
     //alert(item.deptCd);
     //return false;
 
@@ -278,9 +294,9 @@ export class AttendanceComponent implements OnInit {
     }
 
     //if (item.managerJobPostDeptCd == 0) {
-      this.myDeptCd = item.jobPostDeptCd;
+    this.myDeptCd = item.jobPostDeptCd;
     //} else {
-      //this.myDeptCd = item.managerJobPostDeptCd;
+    //this.myDeptCd = item.managerJobPostDeptCd;
     //}
   }
 
@@ -289,7 +305,7 @@ export class AttendanceComponent implements OnInit {
     var dataList = [];
 
     if (filterOption == "emp") {
-      dataList = this.employeeList.filter(x => x.empID == this.ddlEmployee);
+      dataList = this.employeeList.filter((x) => x.empID == this.ddlEmployee);
 
       if (dataList[0].timeIn == null) {
         //alert('null called');
@@ -364,7 +380,7 @@ export class AttendanceComponent implements OnInit {
         this.tempEmployeeList = this.employeeList;
       } else {
         dataList = this.employeeList.filter(
-          x =>
+          (x) =>
             x.attendanceStatCd == available ||
             x.attendanceStatCd == absent ||
             x.attendanceStatCd == inOffice ||
@@ -379,7 +395,7 @@ export class AttendanceComponent implements OnInit {
 
     if (filterOption == "empStatus") {
       dataList = this.attTypeList.filter(
-        x => x.attendanceStatCd == this.ddlAttType
+        (x) => x.attendanceStatCd == this.ddlAttType
       );
 
       this.attStatus = dataList[0].attendanceStatName;

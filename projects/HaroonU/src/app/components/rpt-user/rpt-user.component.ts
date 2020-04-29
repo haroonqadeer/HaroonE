@@ -3,14 +3,14 @@ import {
   OnInit,
   Injectable,
   ViewChild,
-  ElementRef
+  ElementRef,
 } from "@angular/core";
 import { Chart } from "angular-highcharts";
 import { ToastrManager } from "ng6-toastr-notifications";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 import { throwError } from "rxjs";
 import { catchError, filter } from "rxjs/operators";
@@ -32,15 +32,15 @@ declare var $: any;
 @Component({
   selector: "app-rpt-user",
   templateUrl: "./rpt-user.component.html",
-  styleUrls: ["./rpt-user.component.scss"]
+  styleUrls: ["./rpt-user.component.scss"],
 })
 export class RptUserComponent implements OnInit {
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9037/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9037/";
   // serverUrl = "http://localhost:5000/";
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   // list for excel data
@@ -150,7 +150,7 @@ export class RptUserComponent implements OnInit {
     // this.partyBranch = '';
     // this.partyDepartment = '';
 
-    return this.users.filter(x => x.type == type);
+    return this.users.filter((x) => x.type == type);
   }
 
   //get partys function
@@ -208,7 +208,7 @@ export class RptUserComponent implements OnInit {
   getRoleTree() {
     if (this.cmbRole == "" || this.cmbRole == undefined) {
       this.toastr.errorToastr("Please Select User Role", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     }
@@ -250,9 +250,9 @@ export class RptUserComponent implements OnInit {
                       objCode: this.tempRoleList[j].erpObjctCd,
                       parentErpObjCd: this.tempRoleList[i].erpObjctCd,
                       parentErpObjTypeCd: this.tempRoleList[i].erpObjctTypeCd,
-                      parentErpObjName: this.tempRoleList[i].erpObjctName
-                    }
-                  ]
+                      parentErpObjName: this.tempRoleList[i].erpObjctName,
+                    },
+                  ],
                 });
               }
             }
@@ -263,10 +263,10 @@ export class RptUserComponent implements OnInit {
                 {
                   objName: this.tempRoleList[i].erpObjctName,
                   typeCode: this.tempRoleList[i].erpObjctTypeCd,
-                  objCode: this.tempRoleList[i].erpObjctCd
-                }
+                  objCode: this.tempRoleList[i].erpObjctCd,
+                },
               ],
-              children: this.roleChildren
+              children: this.roleChildren,
             });
           }
         }
@@ -291,7 +291,7 @@ export class RptUserComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           this.roles.push({
             label: data[i].erpRoleName,
-            varue: i
+            varue: i,
             //value: data[i].erpRoleName
           });
         }
@@ -322,7 +322,7 @@ export class RptUserComponent implements OnInit {
   saveActiveUser() {
     if (this.txtPin == "") {
       this.toastr.errorToastr("Please Enter Pin", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -335,7 +335,7 @@ export class RptUserComponent implements OnInit {
       IndvdlID: this.lblIndvdlID,
       CrntUserLogin: localStorage.getItem("userName"),
       CrntUserPin: this.txtPin,
-      ConnectedUser: this.app.empId
+      ConnectedUser: this.app.empId,
     };
 
     this.http
@@ -351,7 +351,7 @@ export class RptUserComponent implements OnInit {
         } else {
           this.app.hideSpinner();
           this.toastr.successToastr(data.msg, "Success!", {
-            toastTimeout: 5000
+            toastTimeout: 5000,
           });
           this.getUserDetail();
           this.getUserTrend();
@@ -366,17 +366,17 @@ export class RptUserComponent implements OnInit {
   savePassword() {
     if (this.txtNewPassword == "") {
       this.toastr.errorToastr("Please Enter New Password", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.txtNewCnfrmPassword == "") {
       this.toastr.errorToastr("Please Enter Comfirm Password", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.txtNewPassword != this.txtNewCnfrmPassword) {
       this.toastr.errorToastr("New Password doesn't match", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -389,12 +389,12 @@ export class RptUserComponent implements OnInit {
         indvdlID: this.lblIndvdlID,
         Email: this.lblEmail,
         IndvdlERPPsswrd: this.txtNewPassword,
-        ConnectedUser: this.app.empId
+        ConnectedUser: this.app.empId,
       };
 
       this.http
         .post(this.serverUrl + "api/resetPassword", data, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg != "Mail Sent!") {
@@ -404,7 +404,7 @@ export class RptUserComponent implements OnInit {
           } else {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 5000
+              toastTimeout: 5000,
             });
             this.txtNewPassword = "";
             this.txtNewCnfrmPassword = "";
@@ -419,25 +419,25 @@ export class RptUserComponent implements OnInit {
   saveAction() {
     if (this.listAction == "") {
       this.toastr.errorToastr("Please Select Action Type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
       if (this.listAction == "Block" && this.listBlockedAction == "") {
         //this.isLoginError = true;
         this.toastr.errorToastr("Please Select Block Time", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else if (this.txtActionPassword == "") {
         //this.isLoginError = true;
         this.toastr.errorToastr("Please Enter Password", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else if (this.txtActionPIN == "") {
         this.toastr.errorToastr("Please Enter PIN Code", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else {
@@ -449,14 +449,14 @@ export class RptUserComponent implements OnInit {
           action: this.listAction,
           duration: this.listBlockedAction,
           password: this.txtActionPassword,
-          pin: this.txtActionPIN
+          pin: this.txtActionPIN,
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         return this.http
@@ -464,12 +464,12 @@ export class RptUserComponent implements OnInit {
           .subscribe((data: any) => {
             if (data.msg != undefined) {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             } else {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               $("#actionModal").modal("hide");
               return false;
@@ -490,23 +490,23 @@ export class RptUserComponent implements OnInit {
 
     if (this.rdbType == "") {
       this.toastr.errorToastr("Please select user type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.rdbType == "Employee" || this.rdbType == "Visitor") {
       if (this.cmbEmployee == "") {
         this.toastr.errorToastr("Please select user", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else if (this.txtUsername.trim().length == 0) {
         this.toastr.errorToastr("Please enter user name", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else if (this.txtPassword.trim().length == 0) {
         this.toastr.errorToastr("Please enter password", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else if (this.txtPassword != this.txtCnfrmPassword) {
@@ -518,7 +518,7 @@ export class RptUserComponent implements OnInit {
         return false;
       } else if (this.cmbRole == "") {
         this.toastr.errorToastr("Please select user role", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else {
@@ -535,7 +535,7 @@ export class RptUserComponent implements OnInit {
           Type: this.rdbType,
           ERPPINStatCd: type,
           ConnectedUser: this.app.empId,
-          DelFlag: 0
+          DelFlag: 0,
         };
 
         var token = localStorage.getItem(this.tokenKey);
@@ -549,7 +549,7 @@ export class RptUserComponent implements OnInit {
             if (data.msg != "User Created Successfully!") {
               this.app.hideSpinner();
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             } else {
@@ -558,7 +558,7 @@ export class RptUserComponent implements OnInit {
               this.getUserTrend();
               this.getParty();
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               $("#userModal").modal("hide");
               this.clear();
@@ -657,7 +657,7 @@ export class RptUserComponent implements OnInit {
 
     frameDoc.document.close();
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();
@@ -813,13 +813,13 @@ export class RptUserComponent implements OnInit {
   sendLink() {
     if (this.rdbType == "") {
       this.toastr.errorToastr("Please select user type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.rdbType == "employee" || this.rdbType == "visitor") {
       if (this.cmbEmployee == "") {
         this.toastr.errorToastr("Please select user", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else {
@@ -832,7 +832,7 @@ export class RptUserComponent implements OnInit {
 
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         this.http
@@ -840,7 +840,7 @@ export class RptUserComponent implements OnInit {
           .subscribe((data: any) => {
             if (data.msg != undefined) {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             } else {

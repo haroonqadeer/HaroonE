@@ -4,7 +4,7 @@ import {
   OnInit,
   ViewEncapsulation,
   EventEmitter,
-  Output
+  Output,
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SelectItem } from "primeng/api";
@@ -13,7 +13,7 @@ import {
   HttpHeaders,
   HttpClient,
   HttpEventType,
-  HttpRequest
+  HttpRequest,
 } from "@angular/common/http";
 
 import { AppComponent } from "src/app/app.component";
@@ -28,7 +28,7 @@ declare var $: any;
 @Component({
   selector: "app-empolyeeprofile",
   templateUrl: "./empolyeeprofile.component.html",
-  styleUrls: ["./empolyeeprofile.component.scss"]
+  styleUrls: ["./empolyeeprofile.component.scss"],
 })
 export class EmpolyeeprofileComponent implements OnInit {
   @ViewChild(ConfigAddressComponent) shrd_adrs: ConfigAddressComponent;
@@ -39,7 +39,7 @@ export class EmpolyeeprofileComponent implements OnInit {
   // imgPath = "I:/VU Projects/Visual_Code_Proj/ERP_Module/HaroonE/src/assets/images/EmpImages";
   // imgPath = "D:/Infovative Projects/HaroonE/src/assets/images/EmpImages";
 
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9026/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9026/";
   imgPath = "C:/inetpub/wwwroot/EMIS/assets/images/EmpImages";
 
   imageUrl: string = "../assets/images/EmpImages/dropHereImg1.jpg";
@@ -47,7 +47,7 @@ export class EmpolyeeprofileComponent implements OnInit {
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   //*Bolean variable
@@ -84,13 +84,13 @@ export class EmpolyeeprofileComponent implements OnInit {
     { label: "C", value: "C" },
     { label: "D", value: "D" },
     { label: "E", value: "E" },
-    { label: "F", value: "F" }
+    { label: "F", value: "F" },
   ];
 
   divisionList = [
     { label: "First Division", value: "First Division" },
     { label: "Second Division", value: "Second Division" },
-    { label: "Third Division", value: "Third Division" }
+    { label: "Third Division", value: "Third Division" },
   ];
 
   contactType = [];
@@ -237,7 +237,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     this.http
       .get(this.serverUrl + "api/getBranches?cmpnyID=" + this.app.cmpnyId, {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.branchList = data;
@@ -383,7 +383,7 @@ export class EmpolyeeprofileComponent implements OnInit {
           this.orgList.push({
             label: data[i].orgName,
             value: data[i].orgID,
-            orgTypeCd: data[i].orgTypeCd
+            orgTypeCd: data[i].orgTypeCd,
           });
         }
       });
@@ -397,7 +397,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     this.http
       .get(this.serverUrl + "api/getQualificationCriteria", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.tempQualificationCriteriaList = data;
@@ -409,7 +409,7 @@ export class EmpolyeeprofileComponent implements OnInit {
               label: data[i].qlfctnCriteriaName,
               value: data[i].qlfctnCriteriaCd,
               qlfctnCd: data[i].qlfctnCd,
-              qlfctnTypeCd: data[i].qlfctnTypeCd
+              qlfctnTypeCd: data[i].qlfctnTypeCd,
             });
           }
 
@@ -420,7 +420,7 @@ export class EmpolyeeprofileComponent implements OnInit {
               label: data[i].qlfctnCriteriaName,
               value: data[i].qlfctnCriteriaCd,
               qlfctnCd: data[i].qlfctnCd,
-              qlfctnTypeCd: data[i].qlfctnTypeCd
+              qlfctnTypeCd: data[i].qlfctnTypeCd,
             });
           }
 
@@ -437,7 +437,7 @@ export class EmpolyeeprofileComponent implements OnInit {
               this.skillGroupList.push({
                 label: data[i].qlfctnName,
                 value: data[i].qlfctnCd,
-                qlfctnTypeCd: data[i].qlfctnTypeCd
+                qlfctnTypeCd: data[i].qlfctnTypeCd,
               });
             }
           }
@@ -462,14 +462,14 @@ export class EmpolyeeprofileComponent implements OnInit {
   getSpecificEmployeeData() {
     if (this.empId == 0) {
       this.toastr.errorToastr("Invalid Request", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
       this.app.showSpinner();
       //* ********************************************save data
       var reqData = {
-        EmpID: this.empId
+        EmpID: this.empId,
       };
 
       //var token = localStorage.getItem(this.tokenKey);
@@ -480,7 +480,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       this.http
         .post(this.serverUrl + "api/getSpecificEmployeeData", reqData, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg != "Done") {
@@ -506,7 +506,7 @@ export class EmpolyeeprofileComponent implements OnInit {
                   districtName: data.adrsList[i].districtName,
 
                   status: 0,
-                  IDelFlag: 0
+                  IDelFlag: 0,
                 });
               }
             }
@@ -523,7 +523,7 @@ export class EmpolyeeprofileComponent implements OnInit {
                   mobileNumber: "",
                   contactDetailCode: 0,
                   status: 0,
-                  IDelFlag: 0
+                  IDelFlag: 0,
                 });
               }
             }
@@ -536,7 +536,7 @@ export class EmpolyeeprofileComponent implements OnInit {
                 type: data.emlList[i].emailTypeCd,
                 status: 0,
                 email: data.emlList[i].emailAddrss,
-                IDelFlag: 0
+                IDelFlag: 0,
               });
             }
 
@@ -580,7 +580,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           this.districtList.push({
             label: data[i].districtName,
-            value: data[i].districtCd
+            value: data[i].districtCd,
           });
         }
       });
@@ -599,7 +599,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           this.provinceList.push({
             label: data[i].prvinceName,
-            value: data[i].prvncCd
+            value: data[i].prvncCd,
           });
         }
       });
@@ -618,12 +618,12 @@ export class EmpolyeeprofileComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           this.countryListForAddress.push({
             label: data[i].cntryName,
-            value: data[i].cntryCd.trim()
+            value: data[i].cntryCd.trim(),
           });
 
           this.countryList.push({
             label: data[i].cntryName + " " + data[i].cntryCallingCd,
-            value: data[i].cntryCallingCd
+            value: data[i].cntryCallingCd,
           });
         }
       });
@@ -642,7 +642,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           this.addressType.push({
             label: data[i].addressTypeName,
-            value: data[i].addressTypeCd
+            value: data[i].addressTypeCd,
           });
         }
       });
@@ -661,7 +661,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           this.contactType.push({
             label: data[i].teleTypeName,
-            value: data[i].teleTypeCd
+            value: data[i].teleTypeCd,
           });
         }
       });
@@ -680,19 +680,17 @@ export class EmpolyeeprofileComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           this.emailType.push({
             label: data[i].emailTypeName,
-            value: data[i].emailTypeCd
+            value: data[i].emailTypeCd,
           });
         }
       });
   }
-
-  //Function for add previous service detail
   addPSD() {
     var myDate = new Date();
 
     if (this.ddlExperience == undefined || this.ddlExperience == "") {
       this.toastr.errorToastr("Please select experience", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -701,7 +699,7 @@ export class EmpolyeeprofileComponent implements OnInit {
       this.orgStartDate == null
     ) {
       this.toastr.errorToastr("Please enter job start date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -710,51 +708,48 @@ export class EmpolyeeprofileComponent implements OnInit {
       this.orgEndDate == null
     ) {
       this.toastr.errorToastr("please enter job end date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.orgStartDate >= this.orgEndDate) {
       this.toastr.errorToastr("Invalid job start date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.orgEndDate > myDate) {
       this.toastr.errorToastr("Invalid job end date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.empPost == undefined || this.empPost.trim() == "") {
       this.toastr.errorToastr("Please enter Details", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
     if (this.desigId == undefined || this.desigId == "" || this.desigId == 0) {
       this.toastr.errorToastr("Invalid Job Designation", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
       var duplicateChk = false;
 
       for (var i = 0; i < this.empOrgList.length; i++) {
-        if (
-          this.empOrgList[i].desigRmrks.toUpperCase() ==
-          this.empPost.trim().toUpperCase()
-        ) {
+        if (this.empOrgList[i].experienceCriteriaCd == this.ddlExperience) {
           duplicateChk = true;
         }
       }
 
       if (duplicateChk == true) {
-        this.toastr.errorToastr("Post already added", "Error", {
-          toastTimeout: 2500
+        this.toastr.errorToastr("Experience already added", "Error", {
+          toastTimeout: 2500,
         });
         return false;
       } else {
         var dataList = [];
         dataList = this.experienceList.filter(
-          x => x.value == this.ddlExperience
+          (x) => x.value == this.ddlExperience
         );
 
         this.empOrgList.push({
@@ -767,7 +762,7 @@ export class EmpolyeeprofileComponent implements OnInit {
           experienceTypeCd: dataList[0].qlfctnTypeCd,
           experienceCd: dataList[0].qlfctnCd,
           experienceCriteriaCd: this.ddlExperience,
-          qlfctnCriteriaName: dataList[0].label
+          qlfctnCriteriaName: dataList[0].label,
         });
 
         this.empPost = "";
@@ -777,7 +772,6 @@ export class EmpolyeeprofileComponent implements OnInit {
       }
     }
   }
-
   //Deleting previous service detail row
   removePSD(item) {
     this.empOrgList.splice(item, 1);
@@ -794,7 +788,7 @@ export class EmpolyeeprofileComponent implements OnInit {
       return false;
     } else if (this.empId == undefined || this.empId == "") {
       this.toastr.errorToastr("Invalid Employee Information", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -804,7 +798,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         EmpID: this.empId,
         EmpPSDList: JSON.stringify(this.empOrgList),
         ConnectedUser: this.app.empId,
-        DelFlag: 0
+        DelFlag: 0,
       };
       //var token = localStorage.getItem(this.tokenKey);
 
@@ -814,7 +808,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       this.http
         .post(this.serverUrl + "api/updatePSD", updateData, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg != "Record Updated Successfully!") {
@@ -824,7 +818,7 @@ export class EmpolyeeprofileComponent implements OnInit {
           } else {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.clearPSD();
             return false;
@@ -837,17 +831,17 @@ export class EmpolyeeprofileComponent implements OnInit {
   addSkill() {
     if (this.ddlSkillGroup == undefined || this.ddlSkillGroup == "") {
       this.toastr.errorToastr("Please select skill group", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.ddlSkill == undefined || this.ddlSkill == "") {
       this.toastr.errorToastr("Please enter skill", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.empSkillLevel == undefined || this.empSkillLevel == "") {
       this.toastr.errorToastr("Please enter expertise", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -872,17 +866,17 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       if (duplicateChk == true) {
         this.toastr.errorToastr("Skill already added", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else {
         var dataList = [];
         dataList = this.skillGroupList.filter(
-          x => x.value == this.ddlSkillGroup
+          (x) => x.value == this.ddlSkillGroup
         );
 
         var dataList1 = [];
-        dataList1 = this.skillList.filter(x => x.value == this.ddlSkill);
+        dataList1 = this.skillList.filter((x) => x.value == this.ddlSkill);
 
         this.empSkillList.push({
           indvdlID: this.empId,
@@ -892,7 +886,7 @@ export class EmpolyeeprofileComponent implements OnInit {
           skillLvl: this.empSkillLevel,
           skillRmrks: this.empSkillRemarks,
           qlfctnName: dataList[0].label,
-          qlfctnCriteriaName: dataList1[0].label
+          qlfctnCriteriaName: dataList1[0].label,
         });
 
         this.ddlSkillGroup = "";
@@ -912,12 +906,12 @@ export class EmpolyeeprofileComponent implements OnInit {
   updateSkills() {
     if (this.empSkillList.length == 0) {
       this.toastr.errorToastr("Please enter employee skills detail", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.empId == undefined || this.empId == "") {
       this.toastr.errorToastr("Invalid Employee Information", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -927,7 +921,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         EmpID: this.empId,
         EmpSkillList: JSON.stringify(this.empSkillList),
         ConnectedUser: this.app.empId,
-        DelFlag: 0
+        DelFlag: 0,
       };
       //var token = localStorage.getItem(this.tokenKey);
 
@@ -937,7 +931,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       this.http
         .post(this.serverUrl + "api/updateSkill", updateData, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg != "Record Updated Successfully!") {
@@ -948,7 +942,7 @@ export class EmpolyeeprofileComponent implements OnInit {
           } else {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.clearSkills();
             //$('#standardModal').modal('hide');
@@ -963,7 +957,7 @@ export class EmpolyeeprofileComponent implements OnInit {
   addQualification() {
     if (this.ddlDegree == undefined || this.ddlDegree == "") {
       this.toastr.errorToastr("Please select degree", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -971,7 +965,7 @@ export class EmpolyeeprofileComponent implements OnInit {
       this.empInstitute.trim() == ""
     ) {
       this.toastr.errorToastr("Please enter institute/campus", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -980,7 +974,7 @@ export class EmpolyeeprofileComponent implements OnInit {
       this.empDegreeYear == null
     ) {
       this.toastr.errorToastr("Please enter passing year", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -990,7 +984,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     // }
     else if (this.ddlDivision == undefined || this.ddlDivision == "") {
       this.toastr.errorToastr("Please enter division", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -1008,7 +1002,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       if (usrYear > crntYear) {
         this.toastr.errorToastr("Invalid passing year", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       }
@@ -1023,12 +1017,12 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       if (duplicateChk == true) {
         this.toastr.errorToastr("Degree already added", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else {
         var dataList = [];
-        dataList = this.degreeList.filter(x => x.value == this.ddlDegree);
+        dataList = this.degreeList.filter((x) => x.value == this.ddlDegree);
 
         this.empDegreeList.push({
           EmpID: this.empId,
@@ -1047,7 +1041,7 @@ export class EmpolyeeprofileComponent implements OnInit {
           educationTypeCd: dataList[0].qlfctnTypeCd,
           educationCd: dataList[0].qlfctnCd,
           educationCriteriaCd: this.ddlDegree,
-          qlfctnCriteriaName: dataList[0].label
+          qlfctnCriteriaName: dataList[0].label,
         });
 
         this.ddlDegree = "";
@@ -1075,7 +1069,7 @@ export class EmpolyeeprofileComponent implements OnInit {
       return false;
     } else if (this.empId == undefined || this.empId == "") {
       this.toastr.errorToastr("Invalid Employee Information", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -1085,7 +1079,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         EmpID: this.empId,
         EmpQualificationList: JSON.stringify(this.empDegreeList),
         ConnectedUser: this.app.empId,
-        DelFlag: 0
+        DelFlag: 0,
       };
       //var token = localStorage.getItem(this.tokenKey);
 
@@ -1095,7 +1089,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       this.http
         .post(this.serverUrl + "api/updateQualification", updateData, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg != "Record Updated Successfully!") {
@@ -1105,7 +1099,7 @@ export class EmpolyeeprofileComponent implements OnInit {
           } else {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.clearQualification();
             return false;
@@ -1274,12 +1268,12 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     if (this.firstName == undefined || this.firstName.trim() == "") {
       this.toastr.errorToastr("Please enter first name", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.lastName == undefined || this.lastName.trim() == "") {
       this.toastr.errorToastr("Please enter last name", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -1289,7 +1283,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     // }
     else if (this.CNIC == undefined || this.CNIC == "") {
       this.toastr.errorToastr("Please enter cnic", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -1299,17 +1293,17 @@ export class EmpolyeeprofileComponent implements OnInit {
     // }
     else if (this.shrd_adrs.addressList.length == 0) {
       this.toastr.errorToastr("Please enter employee address", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.shrd_cntct.contactList.length == 0) {
       this.toastr.errorToastr("Please enter employee contact", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.shrd_cntct.emailList.length == 0) {
       this.toastr.errorToastr("Please enter employee email", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -1340,7 +1334,7 @@ export class EmpolyeeprofileComponent implements OnInit {
           file: this.image,
           path: imgPath,
           ConnectedUser: this.app.empId,
-          DelFlag: 0
+          DelFlag: 0,
         };
 
         //var token = localStorage.getItem(this.tokenKey);
@@ -1351,13 +1345,13 @@ export class EmpolyeeprofileComponent implements OnInit {
 
         this.http
           .post(this.serverUrl + "api/updateEmpPersonalInfo", saveData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg == "Record Saved Successfully!") {
               this.app.hideSpinner();
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.empId = parseInt(data.id);
               this.cmpnyId = parseInt(data.cmpId);
@@ -1368,7 +1362,7 @@ export class EmpolyeeprofileComponent implements OnInit {
             } else {
               this.app.hideSpinner();
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 5000
+                toastTimeout: 5000,
               });
               return false;
             }
@@ -1391,7 +1385,7 @@ export class EmpolyeeprofileComponent implements OnInit {
           file: this.image,
           path: imgPath,
           ConnectedUser: this.app.empId,
-          DelFlag: 0
+          DelFlag: 0,
         };
 
         //var token = localStorage.getItem(this.tokenKey);
@@ -1402,19 +1396,19 @@ export class EmpolyeeprofileComponent implements OnInit {
 
         this.http
           .post(this.serverUrl + "api/updateEmpPersonalInfo", updateData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg != "Record Updated Successfully!") {
               this.app.hideSpinner();
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 5000
+                toastTimeout: 5000,
               });
               return false;
             } else {
               this.app.hideSpinner();
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clearEmp();
               this.getNewEmployee();
@@ -1444,7 +1438,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         file: null,
         path: null,
         ConnectedUser: this.app.empId,
-        DelFlag: 1
+        DelFlag: 1,
       };
 
       //var token = localStorage.getItem(this.tokenKey);
@@ -1455,13 +1449,13 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       this.http
         .post(this.serverUrl + "api/updateEmpPersonalInfo", delData, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg == "Record Deleted Successfully!") {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.clearEmp;
             this.getNewEmployee();
@@ -1489,7 +1483,7 @@ export class EmpolyeeprofileComponent implements OnInit {
       this.jobPost == undefined
     ) {
       this.toastr.errorToastr("Please select job profile", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -1499,7 +1493,7 @@ export class EmpolyeeprofileComponent implements OnInit {
       this.jobType == undefined
     ) {
       this.toastr.errorToastr("Please select job type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -1509,7 +1503,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.appliedDate == null)
     ) {
       this.toastr.errorToastr("Please enter applied date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -1519,7 +1513,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.joiningDate == null)
     ) {
       this.toastr.errorToastr("Please enter joining date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -1529,7 +1523,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.contractFrom == null)
     ) {
       this.toastr.errorToastr("Please enter contract start date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -1539,12 +1533,12 @@ export class EmpolyeeprofileComponent implements OnInit {
         this.contractEnd == null)
     ) {
       this.toastr.errorToastr("Please enter contract end date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.empId == undefined || this.empId == "") {
       this.toastr.errorToastr("Invalid Employee Information", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -1579,7 +1573,7 @@ export class EmpolyeeprofileComponent implements OnInit {
         EmpJobLastDt: endDt,
         JobTypeCd: this.jobType,
         ConnectedUser: this.app.empId,
-        DelFlag: 0
+        DelFlag: 0,
       };
 
       //var token = localStorage.getItem(this.tokenKey);
@@ -1590,7 +1584,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       this.http
         .post(this.serverUrl + "api/updateEmpJobProfile", updateData, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (
@@ -1599,7 +1593,7 @@ export class EmpolyeeprofileComponent implements OnInit {
           ) {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getNewEmployee();
             this.clearJobProfile();
@@ -1631,7 +1625,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     //filter for job post
     if (filterOption == "jobs") {
-      dataList = this.postList.filter(x => x.jobDesigID == this.jobPost);
+      dataList = this.postList.filter((x) => x.jobDesigID == this.jobPost);
 
       this.desigId = dataList[0].jobDesigID;
       this.deptId = dataList[0].jobPostDeptCd;
@@ -1643,7 +1637,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     //filter for generate skill list
     if (filterOption == "skill") {
       dataList = this.tempQualificationCriteriaList.filter(
-        x => x.qlfctnCd == this.ddlSkillGroup
+        (x) => x.qlfctnCd == this.ddlSkillGroup
       );
       this.skillList = [];
       this.ddlSkill = "";
@@ -1651,7 +1645,7 @@ export class EmpolyeeprofileComponent implements OnInit {
       for (var i = 0; i < dataList.length; i++) {
         this.skillList.push({
           label: dataList[i].qlfctnCriteriaName,
-          value: dataList[i].qlfctnCriteriaCd
+          value: dataList[i].qlfctnCriteriaCd,
         });
       }
     }
@@ -1660,7 +1654,7 @@ export class EmpolyeeprofileComponent implements OnInit {
     if (filterOption == "facility") {
       this.empFacilityList = [];
       dataList = this.allFacilityList.filter(
-        x =>
+        (x) =>
           x.jobDesigID == this.desigId &&
           x.jobPostDeptCd == this.deptId &&
           x.jobPostLocationCd == this.locationId
@@ -1668,13 +1662,15 @@ export class EmpolyeeprofileComponent implements OnInit {
 
       for (var i = 0; i < dataList.length; i++) {
         this.empFacilityList.push({
-          facilityName: dataList[i].facilityName
+          facilityName: dataList[i].facilityName,
         });
       }
     }
 
     if (filterOption == "filterbranch") {
-      dataList = this.postList.filter(x => x.jobPostLocationCd == this.branch);
+      dataList = this.postList.filter(
+        (x) => x.jobPostLocationCd == this.branch
+      );
       this.tempJobList = dataList;
 
       //this.srchPostFrom = '';
@@ -1683,7 +1679,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     if (filterOption == "filterdepart") {
       dataList = this.postList.filter(
-        x =>
+        (x) =>
           x.jobPostLocationCd == this.branch &&
           x.jobPostDeptCd == this.department
       );
@@ -1695,7 +1691,7 @@ export class EmpolyeeprofileComponent implements OnInit {
 
     if (filterOption == "filtersection") {
       dataList = this.postList.filter(
-        x =>
+        (x) =>
           x.jobPostLocationCd == this.branch &&
           x.jobPostDeptCd == this.section &&
           x.managerJobPostLocationCd == this.branch &&

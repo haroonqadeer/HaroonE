@@ -23,17 +23,17 @@ declare var $: any;
 @Component({
   selector: "app-performance-eva",
   templateUrl: "./performance-eva.component.html",
-  styleUrls: ["./performance-eva.component.scss"]
+  styleUrls: ["./performance-eva.component.scss"],
 })
 export class PerformanceEvaComponent implements OnInit {
   //   serverUrl = "https://localhost:8008/";
   // serverUrl = "http://52.163.189.189:9035/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9035/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9035/";
   //serverUrl = "http://localhost:9035/";
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   tblSearchReviews = "";
@@ -187,14 +187,14 @@ export class PerformanceEvaComponent implements OnInit {
 
     this.app.showSpinner();
     var saveData = {
-      jobDesigID: this.userJobDesignationId
+      jobDesigID: this.userJobDesignationId,
     };
 
     // var token = localStorage.getItem(this.tokenKey);
     // var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http
       .post(this.serverUrl + "api/getNewEmployee", saveData, {
-        responseType: "json"
+        responseType: "json",
       })
       .subscribe((data: any) => {
         //alert('data length: ' + data.length);
@@ -210,7 +210,7 @@ export class PerformanceEvaComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -221,7 +221,7 @@ export class PerformanceEvaComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           this.supervisorList.push({
             label: data[i].indvdlFullName,
-            value: data[i].indvdlID
+            value: data[i].indvdlID,
           });
         }
         this.app.hideSpinner();
@@ -235,7 +235,7 @@ export class PerformanceEvaComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -250,7 +250,7 @@ export class PerformanceEvaComponent implements OnInit {
             qlfctnCd: data[i].qlfctnCd,
             qlfctnTypeCd: data[i].qlfctnTypeCd,
             qlfctnCriteriaCd: data[i].qlfctnCriteriaCd,
-            qlfctnCriteriaName: data[i].qlfctnCriteriaName
+            qlfctnCriteriaName: data[i].qlfctnCriteriaName,
           });
         }
         this.app.hideSpinner();
@@ -267,12 +267,12 @@ export class PerformanceEvaComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
       .get(this.serverUrl + "api/getProjectsPerformanceData", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.projectsPerformanceData = data;
@@ -300,12 +300,12 @@ export class PerformanceEvaComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
       .get(this.serverUrl + "api/getSkillsPerformanceData", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.skillsPerformanceData = data;
@@ -363,7 +363,8 @@ export class PerformanceEvaComponent implements OnInit {
           RateEmpAssessment: this.projectsPerformanceData[i].indvdlAssessLvl,
           SupervisorId: this.projectsPerformanceData[i].managerJobDesigID, // ID
           SupervisorName: this.projectsPerformanceData[i].indvdlFullName, // Name
-          RateSprvsrAssessment: this.projectsPerformanceData[i].managerAssessLvl
+          RateSprvsrAssessment: this.projectsPerformanceData[i]
+            .managerAssessLvl,
         });
         //alert(this.tempProjectsPerformanceData.length);
         //alert(this.tempProjectsPerformanceData[0].SupervisorId);
@@ -398,7 +399,7 @@ export class PerformanceEvaComponent implements OnInit {
           SkillTypeCd: this.skillsPerformanceData[i].skillTypeCd,
           SkillCriteriaCd: this.skillsPerformanceData[i].skillsCriteriaCd,
           RateSkillLevel: this.skillsPerformanceData[i].skillLvl,
-          SkillRemarks: this.skillsPerformanceData[i].skillRmrks
+          SkillRemarks: this.skillsPerformanceData[i].skillRmrks,
         });
       }
     }
@@ -408,12 +409,12 @@ export class PerformanceEvaComponent implements OnInit {
   addReviews() {
     if (this.reviewDate == undefined || this.reviewDate == "") {
       this.toastr.errorToastr("Please Select Date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.employeeName == undefined || this.employeeName == "") {
       this.toastr.errorToastr("Please Select Employee", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -421,17 +422,17 @@ export class PerformanceEvaComponent implements OnInit {
       this.rateJobKnowledge == ""
     ) {
       this.toastr.errorToastr("Please Rate Job Knowledge", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.rateWorkQlty == undefined || this.rateWorkQlty == "") {
       this.toastr.errorToastr("Please Rate Work Quality", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.rateAttendance == undefined || this.rateAttendance == "") {
       this.toastr.errorToastr("Please Rate Attendance", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -439,7 +440,7 @@ export class PerformanceEvaComponent implements OnInit {
       this.rateCommunication == ""
     ) {
       this.toastr.errorToastr("Please Rate Communication", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -447,7 +448,7 @@ export class PerformanceEvaComponent implements OnInit {
       this.rateDependability == ""
     ) {
       this.toastr.errorToastr("Please Rate Dependability", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -461,7 +462,7 @@ export class PerformanceEvaComponent implements OnInit {
 
       if (duplicateChk == true) {
         this.toastr.errorToastr("Review have already exists.", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else {
@@ -475,7 +476,7 @@ export class PerformanceEvaComponent implements OnInit {
           RateWorkQlty: this.rateWorkQlty,
           RateAttendance: this.rateAttendance,
           RateCommunication: this.rateCommunication,
-          RateDependability: this.rateDependability
+          RateDependability: this.rateDependability,
         });
       }
       this.clearReviews();
@@ -490,22 +491,22 @@ export class PerformanceEvaComponent implements OnInit {
   addGoals() {
     if (this.startDate == undefined || this.startDate == "") {
       this.toastr.errorToastr("Please Enter Start Date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.finishDate == undefined || this.finishDate == "") {
       this.toastr.errorToastr("Please Enter Completion Date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.finishDate <= this.startDate) {
       this.toastr.errorToastr("Invalid start Date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.projectDesc == undefined || this.projectDesc == "") {
       this.toastr.errorToastr("Please Enter Project description", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -515,7 +516,7 @@ export class PerformanceEvaComponent implements OnInit {
     // }
     else if (this.supervisorName == undefined || this.supervisorName == "") {
       this.toastr.errorToastr("Please Select Supervisor Name", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -523,12 +524,12 @@ export class PerformanceEvaComponent implements OnInit {
       this.rateSprvsrAssessment == ""
     ) {
       this.toastr.errorToastr("Please Rate Supervisor Assessment", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.employeeName == undefined || this.employeeName == "") {
       this.toastr.errorToastr("Please Select Employee", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -546,7 +547,7 @@ export class PerformanceEvaComponent implements OnInit {
 
       if (duplicateChk == true) {
         this.toastr.errorToastr("Project have already exists.", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else {
@@ -566,7 +567,7 @@ export class PerformanceEvaComponent implements OnInit {
           RateEmpAssessment: 0, //this.rateEmpAssessment,
           Supervisor: this.supervisor, // To Display supervisor name
           SupervisorName: this.supervisorName,
-          RateSprvsrAssessment: this.rateSprvsrAssessment
+          RateSprvsrAssessment: this.rateSprvsrAssessment,
         });
 
         this.saveProjects();
@@ -582,7 +583,7 @@ export class PerformanceEvaComponent implements OnInit {
   addSkills() {
     if (this.skillDate == undefined || this.skillDate == "") {
       this.toastr.errorToastr("Please Select Date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -590,17 +591,17 @@ export class PerformanceEvaComponent implements OnInit {
       this.skillCriteriaCd == ""
     ) {
       this.toastr.errorToastr("Please Select Skill", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.rateSkillLevel == undefined || this.rateSkillLevel == "") {
       this.toastr.errorToastr("Please Rate Achieved", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.skillRemarks == undefined || this.skillRemarks == "") {
       this.toastr.errorToastr("Please Enter Skill Remarks", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -617,7 +618,7 @@ export class PerformanceEvaComponent implements OnInit {
 
       if (duplicateChk == true) {
         this.toastr.errorToastr("Skill have already exists.", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else {
@@ -639,7 +640,7 @@ export class PerformanceEvaComponent implements OnInit {
           SkillTypeCd: this.skillTypeCd,
           SkillCriteriaCd: this.skillCriteriaCd,
           RateSkillLevel: this.rateSkillLevel,
-          SkillRemarks: this.skillRemarks
+          SkillRemarks: this.skillRemarks,
         });
       }
 
@@ -696,12 +697,12 @@ export class PerformanceEvaComponent implements OnInit {
   saveReviews() {
     if (this.employeeName == undefined || this.employeeName == "") {
       this.toastr.errorToastr("Please Select Employee", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.reviewsList.length == 0) {
       this.toastr.errorToastr("Please Enter Review Detail", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -740,7 +741,7 @@ export class PerformanceEvaComponent implements OnInit {
         var saveData = {
           ReviewsList: JSON.stringify(this.reviewsList),
           ConnectedUser: "12000",
-          DelFlag: 0
+          DelFlag: 0,
         };
         //var token = localStorage.getItem(this.tokenKey);
 
@@ -751,17 +752,17 @@ export class PerformanceEvaComponent implements OnInit {
 
         this.http
           .post(this.serverUrl + "api/saveReviews", saveData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg != "Record Saved Successfully!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 5000
+                toastTimeout: 5000,
               });
               return false;
             } else {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               //$('#standardModal').modal('hide');
               //this.getPStandard();
@@ -848,27 +849,27 @@ export class PerformanceEvaComponent implements OnInit {
 
     if (this.employeeName == undefined || this.employeeName == "") {
       this.toastr.errorToastr("Please Select Employee", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.startDate == undefined || this.startDate == "") {
       this.toastr.errorToastr("Please Enter Start Date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.finishDate == undefined || this.finishDate == "") {
       this.toastr.errorToastr("Please Enter Completion Date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.finishDate <= this.startDate) {
       this.toastr.errorToastr("Invalid start Date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.projectDesc == undefined || this.projectDesc == "") {
       this.toastr.errorToastr("Please Enter Project description", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -878,7 +879,7 @@ export class PerformanceEvaComponent implements OnInit {
     // }
     else if (this.supervisorName == undefined || this.supervisorName == "") {
       this.toastr.errorToastr("Please Select Supervisor Name", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -886,7 +887,7 @@ export class PerformanceEvaComponent implements OnInit {
       this.rateSprvsrAssessment == ""
     ) {
       this.toastr.errorToastr("Please Rate Supervisor Assessment", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -903,7 +904,7 @@ export class PerformanceEvaComponent implements OnInit {
         managerJobDesigID: this.supervisorName, // it is managerJobDesigID
         managerAssessLvl: this.rateSprvsrAssessment,
         // "projectsList": JSON.stringify(this.projectsList),
-        connectedUser: "12000"
+        connectedUser: "12000",
         //"DelFlag": 0
       };
       //var token = localStorage.getItem(this.tokenKey);
@@ -914,12 +915,12 @@ export class PerformanceEvaComponent implements OnInit {
 
       this.http
         .post(this.serverUrl + "api/saveProjects", saveData, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg == "Record Saved Successfully!") {
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 5000
+              toastTimeout: 5000,
             });
             //this.projectsList = [];
             this.getProjectsPerformanceData();
@@ -929,7 +930,7 @@ export class PerformanceEvaComponent implements OnInit {
             return false;
           } else if (data.msg == "Record Updated Successfully!") {
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 5000
+              toastTimeout: 5000,
             });
             //this.projectsList = [];
             this.getProjectsPerformanceData();
@@ -962,12 +963,12 @@ export class PerformanceEvaComponent implements OnInit {
 
     if (this.employeeName == undefined || this.employeeName == "") {
       this.toastr.errorToastr("Please Select Employee", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.skillsList.length == 0) {
       this.toastr.errorToastr("Please Enter Skills Detail", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -976,7 +977,7 @@ export class PerformanceEvaComponent implements OnInit {
         indvdlID: this.employeeName,
         skillsList: JSON.stringify(this.skillsList),
         ConnectedUser: "12000",
-        DelFlag: 0
+        DelFlag: 0,
       };
       //var token = localStorage.getItem(this.tokenKey);
 
@@ -986,7 +987,7 @@ export class PerformanceEvaComponent implements OnInit {
 
       this.http
         .post(this.serverUrl + "api/saveSkills", saveData, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg != "Record Saved Successfully!") {
@@ -996,7 +997,7 @@ export class PerformanceEvaComponent implements OnInit {
           } else {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
 
             //this.skillsList = [];
@@ -1038,12 +1039,12 @@ export class PerformanceEvaComponent implements OnInit {
 
     if (this.userPassword == "") {
       this.toastr.errorToastr("Please Enter Password", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.userPINCode == "") {
       this.toastr.errorToastr("Please Enter PIN Code", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -1068,7 +1069,7 @@ export class PerformanceEvaComponent implements OnInit {
           // "managerJobDesigID": this.supervisorName, // it is managerJobDesigID
           // "managerAssessLvl": this.rateSprvsrAssessment,
           // "projectsList": JSON.stringify(this.projectsList),
-          connectedUser: "12000"
+          connectedUser: "12000",
           //"DelFlag": 1
         };
 
@@ -1078,14 +1079,14 @@ export class PerformanceEvaComponent implements OnInit {
 
         this.http
           .put(this.serverUrl + "api/deleteProjects", deleteData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             //alert(data.msg);
 
             if (data.msg == "Record Deleted Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.getProjectsPerformanceData();
               //this.tempListProjectsPerformanceData(empId);
@@ -1096,7 +1097,7 @@ export class PerformanceEvaComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.app.hideSpinner();
               return false;
@@ -1111,7 +1112,7 @@ export class PerformanceEvaComponent implements OnInit {
           indvdlID: this.employeeName,
           skillsList: JSON.stringify(this.skillsList),
           ConnectedUser: "12000",
-          DelFlag: 0
+          DelFlag: 0,
         };
 
         //var token = localStorage.getItem(this.tokenKey);
@@ -1120,14 +1121,14 @@ export class PerformanceEvaComponent implements OnInit {
 
         this.http
           .put(this.serverUrl + "api/deleteSkills", data, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             //alert(data.msg);
 
             if (data.msg == "Record Deleted Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clearSkills();
               $("#deleteModal").modal("hide");
@@ -1135,7 +1136,7 @@ export class PerformanceEvaComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             }
@@ -1264,7 +1265,7 @@ export class PerformanceEvaComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();
@@ -1539,7 +1540,7 @@ export class PerformanceEvaComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();
@@ -1815,7 +1816,7 @@ export class PerformanceEvaComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

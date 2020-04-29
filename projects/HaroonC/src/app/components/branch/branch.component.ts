@@ -5,7 +5,7 @@ import {
   ElementRef,
   NgModule,
   EventEmitter,
-  Output
+  Output,
 } from "@angular/core";
 import { ToastrManager } from "ng6-toastr-notifications";
 import { AppComponent } from "../../../../../../src/app/app.component";
@@ -58,7 +58,7 @@ declare var $: any;
   // providers: [AddressComponent],
   selector: "app-branch",
   templateUrl: "./branch.component.html",
-  styleUrls: ["./branch.component.scss"]
+  styleUrls: ["./branch.component.scss"],
 })
 export class BranchComponent implements OnInit {
   @ViewChild(ConfigAddressComponent) shrd_adrs: ConfigAddressComponent;
@@ -78,12 +78,12 @@ export class BranchComponent implements OnInit {
   //shipping = false;
   //postal = false;
 
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9040/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9040/";
   //serverUrl = "http://localhost:9040/";
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   // list for excel data
@@ -176,8 +176,8 @@ export class BranchComponent implements OnInit {
       areaCode: true,
       mobileCode: false,
       contactNumber: "",
-      mobileNumber: ""
-    }
+      mobileNumber: "",
+    },
   ];
 
   //address Detail
@@ -192,16 +192,16 @@ export class BranchComponent implements OnInit {
       districtList: "",
       districtCode: "",
       cityList: "",
-      cityCode: ""
-    }
+      cityCode: "",
+    },
   ];
 
   //Emails Detail
   emailDetail = [
     {
       type: "",
-      email: ""
-    }
+      email: "",
+    },
   ];
 
   //*use in city combobox
@@ -209,7 +209,7 @@ export class BranchComponent implements OnInit {
     { ctyId: "1", ctyName: "Islamabad" },
     { ctyId: "2", ctyName: "Karachi" },
     { ctyId: "3", ctyName: "Lahore" },
-    { ctyId: "4", ctyName: "Quetta" }
+    { ctyId: "4", ctyName: "Quetta" },
   ];
 
   constructor(
@@ -244,7 +244,7 @@ export class BranchComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -298,7 +298,7 @@ export class BranchComponent implements OnInit {
     // });
 
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     });
 
     this.http
@@ -321,7 +321,7 @@ export class BranchComponent implements OnInit {
     this.app.showSpinner();
 
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     });
 
     this.http
@@ -344,46 +344,46 @@ export class BranchComponent implements OnInit {
   saveBranch() {
     if (this.cmbCompany == "") {
       this.toastr.errorToastr("Please Select Company", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.txtBranch == "") {
       this.toastr.errorToastr("Please Enter Branch", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.address.trim() == "") {
       this.toastr.errorToastr("Please Enter Address", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.country == "") {
       this.toastr.errorToastr("Please Enter Country", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.city == "") {
       this.toastr.errorToastr("Please Enter City", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.zipCode == "") {
       this.toastr.errorToastr("Please Enter Zip Code", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
     // contact type conditions
     else if (this.shrd_cntct.contactList.length == 0) {
       this.toastr.errorToastr("Please Add Contact Info Type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
     // email type conditions
     else if (this.shrd_cntct.emailList.length == 0) {
       this.toastr.errorToastr("Please Add Email Info Type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -404,7 +404,7 @@ export class BranchComponent implements OnInit {
 
           zipCode: this.zipCode,
           status: 0,
-          IDelFlag: 0
+          IDelFlag: 0,
         });
       } else {
         this.addressList[0].address = this.address;
@@ -422,11 +422,11 @@ export class BranchComponent implements OnInit {
           branchName: this.txtBranch,
           address: JSON.stringify(this.addressList),
           telephone: JSON.stringify(this.shrd_cntct.contactList),
-          email: JSON.stringify(this.shrd_cntct.emailList)
+          email: JSON.stringify(this.shrd_cntct.emailList),
         };
 
         var reqHeader = new HttpHeaders({
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         });
 
         // var token = localStorage.getItem(this.tokenKey);
@@ -438,18 +438,18 @@ export class BranchComponent implements OnInit {
 
         this.http
           .put(this.serverUrl + "api/updateBranch", updateData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg != "Record Updated Successfully!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.app.hideSpinner();
               return false;
             } else {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               this.getBranchDetail();
@@ -466,7 +466,7 @@ export class BranchComponent implements OnInit {
           branchName: this.txtBranch,
           address: JSON.stringify(this.addressList),
           telephone: JSON.stringify(this.shrd_cntct.contactList),
-          email: JSON.stringify(this.shrd_cntct.emailList)
+          email: JSON.stringify(this.shrd_cntct.emailList),
         };
 
         // var token = localStorage.getItem(this.tokenKey);
@@ -477,23 +477,23 @@ export class BranchComponent implements OnInit {
         // });
 
         var reqHeader = new HttpHeaders({
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         });
 
         this.http
           .post(this.serverUrl + "api/saveBranch", saveData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg != "Record Saved Successfully!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.app.hideSpinner();
               return false;
             } else {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               this.getBranchDetail();
@@ -554,7 +554,7 @@ export class BranchComponent implements OnInit {
               provinceCode: 6,
               countryCode: this.branchDetail[i].addCntryCd,
               zipCode: 0,
-              status: 1
+              status: 1,
             });
           } else if (this.branchDetail[i].teleTypeCd != 0) {
             telephoneList.push({
@@ -564,7 +564,7 @@ export class BranchComponent implements OnInit {
               status: 1,
               contactNumber: this.branchDetail[i].teleNo,
               mobileNumber: "",
-              countryCode: 0
+              countryCode: 0,
             });
           } else if (this.branchDetail[i].emailTypeCd != 0) {
             emailList.push({
@@ -572,7 +572,7 @@ export class BranchComponent implements OnInit {
               emailId: 0,
               type: this.branchDetail[i].emailTypeCd,
               status: 1,
-              email: this.branchDetail[i].emailAddrss
+              email: this.branchDetail[i].emailAddrss,
             });
           }
         }
@@ -627,7 +627,7 @@ export class BranchComponent implements OnInit {
       var branchData = {
         companyId: this.cmpnyId,
         branchId: this.dbranchId,
-        DelFlag: this.delFlag
+        DelFlag: this.delFlag,
       };
 
       this.http
@@ -646,7 +646,7 @@ export class BranchComponent implements OnInit {
             this.app.hideSpinner();
             this.app.pin = "";
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getBranches();
             this.getBranchDetail();
@@ -722,7 +722,7 @@ export class BranchComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();
@@ -793,7 +793,7 @@ export class BranchComponent implements OnInit {
       areaCode: true,
       mobileCode: false,
       contactNumber: "",
-      mobileNumber: ""
+      mobileNumber: "",
     });
   }
 
@@ -809,14 +809,14 @@ export class BranchComponent implements OnInit {
       districtList: "",
       districtCode: "",
       cityList: "",
-      cityCode: ""
+      cityCode: "",
     });
   }
 
   addEmail() {
     this.emailDetail.push({
       type: "",
-      email: ""
+      email: "",
     });
   }
 
@@ -839,7 +839,9 @@ export class BranchComponent implements OnInit {
     if (item == "") {
       this.dropProvinceList = this.provinceList;
     } else {
-      this.dropProvinceList = this.provinceList.filter(x => x.cntryCd == item);
+      this.dropProvinceList = this.provinceList.filter(
+        (x) => x.cntryCd == item
+      );
     }
   }
 
@@ -847,7 +849,9 @@ export class BranchComponent implements OnInit {
     if (item == "") {
       this.dropDistrictList = this.districtList;
     } else {
-      this.dropDistrictList = this.districtList.filter(x => x.prvncCd == item);
+      this.dropDistrictList = this.districtList.filter(
+        (x) => x.prvncCd == item
+      );
     }
   }
 
@@ -855,7 +859,7 @@ export class BranchComponent implements OnInit {
     if (item == "") {
       this.dropCityList = this.cityList;
     } else {
-      this.dropCityList = this.cityList.filter(x => x.districtCd == item);
+      this.dropCityList = this.cityList.filter((x) => x.districtCd == item);
     }
   }
 }

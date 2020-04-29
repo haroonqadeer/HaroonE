@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MessageService } from "primeng/api";
@@ -29,17 +29,17 @@ declare var $: any;
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class LoginComponent implements OnInit {
   /*** Api link published in server ***/
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9010/";
   //serverUrl = "http://localhost:9010/";
   tokenKey = "token";
 
   /*** http header ***/
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   /*** Variable Declaration ***/
@@ -68,14 +68,14 @@ export class LoginComponent implements OnInit {
     //* checking if login name is empty
     if (this.txtUserName.trim().length == 0) {
       this.toastr.errorToastr("Please Enter User Name", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
     //* checking if password is empty
     else if (this.txtPassword == "") {
       this.toastr.errorToastr("Please Enter Password", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -84,17 +84,21 @@ export class LoginComponent implements OnInit {
       //* Initialize List and Assign data to list. Sending list to api
       var loginData = {
         IndvdlERPUsrID: this.txtUserName,
-        IndvdlERPPsswrd: this.txtPassword
+        IndvdlERPPsswrd: this.txtPassword,
       };
 
       //* header sending to api
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http.post(this.serverUrl + "api/CreateToken", loginData, {headers: reqHeader}).subscribe((data: any) => {
+      this.http
+        .post(this.serverUrl + "api/CreateToken", loginData, {
+          headers: reqHeader,
+        })
+        .subscribe((data: any) => {
           //* check if message is login Successfully
           if (data.msg == "Login Successfully!") {
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
 
             this.app.hideSpinner();
@@ -109,7 +113,6 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("cn", data.userDetail[0].locationName);
             localStorage.setItem("ei", data.userDetail[0].indvdlID);
 
-
             this.app.checkLogin("Yes");
             this.app.branchList = data.userDetail;
 
@@ -117,9 +120,6 @@ export class LoginComponent implements OnInit {
             // this.app.cmpnyId = data.userDetail[0].cmpnyId;
             // this.app.cmpnyName = data.userDetail[0].locationName;
             // this.app.empId = data.userDetail[0].indvdlID;
-
-
-
           } else {
             this.app.hideSpinner();
             this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
@@ -137,7 +137,11 @@ export class LoginComponent implements OnInit {
     //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + Token });
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.get(this.serverUrl + "api/getUserDept?empID=" + item, { headers: reqHeader }).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "api/getUserDept?empID=" + item, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
         localStorage.setItem("deptCd", data[0].jobPostDeptCd);
       });
   }
@@ -154,12 +158,12 @@ export class LoginComponent implements OnInit {
     //* checking if login name is empty
     if (this.txtUserName.trim().length == 0) {
       this.toastr.errorToastr("Please Enter User Name", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
       var genTime = new Date();
-      var link = "http://ambit.southeastasia.cloudapp.azure.com:8998?u=";
+      var link = "http://ambit-erp.southeastasia.cloudapp.azure.com:8998?u=";
       var expTime = new Date();
 
       expTime.setDate(genTime.getDate() + 1);
@@ -168,7 +172,7 @@ export class LoginComponent implements OnInit {
       var Token = localStorage.getItem(this.tokenKey);
       var reqHeader = new HttpHeaders({
         "Content-Type": "application/json",
-        Authorization: "Bearer " + Token
+        Authorization: "Bearer " + Token,
       });
 
       //* Initialize List and Assign data to list. Sending list to api
@@ -176,7 +180,7 @@ export class LoginComponent implements OnInit {
         IndvdlUserName: this.txtUserName,
         generationTime: genTime,
         linkURL: link,
-        expiryTime: expTime
+        expiryTime: expTime,
       };
 
       this.http
@@ -190,7 +194,7 @@ export class LoginComponent implements OnInit {
           } else {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             return false;
           }

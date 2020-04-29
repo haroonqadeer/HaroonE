@@ -3,7 +3,7 @@ import {
   ModuleWithProviders,
   ViewChild,
   ElementRef,
-  HostListener
+  HostListener,
 } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
@@ -31,17 +31,17 @@ declare var $: any;
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9010/";
 
   // serverUrl = "http://localhost:9010/";
 
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   panelOpenState = false;
@@ -100,27 +100,27 @@ export class AppComponent implements OnInit {
           {
             label: "New",
             icon: "pi pi-fw pi-plus",
-            items: [{ label: "Project" }, { label: "Other" }]
+            items: [{ label: "Project" }, { label: "Other" }],
           },
           { label: "Open" },
           { separator: true },
-          { label: "Quit" }
-        ]
+          { label: "Quit" },
+        ],
       },
       {
         label: "Edit",
         icon: "pi pi-fw pi-pencil",
         items: [
           { label: "Delete", icon: "pi pi-fw pi-trash" },
-          { label: "Refresh", icon: "pi pi-fw pi-refresh" }
-        ]
+          { label: "Refresh", icon: "pi pi-fw pi-refresh" },
+        ],
       },
       {
         label: "Help",
         icon: "pi pi-fw pi-question",
         items: [
           {
-            label: "Contents"
+            label: "Contents",
           },
           {
             label: "Search",
@@ -130,16 +130,16 @@ export class AppComponent implements OnInit {
                 label: "Text",
                 items: [
                   {
-                    label: "Workspace"
-                  }
-                ]
+                    label: "Workspace",
+                  },
+                ],
               },
               {
-                label: "File"
-              }
-            ]
-          }
-        ]
+                label: "File",
+              },
+            ],
+          },
+        ],
       },
       {
         label: "Actions",
@@ -150,21 +150,21 @@ export class AppComponent implements OnInit {
             icon: "pi pi-fw pi-pencil",
             items: [
               { label: "Save", icon: "pi pi-fw pi-save" },
-              { label: "Update", icon: "pi pi-fw pi-save" }
-            ]
+              { label: "Update", icon: "pi pi-fw pi-save" },
+            ],
           },
           {
             label: "Other",
             icon: "pi pi-fw pi-tags",
-            items: [{ label: "Delete", icon: "pi pi-fw pi-minus" }]
-          }
-        ]
+            items: [{ label: "Delete", icon: "pi pi-fw pi-minus" }],
+          },
+        ],
       },
       { separator: true },
       {
         label: "Quit",
-        icon: "pi pi-fw pi-times"
-      }
+        icon: "pi pi-fw pi-times",
+      },
     ];
   }
 
@@ -186,7 +186,7 @@ export class AppComponent implements OnInit {
     var Token = localStorage.getItem(this.tokenKey);
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     var loginData = { IndvdlERPUsrID: name };
@@ -195,7 +195,7 @@ export class AppComponent implements OnInit {
 
     this.http
       .post(this.serverUrl + "api/getUserDetail", loginData, {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         // this.cmpnyId = data.userDetail[0].cmpnyID;
@@ -206,7 +206,7 @@ export class AppComponent implements OnInit {
         for (var i = 0; i < data.userDetail.length; i++) {
           this.branchList.push({
             label: data.userDetail[i].locationName,
-            value: data.userDetail[i].locationCd
+            value: data.userDetail[i].locationCd,
           });
 
           //alert(data.userDetail[i].locationName);
@@ -289,7 +289,7 @@ export class AppComponent implements OnInit {
   /* Set the width of the side navigation to 250px */
   public openNav() {
     if (this.router.url != "/home") {
-      $(".sidenavContainer").fadeIn("slow", function() {});
+      $(".sidenavContainer").fadeIn("slow", function () {});
     }
 
     document.getElementById("mySidenav").style.width = "248px";
@@ -297,14 +297,14 @@ export class AppComponent implements OnInit {
     this.startWatching();
 
     // Start watching when user idle is starting.
-    this.userIdle.onTimerStart().subscribe(count => this.Logout());
+    this.userIdle.onTimerStart().subscribe((count) => this.Logout());
   }
 
   /* Set the width of the side navigation to 0 */
   closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 
-    $(".sidenavContainer").fadeOut("slow", function() {});
+    $(".sidenavContainer").fadeOut("slow", function () {});
   }
 
   //*function for checking login already logedin or not
@@ -338,7 +338,7 @@ export class AppComponent implements OnInit {
     //checking if pin is empty
     if (this.txtPin.trim().length == 0) {
       this.toastr.errorToastr("Please Enter Pin", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else {
@@ -388,7 +388,7 @@ export class AppComponent implements OnInit {
         } else {
           this.hideSpinner();
           this.toastr.successToastr(data.msg, "Success!", {
-            toastTimeout: 2500
+            toastTimeout: 2500,
           });
           return false;
         }
@@ -471,22 +471,22 @@ export class AppComponent implements OnInit {
   changePassword() {
     if (this.txtCrntPassword == "") {
       this.toastr.errorToastr("Please Enter Old Password", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.txtNewPassword == "") {
       this.toastr.errorToastr("Please Enter New Password", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.txtCnfrmPassword == "") {
       this.toastr.errorToastr("Please Enter Comfirm Password", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.txtNewPassword != this.txtCnfrmPassword) {
       this.toastr.errorToastr("New Password doesn't match", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -494,18 +494,18 @@ export class AppComponent implements OnInit {
       var Token = localStorage.getItem(this.tokenKey);
       var reqHeader = new HttpHeaders({
         "Content-Type": "application/json",
-        Authorization: "Bearer " + Token
+        Authorization: "Bearer " + Token,
       });
 
       var data = {
         indvdlID: this.empId,
         oldPassword: this.txtCrntPassword,
-        newPassword: this.txtNewPassword
+        newPassword: this.txtNewPassword,
       };
 
       this.http
         .post(this.serverUrl + "api/resetPassword", data, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg != "Password Changed Successfully!") {
@@ -515,7 +515,7 @@ export class AppComponent implements OnInit {
           } else {
             this.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 5000
+              toastTimeout: 5000,
             });
             this.txtCrntPassword = "";
             this.txtNewPassword = "";

@@ -20,15 +20,15 @@ declare var $: any;
 @Component({
   selector: "app-transferposting",
   templateUrl: "./transferposting.component.html",
-  styleUrls: ["./transferposting.component.scss"]
+  styleUrls: ["./transferposting.component.scss"],
 })
 export class TransferpostingComponent implements OnInit {
   // serverUrl = "http://localhost:9029/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9029/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9029/";
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   //*Bolean variable
@@ -47,7 +47,7 @@ export class TransferpostingComponent implements OnInit {
   transferTypeList = [
     { transferType: "Transfer" },
     { transferType: "Permotion" },
-    { transferType: "Demotion" }
+    { transferType: "Demotion" },
   ];
 
   transfersList = [];
@@ -168,7 +168,7 @@ export class TransferpostingComponent implements OnInit {
 
     this.http
       .get(this.serverUrl + "api/getBranches?cmpnyID=59", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.branchList = data;
@@ -275,17 +275,17 @@ export class TransferpostingComponent implements OnInit {
   save() {
     if (this.efectDate == undefined || this.efectDate == "") {
       this.toastr.errorToastr("Please enter date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.transfersList.length == 0) {
       this.toastr.errorToastr("Please add employee for transfer", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.efectDate == undefined || this.efectDate == "") {
       this.toastr.errorToastr("Please enter effect date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -299,7 +299,7 @@ export class TransferpostingComponent implements OnInit {
 
       if (flag == true) {
         this.toastr.errorToastr("Invalid transfers record", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else {
@@ -308,7 +308,7 @@ export class TransferpostingComponent implements OnInit {
         var saveData = {
           TransfersList: JSON.stringify(this.transfersList),
           ConnectedUser: 12000, //this.app.empId,
-          DelFlag: 0
+          DelFlag: 0,
         };
 
         //var token = localStorage.getItem(this.tokenKey);
@@ -319,19 +319,19 @@ export class TransferpostingComponent implements OnInit {
 
         this.http
           .post(this.serverUrl + "api/transferEmpList", saveData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg != "Record Saved Successfully!") {
               this.app.hideSpinner();
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 5000
+                toastTimeout: 5000,
               });
               return false;
             } else {
               this.app.hideSpinner();
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.reset();
               this.getEmployee();
@@ -408,28 +408,28 @@ export class TransferpostingComponent implements OnInit {
   add() {
     if (this.efectDate == undefined || this.efectDate == "") {
       this.toastr.errorToastr("Please enter effect date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.transferType == undefined || this.transferType == "") {
       this.toastr.errorToastr("Please enter transfer type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.postFrom == undefined || this.postFrom == "") {
       this.toastr.errorToastr("Please enter post from", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
     if (this.postTo == undefined || this.postTo == "") {
       this.toastr.errorToastr("Please enter post to", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.ddlEmployee1 == undefined || this.ddlEmployee1 == "") {
       this.toastr.errorToastr("Please select employee", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -438,7 +438,7 @@ export class TransferpostingComponent implements OnInit {
       this.JobPostLocationCdFrom == this.JobPostLocationCdTo
     ) {
       this.toastr.errorToastr("Post from and post to are same", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -447,7 +447,7 @@ export class TransferpostingComponent implements OnInit {
       var dataList = [];
 
       dataList = this.transfersList.filter(
-        x => x.IndvdlID == this.ddlEmployee1
+        (x) => x.IndvdlID == this.ddlEmployee1
       );
 
       if (dataList.length > 0) {
@@ -490,7 +490,7 @@ export class TransferpostingComponent implements OnInit {
           }
 
           dataList = this.employeeList.filter(
-            x => x.indvdlID == this.ddlEmployee1
+            (x) => x.indvdlID == this.ddlEmployee1
           );
 
           this.transfersList.push({
@@ -509,7 +509,7 @@ export class TransferpostingComponent implements OnInit {
             PostFrom: this.tempJobNameFrom,
             PostTo: this.tempJobNameTo,
             EmpFrom: this.ddlEmployee1,
-            status: exist
+            status: exist,
           });
 
           for (var i = 0; i < this.transfersList.length; i++) {
@@ -551,7 +551,9 @@ export class TransferpostingComponent implements OnInit {
     var dataList = [];
 
     if (filterOption == "filteremp1") {
-      dataList = this.employeeList.filter(x => x.indvdlID == this.ddlEmployee1);
+      dataList = this.employeeList.filter(
+        (x) => x.indvdlID == this.ddlEmployee1
+      );
 
       this.lblDesignation1 = dataList[0].desigName;
       this.lblPayGrade1 = dataList[0].payGradeName;
@@ -565,7 +567,9 @@ export class TransferpostingComponent implements OnInit {
     }
 
     if (filterOption == "filteremp2") {
-      dataList = this.employeeList.filter(x => x.indvdlID == this.ddlEmployee2);
+      dataList = this.employeeList.filter(
+        (x) => x.indvdlID == this.ddlEmployee2
+      );
 
       // this.lblBranch2 = dataList[0].locationName;
       // this.lblDepartment2 = dataList[0].deptName;
@@ -580,7 +584,7 @@ export class TransferpostingComponent implements OnInit {
     }
 
     if (filterOption == "filterjob1") {
-      dataList = this.employeeList.filter(x => x.jobDesigID == this.postFrom);
+      dataList = this.employeeList.filter((x) => x.jobDesigID == this.postFrom);
 
       if (dataList.length > 0) {
         this.ddlEmployee1 = dataList[0].indvdlID;
@@ -604,7 +608,7 @@ export class TransferpostingComponent implements OnInit {
     }
 
     if (filterOption == "filterjob2") {
-      dataList = this.jobsList.filter(x => x.jobDesigID == this.postTo);
+      dataList = this.jobsList.filter((x) => x.jobDesigID == this.postTo);
 
       if (dataList.length > 0) {
         this.ddlEmployee2 = dataList[0].indvdlID;
@@ -628,11 +632,13 @@ export class TransferpostingComponent implements OnInit {
     }
 
     if (filterOption == "filterbranch1") {
-      dataList = this.jobsList.filter(x => x.jobPostLocationCd == this.branch1);
+      dataList = this.jobsList.filter(
+        (x) => x.jobPostLocationCd == this.branch1
+      );
       this.tempJobList1 = dataList;
 
       dataList = this.employeeList.filter(
-        x => x.jobPostLocationCd == this.branch1
+        (x) => x.jobPostLocationCd == this.branch1
       );
       this.tempEmpList1 = dataList;
 
@@ -646,14 +652,14 @@ export class TransferpostingComponent implements OnInit {
 
     if (filterOption == "filterdepart1") {
       dataList = this.jobsList.filter(
-        x =>
+        (x) =>
           x.jobPostLocationCd == this.branch1 &&
           x.jobPostDeptCd == this.department1
       );
       this.tempJobList1 = dataList;
 
       dataList = this.employeeList.filter(
-        x =>
+        (x) =>
           x.jobPostLocationCd == this.branch1 &&
           x.jobPostDeptCd == this.department1
       );
@@ -669,7 +675,7 @@ export class TransferpostingComponent implements OnInit {
 
     if (filterOption == "filtersection1") {
       dataList = this.jobsList.filter(
-        x =>
+        (x) =>
           x.jobPostLocationCd == this.branch1 &&
           x.jobPostDeptCd == this.section1 &&
           x.managerJobPostLocationCd == this.branch1 &&
@@ -678,7 +684,7 @@ export class TransferpostingComponent implements OnInit {
       this.tempJobList1 = dataList;
 
       dataList = this.employeeList.filter(
-        x =>
+        (x) =>
           x.jobPostLocationCd == this.branch1 &&
           x.jobPostDeptCd == this.section1 &&
           x.managerJobPostLocationCd == this.branch1 &&
@@ -695,11 +701,13 @@ export class TransferpostingComponent implements OnInit {
     }
 
     if (filterOption == "filterbranch2") {
-      dataList = this.jobsList.filter(x => x.jobPostLocationCd == this.branch2);
+      dataList = this.jobsList.filter(
+        (x) => x.jobPostLocationCd == this.branch2
+      );
       this.tempJobList2 = dataList;
 
       dataList = this.employeeList.filter(
-        x => x.jobPostLocationCd == this.branch2
+        (x) => x.jobPostLocationCd == this.branch2
       );
       this.tempEmpList2 = dataList;
 
@@ -713,14 +721,14 @@ export class TransferpostingComponent implements OnInit {
 
     if (filterOption == "filterdepart2") {
       dataList = this.jobsList.filter(
-        x =>
+        (x) =>
           x.jobPostLocationCd == this.branch2 &&
           x.jobPostDeptCd == this.department2
       );
       this.tempJobList2 = dataList;
 
       dataList = this.employeeList.filter(
-        x =>
+        (x) =>
           x.jobPostLocationCd == this.branch2 &&
           x.jobPostDeptCd == this.department2
       );
@@ -736,7 +744,7 @@ export class TransferpostingComponent implements OnInit {
 
     if (filterOption == "filtersection2") {
       dataList = this.jobsList.filter(
-        x =>
+        (x) =>
           x.jobPostLocationCd == this.branch2 &&
           x.jobPostDeptCd == this.section2 &&
           x.managerJobPostLocationCd == this.branch2 &&
@@ -745,7 +753,7 @@ export class TransferpostingComponent implements OnInit {
       this.tempJobList2 = dataList;
 
       dataList = this.employeeList.filter(
-        x =>
+        (x) =>
           x.jobPostLocationCd == this.branch2 &&
           x.jobPostDeptCd == this.section2 &&
           x.managerJobPostLocationCd == this.branch2 &&
@@ -812,7 +820,7 @@ export class TransferpostingComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

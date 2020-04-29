@@ -5,7 +5,7 @@ import { ToastrManager } from "ng6-toastr-notifications";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 
 // import {
@@ -75,13 +75,13 @@ declare var $: any;
         color: #ffffff !important;
         outline: 0 !important;
       }
-    `
+    `,
   ],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class PostComponent implements OnInit {
   // serverUrl = "http://localhost:3001/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9013/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9013/";
   // serverUrl = "http://52.163.189.189:9013/";
 
   //ngprime organization chart
@@ -189,7 +189,7 @@ export class PostComponent implements OnInit {
 
     this.http
       .get(this.serverUrl + "api/getDepartments?cmpnyID=59", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.departmentList = data;
@@ -244,7 +244,7 @@ export class PostComponent implements OnInit {
       if (this.sectionList[i].parentDeptCd == item) {
         this.sections.push({
           deptCd: this.sectionList[i].deptCd,
-          deptName: this.sectionList[i].deptName
+          deptName: this.sectionList[i].deptName,
         });
       }
     }
@@ -269,7 +269,7 @@ export class PostComponent implements OnInit {
       if (this.departmentList[i].locationCd == item) {
         this.departments.push({
           deptCd: this.departmentList[i].deptCd,
-          deptName: this.departmentList[i].deptName
+          deptName: this.departmentList[i].deptName,
         });
       }
     }
@@ -301,7 +301,7 @@ export class PostComponent implements OnInit {
           jobDesigName: this.reptOfficerList[i].jobDesigName,
           payGradeCd: this.reptOfficerList[i].payGradeCd,
           jobPostDeptCd: this.reptOfficerList[i].jobPostDeptCd,
-          jobPostLocationCd: this.reptOfficerList[i].jobPostLocationCd
+          jobPostLocationCd: this.reptOfficerList[i].jobPostLocationCd,
         });
       }
     }
@@ -323,7 +323,7 @@ export class PostComponent implements OnInit {
           "&deptCd=" +
           item.deptCd,
         {
-          headers: reqHeader
+          headers: reqHeader,
         }
       )
       .subscribe((data: any) => {
@@ -419,7 +419,7 @@ export class PostComponent implements OnInit {
 
     this.http
       .get(this.serverUrl + "api/getBranches?cmpnyID=59", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.offices = data;
@@ -440,7 +440,7 @@ export class PostComponent implements OnInit {
 
     this.http
       .get(this.serverUrl + "api/getReportingOfficer", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.reptOfficerList = data;
@@ -465,7 +465,7 @@ export class PostComponent implements OnInit {
         if (this.bps[i].payGradeCd == payGrade) {
           this.bpsList.push({
             payGradeCd: this.bps[i].payGradeCd,
-            payGradeName: this.bps[i].payGradeName
+            payGradeName: this.bps[i].payGradeName,
           });
         }
       }
@@ -534,7 +534,7 @@ export class PostComponent implements OnInit {
       this.app.showSpinner();
 
       var branchData = {
-        jobDesigID: this.jobDesigId
+        jobDesigID: this.jobDesigId,
       };
 
       this.http
@@ -551,7 +551,7 @@ export class PostComponent implements OnInit {
             this.app.pin = "";
             this.clear();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getPost();
             this.getPostDetail();
@@ -566,54 +566,54 @@ export class PostComponent implements OnInit {
   save() {
     if (this.txtPostTitle == "") {
       this.toastr.errorToastr("Please Enter Post Title", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (this.officeName == "") {
       this.toastr.errorToastr("Please select Branch", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (this.departmentName == "") {
       this.toastr.errorToastr("Please select Department", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (this.jobPostName == "") {
       this.toastr.errorToastr("Please select Job Designation", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (this.BPS == "") {
       this.toastr.errorToastr("Please select Pay Scale", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (this.txtReptOfficer == "") {
       this.toastr.errorToastr("Please select Reporting Officer", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (this.jobNature == "") {
       this.toastr.errorToastr("Please select job Nature", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (this.txtLeaveRule == "") {
       this.toastr.errorToastr("Please select Leave Rule", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (this.jobType == "") {
       this.toastr.errorToastr("Please select Nature of Appointment", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else {
       var leaveRuleList = [];
       for (var i = 0; i < this.txtLeaveRule.length; i++) {
         leaveRuleList.push({
-          LeaveRuleID: this.txtLeaveRule[i]
+          LeaveRuleID: this.txtLeaveRule[i],
         });
       }
       if (this.jobDesigId == "") {
@@ -631,21 +631,21 @@ export class PostComponent implements OnInit {
             ManagerJobDesigID: this.txtReptOfficer,
             jobNatureCd: this.jobNature,
             leaveRule: JSON.stringify(leaveRuleList),
-            jobTypeCd: this.jobType
+            jobTypeCd: this.jobType,
           };
 
           var reqHeader = new HttpHeaders({
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           });
 
           this.http
             .post(this.serverUrl + "api/saveJobPost", saveData, {
-              headers: reqHeader
+              headers: reqHeader,
             })
             .subscribe((data: any) => {
               if (data.msg == "Record Saved Successfully!") {
                 this.toastr.successToastr(data.msg, "Success!", {
-                  toastTimeout: 2500
+                  toastTimeout: 2500,
                 });
                 this.getPost();
                 this.getPostDetail();
@@ -654,7 +654,7 @@ export class PostComponent implements OnInit {
                 return false;
               } else {
                 this.toastr.errorToastr(data.msg, "Error!", {
-                  toastTimeout: 2500
+                  toastTimeout: 2500,
                 });
                 //$('#companyModal').modal('hide');
                 this.app.hideSpinner();
@@ -675,21 +675,21 @@ export class PostComponent implements OnInit {
             ManagerJobDesigID: this.txtReptOfficer,
             jobNatureCd: this.jobNature,
             leaveRule: JSON.stringify(leaveRuleList),
-            jobTypeCd: this.jobType
+            jobTypeCd: this.jobType,
           };
 
           var reqHeader = new HttpHeaders({
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           });
 
           this.http
             .post(this.serverUrl + "api/saveJobPost", savedata, {
-              headers: reqHeader
+              headers: reqHeader,
             })
             .subscribe((data: any) => {
               if (data.msg == "Record Saved Successfully!") {
                 this.toastr.successToastr(data.msg, "Success!", {
-                  toastTimeout: 2500
+                  toastTimeout: 2500,
                 });
                 this.getPost();
                 this.getPostDetail();
@@ -700,7 +700,7 @@ export class PostComponent implements OnInit {
                 return false;
               } else {
                 this.toastr.errorToastr(data.msg, "Error!", {
-                  toastTimeout: 2500
+                  toastTimeout: 2500,
                 });
                 //$('#companyModal').modal('hide');
                 this.app.hideSpinner();
@@ -731,21 +731,21 @@ export class PostComponent implements OnInit {
             ManagerJobDesigID: this.txtReptOfficer,
             jobNatureCd: this.jobNature,
             leaveRule: JSON.stringify(leaveRuleList),
-            jobTypeCd: this.jobType
+            jobTypeCd: this.jobType,
           };
 
           var reqHeader = new HttpHeaders({
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           });
 
           this.http
             .post(this.serverUrl + "api/updateJobPost", updateData, {
-              headers: reqHeader
+              headers: reqHeader,
             })
             .subscribe((data: any) => {
               if (data.msg == "Record Updated Successfully!") {
                 this.toastr.successToastr(data.msg, "Success!", {
-                  toastTimeout: 2500
+                  toastTimeout: 2500,
                 });
                 this.getPost();
                 this.getPostDetail();
@@ -755,7 +755,7 @@ export class PostComponent implements OnInit {
                 return false;
               } else {
                 this.toastr.errorToastr(data.msg, "Error!", {
-                  toastTimeout: 2500
+                  toastTimeout: 2500,
                 });
                 this.app.hideSpinner();
                 return false;
@@ -776,21 +776,21 @@ export class PostComponent implements OnInit {
             ManagerJobDesigID: this.txtReptOfficer,
             jobNatureCd: this.jobNature,
             leaveRule: JSON.stringify(leaveRuleList),
-            jobTypeCd: this.jobType
+            jobTypeCd: this.jobType,
           };
 
           var reqHeader = new HttpHeaders({
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           });
 
           this.http
             .post(this.serverUrl + "api/updateJobPost", updatedata, {
-              headers: reqHeader
+              headers: reqHeader,
             })
             .subscribe((data: any) => {
               if (data.msg == "Record Updated Successfully!") {
                 this.toastr.successToastr(data.msg, "Success!", {
-                  toastTimeout: 2500
+                  toastTimeout: 2500,
                 });
                 this.getPost();
                 this.getPostDetail();
@@ -800,7 +800,7 @@ export class PostComponent implements OnInit {
                 return false;
               } else {
                 this.toastr.errorToastr(data.msg, "Error!", {
-                  toastTimeout: 2500
+                  toastTimeout: 2500,
                 });
                 //$('#companyModal').modal('hide');
                 this.app.hideSpinner();
@@ -883,7 +883,7 @@ export class PostComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

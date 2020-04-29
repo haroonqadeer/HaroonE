@@ -6,11 +6,11 @@ import { AppComponent } from "src/app/app.component";
 @Component({
   selector: "app-attendance-dashboard",
   templateUrl: "./attendance-dashboard.component.html",
-  styleUrls: ["./attendance-dashboard.component.scss"]
+  styleUrls: ["./attendance-dashboard.component.scss"],
 })
 export class AttendanceDashboardComponent implements OnInit {
   // serverUrl = "http://localhost:3010/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9031/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9031/";
 
   //* Variables Declaration for chart
   Area_chart: Chart;
@@ -31,7 +31,7 @@ export class AttendanceDashboardComponent implements OnInit {
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday"
+    "Saturday",
   ];
 
   recentEmpEntry = [];
@@ -74,7 +74,7 @@ export class AttendanceDashboardComponent implements OnInit {
 
     this.http
       .get(this.serverUrl + "api/getWeeklyEmpAttendance", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         for (var i = 0; i < data.length; i++) {
@@ -87,40 +87,40 @@ export class AttendanceDashboardComponent implements OnInit {
 
         let chart = new Chart({
           chart: {
-            type: "areaspline"
+            type: "areaspline",
           },
           title: {
-            text: "Employee attendance for last week"
+            text: "Employee attendance for last week",
           },
           xAxis: {
-            categories: lblWeek
+            categories: lblWeek,
           },
           yAxis: {
             title: {
-              text: "Number of Employees"
-            }
+              text: "Number of Employees",
+            },
           },
           credits: {
-            enabled: false
+            enabled: false,
           },
           series: [
             {
               name: "In Office",
-              data: lblOffice
+              data: lblOffice,
             },
             {
               name: "Remote",
-              data: lblRemote
+              data: lblRemote,
             },
             {
               name: "On Leave",
-              data: lblLeave
+              data: lblLeave,
             },
             {
               name: "Absent",
-              data: lblAbsent
-            }
-          ]
+              data: lblAbsent,
+            },
+          ],
         });
 
         this.Area_chart = chart;
@@ -141,7 +141,7 @@ export class AttendanceDashboardComponent implements OnInit {
 
     this.http
       .get(this.serverUrl + "api/getWeeklyAbsentEmployee", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         var mySeries = [];
@@ -151,25 +151,25 @@ export class AttendanceDashboardComponent implements OnInit {
 
         let chart = new Chart({
           chart: {
-            type: "pie"
+            type: "pie",
           },
           title: {
-            text: "Absent Last 7 Days"
+            text: "Absent Last 7 Days",
           },
           credits: {
-            enabled: false
+            enabled: false,
           },
           plotOptions: {
             pie: {
-              showInLegend: true
-            }
+              showInLegend: true,
+            },
           },
           series: [
             {
               name: "Employees",
-              data: mySeries
-            }
-          ]
+              data: mySeries,
+            },
+          ],
         });
         this.Pie_Chart = chart;
         this.app.hideSpinner();
@@ -193,35 +193,35 @@ export class AttendanceDashboardComponent implements OnInit {
 
         let chart = new Chart({
           chart: {
-            type: "column"
+            type: "column",
           },
           title: {
-            text: "Late Comers Last 7 Days"
+            text: "Late Comers Last 7 Days",
           },
           legend: {
             reversed: true,
             itemStyle: {
               fontSize: "15px",
-              fontWeight: "static"
-            }
+              fontWeight: "static",
+            },
           },
           yAxis: {
             title: {
-              text: "No. of Employees"
-            }
+              text: "No. of Employees",
+            },
           },
           xAxis: {
-            categories: myCategory //['Saturday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+            categories: myCategory, //['Saturday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
           },
           credits: {
-            enabled: false
+            enabled: false,
           },
           series: [
             {
               name: "Employees",
-              data: mySeries //[5, 3, 4, 7, 2, 5]
-            }
-          ]
+              data: mySeries, //[5, 3, 4, 7, 2, 5]
+            },
+          ],
         });
 
         this.Column_Chart = chart;
@@ -258,7 +258,7 @@ export class AttendanceDashboardComponent implements OnInit {
                 yr: data[i].yr,
                 month: data[i].month,
                 dyName: data[i].dyName,
-                holidayName: data[i].holidayName
+                holidayName: data[i].holidayName,
               });
             }
           } else if (i % 2 != 0) {
@@ -278,7 +278,7 @@ export class AttendanceDashboardComponent implements OnInit {
                 yr: data[i].yr,
                 month: data[i].month,
                 dyName: data[i].dyName,
-                holidayName: data[i].holidayName
+                holidayName: data[i].holidayName,
               });
             }
           }
@@ -342,7 +342,7 @@ export class AttendanceDashboardComponent implements OnInit {
           this.recentEmpEntry.push({
             empName: data[i].indvdlFirstName,
             curTime: data[i].currentTime,
-            noOfMin: diff
+            noOfMin: diff,
           });
         }
         this.app.hideSpinner();

@@ -5,7 +5,7 @@ import { ToastrManager } from "ng6-toastr-notifications";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -17,11 +17,11 @@ declare var $: any;
 @Component({
   selector: "app-yearcalendar",
   templateUrl: "./yearcalendar.component.html",
-  styleUrls: ["./yearcalendar.component.scss"]
+  styleUrls: ["./yearcalendar.component.scss"],
 })
 export class YearcalendarComponent implements OnInit {
   //serverUrl = "http://localhost:9021/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9021/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9021/";
 
   events: any[];
   options: any;
@@ -50,32 +50,32 @@ export class YearcalendarComponent implements OnInit {
   cmbHolidayList = [
     {
       value: "1",
-      label: "Kashmir Day"
+      label: "Kashmir Day",
     },
     {
       value: "2",
-      label: "Pakistan Day"
+      label: "Pakistan Day",
     },
     {
       value: "3",
-      label: "Labour Day"
+      label: "Labour Day",
     },
     {
       value: "4",
-      label: "Independence Day"
+      label: "Independence Day",
     },
     {
       value: "5",
-      label: "Defence Day"
+      label: "Defence Day",
     },
     {
       value: "6",
-      label: "Iqbal Day"
+      label: "Iqbal Day",
     },
     {
       value: "7",
-      label: "Quaid Day"
-    }
+      label: "Quaid Day",
+    },
   ];
 
   constructor(
@@ -95,7 +95,7 @@ export class YearcalendarComponent implements OnInit {
         dayGridPlugin,
         timeGridPlugin,
         interactionPlugin,
-        bootstrapPlugin
+        bootstrapPlugin,
       ],
       defaultDate: date,
       eventTextColor: "white",
@@ -107,27 +107,27 @@ export class YearcalendarComponent implements OnInit {
       customButtons: {
         addEvent: {
           text: "Add Holidays",
-          click: function() {
+          click: function () {
             $("#eventModal").modal("show");
-          }
+          },
         },
         generateCalender: {
           text: "Generate Calendar",
-          click: function() {
+          click: function () {
             $("#calendarModal").modal("show");
-          }
-        }
+          },
+        },
       },
       header: {
         left: "prev,next, today, addEvent, generateCalender",
         center: "title",
-        right: "dayGridMonth,timeGridWeek,timeGridDay"
+        right: "dayGridMonth,timeGridWeek,timeGridDay",
       },
       buttonIcons: {
         prev: "left-single-arrow",
-        next: "right-single-arrow"
+        next: "right-single-arrow",
       },
-      themeSystem: "bootstrap"
+      themeSystem: "bootstrap",
       // eventLimit: true,
     };
   }
@@ -141,7 +141,7 @@ export class YearcalendarComponent implements OnInit {
 
     this.http
       .get(
-        "http://ambit.southeastasia.cloudapp.azure.com:9031/api/getHolidays",
+        "http://ambit-erp.southeastasia.cloudapp.azure.com:9031/api/getHolidays",
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
@@ -157,7 +157,7 @@ export class YearcalendarComponent implements OnInit {
               yr: data[i].yr,
               month: data[i].month,
               dyName: data[i].dyName,
-              holidayName: data[i].holidayName
+              holidayName: data[i].holidayName,
             });
           }
         }
@@ -208,7 +208,7 @@ export class YearcalendarComponent implements OnInit {
   saveCalender() {
     if (this.affectDate == "") {
       this.toastr.errorToastr("Please Select Affect Date!", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (
@@ -221,7 +221,7 @@ export class YearcalendarComponent implements OnInit {
       this.Sunday == ""
     ) {
       this.toastr.errorToastr("Please Select Weekend!", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
       // }
@@ -239,19 +239,19 @@ export class YearcalendarComponent implements OnInit {
         friday: this.Friday,
         saturday: this.Saturday,
         sunday: this.Sunday,
-        affectDate: this.affectDate
+        affectDate: this.affectDate,
       };
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
         .post(this.serverUrl + "api/saveCalendar", saveData, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg == "Record Saved Successfully!") {
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.clear();
             this.getEvents();
@@ -277,7 +277,7 @@ export class YearcalendarComponent implements OnInit {
           this.convertDate(this.eventDate)
       ) {
         this.toastr.errorToastr("Holiday Already Saved!", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return;
       }
@@ -285,12 +285,12 @@ export class YearcalendarComponent implements OnInit {
 
     if (this.eventDate == "") {
       this.toastr.errorToastr("Please Select Event Date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (this.cmbHoliday == "") {
       this.toastr.errorToastr("Please Select Holiday", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else {
@@ -298,19 +298,19 @@ export class YearcalendarComponent implements OnInit {
 
       var saveData = {
         eventDate: this.eventDate,
-        holiday: this.cmbHoliday
+        holiday: this.cmbHoliday,
       };
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
         .post(this.serverUrl + "api/saveHoliday", saveData, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg == "Record Saved Successfully!") {
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getHolidays();
             this.getEvents();

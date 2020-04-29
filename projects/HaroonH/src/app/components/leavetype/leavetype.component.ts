@@ -18,17 +18,17 @@ declare var $: any;
 @Component({
   selector: "app-leavetype",
   templateUrl: "./leavetype.component.html",
-  styleUrls: ["./leavetype.component.scss"]
+  styleUrls: ["./leavetype.component.scss"],
 })
 export class LeavetypeComponent implements OnInit {
   // serverUrl = "http://localhost:5000/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9014/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9014/";
 
   tokenKey = "token";
   leaveHeading = "Add";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   updateFlag = false;
@@ -141,22 +141,22 @@ export class LeavetypeComponent implements OnInit {
   save() {
     if (this.leaveType == "") {
       this.toastr.errorToastr("Please enter leave type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.leaveNature == "") {
       this.toastr.errorToastr("Please enter leave nature", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.noOfLeave == "") {
       this.toastr.errorToastr("Please enter No of Leave", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.leaveLimit == "") {
       this.toastr.errorToastr("Please enter leave Limit", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (
@@ -165,7 +165,7 @@ export class LeavetypeComponent implements OnInit {
       this.appliedFrom == null
     ) {
       this.toastr.errorToastr("Please select Date", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -180,7 +180,7 @@ export class LeavetypeComponent implements OnInit {
           noOfLeave: this.noOfLeave,
           appliedDate: this.appliedFrom,
           ConnectedUser: this.app.empId,
-          DelFlag: 0
+          DelFlag: 0,
         };
 
         //var token = localStorage.getItem(this.tokenKey);
@@ -191,19 +191,19 @@ export class LeavetypeComponent implements OnInit {
 
         this.http
           .post(this.serverUrl + "api/saveLeaveRule", updateData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg != "Record Updated Successfully!") {
               this.app.hideSpinner();
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             } else {
               this.app.hideSpinner();
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               $("#typeModal").modal("hide");
               this.getLeaveRule();
@@ -221,7 +221,7 @@ export class LeavetypeComponent implements OnInit {
           noOfLeave: this.noOfLeave,
           appliedDate: this.appliedFrom,
           ConnectedUser: this.app.empId,
-          DelFlag: 0
+          DelFlag: 0,
         };
 
         //var token = localStorage.getItem(this.tokenKey);
@@ -232,19 +232,19 @@ export class LeavetypeComponent implements OnInit {
 
         this.http
           .post(this.serverUrl + "api/saveLeaveRule", saveData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg != "Record Saved Successfully!") {
               this.app.hideSpinner();
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             } else {
               this.app.hideSpinner();
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.getLeaveRule();
               $("#typeModal").modal("hide");
@@ -296,7 +296,7 @@ export class LeavetypeComponent implements OnInit {
         noOfLeave: 0,
         appliedDate: currentDate,
         ConnectedUser: this.app.empId,
-        DelFlag: 1
+        DelFlag: 1,
       };
 
       this.http
@@ -311,7 +311,7 @@ export class LeavetypeComponent implements OnInit {
             this.app.pin = "";
             this.clear();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getLeaveRule();
             return false;
@@ -401,7 +401,7 @@ export class LeavetypeComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

@@ -3,7 +3,7 @@ import { ToastrManager } from "ng6-toastr-notifications";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 import { throwError } from "rxjs";
 import { catchError, filter } from "rxjs/operators";
@@ -34,15 +34,15 @@ declare var $: any;
 @Component({
   selector: "app-section",
   templateUrl: "./section.component.html",
-  styleUrls: ["./section.component.scss"]
+  styleUrls: ["./section.component.scss"],
 })
 export class SectionComponent implements OnInit {
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9042/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9042/";
   // serverUrl = "http://localhost:7003/";
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   //list variables
@@ -76,10 +76,10 @@ export class SectionComponent implements OnInit {
   constructor(
     private toastr: ToastrManager,
     private app: AppComponent,
-    private http: HttpClient,
-    // private excelExportService: IgxExcelExporterService,
-    // private csvExportService: IgxCsvExporterService
-  ) {}
+    private http: HttpClient
+  ) // private excelExportService: IgxExcelExporterService,
+  // private csvExportService: IgxCsvExporterService
+  {}
 
   ngOnInit() {
     this.getCompany();
@@ -115,7 +115,7 @@ export class SectionComponent implements OnInit {
     var Token = localStorage.getItem(this.tokenKey);
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -130,7 +130,7 @@ export class SectionComponent implements OnInit {
     var Token = localStorage.getItem(this.tokenKey);
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -145,7 +145,7 @@ export class SectionComponent implements OnInit {
     var Token = localStorage.getItem(this.tokenKey);
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.app.showSpinner();
@@ -163,7 +163,7 @@ export class SectionComponent implements OnInit {
     var Token = localStorage.getItem(this.tokenKey);
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.app.showSpinner();
@@ -199,7 +199,7 @@ export class SectionComponent implements OnInit {
         sectionName: item.sectionName,
         branch: JSON.stringify(this.selectedBranchList),
         DelFlag: item.delFlag,
-        connectedUser: 12000
+        connectedUser: 12000,
       };
 
       this.http
@@ -216,7 +216,7 @@ export class SectionComponent implements OnInit {
             this.app.hideSpinner();
             this.app.pin = "";
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getSection();
             return false;
@@ -242,22 +242,22 @@ export class SectionComponent implements OnInit {
   save() {
     if (this.ddlCompany == "" || this.ddlCompany == "0") {
       this.toastr.errorToastr("Please Select Company", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.sectionName == "") {
       this.toastr.errorToastr("Please Enter Section Name", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.departmentId == 0) {
       this.toastr.errorToastr("Please Select Department", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.extractSelectedBranchsList() == false) {
       this.toastr.errorToastr("Please Select Branch", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -269,7 +269,7 @@ export class SectionComponent implements OnInit {
           sectionName: this.sectionName,
           branch: JSON.stringify(this.selectedBranchList),
           DelFlag: false,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         //var token = localStorage.getItem(this.tokenKey);
@@ -278,7 +278,7 @@ export class SectionComponent implements OnInit {
 
         this.http
           .post(this.serverUrl + "api/saveSection", saveData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
@@ -286,7 +286,7 @@ export class SectionComponent implements OnInit {
             //alert(data.msg);
             if (data.msg == "Record Saved Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               this.getSectionDetails();
@@ -294,7 +294,7 @@ export class SectionComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error !", {
-                toastTimeout: 5000
+                toastTimeout: 5000,
               });
               return false;
             }
@@ -307,7 +307,7 @@ export class SectionComponent implements OnInit {
           sectionName: this.sectionName,
           branch: JSON.stringify(this.selectedBranchList),
           DelFlag: false,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         //var token = localStorage.getItem(this.tokenKey);
@@ -316,17 +316,17 @@ export class SectionComponent implements OnInit {
 
         this.http
           .put(this.serverUrl + "api/updateSection", updateData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg == undefined) {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 5000
+                toastTimeout: 5000,
               });
               return false;
             } else {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               this.getSectionDetails();
@@ -357,7 +357,7 @@ export class SectionComponent implements OnInit {
     }
 
     this.locationList = [];
-    var tempList = this.branchList.filter(x => x.deptCd == department);
+    var tempList = this.branchList.filter((x) => x.deptCd == department);
 
     for (var i = 0; i < tempList.length; i++) {
       this.locationList.push(tempList[i]);
@@ -376,7 +376,7 @@ export class SectionComponent implements OnInit {
   //******************** extracting selected branches
   extractSelectedBranchsList() {
     this.selectedBranchList = [];
-    var tempList = this.locationList.filter(x => x.status == 1);
+    var tempList = this.locationList.filter((x) => x.status == 1);
 
     if (tempList.length == 0) {
       return false;
@@ -384,7 +384,7 @@ export class SectionComponent implements OnInit {
       for (var i = 0; i < this.locationList.length; i++) {
         if (this.locationList[i].status == 1) {
           this.selectedBranchList.push({
-            branchID: this.locationList[i].locationCd
+            branchID: this.locationList[i].locationCd,
           });
         }
       }
@@ -404,7 +404,7 @@ export class SectionComponent implements OnInit {
       this.departmentId = item.deptCd;
 
       this.locationList = [];
-      var tempList = this.branchList.filter(x => x.deptCd == item.deptCd);
+      var tempList = this.branchList.filter((x) => x.deptCd == item.deptCd);
 
       for (var i = 0; i < tempList.length; i++) {
         this.locationList.push(tempList[i]);
@@ -417,7 +417,7 @@ export class SectionComponent implements OnInit {
   //******************** extracting selected branches
   editSelectedBranchsList(section, department) {
     var tempList = this.departmentDetailsList.filter(
-      x => x.sectCd == section && x.deptCd == department
+      (x) => x.sectCd == section && x.deptCd == department
     );
 
     for (var i = 0; i < tempList.length; i++) {
@@ -488,7 +488,7 @@ export class SectionComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

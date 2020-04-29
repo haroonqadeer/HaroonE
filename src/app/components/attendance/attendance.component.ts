@@ -10,7 +10,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 export class AttendanceComponent implements OnInit {
 
   //serverUrl = "http://localhost:9032/";
-  serverUrl = "http://52.163.189.189:9032/";
+  // serverUrl = "http://52.163.189.189:9032/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9032/";
 
   lblTime = "";
   lblComputerName = "";

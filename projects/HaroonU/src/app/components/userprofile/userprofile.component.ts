@@ -3,14 +3,14 @@ import {
   OnInit,
   Injectable,
   ViewChild,
-  ElementRef
+  ElementRef,
 } from "@angular/core";
 import { Chart } from "angular-highcharts";
 import { ToastrManager } from "ng6-toastr-notifications";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 import { throwError } from "rxjs";
 import { catchError, filter } from "rxjs/operators";
@@ -71,17 +71,17 @@ declare var $: any;
 @Component({
   selector: "app-userprofile",
   templateUrl: "./userprofile.component.html",
-  styleUrls: ["./userprofile.component.scss"]
+  styleUrls: ["./userprofile.component.scss"],
 })
 export class UserprofileComponent implements OnInit {
   /*** Api link published in server ***/
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9037/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9037/";
   // serverUrl = "http://localhost:9037/";
   tokenKey = "token";
 
   /*** http header ***/
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   /*** Variable Declaration ***/
@@ -180,33 +180,33 @@ export class UserprofileComponent implements OnInit {
   init() {
     let chart = new Chart({
       chart: {
-        type: "area"
+        type: "area",
       },
       credits: {
-        enabled: false
+        enabled: false,
       },
       title: {
-        text: ""
+        text: "",
       },
       yAxis: {
         title: {
-          text: "USER"
-        }
+          text: "USER",
+        },
       },
       series: [
         {
           name: "UPDATIONS",
-          data: this.cUpdations
+          data: this.cUpdations,
         },
         {
           name: "DEACTIVATED",
-          data: this.cDeactivated
+          data: this.cDeactivated,
         },
         {
           name: "ADDITIONS",
-          data: this.cAdditions
-        }
-      ]
+          data: this.cAdditions,
+        },
+      ],
     });
 
     this.chart = chart;
@@ -215,7 +215,7 @@ export class UserprofileComponent implements OnInit {
   /*** Getting User list filter method ***/
 
   getFilterItem(type) {
-    return this.users.filter(x => x.type == type);
+    return this.users.filter((x) => x.type == type);
   }
 
   /*** Getting User List who didn't have Application Access ***/
@@ -274,7 +274,7 @@ export class UserprofileComponent implements OnInit {
     //*checking if role is empty
     if (this.cmbRole == "" || this.cmbRole == undefined) {
       this.toastr.errorToastr("Please Select User Role", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     }
@@ -317,9 +317,9 @@ export class UserprofileComponent implements OnInit {
                       objCode: this.tempRoleList[j].erpObjctCd,
                       parentErpObjCd: this.tempRoleList[i].erpObjctCd,
                       parentErpObjTypeCd: this.tempRoleList[i].erpObjctTypeCd,
-                      parentErpObjName: this.tempRoleList[i].erpObjctName
-                    }
-                  ]
+                      parentErpObjName: this.tempRoleList[i].erpObjctName,
+                    },
+                  ],
                 });
               }
             }
@@ -330,10 +330,10 @@ export class UserprofileComponent implements OnInit {
                 {
                   objName: this.tempRoleList[i].erpObjctName,
                   typeCode: this.tempRoleList[i].erpObjctTypeCd,
-                  objCode: this.tempRoleList[i].erpObjctCd
-                }
+                  objCode: this.tempRoleList[i].erpObjctCd,
+                },
               ],
-              children: this.roleChildren
+              children: this.roleChildren,
             });
           }
         }
@@ -411,7 +411,7 @@ export class UserprofileComponent implements OnInit {
     //* checking if Pin is empty
     if (this.txtPin == "") {
       this.toastr.errorToastr("Please Enter Pin", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -425,7 +425,7 @@ export class UserprofileComponent implements OnInit {
       IndvdlID: this.lblIndvdlID,
       CrntUserLogin: localStorage.getItem("userName"),
       CrntUserPin: this.txtPin,
-      ConnectedUser: this.app.empId
+      ConnectedUser: this.app.empId,
     };
 
     this.http
@@ -442,7 +442,7 @@ export class UserprofileComponent implements OnInit {
         } else {
           this.app.hideSpinner();
           this.toastr.successToastr(data.msg, "Success!", {
-            toastTimeout: 5000
+            toastTimeout: 5000,
           });
           this.getUserDetail();
           this.getUserTrend();
@@ -460,21 +460,21 @@ export class UserprofileComponent implements OnInit {
     //* checking if New Password is empty
     if (this.txtNewPassword == "") {
       this.toastr.errorToastr("Please Enter New Password", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
     //* checking if Confirm Password is empty
     else if (this.txtNewCnfrmPassword == "") {
       this.toastr.errorToastr("Please Enter Confirm Password", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
     //* checking if New Password And Confirm Password not matched
     else if (this.txtNewPassword != this.txtNewCnfrmPassword) {
       this.toastr.errorToastr("New Password doesn't match", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -488,12 +488,12 @@ export class UserprofileComponent implements OnInit {
         indvdlID: this.lblIndvdlID,
         Email: this.lblEmail,
         IndvdlERPPsswrd: this.txtNewPassword,
-        ConnectedUser: this.app.empId
+        ConnectedUser: this.app.empId,
       };
 
       this.http
         .post(this.serverUrl + "api/resetPassword", data, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           //* checking if mail not sent
@@ -504,7 +504,7 @@ export class UserprofileComponent implements OnInit {
           } else {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 5000
+              toastTimeout: 5000,
             });
             this.txtNewPassword = "";
             this.txtNewCnfrmPassword = "";
@@ -528,7 +528,7 @@ export class UserprofileComponent implements OnInit {
     //*checking if type is empty
     if (this.rdbType == "") {
       this.toastr.errorToastr("Please select user type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     }
@@ -537,21 +537,21 @@ export class UserprofileComponent implements OnInit {
       //*checking if employee is empty
       if (this.cmbEmployee == "") {
         this.toastr.errorToastr("Please select user", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       }
       //*checking if login name is empty
       else if (this.txtUsername.trim().length == 0) {
         this.toastr.errorToastr("Please enter user name", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       }
       //*checking if password is empty
       else if (this.txtPassword.trim().length == 0) {
         this.toastr.errorToastr("Please enter password", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       }
@@ -567,7 +567,7 @@ export class UserprofileComponent implements OnInit {
       //*checking if role is empty
       else if (this.cmbRole == "") {
         this.toastr.errorToastr("Please select user role", "Error", {
-          toastTimeout: 2500
+          toastTimeout: 2500,
         });
         return false;
       } else {
@@ -585,7 +585,7 @@ export class UserprofileComponent implements OnInit {
           Type: this.rdbType,
           ERPPINStatCd: type,
           ConnectedUser: this.app.empId,
-          DelFlag: 0
+          DelFlag: 0,
         };
 
         var token = localStorage.getItem(this.tokenKey);
@@ -600,7 +600,7 @@ export class UserprofileComponent implements OnInit {
             if (data.msg != "User Created Successfully!") {
               this.app.hideSpinner();
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             } else {
@@ -609,7 +609,7 @@ export class UserprofileComponent implements OnInit {
               this.getUserTrend();
               this.getParty();
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               $("#userModal").modal("hide");
               this.clear();
@@ -718,7 +718,7 @@ export class UserprofileComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

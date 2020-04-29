@@ -4,7 +4,7 @@ import { ToastrManager } from "ng6-toastr-notifications";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 
 import { AppComponent } from "src/app/app.component";
@@ -14,11 +14,11 @@ declare var $: any;
 @Component({
   selector: "app-employee-shift",
   templateUrl: "./employee-shift.component.html",
-  styleUrls: ["./employee-shift.component.scss"]
+  styleUrls: ["./employee-shift.component.scss"],
 })
 export class EmployeeShiftComponent implements OnInit {
   // serverUrl = "http://localhost:9027/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9027/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9027/";
 
   //* variables for pagination and orderby pipe
   p = 1;
@@ -157,7 +157,7 @@ export class EmployeeShiftComponent implements OnInit {
 
     this.http
       .get(this.serverUrl + "api/getEmployeeShift?cmpnyID=59", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.employeeShift = data;
@@ -172,7 +172,7 @@ export class EmployeeShiftComponent implements OnInit {
       item.shiftCd == null
     ) {
       this.toastr.errorToastr("Please Select Shift!", "Error!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (
@@ -181,7 +181,7 @@ export class EmployeeShiftComponent implements OnInit {
       item.fromDate == null
     ) {
       this.toastr.errorToastr("Please Select From Date!", "Error!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (
@@ -190,12 +190,12 @@ export class EmployeeShiftComponent implements OnInit {
       item.toDate == null
     ) {
       this.toastr.errorToastr("Please Select To Date!", "Error!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (item.fromDate > item.toDate) {
       this.toastr.errorToastr("Select Correct Date!", "Error!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     }
@@ -210,26 +210,26 @@ export class EmployeeShiftComponent implements OnInit {
       shiftCd: item.shiftCd,
       DeptCd: item.deptCd,
       fromDate: item.fromDate,
-      toDate: item.toDate
+      toDate: item.toDate,
     };
 
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
       .post(this.serverUrl + "api/saveEmployeeShift", saveData, {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         if (data.msg == "Record Saved Successfully!") {
           this.toastr.successToastr(data.msg, "Success!", {
-            toastTimeout: 2500
+            toastTimeout: 2500,
           });
           this.getEmployeeShift();
           this.app.hideSpinner();
           return false;
         } else if (data.msg == "Record Updated Successfully!") {
           this.toastr.successToastr(data.msg, "Success!", {
-            toastTimeout: 2500
+            toastTimeout: 2500,
           });
           this.getEmployeeShift();
           this.app.hideSpinner();
@@ -245,7 +245,7 @@ export class EmployeeShiftComponent implements OnInit {
   updateEmployeeShift() {
     if (this.hdnEmpId == undefined || this.hdnEmpId == 0) {
       this.toastr.errorToastr("Please Select Employee!", "Error!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (
@@ -254,7 +254,7 @@ export class EmployeeShiftComponent implements OnInit {
       this.dtpFromDate == null
     ) {
       this.toastr.errorToastr("Please Select From Date!", "Error!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (
@@ -263,12 +263,12 @@ export class EmployeeShiftComponent implements OnInit {
       this.dtpToDate == null
     ) {
       this.toastr.errorToastr("Please Select To Date!", "Error!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     } else if (this.dtpFromDate > this.dtpToDate) {
       this.toastr.errorToastr("Select Correct Date!", "Error!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return;
     }
@@ -283,26 +283,26 @@ export class EmployeeShiftComponent implements OnInit {
       shiftCd: this.ddlShift,
       DeptCd: this.hdnDeptId,
       fromDate: this.dtpFromDate,
-      toDate: this.dtpToDate
+      toDate: this.dtpToDate,
     };
 
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
       .post(this.serverUrl + "api/saveEmployeeShift", saveData, {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         if (data.msg == "Record Saved Successfully!") {
           this.toastr.successToastr(data.msg, "Success!", {
-            toastTimeout: 2500
+            toastTimeout: 2500,
           });
           this.getEmployeeShift();
           this.app.hideSpinner();
           return false;
         } else if (data.msg == "Record Updated Successfully!") {
           this.toastr.successToastr(data.msg, "Success!", {
-            toastTimeout: 2500
+            toastTimeout: 2500,
           });
           this.getEmployeeShift();
           this.app.hideSpinner();
@@ -339,14 +339,14 @@ export class EmployeeShiftComponent implements OnInit {
     this.hdnEmpId = 0;
 
     if (filterData == "branch") {
-      dataList = this.officeList.filter(x => x.locationCd == this.officeName);
+      dataList = this.officeList.filter((x) => x.locationCd == this.officeName);
 
       this.tblSearch = dataList[0].locationName;
     }
 
     if (filterData == "dept") {
       dataList = this.departmentList.filter(
-        x => x.deptCd == this.departmentName
+        (x) => x.deptCd == this.departmentName
       );
 
       this.tblSearch = dataList[0].deptName;
@@ -354,7 +354,7 @@ export class EmployeeShiftComponent implements OnInit {
 
     if (filterData == "desig") {
       dataList = this.designationList.filter(
-        x => x.jobDesigID == this.designationName
+        (x) => x.jobDesigID == this.designationName
       );
 
       this.tblSearch = dataList[0].jobDesigName;
@@ -366,7 +366,7 @@ export class EmployeeShiftComponent implements OnInit {
       this.hdnDeptId = dList.deptCd;
       this.hdnEmpId = dList.empID;
 
-      dataList = this.employeeShift.filter(x => x.empID == dList.empID);
+      dataList = this.employeeShift.filter((x) => x.empID == dList.empID);
 
       this.employeeShiftDetail = dataList;
     }

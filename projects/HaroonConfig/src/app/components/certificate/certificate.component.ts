@@ -29,17 +29,17 @@ declare var $: any;
 @Component({
   selector: "app-certificate",
   templateUrl: "./certificate.component.html",
-  styleUrls: ["./certificate.component.scss"]
+  styleUrls: ["./certificate.component.scss"],
 })
 export class CertificateComponent implements OnInit {
   //serverUrl = "http://localhost:9016/";
   // serverUrl = "http://52.163.189.189:9016/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9016/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9016/";
 
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   //Lists
@@ -108,7 +108,7 @@ export class CertificateComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -127,7 +127,7 @@ export class CertificateComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
@@ -143,12 +143,12 @@ export class CertificateComponent implements OnInit {
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + Token
+      Authorization: "Bearer " + Token,
     });
 
     this.http
       .get(this.serverUrl + "api/getCertificateCriteria", {
-        headers: reqHeader
+        headers: reqHeader,
       })
       .subscribe((data: any) => {
         this.certificateCriteriaList = data;
@@ -159,12 +159,12 @@ export class CertificateComponent implements OnInit {
   saveCertificateCriteria() {
     if (this.certificateGroup == "") {
       this.toastr.errorToastr("Please Select certificate Group", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.certificateTitle == "") {
       this.toastr.errorToastr("Please Enter certificate Title", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.certificateTitleDescription == "") {
@@ -183,26 +183,26 @@ export class CertificateComponent implements OnInit {
           qlfctnCd: this.certificateGroup,
           qlfctnCriteriaName: this.certificateTitle,
           qlfctnCriteriaDesc: this.certificateTitleDescription,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         this.http
           .put(this.serverUrl + "api/updateCertificateCriteria", updateData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             //alert(data.msg);
 
             if (data.msg == "Record Updated Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
 
               this.clear();
@@ -213,7 +213,7 @@ export class CertificateComponent implements OnInit {
               return false;
             } else if (data.msg == "Update - Record Already Exists!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addCertificateModal").modal("hide");
@@ -222,7 +222,7 @@ export class CertificateComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addCertificateModal").modal("hide");
@@ -237,7 +237,7 @@ export class CertificateComponent implements OnInit {
           qlfctnCd: this.certificateGroup,
           qlfctnCriteriaName: this.certificateTitle,
           qlfctnCriteriaDesc: this.certificateTitleDescription,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
@@ -247,7 +247,7 @@ export class CertificateComponent implements OnInit {
         //alert(reqHeader);
         this.http
           .post(this.serverUrl + "api/saveCertificateCriteria", saveData, {
-            responseType: "json"
+            responseType: "json",
           })
           .subscribe((data: any) => {
             // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
@@ -257,7 +257,7 @@ export class CertificateComponent implements OnInit {
 
             if (data.msg == "Record Saved Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addCertificateModal").modal("hide");
@@ -267,7 +267,7 @@ export class CertificateComponent implements OnInit {
               return false;
             } else if (data.msg == "Insert - Record Already Exists!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addCertificateModal").modal("hide");
@@ -277,7 +277,7 @@ export class CertificateComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error !", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#addCertificateModal").modal("hide");
@@ -295,12 +295,12 @@ export class CertificateComponent implements OnInit {
   saveCertificateGroup() {
     if (this.certfctGroupName == "") {
       this.toastr.errorToastr("Please Select certificate Group", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.certfctGroupDesc == "") {
       this.toastr.errorToastr("Please Enter Description", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -311,26 +311,26 @@ export class CertificateComponent implements OnInit {
           qlfctnName: this.certfctGroupName,
           qlfctnDesc: this.certfctGroupDesc,
           qlfctnTypeCd: this.certificateId,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         this.http
           .put(this.serverUrl + "api/updateCertificateGroup", updateData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             //alert(data.msg);
 
             if (data.msg == "Record Updated Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
 
               this.clear();
@@ -341,7 +341,7 @@ export class CertificateComponent implements OnInit {
               return false;
             } else if (data.msg == "Update - Record Already Exists!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               //$('#addCertificateGroupModal').modal('hide');
@@ -350,7 +350,7 @@ export class CertificateComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               //$('#addCertificateGroupModal').modal('hide');
@@ -364,7 +364,7 @@ export class CertificateComponent implements OnInit {
           qlfctnName: this.certfctGroupName,
           qlfctnDesc: this.certfctGroupDesc,
           qlfctnTypeCd: this.certificateId,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
@@ -374,7 +374,7 @@ export class CertificateComponent implements OnInit {
         //alert(reqHeader);
         this.http
           .post(this.serverUrl + "api/saveCertificateGroup", saveData, {
-            responseType: "json"
+            responseType: "json",
           })
           .subscribe((data: any) => {
             // this.http.post(this.serverUrl + 'api/saveDepartment', saveData).subscribe((data: any) => {
@@ -384,7 +384,7 @@ export class CertificateComponent implements OnInit {
 
             if (data.msg == "Record Saved Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               //$('#addCertificateGroupModal').modal('hide');
@@ -394,7 +394,7 @@ export class CertificateComponent implements OnInit {
               return false;
             } else if (data.msg == "Insert - Record Already Exists!") {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               //$('#addCertificateGroupModal').modal('hide');
@@ -404,7 +404,7 @@ export class CertificateComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error !", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               //$('#addCertificateGroupModal').modal('hide');
@@ -480,12 +480,12 @@ export class CertificateComponent implements OnInit {
   delete() {
     if (this.userPassword == "") {
       this.toastr.errorToastr("Please Enter Password", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.userPINCode == "") {
       this.toastr.errorToastr("Please Enter PIN Code", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -496,26 +496,26 @@ export class CertificateComponent implements OnInit {
           // "qlfctnCd": this.certificateGroup,
           // "qlfctnCriteriaName": this.certificateTitle,
           // "qlfctnCriteriaDesc": this.certificateTitleDescription,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         this.http
           .put(this.serverUrl + "api/deleteCertificateCriteria", data, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             //alert(data.msg);
 
             if (data.msg == "Record Deleted Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#deleteModal").modal("hide");
@@ -523,7 +523,7 @@ export class CertificateComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             }
@@ -534,26 +534,26 @@ export class CertificateComponent implements OnInit {
           // "qlfctnTypeCd": this.certificateId,
           // "qlfctnName": this.certfctGroupName,
           // "qlfctnDesc": this.certfctGroupDesc,
-          connectedUser: 12000
+          connectedUser: 12000,
         };
 
         var token = localStorage.getItem(this.tokenKey);
 
         var reqHeader = new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token
+          Authorization: "Bearer " + token,
         });
 
         this.http
           .put(this.serverUrl + "api/deleteCertificateGroup", groupdata, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             //alert(data.msg);
 
             if (data.msg == "Record Deleted Successfully!") {
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               this.clear();
               $("#deleteModal").modal("hide");
@@ -561,7 +561,7 @@ export class CertificateComponent implements OnInit {
               return false;
             } else {
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             }
@@ -629,7 +629,7 @@ export class CertificateComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

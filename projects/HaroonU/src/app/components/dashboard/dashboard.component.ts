@@ -25,16 +25,16 @@ declare var $: any;
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
-  styleUrls: ["./dashboard.component.scss"]
+  styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit {
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9038/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9038/";
 
   // serverUrl = "http://localhost:5000/";
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   /*** Variable Declaration ***/
@@ -63,47 +63,47 @@ export class DashboardComponent implements OnInit {
   pieData = [
     {
       chartName: "Banned User",
-      Qty: 10
+      Qty: 10,
     },
     {
       chartName: "Active User",
-      Qty: 20
+      Qty: 20,
     },
     {
       chartName: "InActive User",
-      Qty: 6
+      Qty: 6,
     },
     {
       chartName: "Web User",
-      Qty: 5
+      Qty: 5,
     },
     {
       chartName: "Mobile User",
-      Qty: 9
-    }
+      Qty: 9,
+    },
   ];
 
   lineData = [
     {
       chartName: "Banned User",
-      Qty: [10, 12, 23]
+      Qty: [10, 12, 23],
     },
     {
       chartName: "Active User",
-      Qty: [8, 15, 10]
+      Qty: [8, 15, 10],
     },
     {
       chartName: "InActive User",
-      Qty: [2, 8, 6]
+      Qty: [2, 8, 6],
     },
     {
       chartName: "Web User",
-      Qty: [20, 16, 25]
+      Qty: [20, 16, 25],
     },
     {
       chartName: "Mobile User",
-      Qty: [4, 17, 20]
-    }
+      Qty: [4, 17, 20],
+    },
   ];
 
   /*** Construction Function ***/
@@ -163,25 +163,25 @@ export class DashboardComponent implements OnInit {
 
     let chart = new Chart({
       chart: {
-        type: "area"
+        type: "area",
       },
       title: {
-        text: ""
+        text: "",
       },
       xAxis: {
         categories: ["1", "2", "3", "4"],
         tickmarkPlacement: "on",
         title: {
-          text: "NUMBER OF WEEKS"
-        }
+          text: "NUMBER OF WEEKS",
+        },
       },
       yAxis: {
         title: {
-          text: "NUMBER OF USER PROFILES"
-        }
+          text: "NUMBER OF USER PROFILES",
+        },
       },
       tooltip: {
-        split: true
+        split: true,
       },
       plotOptions: {
         area: {
@@ -190,24 +190,24 @@ export class DashboardComponent implements OnInit {
           lineWidth: 1,
           marker: {
             lineWidth: 1,
-            lineColor: "#666666"
-          }
-        }
+            lineColor: "#666666",
+          },
+        },
       },
       series: [
         {
           name: "ADDED",
-          data: [0, 2, 1, 2]
+          data: [0, 2, 1, 2],
         },
         {
           name: "ACTIVE",
-          data: [6, 4, 7, 8]
+          data: [6, 4, 7, 8],
         },
         {
           name: "DEACTIVATED",
-          data: [7, 4, 8, 9]
-        }
-      ]
+          data: [7, 4, 8, 9],
+        },
+      ],
     });
     // this.Pie_Chart = chart;
   }
@@ -228,28 +228,28 @@ export class DashboardComponent implements OnInit {
     //alert(this.lineData[i].chartName)
     let chart = new Chart({
       chart: {
-        type: "line"
+        type: "line",
       },
       title: {
-        text: "User trend for last week"
+        text: "User trend for last week",
       },
       credits: {
-        enabled: false
+        enabled: false,
       },
       series: [
         {
           name: "UPDATIONS",
-          data: this.cUpdations
+          data: this.cUpdations,
         },
         {
           name: "DEACTIVATED",
-          data: this.cDeactivated
+          data: this.cDeactivated,
         },
         {
           name: "ADDITIONS",
-          data: this.cAdditions
-        }
-      ]
+          data: this.cAdditions,
+        },
+      ],
     });
 
     this.Line_chart = chart;

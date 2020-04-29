@@ -19,16 +19,16 @@ declare var $: any;
 @Component({
   selector: "app-performance-stand",
   templateUrl: "./performance-stand.component.html",
-  styleUrls: ["./performance-stand.component.scss"]
+  styleUrls: ["./performance-stand.component.scss"],
 })
 export class PerformanceStandComponent implements OnInit {
   //serverUrl = "http://localhost:9023/";
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9023/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9023/";
   // serverUrl = "http://52.163.189.189:9023/";
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   //*Bolean variable
@@ -93,12 +93,12 @@ export class PerformanceStandComponent implements OnInit {
   save() {
     if (this.pTitle == "") {
       this.toastr.errorToastr("Please enter performance title", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.pDescription == "") {
       this.toastr.errorToastr("Please enter performance description", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -112,7 +112,7 @@ export class PerformanceStandComponent implements OnInit {
           PrcssID: 1,
           PrcssTypeCd: 1,
           ConnectedUser: "12000",
-          DelFlag: 0
+          DelFlag: 0,
         };
 
         //var token = localStorage.getItem(this.tokenKey);
@@ -123,19 +123,19 @@ export class PerformanceStandComponent implements OnInit {
 
         this.http
           .post(this.serverUrl + "api/savePStandard", updateData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg != "Record Updated Successfully!") {
               this.app.hideSpinner();
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             } else {
               this.app.hideSpinner();
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               $("#standardModal").modal("hide");
               this.getPStandard();
@@ -152,7 +152,7 @@ export class PerformanceStandComponent implements OnInit {
           PrcssID: 1,
           PrcssTypeCd: 1,
           ConnectedUser: "12000",
-          DelFlag: 0
+          DelFlag: 0,
         };
 
         //var token = localStorage.getItem(this.tokenKey);
@@ -163,19 +163,19 @@ export class PerformanceStandComponent implements OnInit {
 
         this.http
           .post(this.serverUrl + "api/savePStandard", saveData, {
-            headers: reqHeader
+            headers: reqHeader,
           })
           .subscribe((data: any) => {
             if (data.msg != "Record Saved Successfully!") {
               this.app.hideSpinner();
               this.toastr.errorToastr(data.msg, "Error!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               return false;
             } else {
               this.app.hideSpinner();
               this.toastr.successToastr(data.msg, "Success!", {
-                toastTimeout: 2500
+                toastTimeout: 2500,
               });
               $("#standardModal").modal("hide");
               this.getPStandard();
@@ -207,17 +207,17 @@ export class PerformanceStandComponent implements OnInit {
   delete() {
     if (this.txtdPassword == "") {
       this.toastr.errorToastr("Please enter password", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.txtdPin == "") {
       this.toastr.errorToastr("Please enter PIN", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.pStandardId == "") {
       this.toastr.errorToastr("Invalid delete request", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -231,7 +231,7 @@ export class PerformanceStandComponent implements OnInit {
         PrcssID: 1,
         PrcssTypeCd: 1,
         ConnectedUser: "12000",
-        DelFlag: 1
+        DelFlag: 1,
       };
 
       //var token = localStorage.getItem(this.tokenKey);
@@ -242,7 +242,7 @@ export class PerformanceStandComponent implements OnInit {
 
       this.http
         .post(this.serverUrl + "api/savePStandard", updateData, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg != "Record Deleted Successfully!") {
@@ -252,7 +252,7 @@ export class PerformanceStandComponent implements OnInit {
           } else {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             $("#deleteModal").modal("hide");
             this.getPStandard();
@@ -334,7 +334,7 @@ export class PerformanceStandComponent implements OnInit {
     //alert(frameDoc.document.head.innerHTML);
     // alert(frameDoc.document.body.innerHTML);
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.frames["frame1"].focus();
       window.frames["frame1"].print();
       frame1.remove();

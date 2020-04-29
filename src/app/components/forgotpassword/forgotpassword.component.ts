@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MessageService } from "primeng/api";
@@ -18,15 +18,15 @@ declare var $: any;
 @Component({
   selector: "app-forgotpassword",
   templateUrl: "./forgotpassword.component.html",
-  styleUrls: ["./forgotpassword.component.scss"]
+  styleUrls: ["./forgotpassword.component.scss"],
 })
 export class ForgotpasswordComponent implements OnInit {
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9010/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9010/";
   // serverUrl = "http://localhost:9010/";
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   UserName = "";
@@ -47,17 +47,17 @@ export class ForgotpasswordComponent implements OnInit {
   changePassword() {
     if (this.txtPassword == "") {
       this.toastr.errorToastr("Please Enter New Password", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.txtCnfrmPassword == "") {
       this.toastr.errorToastr("Please Enter Comfirm Password", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.txtPassword != this.txtCnfrmPassword) {
       this.toastr.errorToastr("Password doesn't match", "Oops!", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -65,7 +65,7 @@ export class ForgotpasswordComponent implements OnInit {
       var Token = localStorage.getItem(this.tokenKey);
       var reqHeader = new HttpHeaders({
         "Content-Type": "application/json",
-        Authorization: "Bearer " + Token
+        Authorization: "Bearer " + Token,
       });
 
       var tempUN = btoa(this.UserName);
@@ -73,12 +73,12 @@ export class ForgotpasswordComponent implements OnInit {
 
       var data = {
         IndvdlUserName: tempUserName,
-        newPassword: this.txtPassword
+        newPassword: this.txtPassword,
       };
 
       this.http
         .post(this.serverUrl + "api/forgotPassword", data, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg != "Password Changed Successfully!") {
@@ -88,7 +88,7 @@ export class ForgotpasswordComponent implements OnInit {
           } else {
             this.app.hideSpinner();
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.txtPassword = "";
             this.txtCnfrmPassword = "";

@@ -3,13 +3,13 @@ import {
   OnInit,
   ViewEncapsulation,
   ViewChild,
-  ElementRef
+  ElementRef,
 } from "@angular/core";
 import { ToastrManager } from "ng6-toastr-notifications";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 import { throwError } from "rxjs";
 import { catchError, filter } from "rxjs/operators";
@@ -42,15 +42,15 @@ declare var $: any;
 @Component({
   selector: "app-currency",
   templateUrl: "./currency.component.html",
-  styleUrls: ["./currency.component.scss"]
+  styleUrls: ["./currency.component.scss"],
 })
 export class CurrencyComponent implements OnInit {
-  serverUrl = "http://ambit.southeastasia.cloudapp.azure.com:9039/";
+  serverUrl = "http://ambit-erp.southeastasia.cloudapp.azure.com:9039/";
   // serverUrl = "http://localhost:5000/";
   tokenKey = "token";
 
   httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json" })
+    headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
   cmbCurrency = "";
@@ -93,9 +93,8 @@ export class CurrencyComponent implements OnInit {
     private toastr: ToastrManager,
     private app: AppComponent,
     private http: HttpClient,
-    private orderPipe: OrderPipe // private excelExportService: IgxExcelExporterService,
-  ) // private csvExportService: IgxCsvExporterService
-  {}
+    private orderPipe: OrderPipe // private excelExportService: IgxExcelExporterService, // private csvExportService: IgxCsvExporterService
+  ) {}
 
   ngOnInit() {
     this.getCurrency();
@@ -169,17 +168,17 @@ export class CurrencyComponent implements OnInit {
   save() {
     if (this.cmbCompany == "") {
       this.toastr.errorToastr("Please Select Company", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.cmbCurrencyType == "") {
       this.toastr.errorToastr("Please Select Currency Type", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else if (this.cmbCurrency == "") {
       this.toastr.errorToastr("Please Select Currency", "Error", {
-        toastTimeout: 2500
+        toastTimeout: 2500,
       });
       return false;
     } else {
@@ -188,7 +187,7 @@ export class CurrencyComponent implements OnInit {
       var saveData = {
         currencyCd: this.cmbCurrency,
         cmpnyId: this.cmbCompany,
-        currencyTypeCd: this.cmbCurrencyType
+        currencyTypeCd: this.cmbCurrencyType,
       };
       //var token = localStorage.getItem(this.tokenKey);
 
@@ -197,18 +196,18 @@ export class CurrencyComponent implements OnInit {
 
       this.http
         .post(this.serverUrl + "api/saveCurrency", saveData, {
-          headers: reqHeader
+          headers: reqHeader,
         })
         .subscribe((data: any) => {
           if (data.msg != "Record Saved Successfully!") {
             this.toastr.errorToastr(data.msg, "Error!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.app.hideSpinner();
             return false;
           } else {
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.app.hideSpinner();
             this.getCompanyCurrency();
@@ -269,7 +268,7 @@ export class CurrencyComponent implements OnInit {
         cmpnyId: this.cmpnyId,
         currencyCd: this.currencyCd,
         currencyTypeCd: this.currencyTypeCd,
-        delFlag: this.delFlag
+        delFlag: this.delFlag,
       };
 
       this.http
@@ -287,7 +286,7 @@ export class CurrencyComponent implements OnInit {
             this.app.hideSpinner();
             this.app.pin = "";
             this.toastr.successToastr(data.msg, "Success!", {
-              toastTimeout: 2500
+              toastTimeout: 2500,
             });
             this.getCompanyCurrency();
             return false;
